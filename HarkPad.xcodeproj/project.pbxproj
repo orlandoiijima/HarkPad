@@ -1,0 +1,472 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E50A380412E21164007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
+		E50A380612E21164007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
+		E50A380812E21164007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
+		E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
+		E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
+		E50A381212E21164007C2101 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A381112E21164007C2101 /* HarkPadAppDelegate.m */; };
+		E50A381512E21164007C2101 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381312E21164007C2101 /* MainWindow.xib */; };
+		E50A381812E21164007C2101 /* HarkPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A381712E21164007C2101 /* HarkPadViewController.m */; };
+		E50A381B12E21164007C2101 /* HarkPadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381912E21164007C2101 /* HarkPadViewController.xib */; };
+		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
+		E50A382412E21165007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
+		E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
+		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
+		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
+		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E50A380012E21164007C2101 /* HarkPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarkPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E50A380312E21164007C2101 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E50A380512E21164007C2101 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E50A380712E21164007C2101 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E50A380912E21164007C2101 /* HarkPad-Info.plist */ = {isa = PBXFileReference; path = "HarkPad-Info.plist"; sourceTree = "<group>"; };
+		E50A380A12E21164007C2101 /* HarkPad-Prefix.pch */ = {isa = PBXFileReference; path = "HarkPad-Prefix.pch"; sourceTree = "<group>"; };
+		E50A380C12E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E50A380E12E21164007C2101 /* HarkPad-main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HarkPad-main.m"; sourceTree = "<group>"; };
+		E50A381012E21164007C2101 /* HarkPadAppDelegate.h */ = {isa = PBXFileReference; path = HarkPadAppDelegate.h; sourceTree = "<group>"; };
+		E50A381112E21164007C2101 /* HarkPadAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarkPadAppDelegate.m; sourceTree = "<group>"; };
+		E50A381412E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		E50A381612E21164007C2101 /* HarkPadViewController.h */ = {isa = PBXFileReference; path = HarkPadViewController.h; sourceTree = "<group>"; };
+		E50A381712E21164007C2101 /* HarkPadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarkPadViewController.m; sourceTree = "<group>"; };
+		E50A381A12E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HarkPadViewController.xib; sourceTree = "<group>"; };
+		E50A382212E21165007C2101 /* HarkPadTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarkPadTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E50A382612E21165007C2101 /* HarkPadTests-Info.plist */ = {isa = PBXFileReference; path = "HarkPadTests-Info.plist"; sourceTree = "<group>"; };
+		E50A382712E21165007C2101 /* HarkPadTests-Prefix.pch */ = {isa = PBXFileReference; path = "HarkPadTests-Prefix.pch"; sourceTree = "<group>"; };
+		E50A382812E21165007C2101 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/HarkPadTests/InfoPlist.strings; sourceTree = "<group>"; };
+		E50A382A12E21165007C2101 /* HarkPadTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarkPadTests.h; sourceTree = "<group>"; };
+		E50A382C12E21165007C2101 /* HarkPadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarkPadTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E50A37FD12E21164007C2101 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A380412E21164007C2101 /* UIKit.framework in Frameworks */,
+				E50A380612E21164007C2101 /* Foundation.framework in Frameworks */,
+				E50A380812E21164007C2101 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E50A381E12E21165007C2101 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A382312E21165007C2101 /* UIKit.framework in Frameworks */,
+				E50A382412E21165007C2101 /* Foundation.framework in Frameworks */,
+				E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E50A37F112E21163007C2101 = {
+			isa = PBXGroup;
+			children = (
+				E50A37F812E21164007C2101 /* Classes */,
+				E50A37F912E21164007C2101 /* Other Sources */,
+				E50A37FA12E21164007C2101 /* Resources */,
+				E50A37FB12E21164007C2101 /* Frameworks */,
+				E50A380112E21164007C2101 /* Products */,
+				E50A381C12E21165007C2101 /* Tests */,
+			);
+			sourceTree = "<group>";
+		};
+		E50A37F812E21164007C2101 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E50A381012E21164007C2101 /* HarkPadAppDelegate.h */,
+				E50A381112E21164007C2101 /* HarkPadAppDelegate.m */,
+				E50A381612E21164007C2101 /* HarkPadViewController.h */,
+				E50A381712E21164007C2101 /* HarkPadViewController.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		E50A37F912E21164007C2101 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E50A380A12E21164007C2101 /* HarkPad-Prefix.pch */,
+				E50A380E12E21164007C2101 /* HarkPad-main.m */,
+				E50A382712E21165007C2101 /* HarkPadTests-Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		E50A37FA12E21164007C2101 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E50A380912E21164007C2101 /* HarkPad-Info.plist */,
+				E50A380B12E21164007C2101 /* InfoPlist.strings */,
+				E50A381312E21164007C2101 /* MainWindow.xib */,
+				E50A381912E21164007C2101 /* HarkPadViewController.xib */,
+				E50A382612E21165007C2101 /* HarkPadTests-Info.plist */,
+				E50A382812E21165007C2101 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		E50A37FB12E21164007C2101 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E50A380312E21164007C2101 /* UIKit.framework */,
+				E50A380512E21164007C2101 /* Foundation.framework */,
+				E50A380712E21164007C2101 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E50A380112E21164007C2101 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E50A380012E21164007C2101 /* HarkPad.app */,
+				E50A382212E21165007C2101 /* HarkPadTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E50A381C12E21165007C2101 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E50A382A12E21165007C2101 /* HarkPadTests.h */,
+				E50A382C12E21165007C2101 /* HarkPadTests.m */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E50A37FF12E21164007C2101 /* HarkPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E50A383212E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPad" */;
+			buildPhases = (
+				E50A37FC12E21164007C2101 /* Sources */,
+				E50A37FD12E21164007C2101 /* Frameworks */,
+				E50A37FE12E21164007C2101 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HarkPad;
+			productName = HarkPad;
+			productReference = E50A380012E21164007C2101 /* HarkPad.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E50A382112E21165007C2101 /* HarkPadTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */;
+			buildPhases = (
+				E50A381D12E21165007C2101 /* Sources */,
+				E50A381E12E21165007C2101 /* Frameworks */,
+				E50A381F12E21165007C2101 /* Resources */,
+				E50A382012E21165007C2101 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HarkPadTests;
+			productName = HarkPadTests;
+			productReference = E50A382212E21165007C2101 /* HarkPadTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E50A37F312E21163007C2101 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "The Attic";
+			};
+			buildConfigurationList = E50A37F612E21163007C2101 /* Build configuration list for PBXProject "HarkPad" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E50A37F112E21163007C2101;
+			productRefGroup = E50A380112E21164007C2101 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E50A37FF12E21164007C2101 /* HarkPad */,
+				E50A382112E21165007C2101 /* HarkPadTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E50A37FE12E21164007C2101 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */,
+				E50A381512E21164007C2101 /* MainWindow.xib in Resources */,
+				E50A381B12E21164007C2101 /* HarkPadViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E50A381F12E21165007C2101 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A382912E21165007C2101 /* InfoPlist.strings in Resources */,
+				E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E50A382012E21165007C2101 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E50A37FC12E21164007C2101 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */,
+				E50A381212E21164007C2101 /* HarkPadAppDelegate.m in Sources */,
+				E50A381812E21164007C2101 /* HarkPadViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E50A381D12E21165007C2101 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E50A380B12E21164007C2101 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E50A380C12E21164007C2101 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E50A381312E21164007C2101 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E50A381412E21164007C2101 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		E50A381912E21164007C2101 /* HarkPadViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E50A381A12E21164007C2101 /* en */,
+			);
+			name = HarkPadViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E50A382E12E21165007C2101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		E50A382F12E21165007C2101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		E50A383012E21165007C2101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		E50A383112E21165007C2101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		E50A383312E21165007C2101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
+				INFOPLIST_FILE = "HarkPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E50A383412E21165007C2101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
+				INFOPLIST_FILE = "HarkPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E50A383612E21165007C2101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPadTests-Prefix.pch";
+				INFOPLIST_FILE = "HarkPadTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E50A383712E21165007C2101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPadTests-Prefix.pch";
+				INFOPLIST_FILE = "HarkPadTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+		E50A383812E21165007C2101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = HarkPadTests;
+			};
+			name = Debug;
+		};
+		E50A383912E21165007C2101 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				PRODUCT_NAME = HarkPadTests;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E50A37F612E21163007C2101 /* Build configuration list for PBXProject "HarkPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E50A382E12E21165007C2101 /* Debug */,
+				E50A382F12E21165007C2101 /* Release */,
+				E50A383012E21165007C2101 /* Debug */,
+				E50A383112E21165007C2101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E50A383212E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E50A383312E21165007C2101 /* Debug */,
+				E50A383412E21165007C2101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E50A383612E21165007C2101 /* Debug */,
+				E50A383712E21165007C2101 /* Release */,
+				E50A383812E21165007C2101 /* Debug */,
+				E50A383912E21165007C2101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E50A37F312E21163007C2101 /* Project object */;
+}
