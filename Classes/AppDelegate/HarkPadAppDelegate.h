@@ -1,4 +1,4 @@
-//
+Misc reorg//
 //  HarkPadAppDelegate.h
 //  HarkPad
 //
@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@class HarkPadViewController;
+@class TableMapViewController;
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    HarkPadViewController *viewController;
+    TableMapViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet HarkPadViewController *viewController;
+@property (nonatomic, retain) IBOutlet TableMapViewController *viewController;
 
 @end

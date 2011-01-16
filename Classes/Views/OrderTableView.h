@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Order.h"
-#import "OrderViewDetailController.h"
+//#import "OrderViewDetailController.h"
 
 @interface OrderTableView : UITableView {
 }

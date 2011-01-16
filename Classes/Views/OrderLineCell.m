@@ -2,7 +2,7 @@
 #import "OrderLineCell.h"
 #import "OrderLine.h"
 #import "OrderLinePropertyValue.h"
-#import "OrderViewDetailController.h"
+//#import "OrderViewDetailController.h"
 #import "OrderTableView.h"
 
 @implementation OrderLineCell

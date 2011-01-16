@@ -10,6 +10,7 @@
 #import "OrderGridHitInfo.h"
 #import "GridCell.h"
 #import "OrderLineDetailViewController.h"
+#import "Order.h"
 
 @interface OrderGridView : UIView {
 }

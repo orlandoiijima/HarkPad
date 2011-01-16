@@ -21,20 +21,12 @@
 		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
 		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
 		E50A383F12E2193F007C2101 /* iTunesArtwork72.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A383E12E2193F007C2101 /* iTunesArtwork72.png */; };
-		E50A38C512E234B8007C2101 /* HarkPad2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384312E234B8007C2101 /* HarkPad2AppDelegate.m */; };
 		E50A38C612E234B8007C2101 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
-		E50A38C712E234B8007C2101 /* HarkPadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384812E234B8007C2101 /* HarkPadViewController.m */; };
 		E50A38C812E234B8007C2101 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
 		E50A38C912E234B8007C2101 /* NewOrderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A384C12E234B8007C2101 /* NewOrderVC.xib */; };
 		E50A38CB12E234B8007C2101 /* OrderLineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */; };
 		E50A38CC12E234B8007C2101 /* OrderLineDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */; };
-		E50A38CD12E234B8007C2101 /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385312E234B8007C2101 /* OrderViewController.m */; };
-		E50A38CE12E234B8007C2101 /* OrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385412E234B8007C2101 /* OrderViewController.xib */; };
-		E50A38CF12E234B8007C2101 /* OrderViewDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385612E234B8007C2101 /* OrderViewDetailController.m */; };
-		E50A38D012E234B8007C2101 /* OrderViewDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385712E234B8007C2101 /* OrderViewDetailController.xib */; };
 		E50A38D112E234B8007C2101 /* PropertyOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385912E234B8007C2101 /* PropertyOptionViewController.m */; };
-		E50A38D212E234B8007C2101 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385B12E234B8007C2101 /* RootViewController.m */; };
-		E50A38D312E234B8007C2101 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385D12E234B8007C2101 /* TabBarController.m */; };
 		E50A38D412E234B8007C2101 /* TablePopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385F12E234B8007C2101 /* TablePopupMenu.m */; };
 		E50A38D512E234B8007C2101 /* TableMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386212E234B8007C2101 /* TableMapViewController.m */; };
 		E50A38D612E234B8007C2101 /* TableMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A386312E234B8007C2101 /* TableMapViewController.xib */; };
@@ -110,30 +102,16 @@
 		E50A382A12E21165007C2101 /* HarkPadTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HarkPadTests.h; sourceTree = "<group>"; };
 		E50A382C12E21165007C2101 /* HarkPadTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HarkPadTests.m; sourceTree = "<group>"; };
 		E50A383E12E2193F007C2101 /* iTunesArtwork72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork72.png; path = ../../../iTunesArtwork72.png; sourceTree = "<group>"; };
-		E50A384212E234B8007C2101 /* HarkPad2AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarkPad2AppDelegate.h; sourceTree = "<group>"; };
-		E50A384312E234B8007C2101 /* HarkPad2AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarkPad2AppDelegate.m; sourceTree = "<group>"; };
 		E50A384412E234B8007C2101 /* HarkPadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarkPadAppDelegate.h; sourceTree = "<group>"; };
 		E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarkPadAppDelegate.m; sourceTree = "<group>"; };
-		E50A384712E234B8007C2101 /* HarkPadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarkPadViewController.h; sourceTree = "<group>"; };
-		E50A384812E234B8007C2101 /* HarkPadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarkPadViewController.m; sourceTree = "<group>"; };
 		E50A384A12E234B8007C2101 /* NewOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrderVC.h; sourceTree = "<group>"; };
 		E50A384B12E234B8007C2101 /* NewOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrderVC.m; sourceTree = "<group>"; };
 		E50A384C12E234B8007C2101 /* NewOrderVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewOrderVC.xib; sourceTree = "<group>"; };
 		E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLineDetailViewController.h; sourceTree = "<group>"; };
 		E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLineDetailViewController.m; sourceTree = "<group>"; };
 		E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderLineDetailViewController.xib; sourceTree = "<group>"; };
-		E50A385212E234B8007C2101 /* OrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewController.h; sourceTree = "<group>"; };
-		E50A385312E234B8007C2101 /* OrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewController.m; sourceTree = "<group>"; };
-		E50A385412E234B8007C2101 /* OrderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderViewController.xib; sourceTree = "<group>"; };
-		E50A385512E234B8007C2101 /* OrderViewDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderViewDetailController.h; sourceTree = "<group>"; };
-		E50A385612E234B8007C2101 /* OrderViewDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderViewDetailController.m; sourceTree = "<group>"; };
-		E50A385712E234B8007C2101 /* OrderViewDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderViewDetailController.xib; sourceTree = "<group>"; };
 		E50A385812E234B8007C2101 /* PropertyOptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PropertyOptionViewController.h; sourceTree = "<group>"; };
 		E50A385912E234B8007C2101 /* PropertyOptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PropertyOptionViewController.m; sourceTree = "<group>"; };
-		E50A385A12E234B8007C2101 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		E50A385B12E234B8007C2101 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		E50A385C12E234B8007C2101 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		E50A385D12E234B8007C2101 /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		E50A385E12E234B8007C2101 /* TablePopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablePopupMenu.h; sourceTree = "<group>"; };
 		E50A385F12E234B8007C2101 /* TablePopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablePopupMenu.m; sourceTree = "<group>"; };
 		E50A386112E234B8007C2101 /* TableMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableMapViewController.h; sourceTree = "<group>"; };
@@ -344,8 +322,6 @@
 		E50A384112E234B8007C2101 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				E50A384212E234B8007C2101 /* HarkPad2AppDelegate.h */,
-				E50A384312E234B8007C2101 /* HarkPad2AppDelegate.m */,
 				E50A384412E234B8007C2101 /* HarkPadAppDelegate.h */,
 				E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */,
 			);
@@ -355,24 +331,12 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E50A384712E234B8007C2101 /* HarkPadViewController.h */,
-				E50A384812E234B8007C2101 /* HarkPadViewController.m */,
 				E50A384912E234B8007C2101 /* Order */,
 				E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */,
 				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
 				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
-				E50A385212E234B8007C2101 /* OrderViewController.h */,
-				E50A385312E234B8007C2101 /* OrderViewController.m */,
-				E50A385412E234B8007C2101 /* OrderViewController.xib */,
-				E50A385512E234B8007C2101 /* OrderViewDetailController.h */,
-				E50A385612E234B8007C2101 /* OrderViewDetailController.m */,
-				E50A385712E234B8007C2101 /* OrderViewDetailController.xib */,
 				E50A385812E234B8007C2101 /* PropertyOptionViewController.h */,
 				E50A385912E234B8007C2101 /* PropertyOptionViewController.m */,
-				E50A385A12E234B8007C2101 /* RootViewController.h */,
-				E50A385B12E234B8007C2101 /* RootViewController.m */,
-				E50A385C12E234B8007C2101 /* TabBarController.h */,
-				E50A385D12E234B8007C2101 /* TabBarController.m */,
 				E50A385E12E234B8007C2101 /* TablePopupMenu.h */,
 				E50A385F12E234B8007C2101 /* TablePopupMenu.m */,
 				E50A386012E234B8007C2101 /* Tables */,
@@ -646,8 +610,6 @@
 				E50A383F12E2193F007C2101 /* iTunesArtwork72.png in Resources */,
 				E50A38C912E234B8007C2101 /* NewOrderVC.xib in Resources */,
 				E50A38CC12E234B8007C2101 /* OrderLineDetailViewController.xib in Resources */,
-				E50A38CE12E234B8007C2101 /* OrderViewController.xib in Resources */,
-				E50A38D012E234B8007C2101 /* OrderViewDetailController.xib in Resources */,
 				E50A38D612E234B8007C2101 /* TableMapViewController.xib in Resources */,
 				E50A38E912E234B8007C2101 /* readme in Resources */,
 				E50A38EC12E234B8007C2101 /* food.png in Resources */,
@@ -693,16 +655,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */,
-				E50A38C512E234B8007C2101 /* HarkPad2AppDelegate.m in Sources */,
 				E50A38C612E234B8007C2101 /* HarkPadAppDelegate.m in Sources */,
-				E50A38C712E234B8007C2101 /* HarkPadViewController.m in Sources */,
 				E50A38C812E234B8007C2101 /* NewOrderVC.m in Sources */,
 				E50A38CB12E234B8007C2101 /* OrderLineDetailViewController.m in Sources */,
-				E50A38CD12E234B8007C2101 /* OrderViewController.m in Sources */,
-				E50A38CF12E234B8007C2101 /* OrderViewDetailController.m in Sources */,
 				E50A38D112E234B8007C2101 /* PropertyOptionViewController.m in Sources */,
-				E50A38D212E234B8007C2101 /* RootViewController.m in Sources */,
-				E50A38D312E234B8007C2101 /* TabBarController.m in Sources */,
 				E50A38D412E234B8007C2101 /* TablePopupMenu.m in Sources */,
 				E50A38D512E234B8007C2101 /* TableMapViewController.m in Sources */,
 				E50A38D712E234B8007C2101 /* Cache.m in Sources */,
