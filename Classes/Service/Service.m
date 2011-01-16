@@ -16,7 +16,7 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://localhost:10089";
+        url = @"http://80.101.82.103:10089";
     }
     return self;
 }

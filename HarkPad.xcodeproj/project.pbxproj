@@ -243,7 +243,6 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
-				E50A391212E23A43007C2101 /* Service */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
 				E50A37FA12E21164007C2101 /* Resources */,
@@ -308,6 +307,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E50A391212E23A43007C2101 /* Service */,
 				E50A390812E236A7007C2101 /* Utils */,
 				E50A384112E234B8007C2101 /* AppDelegate */,
 				E50A384612E234B8007C2101 /* Controllers */,
@@ -531,8 +531,7 @@
 				E50A391612E23A43007C2101 /* TestService.h */,
 				E50A391712E23A43007C2101 /* TestService.m */,
 			);
-			name = Service;
-			path = Classes/Service;
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
