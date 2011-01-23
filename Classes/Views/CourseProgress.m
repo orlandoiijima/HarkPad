@@ -11,7 +11,7 @@
 
 @implementation CourseProgress
 
-@synthesize countCourses, currentCourse;
+@synthesize countCourses, currentCourse, isCurrentCourseHot;
 
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse {
     CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame]; 
@@ -30,7 +30,14 @@
     {
         float startAngle = (course * 2 * 3.14159f) / countCourses - 3.14159/2;
         float endAngle = ((course + 1) * 2 * 3.14159f) / countCourses - 3.14159/2;
-        UIColor *fillColor = course <= currentCourse ? [UIColor greenColor] : [UIColor whiteColor];
+        UIColor *fillColor;
+        if(course > currentCourse)
+            fillColor = [UIColor whiteColor];
+        else
+        if(course < currentCourse)
+            fillColor = [UIColor greenColor];
+        else
+            fillColor = isCurrentCourseHot ? [UIColor redColor] : [UIColor greenColor];
         UIColor *strokeColor = course <= currentCourse ? [UIColor blackColor] : [UIColor grayColor];
         [self drawArc: context inRect: rect startAngle: startAngle endAngle: endAngle strokeColor: strokeColor strokeWidth: 1.0f fillColor: fillColor];
     }

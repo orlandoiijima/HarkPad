@@ -29,6 +29,7 @@
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{768, 1024}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
@@ -117,6 +118,7 @@
 						<int key="objectID">7</int>
 						<reference key="object" ref="578626022"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Navigation Controller</string>
 					</object>
 				</array>
 			</object>
@@ -143,8 +145,8 @@
 					<string key="className">HarkPadAppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="viewController">id</string>
-						<string key="window">id</string>
+						<string key="viewController">TableMapViewController</string>
+						<string key="window">UIWindow</string>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
@@ -159,8 +161,8 @@
 						<string key="NS.object.0">id</string>
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="districtPicker">id</string>
-						<string key="tableMapView">id</string>
+						<string key="districtPicker">UISegmentedControl</string>
+						<string key="tableMapView">UIScrollView</string>
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>

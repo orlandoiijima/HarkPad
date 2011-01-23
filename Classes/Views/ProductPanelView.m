@@ -166,7 +166,7 @@
     [self addSubview:menuCardSegment];
     [menuCardSegment removeAllSegments];
     int countSegments = 0;
-    NSArray *images = [NSArray arrayWithObjects: @"28-star", @"48-fork-and-knife", @"125-food", @"144-martini", @"87-wine-glass", @"142-wine-bottle", nil];
+    NSArray *images = [NSArray arrayWithObjects: @"star", @"fork-and-knife", @"food", @"martini", @"wine-glass", @"wine-bottle", nil];
     for(TreeNode *node in rootNode.nodes)
     {
         if(node.menu == nil && node.product == nil)

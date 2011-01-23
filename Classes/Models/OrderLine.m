@@ -19,12 +19,12 @@
     OrderLine *orderLine = [[[OrderLine alloc] init] autorelease];
     orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
+    orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if( (NSNull *) seconds != [NSNull null])
         orderLine.requestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
     orderLine.quantity = [[jsonDictionary objectForKey:@"quantity"] intValue];
     orderLine.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     orderLine.seat = [[jsonDictionary objectForKey:@"seatOffset"] intValue];

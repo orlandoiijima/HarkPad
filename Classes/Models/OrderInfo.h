@@ -16,7 +16,7 @@
 
 @property (retain) NSDate *createdOn;
 @property (retain) NSMutableArray *tables;
-@property (retain) NSMutableArray *seats;
+@property (retain) NSMutableDictionary *seats;
 @property int id;
 @property OrderState state;
 @property int countCourses;
@@ -24,5 +24,6 @@
 @property (retain) NSDate *currentCourseRequestedOn;
 
 - (BOOL) isSeatOccupied: (int) seat;
+- (Product *) getCurrentProductBySeat: (int) querySeat;
 
 @end

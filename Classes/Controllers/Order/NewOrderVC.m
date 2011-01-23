@@ -19,7 +19,7 @@
 
 @implementation NewOrderVC
 
-@synthesize splitter, menuViewController, productPanelView, orderGridView, tableLabel;
+@synthesize splitter, menuViewController, productPanelView, orderGridView, tableLabel, tableMapViewController;
 @synthesize order, orderLineGridArray, dragType, orientation, dragStart;
 @synthesize saveButton, existingButton, orientationSegment, filterSegment, panelSegment;
 @synthesize currentNode, rootNode, dragNode, dragOffset, showType, showExisting;
@@ -493,9 +493,15 @@
     [super dealloc];
 }
 
-- (void) save
+- (void) saveAction
 {
     [[Service getInstance] updateOrder:order]; 
+    [tableMapViewController closeOrderView];
+}
+
+- (void) cancelAction
+{
+    [tableMapViewController closeOrderView];
 }
 
 - (void) existingAction

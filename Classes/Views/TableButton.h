@@ -16,8 +16,6 @@
 }
 
 @property (retain) UILabel *name;
-@property (retain) UILabel *time;
-@property (retain) UILabel *time2;
 @property (retain) Table *table;
 @property (retain) OrderInfo *orderInfo;
 @property (retain) CourseProgress * progress;
@@ -26,6 +24,8 @@
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY;
 
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds isOccupied: (BOOL) isOccupied;
+- (void) drawProductSymbol: (CGContextRef)context withBounds: (CGRect) bounds product: (Product*) product;
+
 //- (void) drawCourseProgress: (CGContextRef) context inRect: (CGRect) rect;
 //- (void) drawArc: (CGContextRef) context inRect: (CGRect) rect startAngle: (float) startAngle endAngle: (float) endAngle strokeColor: (UIColor *) strokeColor strokeWidth: (float) strokeWidth fillColor: (UIColor *)fillColor;
 

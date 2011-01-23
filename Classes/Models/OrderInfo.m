@@ -21,7 +21,7 @@
     if ((self = [super init]) != NULL)
 	{
         self.tables = [[NSMutableArray alloc] init];
-        self.seats = [[NSMutableArray alloc] init];
+        self.seats = [[NSMutableDictionary alloc] init];
 	}
     return(self);
 }
@@ -38,10 +38,19 @@
     seconds = [jsonDictionary objectForKey:@"currentCourseRequestedOn"];
     if((NSNull *)seconds != [NSNull null])
         order.currentCourseRequestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    
-    for(NSNumber *seat in [jsonDictionary objectForKey:@"seats"])
+    id seatDictionary = [jsonDictionary objectForKey:@"seats"];
+    for(NSString *seat in [seatDictionary allKeys])
     {
-        [order.seats addObject:seat];
+        if([seat intValue] == -1)
+            continue;
+        int productId = [[seatDictionary objectForKey:seat] intValue];
+        if(productId == -1) {
+            [order.seats setValue:nil forKey:seat];
+        }
+        else {
+            id product = [[[Cache getInstance] menuCard] getProduct:productId];
+            [order.seats setValue:product forKey:seat];
+        }
     }
     
     Cache *cache = [Cache getInstance];
@@ -57,10 +66,22 @@
 
 - (BOOL) isSeatOccupied: (int) querySeat
 {
-    for(NSNumber *seat in seats)
+    for(NSString *seat in [self.seats allKeys])
+    {
         if([seat intValue] == querySeat)
             return YES;
+    }
     return NO;
+}
+
+- (Product *) getCurrentProductBySeat: (int) querySeat
+{
+    for(NSString *seat in [self.seats allKeys])
+    {
+        if([seat intValue] == querySeat)
+            return [self.seats valueForKey:seat];
+    }
+    return nil;
 }
 
 @end

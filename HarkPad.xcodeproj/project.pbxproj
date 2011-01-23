@@ -13,7 +13,6 @@
 		E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
 		E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E50A381512E21164007C2101 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381312E21164007C2101 /* MainWindow.xib */; };
-		E50A381B12E21164007C2101 /* HarkPadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381912E21164007C2101 /* HarkPadViewController.xib */; };
 		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
 		E50A382412E21165007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
 		E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
@@ -82,6 +81,9 @@
 		E50A391E12E23E19007C2101 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391B12E23E19007C2101 /* MenuItem.m */; };
 		E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391D12E23E19007C2101 /* ModalAlert.m */; };
 		E542E59312E2405700BD434C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E542E59212E2405700BD434C /* QuartzCore.framework */; };
+		E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = E5557D2D12EC56C500CA547D /* ProductSymbol.m */; };
+		E5C315F012E381580044948F /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
+		E5D8DE3D12EADCEC00F4784B /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8DE3C12EADCEC00F4784B /* star.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,7 +96,6 @@
 		E50A380C12E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E50A380E12E21164007C2101 /* HarkPad-main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HarkPad-main.m"; sourceTree = "<group>"; };
 		E50A381412E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		E50A381A12E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HarkPadViewController.xib; sourceTree = "<group>"; };
 		E50A382212E21165007C2101 /* HarkPadTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarkPadTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50A382612E21165007C2101 /* HarkPadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HarkPadTests-Info.plist"; sourceTree = "<group>"; };
 		E50A382712E21165007C2101 /* HarkPadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarkPadTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -213,6 +214,10 @@
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
+		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
+		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
+		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,7 +273,6 @@
 				E50A380912E21164007C2101 /* HarkPad-Info.plist */,
 				E50A380B12E21164007C2101 /* InfoPlist.strings */,
 				E50A381312E21164007C2101 /* MainWindow.xib */,
-				E50A381912E21164007C2101 /* HarkPadViewController.xib */,
 				E50A382612E21165007C2101 /* HarkPadTests-Info.plist */,
 				E50A382812E21165007C2101 /* InfoPlist.strings */,
 			);
@@ -420,6 +424,8 @@
 			isa = PBXGroup;
 			children = (
 				E50A383E12E2193F007C2101 /* iTunesArtwork72.png */,
+				E5D8DE3C12EADCEC00F4784B /* star.png */,
+				E5C315EF12E381580044948F /* group.png */,
 				E50A388F12E234B8007C2101 /* food.png */,
 				E50A389012E234B8007C2101 /* fork-and-knife.png */,
 				E50A389112E234B8007C2101 /* martini.png */,
@@ -507,6 +513,8 @@
 				E50A38C212E234B8007C2101 /* TableInfoView.h */,
 				E50A38C312E234B8007C2101 /* TableInfoView.m */,
 				E50A38C412E234B8007C2101 /* TableInfoView.xib */,
+				E5557D2C12EC56C500CA547D /* ProductSymbol.h */,
+				E5557D2D12EC56C500CA547D /* ProductSymbol.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -605,7 +613,6 @@
 			files = (
 				E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */,
 				E50A381512E21164007C2101 /* MainWindow.xib in Resources */,
-				E50A381B12E21164007C2101 /* HarkPadViewController.xib in Resources */,
 				E50A383F12E2193F007C2101 /* iTunesArtwork72.png in Resources */,
 				E50A38C912E234B8007C2101 /* NewOrderVC.xib in Resources */,
 				E50A38CC12E234B8007C2101 /* OrderLineDetailViewController.xib in Resources */,
@@ -618,6 +625,8 @@
 				E50A38F012E234B8007C2101 /* wine-glass.png in Resources */,
 				E50A390012E234B8007C2101 /* OrderLineCell.xib in Resources */,
 				E50A390712E234B8007C2101 /* TableInfoView.xib in Resources */,
+				E5C315F012E381580044948F /* group.png in Resources */,
+				E5D8DE3D12EADCEC00F4784B /* star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +712,7 @@
 				E50A391912E23A43007C2101 /* TestService.m in Sources */,
 				E50A391E12E23E19007C2101 /* MenuItem.m in Sources */,
 				E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */,
+				E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,14 +741,6 @@
 				E50A381412E21164007C2101 /* en */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		E50A381912E21164007C2101 /* HarkPadViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E50A381A12E21164007C2101 /* en */,
-			);
-			name = HarkPadViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

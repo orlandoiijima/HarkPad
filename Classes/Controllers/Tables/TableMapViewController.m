@@ -107,21 +107,28 @@
 
 }
 
+- (void)gotoOrderViewWithOrder: (Order *)order
+{
+    NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
+    newOrderVC.order = order;
+    newOrderVC.tableMapViewController = self;
+    [self presentModalViewController:newOrderVC animated:YES];
+}
+
+- (void) closeOrderView
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 - (void) newOrderForTable: (Table *) table
 {
     Order *newOrder = [Order orderForTable:table];
-    UITabBarController *tabBarController = (UITabBarController *)self.parentViewController;
-    tabBarController.selectedIndex = 3;
-    NewOrderVC *newOrderVC = (NewOrderVC *)tabBarController.selectedViewController;
-    newOrderVC.order = newOrder;
+    [self gotoOrderViewWithOrder:newOrder];
 }
 
 - (void) editOrder: (Order *) order
 {
-    UITabBarController *tabBarController = (UITabBarController *)self.parentViewController;
-    tabBarController.selectedIndex = 3;
-    NewOrderVC *newOrderVC = (NewOrderVC *)tabBarController.selectedViewController;
-    newOrderVC.order = order;
+    [self gotoOrderViewWithOrder: order];
 }
 
 // Override to allow orientations other than the default portrait orientation.

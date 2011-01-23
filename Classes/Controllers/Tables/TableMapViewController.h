@@ -21,6 +21,7 @@
 - (IBAction) setupDistrictMap;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
+- (void) closeOrderView;
 
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;

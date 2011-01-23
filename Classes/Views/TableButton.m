@@ -10,10 +10,11 @@
 #import "Table.h"
 #import "CourseProgress.h"
 #import "Utils.h" 
+#import "ProductSymbol.h"
 
 @implementation TableButton
 
-@synthesize table, orderInfo, progress, name, time, time2;
+@synthesize table, orderInfo, progress, name;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
@@ -28,46 +29,80 @@
     button.center = CGPointMake(CGRectGetMidX(button.frame), CGRectGetMidY(button.frame)); 
     button.tag = table.id;
     
-    CGRect frame = CGRectMake(button.unit/2, button.frame.size.height/4, button.frame.size.width - button.unit, button.unit);
-    button.name = [[UILabel alloc] initWithFrame:frame];
-    button.name.font = [UIFont systemFontOfSize:20];
-    button.name.shadowColor = [UIColor grayColor];
-    button.name.adjustsFontSizeToFitWidth = YES;
-    button.name.textAlignment = UITextAlignmentCenter;
-    button.name.backgroundColor = [UIColor clearColor];
-    button.name.textColor = [UIColor blackColor];
-    button.name.text = table.name;
-    [button addSubview:button.name];
+    int countSeatRow = table.countSeats / 2;
+    float seatMargin = button.unit / 2;
+    float seatWidth = button.unit * 2;
     
+    CGRect tableRect = button.bounds;
+    tableRect = CGRectInset([button bounds], seatMargin, seatMargin);
+    
+    //    CGContextStrokeRect(ctf, <#CGRect rect#>)
+    
+    int countSeatRowOpposite = table.countSeats - countSeatRow;
+    
+    if(tableRect.size.width >= tableRect.size.height)
+    {
+        float left = button.unit;
+        for(int i = 0; i < countSeatRow; i++)
+        {
+            int seat = i;
+            CGRect rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + seatMargin/4, seatWidth/2, seatWidth / 2);
+            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+            [button addSubview: symbol];
+            
+            if(i < countSeatRowOpposite)
+            {
+                seat += countSeatRow;
+                rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + tableRect.size.height - seatMargin/4 - seatWidth/2, seatWidth/2, seatWidth / 2);
+                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+                [button addSubview: symbol];
+            }
+            
+            left += seatWidth + button.unit;
+        }
+    }
+    else
+    {
+        float top = button.unit;
+        for(int i = 0; i < countSeatRow; i++)
+        {
+            int seat = i;
+            CGRect rect = CGRectMake(tableRect.origin.x + seatMargin/4, top + seatWidth/4, seatWidth / 2, seatWidth/2);
+            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+            [button addSubview: symbol];
+            
+            if(i < countSeatRowOpposite)
+            {
+                seat += countSeatRow;
+                rect = CGRectMake(tableRect.origin.x + tableRect.size.width - seatMargin / 4 - seatWidth/2, top + seatWidth/4, seatWidth / 2, seatWidth/2);
+                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+                [button addSubview: symbol];
+            }
+            top += seatWidth + button.unit;
+        }
+        
+    }
+    
+    CGRect frame;
     if(button.frame.size.width >= button.frame.size.height)
         frame = CGRectMake(button.unit/2, button.name.frame.origin.y + button.name.frame.size.height, (button.frame.size.width - button.unit)/2, button.unit);
     else    
         frame = CGRectMake(button.unit/2, button.name.frame.origin.y + button.name.frame.size.height, button.frame.size.width - button.unit, button.unit);
-    
-    button.time = [[UILabel alloc] initWithFrame:frame];
-    button.time.adjustsFontSizeToFitWidth = YES;
-    button.time.textAlignment = UITextAlignmentCenter;
-    button.time.backgroundColor = [UIColor clearColor];
-    button.time.textColor = [UIColor blueColor];
-    button.time.text = @"";
-    [button addSubview:button.time];
-
-    if(button.frame.size.width >= button.frame.size.height)
-        frame = CGRectMake(button.frame.size.width/2, button.name.frame.origin.y + button.name.frame.size.height, button.time.frame.size.width, button.time.frame.size.height);
-    else
-        frame = CGRectMake(button.unit/2, button.time.frame.origin.y + button.time.frame.size.height, button.time.frame.size.width, button.time.frame.size.height);
-    button.time2 = [[UILabel alloc] initWithFrame:frame];
-    button.time2.adjustsFontSizeToFitWidth = YES;
-    button.time2.textAlignment = UITextAlignmentCenter;
-    button.time2.backgroundColor = [UIColor clearColor];
-    button.time2.textColor = [UIColor blueColor];
-    button.time2.text = @"";
-    [button addSubview:button.time2];
-    
-    
+     
     frame = CGRectMake(button.frame.size.width - button.unit, 0, button.unit, button.unit);
     button.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourse:0];
     [button addSubview:button.progress];
+    
+    frame = CGRectMake(button.unit/2, button.frame.size.height/4, button.frame.size.width - button.unit, button.unit);
+    button.name = [[UILabel alloc] initWithFrame:frame];
+    button.name.font = [UIFont systemFontOfSize:20];
+    button.name.shadowColor = [UIColor whiteColor];
+    button.name.adjustsFontSizeToFitWidth = YES;
+    button.name.textAlignment = UITextAlignmentCenter;
+    button.name.backgroundColor = [UIColor clearColor];
+    button.name.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+    button.name.text = table.name;
+    [button addSubview:button.name];
         
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.frame = CGRectInset(button.bounds, button.unit/2, button.unit/2);
@@ -92,6 +127,17 @@
         return self.bounds.size.height / (countSeatRow * 3 + 1);
 }
 
+- (ProductSymbol *)symbolBySeat: (int) seat
+{
+    for(UIView *view in self.subviews)
+    {
+        if([view isKindOfClass:[ProductSymbol class]])
+            if(((ProductSymbol *)view).seat == seat)
+                return (ProductSymbol *)view; 
+    }        
+    return nil;
+}
+
 - (void) setOrderInfo:(OrderInfo *)info
 {
     CAGradientLayer *gradient = [self.layer.sublayers objectAtIndex:0];
@@ -100,24 +146,22 @@
         orderInfo = [info retain];
         if(orderInfo != nil)
         {
-            time.text = [Utils getElapsedMinutesString:orderInfo.createdOn];
-            if(orderInfo.currentCourseRequestedOn != nil)
-            {
-                time2.text = [Utils getElapsedMinutesString:orderInfo.currentCourseRequestedOn];
-            }
-            else
-                time2.text = @"";
             progress.countCourses = orderInfo.countCourses;
             progress.currentCourse = orderInfo.currentCourse;
+            progress.isCurrentCourseHot = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60;
             if(orderInfo.state == ordering)
-                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.6 green:0.6 blue:0.9 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             else
                 gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.9 green:0.6 blue:0.6 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+            for(int seat=0; seat < table.countSeats; seat++)
+            {
+                ProductSymbol *symbol = [self symbolBySeat:seat];
+                if(symbol != nil)
+                    symbol.product = [orderInfo getCurrentProductBySeat:seat];
+            }
         }
         else
         {
-            time.text = @"";
-            time2.text = @"";
             progress.countCourses = 0;
             progress.currentCourse = 0;
             gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];

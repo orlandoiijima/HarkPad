@@ -16,6 +16,6 @@
                                                                                                                                                                                                                                           
 @property int countCourses;
 @property int currentCourse;
-
+@property BOOL isCurrentCourseHot; 
 @end
 				

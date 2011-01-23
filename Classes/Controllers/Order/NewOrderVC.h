@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Order.h"
-//#import "OrderViewDetailController.h"
+#import "TableMapViewController.h"
 #import "ProductPanelView.h"
 #import "DragNode.h"
 #import "Splitter.h"
@@ -26,9 +26,9 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 @property (retain) OrderGridView *orderGridView; 
 @property (retain) UIViewController *menuViewController;
 @property (retain) Order *order;
-
+@property (retain) TableMapViewController *tableMapViewController;
 @property (retain) IBOutlet UILabel *tableLabel;
-@property IBOutlet (retain) UIButton *saveButton;
+@property (retain) IBOutlet UIButton *saveButton;
 @property (retain) IBOutlet UISegmentedControl *existingButton;
 @property (retain) IBOutlet UISegmentedControl *orientationSegment;
 @property (retain) IBOutlet UISegmentedControl *filterSegment;
@@ -67,7 +67,8 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 
 - (void) startCourse: (int) course forOrder: (int) orderId;
 
-- (IBAction) save;
+- (IBAction) saveAction;
+- (IBAction) cancelAction;
 - (IBAction) existingAction;
 - (IBAction) orientationAction;
 - (IBAction) filterAction;
