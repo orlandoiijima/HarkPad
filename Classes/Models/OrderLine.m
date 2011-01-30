@@ -12,9 +12,9 @@
 
 @implementation OrderLine
 
-@synthesize id, quantity, product, sortOrder, seat, note, course, entityState, propertyValues, state, createdOn, requestedOn;
+@synthesize id, quantity, product, sortOrder, guest, note, course, entityState, propertyValues, state, createdOn;
 
-+ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary
++ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses
 {
     OrderLine *orderLine = [[[OrderLine alloc] init] autorelease];
     orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
@@ -22,13 +22,17 @@
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    seconds = [jsonDictionary objectForKey:@"requestedOn"];
-    if( (NSNull *) seconds != [NSNull null])
-        orderLine.requestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     orderLine.quantity = [[jsonDictionary objectForKey:@"quantity"] intValue];
     orderLine.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
-    orderLine.seat = [[jsonDictionary objectForKey:@"seatOffset"] intValue];
-    orderLine.course = [[jsonDictionary objectForKey:@"course"] intValue];
+    
+    int guestId = [[jsonDictionary objectForKey:@"guestId"] intValue];
+    orderLine.guest = [orderLine getGuestById: guestId guests:guests];
+    [orderLine.guest.lines addObject:orderLine];
+    
+    int courseId = [[jsonDictionary objectForKey:@"courseId"] intValue];
+    orderLine.course = [orderLine getCourseById: courseId courses:courses];
+    [orderLine.course.lines addObject:orderLine];
+    
     orderLine.state = [[jsonDictionary objectForKey:@"state"] intValue];
     orderLine.note = [jsonDictionary objectForKey:@"note"];
     id propertyValues = [jsonDictionary objectForKey:@"propertyValues"];
@@ -39,6 +43,28 @@
     }
     return orderLine;
 }
+
+
+- (Guest *) getGuestById: (int)guestId guests: (NSArray *) guests
+{
+    for(Guest *g in guests)
+    {
+        if(g.id == guestId)
+            return g;
+    }
+    return nil;
+}
+
+- (Course *) getCourseById: (int)courseId courses: (NSArray *) courses
+{
+    for(Course *c in courses)
+    {
+        if(c.id == courseId)
+            return c;
+    }
+    return nil;
+}
+
 
 - (id)init {
     if ((self = [super init])) {
@@ -55,8 +81,8 @@
     [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"productId"];
     [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"sortOrder"];
     [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"quantity"];
-    [dic setObject: [NSNumber numberWithInt:seat] forKey:@"seatOffset"];
-    [dic setObject: [NSNumber numberWithInt:course] forKey:@"course"];
+    [dic setObject: [NSNumber numberWithInt:guest.id] forKey:@"seatOffset"];
+    [dic setObject: [NSNumber numberWithInt:course.id] forKey:@"course"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     return dic;
 }

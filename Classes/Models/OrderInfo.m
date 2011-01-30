@@ -9,6 +9,7 @@
 #import "OrderInfo.h"
 #import "Cache.h"
 #import "Table.h"
+#import "SeatInfo.h"
 
 @implementation OrderInfo
 
@@ -43,14 +44,9 @@
     {
         if([seat intValue] == -1)
             continue;
-        int productId = [[seatDictionary objectForKey:seat] intValue];
-        if(productId == -1) {
-            [order.seats setValue:nil forKey:seat];
-        }
-        else {
-            id product = [[[Cache getInstance] menuCard] getProduct:productId];
-            [order.seats setValue:product forKey:seat];
-        }
+        NSDictionary *seatInfoDic = [seatDictionary objectForKey:seat];
+        SeatInfo *seatInfo = [SeatInfo seatInfoFromJsonDictionary:seatInfoDic];
+        [order.seats setValue:seatInfo forKey:seat];
     }
     
     Cache *cache = [Cache getInstance];
@@ -79,7 +75,12 @@
     for(NSString *seat in [self.seats allKeys])
     {
         if([seat intValue] == querySeat)
-            return [self.seats valueForKey:seat];
+        {
+            SeatInfo *seatInfo = [self.seats objectForKey:seat];
+            if(seatInfo == nil || seatInfo.food == nil)
+                return nil;
+            return seatInfo.food;
+        }
     }
     return nil;
 }

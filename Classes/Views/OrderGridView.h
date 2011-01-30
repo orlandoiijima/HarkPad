@@ -42,7 +42,6 @@ typedef enum HitInfoType {orderLine, orderGridColumnHeader, orderGridRowHeader} 
 @property (retain) GridCell *selectedCell;
 @property (retain) OrderLine *selectedOrderLine;
 @property CGRect selectedOrderLineFrame;
-@property (retain) Order *order;
 
 - (CGRect) getRect: (int) column row: (int) row;
 - (int) getRowHeight: (int) seat;

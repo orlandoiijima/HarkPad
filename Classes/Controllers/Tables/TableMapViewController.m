@@ -102,13 +102,14 @@
 
     tablePopupMenu.popoverController = popOver;
     
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     [popOver presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
 }
 
 - (void)gotoOrderViewWithOrder: (Order *)order
 {
+    if(order == nil)
+        return;
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
     newOrderVC.tableMapViewController = self;
@@ -123,6 +124,7 @@
 - (void) newOrderForTable: (Table *) table
 {
     Order *newOrder = [Order orderForTable:table];
+    if(newOrder == nil) return;
     [self gotoOrderViewWithOrder:newOrder];
 }
 

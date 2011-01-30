@@ -80,6 +80,9 @@
 		E50A391912E23A43007C2101 /* TestService.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391712E23A43007C2101 /* TestService.m */; };
 		E50A391E12E23E19007C2101 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391B12E23E19007C2101 /* MenuItem.m */; };
 		E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391D12E23E19007C2101 /* ModalAlert.m */; };
+		E534F41B12F3418F006886C6 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F41A12F3418F006886C6 /* Course.m */; };
+		E534F42212F34214006886C6 /* Guest.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42112F34214006886C6 /* Guest.m */; };
+		E534F42512F46231006886C6 /* SeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42412F46231006886C6 /* SeatInfo.m */; };
 		E542E59312E2405700BD434C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E542E59212E2405700BD434C /* QuartzCore.framework */; };
 		E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = E5557D2D12EC56C500CA547D /* ProductSymbol.m */; };
 		E5C315F012E381580044948F /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
@@ -213,6 +216,12 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
+		E534F41912F3418F006886C6 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
+		E534F41A12F3418F006886C6 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		E534F42012F34214006886C6 /* Guest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guest.h; sourceTree = "<group>"; };
+		E534F42112F34214006886C6 /* Guest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guest.m; sourceTree = "<group>"; };
+		E534F42312F46231006886C6 /* SeatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatInfo.h; sourceTree = "<group>"; };
+		E534F42412F46231006886C6 /* SeatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatInfo.m; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
@@ -408,6 +417,12 @@
 				E50A388C12E234B8007C2101 /* Table.m */,
 				E50A390C12E236BE007C2101 /* TreeNode.h */,
 				E50A390D12E236BE007C2101 /* TreeNode.m */,
+				E534F41912F3418F006886C6 /* Course.h */,
+				E534F41A12F3418F006886C6 /* Course.m */,
+				E534F42012F34214006886C6 /* Guest.h */,
+				E534F42112F34214006886C6 /* Guest.m */,
+				E534F42312F46231006886C6 /* SeatInfo.h */,
+				E534F42412F46231006886C6 /* SeatInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -713,6 +728,9 @@
 				E50A391E12E23E19007C2101 /* MenuItem.m in Sources */,
 				E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */,
 				E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */,
+				E534F41B12F3418F006886C6 /* Course.m in Sources */,
+				E534F42212F34214006886C6 /* Guest.m in Sources */,
+				E534F42512F46231006886C6 /* SeatInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

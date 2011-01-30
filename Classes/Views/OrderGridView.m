@@ -12,7 +12,7 @@
 
 @implementation OrderGridView
 
-@synthesize cellSpaceWidth, cellBorderWidth, cellSpaceHeight, cellBorderHeight, tableMarginWidth, tableMarginHeight, tableBorderWidth, tableBorderHeight, columnWidth, firstRow, firstColumn, rowHeaderWidth, rowFooterWidth, columnHeaderHeight, columnFooterHeight, lineHeight, lineSeparatorHeight, minimumColumnWidth, countVisibleColumns, dropTarget, selectedCell, selectedOrderLine, selectedOrderLineFrame, order;
+@synthesize cellSpaceWidth, cellBorderWidth, cellSpaceHeight, cellBorderHeight, tableMarginWidth, tableMarginHeight, tableBorderWidth, tableBorderHeight, columnWidth, firstRow, firstColumn, rowHeaderWidth, rowFooterWidth, columnHeaderHeight, columnFooterHeight, lineHeight, lineSeparatorHeight, minimumColumnWidth, countVisibleColumns, dropTarget, selectedCell, selectedOrderLine, selectedOrderLineFrame;
 /*
  
 |tableMarginWidth|tableBorderWidth|rowHeaderWidth|cellSpaceWidth| cellBorderWidth | cellcontent | cellBorderWidth | cellSpaceWidth | cellBorderWidth | cellcontent | cellBorderWidth | cellSpaceWidth | tableBorderWidth | tableMarginWidth
@@ -40,7 +40,7 @@
     [[UIColor blackColor] set];
     UIRectFill(rect);
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    int countRows = topController.orientation == CourseColumns ? [order getLastSeat] + 2 : [order getLastCourse] + 2;
+    int countRows = topController.orientation == CourseColumns ? [topController.order getLastSeat] + 2 : [topController.order getLastCourse] + 2;
     for(int column = firstColumn; column < firstColumn + countVisibleColumns; column++)
     {
         for(int row = firstRow; row < countRows; row++)
@@ -405,7 +405,7 @@
     selectedOrderLine = line;
 
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    NSMutableArray *orderlines = [topController orderLinesWithCourse: line.course seat:line.seat];
+    NSMutableArray *orderlines = [topController orderLinesWithCourse: line.course.offset seat:line.guest.seat];
     int offset = 0;
     for(OrderLine * cellLine in orderlines)
     {
@@ -413,8 +413,8 @@
         offset++;
     }
 
-    int column = topController.orientation == SeatColumns ? line.seat : line.course;
-    int row = topController.orientation == CourseColumns ? line.seat : line.course;
+    int column = topController.orientation == SeatColumns ? line.guest.seat : line.course.offset;
+    int row = topController.orientation == CourseColumns ? line.guest.seat : line.course.offset;
     
     selectedCell = [GridCell cellWithColumn:column row:row line:offset];
     [self redraw];

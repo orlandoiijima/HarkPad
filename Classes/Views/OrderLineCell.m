@@ -25,9 +25,9 @@
 {
     orderLine = line;
     
-    seat.titleLabel.text = [NSString stringWithFormat: @"%d", line.seat + 1];
+    seat.titleLabel.text = [NSString stringWithFormat: @"%d", line.guest.seat + 1];
     NSArray *chars = [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F", nil];
-    course.titleLabel.text = [chars objectAtIndex:line.course];
+    course.titleLabel.text = [chars objectAtIndex:line.course.offset];
     quantity.text = [NSString stringWithFormat:@"%dx", line.quantity];
     if(line.quantity == 1)
     {

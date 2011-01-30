@@ -20,7 +20,7 @@
 @implementation NewOrderVC
 
 @synthesize splitter, menuViewController, productPanelView, orderGridView, tableLabel, tableMapViewController;
-@synthesize order, orderLineGridArray, dragType, orientation, dragStart;
+@synthesize order, dragType, orientation, dragStart;
 @synthesize saveButton, existingButton, orientationSegment, filterSegment, panelSegment;
 @synthesize currentNode, rootNode, dragNode, dragOffset, showType, showExisting;
 
@@ -28,7 +28,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    order = [[Service getInstance] getOrder:1];
     ((NewOrderView *)self.view).controller = self;
     
     orientation = CourseColumns;
@@ -39,7 +38,6 @@
     
     CGRect frame = CGRectMake(0, 0, 10, 10);
     orderGridView = [[OrderGridView alloc] initWithFrame:frame];
-//    orderGridView.order = order;
 
     [splitter initWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
     [orderGridView redraw];
@@ -50,9 +48,7 @@
     if(order != newOrder)
     {
         [order release];
-        order = [newOrder retain];            
-        orderGridView.order = order;
-        [self createOrderLineGridArray];
+        order = [newOrder retain];
         tableLabel.text = [[order.tables objectAtIndex:0] name];
     }
 }
@@ -131,10 +127,9 @@
         else
         {
             dragNode.orderLine.entityState = Modified;
-            dragNode.orderLine.course = course;
-            dragNode.orderLine.seat = seat;
+//            dragNode.orderLine.course = course;
+//            dragNode.orderLine.seat = seat;
         }
-        [self createOrderLineGridArray];
     }
     [dragNode removeFromSuperview];
     dragNode = nil;
@@ -142,38 +137,16 @@
     [orderGridView redraw];
 }
 
-
-- (void) createOrderLineGridArray
-{
-    int countColumns = [order getLastCourse] + 2;
-    int countRows = [order getLastSeat] + 2;
-    orderLineGridArray = [[NSMutableArray alloc] init];
-    for(int i=0; i < countRows; i++)
-    {
-        NSMutableArray *courseCounts = [[NSMutableArray alloc] init];
-        for(int c = 0; c < countColumns; c++)
-        {
-            NSMutableArray *courseSeatLines = [[NSMutableArray alloc] init];
-            [courseCounts insertObject:courseSeatLines atIndex:c];
-        }
-        [orderLineGridArray insertObject:courseCounts atIndex:i];
-    }
-    
-    for(OrderLine *line in order.lines)
-    {
-        int course = line.course;
-        int seat = line.seat;
-        NSMutableArray *courses = [orderLineGridArray objectAtIndex:seat];
-        NSMutableArray *courseSeatLines = [courses objectAtIndex:course];
-        [courseSeatLines addObject:line];
-    }
-}
-
-- (NSMutableArray *) orderLinesWithCourse: (int) course seat: (int)seat
+- (NSMutableArray *) orderLinesWithCourse: (int) courseOffset seat: (int)seatOffset
 {
     NSMutableArray *lines = [[NSMutableArray alloc] init];
-    for(OrderLine *line in [[orderLineGridArray objectAtIndex: seat] objectAtIndex: course])
-        if([self matchesFilter:line])
+    if(courseOffset >= order.courses.count)
+    {
+        return lines;
+    }
+    Course *course = [order.courses objectAtIndex:courseOffset];
+    for(OrderLine *line in course.lines)
+        if(line.guest.seat == seatOffset && [self matchesFilter:line])
             [lines addObject:line];
     return lines;
 }
@@ -388,7 +361,7 @@
                     [self moveCourses: course+1 delta: 1];
                     break;
                 case 2:
-                    [self startCourse: course forOrder: order.id];
+                    [self startCourse: course];
                     break;
             }
             break;
@@ -398,37 +371,35 @@
 
 - (void) moveCourses: (int)firstCourseToMove delta: (int) delta
 {
-    for(OrderLine *line in order.lines)
-    {
-        if(line.course >= firstCourseToMove)
-        {
-            line.course += delta;
-            if(line.entityState == None)
-                line.entityState = Modified;
-        }
-    }
-    [self createOrderLineGridArray];
+//    for(OrderLine *line in order.lines)
+//    {
+//        if(line.course.offset >= firstCourseToMove)
+//        {
+//            line.course.offset += delta;
+//            if(line.entityState == None)
+//                line.entityState = Modified;
+//        }
+//    }
     [orderGridView redraw];
 }
 
 - (void) moveSeats: (int)firstSeatToMove delta: (int) delta
 {
-    for(OrderLine *line in order.lines)
-    {
-        if(line.seat >= firstSeatToMove)
-        {
-            line.seat += delta;
-            if(line.entityState == None)
-                line.entityState = Modified;
-        }
-    }
-    [self createOrderLineGridArray];
+//    for(OrderLine *line in order.lines)
+//    {
+//        if(line.seat >= firstSeatToMove)
+//        {
+//            line.seat += delta;
+//            if(line.entityState == None)
+//                line.entityState = Modified;
+//        }
+//    }
     [orderGridView redraw];
 }
 
-- (void) startCourse: (int) course forOrder: (int) orderId
+- (void) startCourse: (int) courseId
 {
-    [[Service getInstance] startCourse:course forOrder:orderId];     
+    [[Service getInstance] startCourse:courseId];     
 }
 
 - (void) gridScrollRight

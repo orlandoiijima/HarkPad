@@ -16,7 +16,7 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://80.101.82.103:10089";
+        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -139,9 +139,9 @@ static Service *_service;
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
 }
 
-- (void) startCourse: (int) course forOrder: (int) orderId
+- (void) startCourse: (int) courseId
 {
-    NSURL *testUrl = [self makeEndPoint:@"startcourse" withQuery:[NSString stringWithFormat:@"orderId=%d&course=%d", orderId, course]];
+    NSURL *testUrl = [self makeEndPoint:@"startcourse" withQuery:[NSString stringWithFormat:@"courseId=%d", courseId]];
     
 	[NSData dataWithContentsOfURL: testUrl];
 	return;

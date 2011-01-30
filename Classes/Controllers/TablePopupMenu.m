@@ -55,22 +55,22 @@
     [infoItems setValue:[NSString stringWithFormat:@"%d", [order getLastCourse]+1] forKey: @"Aantal gangen"];
     [infoItems setValue:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[order getFirstOrderDate]]] forKey: @"Eerste bestelling"];
     [infoItems setValue:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[order getLastOrderDate]]] forKey: @"Laatste bestelling"];
-    int currentCourse = [order getCurrentCourse];
-    NSString *lastCourse = currentCourse == -1 ? @"-" : [Utils getCourseChar: currentCourse];
+    Course *currentCourse = [order getCurrentCourse];
+    NSString *lastCourse = currentCourse == nil ? @"-" : [Utils getCourseChar: currentCourse.offset];
     [infoItems setValue:[NSString stringWithFormat:@"%@", lastCourse] forKey: @"Laatst opgevraagde gang"];
 
     commandItems = [[NSMutableDictionary alloc] init];
     [commandItems setValue:@"Bestelling opnemen" forKey: @"Bestelling"];
     if(order != nil)
     {
-        if([order getCurrentCourse] == [order getLastCourse])
-            [commandItems setValue:@"Rekening opmaken" forKey: @"Rekening	"];
+        Course *nextCourse = [order getNextCourse];
+        if(nextCourse == nil)
+            [commandItems setValue:@"Rekening opmaken" forKey: @"Rekening"];
         else
         {
-//            int nextCourse = [order getCurrentCourse]+1;
-//            NSString command = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse]];
-//            
-//            [commandItems setValue:command forKey: @"Gang"];
+            NSString *command = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
+            
+            [commandItems setValue:command forKey: @"Gang"];
         }
     }
 }
@@ -102,14 +102,14 @@
                 return 1;
             else
                 return 2;
-//            {
-//                if([order getCurrentCourse] == [order getLastCourse])
-//                    return 2;
-//                else
-//                    return 3;
-//            }
         case 2:
-            return order.lines.count;
+        {
+            Course *nextCourse = [order getNextCourse];
+            if(nextCourse == nil)
+                return 0;
+            return nextCourse.lines.count;
+    
+        }
     }
     return 0;
 }
@@ -124,7 +124,7 @@
             return @"Info";
         case 2:
             if(order == nil) return @"";
-            return [NSString stringWithFormat:@"Totaal bedrag %0.2f", [[order getAmount] floatValue]];
+            return [NSString stringWithFormat:@"Volgende gang"];
             break;
     }
     return @"";
@@ -160,14 +160,14 @@
                 case 0: cell.textLabel.text = @"Bestelling opnemen"; break;
                 case 1:
                 {
-                    if([order getCurrentCourse] == [order getLastCourse])
+                    Course *nextCourse = [order getNextCourse];
+                    if(nextCourse == nil)
                     {
                         cell.textLabel.text = @"Rekening opmaken";
                     }
                     else
                     {
-                        int nextCourse = [order getCurrentCourse]+1;
-                        cell.textLabel.text = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse]];
+                        cell.textLabel.text = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
                     }
                     break;
                 }
@@ -182,7 +182,8 @@
             if (cell == nil) {
                 cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderLineCell" owner:self options:nil] lastObject];
             }
-            OrderLine *line = [order.lines objectAtIndex:indexPath.row];
+            Course *nextCourse = [order getNextCourse];
+            OrderLine *line = [nextCourse.lines objectAtIndex:indexPath.row];
             cell.orderLine = line;
             return cell;
         }
@@ -210,15 +211,15 @@
         }
         case 1:
         {
-            if([order getCurrentCourse] == [order getLastCourse])
+            Course *nextCourse = [order getNextCourse];
+            if(nextCourse == nil)
             {
                 [[Service getInstance] makeBills:nil forOrder: order.id]; 
                 [popoverController dismissPopoverAnimated:YES];
             }
             else
             {
-                int nextCourse = [order getCurrentCourse] + 1;
-                [[Service getInstance] startCourse: nextCourse forOrder: order.id]; 
+                [[Service getInstance] startCourse: nextCourse.id]; 
                 [popoverController dismissPopoverAnimated:YES];
             }
         }

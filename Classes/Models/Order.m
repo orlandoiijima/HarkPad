@@ -7,17 +7,20 @@
 //
 
 #import "Order.h"
+#import "Guest.h"
+#import "Course.h"
 
 @implementation Order
 
-@synthesize lines, tables, createdOn, state, entityState, id;
+@synthesize tables, courses, guests, createdOn, state, entityState, id;
 
 
 - (id)init
 {
     if ((self = [super init]) != NULL)
 	{
-        self.lines = [[NSMutableArray alloc] init];
+        self.courses = [[NSMutableArray alloc] init];
+        self.guests = [[NSMutableArray alloc] init];
         self.tables = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
         self.state = 0;
@@ -35,13 +38,28 @@
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     
+    Cache *cache = [Cache getInstance];
+
+    id guestsDic =  [jsonDictionary objectForKey:@"guests"];
+    for(NSDictionary *item in guestsDic)
+    {
+        Guest *guest = [Guest guestFromJsonDictionary:item];
+        [order.guests addObject: guest];
+    }
+
+    id coursesDic =  [jsonDictionary objectForKey:@"courses"];
+    for(NSDictionary *item in coursesDic)
+    {
+        Course *course = [Course courseFromJsonDictionary:item];
+        [order.courses addObject: course];
+    }
+
     id lines =  [jsonDictionary objectForKey:@"lines"];
     for(NSDictionary *item in lines)
     {
-        OrderLine *p = [OrderLine orderLineFromJsonDictionary:item];
-        [order.lines addObject:p];
+        [OrderLine orderLineFromJsonDictionary:item guests: order.guests courses: order.courses];
     }
-    Cache *cache = [Cache getInstance];
+    
     for(NSNumber *tableId in [jsonDictionary objectForKey:@"tables"])
     {
         Table *table = [cache.map getTable:[tableId intValue]]; 
@@ -54,7 +72,7 @@
 
 + (Order *) orderForTable: (Table *) table
 {
-    Order *order = [[[Order alloc] init] autorelease];
+    Order *order = [[Order alloc] init];
     [order.tables addObject:table];
     return order;
 }
@@ -66,11 +84,11 @@
     [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
     NSMutableArray *dicLines = [[[NSMutableArray alloc] init] autorelease];
     [dic setObject:dicLines forKey:@"lines"];
-    for(OrderLine *line in [self lines])
-    {
-        [dicLines addObject: [line initDictionary]];
-        
-    }
+//    for(OrderLine *line in [self lines])
+//    {
+//        [dicLines addObject: [line initDictionary]];
+//        
+//    }
     NSMutableArray *dicTables = [[[NSMutableArray alloc] init] autorelease];
     [dic setObject:dicTables forKey:@"tables"];
     for(Table *table in [self tables])
@@ -80,120 +98,178 @@
     return dic;
 }
 
+
+- (Guest *) getGuestById: (int)guestId
+{
+    for(Guest *guest in guests)
+    {
+        if(guest.id == guestId)
+            return guest;
+    }
+    return nil;
+}
+
+- (Course *) getCourseById: (int)courseId
+{
+    for(Course *course in courses)
+    {
+        if(course.id == courseId)
+            return course;
+    }
+    return nil;
+}
+
+- (Guest *) getGuestBySeat: (int)seat
+{
+    for(Guest *guest in guests)
+    {
+        if(guest.seat == seat)
+            return guest;
+    }
+    return nil;
+}
+
+- (Course *) getCourseByOffset: (int)offset
+{
+    for(Course *course in courses)
+    {
+        if(course.offset == offset)
+            return course;
+    }
+    return nil;
+}
+
 - (NSDecimalNumber *) getAmount
 {
     id total = [NSDecimalNumber zero];
-    for(OrderLine *line in lines)
-    {        
-        total = [total decimalNumberByAdding:[line getAmount]];
+    for(Guest *guest in guests)
+    {
+        for(OrderLine *line in guest.lines)
+        {        
+            total = [total decimalNumberByAdding:[line getAmount]];
+        }
     }
     return total;
 }
 
 - (int) getLastCourse
 {
-    int lastCourse = 0;
-    for(OrderLine *line in lines)
-    {        
-        if(line.course > lastCourse)
-            lastCourse = line.course;
-    }    
-    return lastCourse;
+    if(courses.count == 0)
+        return -1;
+    Course *course = [courses objectAtIndex:courses.count-1];
+    return course.offset;
 }
 
 - (int) getLastSeat
 {
-    int lastSeat = 0;
-    for(OrderLine *line in lines)
-    {        
-        if(line.seat > lastSeat)
-            lastSeat = line.seat;
-    }    
-    return lastSeat;
+    if(guests.count == 0)
+        return -1;
+    Guest *guest = [guests objectAtIndex:guests.count-1];
+    return guest.seat;
 }
 
 - (NSDate *) getLastOrderDate
 {
-    if(lines == nil || ([lines count] == 0)) return nil;
-    NSDate *latestDate = [[lines objectAtIndex:0] createdOn];
-    for(OrderLine *line in lines)
-    {        
-        if([line.createdOn compare: latestDate] == NSOrderedDescending)
-            latestDate = line.createdOn;
-    }    
+    NSDate *latestDate = createdOn;
+    for(Guest *guest in guests)
+    {
+        for(OrderLine *line in guest.lines)
+        {        
+            if([line.createdOn compare: latestDate] == NSOrderedDescending)
+                latestDate = line.createdOn;
+        }    
+    }
     return latestDate;
 }
 
 - (NSDate *) getFirstOrderDate
 {
-    if(lines == nil || ([lines count] == 0)) return nil;
-    NSDate *firstDate = [[lines objectAtIndex:0] createdOn];
-    for(OrderLine *line in lines)
-    {
-        if([line.createdOn compare:firstDate] == NSOrderedAscending)
-            firstDate = line.createdOn;
-    }    
-    return firstDate;
+    return createdOn;
 }
 
-
-- (int) getCurrentCourse
+- (Course *) getCurrentCourse
 {
-    if(lines == nil || ([lines count] == 0)) return -1;
-    int currentCourse = -1;
-    for(OrderLine *line in lines)
-    {        
-        if(line.requestedOn != nil)
-            if(line.course > currentCourse)
-                currentCourse = line.course;
-    }    
-    return currentCourse;
-}
-
-
-NSInteger compareLine(OrderLine *lineA, OrderLine * lineB, id context) 
-{
-    OrderGrouping orderGrouping = *((OrderGrouping *)context);
-    switch(orderGrouping)
+    for(int c = courses.count - 1; c >= 0; c--)
     {
-        case bySeat:
-            if(lineA.seat == lineB.seat)
-                return lineA.course - lineB.course;
-            return lineA.seat - lineB.seat;
-        case byCourse:
-            if(lineA.course == lineB.course)
-                return lineA.seat - lineB.seat;
-            return lineA.course - lineB.course;
-        case byCategory:
-            if(lineA.product.category.sortOrder == lineB.product.category.sortOrder) {
-                if(lineA.seat == lineB.seat)
-                    return lineA.course  - lineB.course;
-                return lineA.seat - lineB.seat;
-            }
-            return lineA.product.category.sortOrder - lineB.product.category.sortOrder;
+        Course *course = [courses objectAtIndex:c];
+        if(course.requestedOn != nil)
+            return course;
+    
     }
-    return 0;
+    return nil;
 }
 
-- (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) course
+- (Course *) getNextCourse
 {
-    OrderLine *line = [[[OrderLine alloc] init] autorelease];
+    for(Course *course in courses)
+    {
+        if(course.requestedOn == nil)
+            return course;
+    }
+    return nil;
+}
+
+//
+//NSInteger compareLine(OrderLine *lineA, OrderLine * lineB, id context) 
+//{
+//    OrderGrouping orderGrouping = *((OrderGrouping *)context);
+//    switch(orderGrouping)
+//    {
+//        case bySeat:
+//            if(lineA.seat == lineB.seat)
+//                return lineA.course - lineB.course;
+//            return lineA.seat - lineB.seat;
+//        case byCourse:
+//            if(lineA.course == lineB.course)
+//                return lineA.seat - lineB.seat;
+//            return lineA.course - lineB.course;
+//        case byCategory:
+//            if(lineA.product.category.sortOrder == lineB.product.category.sortOrder) {
+//                if(lineA.seat == lineB.seat)
+//                    return lineA.course  - lineB.course;
+//                return lineA.seat - lineB.seat;
+//            }
+//            return lineA.product.category.sortOrder - lineB.product.category.sortOrder;
+//    }
+//    return 0;
+//}
+
+- (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
+{
+    OrderLine *line = [[OrderLine alloc] init];
     line.entityState = New;
     line.quantity = 1;
     line.product = [[[Cache getInstance] menuCard] getProduct:productId];
     line.sortOrder = 0;
-    line.seat = seat;
-    line.course = course;
-    [self.lines addObject:line];
+    line.course = [self getCourseByOffset:courseOffset];
+    if(line.course == nil)
+    {
+        line.course = [[Course alloc] init];
+        line.course.offset = courseOffset;
+        [self.courses addObject:line.course];
+    }
+    [line.course.lines addObject:line];
+    
+    line.guest = [self getGuestBySeat:seat];
+    if(line.guest == nil)
+    {
+        line.guest = [[Guest alloc] init];
+        line.guest.seat = seat;
+        [self.guests addObject:line.guest];
+    }
+    [line.guest.lines addObject:line];
     return line;
 }
 
 - (BOOL) containsProductId:(int)productId
 {
-    for(OrderLine *line in lines)
+    for(Guest *guest in guests)
     {
-        if(line.product.id == productId)
-            return YES;
+        for(OrderLine *line in guest.lines)
+        {
+            if(line.product.id == productId)
+                return YES;
+        }
     }
     return NO;
 }

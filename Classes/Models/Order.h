@@ -29,10 +29,17 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 - (int) getLastSeat;
 - (NSDate *) getFirstOrderDate;
 - (NSDate *) getLastOrderDate;
-- (int) getCurrentCourse;
+- (Course *) getCurrentCourse;
+- (Course *) getNextCourse;
+
+- (Guest *) getGuestById: (int)guestId;
+- (Course *) getCourseById: (int)courseId;
+- (Course *) getCourseByOffset: (int)offset;
+- (Guest *) getGuestBySeat: (int)seat;
 
 @property EntityState entityState;
-@property (retain) NSMutableArray *lines;
+@property (retain) NSMutableArray *courses;
+@property (retain) NSMutableArray *guests;
 @property (retain) NSDate *createdOn;
 @property (retain) NSMutableArray *tables;
 @property int id;

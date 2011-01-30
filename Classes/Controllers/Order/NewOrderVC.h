@@ -25,7 +25,7 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 @property (retain) ProductPanelView *productPanelView;
 @property (retain) OrderGridView *orderGridView; 
 @property (retain) UIViewController *menuViewController;
-@property (retain) Order *order;
+@property (retain, nonatomic) Order *order;
 @property (retain) TableMapViewController *tableMapViewController;
 @property (retain) IBOutlet UILabel *tableLabel;
 @property (retain) IBOutlet UIButton *saveButton;
@@ -40,8 +40,6 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 
 @property (retain) TreeNode *rootNode;
 @property (retain) TreeNode *currentNode;
-
-@property (retain) NSMutableArray *orderLineGridArray;
 
 @property DragType dragType;
 @property Orientation orientation;
@@ -65,7 +63,7 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 - (void) moveCourses: (int)firstCourseToMove delta: (int) delta;
 - (void) moveSeats: (int)firstSeatToMove delta: (int) delta;
 
-- (void) startCourse: (int) course forOrder: (int) orderId;
+- (void) startCourse: (int) courseId;
 
 - (IBAction) saveAction;
 - (IBAction) cancelAction;
@@ -74,7 +72,6 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 - (IBAction) filterAction;
 - (void) panelButtonClick: (TreeNode *) node;
 //- (DragNode *) createDragNode: (TreeNode *) treeNode frame:(CGRect) rect;
-- (void) createOrderLineGridArray;
 - (NSMutableArray *) orderLinesWithCourse: (int) course seat: (int)seat;
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController;
 
