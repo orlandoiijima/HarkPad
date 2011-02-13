@@ -82,13 +82,31 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt: [self id]] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
+    
+    NSMutableArray *dicCourses = [[[NSMutableArray alloc] init] autorelease];
+    [dic setObject:dicCourses forKey:@"courses"];
+    for(Course *course in [self courses])
+    {
+        [dicCourses addObject: [course initDictionary]];
+    }
+    
+    NSMutableArray *dicGuests = [[[NSMutableArray alloc] init] autorelease];
+    [dic setObject:dicGuests forKey:@"guests"];
+    for(Guest *guest in [self guests])
+    {
+        [dicGuests addObject: [guest initDictionary]];
+    }
+    
     NSMutableArray *dicLines = [[[NSMutableArray alloc] init] autorelease];
     [dic setObject:dicLines forKey:@"lines"];
-//    for(OrderLine *line in [self lines])
-//    {
-//        [dicLines addObject: [line initDictionary]];
-//        
-//    }
+    for(Guest *guest in guests)
+    {
+        for(OrderLine *line in guest.lines)
+        {
+            [dicLines addObject: [line initDictionary]];
+        }
+    }
+    
     NSMutableArray *dicTables = [[[NSMutableArray alloc] init] autorelease];
     [dic setObject:dicTables forKey:@"tables"];
     for(Table *table in [self tables])

@@ -51,12 +51,6 @@
     return nil;
 }
 
-- (NSMutableArray *) getOrders
-{
-    NSMutableArray *orders = [[[NSMutableArray alloc] init] autorelease];
-    return orders;
-}
-
 - (NSMutableArray *) getOpenOrdersInfo
 {
     NSMutableArray *orders = [[[NSMutableArray alloc] init] autorelease];

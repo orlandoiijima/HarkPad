@@ -85,6 +85,8 @@
 		E534F42512F46231006886C6 /* SeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42412F46231006886C6 /* SeatInfo.m */; };
 		E542E59312E2405700BD434C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E542E59212E2405700BD434C /* QuartzCore.framework */; };
 		E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = E5557D2D12EC56C500CA547D /* ProductSymbol.m */; };
+		E555BD3713081DC20097EB0A /* Reservation.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3613081DC10097EB0A /* Reservation.m */; };
+		E555BD3B130821FD0097EB0A /* ReservationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */; };
 		E5C315F012E381580044948F /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
 		E5D8DE3D12EADCEC00F4784B /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8DE3C12EADCEC00F4784B /* star.png */; };
 /* End PBXBuildFile section */
@@ -225,8 +227,13 @@
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
+		E555BD3513081DC10097EB0A /* Reservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reservation.h; sourceTree = "<group>"; };
+		E555BD3613081DC10097EB0A /* Reservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reservation.m; sourceTree = "<group>"; };
+		E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationsTableViewController.h; sourceTree = "<group>"; };
+		E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationsTableViewController.m; sourceTree = "<group>"; };
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -353,6 +360,8 @@
 				E50A385E12E234B8007C2101 /* TablePopupMenu.h */,
 				E50A385F12E234B8007C2101 /* TablePopupMenu.m */,
 				E50A386012E234B8007C2101 /* Tables */,
+				E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */,
+				E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -382,8 +391,8 @@
 			children = (
 				E50A391A12E23E19007C2101 /* MenuItem.h */,
 				E50A391B12E23E19007C2101 /* MenuItem.m */,
-				E50A386512E234B8007C2101 /* Cache.h */,
 				E50A386612E234B8007C2101 /* Cache.m */,
+				E50A386512E234B8007C2101 /* Cache.h */,
 				E50A386912E234B8007C2101 /* District.h */,
 				E50A386A12E234B8007C2101 /* District.m */,
 				E50A386B12E234B8007C2101 /* DragNode.h */,
@@ -423,6 +432,9 @@
 				E534F42112F34214006886C6 /* Guest.m */,
 				E534F42312F46231006886C6 /* SeatInfo.h */,
 				E534F42412F46231006886C6 /* SeatInfo.m */,
+				E5DB12201307DEBC001B1681 /* EntityState.h */,
+				E555BD3513081DC10097EB0A /* Reservation.h */,
+				E555BD3613081DC10097EB0A /* Reservation.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -731,6 +743,8 @@
 				E534F41B12F3418F006886C6 /* Course.m in Sources */,
 				E534F42212F34214006886C6 /* Guest.m in Sources */,
 				E534F42512F46231006886C6 /* SeatInfo.m in Sources */,
+				E555BD3713081DC20097EB0A /* Reservation.m in Sources */,
+				E555BD3B130821FD0097EB0A /* ReservationsTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,7 +926,7 @@
 				E50A383112E21165007C2101 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E50A383212E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPad" */ = {
 			isa = XCConfigurationList;
@@ -921,7 +935,7 @@
 				E50A383412E21165007C2101 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */ = {
 			isa = XCConfigurationList;
@@ -932,7 +946,7 @@
 				E50A383912E21165007C2101 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

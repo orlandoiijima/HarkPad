@@ -14,11 +14,9 @@
 
 @synthesize id, name, price, items, key;
 
-+ (NSMutableArray *) menuFromJson:(NSData *)jsonData
++ (NSMutableArray *) menuFromJson:(NSMutableArray *)menusJson
 {
-    NSError *error = nil;
     NSMutableArray *menus = [[NSMutableArray alloc] init];
-	NSMutableArray *menusJson = [[CJSONDeserializer deserializer] deserializeAsArray:jsonData error:&error ];
     for(NSDictionary *menuDic in menusJson)
     {
         Menu *menu = [Menu menuFromJsonDictionary: menuDic]; 

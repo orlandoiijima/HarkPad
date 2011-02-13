@@ -40,18 +40,30 @@ static Service *_service;
     return [NSURL URLWithString:testUrl];
 }
 
+- (id) getResultFromJson: (NSData *)data
+{
+    NSError *error = nil;
+	NSDictionary *jsonDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
+    if(error != nil)
+        return [[NSMutableDictionary alloc] init];
+    id result =  [jsonDictionary objectForKey:@"result"];
+    if((NSNull *)result == [NSNull null])
+        return [[NSMutableDictionary alloc] init];
+    return result;
+}
+
 - (MenuCard *) getMenuCard
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmenucard" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [MenuCard menuFromJson:data];
+	return [MenuCard menuFromJson: [self getResultFromJson:data]];
 }
 
 - (NSMutableArray *) getMenus
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmenus" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [Menu menuFromJson:data];
+	return [Menu menuFromJson:[self getResultFromJson: data]];
 }
 
 - (TreeNode *) getTree
@@ -62,39 +74,21 @@ static Service *_service;
     {
         return nil;
     }
-    NSError *error = nil;
-	NSDictionary *treeDic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];  
-	return [TreeNode nodeFromJsonDictionary:treeDic parent:nil];
+	return [TreeNode nodeFromJsonDictionary:[self getResultFromJson:data] parent:nil];
 }
 
 - (Map *) getMap
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmap" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	return [Map mapFromJson:data];    
-}
-
-- (NSMutableArray *) getOrders
-{
-	NSURL *testUrl = [self makeEndPoint:@"getorders" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-    NSError *error = nil;
-	NSMutableArray *ordersDic = [[CJSONDeserializer deserializer] deserializeAsArray:data error:&error ];
-    NSMutableArray *orders = [[[NSMutableArray alloc] init] autorelease];
-    for(NSDictionary *orderDic in ordersDic)
-    {
-        Order *order = [Order orderFromJsonDictionary: orderDic]; 
-        [orders addObject:order];
-    }
-    return orders;
+	return [Map mapFromJson:[self getResultFromJson: data]];    
 }
 
 - (NSMutableArray *) getOpenOrdersInfo
 {
 	NSURL *testUrl = [self makeEndPoint:@"getopenordersinfo" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-    NSError *error = nil;
-	NSMutableArray *ordersDic = [[CJSONDeserializer deserializer] deserializeAsArray:data error:&error ];
+	NSMutableArray *ordersDic = [self getResultFromJson: data];
     NSMutableArray *orders = [[[NSMutableArray alloc] init] autorelease];
     for(NSDictionary *orderDic in ordersDic)
     {
@@ -104,12 +98,25 @@ static Service *_service;
     return orders;
 }
 
+- (NSMutableArray *) getReservations
+{
+	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *reservationsDic = [self getResultFromJson: data];
+    NSMutableArray *reservations = [[NSMutableArray alloc] init];
+    for(NSDictionary *reservationDic in reservationsDic)
+    {
+        Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
+        [reservations addObject:reservation];
+    }
+    return reservations;
+}
+
 - (Order *) getOrder: (int) orderId
 {
     NSURL *testUrl = [self makeEndPoint:@"getorder" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-    NSError *error = nil;
-	NSDictionary *orderDic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
+	NSDictionary *orderDic = [self getResultFromJson: data];
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
@@ -118,9 +125,8 @@ static Service *_service;
     NSURL *testUrl = [self makeEndPoint:@"getlatestorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
     
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-    NSError *error = nil;
-	NSDictionary *orderDic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
-    if(error != nil) return nil;
+	NSDictionary *orderDic = [self getResultFromJson:data];
+    if((orderDic == nil) || ([orderDic count] == 0)) return nil;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 

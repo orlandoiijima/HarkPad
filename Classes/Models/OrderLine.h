@@ -12,12 +12,23 @@
 #import "OrderLinePropertyValue.h"
 #import "Guest.h"
 #import "Course.h"
+#import "EntityState.h"
+
+typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @interface OrderLine : NSObject {
+    int id;
+    NSDate *createdOn;
+    EntityState entityState;
+    Guest *guest;
+    int quantity;
+    Course *course;
+    NSString *note;
+    Product *product;
+    int sortOrder;
+    State state;
+    NSMutableArray *propertyValues;
 }
-
-typedef enum EntityState {None = 0,New, Modified, Deleted} EntityState;
-typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @property int id;
 @property (retain) NSDate *createdOn;
@@ -39,7 +50,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 - (OrderLinePropertyValue *) getValueForProperty: (OrderLineProperty *) property;
 - (void) setStringValueForProperty : (OrderLineProperty *) property value: (NSString *) value;
 
-- (Course *) getCourseById: (int)courseId courses: (NSArray *) courses;
-- (Guest *) getGuestById: (int)guestId guests: (NSArray *) guests;
+- (Course *) getCourseByOffset: (int)offset courses: (NSArray *) courses;
+- (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests;
 
 @end

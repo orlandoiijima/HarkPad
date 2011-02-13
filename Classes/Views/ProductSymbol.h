@@ -8,15 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "Product.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface ProductSymbol : UIView {
-@private
-    
+    Product *food;
+    Product *drink;
+    int seat;
+    CAGradientLayer *gradient;
 }
 
-@property (retain) Product *product;
+@property (retain) Product *food;
+@property (retain) Product *drink;
 @property int seat;
+@property (retain) UILabel *label;
+@property (retain) CAGradientLayer *gradient;
 
-+ (ProductSymbol *) symbolWithFrame: (CGRect) frame product: (Product *)product seat: (int) seat;
++ (ProductSymbol *) symbolWithFrame: (CGRect) frame seat: (int) seat;
+- (void) setFood:(Product *)newFood drink: (Product *)newDrink;
 
 @end

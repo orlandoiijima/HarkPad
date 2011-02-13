@@ -20,7 +20,6 @@
 - (Order *) getOrder: (NSNumber *) orderId;
 - (Order *) getLatestOrderByTable: (NSNumber *) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
-- (NSMutableArray *) getOrders;
 - (void) startCourse: (int) courseId;
 - (void) makeBills: (NSMutableArray *) bills forOrder: (int) orderId;
 - (void) setState: (int) state forOrder: (int) orderId;

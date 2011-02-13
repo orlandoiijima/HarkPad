@@ -19,13 +19,9 @@
     return self;
 }
 
-+ (Map *) mapFromJson:(NSData *)jsonData
++ (Map *) mapFromJson:(NSMutableArray *)d
 {
     Map *map = [[[Map alloc] init] autorelease];
-    NSError *error = nil;
-	NSMutableArray *d = [[CJSONDeserializer deserializer] deserializeAsArray:jsonData error:&error ];
-    if(error != nil)
-        return nil;
     for(NSDictionary *districtDic in d)
     {
         District *district = [District districtFromJsonDictionary: districtDic]; 

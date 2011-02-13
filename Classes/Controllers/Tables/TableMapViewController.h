@@ -19,6 +19,7 @@
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
 - (IBAction) setupDistrictMap;
+- (IBAction) showReservations;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
 - (void) closeOrderView;
@@ -27,5 +28,5 @@
 @property (retain) District *currentDistrict;
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;
-
+@property (retain) IBOutlet UIBarButtonItem *buttonReservations;
 @end

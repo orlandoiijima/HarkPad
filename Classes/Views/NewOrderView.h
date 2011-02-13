@@ -11,7 +11,7 @@
 #import "NewOrderVC.h"
 
 @interface NewOrderView : UIView {
-
+    NewOrderVC *controller;
 }
 @property (retain)  NewOrderVC *controller;
 

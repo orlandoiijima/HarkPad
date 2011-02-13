@@ -10,11 +10,19 @@
 #import "OrderLine.h"
 #import "Cache.h"
 
-@interface Order : NSObject {
-}
-
 typedef enum OrderGrouping {bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
+
+@interface Order : NSObject {
+    EntityState entityState;
+    NSMutableArray *courses;
+    NSMutableArray *guests;
+    NSDate *createdOn;
+    NSMutableArray *tables;
+    int id;
+    OrderState state;
+}
+
 
 + (Order *) orderForTable: (Table *) table;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;

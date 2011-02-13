@@ -12,9 +12,10 @@
 #import "Table.h"
 
 @interface Map : NSObject {
+    NSMutableArray *districts;    
 }
 
-+ (Map *) mapFromJson: (NSData *) jsonData;
++ (Map *) mapFromJson: (NSMutableArray *) jsonArray;
 - (Table *) getTable: (int) tableId;
 
 @property (retain) NSMutableArray *districts;

@@ -15,6 +15,7 @@
 #import "OrderGridView.h"
 
 @interface NewOrderVC : UIViewController <UIActionSheetDelegate,UIPopoverControllerDelegate> {
+    Order *order;
 }
 
 typedef enum Orientation {SeatColumns, CourseColumns} Orientation ;

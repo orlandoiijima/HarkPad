@@ -8,8 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "Order.h"
+#import "SeatInfo.h"
 
 @interface OrderInfo : NSObject {
+    NSDate *createdOn;
+    NSMutableArray *tables;
+    NSMutableDictionary *seats;
+    int id;
+    OrderState state;
+    int countCourses;
+    int currentCourse;
+    NSDate *currentCourseRequestedOn;
 }
 
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary;
@@ -23,7 +32,8 @@
 @property int currentCourse;
 @property (retain) NSDate *currentCourseRequestedOn;
 
+- (SeatInfo *) getSeatInfo: (int) querySeat;
+
 - (BOOL) isSeatOccupied: (int) seat;
-- (Product *) getCurrentProductBySeat: (int) querySeat;
 
 @end

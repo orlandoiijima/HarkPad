@@ -10,6 +10,11 @@
 #import "District.h";
 
 @interface Table : NSObject {
+    int id;
+    NSString *name;
+    CGRect bounds;
+    int countSeats;
+    District *district;
 }
 
 @property int id;

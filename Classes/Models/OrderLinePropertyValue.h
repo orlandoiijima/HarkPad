@@ -10,6 +10,9 @@
 #import "OrderLineProperty.h"
 
 @interface OrderLinePropertyValue : NSObject {
+    int id;
+    OrderLineProperty *orderLineProperty;
+    NSString *value;
 }
 
 @property int id;

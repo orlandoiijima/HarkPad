@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface CourseProgress : UIView {
+    int countCourses;
+    int currentCourse;
+    BOOL isCurrentCourseHot; 
 }
 
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse;

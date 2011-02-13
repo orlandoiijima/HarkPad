@@ -10,8 +10,16 @@
 #import "ProductCategory.h"
 
 @interface Product : NSObject {
-
+    NSString *name;
+    NSString *key;
+    ProductCategory *category;
+    NSString *description;
+    NSDecimalNumber *price;
+    int sortOrder;
+    int id;
+    NSMutableArray *properties;
 }
+
 @property (retain) NSString *name;
 @property (retain) NSString *key;
 @property (retain) ProductCategory *category;

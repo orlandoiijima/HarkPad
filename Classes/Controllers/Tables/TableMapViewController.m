@@ -12,10 +12,11 @@
 #import "TableButton.h"
 #import "TablePopupMenu.h"
 #import "NewOrderVC.h"
+#import "ReservationsTableViewController.h"
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict;
+@synthesize map, tableMapView, districtPicker, currentDistrict, buttonReservations;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -104,6 +105,21 @@
     
     [popOver presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
+}
+
+- (void) showReservations
+{
+    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] init];
+    
+    //   tablePopupMenu.contentSizeForViewInPopover = CGSizeMake(300, 100);
+    
+    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:reservationsTVC];
+    popOver.delegate = self;
+    
+//    tablePopupMenu.popoverController = popOver;
+    
+//    [popOver presentPopoverFromBarButtonItem: buttonReservations permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)gotoOrderViewWithOrder: (Order *)order

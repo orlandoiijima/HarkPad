@@ -24,6 +24,10 @@
     id drinkId = [jsonDictionary objectForKey:@"drinkId"];
     if((NSNull *)drinkId != [NSNull null])
         seatInfo.drink = [[[Cache getInstance] menuCard] getProduct:[drinkId intValue]];
+
+    NSString *gender = [jsonDictionary objectForKey:@"gender"];
+    seatInfo.isMale = [gender isEqualToString:@"M"];
+    
     return seatInfo;
 }
 

@@ -13,6 +13,9 @@
 #import "TreeNode.h"
 
 @interface Cache : NSObject {
+    MenuCard *menuCard;
+    Map *map;
+    TreeNode *tree;
 }
 
 + (Cache *) getInstance;

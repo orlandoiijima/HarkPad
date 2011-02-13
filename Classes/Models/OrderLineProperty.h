@@ -10,6 +10,9 @@
 
 
 @interface OrderLineProperty : NSObject {
+    int id;
+    NSString *name;
+    NSArray *options;
 }
 
 @property int id;

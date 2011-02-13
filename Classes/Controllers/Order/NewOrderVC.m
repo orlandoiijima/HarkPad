@@ -127,8 +127,8 @@
         else
         {
             dragNode.orderLine.entityState = Modified;
-//            dragNode.orderLine.course = course;
-//            dragNode.orderLine.seat = seat;
+            dragNode.orderLine.course = [order getCourseByOffset: course];
+            dragNode.orderLine.guest = [order getGuestBySeat: seat];
         }
     }
     [dragNode removeFromSuperview];

@@ -60,6 +60,16 @@
     return order;
 }
 
+- (SeatInfo *) getSeatInfo: (int) querySeat
+{
+    for(NSString *seat in [self.seats allKeys])
+    {
+        if([seat intValue] == querySeat)
+            return [self.seats objectForKey:seat];
+    }
+    return NO;
+}
+
 - (BOOL) isSeatOccupied: (int) querySeat
 {
     for(NSString *seat in [self.seats allKeys])
@@ -68,21 +78,6 @@
             return YES;
     }
     return NO;
-}
-
-- (Product *) getCurrentProductBySeat: (int) querySeat
-{
-    for(NSString *seat in [self.seats allKeys])
-    {
-        if([seat intValue] == querySeat)
-        {
-            SeatInfo *seatInfo = [self.seats objectForKey:seat];
-            if(seatInfo == nil || seatInfo.food == nil)
-                return nil;
-            return seatInfo.food;
-        }
-    }
-    return nil;
 }
 
 @end

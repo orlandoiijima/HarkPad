@@ -14,10 +14,11 @@
 #import "OrderLineProperty.h"
 
 @interface MenuCard : NSObject {
-
+    NSMutableArray *categories;
+    NSMutableArray *menus;
 }
 
-+ (MenuCard *) menuFromJson: (NSData *) jsonData;
++ (MenuCard *) menuFromJson: (NSMutableArray *) jsonData;
 - (Product *) getProduct: (int) productId;
 - (Menu *) getMenu: (int) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;

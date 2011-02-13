@@ -13,6 +13,10 @@
 #import "Order.h"
 
 @interface OrderGridView : UIView {
+    GridCell *dropTarget;
+    GridCell *selectedCell;
+    OrderLine *selectedOrderLine;
+    CGRect selectedOrderLineFrame;
 }
 
 

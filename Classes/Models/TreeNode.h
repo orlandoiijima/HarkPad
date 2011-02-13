@@ -11,6 +11,14 @@
 #import "Menu.h"
 
 @interface TreeNode : NSObject {
+    NSNumber *id;
+    NSString *name;
+    NSMutableArray *nodes;
+    TreeNode *parent;
+    NSNumber *sortOrder;
+    UIColor *color;
+    Product *product;
+    Menu *menu;
 }
 
 @property (retain) NSNumber *id;

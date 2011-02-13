@@ -11,56 +11,65 @@
 
 @implementation ProductSymbol
 
-@synthesize product, seat;
+@synthesize food, drink, seat, label, gradient;
 
 
-+ (ProductSymbol *) symbolWithFrame: (CGRect) frame product: (Product *)product seat: (int)seat {
++ (ProductSymbol *) symbolWithFrame: (CGRect) frame seat: (int)seat {
     ProductSymbol *symbol = [[ProductSymbol alloc] initWithFrame:frame]; 
-    symbol.product = product;
     symbol.seat = seat;
+    symbol.label = [[UILabel alloc] initWithFrame: CGRectInset(symbol.bounds, 4, 4)];
+    symbol.label.adjustsFontSizeToFitWidth = YES;
+    symbol.label.backgroundColor = [UIColor clearColor];
+    [symbol addSubview:symbol.label];
     symbol.backgroundColor = [UIColor clearColor];
     symbol.userInteractionEnabled = false;
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.frame = symbol.bounds;
+    gradient.cornerRadius = 4;
+    gradient.borderColor = [[UIColor grayColor] CGColor];
+    gradient.borderWidth = 0;
+    gradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.6], [NSNumber numberWithFloat:1.0], nil];		
+    [symbol.layer insertSublayer:gradient atIndex:0];        
+    symbol.gradient = gradient;
+    
     return symbol;
 }
 
-- (void) setProduct:(Product *)newProduct
+- (void) setFood:(Product *)newFood drink: (Product *)newDrink
 {
-    [product release];
-    product = [newProduct retain];
-    product = newProduct;
+    food = newFood;
+    drink = newDrink;
+    if(food != nil)
+    {
+        gradient.borderWidth = 1;
+        gradient.borderColor = [[UIColor blackColor] CGColor];
+        gradient.colors = [NSArray arrayWithObjects:
+                           (id)[food.category.color CGColor],
+                           (id)[[food.category.color colorWithAlphaComponent:0.5] CGColor],
+                           nil];
+    }
+    else
+    {
+        if(drink == nil)
+        {
+            gradient.borderWidth = 0;
+        }
+        else
+        {
+            gradient.borderWidth = 1;
+            gradient.borderColor = [[UIColor grayColor] CGColor];
+            gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], nil];
+        }
+    }
+    if(drink != nil)
+    {
+        label.shadowColor = drink.category.color == [UIColor whiteColor] ? [UIColor blackColor] : [UIColor whiteColor];
+        label.textColor  = drink.category.color;
+        label.text = [[drink.key substringToIndex:2] uppercaseString];
+    }
     [self setNeedsDisplay];
 }
-
-- (void)drawRect:(CGRect)rect {
-    if(self.product == nil) return;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextSetLineWidth(context, 1);
-    
-    float radius = rect.size.height/2 * 0.9;
-    CGPoint center = CGPointMake(rect.size.width/2.0f, rect.size.height/2.0f);
-    //    if(exploded) {
-    //        center.x += radius/4 * cosf(startAngle + (endAngle - startAngle)/2) ;	
-    //        center.y += radius/4 * sinf(startAngle + (endAngle - startAngle)/2) ;	
-    //    }
-    CGContextMoveToPoint(context, center.x + radius, center.y);
-    CGContextAddArc(context, center.x, center.y, radius, 0, 2 * 3.14159f, 0);
-  //  CGContextClosePath(context);
-    CGContextSetFillColorWithColor(context, [self.product.category.color CGColor]);
-    
-    CGContextDrawPath(context, kCGPathFillStroke);
-}
-
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)dealloc
 {

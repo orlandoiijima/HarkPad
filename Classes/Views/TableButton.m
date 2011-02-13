@@ -14,7 +14,7 @@
 
 @implementation TableButton
 
-@synthesize table, orderInfo, progress, name;
+@synthesize table, orderInfo, progress, name, unit;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
@@ -47,14 +47,14 @@
         {
             int seat = i;
             CGRect rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + seatMargin/4, seatWidth/2, seatWidth / 2);
-            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
             [button addSubview: symbol];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
                 rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + tableRect.size.height - seatMargin/4 - seatWidth/2, seatWidth/2, seatWidth / 2);
-                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
                 [button addSubview: symbol];
             }
             
@@ -68,14 +68,14 @@
         {
             int seat = i;
             CGRect rect = CGRectMake(tableRect.origin.x + seatMargin/4, top + seatWidth/4, seatWidth / 2, seatWidth/2);
-            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+            ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
             [button addSubview: symbol];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
                 rect = CGRectMake(tableRect.origin.x + tableRect.size.width - seatMargin / 4 - seatWidth/2, top + seatWidth/4, seatWidth / 2, seatWidth/2);
-                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect product:nil seat:seat];
+                ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
                 [button addSubview: symbol];
             }
             top += seatWidth + button.unit;
@@ -157,7 +157,11 @@
             {
                 ProductSymbol *symbol = [self symbolBySeat:seat];
                 if(symbol != nil)
-                    symbol.product = [orderInfo getCurrentProductBySeat:seat];
+                {
+                    SeatInfo *seatInfo = [orderInfo getSeatInfo:seat];
+                    if(seatInfo != nil)
+                        [symbol setFood:seatInfo.food drink: seatInfo.drink];
+                }
             }
         }
         else
@@ -191,16 +195,16 @@
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            bool isOccupied = self.orderInfo != nil && [self.orderInfo isSeatOccupied:seat]; 
+            SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
             CGRect rect = CGRectMake(left, tableRect.origin.y - seatMargin, seatWidth, seatMargin / 2);
-            [self drawSeat: ctf withBounds: rect isOccupied: isOccupied];
+            [self drawSeat: ctf withBounds: rect info: seatInfo];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
                 rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + seatMargin / 2, seatWidth, seatMargin / 2);
-                isOccupied = self.orderInfo != nil && [self.orderInfo isSeatOccupied:seat]; 
-                [self drawSeat: ctf withBounds: rect isOccupied: isOccupied];
+                seatInfo = [self.orderInfo getSeatInfo: seat]; 
+                [self drawSeat: ctf withBounds: rect info: seatInfo];
             }
             left += seatWidth + self.unit;
         }
@@ -211,27 +215,31 @@
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            bool isOccupied = self.orderInfo != nil && [self.orderInfo isSeatOccupied:seat]; 
+            SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
             CGRect rect = CGRectMake(tableRect.origin.x - seatMargin, top, seatMargin / 2, seatWidth);
-            [self drawSeat: ctf withBounds: rect isOccupied: isOccupied];
+            [self drawSeat: ctf withBounds: rect info: seatInfo];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
                 rect = CGRectMake(tableRect.origin.x + tableRect.size.width + seatMargin / 2, top, seatMargin / 2, seatWidth);
-                isOccupied = self.orderInfo != nil && [self.orderInfo isSeatOccupied:seat]; 
-                [self drawSeat: ctf withBounds: rect isOccupied: isOccupied];
+                SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
+                [self drawSeat: ctf withBounds: rect info: seatInfo];
             }
             top += seatWidth + self.unit;
         }
     }
 }
 
-- (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds isOccupied: (BOOL) isOccupied
+- (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo
 {
     UIColor * backgroundColor;
-    if(isOccupied) backgroundColor = [UIColor blackColor];
-    else backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.2];
+    if(seatInfo == nil) backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.2];
+    else
+        if(seatInfo.isMale)
+            backgroundColor = [UIColor blueColor];
+    else
+        backgroundColor = [UIColor redColor];
     CGContextSetFillColorWithColor(context, [backgroundColor CGColor]);
     CGContextFillRect(context, bounds);    
 }

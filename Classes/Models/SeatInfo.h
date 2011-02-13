@@ -10,8 +10,9 @@
 #import "Product.h"
 
 @interface SeatInfo : NSObject {
-@private
-    
+    BOOL isMale;
+    Product *food;
+    Product *drink;
 }
 
 @property BOOL isMale;

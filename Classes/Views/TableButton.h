@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Table.h"
 #import "OrderInfo.h"
+#import "SeatInfo.h"
 #import "CourseProgress.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -22,9 +23,9 @@
 @property float unit;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY;
+- (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo;
 
-- (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds isOccupied: (BOOL) isOccupied;
-- (void) drawProductSymbol: (CGContextRef)context withBounds: (CGRect) bounds product: (Product*) product;
+//- (void) drawProductSymbol: (CGContextRef)context withBounds: (CGRect) bounds product: (Product*) product;
 
 //- (void) drawCourseProgress: (CGContextRef) context inRect: (CGRect) rect;
 //- (void) drawArc: (CGContextRef) context inRect: (CGRect) rect startAngle: (float) startAngle endAngle: (float) endAngle strokeColor: (UIColor *) strokeColor strokeWidth: (float) strokeWidth fillColor: (UIColor *)fillColor;

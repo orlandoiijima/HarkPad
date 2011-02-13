@@ -17,6 +17,7 @@
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses
 {
     OrderLine *orderLine = [[[OrderLine alloc] init] autorelease];
+    orderLine.entityState = None;
     orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
@@ -25,12 +26,12 @@
     orderLine.quantity = [[jsonDictionary objectForKey:@"quantity"] intValue];
     orderLine.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     
-    int guestId = [[jsonDictionary objectForKey:@"guestId"] intValue];
-    orderLine.guest = [orderLine getGuestById: guestId guests:guests];
+    int seat = [[jsonDictionary objectForKey:@"seat"] intValue];
+    orderLine.guest = [orderLine getGuestBySeat: seat guests:guests];
     [orderLine.guest.lines addObject:orderLine];
     
-    int courseId = [[jsonDictionary objectForKey:@"courseId"] intValue];
-    orderLine.course = [orderLine getCourseById: courseId courses:courses];
+    int offset = [[jsonDictionary objectForKey:@"course"] intValue];
+    orderLine.course = [orderLine getCourseByOffset: offset courses:courses];
     [orderLine.course.lines addObject:orderLine];
     
     orderLine.state = [[jsonDictionary objectForKey:@"state"] intValue];
@@ -45,21 +46,21 @@
 }
 
 
-- (Guest *) getGuestById: (int)guestId guests: (NSArray *) guests
+- (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests
 {
     for(Guest *g in guests)
     {
-        if(g.id == guestId)
+        if(g.seat == seat)
             return g;
     }
     return nil;
 }
 
-- (Course *) getCourseById: (int)courseId courses: (NSArray *) courses
+- (Course *) getCourseByOffset: (int)offset courses: (NSArray *) courses
 {
     for(Course *c in courses)
     {
-        if(c.id == courseId)
+        if(c.offset == offset)
             return c;
     }
     return nil;
@@ -70,6 +71,7 @@
     if ((self = [super init])) {
         self.quantity = 1;
         propertyValues = [[NSMutableArray alloc] init];
+        entityState = New;
     }
     return self;
 }
@@ -81,8 +83,8 @@
     [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"productId"];
     [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"sortOrder"];
     [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"quantity"];
-    [dic setObject: [NSNumber numberWithInt:guest.id] forKey:@"seatOffset"];
-    [dic setObject: [NSNumber numberWithInt:course.id] forKey:@"course"];
+    [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"seat"];
+    [dic setObject: [NSNumber numberWithInt:course.offset] forKey:@"course"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     return dic;
 }
