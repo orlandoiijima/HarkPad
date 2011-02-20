@@ -30,6 +30,7 @@
     for(NSDictionary *item in tables)
     {
         Table *table = [Table tableFromJsonDictionary: item]; 
+        table.district = district;
         [district.tables addObject:table];
     }
     return district;

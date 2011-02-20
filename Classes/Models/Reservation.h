@@ -15,11 +15,13 @@
     NSString *phone;
     NSString *email;
     NSString *notes;
+    NSString *language;
     NSDate *startsOn;
     NSDate *endsOn;
     NSDate *createdOn;
     int countGuests;
     BOOL mailingList;
+    int orderId;
 }
 
 @property int id;
@@ -27,11 +29,13 @@
 @property (retain) NSString *phone;
 @property (retain) NSString *email;
 @property (retain) NSString *notes;
+@property (retain) NSString *language;
 @property (retain) NSDate *startsOn;
 @property (retain) NSDate *endsOn;
 @property (retain) NSDate *createdOn;
 @property int countGuests;
 @property BOOL mailingList;
+@property int orderId;
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary;
 

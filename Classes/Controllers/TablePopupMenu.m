@@ -11,10 +11,12 @@
 #import "TableMapViewController.h"
 #import "Service.h"
 #import "Utils.h"
+#import "ReservationTableCell.h"
 
 @implementation TablePopupMenu
 
-@synthesize table, order, popoverController, infoItems, tableInfoView, commandItems;
+@synthesize table, order, popoverController, tableInfoView, commandItems;
+@synthesize reservations, groupedReservations;
 
 #pragma mark -
 #pragma mark Initialization
@@ -34,6 +36,24 @@
     tablePopupMenu.table = table;
     tablePopupMenu.order = order;
     tablePopupMenu.tableInfoView = [TableInfoView viewWithOrder:order];
+    
+    tablePopupMenu.reservations = [[Service getInstance] getReservations];
+    tablePopupMenu.groupedReservations = [[NSMutableDictionary alloc] init];
+    for (Reservation *reservation in tablePopupMenu.reservations) {
+        //  skip 'placed' reservations
+        if(reservation.orderId != -1) continue;
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+        NSInteger hour = [components hour];
+        NSInteger minute = [components minute];            
+        NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+        NSMutableArray *slotArray = [tablePopupMenu.groupedReservations objectForKey:timeSlot];
+        if(slotArray == nil) {
+            slotArray = [[NSMutableArray alloc] init];
+            [tablePopupMenu.groupedReservations setObject:slotArray forKey:timeSlot];
+        }
+        [slotArray addObject:reservation];
+    }
+    
     return tablePopupMenu;
 }
 
@@ -50,15 +70,6 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     
-    infoItems = [[NSMutableDictionary alloc] init];
-    [infoItems setValue:[NSString stringWithFormat:@"%d", [order getLastSeat]+1] forKey: @"Aantal personen"];
-    [infoItems setValue:[NSString stringWithFormat:@"%d", [order getLastCourse]+1] forKey: @"Aantal gangen"];
-    [infoItems setValue:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[order getFirstOrderDate]]] forKey: @"Eerste bestelling"];
-    [infoItems setValue:[NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:[order getLastOrderDate]]] forKey: @"Laatste bestelling"];
-    Course *currentCourse = [order getCurrentCourse];
-    NSString *lastCourse = currentCourse == nil ? @"-" : [Utils getCourseChar: currentCourse.offset];
-    [infoItems setValue:[NSString stringWithFormat:@"%@", lastCourse] forKey: @"Laatst opgevraagde gang"];
-
     commandItems = [[NSMutableDictionary alloc] init];
     [commandItems setValue:@"Bestelling opnemen" forKey: @"Bestelling"];
     if(order != nil)
@@ -71,7 +82,7 @@
             NSString *command = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
             
             [commandItems setValue:command forKey: @"Gang"];
-        }
+        }	
     }
 }
 
@@ -86,29 +97,30 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if(order == nil)
-        return 1;
+    {
+        return 1 + groupedReservations.count;
+    }
     else
-        return 3;
-}
+        return 1;
+}	
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch(section)
     {
-        case 1:
-            return infoItems.count;
         case 0:
+        {
             if(order == nil)
                 return 1;
             else
                 return 2;
-        case 2:
+        }
+        default:
         {
-            Course *nextCourse = [order getNextCourse];
-            if(nextCourse == nil)
-                return 0;
-            return nextCourse.lines.count;
-    
+            NSString *key = [[groupedReservations allKeys] objectAtIndex: section - 1];
+            NSArray *slotReservations = [groupedReservations objectForKey:key];
+            
+            return slotReservations.count;
         }
     }
     return 0;
@@ -120,12 +132,10 @@
         case 0:
             return [NSString stringWithFormat:@"Tafel %@", table.name];
             break;
-        case 1:
-            return @"Info";
-        case 2:
-            if(order == nil) return @"";
-            return [NSString stringWithFormat:@"Volgende gang"];
-            break;
+        default:
+        {
+            return [[groupedReservations allKeys] objectAtIndex: section - 1];
+        }
     }
     return @"";
 }
@@ -138,22 +148,12 @@
     
     switch(indexPath.section)
     {
-        case 1:
-        {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-            if (cell == nil) {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-            }
-            cell.textLabel.text = [[infoItems allKeys] objectAtIndex: indexPath.row];
-            cell.detailTextLabel.text = [[infoItems allValues] objectAtIndex: indexPath.row];
-            return cell;
-        }
             
         case 0:
         {            
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
             }
             switch(indexPath.row)
             {
@@ -168,6 +168,7 @@
                     else
                     {
                         cell.textLabel.text = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
+                        cell.detailTextLabel.text = [nextCourse stringForCourse];
                     }
                     break;
                 }
@@ -176,52 +177,71 @@
             break;
         }
           
-        case 2:
+        default:
         {
-            OrderLineCell *cell = (OrderLineCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
             if (cell == nil) {
-                cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderLineCell" owner:self options:nil] lastObject];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
             }
-            Course *nextCourse = [order getNextCourse];
-            OrderLine *line = [nextCourse.lines objectAtIndex:indexPath.row];
-            cell.orderLine = line;
+
+            NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section - 1];
+            NSArray *slotReservations = [groupedReservations objectForKey:key];
+            
+            Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+            cell.reservation = reservation;
             return cell;
         }
     }
     return nil;
 }
 
-
 #pragma mark -
 #pragma mark Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.section != 0) return;
-    switch(indexPath.row)
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch(indexPath.section)
     {
         case 0:
         {
-            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
-            if(order == nil)
-                [tableMapController newOrderForTable: table];
-            else
-                [tableMapController editOrder:order];
-            [popoverController dismissPopoverAnimated:YES];
-            break;
+            switch(indexPath.row)
+            {
+                case 0:
+                {
+                    TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
+                    if(order == nil)
+                        [tableMapController newOrderForTable: table];
+                    else
+                        [tableMapController editOrder:order];
+                    [popoverController dismissPopoverAnimated:YES];
+                    return;
+                }
+                case 1:
+                {
+                    Course *nextCourse = [order getNextCourse];
+                    if(nextCourse == nil)
+                    {
+                        [[Service getInstance] makeBills:nil forOrder: order.id]; 
+                        [popoverController dismissPopoverAnimated:YES];
+                    }
+                    else
+                    {
+                        [[Service getInstance] startCourse: nextCourse.id]; 
+                        [popoverController dismissPopoverAnimated:YES];
+                    }
+                    return;
+                }
+            }
         }
-        case 1:
+        default:
         {
-            Course *nextCourse = [order getNextCourse];
-            if(nextCourse == nil)
-            {
-                [[Service getInstance] makeBills:nil forOrder: order.id]; 
-                [popoverController dismissPopoverAnimated:YES];
-            }
-            else
-            {
-                [[Service getInstance] startCourse: nextCourse.id]; 
-                [popoverController dismissPopoverAnimated:YES];
-            }
+            NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section - 1];
+            NSArray *slotReservations = [groupedReservations objectForKey:key];
+            
+            Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
+            [tableMapController startTable: table fromReservation: reservation];
+            return;
         }
     }
 }

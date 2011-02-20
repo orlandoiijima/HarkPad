@@ -14,7 +14,7 @@
 @implementation OrderInfo
 
 
-@synthesize tables, seats, createdOn, state, id, countCourses, currentCourse, currentCourseRequestedOn;
+@synthesize tables, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn;
 
 
 - (id)init
@@ -32,6 +32,7 @@
     OrderInfo *order = [[[OrderInfo alloc] init] autorelease];
     order.id = [[jsonDictionary objectForKey:@"id"] intValue];
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
+    order.language = [jsonDictionary objectForKey:@"language"];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     order.countCourses = [[jsonDictionary objectForKey:@"countCourses"] intValue];

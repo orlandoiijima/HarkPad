@@ -19,6 +19,9 @@
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (NSMutableDictionary *) initDictionary;
+- (NSString *) stringForCourse;
+
+NSInteger intSort(id num1, id num2, void *context);
 
 @property int id;
 @property int offset;

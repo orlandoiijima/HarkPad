@@ -14,5 +14,5 @@
 }
 
 @property (retain) NSMutableArray *reservations;
-
+@property (retain) NSMutableDictionary *groupedReservations;
 @end

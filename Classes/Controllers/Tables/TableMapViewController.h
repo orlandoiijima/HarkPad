@@ -10,6 +10,7 @@
 #import "Map.h"
 #import "OrderInfo.h"
 #import "Order.h"
+#import "Reservation.h"
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate> {    
 }
@@ -20,9 +21,11 @@
 - (void) setupDistrictPicker;
 - (IBAction) setupDistrictMap;
 - (IBAction) showReservations;
+- (IBAction) gotoChefControlCenter;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
 - (void) closeOrderView;
+- (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;

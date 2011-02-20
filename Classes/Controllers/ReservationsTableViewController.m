@@ -8,10 +8,11 @@
 
 #import "ReservationsTableViewController.h"
 #import "Service.h"
+#import "ReservationTableCell.h"
 
 @implementation ReservationsTableViewController
 
-@synthesize reservations;
+@synthesize reservations, groupedReservations;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -19,6 +20,19 @@
     if (self) {
         // Custom initialization
         reservations = [[Service getInstance] getReservations];
+        groupedReservations = [[NSMutableDictionary alloc] init];
+        for (Reservation *reservation in reservations) {
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+            NSInteger hour = [components hour];
+            NSInteger minute = [components minute];            
+            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+            NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
+            if(slotArray == nil) {
+                slotArray = [[NSMutableArray alloc] init];
+                [groupedReservations setObject:slotArray forKey:timeSlot];
+            }
+            [slotArray addObject:reservation];
+        }
     }
     return self;
 }
@@ -86,26 +100,39 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [groupedReservations count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return reservations.count;
+    NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
+    
+    NSArray *slotReservations = [groupedReservations objectForKey:key];
+    if(slotReservations != nil)
+        return slotReservations.count;
+    return 0;
+}
+
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
+    return key;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
     }
-    
-    Reservation *reservation = [reservations objectAtIndex:indexPath.row];
-    cell.textLabel.text = reservation.name;
-    // Configure the cell...
+    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
+   
+    NSArray *slotReservations = [groupedReservations objectForKey:key];
+
+    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+    cell.reservation = reservation;
     
     return cell;
 }

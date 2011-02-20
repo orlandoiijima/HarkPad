@@ -13,6 +13,7 @@
 #import "TablePopupMenu.h"
 #import "NewOrderVC.h"
 #import "ReservationsTableViewController.h"
+#import "ChefViewController.h"
 
 @implementation TableMapViewController
 
@@ -72,6 +73,24 @@
         OrderInfo *info = [self orderInfoForTable:tableButton.table.id inOrders: orders];
         tableButton.orderInfo = info;
     }
+    NSMutableDictionary *districtTables = [[NSMutableDictionary alloc] init];
+    for(OrderInfo *info in orders)
+    {
+        District *district = [[info.tables objectAtIndex:0] district];
+        NSNumber *count = [districtTables objectForKey:district.name];
+        if(count == nil)
+            count = [NSNumber numberWithInt:0];
+        [districtTables setObject:[NSNumber numberWithInt:[count intValue]+1] forKey:district.name];
+    }
+    int i = 0;
+    for(District *district in map.districts)
+    {
+        NSNumber *count = [districtTables valueForKey:district.name];
+        NSString *countString = count == nil ? @"" : [NSString stringWithFormat:@" (%@)", count];
+        NSString *title = [NSString stringWithFormat:@"%@%@", district.name, countString];
+        [districtPicker setTitle:title forSegmentAtIndex: i];
+        i++;
+    }
 }
 
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *) orders
@@ -95,10 +114,10 @@
     Order *order = [[Service getInstance] getLatestOrderByTable: tableButton.table.id];
     
     TablePopupMenu *tablePopupMenu = [TablePopupMenu menuForTable: tableButton.table withOrder: order];
-    
- //   tablePopupMenu.contentSizeForViewInPopover = CGSizeMake(300, 100);
+    tablePopupMenu.contentSizeForViewInPopover = CGSizeMake(300, 300);
     
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:tablePopupMenu];
+
     popOver.delegate = self;
 
     tablePopupMenu.popoverController = popOver;
@@ -107,18 +126,21 @@
 
 }
 
+- (void) gotoChefControlCenter
+{
+    ChefViewController *chefView = [[ChefViewController alloc] init];
+    [self presentModalViewController:chefView animated:YES];
+}
+
 - (void) showReservations
 {
-    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] init];
+    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    //   tablePopupMenu.contentSizeForViewInPopover = CGSizeMake(300, 100);
+    reservationsTVC.contentSizeForViewInPopover = CGSizeMake(600, 300);
     
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:reservationsTVC];
     popOver.delegate = self;
     
-//    tablePopupMenu.popoverController = popOver;
-    
-//    [popOver presentPopoverFromBarButtonItem: buttonReservations permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
@@ -142,6 +164,12 @@
     Order *newOrder = [Order orderForTable:table];
     if(newOrder == nil) return;
     [self gotoOrderViewWithOrder:newOrder];
+}
+
+- (void) startTable: (Table *)table fromReservation: (Reservation *)reservation
+{
+    Service *service = [Service getInstance];
+    [service startTable:table.id fromReservation: reservation.id];
 }
 
 - (void) editOrder: (Order *) order

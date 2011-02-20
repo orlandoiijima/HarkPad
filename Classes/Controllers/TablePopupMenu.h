@@ -20,6 +20,9 @@
 @property (retain) Table *table;
 @property (retain) Order *order;
 @property (retain) UIPopoverController *popoverController;
-@property (retain) NSMutableDictionary *infoItems;
 @property (retain) NSMutableDictionary *commandItems;
+
+@property (retain) NSMutableArray *reservations;
+@property (retain) NSMutableDictionary *groupedReservations;
+
 @end

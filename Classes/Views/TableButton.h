@@ -14,20 +14,21 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface TableButton : UIButton {
+    UILabel *name;
+    Table *table;
+    OrderInfo *orderInfo;
+    CourseProgress * progress;
+    float unit;
 }
 
 @property (retain) UILabel *name;
 @property (retain) Table *table;
 @property (retain) OrderInfo *orderInfo;
 @property (retain) CourseProgress * progress;
+@property (retain) UIImageView *flag;
 @property float unit;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY;
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo;
-
-//- (void) drawProductSymbol: (CGContextRef)context withBounds: (CGRect) bounds product: (Product*) product;
-
-//- (void) drawCourseProgress: (CGContextRef) context inRect: (CGRect) rect;
-//- (void) drawArc: (CGContextRef) context inRect: (CGRect) rect startAngle: (float) startAngle endAngle: (float) endAngle strokeColor: (UIColor *) strokeColor strokeWidth: (float) strokeWidth fillColor: (UIColor *)fillColor;
 
 @end

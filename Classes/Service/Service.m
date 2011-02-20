@@ -103,13 +103,27 @@ static Service *_service;
 	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *reservationsDic = [self getResultFromJson: data];
-    NSMutableArray *reservations = [[NSMutableArray alloc] init];
+    NSMutableArray *reservations = [[[NSMutableArray alloc] init] autorelease];
     for(NSDictionary *reservationDic in reservationsDic)
     {
         Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
         [reservations addObject:reservation];
     }
     return reservations;
+}
+
+- (NSMutableArray *) getCurrentSlots
+{
+	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *slotsDic = [self getResultFromJson: data];
+    NSMutableArray *slots = [[[NSMutableArray alloc] init] autorelease];
+    for(NSDictionary *slotDic in slotsDic)
+    {
+        Slot *slot = [Slot slotFromJsonDictionary: slotDic]; 
+        [slots addObject:slot];
+    }
+    return slots;
 }
 
 - (Order *) getOrder: (int) orderId
@@ -172,6 +186,13 @@ static Service *_service;
     NSString *postString = [NSString stringWithFormat: @"bills=%@", jsonString];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
+}
+
+- (void) startTable: (int)tableId fromReservation: (int) reservationId
+{
+    NSURL *testUrl = [self makeEndPoint:@"starttable" withQuery:[NSString stringWithFormat:@"tableId=%d&reservationId=%d", tableId, reservationId]];
+    
+	[NSData dataWithContentsOfURL: testUrl];
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *) connection

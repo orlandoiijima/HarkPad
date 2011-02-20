@@ -19,6 +19,7 @@
     int countCourses;
     int currentCourse;
     NSDate *currentCourseRequestedOn;
+    NSString *language;
 }
 
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary;
@@ -31,6 +32,7 @@
 @property int countCourses;
 @property int currentCourse;
 @property (retain) NSDate *currentCourseRequestedOn;
+@property (retain) NSString *language;
 
 - (SeatInfo *) getSeatInfo: (int) querySeat;
 

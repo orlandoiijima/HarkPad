@@ -12,6 +12,7 @@
 #import "MenuCard.h"
 #import "Map.h"
 #import "Reservation.h"
+#import "Slot.h"
 #import "CJSONSerializer.h"
 #import "ServiceProtocol.h"
 
@@ -27,10 +28,12 @@
 - (Map *) getMap;
 - (Order *) getOrder: (int) orderId;
 - (NSMutableArray *) getReservations;
+- (NSMutableArray *) getCurrentSlots;
 - (Order *) getLatestOrderByTable: (int) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId;
 - (void) updateOrder: (Order *) order;
+- (void) startTable: (int)tableId fromReservation: (int) reservationId;
 
 - (id) getResultFromJson: (NSData *)data;
 

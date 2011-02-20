@@ -7,92 +7,103 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E50A380412E21164007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
-		E50A380612E21164007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
-		E50A380812E21164007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
-		E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
-		E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
-		E50A381512E21164007C2101 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381312E21164007C2101 /* MainWindow.xib */; };
 		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
 		E50A382412E21165007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
 		E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
 		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
 		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
 		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
-		E50A383F12E2193F007C2101 /* iTunesArtwork72.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A383E12E2193F007C2101 /* iTunesArtwork72.png */; };
-		E50A38C612E234B8007C2101 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
-		E50A38C812E234B8007C2101 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
-		E50A38C912E234B8007C2101 /* NewOrderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A384C12E234B8007C2101 /* NewOrderVC.xib */; };
-		E50A38CB12E234B8007C2101 /* OrderLineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */; };
-		E50A38CC12E234B8007C2101 /* OrderLineDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */; };
-		E50A38D112E234B8007C2101 /* PropertyOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385912E234B8007C2101 /* PropertyOptionViewController.m */; };
-		E50A38D412E234B8007C2101 /* TablePopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385F12E234B8007C2101 /* TablePopupMenu.m */; };
-		E50A38D512E234B8007C2101 /* TableMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386212E234B8007C2101 /* TableMapViewController.m */; };
-		E50A38D612E234B8007C2101 /* TableMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A386312E234B8007C2101 /* TableMapViewController.xib */; };
-		E50A38D712E234B8007C2101 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
-		E50A38D912E234B8007C2101 /* District.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386A12E234B8007C2101 /* District.m */; };
-		E50A38DA12E234B8007C2101 /* DragNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386C12E234B8007C2101 /* DragNode.m */; };
-		E50A38DB12E234B8007C2101 /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386E12E234B8007C2101 /* GridCell.m */; };
-		E50A38DC12E234B8007C2101 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387012E234B8007C2101 /* Map.m */; };
-		E50A38DD12E234B8007C2101 /* MenuCard.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387212E234B8007C2101 /* MenuCard.m */; };
-		E50A38DF12E234B8007C2101 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387512E234B8007C2101 /* Order.m */; };
-		E50A38E112E234B8007C2101 /* OrderGridHitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387912E234B8007C2101 /* OrderGridHitInfo.m */; };
-		E50A38E212E234B8007C2101 /* OrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387B12E234B8007C2101 /* OrderInfo.m */; };
-		E50A38E312E234B8007C2101 /* OrderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387D12E234B8007C2101 /* OrderLine.m */; };
-		E50A38E412E234B8007C2101 /* OrderLineProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387F12E234B8007C2101 /* OrderLineProperty.m */; };
-		E50A38E512E234B8007C2101 /* OrderLinePropertyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388112E234B8007C2101 /* OrderLinePropertyValue.m */; };
-		E50A38E712E234B8007C2101 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388512E234B8007C2101 /* Product.m */; };
-		E50A38E812E234B8007C2101 /* ProductCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388712E234B8007C2101 /* ProductCategory.m */; };
-		E50A38E912E234B8007C2101 /* readme in Resources */ = {isa = PBXBuildFile; fileRef = E50A388812E234B8007C2101 /* readme */; };
-		E50A38EB12E234B8007C2101 /* Table.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388C12E234B8007C2101 /* Table.m */; };
-		E50A38EC12E234B8007C2101 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A388F12E234B8007C2101 /* food.png */; };
-		E50A38ED12E234B8007C2101 /* fork-and-knife.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389012E234B8007C2101 /* fork-and-knife.png */; };
-		E50A38EE12E234B8007C2101 /* martini.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389112E234B8007C2101 /* martini.png */; };
-		E50A38EF12E234B8007C2101 /* wine-bottle.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389212E234B8007C2101 /* wine-bottle.png */; };
-		E50A38F012E234B8007C2101 /* wine-glass.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389312E234B8007C2101 /* wine-glass.png */; };
-		E50A38F112E234B8007C2101 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389612E234B8007C2101 /* CDataScanner.m */; };
-		E50A38F212E234B8007C2101 /* CExtensibleJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389912E234B8007C2101 /* CExtensibleJSONDataSerializer.m */; };
-		E50A38F312E234B8007C2101 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389C12E234B8007C2101 /* CDataScanner_Extensions.m */; };
-		E50A38F412E234B8007C2101 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389E12E234B8007C2101 /* NSCharacterSet_Extensions.m */; };
-		E50A38F512E234B8007C2101 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A012E234B8007C2101 /* NSDictionary_JSONExtensions.m */; };
-		E50A38F612E234B8007C2101 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A212E234B8007C2101 /* NSScanner_Extensions.m */; };
-		E50A38F712E234B8007C2101 /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A512E234B8007C2101 /* CJSONDataSerializer.m */; };
-		E50A38F812E234B8007C2101 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A712E234B8007C2101 /* CJSONDeserializer.m */; };
-		E50A38F912E234B8007C2101 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A912E234B8007C2101 /* CJSONScanner.m */; };
-		E50A38FA12E234B8007C2101 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38AB12E234B8007C2101 /* CJSONSerializer.m */; };
-		E50A38FB12E234B8007C2101 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38AD12E234B8007C2101 /* CSerializedJSONData.m */; };
-		E50A38FC12E234B8007C2101 /* CourseProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B012E234B8007C2101 /* CourseProgress.m */; };
-		E50A38FD12E234B8007C2101 /* NewOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B212E234B8007C2101 /* NewOrderView.m */; };
-		E50A38FE12E234B8007C2101 /* OrderGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B412E234B8007C2101 /* OrderGridView.m */; };
-		E50A38FF12E234B8007C2101 /* OrderLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B612E234B8007C2101 /* OrderLineCell.m */; };
-		E50A390012E234B8007C2101 /* OrderLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38B712E234B8007C2101 /* OrderLineCell.xib */; };
-		E50A390112E234B8007C2101 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B912E234B8007C2101 /* OrderTableCell.m */; };
-		E50A390212E234B8007C2101 /* OrderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BB12E234B8007C2101 /* OrderTableView.m */; };
-		E50A390312E234B8007C2101 /* ProductPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BD12E234B8007C2101 /* ProductPanelView.m */; };
-		E50A390412E234B8007C2101 /* Splitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BF12E234B8007C2101 /* Splitter.m */; };
-		E50A390512E234B8007C2101 /* TableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38C112E234B8007C2101 /* TableButton.m */; };
-		E50A390612E234B8007C2101 /* TableInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38C312E234B8007C2101 /* TableInfoView.m */; };
-		E50A390712E234B8007C2101 /* TableInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38C412E234B8007C2101 /* TableInfoView.xib */; };
-		E50A390B12E236A7007C2101 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390A12E236A7007C2101 /* Utils.m */; };
-		E50A390E12E236BE007C2101 /* TreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390D12E236BE007C2101 /* TreeNode.m */; };
-		E50A391112E23715007C2101 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391012E23715007C2101 /* Menu.m */; };
-		E50A391812E23A43007C2101 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391412E23A43007C2101 /* Service.m */; };
-		E50A391912E23A43007C2101 /* TestService.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391712E23A43007C2101 /* TestService.m */; };
-		E50A391E12E23E19007C2101 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391B12E23E19007C2101 /* MenuItem.m */; };
-		E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391D12E23E19007C2101 /* ModalAlert.m */; };
-		E534F41B12F3418F006886C6 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F41A12F3418F006886C6 /* Course.m */; };
-		E534F42212F34214006886C6 /* Guest.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42112F34214006886C6 /* Guest.m */; };
-		E534F42512F46231006886C6 /* SeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42412F46231006886C6 /* SeatInfo.m */; };
-		E542E59312E2405700BD434C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E542E59212E2405700BD434C /* QuartzCore.framework */; };
-		E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = E5557D2D12EC56C500CA547D /* ProductSymbol.m */; };
-		E555BD3713081DC20097EB0A /* Reservation.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3613081DC10097EB0A /* Reservation.m */; };
-		E555BD3B130821FD0097EB0A /* ReservationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */; };
-		E5C315F012E381580044948F /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
-		E5D8DE3D12EADCEC00F4784B /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8DE3C12EADCEC00F4784B /* star.png */; };
+		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
+		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
+		E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
+		E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */; };
+		E5E722F91311A12C00905959 /* PropertyOptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385912E234B8007C2101 /* PropertyOptionViewController.m */; };
+		E5E722FA1311A12C00905959 /* TablePopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385F12E234B8007C2101 /* TablePopupMenu.m */; };
+		E5E722FB1311A12C00905959 /* TableMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386212E234B8007C2101 /* TableMapViewController.m */; };
+		E5E722FC1311A12C00905959 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
+		E5E722FD1311A12C00905959 /* District.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386A12E234B8007C2101 /* District.m */; };
+		E5E722FE1311A12C00905959 /* DragNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386C12E234B8007C2101 /* DragNode.m */; };
+		E5E722FF1311A12C00905959 /* GridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386E12E234B8007C2101 /* GridCell.m */; };
+		E5E723001311A12C00905959 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387012E234B8007C2101 /* Map.m */; };
+		E5E723011311A12C00905959 /* MenuCard.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387212E234B8007C2101 /* MenuCard.m */; };
+		E5E723021311A12C00905959 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387512E234B8007C2101 /* Order.m */; };
+		E5E723031311A12C00905959 /* OrderGridHitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387912E234B8007C2101 /* OrderGridHitInfo.m */; };
+		E5E723041311A12C00905959 /* OrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387B12E234B8007C2101 /* OrderInfo.m */; };
+		E5E723051311A12C00905959 /* OrderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387D12E234B8007C2101 /* OrderLine.m */; };
+		E5E723061311A12C00905959 /* OrderLineProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387F12E234B8007C2101 /* OrderLineProperty.m */; };
+		E5E723071311A12C00905959 /* OrderLinePropertyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388112E234B8007C2101 /* OrderLinePropertyValue.m */; };
+		E5E723081311A12C00905959 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388512E234B8007C2101 /* Product.m */; };
+		E5E723091311A12C00905959 /* ProductCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388712E234B8007C2101 /* ProductCategory.m */; };
+		E5E7230A1311A12C00905959 /* Table.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388C12E234B8007C2101 /* Table.m */; };
+		E5E7230B1311A12C00905959 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389612E234B8007C2101 /* CDataScanner.m */; };
+		E5E7230C1311A12C00905959 /* CExtensibleJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389912E234B8007C2101 /* CExtensibleJSONDataSerializer.m */; };
+		E5E7230D1311A12C00905959 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389C12E234B8007C2101 /* CDataScanner_Extensions.m */; };
+		E5E7230E1311A12C00905959 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A389E12E234B8007C2101 /* NSCharacterSet_Extensions.m */; };
+		E5E7230F1311A12C00905959 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A012E234B8007C2101 /* NSDictionary_JSONExtensions.m */; };
+		E5E723101311A12C00905959 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A212E234B8007C2101 /* NSScanner_Extensions.m */; };
+		E5E723111311A12C00905959 /* CJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A512E234B8007C2101 /* CJSONDataSerializer.m */; };
+		E5E723121311A12C00905959 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A712E234B8007C2101 /* CJSONDeserializer.m */; };
+		E5E723131311A12C00905959 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38A912E234B8007C2101 /* CJSONScanner.m */; };
+		E5E723141311A12C00905959 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38AB12E234B8007C2101 /* CJSONSerializer.m */; };
+		E5E723151311A12C00905959 /* CSerializedJSONData.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38AD12E234B8007C2101 /* CSerializedJSONData.m */; };
+		E5E723161311A12C00905959 /* CourseProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B012E234B8007C2101 /* CourseProgress.m */; };
+		E5E723171311A12C00905959 /* NewOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B212E234B8007C2101 /* NewOrderView.m */; };
+		E5E723181311A12C00905959 /* OrderGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B412E234B8007C2101 /* OrderGridView.m */; };
+		E5E723191311A12C00905959 /* OrderLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B612E234B8007C2101 /* OrderLineCell.m */; };
+		E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B912E234B8007C2101 /* OrderTableCell.m */; };
+		E5E7231B1311A12C00905959 /* OrderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BB12E234B8007C2101 /* OrderTableView.m */; };
+		E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BD12E234B8007C2101 /* ProductPanelView.m */; };
+		E5E7231D1311A12C00905959 /* Splitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BF12E234B8007C2101 /* Splitter.m */; };
+		E5E7231E1311A12C00905959 /* TableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38C112E234B8007C2101 /* TableButton.m */; };
+		E5E7231F1311A12C00905959 /* TableInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38C312E234B8007C2101 /* TableInfoView.m */; };
+		E5E723201311A12C00905959 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390A12E236A7007C2101 /* Utils.m */; };
+		E5E723211311A12C00905959 /* TreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390D12E236BE007C2101 /* TreeNode.m */; };
+		E5E723221311A12C00905959 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391012E23715007C2101 /* Menu.m */; };
+		E5E723231311A12C00905959 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391412E23A43007C2101 /* Service.m */; };
+		E5E723241311A12C00905959 /* TestService.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391712E23A43007C2101 /* TestService.m */; };
+		E5E723251311A12C00905959 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391B12E23E19007C2101 /* MenuItem.m */; };
+		E5E723261311A12C00905959 /* ModalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391D12E23E19007C2101 /* ModalAlert.m */; };
+		E5E723271311A12C00905959 /* ProductSymbol.m in Sources */ = {isa = PBXBuildFile; fileRef = E5557D2D12EC56C500CA547D /* ProductSymbol.m */; };
+		E5E723281311A12C00905959 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F41A12F3418F006886C6 /* Course.m */; };
+		E5E723291311A12C00905959 /* Guest.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42112F34214006886C6 /* Guest.m */; };
+		E5E7232A1311A12C00905959 /* SeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42412F46231006886C6 /* SeatInfo.m */; };
+		E5E7232B1311A12C00905959 /* Reservation.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3613081DC10097EB0A /* Reservation.m */; };
+		E5E7232C1311A12C00905959 /* ReservationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */; };
+		E5E7232D1311A12C00905959 /* ReservationTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E377B11309C4A100F93319 /* ReservationTableCell.m */; };
+		E5E7232E1311A12C00905959 /* Slot.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E722E613116DFB00905959 /* Slot.m */; };
+		E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E722EF13118B3900905959 /* ChefViewController.m */; };
+		E5E723311311A12C00905959 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E542E59212E2405700BD434C /* QuartzCore.framework */; };
+		E5E723321311A12C00905959 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
+		E5E723331311A12C00905959 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
+		E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
+		E5E723361311A12C00905959 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
+		E5E723371311A12C00905959 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381312E21164007C2101 /* MainWindow.xib */; };
+		E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A383E12E2193F007C2101 /* iTunesArtwork72.png */; };
+		E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A384C12E234B8007C2101 /* NewOrderVC.xib */; };
+		E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */; };
+		E5E7233B1311A12C00905959 /* TableMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A386312E234B8007C2101 /* TableMapViewController.xib */; };
+		E5E7233C1311A12C00905959 /* readme in Resources */ = {isa = PBXBuildFile; fileRef = E50A388812E234B8007C2101 /* readme */; };
+		E5E7233D1311A12C00905959 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A388F12E234B8007C2101 /* food.png */; };
+		E5E7233E1311A12C00905959 /* fork-and-knife.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389012E234B8007C2101 /* fork-and-knife.png */; };
+		E5E7233F1311A12C00905959 /* martini.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389112E234B8007C2101 /* martini.png */; };
+		E5E723401311A12C00905959 /* wine-bottle.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389212E234B8007C2101 /* wine-bottle.png */; };
+		E5E723411311A12C00905959 /* wine-glass.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389312E234B8007C2101 /* wine-glass.png */; };
+		E5E723421311A12C00905959 /* OrderLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38B712E234B8007C2101 /* OrderLineCell.xib */; };
+		E5E723431311A12C00905959 /* TableInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38C412E234B8007C2101 /* TableInfoView.xib */; };
+		E5E723441311A12C00905959 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
+		E5E723451311A12C00905959 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8DE3C12EADCEC00F4784B /* star.png */; };
+		E5E723461311A12C00905959 /* ReservationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E377B31309C4D000F93319 /* ReservationTableCell.xib */; };
+		E5E723471311A12C00905959 /* nl.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F0648E130D4F260037816B /* nl.png */; };
+		E5E723481311A12C00905959 /* de.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F06490130D4F7C0037816B /* de.png */; };
+		E5E723491311A12C00905959 /* fr.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F06492130D4F8A0037816B /* fr.png */; };
+		E5E7234A1311A12C00905959 /* es.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F06494130D4FB20037816B /* es.png */; };
+		E5E7234B1311A12C00905959 /* it.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F06496130D4FC50037816B /* it.png */; };
+		E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */; };
+		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
+		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E50A380012E21164007C2101 /* HarkPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarkPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50A380312E21164007C2101 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E50A380512E21164007C2101 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E50A380712E21164007C2101 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -234,20 +245,25 @@
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
+		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
+		E5E377B11309C4A100F93319 /* ReservationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationTableCell.m; sourceTree = "<group>"; };
+		E5E377B31309C4D000F93319 /* ReservationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationTableCell.xib; sourceTree = "<group>"; };
+		E5E722E513116DFB00905959 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
+		E5E722E613116DFB00905959 /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
+		E5E722EE13118B3800905959 /* ChefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChefViewController.h; sourceTree = "<group>"; };
+		E5E722EF13118B3900905959 /* ChefViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChefViewController.m; sourceTree = "<group>"; };
+		E5E722F013118B3D00905959 /* ChefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChefViewController.xib; sourceTree = "<group>"; };
+		E5E723521311A12C00905959 /* HarkPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarkPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5F0648E130D4F260037816B /* nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nl.png; sourceTree = "<group>"; };
+		E5F06490130D4F7C0037816B /* de.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = de.png; sourceTree = "<group>"; };
+		E5F06492130D4F8A0037816B /* fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fr.png; sourceTree = "<group>"; };
+		E5F06494130D4FB20037816B /* es.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = es.png; sourceTree = "<group>"; };
+		E5F06496130D4FC50037816B /* it.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = it.png; sourceTree = "<group>"; };
+		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E50A37FD12E21164007C2101 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E542E59312E2405700BD434C /* QuartzCore.framework in Frameworks */,
-				E50A380412E21164007C2101 /* UIKit.framework in Frameworks */,
-				E50A380612E21164007C2101 /* Foundation.framework in Frameworks */,
-				E50A380812E21164007C2101 /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E50A381E12E21165007C2101 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,12 +274,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E5E723301311A12C00905959 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5E723311311A12C00905959 /* QuartzCore.framework in Frameworks */,
+				E5E723321311A12C00905959 /* UIKit.framework in Frameworks */,
+				E5E723331311A12C00905959 /* Foundation.framework in Frameworks */,
+				E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */,
+				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
 				E50A37FA12E21164007C2101 /* Resources */,
@@ -309,8 +338,8 @@
 		E50A380112E21164007C2101 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E50A380012E21164007C2101 /* HarkPad.app */,
 				E50A382212E21165007C2101 /* HarkPadTests.octest */,
+				E5E723521311A12C00905959 /* HarkPad.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -362,6 +391,9 @@
 				E50A386012E234B8007C2101 /* Tables */,
 				E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */,
 				E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */,
+				E5E722EE13118B3800905959 /* ChefViewController.h */,
+				E5E722EF13118B3900905959 /* ChefViewController.m */,
+				E5E722F013118B3D00905959 /* ChefViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -435,6 +467,8 @@
 				E5DB12201307DEBC001B1681 /* EntityState.h */,
 				E555BD3513081DC10097EB0A /* Reservation.h */,
 				E555BD3613081DC10097EB0A /* Reservation.m */,
+				E5E722E513116DFB00905959 /* Slot.h */,
+				E5E722E613116DFB00905959 /* Slot.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -450,6 +484,11 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F0648E130D4F260037816B /* nl.png */,
+				E5F06494130D4FB20037816B /* es.png */,
+				E5F06496130D4FC50037816B /* it.png */,
+				E5F06490130D4F7C0037816B /* de.png */,
+				E5F06492130D4F8A0037816B /* fr.png */,
 				E50A383E12E2193F007C2101 /* iTunesArtwork72.png */,
 				E5D8DE3C12EADCEC00F4784B /* star.png */,
 				E5C315EF12E381580044948F /* group.png */,
@@ -542,6 +581,9 @@
 				E50A38C412E234B8007C2101 /* TableInfoView.xib */,
 				E5557D2C12EC56C500CA547D /* ProductSymbol.h */,
 				E5557D2D12EC56C500CA547D /* ProductSymbol.m */,
+				E5E377B01309C4A100F93319 /* ReservationTableCell.h */,
+				E5E377B11309C4A100F93319 /* ReservationTableCell.m */,
+				E5E377B31309C4D000F93319 /* ReservationTableCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -572,23 +614,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E50A37FF12E21164007C2101 /* HarkPad */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E50A383212E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPad" */;
-			buildPhases = (
-				E50A37FC12E21164007C2101 /* Sources */,
-				E50A37FD12E21164007C2101 /* Frameworks */,
-				E50A37FE12E21164007C2101 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HarkPad;
-			productName = HarkPad;
-			productReference = E50A380012E21164007C2101 /* HarkPad.app */;
-			productType = "com.apple.product-type.application";
-		};
 		E50A382112E21165007C2101 /* HarkPadTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */;
@@ -606,6 +631,23 @@
 			productName = HarkPadTests;
 			productReference = E50A382212E21165007C2101 /* HarkPadTests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		E5E722F31311A12C00905959 /* HarkPad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5E7234F1311A12C00905959 /* Build configuration list for PBXNativeTarget "HarkPad" */;
+			buildPhases = (
+				E5E722F41311A12C00905959 /* Sources */,
+				E5E723301311A12C00905959 /* Frameworks */,
+				E5E723351311A12C00905959 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HarkPad;
+			productName = HarkPad;
+			productReference = E5E723521311A12C00905959 /* HarkPad.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -627,42 +669,51 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E50A37FF12E21164007C2101 /* HarkPad */,
 				E50A382112E21165007C2101 /* HarkPadTests */,
+				E5E722F31311A12C00905959 /* HarkPad */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E50A37FE12E21164007C2101 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E50A380D12E21164007C2101 /* InfoPlist.strings in Resources */,
-				E50A381512E21164007C2101 /* MainWindow.xib in Resources */,
-				E50A383F12E2193F007C2101 /* iTunesArtwork72.png in Resources */,
-				E50A38C912E234B8007C2101 /* NewOrderVC.xib in Resources */,
-				E50A38CC12E234B8007C2101 /* OrderLineDetailViewController.xib in Resources */,
-				E50A38D612E234B8007C2101 /* TableMapViewController.xib in Resources */,
-				E50A38E912E234B8007C2101 /* readme in Resources */,
-				E50A38EC12E234B8007C2101 /* food.png in Resources */,
-				E50A38ED12E234B8007C2101 /* fork-and-knife.png in Resources */,
-				E50A38EE12E234B8007C2101 /* martini.png in Resources */,
-				E50A38EF12E234B8007C2101 /* wine-bottle.png in Resources */,
-				E50A38F012E234B8007C2101 /* wine-glass.png in Resources */,
-				E50A390012E234B8007C2101 /* OrderLineCell.xib in Resources */,
-				E50A390712E234B8007C2101 /* TableInfoView.xib in Resources */,
-				E5C315F012E381580044948F /* group.png in Resources */,
-				E5D8DE3D12EADCEC00F4784B /* star.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E50A381F12E21165007C2101 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E50A382912E21165007C2101 /* InfoPlist.strings in Resources */,
 				E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5E723351311A12C00905959 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5E723361311A12C00905959 /* InfoPlist.strings in Resources */,
+				E5E723371311A12C00905959 /* MainWindow.xib in Resources */,
+				E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */,
+				E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */,
+				E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */,
+				E5E7233B1311A12C00905959 /* TableMapViewController.xib in Resources */,
+				E5E7233C1311A12C00905959 /* readme in Resources */,
+				E5E7233D1311A12C00905959 /* food.png in Resources */,
+				E5E7233E1311A12C00905959 /* fork-and-knife.png in Resources */,
+				E5E7233F1311A12C00905959 /* martini.png in Resources */,
+				E5E723401311A12C00905959 /* wine-bottle.png in Resources */,
+				E5E723411311A12C00905959 /* wine-glass.png in Resources */,
+				E5E723421311A12C00905959 /* OrderLineCell.xib in Resources */,
+				E5E723431311A12C00905959 /* TableInfoView.xib in Resources */,
+				E5E723441311A12C00905959 /* group.png in Resources */,
+				E5E723451311A12C00905959 /* star.png in Resources */,
+				E5E723461311A12C00905959 /* ReservationTableCell.xib in Resources */,
+				E5E723471311A12C00905959 /* nl.png in Resources */,
+				E5E723481311A12C00905959 /* de.png in Resources */,
+				E5E723491311A12C00905959 /* fr.png in Resources */,
+				E5E7234A1311A12C00905959 /* es.png in Resources */,
+				E5E7234B1311A12C00905959 /* it.png in Resources */,
+				E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */,
+				E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */,
+				E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -685,74 +736,77 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		E50A37FC12E21164007C2101 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E50A380F12E21164007C2101 /* HarkPad-main.m in Sources */,
-				E50A38C612E234B8007C2101 /* HarkPadAppDelegate.m in Sources */,
-				E50A38C812E234B8007C2101 /* NewOrderVC.m in Sources */,
-				E50A38CB12E234B8007C2101 /* OrderLineDetailViewController.m in Sources */,
-				E50A38D112E234B8007C2101 /* PropertyOptionViewController.m in Sources */,
-				E50A38D412E234B8007C2101 /* TablePopupMenu.m in Sources */,
-				E50A38D512E234B8007C2101 /* TableMapViewController.m in Sources */,
-				E50A38D712E234B8007C2101 /* Cache.m in Sources */,
-				E50A38D912E234B8007C2101 /* District.m in Sources */,
-				E50A38DA12E234B8007C2101 /* DragNode.m in Sources */,
-				E50A38DB12E234B8007C2101 /* GridCell.m in Sources */,
-				E50A38DC12E234B8007C2101 /* Map.m in Sources */,
-				E50A38DD12E234B8007C2101 /* MenuCard.m in Sources */,
-				E50A38DF12E234B8007C2101 /* Order.m in Sources */,
-				E50A38E112E234B8007C2101 /* OrderGridHitInfo.m in Sources */,
-				E50A38E212E234B8007C2101 /* OrderInfo.m in Sources */,
-				E50A38E312E234B8007C2101 /* OrderLine.m in Sources */,
-				E50A38E412E234B8007C2101 /* OrderLineProperty.m in Sources */,
-				E50A38E512E234B8007C2101 /* OrderLinePropertyValue.m in Sources */,
-				E50A38E712E234B8007C2101 /* Product.m in Sources */,
-				E50A38E812E234B8007C2101 /* ProductCategory.m in Sources */,
-				E50A38EB12E234B8007C2101 /* Table.m in Sources */,
-				E50A38F112E234B8007C2101 /* CDataScanner.m in Sources */,
-				E50A38F212E234B8007C2101 /* CExtensibleJSONDataSerializer.m in Sources */,
-				E50A38F312E234B8007C2101 /* CDataScanner_Extensions.m in Sources */,
-				E50A38F412E234B8007C2101 /* NSCharacterSet_Extensions.m in Sources */,
-				E50A38F512E234B8007C2101 /* NSDictionary_JSONExtensions.m in Sources */,
-				E50A38F612E234B8007C2101 /* NSScanner_Extensions.m in Sources */,
-				E50A38F712E234B8007C2101 /* CJSONDataSerializer.m in Sources */,
-				E50A38F812E234B8007C2101 /* CJSONDeserializer.m in Sources */,
-				E50A38F912E234B8007C2101 /* CJSONScanner.m in Sources */,
-				E50A38FA12E234B8007C2101 /* CJSONSerializer.m in Sources */,
-				E50A38FB12E234B8007C2101 /* CSerializedJSONData.m in Sources */,
-				E50A38FC12E234B8007C2101 /* CourseProgress.m in Sources */,
-				E50A38FD12E234B8007C2101 /* NewOrderView.m in Sources */,
-				E50A38FE12E234B8007C2101 /* OrderGridView.m in Sources */,
-				E50A38FF12E234B8007C2101 /* OrderLineCell.m in Sources */,
-				E50A390112E234B8007C2101 /* OrderTableCell.m in Sources */,
-				E50A390212E234B8007C2101 /* OrderTableView.m in Sources */,
-				E50A390312E234B8007C2101 /* ProductPanelView.m in Sources */,
-				E50A390412E234B8007C2101 /* Splitter.m in Sources */,
-				E50A390512E234B8007C2101 /* TableButton.m in Sources */,
-				E50A390612E234B8007C2101 /* TableInfoView.m in Sources */,
-				E50A390B12E236A7007C2101 /* Utils.m in Sources */,
-				E50A390E12E236BE007C2101 /* TreeNode.m in Sources */,
-				E50A391112E23715007C2101 /* Menu.m in Sources */,
-				E50A391812E23A43007C2101 /* Service.m in Sources */,
-				E50A391912E23A43007C2101 /* TestService.m in Sources */,
-				E50A391E12E23E19007C2101 /* MenuItem.m in Sources */,
-				E50A391F12E23E19007C2101 /* ModalAlert.m in Sources */,
-				E5557D2E12EC56C600CA547D /* ProductSymbol.m in Sources */,
-				E534F41B12F3418F006886C6 /* Course.m in Sources */,
-				E534F42212F34214006886C6 /* Guest.m in Sources */,
-				E534F42512F46231006886C6 /* SeatInfo.m in Sources */,
-				E555BD3713081DC20097EB0A /* Reservation.m in Sources */,
-				E555BD3B130821FD0097EB0A /* ReservationsTableViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E50A381D12E21165007C2101 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5E722F41311A12C00905959 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */,
+				E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */,
+				E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */,
+				E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */,
+				E5E722F91311A12C00905959 /* PropertyOptionViewController.m in Sources */,
+				E5E722FA1311A12C00905959 /* TablePopupMenu.m in Sources */,
+				E5E722FB1311A12C00905959 /* TableMapViewController.m in Sources */,
+				E5E722FC1311A12C00905959 /* Cache.m in Sources */,
+				E5E722FD1311A12C00905959 /* District.m in Sources */,
+				E5E722FE1311A12C00905959 /* DragNode.m in Sources */,
+				E5E722FF1311A12C00905959 /* GridCell.m in Sources */,
+				E5E723001311A12C00905959 /* Map.m in Sources */,
+				E5E723011311A12C00905959 /* MenuCard.m in Sources */,
+				E5E723021311A12C00905959 /* Order.m in Sources */,
+				E5E723031311A12C00905959 /* OrderGridHitInfo.m in Sources */,
+				E5E723041311A12C00905959 /* OrderInfo.m in Sources */,
+				E5E723051311A12C00905959 /* OrderLine.m in Sources */,
+				E5E723061311A12C00905959 /* OrderLineProperty.m in Sources */,
+				E5E723071311A12C00905959 /* OrderLinePropertyValue.m in Sources */,
+				E5E723081311A12C00905959 /* Product.m in Sources */,
+				E5E723091311A12C00905959 /* ProductCategory.m in Sources */,
+				E5E7230A1311A12C00905959 /* Table.m in Sources */,
+				E5E7230B1311A12C00905959 /* CDataScanner.m in Sources */,
+				E5E7230C1311A12C00905959 /* CExtensibleJSONDataSerializer.m in Sources */,
+				E5E7230D1311A12C00905959 /* CDataScanner_Extensions.m in Sources */,
+				E5E7230E1311A12C00905959 /* NSCharacterSet_Extensions.m in Sources */,
+				E5E7230F1311A12C00905959 /* NSDictionary_JSONExtensions.m in Sources */,
+				E5E723101311A12C00905959 /* NSScanner_Extensions.m in Sources */,
+				E5E723111311A12C00905959 /* CJSONDataSerializer.m in Sources */,
+				E5E723121311A12C00905959 /* CJSONDeserializer.m in Sources */,
+				E5E723131311A12C00905959 /* CJSONScanner.m in Sources */,
+				E5E723141311A12C00905959 /* CJSONSerializer.m in Sources */,
+				E5E723151311A12C00905959 /* CSerializedJSONData.m in Sources */,
+				E5E723161311A12C00905959 /* CourseProgress.m in Sources */,
+				E5E723171311A12C00905959 /* NewOrderView.m in Sources */,
+				E5E723181311A12C00905959 /* OrderGridView.m in Sources */,
+				E5E723191311A12C00905959 /* OrderLineCell.m in Sources */,
+				E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */,
+				E5E7231B1311A12C00905959 /* OrderTableView.m in Sources */,
+				E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */,
+				E5E7231D1311A12C00905959 /* Splitter.m in Sources */,
+				E5E7231E1311A12C00905959 /* TableButton.m in Sources */,
+				E5E7231F1311A12C00905959 /* TableInfoView.m in Sources */,
+				E5E723201311A12C00905959 /* Utils.m in Sources */,
+				E5E723211311A12C00905959 /* TreeNode.m in Sources */,
+				E5E723221311A12C00905959 /* Menu.m in Sources */,
+				E5E723231311A12C00905959 /* Service.m in Sources */,
+				E5E723241311A12C00905959 /* TestService.m in Sources */,
+				E5E723251311A12C00905959 /* MenuItem.m in Sources */,
+				E5E723261311A12C00905959 /* ModalAlert.m in Sources */,
+				E5E723271311A12C00905959 /* ProductSymbol.m in Sources */,
+				E5E723281311A12C00905959 /* Course.m in Sources */,
+				E5E723291311A12C00905959 /* Guest.m in Sources */,
+				E5E7232A1311A12C00905959 /* SeatInfo.m in Sources */,
+				E5E7232B1311A12C00905959 /* Reservation.m in Sources */,
+				E5E7232C1311A12C00905959 /* ReservationsTableViewController.m in Sources */,
+				E5E7232D1311A12C00905959 /* ReservationTableCell.m in Sources */,
+				E5E7232E1311A12C00905959 /* Slot.m in Sources */,
+				E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -823,34 +877,6 @@
 			};
 			name = Release;
 		};
-		E50A383312E21165007C2101 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
-				INFOPLIST_FILE = "HarkPad-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		E50A383412E21165007C2101 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
-				INFOPLIST_FILE = "HarkPad-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				VALIDATE_PRODUCT = YES;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 		E50A383612E21165007C2101 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -914,6 +940,34 @@
 			};
 			name = Release;
 		};
+		E5E723501311A12C00905959 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
+				INFOPLIST_FILE = "HarkPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E5E723511311A12C00905959 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
+				INFOPLIST_FILE = "HarkPad-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -928,15 +982,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		E50A383212E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPad" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E50A383312E21165007C2101 /* Debug */,
-				E50A383412E21165007C2101 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
 		E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -944,6 +989,15 @@
 				E50A383712E21165007C2101 /* Release */,
 				E50A383812E21165007C2101 /* Debug */,
 				E50A383912E21165007C2101 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E5E7234F1311A12C00905959 /* Build configuration list for PBXNativeTarget "HarkPad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5E723501311A12C00905959 /* Debug */,
+				E5E723511311A12C00905959 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

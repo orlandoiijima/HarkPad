@@ -7,7 +7,7 @@
 		<key>HarkPad.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<key>HarkPadTests.xcscheme</key>
 		<dict>
@@ -23,6 +23,11 @@
 			<true/>
 		</dict>
 		<key>E50A382112E21165007C2101</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E5E722F31311A12C00905959</key>
 		<dict>
 			<key>primary</key>
 			<true/>

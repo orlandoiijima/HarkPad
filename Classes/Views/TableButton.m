@@ -14,7 +14,7 @@
 
 @implementation TableButton
 
-@synthesize table, orderInfo, progress, name, unit;
+@synthesize table, orderInfo, progress, name, unit, flag;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
@@ -46,14 +46,15 @@
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            CGRect rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + seatMargin/4, seatWidth/2, seatWidth / 2);
+            int height = (tableRect.size.height - 3 * (seatMargin/4))/2;
+            CGRect rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + seatMargin/4, seatWidth/2, height);
             ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
             [button addSubview: symbol];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
-                rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + tableRect.size.height - seatMargin/4 - seatWidth/2, seatWidth/2, seatWidth / 2);
+                rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + tableRect.size.height - seatMargin/4 - height, seatWidth/2, height);
                 ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
                 [button addSubview: symbol];
             }
@@ -84,23 +85,23 @@
     }
     
     CGRect frame;
-    if(button.frame.size.width >= button.frame.size.height)
-        frame = CGRectMake(button.unit/2, button.name.frame.origin.y + button.name.frame.size.height, (button.frame.size.width - button.unit)/2, button.unit);
-    else    
-        frame = CGRectMake(button.unit/2, button.name.frame.origin.y + button.name.frame.size.height, button.frame.size.width - button.unit, button.unit);
      
     frame = CGRectMake(button.frame.size.width - button.unit, 0, button.unit, button.unit);
     button.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourse:0];
     [button addSubview:button.progress];
     
-    frame = CGRectMake(button.unit/2, button.frame.size.height/4, button.frame.size.width - button.unit, button.unit);
+    frame = CGRectMake(button.frame.size.width - button.unit, button.frame.size.height - button.unit, button.unit, button.unit);
+    button.flag = [[UIImageView alloc] initWithFrame:frame];
+    [button addSubview:button.flag];
+    
+    frame = CGRectMake(0, 0, button.unit, button.unit/2);
     button.name = [[UILabel alloc] initWithFrame:frame];
     button.name.font = [UIFont systemFontOfSize:20];
-    button.name.shadowColor = [UIColor whiteColor];
+    button.name.shadowColor = [UIColor grayColor];
     button.name.adjustsFontSizeToFitWidth = YES;
     button.name.textAlignment = UITextAlignmentCenter;
     button.name.backgroundColor = [UIColor clearColor];
-    button.name.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.5];
+    button.name.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.8];
     button.name.text = table.name;
     [button addSubview:button.name];
         
@@ -163,12 +164,22 @@
                         [symbol setFood:seatInfo.food drink: seatInfo.drink];
                 }
             }
+            if([[orderInfo.language lowercaseString] isEqualToString:@"nl"] == NO)
+            {
+                NSString *imageName = [NSString stringWithFormat:@"%@.png", [orderInfo.language lowercaseString]];
+                flag.image = [UIImage imageNamed: imageName];
+            }
+            else
+            {
+                flag.image = nil;
+            }
         }
         else
         {
             progress.countCourses = 0;
             progress.currentCourse = 0;
             gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+            flag.image = nil;
         }
         [self setNeedsDisplay];
         [progress setNeedsDisplay];

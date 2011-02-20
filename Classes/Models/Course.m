@@ -36,7 +36,6 @@
     return course;
 }
 
-
 - (NSDictionary *) initDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
@@ -46,6 +45,35 @@
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
 
     return dic;
+}
+
+- (NSString *) stringForCourse
+{
+    NSMutableDictionary *products = [[NSMutableDictionary alloc] init];
+    for(OrderLine *line in lines)
+    {
+        if(line.product.category.isFood)
+        {
+            NSNumber *count = [products valueForKey: line.product.name];
+            if(count == nil)
+                count = [NSNumber numberWithInt:1];
+            else
+                count = [NSNumber numberWithInt: [count intValue] + 1];
+            [products setValue:count forKey: line.product.name];
+  	      }
+    }
+    NSString *result = @"";
+    NSArray* sortedKeys = [products	 keysSortedByValueUsingSelector:@selector(compare:)];
+    for(NSString *key in [sortedKeys reverseObjectEnumerator])
+    {
+        if([result length] > 0)
+            result = [NSString stringWithFormat:@"%@, ", result];
+        int count = [[products objectForKey:key] intValue];
+        if(count > 1)
+            result = [NSString stringWithFormat:@"%@%dx ", result, count]; 
+        result = [NSString stringWithFormat:@"%@%@", result, key]; 
+    }
+    return result;
 }
 
 @end
