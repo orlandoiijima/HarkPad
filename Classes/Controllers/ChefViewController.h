@@ -7,18 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Slot.h"
+#import "SlotDataSource.h"
 
-@interface ChefViewController : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+@interface ChefViewController : UIViewController <UITableViewDelegate> {
     UITableView *firstTable;
     UITableView *secondTable;
-    Slot *firstSlot;
-    Slot *secondSlot;
+    SlotDataSource *firstSlotDataSource;
+    SlotDataSource *secondSlotDataSource;
+    NSMutableArray *slots;
 }
 
 @property (retain) IBOutlet UITableView *firstTable; 
 @property (retain) IBOutlet UITableView *secondTable; 
-@property (retain) Slot *firstSlot; 
-@property (retain) Slot *secondSlot; 
-
+@property (retain) IBOutlet UIButton *startNextSlotButton;
+@property (retain) SlotDataSource *firstSlotDataSource; 
+@property (retain) SlotDataSource *secondSlotDataSource;
+@property (retain) NSMutableArray *slots;
+@property (retain) IBOutlet UILabel *clockLabel;
+- (void) refreshView;
+- (void) updateClock;
+- (IBAction) startNextSlot;
 @end

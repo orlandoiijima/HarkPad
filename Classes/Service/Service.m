@@ -117,13 +117,20 @@ static Service *_service;
 	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *slotsDic = [self getResultFromJson: data];
-    NSMutableArray *slots = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *slots = [[NSMutableArray alloc] init];
     for(NSDictionary *slotDic in slotsDic)
     {
         Slot *slot = [Slot slotFromJsonDictionary: slotDic]; 
         [slots addObject:slot];
     }
     return slots;
+}
+
+- (void) startNextSlot
+{
+    NSURL *testUrl = [self makeEndPoint:@"startnextslot" withQuery:@""];
+	[NSData dataWithContentsOfURL: testUrl];
+	return;
 }
 
 - (Order *) getOrder: (int) orderId

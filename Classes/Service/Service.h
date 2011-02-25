@@ -29,6 +29,7 @@
 - (Order *) getOrder: (int) orderId;
 - (NSMutableArray *) getReservations;
 - (NSMutableArray *) getCurrentSlots;
+- (void) startNextSlot;
 - (Order *) getLatestOrderByTable: (int) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId;

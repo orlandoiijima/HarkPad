@@ -26,13 +26,17 @@
     orderLine.quantity = [[jsonDictionary objectForKey:@"quantity"] intValue];
     orderLine.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     
-    int seat = [[jsonDictionary objectForKey:@"seat"] intValue];
-    orderLine.guest = [orderLine getGuestBySeat: seat guests:guests];
-    [orderLine.guest.lines addObject:orderLine];
+    if(guests != nil) {
+        int seat = [[jsonDictionary objectForKey:@"seat"] intValue];
+        orderLine.guest = [orderLine getGuestBySeat: seat guests:guests];
+        [orderLine.guest.lines addObject:orderLine];
+    }
     
-    int offset = [[jsonDictionary objectForKey:@"course"] intValue];
-    orderLine.course = [orderLine getCourseByOffset: offset courses:courses];
-    [orderLine.course.lines addObject:orderLine];
+    if(courses != nil) {
+        int offset = [[jsonDictionary objectForKey:@"course"] intValue];
+        orderLine.course = [orderLine getCourseByOffset: offset courses:courses];
+        [orderLine.course.lines addObject:orderLine];
+    }
     
     orderLine.state = [[jsonDictionary objectForKey:@"state"] intValue];
     orderLine.note = [jsonDictionary objectForKey:@"note"];

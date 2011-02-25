@@ -7,12 +7,13 @@
 //
 
 #import "ChefViewController.h"
-#import "Slot.h"
+//#import "Slot.h"
+//#import "OrderLineCell.h"
 #import "Service.h"
 
 @implementation ChefViewController
 
-@synthesize firstSlot, secondSlot, firstTable, secondTable;
+@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton	;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,14 +42,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    firstTable.delegate = self;
-    firstTable.dataSource = self;
-    secondTable.delegate = self;
-    secondTable.dataSource = self;
+
+    [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                     target:self
+                                   selector:@selector(refreshView)
+                                   userInfo:nil
+                                    repeats:YES];    
     
-    NSMutableArray *slots = [[Service getInstance] getCurrentSlots];
-    if(slots != nil && slots.count > 0)
-        firstSlot = [slots objectAtIndex:0];
+    [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                     target:self
+                                   selector:@selector(updateClock)
+                                   userInfo:nil
+                                    repeats:YES];    
+ 
+    [self updateClock];
+    [self refreshView];
 }
 
 - (void)viewDidUnload
@@ -58,42 +66,41 @@
     // e.g. self.myOutlet = nil;
 }
 
-- (void) setFirstSlot: (Slot *) slot
+- (void) refreshView
 {
-    [firstSlot release];
-    firstSlot = [slot retain];
-    [firstTable reloadData];
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return firstSlot.lines.count;
-}
-
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return @"xyz";
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
+    slots = [[Service getInstance] getCurrentSlots];
+    if(slots != nil && slots.count > 0)
+    {
+        firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:0]];
+        firstTable.delegate = firstTable.dataSource;
+        if(slots.count > 1) {
+            secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:1]];
+            secondTable.delegate = secondTable.dataSource;
+        }
+        else
+            secondTable.dataSource = nil;
+            
+        [firstTable reloadData];
+        [secondTable reloadData];
     }
-    cell.textLabel.text = [firstSlot.lines objectAtIndex:indexPath.row];
-    return cell;
+    else
+        firstTable.dataSource = nil;
 }
 
+- (void) updateClock
+{
+    if(slots == nil) return;
+    if(slots.count == 0) return;
+    Slot *slot = [slots objectAtIndex:0];
+    int interval = -1 * (int)[slot.startedOn timeIntervalSinceNow];
+    clockLabel.text = [NSString stringWithFormat:@"%0d:%02d", interval / 60, interval % 60]; 
+}
+
+- (IBAction) startNextSlot
+{
+    [[Service getInstance] startNextSlot];   
+    [self refreshView];	
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

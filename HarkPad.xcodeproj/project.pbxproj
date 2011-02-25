@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
+		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
 		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
 		E50A382412E21165007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
 		E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
@@ -104,6 +106,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotDataSource.h; sourceTree = "<group>"; };
+		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotDataSource.m; sourceTree = "<group>"; };
+		E50152661315A25A007959F5 /* SlotTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotTable.h; sourceTree = "<group>"; };
+		E50152671315A25D007959F5 /* SlotTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotTable.m; sourceTree = "<group>"; };
 		E50A380312E21164007C2101 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E50A380512E21164007C2101 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E50A380712E21164007C2101 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -469,6 +475,10 @@
 				E555BD3613081DC10097EB0A /* Reservation.m */,
 				E5E722E513116DFB00905959 /* Slot.h */,
 				E5E722E613116DFB00905959 /* Slot.m */,
+				E5015258131306E4007959F5 /* SlotDataSource.h */,
+				E5015259131306E4007959F5 /* SlotDataSource.m */,
+				E50152661315A25A007959F5 /* SlotTable.h */,
+				E50152671315A25D007959F5 /* SlotTable.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -807,6 +817,8 @@
 				E5E7232D1311A12C00905959 /* ReservationTableCell.m in Sources */,
 				E5E7232E1311A12C00905959 /* Slot.m in Sources */,
 				E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */,
+				E501526513144EB5007959F5 /* SlotDataSource.m in Sources */,
+				E50152681315A26B007959F5 /* SlotTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

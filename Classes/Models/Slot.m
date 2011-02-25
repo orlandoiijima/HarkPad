@@ -9,23 +9,26 @@
 #import "Slot.h"
 #import "OrderLine.h"
 #import "Cache.h"
+#import "SlotTable.h"
 
 @implementation Slot
 
-@synthesize id, startedOn, completedOn, lines;
+@synthesize id, startedOn, completedOn, slotTables;
 
 + (Slot *) slotFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Slot *slot = [[[Slot alloc] init] autorelease];
+    Slot *slot = [[Slot alloc] init];
     slot.id = [[jsonDictionary objectForKey:@"id"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"startedOn"];
     if((NSNull*)seconds != [NSNull null])
         slot.startedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     
-    id lines =  [jsonDictionary objectForKey:@"lines"];
-    for(NSDictionary *item in lines)
+    slot.slotTables = [[NSMutableArray alloc] init];
+    id slotTables = [jsonDictionary objectForKey:@"slotTables"];
+    for(NSDictionary *item in slotTables)
     {
-        [OrderLine orderLineFromJsonDictionary:item guests: nil courses: nil];
+        id slotTable = [SlotTable slotTableFromJsonDictionary:item];
+        [slot.slotTables addObject:slotTable];
     }
     return slot;
 }

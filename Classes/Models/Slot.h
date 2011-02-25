@@ -13,12 +13,14 @@
     int id;
     NSDate *startedOn;
     NSDate *completedOn;
-    NSMutableArray *lines;
+    NSMutableArray *slotTables	;
 }
 
 @property int id;
 @property (retain) NSDate *startedOn;
 @property (retain) NSDate *completedOn;
-@property (retain) NSMutableArray *lines;
+@property (retain) NSMutableArray *slotTables;
+
++ (Slot *) slotFromJsonDictionary: (NSDictionary *)jsonDictionary;
 
 @end
