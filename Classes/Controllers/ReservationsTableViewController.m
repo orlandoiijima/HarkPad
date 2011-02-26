@@ -14,28 +14,14 @@
 
 @synthesize reservations, groupedReservations;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-        reservations = [[Service getInstance] getReservations];
-        groupedReservations = [[NSMutableDictionary alloc] init];
-        for (Reservation *reservation in reservations) {
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
-            NSInteger hour = [components hour];
-            NSInteger minute = [components minute];            
-            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-            NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
-            if(slotArray == nil) {
-                slotArray = [[NSMutableArray alloc] init];
-                [groupedReservations setObject:slotArray forKey:timeSlot];
-            }
-            [slotArray addObject:reservation];
-        }
-    }
-    return self;
-}
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)dealloc
 {
@@ -56,6 +42,21 @@
 {
     [super viewDidLoad];
 
+    reservations = [[Service getInstance] getReservations];
+    groupedReservations = [[NSMutableDictionary alloc] init];
+    for (Reservation *reservation in reservations) {
+        NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+        NSInteger hour = [components hour];
+        NSInteger minute = [components minute];            
+        NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+        NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
+        if(slotArray == nil) {
+            slotArray = [[NSMutableArray alloc] init];
+            [groupedReservations setObject:slotArray forKey:timeSlot];
+        }
+        [slotArray addObject:reservation];
+    }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -100,11 +101,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [groupedReservations count];
+    return groupedReservations.count == 0 ? 1 : groupedReservations.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if(groupedReservations.count == 0)
+        return 1;
+    
     NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
     
     NSArray *slotReservations = [groupedReservations objectForKey:key];
@@ -115,12 +119,21 @@
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(groupedReservations.count == 0)
+        return @"";
+    
     NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
     return key;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(groupedReservations == nil || groupedReservations.count == 0)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell.textLabel.text = @"Geen reserveringen";
+        return cell;
+    }
     static NSString *CellIdentifier = @"Cell";
     
     ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];

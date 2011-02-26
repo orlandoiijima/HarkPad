@@ -28,7 +28,7 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 @property (retain) UIViewController *menuViewController;
 @property (retain, nonatomic) Order *order;
 @property (retain) TableMapViewController *tableMapViewController;
-@property (retain) IBOutlet UILabel *tableLabel;
+@property (retain) IBOutlet UIBarButtonItem *tableLabel;
 @property (retain) IBOutlet UIButton *saveButton;
 @property (retain) IBOutlet UISegmentedControl *existingButton;
 @property (retain) IBOutlet UISegmentedControl *orientationSegment;

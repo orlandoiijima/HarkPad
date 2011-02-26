@@ -12,11 +12,11 @@
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    TableMapViewController *viewController;
+    UITabBarController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet TableMapViewController *viewController;
+@property (nonatomic, retain) IBOutlet UITabBarController *viewController;
 
 @end

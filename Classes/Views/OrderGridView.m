@@ -385,7 +385,6 @@
     if(orderLine == nil) return;
     OrderLineDetailViewController *detailViewController = [[OrderLineDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detailViewController.orderLine = orderLine;
-//    detailViewController.controller = self;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController: detailViewController];
     navController.title = orderLine.product.name;
@@ -394,8 +393,7 @@
     
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:navController];
     popOver.delegate = topController;
-    [popOver presentPopoverFromRect:selectedOrderLineFrame inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    
+    [popOver presentPopoverFromRect: selectedOrderLineFrame inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     detailViewController.popoverContainer = popOver;
 }
 

@@ -8,6 +8,7 @@
 
 #import "Service.h"
 #import "TestService.h"
+#import "KitchenStatistics.h"
 
 @implementation Service
 
@@ -131,6 +132,14 @@ static Service *_service;
     NSURL *testUrl = [self makeEndPoint:@"startnextslot" withQuery:@""];
 	[NSData dataWithContentsOfURL: testUrl];
 	return;
+}
+
+- (KitchenStatistics *) getKitchenStatistics
+{
+	NSURL *testUrl = [self makeEndPoint:@"getKitchenStatistics" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableDictionary *statsDic = [self getResultFromJson: data];
+    return [KitchenStatistics statsFromJsonDictionary: statsDic];
 }
 
 - (Order *) getOrder: (int) orderId

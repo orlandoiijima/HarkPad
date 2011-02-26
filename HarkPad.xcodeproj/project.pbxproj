@@ -15,6 +15,9 @@
 		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
 		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
 		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
+		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
+		E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C81318F083005E1FA3 /* koksmuts.png */; };
+		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
 		E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
@@ -251,6 +254,10 @@
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
+		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
+		E5DFC3C81318F083005E1FA3 /* koksmuts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = koksmuts.png; sourceTree = "<group>"; };
+		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
+		E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatistics.m; sourceTree = "<group>"; };
 		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
 		E5E377B11309C4A100F93319 /* ReservationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationTableCell.m; sourceTree = "<group>"; };
 		E5E377B31309C4D000F93319 /* ReservationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationTableCell.xib; sourceTree = "<group>"; };
@@ -479,6 +486,8 @@
 				E5015259131306E4007959F5 /* SlotDataSource.m */,
 				E50152661315A25A007959F5 /* SlotTable.h */,
 				E50152671315A25D007959F5 /* SlotTable.m */,
+				E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */,
+				E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -499,6 +508,8 @@
 				E5F06496130D4FC50037816B /* it.png */,
 				E5F06490130D4F7C0037816B /* de.png */,
 				E5F06492130D4F8A0037816B /* fr.png */,
+				E5DFC3C81318F083005E1FA3 /* koksmuts.png */,
+				E5DFC3C41318E9AC005E1FA3 /* calendar.png */,
 				E50A383E12E2193F007C2101 /* iTunesArtwork72.png */,
 				E5D8DE3C12EADCEC00F4784B /* star.png */,
 				E5C315EF12E381580044948F /* group.png */,
@@ -724,6 +735,8 @@
 				E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */,
 				E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */,
 				E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */,
+				E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */,
+				E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -819,6 +832,7 @@
 				E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */,
 				E501526513144EB5007959F5 /* SlotDataSource.m in Sources */,
 				E50152681315A26B007959F5 /* SlotTable.m in Sources */,
+				E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

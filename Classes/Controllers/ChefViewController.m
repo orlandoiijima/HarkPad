@@ -7,13 +7,13 @@
 //
 
 #import "ChefViewController.h"
-//#import "Slot.h"
-//#import "OrderLineCell.h"
+#import "KitchenStatistics.h"
 #import "Service.h"
 
 @implementation ChefViewController
 
-@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton	;
+@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton;
+@synthesize totalDoneLabel, totalInProgressLabel, totalInSlotLabel, totalNotYetRequestedLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -85,6 +85,13 @@
     }
     else
         firstTable.dataSource = nil;
+    
+    KitchenStatistics *stats = [[Service getInstance] getKitchenStatistics];
+    totalDoneLabel.text = [NSString stringWithFormat: @"%d", stats.done];
+    totalInProgressLabel.text = [NSString stringWithFormat: @"%d", stats.inProgress];
+    totalInSlotLabel.text = [NSString stringWithFormat: @"%d", stats.inSlot];
+    totalNotYetRequestedLabel.text = [NSString stringWithFormat: @"%d", stats.notYetRequested];
+    
 }
 
 - (void) updateClock

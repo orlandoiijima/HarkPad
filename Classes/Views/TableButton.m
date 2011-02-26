@@ -94,10 +94,10 @@
     button.flag = [[UIImageView alloc] initWithFrame:frame];
     [button addSubview:button.flag];
     
-    frame = CGRectMake(0, 0, button.unit, button.unit/2);
+    frame = CGRectMake(0, 0, button.unit, button.unit);
     button.name = [[UILabel alloc] initWithFrame:frame];
-    button.name.font = [UIFont systemFontOfSize:20];
-    button.name.shadowColor = [UIColor grayColor];
+    button.name.font = [UIFont systemFontOfSize:16];
+    button.name.shadowColor = [UIColor whiteColor];
     button.name.adjustsFontSizeToFitWidth = YES;
     button.name.textAlignment = UITextAlignmentCenter;
     button.name.backgroundColor = [UIColor clearColor];

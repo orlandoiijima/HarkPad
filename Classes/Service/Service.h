@@ -15,6 +15,7 @@
 #import "Slot.h"
 #import "CJSONSerializer.h"
 #import "ServiceProtocol.h"
+#import "KitchenStatistics.h"
 
 @interface Service : NSObject <ServiceProtocol> {    
 }
@@ -30,6 +31,7 @@
 - (NSMutableArray *) getReservations;
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
+- (KitchenStatistics *) getKitchenStatistics;
 - (Order *) getLatestOrderByTable: (int) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId;

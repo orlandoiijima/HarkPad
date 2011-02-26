@@ -25,7 +25,7 @@
 @synthesize currentNode, rootNode, dragNode, dragOffset, showType, showExisting;
 
 
-- (void)viewDidLoad {
+- (void)viewDidLoad {	
     [super viewDidLoad];
 
     ((NewOrderView *)self.view).controller = self;
@@ -35,6 +35,12 @@
     showExisting = YES;
     
     productPanelView = [[ProductPanelView alloc] init];
+
+    if(order != nil)
+    {
+        Table *table = [order.tables objectAtIndex:0];
+        tableLabel.title = [NSString stringWithFormat: @"Tafel %@", table.name];
+    }
     
     CGRect frame = CGRectMake(0, 0, 10, 10);
     orderGridView = [[OrderGridView alloc] initWithFrame:frame];
@@ -49,7 +55,6 @@
     {
         [order release];
         order = [newOrder retain];
-        tableLabel.text = [[order.tables objectAtIndex:0] name];
     }
 }
 

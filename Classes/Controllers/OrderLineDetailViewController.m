@@ -37,7 +37,7 @@
 //  Resize popover to size of table
 - (void) viewDidAppear: (BOOL) animate {
     [super viewDidAppear:animate];
-    self.contentSizeForViewInPopover = [[self tableView] contentSize];
+//    self.contentSizeForViewInPopover = [[self tableView] contentSize];
 }
 
 - (void) doneAction {
@@ -53,6 +53,7 @@
                     [orderLine setStringValueForProperty:property value: sw.on ? @"Y" : @"N"];
             }
         }
+        orderLine.entityState = Modified;
         [popoverContainer dismissPopoverAnimated:YES];
         [controller refreshSelectedCell];
     }

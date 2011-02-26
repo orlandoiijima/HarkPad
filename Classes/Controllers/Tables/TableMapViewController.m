@@ -17,7 +17,7 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict, buttonReservations;
+@synthesize map, tableMapView, districtPicker, currentDistrict;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -125,24 +125,24 @@
     [popOver presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
 }
-
-- (void) gotoChefControlCenter
-{
-    ChefViewController *chefView = [[ChefViewController alloc] init];
-    [self presentModalViewController:chefView animated:YES];
-}
-
-- (void) showReservations
-{
-    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    
-    reservationsTVC.contentSizeForViewInPopover = CGSizeMake(600, 300);
-    
-    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:reservationsTVC];
-    popOver.delegate = self;
-    
-    [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
+//
+//- (void) gotoChefControlCenter
+//{
+//    ChefViewController *chefView = [[ChefViewController alloc] init];
+//    [self presentModalViewController:chefView animated:YES];
+//}
+//
+//- (void) showReservations
+//{
+//    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    
+//    reservationsTVC.contentSizeForViewInPopover = CGSizeMake(600, 300);
+//    
+//    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:reservationsTVC];
+//    popOver.delegate = self;
+//    
+//    [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//}
 
 - (void)gotoOrderViewWithOrder: (Order *)order
 {
@@ -151,6 +151,8 @@
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
     newOrderVC.tableMapViewController = self;
+
+    newOrderVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     [self presentModalViewController:newOrderVC animated:YES];
 }
 
