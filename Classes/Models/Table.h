@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "District.h";
 
+typedef enum SeatOrientation {row, column} SeatOrientation;
+
 @interface Table : NSObject {
     int id;
     NSString *name;
     CGRect bounds;
     int countSeats;
+    SeatOrientation seatOrientation;
     District *district;
 }
 
@@ -21,6 +24,7 @@
 @property (retain) NSString *name;
 @property CGRect bounds;
 @property int countSeats;
+@property SeatOrientation seatOrientation;
 @property (retain) District *district;
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;

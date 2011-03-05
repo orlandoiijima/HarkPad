@@ -90,7 +90,8 @@
     [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"seat"];
     [dic setObject: [NSNumber numberWithInt:course.offset] forKey:@"course"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
-    [dic setObject: note forKey:@"note"];
+    if(note != nil)
+        [dic setObject: note forKey:@"note"];
     return dic;
 }
 

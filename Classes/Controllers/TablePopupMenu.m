@@ -157,18 +157,33 @@
             }
             switch(indexPath.row)
             {
-                case 0: cell.textLabel.text = @"Bestelling opnemen"; break;
+                case 0:
+                {
+                    cell.textLabel.text = @"Bestelling opnemen";
+                    cell.tag = commandGetOrder;
+                    break;
+                }
                 case 1:
                 {
-                    Course *nextCourse = [order getNextCourse];
-                    if(nextCourse == nil)
+                    if(order.state == billed)
                     {
-                        cell.textLabel.text = @"Rekening opmaken";
+                        cell.textLabel.text = @"Betaling verwerken";
+                        cell.tag = commandGetPayment;
                     }
                     else
                     {
-                        cell.textLabel.text = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
-                        cell.detailTextLabel.text = [nextCourse stringForCourse];
+                        Course *nextCourse = [order getNextCourse];
+                        if(nextCourse == nil)
+                        {
+                            cell.textLabel.text = @"Rekening opmaken";
+                            cell.tag = commandBill;
+                        }
+                        else
+                        {
+                            cell.textLabel.text = [NSString stringWithFormat: @"Gang %@ opvragen", [Utils getCourseChar: nextCourse.offset]];
+                            cell.detailTextLabel.text = [nextCourse stringForCourse];
+                            cell.tag = commandStartNextCourse;
+                        }
                     }
                     break;
                 }
@@ -189,6 +204,7 @@
             
             Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
             cell.reservation = reservation;
+            cell.tag = commandPlaceReservation;
             return cell;
         }
     }
@@ -200,40 +216,51 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch(indexPath.section)
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    switch((Command)cell.tag)
     {
-        case 0:
+        case commandGetOrder:
         {
-            switch(indexPath.row)
-            {
-                case 0:
-                {
-                    TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
-                    if(order == nil)
-                        [tableMapController newOrderForTable: table];
-                    else
-                        [tableMapController editOrder:order];
-                    [popoverController dismissPopoverAnimated:YES];
-                    return;
-                }
-                case 1:
-                {
-                    Course *nextCourse = [order getNextCourse];
-                    if(nextCourse == nil)
-                    {
-                        [[Service getInstance] makeBills:nil forOrder: order.id]; 
-                        [popoverController dismissPopoverAnimated:YES];
-                    }
-                    else
-                    {
-                        [[Service getInstance] startCourse: nextCourse.id]; 
-                        [popoverController dismissPopoverAnimated:YES];
-                    }
-                    return;
-                }
-            }
+            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
+            if(order == nil)
+                [tableMapController newOrderForTable: table];
+            else
+                [tableMapController editOrder:order];
+            [popoverController dismissPopoverAnimated:YES];
+            return;
         }
-        default:
+            
+        case commandStartNextCourse:
+        {
+            Course *nextCourse = [order getNextCourse];
+            if(nextCourse == nil)
+            {
+            }
+            else
+            {
+                [[Service getInstance] startCourse: nextCourse.id]; 
+                [popoverController dismissPopoverAnimated:YES];
+            }
+            return;
+        }
+            
+        case commandBill:
+        {
+            [[Service getInstance] makeBills:nil forOrder: order.id]; 
+            [popoverController dismissPopoverAnimated:YES];
+            return;
+        }
+            
+        case commandGetPayment:
+        {
+            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
+            [tableMapController payOrder:order];
+            [popoverController dismissPopoverAnimated:YES];
+            return;
+        }
+            
+        case commandPlaceReservation:
         {
             NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section - 1];
             NSArray *slotReservations = [groupedReservations objectForKey:key];

@@ -96,8 +96,11 @@
 
 - (void) updateClock
 {
-    if(slots == nil) return;
-    if(slots.count == 0) return;
+    if(slots == nil || slots.count == 0)
+    {
+        	clockLabel.text = @"";    
+        return;
+    }
     Slot *slot = [slots objectAtIndex:0];
     int interval = -1 * (int)[slot.startedOn timeIntervalSinceNow];
     clockLabel.text = [NSString stringWithFormat:@"%0d:%02d", interval / 60, interval % 60]; 

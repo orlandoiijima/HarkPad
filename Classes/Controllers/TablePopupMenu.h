@@ -11,6 +11,8 @@
 #import "Order.h"
 #import "TableInfoView.h"
 
+typedef enum Command {commandGetOrder, commandStartNextCourse, commandBill, commandGetPayment, commandPlaceReservation} Command ;
+
 @interface TablePopupMenu : UITableViewController {
 }
 

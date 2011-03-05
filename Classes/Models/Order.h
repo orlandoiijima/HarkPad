@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "OrderLine.h"
 #import "Cache.h"
+#import "Reservation.h"
 
 typedef enum OrderGrouping {bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
@@ -17,6 +18,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
     EntityState entityState;
     NSMutableArray *courses;
     NSMutableArray *guests;
+    Reservation *reservation;
     NSDate *createdOn;
     NSMutableArray *tables;
     int id;
@@ -30,9 +32,6 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 - (NSDecimalNumber *) getAmount;
 - (BOOL) containsProductId:(int)id;
 - (OrderLine *) addLineWithProductId: (int) productId seat: (int) seat course: (int) course;
-//- (NSMutableDictionary *) getByCategory:(BOOL)includeExisting;
-//- (NSMutableDictionary *) getBySeat:(BOOL)includeExisting;
-//- (NSMutableDictionary *) getByCourse:(BOOL)includeExisting;
 - (int) getLastCourse;
 - (int) getLastSeat;
 - (NSDate *) getFirstOrderDate;
@@ -50,6 +49,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 @property (retain) NSMutableArray *guests;
 @property (retain) NSDate *createdOn;
 @property (retain) NSMutableArray *tables;
+@property (retain) Reservation *reservation;
 @property int id;
 @property OrderState state;
 

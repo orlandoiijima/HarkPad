@@ -37,6 +37,7 @@
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId;
 - (void) updateOrder: (Order *) order;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
+- (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
 - (id) getResultFromJson: (NSData *)data;
 

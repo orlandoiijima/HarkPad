@@ -17,7 +17,7 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://localhost:10089";
+        url = @"http://80.101.82.103:10089";
     }
     return self;
 }
@@ -34,7 +34,7 @@ static Service *_service;
 }
 
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query
-{
+{	
 	NSString *testUrl = [NSString stringWithFormat:@"%@/json/%@", url, command];
     if([query length] > 0)
         testUrl = [NSString stringWithFormat:@"%@?%@", testUrl, query];
@@ -185,7 +185,20 @@ static Service *_service;
 
 - (void) setState: (int) state forOrder: (int) orderId
 {
+    NSURL *testUrl = [self makeEndPoint:@"setorderstate" withQuery:[NSString stringWithFormat:@"orderId=%d&state=%d", orderId, state]];
+    
+	[NSData dataWithContentsOfURL: testUrl];
+	return;
 }
+
+- (void) processPayment: (int) paymentType forOrder: (int) orderId
+{
+    NSURL *testUrl = [self makeEndPoint:@"processpayment" withQuery:[NSString stringWithFormat:@"orderId=%d&type=%d", orderId, paymentType]];
+    
+	[NSData dataWithContentsOfURL: testUrl];
+	return;
+}
+
 
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId
 {
@@ -203,6 +216,7 @@ static Service *_service;
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
 }
+
 
 - (void) startTable: (int)tableId fromReservation: (int) reservationId
 {

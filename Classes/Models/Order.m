@@ -12,7 +12,7 @@
 
 @implementation Order
 
-@synthesize tables, courses, guests, createdOn, state, entityState, id;
+@synthesize tables, courses, guests, createdOn, state, entityState, reservation, id;
 
 
 - (id)init
@@ -66,6 +66,12 @@
         if(table != nil) {
             [order.tables addObject:table];
         }
+    }
+    
+    id reservationDic = [jsonDictionary objectForKey:@"reservation"];
+    if((NSNull *)reservationDic != [NSNull null])
+    {
+        order.reservation = [Reservation reservationFromJsonDictionary: reservationDic];
     }
     return order;
 }

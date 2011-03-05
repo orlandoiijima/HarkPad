@@ -14,6 +14,7 @@
 #import "NewOrderVC.h"
 #import "ReservationsTableViewController.h"
 #import "ChefViewController.h"
+#import "PaymentViewController.h"
 
 @implementation TableMapViewController
 
@@ -143,6 +144,17 @@
 //    
 //    [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 //}
+
+- (void)payOrder: (Order *)order
+{
+    if(order == nil)
+        return;
+    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];	
+    paymentVC.order = order;
+    paymentVC.tableMapViewController = self;
+    paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
+    [self presentModalViewController: paymentVC animated:YES];
+}
 
 - (void)gotoOrderViewWithOrder: (Order *)order
 {

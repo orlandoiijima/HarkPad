@@ -26,6 +26,7 @@
 - (void) editOrder: (Order *) order;
 - (void) closeOrderView;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
+- (void)payOrder: (Order *)order;
 
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;

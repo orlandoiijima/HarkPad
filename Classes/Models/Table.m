@@ -9,7 +9,8 @@
 #import "Table.h"
 
 @implementation Table
-@synthesize name, bounds, district, countSeats, id;
+@synthesize name, bounds, district, countSeats, seatOrientation, id;
+
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
@@ -17,6 +18,7 @@
     table.name = [jsonDictionary objectForKey:@"name"];
     table.id = [[jsonDictionary objectForKey:@"id"] intValue];
     table.countSeats = [[jsonDictionary objectForKey:@"capacity"] intValue];
+    table.seatOrientation = [[jsonDictionary objectForKey:@"seatOrientation"] intValue];
     NSNumber *left = [jsonDictionary objectForKey:@"left"];
     NSNumber *top =  [jsonDictionary objectForKey:@"top"];
     NSNumber *width = [jsonDictionary objectForKey:@"width"];

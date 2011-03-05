@@ -40,7 +40,7 @@
     
     int countSeatRowOpposite = table.countSeats - countSeatRow;
     
-    if(tableRect.size.width >= tableRect.size.height)
+    if(table.seatOrientation == row)
     {
         float left = button.unit;
         for(int i = 0; i < countSeatRow; i++)
@@ -122,7 +122,7 @@
         return 0;
     int countSeatRow = table.countSeats / 2;
 
-    if(self.bounds.size.width >= self.bounds.size.height)
+    if(table.seatOrientation == row)
         return self.bounds.size.width / (countSeatRow * 3 + 1);
     else
         return self.bounds.size.height / (countSeatRow * 3 + 1);
@@ -200,7 +200,7 @@
     
     int countSeatRowOpposite = table.countSeats - countSeatRow;
     
-    if(tableRect.size.width >= tableRect.size.height)
+    if(table.seatOrientation == row)
     {
         float left = self.unit;
         for(int i = 0; i < countSeatRow; i++)
