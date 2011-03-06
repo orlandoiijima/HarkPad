@@ -14,7 +14,8 @@
 
 @implementation TableButton
 
-@synthesize table, orderInfo, progress, name, unit, flag;
+@synthesize table, orderInfo, progress, name, unit, flag, tableLeftMargin, tableTopMargin, widthPerPerson, seatWidth, seatHeight, symbolWidth;
+
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
@@ -33,8 +34,40 @@
     float seatMargin = button.unit / 2;
     float seatWidth = button.unit * 2;
     
-    CGRect tableRect = button.bounds;
-    tableRect = CGRectInset([button bounds], seatMargin, seatMargin);
+    if(table.seatOrientation == row)
+        button.unit = button.bounds.size.width / (countSeatRow * 3 + 1);
+    else
+        button.unit = button.bounds.size.height / (countSeatRow * 3 + 1);
+
+    int tableDepth;
+    int tableWidth;
+    if(table.seatOrientation == row)
+    {
+        button.tableTopMargin = button.bounds.size.height / 6;
+        button.tableLeftMargin = button.bounds.size.height / 12;
+        tableDepth = button.bounds.size.height - 2 * button.tableTopMargin;
+        tableWidth = button.bounds.size.width - 2 * button.tableLeftMargin;
+    }
+    else
+    {
+        button.tableTopMargin = button.bounds.size.width / 12;
+        button.tableLeftMargin = button.bounds.size.width / 6;
+        tableDepth = button.bounds.size.width - 2 * button.tableLeftMargin;   
+        tableWidth = button.bounds.size.height - 2 * button.tableTopMargin;   
+    }
+    
+    button.widthPerPerson = tableWidth / countSeatRow;
+   
+    button.seatWidth = (3 * button.widthPerPerson) / 4;
+    button.seatHeight = button.widthPerPerson / 6;
+
+    
+    
+    button.symbolWidth = tableDepth / 2 - 4;
+    if(button.seatWidth < button.symbolWidth)
+        button.symbolWidth = button.seatWidth; 
+    
+    CGRect tableRect = CGRectInset([button bounds], button.tableLeftMargin, button.tableTopMargin);
     
     //    CGContextStrokeRect(ctf, <#CGRect rect#>)
     
@@ -42,29 +75,28 @@
     
     if(table.seatOrientation == row)
     {
-        float left = button.unit;
+        float left = button.tableLeftMargin + (button.widthPerPerson - button.symbolWidth) / 2;
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            int height = (tableRect.size.height - 3 * (seatMargin/4))/2;
-            CGRect rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + seatMargin/4, seatWidth/2, height);
+            CGRect rect = CGRectMake(left, tableRect.origin.y + 2, button.symbolWidth, button.symbolWidth);
             ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
             [button addSubview: symbol];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
-                rect = CGRectMake(left + seatWidth/4, tableRect.origin.y + tableRect.size.height - seatMargin/4 - height, seatWidth/2, height);
+                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height - button.symbolWidth - 4, button.symbolWidth, button.symbolWidth);
                 ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
                 [button addSubview: symbol];
             }
             
-            left += seatWidth + button.unit;
+            left += button.widthPerPerson;
         }
     }
     else
     {
-        float top = button.unit;
+        float top = button.tableTopMargin + (button.widthPerPerson - button.seatWidth) / 2;
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
@@ -79,14 +111,14 @@
                 ProductSymbol *symbol = [ProductSymbol symbolWithFrame:rect seat:seat];
                 [button addSubview: symbol];
             }
-            top += seatWidth + button.unit;
+            top += button.widthPerPerson;
         }
         
     }
     
     CGRect frame;
      
-    frame = CGRectMake(button.frame.size.width - button.unit, 0, button.unit, button.unit);
+    frame = CGRectMake(button.frame.size.width - button.widthPerPerson / 2, 0, button.widthPerPerson / 2, button.widthPerPerson / 2);
     button.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourse:0];
     [button addSubview:button.progress];
     
@@ -106,7 +138,7 @@
     [button addSubview:button.name];
         
     CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = CGRectInset(button.bounds, button.unit/2, button.unit/2);
+    gradient.frame = tableRect; // CGRectInset(button.bounds, button.unit/2, button.unit/2);
     gradient.cornerRadius = 4;
     gradient.borderColor = [[UIColor grayColor] CGColor];
     gradient.borderWidth = 1;
@@ -114,18 +146,6 @@
     gradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];		
     [button.layer insertSublayer:gradient atIndex:0];        
     return button;
-}
-
-- (float) unit
-{
-    if(table == nil)
-        return 0;
-    int countSeatRow = table.countSeats / 2;
-
-    if(table.seatOrientation == row)
-        return self.bounds.size.width / (countSeatRow * 3 + 1);
-    else
-        return self.bounds.size.height / (countSeatRow * 3 + 1);
 }
 
 - (ProductSymbol *)symbolBySeat: (int) seat
@@ -189,12 +209,13 @@
 - (void)drawRect : (CGRect) dirtyRect {
     CGContextRef ctf = UIGraphicsGetCurrentContext();
 
+//    [[UIColor yellowColor] set];
+//    UIRectFill(self.bounds);
+    
     int countSeatRow = table.countSeats / 2;
-    float seatMargin = self.unit / 2;
-    float seatWidth = self.unit * 2;
 
     CGRect tableRect = self.bounds;
-    tableRect = CGRectInset([self bounds], seatMargin, seatMargin);
+    tableRect = CGRectInset([self bounds], tableLeftMargin, tableTopMargin);
     
 //    CGContextStrokeRect(ctf, <#CGRect rect#>)
     
@@ -202,42 +223,42 @@
     
     if(table.seatOrientation == row)
     {
-        float left = self.unit;
+        float left = tableLeftMargin + (widthPerPerson - seatWidth) / 2;
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
             SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
-            CGRect rect = CGRectMake(left, tableRect.origin.y - seatMargin, seatWidth, seatMargin / 2);
+            CGRect rect = CGRectMake(left, (tableTopMargin - seatHeight)/2, seatWidth, seatHeight);
             [self drawSeat: ctf withBounds: rect info: seatInfo];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
-                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + seatMargin / 2, seatWidth, seatMargin / 2);
+                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + (tableTopMargin - seatHeight)/2, seatWidth, seatHeight);
                 seatInfo = [self.orderInfo getSeatInfo: seat]; 
                 [self drawSeat: ctf withBounds: rect info: seatInfo];
             }
-            left += seatWidth + self.unit;
+            left += widthPerPerson;
         }
     }
     else
     {
-        float top = self.unit;
+        float top = tableTopMargin + (widthPerPerson - seatWidth) / 2;
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
             SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
-            CGRect rect = CGRectMake(tableRect.origin.x - seatMargin, top, seatMargin / 2, seatWidth);
+            CGRect rect = CGRectMake((tableLeftMargin - seatHeight)/2, top, seatHeight, seatWidth);
             [self drawSeat: ctf withBounds: rect info: seatInfo];
             
             if(i < countSeatRowOpposite)
             {
                 seat += countSeatRow;
-                rect = CGRectMake(tableRect.origin.x + tableRect.size.width + seatMargin / 2, top, seatMargin / 2, seatWidth);
+                rect = CGRectMake(tableRect.origin.x + tableRect.size.width + (tableLeftMargin - seatHeight)/2, top, seatHeight, seatWidth);
                 SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
                 [self drawSeat: ctf withBounds: rect info: seatInfo];
             }
-            top += seatWidth + self.unit;
+            top += widthPerPerson;
         }
     }
 }

@@ -9,6 +9,7 @@
 #import "OrderGridView.h"
 #import "NewOrderVC.h"
 #import "NewOrderView.h"
+#import "Course.h"
 
 @implementation OrderGridView
 
@@ -40,26 +41,48 @@
     [[UIColor blackColor] set];
     UIRectFill(rect);
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    int countRows = topController.orientation == CourseColumns ? [topController.order getLastSeat] + 2 : [topController.order getLastCourse] + 2;
+    Order *order = [topController order];
+    int countRows = topController.orientation == CourseColumns ? [order getLastSeat] + 2 : [order getLastCourse] + 2;
     for(int column = firstColumn; column < firstColumn + countVisibleColumns; column++)
     {
         for(int row = firstRow; row < countRows; row++)
         {
+            int seat = topController.orientation == SeatColumns ? column : row;
+            int course = topController.orientation == CourseColumns ? column : row;
+            
             CGRect frame = [self getRect: column row:row];
+            
             frame = CGRectInset(frame, cellBorderWidth, cellBorderHeight);
             if(column == firstColumn)
             {
+                if([order isCourseAlreadyRequested:course] && topController.orientation == SeatColumns)
+                {
+                    CGRect frame = [self getRect: column row:row];
+                    frame.size.width = self.bounds.size.width;
+                    frame.origin.x = 0;
+                    frame = CGRectInset(frame, -cellSpaceWidth, -cellSpaceHeight);
+                    [[UIColor colorWithWhite:0.1 alpha:1] set];
+                    UIRectFill(frame);
+                }
                 CGRect rowHeaderFrame = CGRectMake(tableMarginWidth + tableBorderWidth, frame.origin.y, rowHeaderWidth, frame.size.height);
                 [self drawRowHeader: rowHeaderFrame row: row];
             }
             if(row == firstRow)
             {
+                UIColor *headerColor = [UIColor whiteColor];
+                if([order isCourseAlreadyRequested:course] && topController.orientation == CourseColumns)
+                {
+                    CGRect frame = [self getRect: column row:row];
+                    frame.size.height = self.bounds.size.height;
+                    frame = CGRectInset(frame, -cellSpaceWidth, -cellSpaceHeight);
+                    [[UIColor colorWithWhite:0.1 alpha:1] set];
+                    UIRectFill(frame);
+                    headerColor = [UIColor grayColor];
+                }
                 CGRect columnHeaderFrame = CGRectMake(frame.origin.x, tableMarginHeight + tableBorderHeight, frame.size.width, columnHeaderHeight);
-                [self drawColumnHeader: columnHeaderFrame column: column];
+                [self drawColumnHeader: columnHeaderFrame column: column textColor: headerColor];
             }
             int lineOffset = 0;
-            int seat = topController.orientation == SeatColumns ? column : row;
-            int course = topController.orientation == CourseColumns ? column : row;
             NSMutableArray *cellOrderLines = [topController orderLinesWithCourse: course seat: seat];
             for(OrderLine *line in cellOrderLines)
             {
@@ -159,7 +182,7 @@
     return;
 }
 
-- (void) drawColumnHeader: (CGRect) frame column: (int) column
+- (void) drawColumnHeader: (CGRect) frame column: (int) column textColor: (UIColor *) textColor
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     
@@ -168,7 +191,7 @@
     else
         [[UIColor blackColor] set];
     UIRectFill(frame);
-    [[UIColor whiteColor] set];
+    [textColor set];
     UIFont *font = [UIFont systemFontOfSize:17];
     NSString *label = topController.orientation == SeatColumns ? [topController getSeatString:column]: [topController getCourseString: column];
     CGSize size = [label sizeWithFont:font forWidth:frame.size.width lineBreakMode:UILineBreakModeClip];

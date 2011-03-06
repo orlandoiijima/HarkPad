@@ -11,7 +11,7 @@
 
 @implementation PaymentViewController
 
-@synthesize orderTable, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, tableMapViewController, nameLabel;
+@synthesize orderTable, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, tableMapViewController, nameLabel, backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +39,11 @@
     int type = paymentType.selectedSegmentIndex;
     [[Service getInstance] processPayment:type forOrder:order.id];
     [tableMapViewController closeOrderView];
+}
+
+- (IBAction) goBack
+{
+    [tableMapViewController closeOrderView];    
 }
 
 - (IBAction) changeGrouping
@@ -71,8 +76,8 @@
     tableLabel.text = table.name;    
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
-    amountLabel.text = [NSString stringWithFormat:@"%0.2f", [[order getAmount] doubleValue]];
-    nameLabel.text = @"";
+    amountLabel.text = [NSString stringWithFormat:@"€ %0.2f", [[order getAmount] doubleValue]];
+    nameLabel.text = order.reservation == nil ? @"" : order.reservation.name;
 }
 
 - (void)viewDidUnload

@@ -68,8 +68,22 @@
             return;
         }
     }
+    line.quantity = 1;
     [group addObject:line];
 }
+
+- (NSString *) keyForSection:(int) section
+{
+    NSArray* sortedKeys = [[groupedLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    return [sortedKeys objectAtIndex:section];
+}
+
+- (NSMutableArray *) groupForSection:(int) section
+{
+    NSString *key = [self keyForSection:section];
+    return [groupedLines objectForKey:key];
+}
+
 
 #pragma mark - Table view data source
 
@@ -80,22 +94,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSString *key = [[groupedLines allKeys] objectAtIndex:section];
-    NSMutableArray *group = [groupedLines objectForKey:key];
+    NSMutableArray *group = [self groupForSection: section];
     if(group == nil)
         return 0;
     return [group count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *key = [[groupedLines allKeys] objectAtIndex:section];
+    NSString *key = [self keyForSection:section];
     NSMutableArray *group = [groupedLines objectForKey:key];
     NSDecimalNumber *total = [NSDecimalNumber zero];
     for(OrderLine *line in group)
     {
         total = [total decimalNumberByAdding:[line getAmount]];
     }
-    return [NSString stringWithFormat:@"%@ (%.02f)", key, [total doubleValue]];
+    return [NSString stringWithFormat:@"%@ (€ %.02f)", key, [total doubleValue]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,8 +120,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderLineCell" owner:self options:nil] lastObject];
     }
     
-    NSString *key = [[groupedLines allKeys] objectAtIndex:indexPath.section];
-    NSMutableArray *group = [groupedLines objectForKey:key];
+    NSMutableArray *group = [self groupForSection: indexPath.section];
     OrderLine *line = [group objectAtIndex:indexPath.row];
     cell.orderLine = line;
     

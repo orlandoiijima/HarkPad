@@ -61,7 +61,7 @@
     {
         props.text = [NSString stringWithFormat:@"%@ %@", props.text, propertyValue.displayValue];
     }
-    price.text = [NSString stringWithFormat:@"%0.2f", [line.product.price doubleValue]];
+    price.text = [NSString stringWithFormat:@"%0.2f", [line.product.price doubleValue] * line.quantity];
 
     self.backgroundColor = [orderLine.product.category.color colorWithAlphaComponent:0.8];
     self.opaque = NO;

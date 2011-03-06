@@ -43,6 +43,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 - (Course *) getCourseById: (int)courseId;
 - (Course *) getCourseByOffset: (int)offset;
 - (Guest *) getGuestBySeat: (int)seat;
+- (BOOL) isCourseAlreadyRequested: (int) courseOffset;
 
 @property EntityState entityState;
 @property (retain) NSMutableArray *courses;

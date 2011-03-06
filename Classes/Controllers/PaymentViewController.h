@@ -29,12 +29,14 @@
 @property (retain) IBOutlet UILabel *nameLabel; 
 @property (retain) IBOutlet UILabel *tableLabel; 
 @property (retain) IBOutlet UILabel *amountLabel; 
+@property (retain) IBOutlet UIBarButtonItem *backButton; 
 @property (retain) IBOutlet UISegmentedControl *groupingSegment; 
 @property (retain) TableMapViewController *tableMapViewController;
 
 @property (retain) InvoiceDataSource *dataSource;
 
 - (IBAction) goPay;
+- (IBAction) goBack;
 
 - (IBAction) changeGrouping;
 

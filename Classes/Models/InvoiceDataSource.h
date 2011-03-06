@@ -20,5 +20,7 @@
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line;
 - (void) addLineToGroup: (OrderLine *)line group: (NSMutableArray *) group;
+- (NSString *) keyForSection:(int)section;
+- (NSMutableArray *) groupForSection:(int) section;
 
 @end

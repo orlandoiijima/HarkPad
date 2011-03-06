@@ -51,7 +51,7 @@ typedef enum HitInfoType {orderLine, orderGridColumnHeader, orderGridRowHeader} 
 - (int) getRowHeight: (int) seat;
 - (void) drawOrderLine: (OrderLine *)orderLine frame: (CGRect) frame selected: (BOOL) selected first:(BOOL)first last:(BOOL)last;
 - (void) drawRowHeader: (CGRect) frame row: (int)row;
-- (void) drawColumnHeader: (CGRect) frame column: (int) column;
+- (void) drawColumnHeader: (CGRect) frame column: (int) column textColor: (UIColor *) textColor;
 - (void) calculateContentSize;
 - (void) redraw;
 - (OrderGridHitInfo *) getHitInfo : (CGPoint) point;

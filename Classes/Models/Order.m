@@ -163,6 +163,15 @@
     return nil;
 }
 
+- (BOOL) isCourseAlreadyRequested: (int) courseOffset
+{
+    Course *course = [self getCourseByOffset:courseOffset];
+    if(course == nil) return false;
+    if(course.requestedOn == nil) return false;
+    return true;
+}
+
+
 - (NSDecimalNumber *) getAmount
 {
     id total = [NSDecimalNumber zero];
