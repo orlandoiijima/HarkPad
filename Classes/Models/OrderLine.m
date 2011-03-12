@@ -49,6 +49,11 @@
     return orderLine;
 }
 
+- (void) setEntityState:(EntityState)newState
+{
+    if(self.entityState == None)
+        self.entityState = newState;
+}
 
 - (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests
 {
