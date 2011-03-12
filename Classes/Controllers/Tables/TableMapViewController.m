@@ -18,7 +18,7 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict;
+@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -29,11 +29,12 @@
     [self setupDistrictPicker];
     [self setupDistrictMap];
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0f
+    [NSTimer scheduledTimerWithTimeInterval:10.0f
                                      target:self
                                    selector:@selector(refreshTableButtons)
                                    userInfo:nil
                                     repeats:YES];    
+    [self refreshTableButtons];	
 }
 
 - (void) setupDistrictMap
@@ -68,6 +69,8 @@
 
 - (void) refreshTableButtons
 {
+    if(isRefreshTimerDisabled) return;
+    
     NSMutableArray *orders = [[Service getInstance] getOpenOrdersInfo];
     for(TableButton *tableButton in tableMapView.subviews)
     {
@@ -126,24 +129,6 @@
     [popOver presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
 }
-//
-//- (void) gotoChefControlCenter
-//{
-//    ChefViewController *chefView = [[ChefViewController alloc] init];
-//    [self presentModalViewController:chefView animated:YES];
-//}
-//
-//- (void) showReservations
-//{
-//    ReservationsTableViewController *reservationsTVC = [[ReservationsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    
-//    reservationsTVC.contentSizeForViewInPopover = CGSizeMake(600, 300);
-//    
-//    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:reservationsTVC];
-//    popOver.delegate = self;
-//    
-//    [popOver presentPopoverFromRect: self.view.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//}
 
 - (void)payOrder: (Order *)order
 {
@@ -160,6 +145,7 @@
 {
     if(order == nil)
         return;
+    isRefreshTimerDisabled = true;
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
     newOrderVC.tableMapViewController = self;
@@ -170,7 +156,9 @@
 
 - (void) closeOrderView
 {
+    isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
+    [self refreshTableButtons];
 }
 
 - (void) newOrderForTable: (Table *) table

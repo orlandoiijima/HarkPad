@@ -28,9 +28,10 @@
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
 
+
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;
-//@property (retain) IBOutlet UIBarButtonItem *buttonReservations;
+@property BOOL isRefreshTimerDisabled;
 @end
