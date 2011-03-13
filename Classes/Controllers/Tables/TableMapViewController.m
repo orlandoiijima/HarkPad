@@ -34,7 +34,7 @@
                                    selector:@selector(refreshTableButtons)
                                    userInfo:nil
                                     repeats:YES];    
-    [self refreshTableButtons];	
+    [self refreshTableButtons];		
 }
 
 - (void) setupDistrictMap

@@ -1,4 +1,4 @@
-//
+	//
 //  OrderLinePropertyValue.m
 //  HarkPad
 //
@@ -31,4 +31,18 @@
         return orderLineProperty.name;
     return @"";
 }
+
+
+- (NSDictionary *) initDictionary
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    [dic setObject: [NSNumber numberWithInt: orderLineProperty.id] 	forKey:@"propertyId"];
+    if(value == nil)
+        [dic setObject: [NSNull null] forKey:@"value"];
+    else
+        [dic setObject: value forKey:@"value"];
+    return dic;
+}
+
 @end

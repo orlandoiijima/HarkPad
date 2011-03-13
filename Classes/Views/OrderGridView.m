@@ -412,7 +412,7 @@
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController: detailViewController];
     navController.title = orderLine.product.name;
     
-    detailViewController.contentSizeForViewInPopover = CGSizeMake(300, 300);
+    detailViewController.contentSizeForViewInPopover = CGSizeMake(600, 300);
     
     UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:navController];
     popOver.delegate = topController;

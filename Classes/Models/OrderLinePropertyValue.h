@@ -21,5 +21,6 @@
 
 + (OrderLinePropertyValue *) valueFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (NSString *) displayValue;
+- (NSDictionary *) initDictionary;
 
 @end

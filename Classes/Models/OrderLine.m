@@ -97,6 +97,16 @@
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     if(note != nil)
         [dic setObject: note forKey:@"note"];
+
+    if([propertyValues count] > 0) {
+        NSMutableArray *dicProps = [[[NSMutableArray alloc] init] autorelease];
+        [dic setObject:dicProps forKey:@"propertyValues"];
+        for(OrderLinePropertyValue *value in propertyValues)
+        {
+            [dicProps addObject: [value initDictionary]];
+        }
+    }
+
     return dic;
 }
 
@@ -133,7 +143,7 @@
     OrderLinePropertyValue *propertyValue = [self getValueForProperty:property];
     if(propertyValue == nil)
     {
-        OrderLinePropertyValue *propertyValue = [[OrderLinePropertyValue alloc] init];
+        propertyValue = [[OrderLinePropertyValue alloc] init];
         propertyValue.orderLineProperty = property;
         [propertyValues addObject:propertyValue];
     }
