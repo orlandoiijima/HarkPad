@@ -72,7 +72,7 @@
 								</array>
 							</object>
 						</array>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{480, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="245197729"/>
@@ -85,12 +85,18 @@
 								<reference key="IBUICustomView" ref="245197729"/>
 								<reference key="IBUIToolbar" ref="142867824"/>
 							</object>
+							<object class="IBUIBarButtonItem" id="862761817">
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="142867824"/>
+								<int key="IBUISystemItemIdentifier">13</int>
+							</object>
 						</array>
 					</object>
 					<object class="IBUIView" id="957787865">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 59}, {320, 401}}</string>
+						<string key="NSFrame">{{0, 59}, {480, 241}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="95642222">
@@ -100,13 +106,17 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+				<string key="NSFrame">{{0, 20}, {480, 300}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="142867824"/>
 				<reference key="IBUIBackgroundColor" ref="95642222"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">3</int>
+					<int key="interfaceOrientation">3</int>
+				</object>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 		</array>
@@ -144,6 +154,14 @@
 						<int key="IBEventType">13</int>
 					</object>
 					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">refreshTableButtons</string>
+						<reference key="source" ref="862761817"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">31</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -185,6 +203,7 @@
 						<reference key="object" ref="142867824"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="386848892"/>
+							<reference ref="862761817"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -201,6 +220,12 @@
 						<reference key="object" ref="245197729"/>
 						<reference key="parent" ref="386848892"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">28</int>
+						<reference key="object" ref="862761817"/>
+						<array class="NSMutableArray" key="children"/>
+						<reference key="parent" ref="142867824"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -216,7 +241,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">26</int>
+			<int key="maxID">31</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -224,33 +249,28 @@
 					<string key="className">TableMapViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoChefControlCenter">id</string>
+						<string key="refreshTableButtons">id</string>
 						<string key="setupDistrictMap">id</string>
-						<string key="showReservations">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoChefControlCenter">
-							<string key="name">gotoChefControlCenter</string>
+						<object class="IBActionInfo" key="refreshTableButtons">
+							<string key="name">refreshTableButtons</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="setupDistrictMap">
 							<string key="name">setupDistrictMap</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="showReservations">
-							<string key="name">showReservations</string>
-							<string key="candidateClassName">id</string>
-						</object>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="buttonReservations">UIBarButtonItem</string>
+						<string key="buttonRefresh">UIButton</string>
 						<string key="districtPicker">UISegmentedControl</string>
 						<string key="tableMapView">UIScrollView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="buttonReservations">
-							<string key="name">buttonReservations</string>
-							<string key="candidateClassName">UIBarButtonItem</string>
+						<object class="IBToOneOutletInfo" key="buttonRefresh">
+							<string key="name">buttonRefresh</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="districtPicker">
 							<string key="name">districtPicker</string>

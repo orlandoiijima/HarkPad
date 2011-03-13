@@ -18,7 +18,7 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled;
+@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonRefresh;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -65,9 +65,10 @@
         [districtPicker insertSegmentWithTitle:district.name atIndex:districtPicker.numberOfSegments animated:YES];
     }
     districtPicker.selectedSegmentIndex = 0;
+    [districtPicker addTarget:self action:@selector(refreshTableButtons) forControlEvents:UIControlEventAllEvents];
 }
 
-- (void) refreshTableButtons
+- (IBAction) refreshTableButtons
 {
     if(isRefreshTimerDisabled) return;
     
@@ -177,6 +178,24 @@
 - (void) editOrder: (Order *) order
 {
     [self gotoOrderViewWithOrder: order];
+}
+
+- (void) startNextCourse: (Order *)order
+{
+    Course *nextCourse = [order getNextCourse];
+    if(nextCourse == nil)
+    {
+    }
+    else
+    {
+        [[Service getInstance] startCourse: nextCourse.id]; 
+    }
+}
+
+- (void) makeBills: (Order*)order
+{
+    if(order == nil) return;
+    [[Service getInstance] makeBills:nil forOrder: order.id]; 
 }
 
 // Override to allow orientations other than the default portrait orientation.

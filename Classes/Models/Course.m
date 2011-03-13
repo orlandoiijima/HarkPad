@@ -59,7 +59,7 @@
                 count = [NSNumber numberWithInt:1];
             else
                 count = [NSNumber numberWithInt: [count intValue] + 1];
-            [products setValue:count forKey: line.product.name];
+            [products setValue:count forKey: line.product.key];
   	      }
     }
     NSString *result = @"";

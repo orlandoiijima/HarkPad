@@ -12,16 +12,17 @@
 
 @implementation ReservationsTableViewController
 
-@synthesize reservations, groupedReservations;
+@synthesize reservations, groupedReservations, table, dateToShow, dateLabel;
 
-//- (id)initWithStyle:(UITableViewStyle)style
-//{
-//    self = [super initWithStyle:style];
-//    if (self) {
-//        // Custom initialization
-//    }
-//    return self;
-//}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
 
 - (void)dealloc
 {
@@ -42,26 +43,77 @@
 {
     [super viewDidLoad];
 
-    reservations = [[Service getInstance] getReservations];
-    groupedReservations = [[NSMutableDictionary alloc] init];
-    for (Reservation *reservation in reservations) {
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
-        NSInteger hour = [components hour];
-        NSInteger minute = [components minute];            
-        NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-        NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
-        if(slotArray == nil) {
-            slotArray = [[NSMutableArray alloc] init];
-            [groupedReservations setObject:slotArray forKey:timeSlot];
-        }
-        [slotArray addObject:reservation];
-    }
+    reservations = [[[Service getInstance] getReservations] retain]	;
     
+    dateToShow = [[NSDate date] retain];
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeGesture];
+    [swipeGesture release];   
+    
+    swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeGesture];
+    [swipeGesture release];   
+
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
+    tapGesture.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture release];   
+    
+    [self refreshTable];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
+{
+    int interval = sender.direction == UISwipeGestureRecognizerDirectionLeft ? 24*60*60 : -24*60*60;
+    dateToShow = [[dateToShow dateByAddingTimeInterval: interval] retain]; 
+    [self refreshTable];
+}
+
+- (IBAction)handleDoubleTapGesture:(UITapGestureRecognizer *)sender
+{
+    dateToShow = [[NSDate date] retain]; 
+    [self refreshTable];
+}
+
+- (void) refreshTable
+{
+    if([dateToShow isToday])
+        dateLabel.text = @"Vandaag";
+    else if([dateToShow isYesterday])
+        dateLabel.text = @"Gisteren";
+    else if([dateToShow isTomorrow])
+        dateLabel.text = @"Morgen";
+    else if([dateToShow isAfterTomorrow])
+        dateLabel.text = @"Overmorgen";
+    else if([dateToShow isAfterYesterday])
+        dateLabel.text = @"Eergisteren";
+    else
+        dateLabel.text = [NSString stringWithFormat:@"%@", dateToShow];
+
+    groupedReservations = [[NSMutableDictionary alloc] init];
+    for (Reservation *reservation in reservations) {
+        if([dateToShow isEqualToDateIgnoringTime: reservation.startsOn]) {
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+            NSInteger hour = [components hour];
+            NSInteger minute = [components minute];            
+            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+            NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
+            if(slotArray == nil) {
+                slotArray = [[NSMutableArray alloc] init];
+                [groupedReservations setObject:slotArray forKey:timeSlot];
+            }
+            [slotArray addObject:reservation];
+        }
+    }
+    [table reloadData];
 }
 
 - (void)viewDidUnload
@@ -130,7 +182,7 @@
 {
     if(groupedReservations == nil || groupedReservations.count == 0)
     {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
         cell.textLabel.text = @"Geen reserveringen";
         return cell;
     }

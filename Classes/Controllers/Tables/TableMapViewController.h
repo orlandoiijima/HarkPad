@@ -16,7 +16,7 @@
 }
 
 - (void) clickTable : (UIControl *) c;
-- (void) refreshTableButtons;
+- (IBAction) refreshTableButtons;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
 - (IBAction) setupDistrictMap;
@@ -24,6 +24,8 @@
 //- (IBAction) gotoChefControlCenter;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
+- (void) startNextCourse: (Order *)order;
+- (void) makeBills: (Order*)order;
 - (void) closeOrderView;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
@@ -33,5 +35,6 @@
 @property (retain) District *currentDistrict;
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;
+@property (retain) IBOutlet UIButton *buttonRefresh;
 @property BOOL isRefreshTimerDisabled;
 @end

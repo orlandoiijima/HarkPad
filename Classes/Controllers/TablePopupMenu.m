@@ -176,7 +176,7 @@
                         if(nextCourse == nil)
                         {
                             cell.textLabel.text = @"Rekening opmaken";
-                            cell.tag = commandBill;
+                            cell.tag = commandMakeBill;
                         }
                         else
                         {
@@ -217,12 +217,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+
+    TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
     
     switch((Command)cell.tag)
     {
         case commandGetOrder:
         {
-            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
             if(order == nil)
                 [tableMapController newOrderForTable: table];
             else
@@ -233,28 +234,20 @@
             
         case commandStartNextCourse:
         {
-            Course *nextCourse = [order getNextCourse];
-            if(nextCourse == nil)
-            {
-            }
-            else
-            {
-                [[Service getInstance] startCourse: nextCourse.id]; 
-                [popoverController dismissPopoverAnimated:YES];
-            }
+            [tableMapController startNextCourse:order];
+            [popoverController dismissPopoverAnimated:YES];
             return;
         }
             
-        case commandBill:
+        case commandMakeBill:
         {
-            [[Service getInstance] makeBills:nil forOrder: order.id]; 
+            [tableMapController makeBills:order];
             [popoverController dismissPopoverAnimated:YES];
             return;
         }
             
         case commandGetPayment:
         {
-            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
             [tableMapController payOrder:order];
             [popoverController dismissPopoverAnimated:YES];
             return;
@@ -266,7 +259,6 @@
             NSArray *slotReservations = [groupedReservations objectForKey:key];
             
             Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
-            TableMapViewController *tableMapController = (TableMapViewController*) popoverController.delegate;
             [tableMapController startTable: table fromReservation: reservation];
             return;
         }

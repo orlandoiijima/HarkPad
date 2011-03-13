@@ -9,10 +9,18 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ReservationsTableViewController : UITableViewController {
+@interface ReservationsTableViewController : UIViewController <UITableViewDelegate>{
     NSMutableArray *reservations;
+    NSMutableDictionary *groupedReservations;
+    NSDate *dateToShow;
 }
 
+@property (retain) IBOutlet UITableView *table; 
+@property (retain) IBOutlet UILabel *dateLabel;
+@property (retain) NSDate *dateToShow;
 @property (retain) NSMutableArray *reservations;
 @property (retain) NSMutableDictionary *groupedReservations;
+
+- (void) refreshTable;
+
 @end

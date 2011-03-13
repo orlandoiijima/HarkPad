@@ -15,6 +15,10 @@
 		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
 		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
 		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
+		E5258BC3132D0BC700EE8E52 /* ReservationsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */; };
+		E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */; };
+		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
+		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
@@ -238,6 +242,12 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
+		E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationsTableViewController.xib; sourceTree = "<group>"; };
+		E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
+		E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
+		E533A0CB132D2931005CB4D6 /* TimeFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatters.h; sourceTree = "<group>"; };
+		E533A0CC132D2931005CB4D6 /* TimeFormatters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeFormatters.m; sourceTree = "<group>"; };
+		E533A0D0132D44C8005CB4D6 /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		E534F41912F3418F006886C6 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		E534F41A12F3418F006886C6 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		E534F42012F34214006886C6 /* Guest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Guest.h; sourceTree = "<group>"; };
@@ -407,6 +417,7 @@
 				E50A386012E234B8007C2101 /* Tables */,
 				E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */,
 				E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */,
+				E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */,
 				E5E722EE13118B3800905959 /* ChefViewController.h */,
 				E5E722EF13118B3900905959 /* ChefViewController.m */,
 				E5E722F013118B3D00905959 /* ChefViewController.xib */,
@@ -511,6 +522,7 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E533A0D0132D44C8005CB4D6 /* refresh.png */,
 				E5F0648E130D4F260037816B /* nl.png */,
 				E5F06494130D4FB20037816B /* es.png */,
 				E5F06496130D4FC50037816B /* it.png */,
@@ -620,6 +632,10 @@
 		E50A390812E236A7007C2101 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */,
+				E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */,
+				E533A0CB132D2931005CB4D6 /* TimeFormatters.h */,
+				E533A0CC132D2931005CB4D6 /* TimeFormatters.m */,
 				E50A391C12E23E19007C2101 /* ModalAlert.h */,
 				E50A391D12E23E19007C2101 /* ModalAlert.m */,
 				E50A390912E236A7007C2101 /* Utils.h */,
@@ -746,6 +762,8 @@
 				E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */,
 				E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */,
 				E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */,
+				E5258BC3132D0BC700EE8E52 /* ReservationsTableViewController.xib in Resources */,
+				E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -843,6 +861,8 @@
 				E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */,
 				E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */,
 				E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */,
+				E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */,
+				E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
