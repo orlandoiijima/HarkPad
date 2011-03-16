@@ -12,7 +12,7 @@
 
 @implementation ChefViewController
 
-@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton;
+@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton, firstSlotOffset, firstTableLabel, secondTableLabel;
 @synthesize totalDoneLabel, totalInProgressLabel, totalInSlotLabel, totalNotYetRequestedLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,9 +55,33 @@
                                    userInfo:nil
                                     repeats:YES];    
  
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeGesture];
+    [swipeGesture release];   
+    
+    swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
+    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeGesture];
+    [swipeGesture release];   
+    
+    
     [self updateClock];
     [self refreshView];
 }
+
+- (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
+{
+    if(slots == nil || [slots count] == 0)
+        return;
+    firstSlotOffset += sender.direction == UISwipeGestureRecognizerDirectionLeft ? 1 : -1;
+    if(firstSlotOffset < 0)
+        firstSlotOffset = 0;
+    if(firstSlotOffset > [slots count])
+        firstSlotOffset = [slots count] - 1; 
+    [self refreshView];
+}
+
 
 - (void)viewDidUnload
 {
@@ -69,23 +93,36 @@
 - (void) refreshView
 {
     slots = [[Service getInstance] getCurrentSlots];
-    if(slots != nil && slots.count > 0)
+    if(slots != nil && slots.count > firstSlotOffset)
     {
-        firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:0]];
+        firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset]];
         firstTable.delegate = firstTable.dataSource;
-        if(slots.count > 1) {
-            secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:1]];
-            secondTable.delegate = secondTable.dataSource;
-        }
+        if(firstSlotOffset == 0)
+            firstTableLabel.text = @"Onderhanden";
         else
-            secondTable.dataSource = nil;
-            
-        [firstTable reloadData];
-        [secondTable reloadData];
+            firstTableLabel.text = [NSString stringWithFormat:@"Slot +	%d", firstSlotOffset];
     }
     else
+    {
         firstTable.dataSource = nil;
+        firstTableLabel.text = @"";
+    }
     
+    if(slots != nil && slots.count > firstSlotOffset + 1)
+    {
+        secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset+1]];
+        secondTable.delegate = secondTable.dataSource;
+        secondTableLabel.text = [NSString stringWithFormat:@"Slot +%d", firstSlotOffset+1];
+    }
+    else
+    {
+        secondTable.dataSource = nil;
+        secondTableLabel.text = @"";
+    }   
+
+    [firstTable reloadData];
+    [secondTable reloadData];
+
     KitchenStatistics *stats = [[Service getInstance] getKitchenStatistics];
     totalDoneLabel.text = [NSString stringWithFormat: @"%d", stats.done];
     totalInProgressLabel.text = [NSString stringWithFormat: @"%d", stats.inProgress];

@@ -23,11 +23,15 @@
 @property (retain) SlotDataSource *firstSlotDataSource; 
 @property (retain) SlotDataSource *secondSlotDataSource;
 @property (retain) NSMutableArray *slots;
+@property (retain) IBOutlet UILabel *firstTableLabel;
+@property (retain) IBOutlet UILabel *secondTableLabel;
 @property (retain) IBOutlet UILabel *clockLabel;
 @property (retain) IBOutlet UILabel *totalDoneLabel;
 @property (retain) IBOutlet UILabel *totalInProgressLabel;
 @property (retain) IBOutlet UILabel *totalInSlotLabel;
 @property (retain) IBOutlet UILabel *totalNotYetRequestedLabel;
+@property int firstSlotOffset;
+
 - (void) refreshView;
 - (void) updateClock;
 - (IBAction) startNextSlot;
