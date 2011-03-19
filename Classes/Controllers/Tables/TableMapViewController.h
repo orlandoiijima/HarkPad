@@ -13,6 +13,8 @@
 #import "Reservation.h"
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate> {    
+    District *currentDistrict;
+    Map* map;
 }
 
 - (void) clickTable : (UIControl *) c;
@@ -29,6 +31,7 @@
 - (void) closeOrderView;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
+- (CGRect) rotateRect: (CGRect) rect;
 
 
 @property (retain) Map* map;

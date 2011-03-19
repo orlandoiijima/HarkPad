@@ -7,7 +7,6 @@
 //
 
 #import "Service.h"
-#import "TestService.h"
 #import "KitchenStatistics.h"
 
 @implementation Service
@@ -150,9 +149,9 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
-- (Order *) getLatestOrderByTable: (int) tableId
+- (Order *) getOpenOrderByTable: (int) tableId
 {
-    NSURL *testUrl = [self makeEndPoint:@"getlatestorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
+    NSURL *testUrl = [self makeEndPoint:@"getopenorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
     
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
 	NSDictionary *orderDic = [self getResultFromJson:data];
@@ -200,10 +199,11 @@ static Service *_service;
 }
 
 
-- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId
+- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer
 {
     NSMutableDictionary *billsInfo = [[NSMutableDictionary alloc] init];
     [billsInfo setObject:[NSNumber numberWithInt: orderId] forKey:@"orderId"];
+    [billsInfo setObject:printer forKey:@"printerId"];
     
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:billsInfo error:&error];

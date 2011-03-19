@@ -11,10 +11,12 @@
 #import "Table.h"
 #import "TableButton.h"
 #import "TablePopupMenu.h"
+#import "TablePopupViewController.h"
 #import "NewOrderVC.h"
 #import "ReservationsTableViewController.h"
 #import "ChefViewController.h"
 #import "PaymentViewController.h"
+#import "BillViewController.h"
 
 @implementation TableMapViewController
 
@@ -27,7 +29,6 @@
 
     map = [[Cache getInstance] map];
     [self setupDistrictPicker];
-    [self setupDistrictMap];
     
     [NSTimer scheduledTimerWithTimeInterval:10.0f
                                      target:self
@@ -42,19 +43,30 @@
     for(UIView *view in tableMapView.subviews) [view removeFromSuperview];
     if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
     currentDistrict = [map.districts objectAtIndex:districtPicker.selectedSegmentIndex];
-    CGRect boundingRect = [currentDistrict getRect];
+    CGRect boundingRect = [currentDistrict getRect]	;
     float scaleX = ((float)tableMapView.bounds.size.width - 20) / boundingRect.size.width;
-    //    float scaleY = ((float)self.view.bounds.size.height - 20) / boundingRect.size.height;
+    if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
+        scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
     float scaleY = scaleX;
     boundingRect.origin.x = boundingRect.origin.x * scaleX - 10;
     boundingRect.origin.y = boundingRect.origin.y * scaleY - 10;
     for(Table *table in [currentDistrict tables])
     {
-        TableButton *button = [TableButton buttonWithTable:table offset:boundingRect.origin scaleX:scaleX scaleY:scaleY];
+        TableButton *button = [TableButton buttonWithTable:table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX	];
         [button addTarget:self action:@selector(clickTable:) forControlEvents:UIControlEventTouchDown];
         [tableMapView addSubview:button];
     }
-    
+}
+
+- (void) rotateTables
+{
+    double quarter = M_PI_2;
+    for(Table *table in [currentDistrict tables])
+    {
+        CGAffineTransform rotate = CGAffineTransformMakeRotation(quarter);
+        table.bounds = CGRectApplyAffineTransform(table.bounds, rotate);
+        table.seatOrientation = table.seatOrientation == row ? column : row;
+    }
 }
 
 - (void) setupDistrictPicker
@@ -116,16 +128,14 @@
 - (void) clickTable: (UIControl *) sender
 {
     TableButton *tableButton = (TableButton *)sender;
-    Order *order = [[Service getInstance] getLatestOrderByTable: tableButton.table.id];
+    Order *order = [[Service getInstance] getOpenOrderByTable: tableButton.table.id];
     
-    TablePopupMenu *tablePopupMenu = [TablePopupMenu menuForTable: tableButton.table withOrder: order];
-    tablePopupMenu.contentSizeForViewInPopover = CGSizeMake(300, 300);
-    
-    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:tablePopupMenu];
+    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table withOrder: order];
+    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:tablePopup];
 
     popOver.delegate = self;
 
-    tablePopupMenu.popoverController = popOver;
+    tablePopup.popoverController = popOver;
     
     [popOver presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 
@@ -194,8 +204,13 @@
 
 - (void) makeBills: (Order*)order
 {
-    if(order == nil) return;
-    [[Service getInstance] makeBills:nil forOrder: order.id]; 
+    if(order == nil)
+        return;
+    BillViewController *billVC = [[BillViewController alloc] init];	
+    billVC.order = order;
+    billVC.tableMapViewController = self;
+    billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
+    [self presentModalViewController: billVC animated:YES];
 }
 
 // Override to allow orientations other than the default portrait orientation.

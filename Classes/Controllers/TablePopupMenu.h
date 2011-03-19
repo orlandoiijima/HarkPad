@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Table.h"
 #import "Order.h"
-#import "TableInfoView.h"
 
 typedef enum Command {commandGetOrder, commandStartNextCourse, commandMakeBill, commandGetPayment, commandPlaceReservation} Command ;
 
@@ -18,7 +17,6 @@ typedef enum Command {commandGetOrder, commandStartNextCourse, commandMakeBill, 
 
 + (TablePopupMenu *) menuForTable: (Table *) table withOrder: (Order *) order;
 
-@property (retain) TableInfoView *tableInfoView;
 @property (retain) Table *table;
 @property (retain) Order *order;
 @property (retain) UIPopoverController *popoverController;

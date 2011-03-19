@@ -18,10 +18,10 @@
 - (Map *) getMap;
 - (TreeNode *) getTree;
 - (Order *) getOrder: (NSNumber *) orderId;
-- (Order *) getLatestOrderByTable: (NSNumber *) tableId;
+- (Order *) getOpenOrderByTable: (NSNumber *) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
 - (void) startCourse: (int) courseId;
-- (void) makeBills: (NSMutableArray *) bills forOrder: (int) orderId;
+- (void) makeBills: (NSMutableArray *) invoices forOrder: (int) orderId withPrinter: (NSString *)printer;
 - (void) setState: (int) state forOrder: (int) orderId;
 - (void) updateOrder: (Order *) order;
 

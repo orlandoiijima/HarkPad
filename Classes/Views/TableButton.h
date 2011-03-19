@@ -31,5 +31,6 @@
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY;
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo;
+- (CGRect) rotateRect: (CGRect) rect;
 
 @end

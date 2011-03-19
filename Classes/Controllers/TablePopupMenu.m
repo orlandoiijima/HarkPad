@@ -15,7 +15,7 @@
 
 @implementation TablePopupMenu
 
-@synthesize table, order, popoverController, tableInfoView, commandItems;
+@synthesize table, order, popoverController, commandItems;
 @synthesize reservations, groupedReservations;
 
 #pragma mark -
@@ -35,23 +35,24 @@
     TablePopupMenu *tablePopupMenu = [[TablePopupMenu alloc] initWithStyle:UITableViewStyleGrouped];
     tablePopupMenu.table = table;
     tablePopupMenu.order = order;
-    tablePopupMenu.tableInfoView = [TableInfoView viewWithOrder:order];
     
-    tablePopupMenu.reservations = [[Service getInstance] getReservations];
-    tablePopupMenu.groupedReservations = [[NSMutableDictionary alloc] init];
-    for (Reservation *reservation in tablePopupMenu.reservations) {
-        //  skip 'placed' reservations
-        if(reservation.orderId != -1) continue;
-        NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
-        NSInteger hour = [components hour];
-        NSInteger minute = [components minute];            
-        NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-        NSMutableArray *slotArray = [tablePopupMenu.groupedReservations objectForKey:timeSlot];
-        if(slotArray == nil) {
-            slotArray = [[NSMutableArray alloc] init];
-            [tablePopupMenu.groupedReservations setObject:slotArray forKey:timeSlot];
+    if(order == nil) {
+        tablePopupMenu.reservations = [[Service getInstance] getReservations];
+        tablePopupMenu.groupedReservations = [[NSMutableDictionary alloc] init];
+        for (Reservation *reservation in tablePopupMenu.reservations) {
+            //  skip 'placed' reservations
+            if(reservation.orderId != -1) continue;
+            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+            NSInteger hour = [components hour];
+            NSInteger minute = [components minute];            
+            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+            NSMutableArray *slotArray = [tablePopupMenu.groupedReservations objectForKey:timeSlot];
+            if(slotArray == nil) {
+                slotArray = [[NSMutableArray alloc] init];
+                [tablePopupMenu.groupedReservations setObject:slotArray forKey:timeSlot];
+            }
+            [slotArray addObject:reservation];
         }
-        [slotArray addObject:reservation];
     }
     
     return tablePopupMenu;

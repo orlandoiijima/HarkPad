@@ -32,9 +32,9 @@
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
 - (KitchenStatistics *) getKitchenStatistics;
-- (Order *) getLatestOrderByTable: (int) tableId;
+- (Order *) getOpenOrderByTable: (int) tableId;
 - (NSMutableArray *) getOpenOrdersInfo;
-- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId;
+- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
