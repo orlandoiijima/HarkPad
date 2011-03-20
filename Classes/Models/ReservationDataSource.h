@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ReservationDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>{
+@interface ReservationDataSource : NSObject <UITableViewDataSource>{
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
 }

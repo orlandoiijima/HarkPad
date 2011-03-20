@@ -34,7 +34,6 @@
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
 		E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
 		E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */; };
-		E5E722FA1311A12C00905959 /* TablePopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385F12E234B8007C2101 /* TablePopupMenu.m */; };
 		E5E722FB1311A12C00905959 /* TableMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386212E234B8007C2101 /* TableMapViewController.m */; };
 		E5E722FC1311A12C00905959 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
 		E5E722FD1311A12C00905959 /* District.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386A12E234B8007C2101 /* District.m */; };
@@ -118,8 +117,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotDataSource.h; sourceTree = "<group>"; };
-		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotDataSource.m; sourceTree = "<group>"; };
+		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
+		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlotDataSource.m; path = Models/SlotDataSource.m; sourceTree = "<group>"; };
 		E50152661315A25A007959F5 /* SlotTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotTable.h; sourceTree = "<group>"; };
 		E50152671315A25D007959F5 /* SlotTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlotTable.m; sourceTree = "<group>"; };
 		E50A380312E21164007C2101 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -145,8 +144,6 @@
 		E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLineDetailViewController.h; sourceTree = "<group>"; };
 		E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLineDetailViewController.m; sourceTree = "<group>"; };
 		E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderLineDetailViewController.xib; sourceTree = "<group>"; };
-		E50A385E12E234B8007C2101 /* TablePopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablePopupMenu.h; sourceTree = "<group>"; };
-		E50A385F12E234B8007C2101 /* TablePopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablePopupMenu.m; sourceTree = "<group>"; };
 		E50A386112E234B8007C2101 /* TableMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableMapViewController.h; sourceTree = "<group>"; };
 		E50A386212E234B8007C2101 /* TableMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableMapViewController.m; sourceTree = "<group>"; };
 		E50A386312E234B8007C2101 /* TableMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableMapViewController.xib; sourceTree = "<group>"; };
@@ -266,13 +263,13 @@
 		E561E2631334998400229B76 /* TablePopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablePopupViewController.h; sourceTree = "<group>"; };
 		E561E2641334998A00229B76 /* TablePopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablePopupViewController.m; sourceTree = "<group>"; };
 		E561E2651334999A00229B76 /* TablePopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TablePopupViewController.xib; sourceTree = "<group>"; };
-		E561E2681334B13B00229B76 /* ReservationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationDataSource.h; sourceTree = "<group>"; };
-		E561E2691334B13C00229B76 /* ReservationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationDataSource.m; sourceTree = "<group>"; };
+		E561E2681334B13B00229B76 /* ReservationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReservationDataSource.h; path = Models/ReservationDataSource.h; sourceTree = "<group>"; };
+		E561E2691334B13C00229B76 /* ReservationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReservationDataSource.m; path = Models/ReservationDataSource.m; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
-		E5AC3D77132263820090F743 /* InvoiceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceDataSource.h; sourceTree = "<group>"; };
-		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceDataSource.m; sourceTree = "<group>"; };
+		E5AC3D77132263820090F743 /* InvoiceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoiceDataSource.h; path = Models/InvoiceDataSource.h; sourceTree = "<group>"; };
+		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoiceDataSource.m; path = Models/InvoiceDataSource.m; sourceTree = "<group>"; };
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -391,6 +388,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E561E2731336027800229B76 /* DataSources */,
 				E50A391212E23A43007C2101 /* Service */,
 				E50A390812E236A7007C2101 /* Utils */,
 				E50A384112E234B8007C2101 /* AppDelegate */,
@@ -422,8 +420,6 @@
 				E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */,
 				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
 				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
-				E50A385E12E234B8007C2101 /* TablePopupMenu.h */,
-				E50A385F12E234B8007C2101 /* TablePopupMenu.m */,
 				E50A386012E234B8007C2101 /* Tables */,
 				E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */,
 				E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */,
@@ -512,16 +508,10 @@
 				E555BD3613081DC10097EB0A /* Reservation.m */,
 				E5E722E513116DFB00905959 /* Slot.h */,
 				E5E722E613116DFB00905959 /* Slot.m */,
-				E5015258131306E4007959F5 /* SlotDataSource.h */,
-				E5015259131306E4007959F5 /* SlotDataSource.m */,
 				E50152661315A25A007959F5 /* SlotTable.h */,
 				E50152671315A25D007959F5 /* SlotTable.m */,
 				E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */,
 				E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */,
-				E5AC3D77132263820090F743 /* InvoiceDataSource.h */,
-				E5AC3D78132263830090F743 /* InvoiceDataSource.m */,
-				E561E2681334B13B00229B76 /* ReservationDataSource.h */,
-				E561E2691334B13C00229B76 /* ReservationDataSource.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -665,6 +655,19 @@
 				E50A391512E23A43007C2101 /* ServiceProtocol.h */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		E561E2731336027800229B76 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				E5AC3D77132263820090F743 /* InvoiceDataSource.h */,
+				E5AC3D78132263830090F743 /* InvoiceDataSource.m */,
+				E561E2681334B13B00229B76 /* ReservationDataSource.h */,
+				E561E2691334B13C00229B76 /* ReservationDataSource.m */,
+				E5015258131306E4007959F5 /* SlotDataSource.h */,
+				E5015259131306E4007959F5 /* SlotDataSource.m */,
+			);
+			name = DataSources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -815,7 +818,6 @@
 				E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */,
 				E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */,
 				E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */,
-				E5E722FA1311A12C00905959 /* TablePopupMenu.m in Sources */,
 				E5E722FB1311A12C00905959 /* TableMapViewController.m in Sources */,
 				E5E722FC1311A12C00905959 /* Cache.m in Sources */,
 				E5E722FD1311A12C00905959 /* District.m in Sources */,

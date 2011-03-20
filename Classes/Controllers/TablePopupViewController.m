@@ -46,7 +46,7 @@
 
 - (void) setPreferredSize
 {
-    if(reservationDataSource == nil || [reservationDataSource.reservations count] == 0) {
+    if(reservationDataSource == nil || [reservationDataSource.groupedReservations count] == 0) {
         self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 190);
     }
     else
@@ -84,14 +84,11 @@
     return;
 }
 
-- (void) placeReservation
+- (void) placeReservation: (Reservation*)reservation
 {
-//    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section - 1];
-//    NSArray *slotReservations = [groupedReservations objectForKey:key];
-//    
-//    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
-//    [[self tableMapController] startTable: table fromReservation: reservation];
-//    return;
+    [[self tableMapController] startTable: table fromReservation: reservation];
+    [popoverController dismissPopoverAnimated:YES];
+    return;
 }
 
 - (void)dealloc
@@ -123,14 +120,23 @@
         [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
     }
     else {
-        [buttonStartCourse setTitle:@"Volgende gang opvragen" forState:UIControlStateDisabled];
-        buttonStartCourse.enabled = false;
+        [buttonStartCourse setTitle:@"Geen volgende gang" forState:UIControlStateDisabled];
+        [self setButton:buttonStartCourse enabled: false];
         labelNextCourse.text = @"";
     }
     
-    buttonGetPayment.enabled = order.state == billed;
+    [self setButton: buttonGetPayment enabled: order.state == billed];
+    [self setButton: buttonMakeOrder enabled: order == nil || order.state == ordering];
+    [self setButton: buttonMakeBill enabled: order.state != billed];
     
     [self setPreferredSize];
+}
+
+- (void) setButton: (UIButton*) button enabled: (bool)enabled
+{
+    button.enabled = enabled;
+//    button.titleLabel.textColor = enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
+    button.titleLabel.textColor = [button.titleLabel.textColor colorWithAlphaComponent:enabled ? 1: 0.5];
 }
 
 - (void)viewDidUnload
@@ -145,5 +151,17 @@
     // Return YES for supported orientations
 	return YES;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *key = [[reservationDataSource.groupedReservations allKeys] objectAtIndex: indexPath.section];
+    NSArray *slotReservations = [reservationDataSource.groupedReservations objectForKey:key];
+            
+    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+    [self placeReservation:reservation];
+}
+
+
 
 @end

@@ -200,6 +200,14 @@
             progress.currentCourse = 0;
             gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             flag.image = nil;
+            for(int seat=0; seat < table.countSeats; seat++)
+            {
+                ProductSymbol *symbol = [self symbolBySeat:seat];
+                if(symbol != nil)
+                {
+                    [symbol setFood:nil drink: nil];
+                }
+            }
         }
         [self setNeedsDisplay];
         [progress setNeedsDisplay];

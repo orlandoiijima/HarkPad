@@ -12,7 +12,7 @@
 
 @implementation Product
 
-@synthesize category, price, name, key, description, sortOrder, properties, id;
+@synthesize category, price, name, key, description, sortOrder, properties, isQueued, id;
 
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
@@ -21,6 +21,7 @@
     product.name = [jsonDictionary objectForKey:@"name"];
     product.description = [jsonDictionary objectForKey:@"description"];
     product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
+    product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];    
     product.id = [[jsonDictionary objectForKey:@"id"] intValue];
     product.properties = [[NSMutableArray alloc] init];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];

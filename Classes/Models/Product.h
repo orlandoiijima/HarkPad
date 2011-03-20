@@ -16,6 +16,7 @@
     NSString *description;
     NSDecimalNumber *price;
     int sortOrder;
+    bool isQueued;
     int id;
     NSMutableArray *properties;
 }
@@ -26,6 +27,7 @@
 @property (retain) NSString *description;
 @property (retain) NSDecimalNumber *price;
 @property int sortOrder;
+@property bool isQueued;
 @property int id;
 @property (retain) NSMutableArray *properties;
 

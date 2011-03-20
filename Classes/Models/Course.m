@@ -47,6 +47,16 @@
     return dic;
 }
 
+- (bool) hasQueuedItems
+{
+    for(OrderLine *line in lines)
+    {
+        if(line.product.isQueued)
+            return true;
+    }
+    return false;
+}
+
 - (NSString *) stringForCourse
 {
     NSMutableDictionary *products = [[NSMutableDictionary alloc] init];

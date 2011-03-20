@@ -68,6 +68,10 @@
         label.textColor  = drink.category.color;
         label.text = [[drink.key substringToIndex:2] uppercaseString];
     }
+    else
+    {
+        label.text = @"";
+    }
     [self setNeedsDisplay];
 }
 

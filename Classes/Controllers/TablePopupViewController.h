@@ -13,7 +13,7 @@
 #import "ReservationDataSource.h"
 #import "TableMapViewController.h"
 
-@interface TablePopupViewController : UIViewController {
+@interface TablePopupViewController : UIViewController <UITableViewDelegate>{
     Table *table;
     Order *order;
     UITableView *reservationsTable;
@@ -41,13 +41,14 @@
 
 - (TableMapViewController *) tableMapController;
 - (void) setPreferredSize;
+- (void) setButton: (UIButton*) button enabled: (bool)enabled;
 
 - (IBAction) makeBill;
 - (IBAction) getOrder;
 - (IBAction) startNextCourse;
 - (IBAction) makeBill;
 - (IBAction) getPayment;
-- (IBAction) placeReservation;
+- (void) placeReservation: (Reservation*)reservation;
 
 
 @end

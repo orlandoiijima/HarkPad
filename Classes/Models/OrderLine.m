@@ -17,7 +17,7 @@
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses
 {
     OrderLine *orderLine = [[[OrderLine alloc] init] autorelease];
-    orderLine.entityState = None;
+//    orderLine.entityState = None;
     orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
@@ -51,8 +51,8 @@
 
 - (void) setEntityState:(EntityState)newState
 {
-    if(self.entityState == None)
-        self.entityState = newState;
+    if(entityState == None)
+        entityState = newState;
 }
 
 - (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests
@@ -80,7 +80,7 @@
     if ((self = [super init])) {
         self.quantity = 1;
         propertyValues = [[NSMutableArray alloc] init];
-        entityState = New;
+//        entityState = New;
     }
     return self;
 }
