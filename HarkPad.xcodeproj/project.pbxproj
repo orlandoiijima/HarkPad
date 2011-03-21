@@ -24,6 +24,7 @@
 		E561E266133499B100229B76 /* TablePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E561E2641334998A00229B76 /* TablePopupViewController.m */; };
 		E561E267133499B100229B76 /* TablePopupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561E2651334999A00229B76 /* TablePopupViewController.xib */; };
 		E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E561E2691334B13C00229B76 /* ReservationDataSource.m */; };
+		E561E2751336446400229B76 /* anna72.png in Resources */ = {isa = PBXBuildFile; fileRef = E561E2741336445600229B76 /* anna72.png */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
@@ -265,6 +266,7 @@
 		E561E2651334999A00229B76 /* TablePopupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TablePopupViewController.xib; sourceTree = "<group>"; };
 		E561E2681334B13B00229B76 /* ReservationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReservationDataSource.h; path = Models/ReservationDataSource.h; sourceTree = "<group>"; };
 		E561E2691334B13C00229B76 /* ReservationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReservationDataSource.m; path = Models/ReservationDataSource.m; sourceTree = "<group>"; };
+		E561E2741336445600229B76 /* anna72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anna72.png; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E561E2741336445600229B76 /* anna72.png */,
 				E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */,
 				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
 				E50A384012E234B8007C2101 /* Classes */,
@@ -780,6 +783,7 @@
 				E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */,
 				E561E26213348E8F00229B76 /* BillViewController.xib in Resources */,
 				E561E267133499B100229B76 /* TablePopupViewController.xib in Resources */,
+				E561E2751336446400229B76 /* anna72.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

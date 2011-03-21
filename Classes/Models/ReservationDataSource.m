@@ -18,7 +18,7 @@
 + (ReservationDataSource *) dataSource
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
-    source.reservations = [[Service getInstance] getReservations];
+    source.reservations = [[Service getInstance] getReservations: [NSDate date]];
     source.groupedReservations = [[NSMutableDictionary alloc] init];
     for (Reservation *reservation in source.reservations) {
         //  skip 'placed' reservations

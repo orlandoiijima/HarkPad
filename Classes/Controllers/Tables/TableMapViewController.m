@@ -10,7 +10,6 @@
 #import "Service.h"
 #import "Table.h"
 #import "TableButton.h"
-#import "TablePopupMenu.h"
 #import "TablePopupViewController.h"
 #import "NewOrderVC.h"
 #import "ReservationsTableViewController.h"
@@ -169,7 +168,7 @@
 {
     isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
-    [self refreshTableButtons];
+    [self performSelector:@selector(refreshTableButtons) withObject:nil afterDelay:1];
 }
 
 - (void) newOrderForTable: (Table *) table

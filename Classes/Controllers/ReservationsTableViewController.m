@@ -42,8 +42,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    reservations = [[[Service getInstance] getReservations] retain]	;
     
     dateToShow = [[NSDate date] retain];
     
@@ -98,6 +96,8 @@
     else
         dateLabel.text = [NSString stringWithFormat:@"%@", dateToShow];
 
+    reservations = [[[Service getInstance] getReservations:dateToShow] retain];
+    
     groupedReservations = [[NSMutableDictionary alloc] init];
     for (Reservation *reservation in reservations) {
         if([dateToShow isEqualToDateIgnoringTime: reservation.startsOn]) {

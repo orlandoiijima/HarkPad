@@ -98,9 +98,10 @@ static Service *_service;
     return orders;
 }
 
-- (NSMutableArray *) getReservations
+- (NSMutableArray *) getReservations: (NSDate *)date
 {
-	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:@""];
+    int dateSeconds = [date timeIntervalSince1970];
+	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *reservationsDic = [self getResultFromJson: data];
     NSMutableArray *reservations = [[[NSMutableArray alloc] init] autorelease];
