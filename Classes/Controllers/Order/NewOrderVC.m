@@ -38,8 +38,7 @@
 
     if(order != nil)
     {
-        Table *table = [order.tables objectAtIndex:0];
-        tableLabel.title = [NSString stringWithFormat: @"Tafel %@", table.name];
+        tableLabel.title = [NSString stringWithFormat: @"Tafel %@", order.table.name];
     }
     
     CGRect frame = CGRectMake(0, 0, 10, 10);

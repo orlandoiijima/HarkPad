@@ -12,7 +12,7 @@
 
 @interface OrderInfo : NSObject {
     NSDate *createdOn;
-    NSMutableArray *tables;
+    Table *table;
     NSMutableDictionary *seats;
     int id;
     OrderState state;
@@ -25,7 +25,7 @@
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary;
 
 @property (retain) NSDate *createdOn;
-@property (retain) NSMutableArray *tables;
+@property (retain) Table *table;
 @property (retain) NSMutableDictionary *seats;
 @property int id;
 @property OrderState state;

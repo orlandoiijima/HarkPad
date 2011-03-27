@@ -16,7 +16,7 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://80.101.82.103:10089";
+        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -84,18 +84,40 @@ static Service *_service;
 	return [Map mapFromJson:[self getResultFromJson: data]];    
 }
 
-- (NSMutableArray *) getOpenOrdersInfo
+- (void) undockTable: (int)tableId
 {
-	NSURL *testUrl = [self makeEndPoint:@"getopenordersinfo" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *ordersDic = [self getResultFromJson: data];
-    NSMutableArray *orders = [[[NSMutableArray alloc] init] autorelease];
-    for(NSDictionary *orderDic in ordersDic)
-    {
-        OrderInfo *order = [OrderInfo infoFromJsonDictionary: orderDic]; 
-        [orders addObject:order];
+    NSURL *testUrl = [self makeEndPoint:@"undocktable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
+	[NSData dataWithContentsOfURL: testUrl];
+	return;    
+}
+
+- (void) dockTables: (NSMutableArray*)tables
+{
+    NSMutableArray *tableIds = [[NSMutableArray alloc] init];
+    for(Table *table in tables) {
+        [tableIds addObject:[NSNumber numberWithInt:table.id]];
     }
-    return orders;
+    NSError *error = nil;
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject: tableIds error:&error];
+    [self postToPage: @"DockTables" key: @"tables" value: jsonString];
+}
+
+- (NSMutableArray *) getTablesInfo
+{
+	NSURL *testUrl = [self makeEndPoint:@"gettablesinfo"  withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *tablesDic = [self getResultFromJson: data];
+    NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
+    for(NSDictionary *tableDic in tablesDic)
+    {
+        TableInfo *tableInfo = [[TableInfo alloc] init];
+        tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
+        NSDictionary *orderDic = [tableDic objectForKey:@"orderInfo"];
+        if( (NSNull *)orderDic != [NSNull null])
+            tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic]; 
+        [tables addObject:tableInfo];
+    }
+    return tables;
 }
 
 - (NSMutableArray *) getReservations: (NSDate *)date
@@ -233,6 +255,18 @@ static Service *_service;
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
+}
+
+- (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value
+{
+    NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
+    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, value];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];    
 }
 	
 @end

@@ -16,6 +16,7 @@
 #import "CJSONSerializer.h"
 #import "ServiceProtocol.h"
 #import "KitchenStatistics.h"
+#import "TableInfo.h"
 
 @interface Service : NSObject <ServiceProtocol> {    
 }
@@ -27,18 +28,21 @@
 - (MenuCard *) getMenuCard;
 - (NSMutableArray *) getMenus;
 - (Map *) getMap;
+- (void) undockTable: (int)tableId;
+- (void) dockTables: (NSMutableArray*)tables;
 - (Order *) getOrder: (int) orderId;
-- (NSMutableArray *) getReservations;
+- (NSMutableArray *) getReservations: (NSDate *)date;
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
 - (KitchenStatistics *) getKitchenStatistics;
 - (Order *) getOpenOrderByTable: (int) tableId;
-- (NSMutableArray *) getOpenOrdersInfo;
+- (NSMutableArray *) getTablesInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
 - (id) getResultFromJson: (NSData *)data;
+- (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
 
 @end

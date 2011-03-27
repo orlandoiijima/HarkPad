@@ -12,7 +12,7 @@
 
 @implementation Order
 
-@synthesize tables, courses, guests, createdOn, state, entityState, reservation, id;
+@synthesize table, courses, guests, createdOn, state, entityState, reservation, id;
 
 
 - (id)init
@@ -21,7 +21,6 @@
 	{
         self.courses = [[NSMutableArray alloc] init];
         self.guests = [[NSMutableArray alloc] init];
-        self.tables = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
         self.state = 0;
         self.entityState = New;
@@ -31,14 +30,16 @@
 
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
+    Cache *cache = [Cache getInstance];
+
     Order *order = [[[Order alloc] init] autorelease];
     order.id = [[jsonDictionary objectForKey:@"id"] intValue];
     order.entityState = None;
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    
-    Cache *cache = [Cache getInstance];
+    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
+    order.table = [cache.map getTable:tableId]; 
 
     id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
@@ -60,14 +61,6 @@
         [OrderLine orderLineFromJsonDictionary:item guests: order.guests courses: order.courses];
     }
     
-    for(NSNumber *tableId in [jsonDictionary objectForKey:@"tables"])
-    {
-        Table *table = [cache.map getTable:[tableId intValue]]; 
-        if(table != nil) {
-            [order.tables addObject:table];
-        }
-    }
-    
     id reservationDic = [jsonDictionary objectForKey:@"reservation"];
     if((NSNull *)reservationDic != [NSNull null])
     {
@@ -79,7 +72,7 @@
 + (Order *) orderForTable: (Table *) table
 {
     Order *order = [[Order alloc] init];
-    [order.tables addObject:table];
+    order.table = table;
     return order;
 }
 
@@ -88,6 +81,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt: [self id]] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
+    [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
     
     NSMutableArray *dicCourses = [[[NSMutableArray alloc] init] autorelease];
     [dic setObject:dicCourses forKey:@"courses"];
@@ -111,13 +105,6 @@
         {
             [dicLines addObject: [line initDictionary]];
         }
-    }
-    
-    NSMutableArray *dicTables = [[[NSMutableArray alloc] init] autorelease];
-    [dic setObject:dicTables forKey:@"tables"];
-    for(Table *table in [self tables])
-    {
-        [dicTables addObject: [NSNumber numberWithInt: table.id]];
     }
     return dic;
 }

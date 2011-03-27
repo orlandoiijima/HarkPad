@@ -10,10 +10,13 @@
 
 
 @interface District : NSObject {
-
+    NSString *name;
+    int id;
+    NSMutableArray *tables;
 }
 
 @property (retain) NSString *name;
+@property int id;
 @property (retain) NSMutableArray *tables;
 
 

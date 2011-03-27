@@ -19,7 +19,7 @@
     OrderInfo *orderInfo;
     CourseProgress * progress;
     float unit;
-    float widthPerPerson, tableLeftMargin, tableTopMargin, seatWidth, seatHeight, symbolWidth;
+    float widthPerPerson, tableLeftMargin, tableTopMargin, seatWidth, seatHeight, symbolWidth,tableDepth, tableWidth, seatMargin;
 }
 
 @property (retain) UILabel *name;
@@ -27,10 +27,12 @@
 @property (retain) OrderInfo *orderInfo;
 @property (retain) CourseProgress * progress;
 @property (retain) UIImageView *flag;
-@property float unit, widthPerPerson, tableLeftMargin, tableTopMargin, seatWidth, seatHeight, symbolWidth;
+@property float unit, widthPerPerson, tableLeftMargin, tableTopMargin, seatWidth, seatHeight, symbolWidth, seatMargin, tableDepth, tableWidth;
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY;
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo;
 - (CGRect) rotateRect: (CGRect) rect;
+- (void) rePosition: (Table *) newTable offset: (CGPoint) offset scaleX: (float) scaleX;
+- (TableButton *) initByTable: (Table *) table offset: (CGPoint) offset scaleX: (float)scaleX;
 
 @end

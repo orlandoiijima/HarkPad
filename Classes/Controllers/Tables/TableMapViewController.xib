@@ -43,7 +43,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{6, 8}, {281, 30}}</string>
 								<reference key="NSSuperview" ref="142867824"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="957787865"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -74,7 +73,6 @@
 						</array>
 						<string key="NSFrameSize">{480, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="245197729"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -91,6 +89,12 @@
 								<reference key="IBUIToolbar" ref="142867824"/>
 								<int key="IBUISystemItemIdentifier">13</int>
 							</object>
+							<object class="IBUIBarButtonItem" id="60589879">
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="142867824"/>
+								<int key="IBUISystemItemIdentifier">18</int>
+							</object>
 						</array>
 					</object>
 					<object class="IBUIView" id="957787865">
@@ -98,7 +102,7 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 59}, {480, 241}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="95642222">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -108,7 +112,6 @@
 				</array>
 				<string key="NSFrame">{{0, 20}, {480, 300}}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="142867824"/>
 				<reference key="IBUIBackgroundColor" ref="95642222"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
@@ -148,20 +151,35 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">setupDistrictMap</string>
-						<reference key="source" ref="245197729"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">13</int>
-					</object>
-					<int key="connectionID">22</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">refreshTableButtons</string>
+						<string key="label">refreshView</string>
 						<reference key="source" ref="862761817"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
-					<int key="connectionID">31</int>
+					<int key="connectionID">32</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">editMode:</string>
+						<reference key="source" ref="60589879"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonEdit</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="60589879"/>
+					</object>
+					<int key="connectionID">50</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonRefresh</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="862761817"/>
+					</object>
+					<int key="connectionID">51</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -204,6 +222,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="386848892"/>
 							<reference ref="862761817"/>
+							<reference ref="60589879"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -226,6 +245,11 @@
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="142867824"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">44</int>
+						<reference key="object" ref="60589879"/>
+						<reference key="parent" ref="142867824"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -236,58 +260,15 @@
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">31</int>
+			<int key="maxID">51</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes">
-			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">TableMapViewController</string>
-					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="refreshTableButtons">id</string>
-						<string key="setupDistrictMap">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="refreshTableButtons">
-							<string key="name">refreshTableButtons</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="setupDistrictMap">
-							<string key="name">setupDistrictMap</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="buttonRefresh">UIButton</string>
-						<string key="districtPicker">UISegmentedControl</string>
-						<string key="tableMapView">UIScrollView</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="buttonRefresh">
-							<string key="name">buttonRefresh</string>
-							<string key="candidateClassName">UIButton</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="districtPicker">
-							<string key="name">districtPicker</string>
-							<string key="candidateClassName">UISegmentedControl</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="tableMapView">
-							<string key="name">tableMapView</string>
-							<string key="candidateClassName">UIScrollView</string>
-						</object>
-					</dictionary>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TableMapViewController.h</string>
-					</object>
-				</object>
-			</array>
-		</object>
+		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>

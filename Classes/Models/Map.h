@@ -17,6 +17,7 @@
 
 + (Map *) mapFromJson: (NSMutableArray *) jsonArray;
 - (Table *) getTable: (int) tableId;
+- (District *) getDistrict: (int) tableId;
 
 @property (retain) NSMutableArray *districts;
 

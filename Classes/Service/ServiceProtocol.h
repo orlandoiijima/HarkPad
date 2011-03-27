@@ -19,7 +19,7 @@
 - (TreeNode *) getTree;
 - (Order *) getOrder: (NSNumber *) orderId;
 - (Order *) getOpenOrderByTable: (NSNumber *) tableId;
-- (NSMutableArray *) getOpenOrdersInfo;
+- (NSMutableArray *) getTablesInfo;
 - (void) startCourse: (int) courseId;
 - (void) makeBills: (NSMutableArray *) invoices forOrder: (int) orderId withPrinter: (NSString *)printer;
 - (void) setState: (int) state forOrder: (int) orderId;

@@ -14,14 +14,13 @@
 @implementation OrderInfo
 
 
-@synthesize tables, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn;
+@synthesize table, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn;
 
 
 - (id)init
 {
     if ((self = [super init]) != NULL)
 	{
-        self.tables = [[NSMutableArray alloc] init];
         self.seats = [[NSMutableDictionary alloc] init];
 	}
     return(self);
@@ -30,8 +29,15 @@
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     OrderInfo *order = [[[OrderInfo alloc] init] autorelease];
+    
+    Cache *cache = [Cache getInstance];
+    
     order.id = [[jsonDictionary objectForKey:@"id"] intValue];
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
+
+    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
+    order.table = [cache.map getTable:tableId]; 
+    
     order.language = [jsonDictionary objectForKey:@"language"];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
@@ -48,15 +54,6 @@
         NSDictionary *seatInfoDic = [seatDictionary objectForKey:seat];
         SeatInfo *seatInfo = [SeatInfo seatInfoFromJsonDictionary:seatInfoDic];
         [order.seats setValue:seatInfo forKey:seat];
-    }
-    
-    Cache *cache = [Cache getInstance];
-    for(NSNumber *tableId in [jsonDictionary objectForKey:@"tables"])
-    {
-        Table *table = [cache.map getTable:[tableId intValue]]; 
-        if(table != nil) {
-            [order.tables addObject:table];
-        }
     }
     return order;
 }

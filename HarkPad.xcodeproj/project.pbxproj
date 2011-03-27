@@ -28,6 +28,7 @@
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
+		E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C81318F083005E1FA3 /* koksmuts.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
@@ -272,6 +273,8 @@
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
 		E5AC3D77132263820090F743 /* InvoiceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoiceDataSource.h; path = Models/InvoiceDataSource.h; sourceTree = "<group>"; };
 		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoiceDataSource.m; path = Models/InvoiceDataSource.m; sourceTree = "<group>"; };
+		E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfo.h; sourceTree = "<group>"; };
+		E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfo.m; sourceTree = "<group>"; };
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 				E50152671315A25D007959F5 /* SlotTable.m */,
 				E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */,
 				E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */,
+				E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */,
+				E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -883,6 +888,7 @@
 				E561E26013348E8F00229B76 /* BillViewController.m in Sources */,
 				E561E266133499B100229B76 /* TablePopupViewController.m in Sources */,
 				E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */,
+				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

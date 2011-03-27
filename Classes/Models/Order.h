@@ -20,7 +20,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
     NSMutableArray *guests;
     Reservation *reservation;
     NSDate *createdOn;
-    NSMutableArray *tables;
+    Table *table;
     int id;
     OrderState state;
 }
@@ -49,7 +49,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 @property (retain) NSMutableArray *courses;
 @property (retain) NSMutableArray *guests;
 @property (retain) NSDate *createdOn;
-@property (retain) NSMutableArray *tables;
+@property (retain) Table *table;
 @property (retain) Reservation *reservation;
 @property int id;
 @property OrderState state;

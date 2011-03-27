@@ -11,8 +11,7 @@
 
 @implementation District
 
-@synthesize name;
-@synthesize tables;
+@synthesize name, tables, id;
 
 - (id)init {
     if ((self = [super init])) {
@@ -25,6 +24,7 @@
 {
     District *district = [[[District alloc] init] autorelease];
     district.name = [jsonDictionary objectForKey:@"name"];
+    district.id = [[jsonDictionary objectForKey:@"id"] intValue];
     district.tables = [[NSMutableArray alloc] init];
     id tables = [jsonDictionary objectForKey:@"tables"];
     for(NSDictionary *item in tables)
@@ -55,5 +55,6 @@
     }
     return rect;
 }
+
 
 @end

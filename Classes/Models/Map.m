@@ -43,4 +43,18 @@
     return nil;
 }
 
+- (District *) getDistrict: (int) tableId
+{
+    for(District *district in districts)
+    {
+        for(Table *table in district.tables)
+        {
+            if(table.id == tableId)
+                return district;
+        }    
+    }   
+    return nil;
+}
+
+
 @end
