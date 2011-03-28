@@ -93,11 +93,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "256"
-         endingLineNumber = "256"
+         startingLineNumber = "270"
+         endingLineNumber = "270"
          landmarkName = "-clickTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -135,11 +135,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322929186.862339"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "147"
-         endingLineNumber = "147"
+         startingLineNumber = "167"
+         endingLineNumber = "167"
          landmarkName = "-setupDistrictMap"
          landmarkType = "5">
       </FileBreakpoint>
@@ -975,25 +975,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322929186.862339"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "153"
-         endingLineNumber = "153"
-         landmarkName = "-setupDistrictMap"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322939568.597374"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "192"
-         endingLineNumber = "192"
+         startingLineNumber = "206"
+         endingLineNumber = "206"
          landmarkName = "-rotateTables"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1003,11 +989,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322939568.597374"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "189"
-         endingLineNumber = "189"
+         startingLineNumber = "203"
+         endingLineNumber = "203"
          landmarkName = "-rotateTables"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1227,11 +1213,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "257"
-         endingLineNumber = "257"
+         startingLineNumber = "271"
+         endingLineNumber = "271"
          landmarkName = "-clickTable:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1241,11 +1227,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322926629.916701"
+         timestampString = "323029535.299062"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "117"
-         endingLineNumber = "117"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
          landmarkName = "-handlePanGesture:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1339,11 +1325,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322939568.597374"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "205"
-         endingLineNumber = "205"
+         startingLineNumber = "219"
+         endingLineNumber = "219"
          landmarkName = "-setupDistrictPicker"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1353,11 +1339,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322933428.574738"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "171"
-         endingLineNumber = "171"
+         startingLineNumber = "185"
+         endingLineNumber = "185"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1381,54 +1367,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322921916.668911"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "61"
-         endingLineNumber = "61"
-         landmarkName = "-editMode"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322929186.862339"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "146"
-         endingLineNumber = "146"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-refreshView"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322921916.668911"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "51"
-         endingLineNumber = "51"
-         landmarkName = "-handleTapGesture:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322921916.668911"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "62"
-         endingLineNumber = "62"
-         landmarkName = "-editMode:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1465,11 +1409,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "223"
-         endingLineNumber = "223"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1479,11 +1423,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "222"
-         endingLineNumber = "222"
+         startingLineNumber = "236"
+         endingLineNumber = "236"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1549,11 +1493,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "225"
-         endingLineNumber = "225"
+         startingLineNumber = "239"
+         endingLineNumber = "239"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1563,11 +1507,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "221"
-         endingLineNumber = "221"
+         startingLineNumber = "235"
+         endingLineNumber = "235"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1577,11 +1521,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/Controllers/Tables/TableMapViewController.m"
-         timestampString = "322941196.619092"
+         timestampString = "323031146.610304"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "216"
-         endingLineNumber = "216"
+         startingLineNumber = "230"
+         endingLineNumber = "230"
          landmarkName = "-refreshView"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1625,6 +1569,62 @@
          startingLineNumber = "25"
          endingLineNumber = "25"
          landmarkName = "+tableFromJsonDictionary:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
+         timestampString = "323031548.519513"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "117"
+         endingLineNumber = "117"
+         landmarkName = "-dockTableButton:toTableButton:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
+         timestampString = "323031849.497258"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
+         landmarkName = "-dockTableButton:toTableButton:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
+         timestampString = "323031850.895995"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "180"
+         endingLineNumber = "180"
+         landmarkName = "-dockTableButton:toTableButton:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/Controllers/Tables/TableMapViewController.m"
+         timestampString = "323032689.437792"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "75"
+         endingLineNumber = "75"
+         landmarkName = "-handlePanGesture:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -18,12 +18,10 @@
     Map* map;
     TableButton *dragTableButton;
     UISegmentedControl *districtPicker;
-    bool isEditing;
 }
 
 - (void) clickTable : (UIControl *) c;
 - (IBAction) refreshView;
-- (IBAction) editMode : (UIControl *) c;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
 - (IBAction) setupDistrictMap;
@@ -39,7 +37,6 @@
 - (TableButton *) findButton: (Table *) table;
 - (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;
 
-@property bool isEditing;
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;
 @property (retain) IBOutlet UISegmentedControl *districtPicker;

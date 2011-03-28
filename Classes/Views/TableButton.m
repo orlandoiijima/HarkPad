@@ -316,7 +316,7 @@
 
 - (void) rePosition: (Table *) newTable offset: (CGPoint) offset scaleX: (float) scaleX
 {
-    for(UIView *view in view.subviews) [view removeFromSuperview];
+    for(UIView *view in self.subviews) [view removeFromSuperview];
     
     [UIView animateWithDuration:1.0 animations:^{
         [self initByTable: newTable offset: offset scaleX:scaleX];

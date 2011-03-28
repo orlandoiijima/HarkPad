@@ -89,12 +89,6 @@
 								<reference key="IBUIToolbar" ref="142867824"/>
 								<int key="IBUISystemItemIdentifier">13</int>
 							</object>
-							<object class="IBUIBarButtonItem" id="60589879">
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIStyle">1</int>
-								<reference key="IBUIToolbar" ref="142867824"/>
-								<int key="IBUISystemItemIdentifier">18</int>
-							</object>
 						</array>
 					</object>
 					<object class="IBUIView" id="957787865">
@@ -102,7 +96,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 59}, {480, 241}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="95642222">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -158,22 +151,6 @@
 					<int key="connectionID">32</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">editMode:</string>
-						<reference key="source" ref="60589879"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">45</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">buttonEdit</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="60589879"/>
-					</object>
-					<int key="connectionID">50</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">buttonRefresh</string>
 						<reference key="source" ref="372490531"/>
@@ -222,7 +199,6 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="386848892"/>
 							<reference ref="862761817"/>
-							<reference ref="60589879"/>
 						</array>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -245,11 +221,6 @@
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="142867824"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">44</int>
-						<reference key="object" ref="60589879"/>
-						<reference key="parent" ref="142867824"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -260,7 +231,6 @@
 				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="16.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="44.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>

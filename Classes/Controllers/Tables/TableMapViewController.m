@@ -19,7 +19,7 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX, isEditing;
+@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -48,18 +48,11 @@
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
 {
-//    if(isEditing) return;
     CGPoint point = [tapGestureRecognizer locationInView:tableMapView];
     TableButton *clickButton = [self tableButtonAtPoint:point];
     if(clickButton != nil)
         [self clickTable:clickButton];
     
-}
-
-- (IBAction) editMode:(UIControl*)sender
-{
-    isEditing = !isEditing;
-    buttonEdit.style = isEditing ? UIBarButtonItemStyleDone : UIBarButtonItemStyleBordered;
 }
 
 - (void) handlePanGesture: (UIPanGestureRecognizer *)panGestureRecognizer
@@ -68,8 +61,6 @@
     {
         case UIGestureRecognizerStateBegan:
         {
-//            if(isEditing == false)
-//                return;
             dragPosition = [panGestureRecognizer locationInView:tableMapView];
             dragTableButton = [self tableButtonAtPoint:dragPosition];
             dragTableOriginalCenter= dragTableButton.center;
@@ -106,21 +97,47 @@
             else
             {
                 NSMutableArray *tables = [self dockTableButton:dragTableButton toTableButton: targetTableButton];
-                for(int i=1; i < [tables count]; i++) {
-                    TableButton *button = [self findButton:[tables objectAtIndex:i]];
-                    [button removeFromSuperview];
-                }
-            }
+             }
             break;
         }
     }
 }
 
-- (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton
+- (NSMutableArray *) dockTableButton: (TableButton *)dropTableButton toTableButton: (TableButton*) targetTableButton
 {
-    Table *masterTable = masterTableButton.table;
-    if([masterTableButton.table isSeatAlignedWith:outerMostTableButton.table] == false)
+    if([dropTableButton.table isSeatAlignedWith:targetTableButton.table] == false)
         return false;
+
+    TableButton *masterTableButton, *outerMostTableButton;
+    if(targetTableButton.table.seatOrientation == row)
+    {
+        if(targetTableButton.table.bounds.origin.x > dropTableButton.table.bounds.origin.x)
+        {
+            masterTableButton = dropTableButton;
+            outerMostTableButton = targetTableButton;
+        }
+        else
+        {
+            masterTableButton = targetTableButton;
+            outerMostTableButton = dropTableButton;
+        }
+    }
+    else
+    {
+        if(targetTableButton.table.bounds.origin.y > dropTableButton.table.bounds.origin.y)
+        {
+            masterTableButton = dropTableButton;
+            outerMostTableButton = targetTableButton;
+        }
+        else
+        {
+            masterTableButton = targetTableButton;
+            outerMostTableButton = dropTableButton;
+        }
+    }
+
+    Table *masterTable = masterTableButton.table;
+    
     NSMutableArray *tables = [[NSMutableArray alloc] init];
     [tables addObject: masterTable];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableButton.table.bounds);
@@ -132,12 +149,6 @@
                     [tables addObject:table];
                     if(table.seatOrientation == row)
                     {
-                        if(masterTable.bounds.origin.x > table.bounds.origin.x)
-                            masterTable.bounds = CGRectMake(masterTable.bounds.origin.x - table.bounds.size.width,
-                                                            masterTable.bounds.origin.y,
-                                                            masterTable.bounds.size.width + table.bounds.size.width,
-                                                            masterTable.bounds.size.height);
-                        else
                             masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
                                                             masterTable.bounds.origin.y,
                                                             masterTable.bounds.size.width + table.bounds.size.width,
@@ -145,12 +156,6 @@
                     }
                     else
                     {
-                        if(masterTable.bounds.origin.y > table.bounds.origin.y)
-                            masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
-                                                            masterTable.bounds.origin.y - table.bounds.size.height,
-                                                            masterTable.bounds.size.width,
-                                                            masterTable.bounds.size.height + table.bounds.size.height);
-                        else
                             masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
                                                             masterTable.bounds.origin.y,
                                                             masterTable.bounds.size.width,
@@ -326,7 +331,7 @@
 {
     isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
-    [self performSelector:@selector(refreshTableButtons) withObject:nil afterDelay:1];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
 - (void) newOrderForTable: (Table *) table
