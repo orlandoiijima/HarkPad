@@ -36,6 +36,7 @@
 - (TableButton *) tableButtonAtPoint: (CGPoint) point;
 - (TableButton *) findButton: (Table *) table;
 - (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;
+- (bool) TransgenderPopup: (TableButton *) button seat: (int)seat;
 
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;

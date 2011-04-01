@@ -39,13 +39,13 @@
 @end
 
 @implementation ModalAlert
-+(NSUInteger) queryWith: (NSString *)question button1: (NSString *)button1 button2: (NSString *)button2
++(NSUInteger) queryWithTitle:(NSString *)title message: (NSString *)message button1: (NSString *)button1 button2: (NSString *)button2
 {
     CFRunLoopRef currentLoop = CFRunLoopGetCurrent();
     
     // Create Alert
     ModalAlertDelegate *madelegate = [[ModalAlertDelegate alloc] initWithRunLoop:currentLoop];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:question message:nil delegate:madelegate cancelButtonTitle:button1 otherButtonTitles:button2, nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message: message delegate:madelegate cancelButtonTitle:button1 otherButtonTitles:button2, nil];
     [alertView show];
     
     // Wait for response
@@ -60,12 +60,12 @@
 
 + (BOOL) ask: (NSString *) question
 {
-    return	([ModalAlert queryWith:question button1: @"Yes" button2: @"No"] == 0);
+    return	([ModalAlert queryWithTitle:question message:nil button1: @"Yes" button2: @"No"] == 0);
 }
 
 + (BOOL) confirm: (NSString *) statement
 {
-    return	[ModalAlert queryWith:statement button1: @"Cancel" button2: @"OK"];
+    return	[ModalAlert queryWithTitle:statement message:nil button1: @"Cancel" button2: @"OK"];
 }
 @end
 

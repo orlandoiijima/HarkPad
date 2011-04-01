@@ -40,6 +40,10 @@
 
 - (UIColor *) getColor: (NSString *)colorString
 {
+    if(colorString == nil)
+//	        return
+//    if((NSNull *)colorString == [NSNull null])
+        return [UIColor blackColor];
     char *c = (char*)[colorString UTF8String];
     unsigned long lcolor = strtoul(c, nil, strlen(c));
     float red = ((lcolor >> 24) & 0xFF) / 255.0;

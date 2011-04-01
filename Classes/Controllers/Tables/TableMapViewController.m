@@ -16,6 +16,7 @@
 #import "ChefViewController.h"
 #import "PaymentViewController.h"
 #import "BillViewController.h"
+#import "ModalAlert.h"
 
 @implementation TableMapViewController
 
@@ -50,7 +51,14 @@
 {
     CGPoint point = [tapGestureRecognizer locationInView:tableMapView];
     TableButton *clickButton = [self tableButtonAtPoint:point];
-    if(clickButton != nil)
+    if(clickButton == nil)
+        return;
+    int seat = [clickButton seatByPoint:[tableMapView convertPoint:point toView:clickButton]];
+    if(seat != -1)
+    {
+        [self TransgenderPopup: clickButton seat: seat];
+    }
+    else
         [self clickTable:clickButton];
     
 }
@@ -64,6 +72,7 @@
             dragPosition = [panGestureRecognizer locationInView:tableMapView];
             dragTableButton = [self tableButtonAtPoint:dragPosition];
             dragTableOriginalCenter= dragTableButton.center;
+            isRefreshTimerDisabled = YES;
             break;
         }
         
@@ -83,6 +92,7 @@
         
         case UIGestureRecognizerStateEnded:
         {
+            isRefreshTimerDisabled = NO;
             if(dragTableButton == nil) return;
             CGPoint point = [panGestureRecognizer locationInView:tableMapView];
             if(dragTableButton.table.seatOrientation == row)
@@ -96,17 +106,34 @@
             }
             else
             {
-                NSMutableArray *tables = [self dockTableButton:dragTableButton toTableButton: targetTableButton];
+                [self dockTableButton:dragTableButton toTableButton: targetTableButton];
              }
             break;
         }
     }
 }
 
+- (bool) TransgenderPopup: (TableButton *) button seat: (int)seat
+{
+    SeatInfo *info = [button.orderInfo getSeatInfo:seat];
+    if(info == nil) return false;
+    
+    NSString *message = [NSString stringWithFormat:@"Tafel %@, stoel %d", button.table.name, seat + 1];
+    NSUInteger i = [ModalAlert queryWithTitle: [NSString stringWithFormat:@"Gast is %@", (info.isMale ? @"vrouw" : @"man")] message:message button1: @"Ok" button2: @"Terug"];
+    if(i != 0) return false;
+    info.isMale = !info.isMale;
+    NSString *gender = info.isMale ? @"M" : @"F";
+    [[Service getInstance] setGender: gender forGuest: info.guestId];
+    [button setNeedsDisplay];
+    return true;
+}
+
 - (NSMutableArray *) dockTableButton: (TableButton *)dropTableButton toTableButton: (TableButton*) targetTableButton
 {
+    NSMutableArray *tables = [[NSMutableArray alloc] init];
+
     if([dropTableButton.table isSeatAlignedWith:targetTableButton.table] == false)
-        return false;
+        return tables;
 
     TableButton *masterTableButton, *outerMostTableButton;
     if(targetTableButton.table.seatOrientation == row)
@@ -138,29 +165,30 @@
 
     Table *masterTable = masterTableButton.table;
     
-    NSMutableArray *tables = [[NSMutableArray alloc] init];
-    [tables addObject: masterTable];
+    NSMutableArray *tableButtons = [[NSMutableArray alloc] init];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableButton.table.bounds);
+    CGRect saveBounds = masterTable.bounds;
+    int saveCountSeats = masterTable.countSeats;
     for(TableButton *tableButton in tableMapView.subviews) {
         Table* table = tableButton.table;
         if(masterTable.id != table.id) {
             if([masterTable isSeatAlignedWith:table]) {
                 if(CGRectContainsRect(outerBounds, table.bounds)) {
-                    [tables addObject:table];
+                    [tableButtons addObject:tableButton];
                     if(table.seatOrientation == row)
                     {
-                            masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
-                                                            masterTable.bounds.origin.y,
-                                                            masterTable.bounds.size.width + table.bounds.size.width,
-                                                            masterTable.bounds.size.height);
+                        masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
+                                                        masterTable.bounds.origin.y,
+                                                        masterTable.bounds.size.width + table.bounds.size.width,
+                                                        masterTable.bounds.size.height);
                     }
                     else
                     {
-                            masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
-                                                            masterTable.bounds.origin.y,
-                                                            masterTable.bounds.size.width,
-                                                            masterTable.bounds.size.height + table.bounds.size.height);
-         
+                        masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
+                                                        masterTable.bounds.origin.y,
+                                                        masterTable.bounds.size.width,
+                                                        masterTable.bounds.size.height + table.bounds.size.height);
+                        
                     }
                     masterTable.countSeats += table.countSeats;
                     [tableButton removeFromSuperview];
@@ -169,12 +197,61 @@
         }
     }   
     
-    if([tables count] > 1)
+    if([tableButtons count] > 0)
     {
-        [masterTableButton setNeedsDisplay];
         CGRect boundingRect = [currentDistrict getRect]	;
-        [masterTableButton rePosition: masterTable offset: boundingRect.origin scaleX: scaleX];
-        [[Service getInstance] dockTables:tables];
+        
+        NSString *message;
+        if([tableButtons count] == 1)
+            message = [NSString stringWithFormat:@"Tafel %@", ((TableButton*)[tableButtons objectAtIndex:0]).table.name];
+        else if([tableButtons count] == 2)  	
+            message = [NSString stringWithFormat:@"Tafels %@ en %@", ((TableButton*)[tableButtons objectAtIndex:0]).table.name, ((TableButton*)[tableButtons objectAtIndex:1]).table.name];
+        else {
+            message = [NSString stringWithFormat:@"Tafels %@", ((TableButton*)[tableButtons objectAtIndex:0]).table.name];
+            int i = 1;
+            for(; i < [tableButtons count] - 1; i++) {
+                TableButton *tableButton = [tableButtons objectAtIndex:i];
+                message = [NSString stringWithFormat:@"%@, %@,", message, tableButton.table.name];
+            }
+            message = [NSString stringWithFormat:@"%@ en %@", message, ((TableButton *)[tableButtons objectAtIndex:i]).table.name];
+        }
+        message = [NSString stringWithFormat:@"%@ aanschuiven bij %@ ?", message, masterTable.name];
+        
+        isRefreshTimerDisabled = YES;
+        
+        [masterTableButton setNeedsDisplay];
+        [UIView animateWithDuration:1.0  animations:^{
+            [masterTableButton initByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
+        }];
+        
+        bool continueDock = [ModalAlert confirm:message];
+        if(continueDock == NO)
+        {
+            for(TableButton *tableButton in tableButtons) {
+                [tableMapView addSubview:tableButton];
+            }
+            dragTableButton.center = dragTableOriginalCenter;
+            
+            masterTable.bounds = saveBounds;
+            masterTable.countSeats = saveCountSeats;
+            [UIView animateWithDuration:1.0  animations:^{
+                [masterTableButton initByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
+            }];
+            [masterTableButton setNeedsDisplay];
+        }
+        else
+        {
+            [tables addObject: masterTable];
+            for(TableButton *tableButton in tableButtons) {
+                Table* table = tableButton.table;
+                [tables addObject:table];
+            }
+            
+            [masterTableButton setNeedsDisplay];
+            [masterTableButton rePosition: masterTable offset: boundingRect.origin scaleX: scaleX];
+            [[Service getInstance] dockTables:tables];
+        }
+        isRefreshTimerDisabled = NO;
     }
     return tables;
 }
@@ -312,7 +389,7 @@
     paymentVC.tableMapViewController = self;
     paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     [self presentModalViewController: paymentVC animated:YES];
-}
+}	
 
 - (void)gotoOrderViewWithOrder: (Order *)order
 {

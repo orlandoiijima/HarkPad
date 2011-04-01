@@ -15,7 +15,7 @@
 }
 
 @property (retain) NSMutableArray *lines;
-@property (retain) NSMutableArray *tables;
+@property (retain) Table *table;
 
 + (SlotTable *) slotTableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 

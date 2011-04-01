@@ -247,17 +247,10 @@
 - (void)drawRect : (CGRect) dirtyRect {
     CGContextRef ctf = UIGraphicsGetCurrentContext();
 
-//    [[UIColor yellowColor] set];
-//    UIRectFill(self.bounds);
-    
     int countSeatRow = table.countSeats / 2;
 
     CGRect tableRect = self.bounds;
     tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
-    
-//    CGContextStrokeRect(ctf, <#CGRect rect#>)
-    
-    int countSeatRowOpposite = table.countSeats - countSeatRow;
     
     if(table.seatOrientation == row)
     {
@@ -269,10 +262,10 @@
             CGRect rect = CGRectMake(left, (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
             [self drawSeat: ctf withBounds: rect info: seatInfo];
             
-            if(i < countSeatRowOpposite)
+            seat = 2*countSeatRow - i - 1;
+            if(seat < table.countSeats)
             {
-                seat += countSeatRow;
-                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
+	            rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
                 seatInfo = [self.orderInfo getSeatInfo: seat]; 
                 [self drawSeat: ctf withBounds: rect info: seatInfo];
             }
@@ -289,9 +282,9 @@
             CGRect rect = CGRectMake((self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
             [self drawSeat: ctf withBounds: rect info: seatInfo];
             
-            if(i < countSeatRowOpposite)
+            seat = 2*countSeatRow - i - 1;
+            if(seat < table.countSeats)
             {
-                seat += countSeatRow;
                 rect = CGRectMake(tableRect.origin.x + tableRect.size.width + (self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
                 SeatInfo *seatInfo = [self.orderInfo getSeatInfo: seat]; 
                 [self drawSeat: ctf withBounds: rect info: seatInfo];
@@ -304,10 +297,10 @@
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo
 {
     UIColor * backgroundColor;
-    if(seatInfo == nil) backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.2];
-    else
-        if(seatInfo.isMale)
-            backgroundColor = [UIColor blueColor];
+    if(seatInfo == nil)
+        backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.2];
+    else if(seatInfo.isMale)
+        backgroundColor = [UIColor blueColor];
     else
         backgroundColor = [UIColor redColor];
     CGContextSetFillColorWithColor(context, [backgroundColor CGColor]);
@@ -320,10 +313,57 @@
     
     [UIView animateWithDuration:1.0 animations:^{
         [self initByTable: newTable offset: offset scaleX:scaleX];
-//        CGRect tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
-//        CAGradientLayer *gradient = [self.layer.sublayers objectAtIndex:0];
-//        gradient.frame = tableRect;
     }];
+}
+
+- (int) seatByPoint: (CGPoint) point
+{
+    int countSeatRow = table.countSeats / 2;
+    
+    CGRect tableRect = self.bounds;
+    tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
+
+    if(table.seatOrientation == row)
+    {
+        float left = self.tableLeftMargin + (self.widthPerPerson - self.seatWidth) / 2;
+        for(int i = 0; i < countSeatRow; i++)
+        {
+            int seat = i;
+            CGRect rect = CGRectMake(left, (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
+            if(CGRectContainsPoint(rect, point))
+               return seat;
+            
+            seat = 2*countSeatRow - i - 1;
+            if(seat < table.countSeats)
+            {
+                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
+                if(CGRectContainsPoint(rect, point))
+                   return seat;
+            }
+            left += self.widthPerPerson;
+        }
+    }
+    else
+    {
+        float top = self.tableTopMargin + (self.widthPerPerson - self.seatWidth) / 2;
+        for(int i = 0; i < countSeatRow; i++)
+        {
+            int seat = i;
+            CGRect rect = CGRectMake((self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
+            if(CGRectContainsPoint(rect, point))
+               return seat;
+            
+            seat = 2 * countSeatRow - i - 1;
+            if(seat < table.countSeats)
+            {
+                rect = CGRectMake(tableRect.origin.x + tableRect.size.width + (self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
+                if(CGRectContainsPoint(rect, point))
+                   return seat;
+            }
+            top += self.widthPerPerson;
+        }
+    }
+    return -1;
 }
 
 - (void)dealloc {

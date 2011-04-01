@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Slot.h"
 
-@interface SlotDataSource : NSObject <UITableViewDataSource> {
+@interface SlotDataSource : NSObject <UITableViewDataSource, UITableViewDelegate> {
     Slot *slot;
 }
 

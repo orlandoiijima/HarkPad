@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SlotDataSource.h"
 
-@interface ChefViewController : UIViewController <UITableViewDelegate> {
+@interface ChefViewController : UIViewController {
     UITableView *firstTable;
     UITableView *secondTable;
     SlotDataSource *firstSlotDataSource;

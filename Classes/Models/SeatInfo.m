@@ -11,7 +11,7 @@
 
 @implementation SeatInfo
 
-@synthesize isMale, food, drink;
+@synthesize isMale, food, drink, guestId;
 
 + (SeatInfo *) seatInfoFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
@@ -20,6 +20,7 @@
     id foodId = [jsonDictionary objectForKey:@"foodId"];
     if((NSNull *)foodId != [NSNull null])
         seatInfo.food = [[[Cache getInstance] menuCard] getProduct:[foodId intValue]];
+    seatInfo.guestId = [[jsonDictionary objectForKey:@"guestId"] intValue];
 
     id drinkId = [jsonDictionary objectForKey:@"drinkId"];
     if((NSNull *)drinkId != [NSNull null])

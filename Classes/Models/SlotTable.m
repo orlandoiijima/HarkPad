@@ -13,7 +13,7 @@
 
 @implementation SlotTable
 
-@synthesize lines, tables;
+@synthesize lines, table;
 
 
 + (SlotTable *) slotTableFromJsonDictionary: (NSDictionary *)jsonDictionary
@@ -29,15 +29,8 @@
     }
     
     Cache *cache = [Cache getInstance];
-
-    slotTable.tables = [[NSMutableArray alloc] init];
-    for(NSNumber *tableId in [jsonDictionary objectForKey:@"tables"])
-    {
-        Table *table = [cache.map getTable:[tableId intValue]]; 
-        if(table != nil) {
-            [slotTable.tables addObject:table];
-        }
-    }
+    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
+    slotTable.table = [cache.map getTable:tableId]; 
     
     return slotTable;
 }

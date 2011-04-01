@@ -25,7 +25,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return slot.slotTables.count;
+    int n = [slot.slotTables count];
+    return n;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -37,8 +38,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     SlotTable *slotTable = [slot.slotTables objectAtIndex:section];
-    Table *table = [slotTable.tables objectAtIndex:0];
-    return [NSString stringWithFormat:@"Tafel %@", table.name];
+    return [NSString stringWithFormat:@"Tafel %@", slotTable.table.name];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

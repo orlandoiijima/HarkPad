@@ -7,6 +7,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ModalAlert : NSObject
++(NSUInteger) queryWithTitle:(NSString *)title message: (NSString *)message button1: (NSString *)button1 button2: (NSString *)button2;
 + (BOOL) ask: (NSString *) question;
 + (BOOL) confirm:(NSString *) statement;
 @end

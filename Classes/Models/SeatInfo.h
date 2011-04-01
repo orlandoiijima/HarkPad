@@ -10,12 +10,14 @@
 #import "Product.h"
 
 @interface SeatInfo : NSObject {
+    int guestId;
     BOOL isMale;
     Product *food;
     Product *drink;
 }
 
 @property BOOL isMale;
+@property int guestId;
 @property (retain) Product *food;
 @property (retain) Product *drink;
 

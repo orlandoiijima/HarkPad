@@ -39,6 +39,7 @@
 - (NSMutableArray *) getTablesInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
+- (void) setGender: (NSString *)gender forGuest: (int)guestId;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 

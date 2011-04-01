@@ -34,5 +34,6 @@
 - (CGRect) rotateRect: (CGRect) rect;
 - (void) rePosition: (Table *) newTable offset: (CGPoint) offset scaleX: (float) scaleX;
 - (TableButton *) initByTable: (Table *) table offset: (CGPoint) offset scaleX: (float)scaleX;
+- (int) seatByPoint: (CGPoint) point;
 
 @end

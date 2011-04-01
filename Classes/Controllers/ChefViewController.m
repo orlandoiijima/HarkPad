@@ -96,7 +96,7 @@
     if(slots != nil && slots.count > firstSlotOffset)
     {
         firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset]];
-        firstTable.delegate = firstTable.dataSource;
+ //       firstTable.delegate = firstTable.dataSource;
         if(firstSlotOffset == 0)
             firstTableLabel.text = @"Onderhanden";
         else
@@ -111,7 +111,7 @@
     if(slots != nil && slots.count > firstSlotOffset + 1)
     {
         secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset+1]];
-        secondTable.delegate = secondTable.dataSource;
+  //      secondTable.delegate = secondTable.dataSource;
         secondTableLabel.text = [NSString stringWithFormat:@"Slot +%d", firstSlotOffset+1];
     }
     else

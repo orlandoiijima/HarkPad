@@ -11,12 +11,13 @@
 
 @implementation Service
 
-@synthesize url;
+@synthesize url;				
 static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://localhost:10089";
+        url = @"http://pos.restaurantanna.nl";
+//        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -118,6 +119,13 @@ static Service *_service;
         [tables addObject:tableInfo];
     }
     return tables;
+}
+
+- (void) setGender: (NSString *)gender forGuest: (int)guestId
+{
+    NSURL *testUrl = [self makeEndPoint:@"setgender" withQuery:[NSString stringWithFormat:@"guestId=%d&gender=%@", guestId, gender]];
+	[NSData dataWithContentsOfURL: testUrl];
+	return;        
 }
 
 - (NSMutableArray *) getReservations: (NSDate *)date
