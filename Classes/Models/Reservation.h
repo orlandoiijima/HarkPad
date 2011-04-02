@@ -38,5 +38,6 @@
 @property int orderId;
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary;
+- (NSMutableDictionary *) initDictionary;
 
 @end

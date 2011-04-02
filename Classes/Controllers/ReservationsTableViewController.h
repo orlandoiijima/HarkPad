@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Reservation.h"
+#import "HostController.h"
 
-
-@interface ReservationsTableViewController : UIViewController <UITableViewDelegate>{
+@interface ReservationsTableViewController : UIViewController <UITableViewDelegate, UIPopoverControllerDelegate, HostController>{
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
     NSDate *dateToShow;
@@ -20,7 +21,13 @@
 @property (retain) NSDate *dateToShow;
 @property (retain) NSMutableArray *reservations;
 @property (retain) NSMutableDictionary *groupedReservations;
-
+@property (retain) UIPopoverController *popover;
 - (void) refreshTable;
+
+- (IBAction) add;
+- (void) openEditPopup: (Reservation*)reservation;
+- (void) closePopup;
+- (void) cancelPopup;
+- (Reservation *) reservation: (NSIndexPath *) indexPath;
 
 @end

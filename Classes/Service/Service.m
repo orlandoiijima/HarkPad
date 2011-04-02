@@ -143,6 +143,31 @@ static Service *_service;
     return reservations;
 }
 
+- (void) updateReservation: (Reservation *)reservation;
+{
+    NSError *error = nil;
+    NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
+    
+    [self postToPage: @"updatereservation" key: @"reservation" value: jsonString];    
+}
+
+- (void) createReservation: (Reservation *)reservation;
+{
+    NSError *error = nil;
+    NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
+    
+    [self postToPage: @"createreservation" key: @"reservation" value: jsonString];   
+}
+
+- (void) deleteReservation: (int)reservationId
+{
+    NSURL *testUrl = [self makeEndPoint:@"deletereservation" withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]];
+	[NSData dataWithContentsOfURL: testUrl];
+	return;        
+}
+
 - (NSMutableArray *) getCurrentSlots
 {
 	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];

@@ -29,6 +29,9 @@
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
 		E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */; };
+		E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationViewController.m */; };
+		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
+		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C81318F083005E1FA3 /* koksmuts.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
@@ -275,6 +278,11 @@
 		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoiceDataSource.m; path = Models/InvoiceDataSource.m; sourceTree = "<group>"; };
 		E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfo.h; sourceTree = "<group>"; };
 		E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfo.m; sourceTree = "<group>"; };
+		E5B7F677134704D10024AB35 /* ReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationViewController.h; sourceTree = "<group>"; };
+		E5B7F678134704D10024AB35 /* ReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationViewController.m; sourceTree = "<group>"; };
+		E5B7F679134704D10024AB35 /* ReservationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
+		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
+		E5B7F67F134771230024AB35 /* HostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostController.h; sourceTree = "<group>"; };
 		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -439,6 +447,10 @@
 				E561E2631334998400229B76 /* TablePopupViewController.h */,
 				E561E2641334998A00229B76 /* TablePopupViewController.m */,
 				E561E2651334999A00229B76 /* TablePopupViewController.xib */,
+				E5B7F677134704D10024AB35 /* ReservationViewController.h */,
+				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
+				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
+				E5B7F67F134771230024AB35 /* HostController.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -535,6 +547,7 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5B7F67D1347447D0024AB35 /* uk.png */,
 				E533A0D0132D44C8005CB4D6 /* refresh.png */,
 				E5F0648E130D4F260037816B /* nl.png */,
 				E5F06494130D4FB20037816B /* es.png */,
@@ -789,6 +802,8 @@
 				E561E26213348E8F00229B76 /* BillViewController.xib in Resources */,
 				E561E267133499B100229B76 /* TablePopupViewController.xib in Resources */,
 				E561E2751336446400229B76 /* anna72.png in Resources */,
+				E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */,
+				E5B7F67E1347447D0024AB35 /* uk.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +904,7 @@
 				E561E266133499B100229B76 /* TablePopupViewController.m in Sources */,
 				E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */,
 				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
+				E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
