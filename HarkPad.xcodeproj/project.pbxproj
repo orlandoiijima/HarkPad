@@ -33,7 +33,6 @@
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
-		E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C81318F083005E1FA3 /* koksmuts.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
@@ -108,8 +107,6 @@
 		E5E723411311A12C00905959 /* wine-glass.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389312E234B8007C2101 /* wine-glass.png */; };
 		E5E723421311A12C00905959 /* OrderLineCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38B712E234B8007C2101 /* OrderLineCell.xib */; };
 		E5E723431311A12C00905959 /* TableInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A38C412E234B8007C2101 /* TableInfoView.xib */; };
-		E5E723441311A12C00905959 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5C315EF12E381580044948F /* group.png */; };
-		E5E723451311A12C00905959 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5D8DE3C12EADCEC00F4784B /* star.png */; };
 		E5E723461311A12C00905959 /* ReservationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E377B31309C4D000F93319 /* ReservationTableCell.xib */; };
 		E5E723471311A12C00905959 /* nl.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F0648E130D4F260037816B /* nl.png */; };
 		E5E723481311A12C00905959 /* de.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F06490130D4F7C0037816B /* de.png */; };
@@ -283,11 +280,8 @@
 		E5B7F679134704D10024AB35 /* ReservationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
 		E5B7F67F134771230024AB35 /* HostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostController.h; sourceTree = "<group>"; };
-		E5C315EF12E381580044948F /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
-		E5D8DE3C12EADCEC00F4784B /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
 		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
-		E5DFC3C81318F083005E1FA3 /* koksmuts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = koksmuts.png; sourceTree = "<group>"; };
 		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
 		E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatistics.m; sourceTree = "<group>"; };
 		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
@@ -554,11 +548,8 @@
 				E5F06496130D4FC50037816B /* it.png */,
 				E5F06490130D4F7C0037816B /* de.png */,
 				E5F06492130D4F8A0037816B /* fr.png */,
-				E5DFC3C81318F083005E1FA3 /* koksmuts.png */,
 				E5DFC3C41318E9AC005E1FA3 /* calendar.png */,
 				E50A383E12E2193F007C2101 /* iTunesArtwork72.png */,
-				E5D8DE3C12EADCEC00F4784B /* star.png */,
-				E5C315EF12E381580044948F /* group.png */,
 				E50A388F12E234B8007C2101 /* food.png */,
 				E50A389012E234B8007C2101 /* fork-and-knife.png */,
 				E50A389112E234B8007C2101 /* martini.png */,
@@ -783,8 +774,6 @@
 				E5E723411311A12C00905959 /* wine-glass.png in Resources */,
 				E5E723421311A12C00905959 /* OrderLineCell.xib in Resources */,
 				E5E723431311A12C00905959 /* TableInfoView.xib in Resources */,
-				E5E723441311A12C00905959 /* group.png in Resources */,
-				E5E723451311A12C00905959 /* star.png in Resources */,
 				E5E723461311A12C00905959 /* ReservationTableCell.xib in Resources */,
 				E5E723471311A12C00905959 /* nl.png in Resources */,
 				E5E723481311A12C00905959 /* de.png in Resources */,
@@ -795,7 +784,6 @@
 				E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */,
 				E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */,
 				E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */,
-				E5DFC3C91318F083005E1FA3 /* koksmuts.png in Resources */,
 				E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */,
 				E5258BC3132D0BC700EE8E52 /* ReservationsTableViewController.xib in Resources */,
 				E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */,
