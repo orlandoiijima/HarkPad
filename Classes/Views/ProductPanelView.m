@@ -80,6 +80,10 @@
 
 - (void) drawProductPanel
 {
+    CGRect rect = self.bounds;
+    [[UIColor blackColor] set];
+    UIRectFill(rect);
+    
     int index = 0;
     int countColumns = COUNTCOLUMNS;
     for(TreeNode *node in parentNode.nodes)
@@ -96,13 +100,14 @@
         index++;
     }
     
-    if(parentNode.parent != nil)
+    TreeNode *grandParent = parentNode.parent.parent;
+    if(grandParent != nil)
     {
-        if(parentNode.parent.id != rootNode.id)
+        if(grandParent.id != rootNode.id)
         {
             int column = index % countColumns;
             int row = index / countColumns;
-            [self drawNavigateButton:column row: row label:@"Back" targetNode:parentNode.parent];
+            [self drawNavigateButton:column row: row label:@"Back" targetNode: grandParent];
             index++;
         }
         int column = index % countColumns;
