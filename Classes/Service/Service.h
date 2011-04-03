@@ -27,6 +27,7 @@
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (MenuCard *) getMenuCard;
 - (NSMutableArray *) getMenus;
+- (NSMutableArray *) getLog;
 - (Map *) getMap;
 - (void) undockTable: (int)tableId;
 - (void) dockTables: (NSMutableArray*)tables;

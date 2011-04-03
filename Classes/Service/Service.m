@@ -53,6 +53,13 @@ static Service *_service;
     return result;
 }
 
+- (NSMutableArray *) getLog
+{
+	NSURL *testUrl = [self makeEndPoint:@"getlog" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+	return [self getResultFromJson:data];
+}
+
 - (MenuCard *) getMenuCard
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmenucard" withQuery:@""];

@@ -117,6 +117,10 @@
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
+		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
+		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
+		E5F609A113489AAF00D88587 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A013489AAF00D88587 /* bug.png */; };
+		E5F609A313489C2400D88587 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A213489C2200D88587 /* star.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -302,6 +306,11 @@
 		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
+		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
+		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
+		E5F6099813487F6100D88587 /* LogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
+		E5F609A013489AAF00D88587 /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
+		E5F609A213489C2200D88587 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +456,9 @@
 				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
 				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
 				E5B7F67F134771230024AB35 /* HostController.h */,
+				E5F6099613487F6000D88587 /* LogViewController.h */,
+				E5F6099713487F6000D88587 /* LogViewController.m */,
+				E5F6099813487F6100D88587 /* LogViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -549,6 +561,8 @@
 				E5F06494130D4FB20037816B /* es.png */,
 				E5F06496130D4FC50037816B /* it.png */,
 				E5F609941348668300D88587 /* printer.png */,
+				E5F609A013489AAF00D88587 /* bug.png */,
+				E5F609A213489C2200D88587 /* star.png */,
 				E5F06490130D4F7C0037816B /* de.png */,
 				E5F06492130D4F8A0037816B /* fr.png */,
 				E5DFC3C41318E9AC005E1FA3 /* calendar.png */,
@@ -796,6 +810,9 @@
 				E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */,
 				E5B7F67E1347447D0024AB35 /* uk.png in Resources */,
 				E5F609951348668300D88587 /* printer.png in Resources */,
+				E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */,
+				E5F609A113489AAF00D88587 /* bug.png in Resources */,
+				E5F609A313489C2400D88587 /* star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +914,7 @@
 				E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */,
 				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
 				E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */,
+				E5F6099913487F6300D88587 /* LogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
