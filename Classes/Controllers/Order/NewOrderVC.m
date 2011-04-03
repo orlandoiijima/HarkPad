@@ -175,13 +175,14 @@
 }
 - (NSString *) getCourseString: (int) course
 {
-    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",nil];
-    return [NSString stringWithFormat:@"Gang %@", [chars objectAtIndex: course]]; 
+//    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
+    NSString *courseChar = [self getCourseChar: course];
+    return [NSString stringWithFormat:@"Gang %@", courseChar]; 
 }
 
 - (NSString *) getCourseChar: (int) course
 {
-    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",nil];
+    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
     return [NSString stringWithFormat:@"%@", [chars objectAtIndex: course]]; 
 }
 

@@ -17,7 +17,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         languages = [[NSMutableArray arrayWithObjects:@"nl", @"de", @"fr", @"it", @"es", nil] retain];
     }
     return self;

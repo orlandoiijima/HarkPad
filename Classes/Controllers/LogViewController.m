@@ -11,7 +11,7 @@
 
 @implementation LogViewController
 
-@synthesize logTableView, logLines;
+@synthesize logTableView, logLines, detailLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +56,8 @@
             cell.detailTextLabel.textColor = [UIColor blackColor];
         cell.detailTextLabel.text = [line substringFromIndex:35];
         cell.textLabel.text = [line substringWithRange: NSMakeRange(11,8)];
+        cell.contentView.backgroundColor = indexPath.row & 1 ? [UIColor colorWithRed:0.85 green:0.85 blue:0.8 alpha:1] : [UIColor whiteColor];
+        cell.textLabel.backgroundColor = cell.detailTextLabel.backgroundColor = cell.contentView.backgroundColor;
     }
     return cell;
 }
@@ -63,6 +65,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 22;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *group = [logLines objectForKey: [[logLines allKeys] objectAtIndex:indexPath.section]];
+    NSString *line = [group objectAtIndex:indexPath.row];
+    if(line != nil)
+    {
+        detailLabel.text = line;
+    }
 }
 
 - (void)dealloc

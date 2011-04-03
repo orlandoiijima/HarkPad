@@ -11,11 +11,13 @@
 
 @interface LogViewController : UIViewController {
     UITableView *logTableView;
+    UITextView *detailLabel;
     NSMutableDictionary *logLines;    
 }
 
 @property (retain) IBOutlet UITableView *logTableView;
 @property (retain) NSMutableDictionary *logLines;
+@property (retain) IBOutlet UITextView *detailLabel;
 
 - (IBAction) refresh;
 

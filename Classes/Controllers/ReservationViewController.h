@@ -16,6 +16,7 @@
     UITextField *nameView;
     UITextField *emailView;
     UITextField *phoneView;
+    UIDatePicker *datePicker;
     UISegmentedControl *countView;
     UISegmentedControl *languageView;
     

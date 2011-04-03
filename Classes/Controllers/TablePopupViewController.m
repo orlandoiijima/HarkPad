@@ -47,7 +47,9 @@
 - (void) setPreferredSize
 {
     if(reservationDataSource == nil || [reservationDataSource.groupedReservations count] == 0) {
-        self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 190);
+        [reservationsTable removeFromSuperview];
+        [labelReservations removeFromSuperview];
+        self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 195);
     }
     else
         self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
