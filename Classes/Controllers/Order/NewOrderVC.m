@@ -144,11 +144,10 @@
 - (NSMutableArray *) orderLinesWithCourse: (int) courseOffset seat: (int)seatOffset
 {
     NSMutableArray *lines = [[NSMutableArray alloc] init];
-    if(courseOffset >= order.courses.count)
-    {
-        return lines;
-    }
-    Course *course = [order.courses objectAtIndex:courseOffset];
+   
+    Course *course = [order getCourseByOffset:courseOffset];
+    if(course == nil) return lines;
+    
     for(OrderLine *line in course.lines)
         if(line.guest.seat == seatOffset && [self matchesFilter:line])
             [lines addObject:line];
@@ -371,34 +370,46 @@
             }
             break;
         }
+        case 2:
+        {
+            int seat = parameter;
+            switch(buttonIndex)
+            {
+                case 0:
+                    [self moveSeats: seat delta: 1];
+                    break;
+                case 1:
+                    [self moveSeats: seat+1 delta: 1];
+                    break;
+            }
+            break;
+        }
     }
 }
 
 - (void) moveCourses: (int)firstCourseToMove delta: (int) delta
 {
-//    for(OrderLine *line in order.lines)
-//    {
-//        if(line.course.offset >= firstCourseToMove)
-//        {
-//            line.course.offset += delta;
-//            if(line.entityState == None)
-//                line.entityState = Modified;
-//        }
-//    }
+    for(Course *course in order.courses)
+    {
+        if(course.offset >= firstCourseToMove)
+        {
+            course.offset += delta;
+            course.entityState = Modified;
+        }
+    }
     [orderGridView redraw];
 }
 
 - (void) moveSeats: (int)firstSeatToMove delta: (int) delta
 {
-//    for(OrderLine *line in order.lines)
-//    {
-//        if(line.seat >= firstSeatToMove)
-//        {
-//            line.seat += delta;
-//            if(line.entityState == None)
-//                line.entityState = Modified;
-//        }
-//    }
+    for(Guest *guest in order.guests)
+    {
+        if(guest.seat >= firstSeatToMove)
+        {
+            guest.seat += delta;
+            guest.entityState = Modified;
+        }
+    }
     [orderGridView redraw];
 }
 
