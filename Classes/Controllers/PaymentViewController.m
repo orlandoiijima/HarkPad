@@ -72,7 +72,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    tableLabel.text = order.table.name;    
+    tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
     amountLabel.text = [NSString stringWithFormat:@"€ %0.2f", [[order getAmount] doubleValue]];
