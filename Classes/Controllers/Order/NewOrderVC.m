@@ -367,6 +367,9 @@
                 case 2:
                     [self startCourse: course];
                     break;
+                case 3:
+                    //  TODO DELETE
+                    break;
             }
             break;
         }
@@ -380,6 +383,9 @@
                     break;
                 case 1:
                     [self moveSeats: seat+1 delta: 1];
+                    break;
+                case 2:
+                    //  TODO DELETE
                     break;
             }
             break;
