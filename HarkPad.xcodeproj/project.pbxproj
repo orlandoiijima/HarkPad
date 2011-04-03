@@ -116,6 +116,7 @@
 		E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */; };
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
+		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -300,6 +301,7 @@
 		E5F06496130D4FC50037816B /* it.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = it.png; sourceTree = "<group>"; };
 		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -546,6 +548,7 @@
 				E5F0648E130D4F260037816B /* nl.png */,
 				E5F06494130D4FB20037816B /* es.png */,
 				E5F06496130D4FC50037816B /* it.png */,
+				E5F609941348668300D88587 /* printer.png */,
 				E5F06490130D4F7C0037816B /* de.png */,
 				E5F06492130D4F8A0037816B /* fr.png */,
 				E5DFC3C41318E9AC005E1FA3 /* calendar.png */,
@@ -792,6 +795,7 @@
 				E561E2751336446400229B76 /* anna72.png in Resources */,
 				E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */,
 				E5B7F67E1347447D0024AB35 /* uk.png in Resources */,
+				E5F609951348668300D88587 /* printer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
