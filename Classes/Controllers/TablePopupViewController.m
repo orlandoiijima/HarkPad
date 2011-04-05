@@ -14,7 +14,7 @@
 @implementation TablePopupViewController
 
 @synthesize tableReservations, labelNextCourse, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
-@synthesize reservationDataSource, table, order;
+@synthesize reservationDataSource, table, order, labelReservationNote;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,10 +46,20 @@
 
 - (void) setPreferredSize
 {
-    if(reservationDataSource == nil || [reservationDataSource.groupedReservations count] == 0) {
+    if(order != nil || reservationDataSource == nil || [reservationDataSource.groupedReservations count] == 0) {
+        //  Existing order or no reservations: remove table + label
         [reservationsTable removeFromSuperview];
         [labelReservations removeFromSuperview];
-        self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 195);
+        
+        if(order.reservation == nil || order.reservation.notes == nil) {
+            //  Not based on reservation or no note
+            [labelReservationNote removeFromSuperview];
+            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 195);
+            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, buttonMakeBill.frame.origin.y + buttonMakeBill.frame.size.height + 10);
+        }
+        else {
+            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, labelReservationNote.frame.origin.y + labelReservationNote.frame.size.height + 10);
+        }
     }
     else
         self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
@@ -131,6 +141,14 @@
     [self setButton: buttonMakeOrder enabled: order == nil || order.state == ordering];
     [self setButton: buttonMakeBill enabled: order.state != billed];
     
+    if(order.reservation != nil) {
+        [tableReservations removeFromSuperview];
+        [labelReservations removeFromSuperview];
+        labelReservationNote.text = order.reservation.notes;
+    }
+    else {
+        [labelReservationNote removeFromSuperview];
+    }
     [self setPreferredSize];
 }
 

@@ -29,6 +29,8 @@
 @property (retain) IBOutlet UILabel *labelNextCourse;
 @property (retain) IBOutlet UILabel *labelTable;
 @property (retain) IBOutlet UILabel *labelReservations;
+@property (retain) IBOutlet UITextView *labelReservationNote;
+
 
 @property (retain) Table *table;
 @property (retain) Order *order;
