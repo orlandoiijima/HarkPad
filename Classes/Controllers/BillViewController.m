@@ -37,7 +37,7 @@
 - (IBAction) goPrint
 {
     NSString *printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
-    [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: printer]; 
+    [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]]; 
     [tableMapViewController closeOrderView];
 }
 
