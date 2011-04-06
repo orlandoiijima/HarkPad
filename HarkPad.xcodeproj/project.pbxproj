@@ -116,6 +116,8 @@
 		E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */; };
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
+		E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F46385134B4C400052CDDC /* SettingsViewController.m */; };
+		E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F46386134B4C440052CDDC /* SettingsViewController.xib */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
 		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
 		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
@@ -305,6 +307,9 @@
 		E5F06496130D4FC50037816B /* it.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = it.png; sourceTree = "<group>"; };
 		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		E5F46384134B4C3E0052CDDC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		E5F46385134B4C400052CDDC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		E5F46386134B4C440052CDDC /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
 		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -459,6 +464,9 @@
 				E5F6099613487F6000D88587 /* LogViewController.h */,
 				E5F6099713487F6000D88587 /* LogViewController.m */,
 				E5F6099813487F6100D88587 /* LogViewController.xib */,
+				E5F46384134B4C3E0052CDDC /* SettingsViewController.h */,
+				E5F46385134B4C400052CDDC /* SettingsViewController.m */,
+				E5F46386134B4C440052CDDC /* SettingsViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -813,6 +821,7 @@
 				E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */,
 				E5F609A113489AAF00D88587 /* bug.png in Resources */,
 				E5F609A313489C2400D88587 /* star.png in Resources */,
+				E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +924,7 @@
 				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
 				E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */,
 				E5F6099913487F6300D88587 /* LogViewController.m in Sources */,
+				E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

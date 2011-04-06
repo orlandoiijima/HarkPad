@@ -10,6 +10,8 @@
 #import "TreeNode.h"
 
 @interface ProductPanelView : UIView {
+    TreeNode *rootNode;
+    TreeNode *parentNode;
 }
 
 - (void) drawProductButton: (int)column row: (int)row productNode: (TreeNode *)node;

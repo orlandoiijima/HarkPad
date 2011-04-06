@@ -15,6 +15,7 @@
     SlotDataSource *firstSlotDataSource;
     SlotDataSource *secondSlotDataSource;
     NSMutableArray *slots;
+    bool isVisible;
 }
 
 @property (retain) IBOutlet UITableView *firstTable; 
@@ -31,7 +32,7 @@
 @property (retain) IBOutlet UILabel *totalInSlotLabel;
 @property (retain) IBOutlet UILabel *totalNotYetRequestedLabel;
 @property int firstSlotOffset;
-
+@property bool isVisible;
 - (void) refreshView;
 - (void) updateClock;
 - (IBAction) startNextSlot;

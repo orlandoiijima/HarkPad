@@ -17,6 +17,7 @@
     District *currentDistrict;
     Map* map;
     TableButton *dragTableButton;
+    bool isVisible;
     UISegmentedControl *districtPicker;
 }
 
@@ -50,4 +51,5 @@
 @property (retain) TableButton *dragTableButton;
 @property CGPoint dragPosition;
 @property CGPoint dragTableOriginalCenter;
+@property bool isVisible;
 @end

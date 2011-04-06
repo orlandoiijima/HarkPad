@@ -57,7 +57,7 @@
     reservation.startsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     seconds = [jsonDictionary objectForKey:@"endsOn"];
     reservation.endsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    reservation.countGuests = [[jsonDictionary objectForKey:@"countGuests"] intValue];
+    reservation.countGuests = [[jsonDictionary objectForKey:@"countPersons"] intValue];
     NSNumber *orderId = [jsonDictionary objectForKey:@"orderId"];
     if((NSNull *)orderId != [NSNull null])
         reservation.orderId = [orderId intValue];
@@ -72,7 +72,7 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     [dic setObject: self.name forKey:@"name"];
-    [dic setObject: [NSNumber numberWithInt:self.countGuests] forKey:@"countGuests"];
+    [dic setObject: [NSNumber numberWithInt:self.countGuests] forKey:@"countPersons"];
     if(self.email != nil)
         [dic setObject: self.email forKey:@"email"];
     if(self.notes != nil)

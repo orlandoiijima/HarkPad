@@ -13,7 +13,7 @@
 @implementation ChefViewController
 
 @synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton, firstSlotOffset, firstTableLabel, secondTableLabel;
-@synthesize totalDoneLabel, totalInProgressLabel, totalInSlotLabel, totalNotYetRequestedLabel;
+@synthesize totalDoneLabel, totalInProgressLabel, totalInSlotLabel, totalNotYetRequestedLabel, isVisible;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -70,6 +70,19 @@
     [self refreshView];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    isVisible = true;
+    [self refreshView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    isVisible = false;
+}
+
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
 {
     if(slots == nil || [slots count] == 0)
@@ -85,18 +98,21 @@
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    [super viewDidUnload];	
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
 
 - (void) refreshView
-{
+{	    
+    if(isVisible == false) return;
+    if(((UITabBarController *) self.parentViewController).selectedViewController != self)
+        return;
+
     slots = [[Service getInstance] getCurrentSlots];
     if(slots != nil && slots.count > firstSlotOffset)
     {
         firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset]];
- //       firstTable.delegate = firstTable.dataSource;
         if(firstSlotOffset == 0)
             firstTableLabel.text = @"Onderhanden";
         else
@@ -111,7 +127,6 @@
     if(slots != nil && slots.count > firstSlotOffset + 1)
     {
         secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset+1]];
-  //      secondTable.delegate = secondTable.dataSource;
         secondTableLabel.text = [NSString stringWithFormat:@"Slot +%d", firstSlotOffset+1];
     }
     else

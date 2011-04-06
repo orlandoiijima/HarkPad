@@ -22,7 +22,17 @@
 @property (retain) NSMutableArray *reservations;
 @property (retain) NSMutableDictionary *groupedReservations;
 @property (retain) UIPopoverController *popover;
+@property (retain) IBOutlet UILabel *count1800;
+@property (retain) IBOutlet UILabel *count1830;
+@property (retain) IBOutlet UILabel *count1900;
+@property (retain) IBOutlet UILabel *count1930;
+@property (retain) IBOutlet UILabel *count2000;
+@property (retain) IBOutlet UILabel *count2030;
+@property (retain) IBOutlet UILabel *countTotal;
+
 - (void) refreshTable;
+- (NSString *) keyForSection:(int)section;
+- (int) countForKey: (NSString *)key;
 
 - (IBAction) add;
 - (void) openEditPopup: (Reservation*)reservation;

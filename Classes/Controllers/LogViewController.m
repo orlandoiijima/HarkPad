@@ -8,10 +8,11 @@
 
 #import "LogViewController.h"
 #import "Service.h"
+#import "SettingsViewController.h"
 
 @implementation LogViewController
 
-@synthesize logTableView, logLines, detailLabel;
+@synthesize logTableView, logLines, detailLabel, captionButton, settingsButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -109,11 +110,23 @@
     [logTableView reloadData];
 }
 
+- (IBAction) settings
+{
+    SettingsViewController *popup = [[SettingsViewController alloc] init];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController: popup];
+    popover.delegate = self;
+    
+    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self refresh];
+    
+    captionButton.title = [NSString stringWithFormat:@"Log %@", [[Service getInstance] url]];
 }
 
 - (void)viewDidUnload

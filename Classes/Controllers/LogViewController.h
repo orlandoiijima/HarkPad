@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface LogViewController : UIViewController {
+@interface LogViewController : UIViewController <UIPopoverControllerDelegate>{
     UITableView *logTableView;
     UITextView *detailLabel;
     NSMutableDictionary *logLines;    
@@ -18,7 +18,9 @@
 @property (retain) IBOutlet UITableView *logTableView;
 @property (retain) NSMutableDictionary *logLines;
 @property (retain) IBOutlet UITextView *detailLabel;
+@property (retain) IBOutlet UIBarButtonItem *captionButton;
+@property (retain) IBOutlet UIBarButtonItem *settingsButton;
 
 - (IBAction) refresh;
-
+- (IBAction) settings;
 @end

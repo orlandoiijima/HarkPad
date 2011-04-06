@@ -1,4 +1,4 @@
-//
+	//
 //  TableMapViewController.m
 //  HarkPad
 //
@@ -20,7 +20,7 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX;
+@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX, isVisible;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -45,6 +45,19 @@
     [tapGesture release];   
 
     [self refreshView];		
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    isVisible = true;
+    [self refreshView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    isVisible = false;
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
@@ -284,6 +297,8 @@
 - (IBAction) refreshView
 {
     if(isRefreshTimerDisabled) return;
+    if(isVisible == false)
+        return;
     
     for(UIView *view in tableMapView.subviews) [view removeFromSuperview];
     [tableMapView setNeedsDisplay];
@@ -293,7 +308,6 @@
     scaleX = ((float)tableMapView.bounds.size.width - 20) / boundingRect.size.width;
     if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
         scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
-    float scaleY = scaleX;
     
     NSMutableArray *tables = [[Service getInstance] getTablesInfo];
     
