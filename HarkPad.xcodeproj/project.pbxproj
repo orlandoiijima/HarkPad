@@ -286,7 +286,6 @@
 		E5B7F678134704D10024AB35 /* ReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationViewController.m; sourceTree = "<group>"; };
 		E5B7F679134704D10024AB35 /* ReservationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
-		E5B7F67F134771230024AB35 /* HostController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HostController.h; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
 		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
@@ -460,7 +459,6 @@
 				E5B7F677134704D10024AB35 /* ReservationViewController.h */,
 				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
 				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
-				E5B7F67F134771230024AB35 /* HostController.h */,
 				E5F6099613487F6000D88587 /* LogViewController.h */,
 				E5F6099713487F6000D88587 /* LogViewController.m */,
 				E5F6099813487F6100D88587 /* LogViewController.xib */,

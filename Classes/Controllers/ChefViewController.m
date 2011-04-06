@@ -106,8 +106,6 @@
 - (void) refreshView
 {	    
     if(isVisible == false) return;
-    if(((UITabBarController *) self.parentViewController).selectedViewController != self)
-        return;
 
     slots = [[Service getInstance] getCurrentSlots];
     if(slots != nil && slots.count > firstSlotOffset)

@@ -56,11 +56,6 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 - (void) droppedDragNodeAtPoint: (CGPoint)point;
 - (void) gotoMenuCard;
 
-- (NSString *) getSeatString: (int) seat;
-- (NSString *) getCourseString: (int) course;
-- (NSString *) getSeatChar: (int) seat;
-- (NSString *) getCourseChar: (int) course;
-
 - (void) moveCourses: (int)firstCourseToMove delta: (int) delta;
 - (void) moveSeats: (int)firstSeatToMove delta: (int) delta;
 

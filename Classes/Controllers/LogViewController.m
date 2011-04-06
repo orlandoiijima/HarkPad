@@ -82,6 +82,12 @@
     [super dealloc];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self refresh];	
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -94,7 +100,7 @@
 
 - (IBAction) refresh
 {
-    NSMutableArray *lines = [[[Service getInstance] getLog] retain];
+    NSMutableArray *lines = [[Service getInstance] getLog];
     logLines = [[NSMutableDictionary alloc] init];
     for(NSString *line in lines)
     {

@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Reservation.h"
-#import "HostController.h"
 
-@interface ReservationsTableViewController : UIViewController <UITableViewDelegate, UIPopoverControllerDelegate, HostController>{
+@interface ReservationsTableViewController : UIViewController <UITableViewDelegate, UIPopoverControllerDelegate>{
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
     NSDate *dateToShow;

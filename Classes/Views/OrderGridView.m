@@ -10,6 +10,7 @@
 #import "NewOrderVC.h"
 #import "NewOrderView.h"
 #import "Course.h"
+#import "Utils.h"
 
 @implementation OrderGridView
 
@@ -175,7 +176,7 @@
     UIRectFill(frame);
     [[UIColor whiteColor] set];
     UIFont *font = [UIFont systemFontOfSize:17];
-    NSString *label = topController.orientation == SeatColumns ? [topController getCourseChar:row]: [topController getSeatChar: row];
+    NSString *label = topController.orientation == SeatColumns ? [Utils getCourseChar:row]: [Utils getSeatChar: row];
     CGSize size = [label sizeWithFont:font forWidth:frame.size.width lineBreakMode:UILineBreakModeClip];
     CGPoint point = CGPointMake(frame.origin.x + (frame.size.width - size.width)/2, frame.origin.y + (frame.size.height - size.height)/2);
     [label drawAtPoint:point withFont:font];
@@ -193,7 +194,7 @@
     UIRectFill(frame);
     [textColor set];
     UIFont *font = [UIFont systemFontOfSize:17];
-    NSString *label = topController.orientation == SeatColumns ? [topController getSeatString:column]: [topController getCourseString: column];
+    NSString *label = topController.orientation == SeatColumns ? [Utils getSeatString:column]: [Utils getCourseString: column];
     CGSize size = [label sizeWithFont:font forWidth:frame.size.width lineBreakMode:UILineBreakModeClip];
     CGPoint point = CGPointMake(frame.origin.x + (frame.size.width - size.width)/2, frame.origin.y + (frame.size.height - size.height)/2);
     [label drawAtPoint:point withFont:font];

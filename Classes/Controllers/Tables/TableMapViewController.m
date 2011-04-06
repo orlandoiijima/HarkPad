@@ -51,7 +51,7 @@
 {
     [super viewDidAppear:animated];
     isVisible = true;
-    [self refreshView];
+    [self refreshView];	
 }
 
 - (void)viewDidDisappear:(BOOL)animated

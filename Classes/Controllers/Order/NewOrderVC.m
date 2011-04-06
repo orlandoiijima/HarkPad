@@ -16,6 +16,7 @@
 #import "OrderGridView.h"
 #import "OrderLineDetailViewController.h"
 #import "ModalAlert.h"
+#import "Utils.h"
 
 @implementation NewOrderVC
 
@@ -162,29 +163,6 @@
     return [self orderLinesWithCourse:course seat:seat];
 }
 
-
-- (NSString *) getSeatString: (int) seat
-{
-    return [NSString stringWithFormat:@"Stoel %d", seat+1]; 
-}
-
-- (NSString *) getSeatChar: (int) seat
-{
-    return [NSString stringWithFormat:@"%d", seat+1]; 
-}
-- (NSString *) getCourseString: (int) course
-{
-//    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
-    NSString *courseChar = [self getCourseChar: course];
-    return [NSString stringWithFormat:@"Gang %@", courseChar]; 
-}
-
-- (NSString *) getCourseChar: (int) course
-{
-    NSArray *chars = [NSArray arrayWithObjects:@"A", @"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
-    return [NSString stringWithFormat:@"%@", [chars objectAtIndex: course]]; 
-}
-
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     [orderGridView redraw];    
@@ -328,7 +306,7 @@
 
 - (void) showActionSheetForSeat: (int) seat
 {
-    NSString *title = [self getSeatString:seat];
+    NSString *title = [Utils getSeatString:seat];
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", nil];
@@ -338,7 +316,7 @@
 
 - (void) showActionSheetForCourse: (int) course
 {
-    NSString *title = [self getCourseString:course];
+    NSString *title = [Utils getCourseString:course];
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
     NSString *getCourse = [NSString stringWithFormat:@"%@ opvragen", title];
