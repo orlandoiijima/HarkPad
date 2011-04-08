@@ -4,6 +4,7 @@
 #import "OrderLinePropertyValue.h"
 //#import "OrderViewDetailController.h"
 #import "OrderTableView.h"
+#import "Utils.h"
 
 @implementation OrderLineCell
 
@@ -25,9 +26,8 @@
 {
     orderLine = line;
     
-    seat.titleLabel.text = [NSString stringWithFormat: @"%d", line.guest.seat + 1];
-    NSArray *chars = [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F", nil];
-    course.titleLabel.text = [chars objectAtIndex:line.course.offset];
+    seat.titleLabel.text = [Utils getSeatChar: line.guest.seat];
+    course.titleLabel.text = [Utils getCourseChar:line.course.offset];
     quantity.text = [NSString stringWithFormat:@"%dx", line.quantity];
     if(line.quantity == 1)
     {
