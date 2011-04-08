@@ -8,6 +8,7 @@
 
 #import "Service.h"
 #import "KitchenStatistics.h"
+#import "Backlog.h"
 
 @implementation Service
 
@@ -202,6 +203,20 @@ static Service *_service;
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableDictionary *statsDic = [self getResultFromJson: data];
     return [KitchenStatistics statsFromJsonDictionary: statsDic];
+}
+
+- (NSMutableArray *) getBacklogStatistics
+{
+	NSURL *testUrl = [self makeEndPoint:@"getBacklogStatistics" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *stats = [[NSMutableArray alloc] init];
+    NSMutableDictionary *statsDic = [self getResultFromJson: data];
+    for(NSDictionary *statDic in statsDic)
+    {
+        Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
+        [stats addObject:backlog];
+    }
+    return stats;
 }
 
 - (Order *) getOrder: (int) orderId

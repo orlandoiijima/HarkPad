@@ -46,7 +46,7 @@
     orderGridView = [[OrderGridView alloc] initWithFrame:frame];
 
     [splitter initWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
-    [orderGridView redraw];
+    [orderGridView redraw]; 
 }
 
 - (void) setOrder: (Order *) newOrder
@@ -131,9 +131,10 @@
         }
         else
         {
-            dragNode.orderLine.entityState = Modified;
-            dragNode.orderLine.course = [order getCourseByOffset: course];
-            dragNode.orderLine.guest = [order getGuestBySeat: seat];
+            dragNode.orderLine.entityState = Deleted;
+//            dragNode.orderLine.course = [order getCourseByOffset: course];
+//            dragNode.orderLine.guest = [order getGuestBySeat: seat];
+            [order addLineWithProductId:dragNode.orderLine.product.id seat:seat course: course];
         }
     }
     [dragNode removeFromSuperview];
@@ -150,7 +151,7 @@
     if(course == nil) return lines;
     
     for(OrderLine *line in course.lines)
-        if(line.guest.seat == seatOffset && [self matchesFilter:line])
+        if(line.guest.seat == seatOffset && [self matchesFilter:line] && line.entityState != Deleted)
             [lines addObject:line];
     return lines;
 }

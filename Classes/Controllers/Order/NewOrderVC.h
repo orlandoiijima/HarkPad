@@ -16,6 +16,8 @@
 
 @interface NewOrderVC : UIViewController <UIActionSheetDelegate,UIPopoverControllerDelegate> {
     Order *order;
+    DragNode *dragNode;
+    TreeNode *rootNode, *currentNode;
 }
 
 typedef enum Orientation {SeatColumns, CourseColumns} Orientation ;

@@ -140,7 +140,7 @@
         rect = CGRectInset(rect, 17, 10);
         noteTextField = [[UITextField alloc] initWithFrame:rect];
         noteTextField.text = orderLine.note;
-        [cell addSubview: noteTextField];
+        [cell.contentView addSubview: noteTextField];
         return cell;
         
     }        

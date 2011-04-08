@@ -36,6 +36,7 @@
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
 - (KitchenStatistics *) getKitchenStatistics;
+- (NSMutableArray *) getBacklogStatistics;
 - (Order *) getOpenOrderByTable: (int) tableId;
 - (NSMutableArray *) getTablesInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;

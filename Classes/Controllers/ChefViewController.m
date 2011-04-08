@@ -9,6 +9,7 @@
 #import "ChefViewController.h"
 #import "KitchenStatistics.h"
 #import "Service.h"
+#import "BacklogViewController.h"
 
 @implementation ChefViewController
 
@@ -160,6 +161,14 @@
 {
     [[Service getInstance] startNextSlot];   
     [self refreshView];	
+}
+
+- (IBAction) showBacklog
+{
+    BacklogViewController *popup = [[BacklogViewController alloc] initWithNibName:@"BacklogViewController" bundle:[NSBundle mainBundle]];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController: popup];
+    popover.delegate = self;
+    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

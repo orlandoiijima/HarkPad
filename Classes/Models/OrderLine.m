@@ -51,7 +51,7 @@
 
 - (void) setEntityState:(EntityState)newState
 {
-    if(entityState == None)
+    if(entityState == None || newState == Deleted)
         entityState = newState;
 }
 

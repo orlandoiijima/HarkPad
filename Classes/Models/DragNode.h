@@ -11,6 +11,8 @@
 #import "OrderLine.h"
 
 @interface DragNode : UIView {
+    OrderLine *orderLine;
+    NSString *label;
 }
 
 + (DragNode *) nodeWithNode : (TreeNode *) product frame: (CGRect) frame;

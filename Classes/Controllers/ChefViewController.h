@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SlotDataSource.h"
 
-@interface ChefViewController : UIViewController {
+@interface ChefViewController : UIViewController <UIPopoverControllerDelegate>{
     UITableView *firstTable;
     UITableView *secondTable;
     SlotDataSource *firstSlotDataSource;
@@ -33,7 +33,9 @@
 @property (retain) IBOutlet UILabel *totalNotYetRequestedLabel;
 @property int firstSlotOffset;
 @property bool isVisible;
+
 - (void) refreshView;
 - (void) updateClock;
 - (IBAction) startNextSlot;
+- (IBAction) showBacklog;
 @end

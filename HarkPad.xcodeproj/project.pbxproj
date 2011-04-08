@@ -118,6 +118,9 @@
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
 		E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F46385134B4C400052CDDC /* SettingsViewController.m */; };
 		E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F46386134B4C440052CDDC /* SettingsViewController.xib */; };
+		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
+		E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */; };
+		E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F4638F134CE6120052CDDC /* BacklogViewController.xib */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
 		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
 		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
@@ -309,6 +312,11 @@
 		E5F46384134B4C3E0052CDDC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		E5F46385134B4C400052CDDC /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		E5F46386134B4C440052CDDC /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		E5F4638A134CCEC00052CDDC /* Backlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Backlog.h; sourceTree = "<group>"; };
+		E5F4638B134CCEC60052CDDC /* Backlog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Backlog.m; sourceTree = "<group>"; };
+		E5F4638D134CE5E40052CDDC /* BacklogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BacklogViewController.h; sourceTree = "<group>"; };
+		E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BacklogViewController.m; sourceTree = "<group>"; };
+		E5F4638F134CE6120052CDDC /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
 		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -465,6 +473,9 @@
 				E5F46384134B4C3E0052CDDC /* SettingsViewController.h */,
 				E5F46385134B4C400052CDDC /* SettingsViewController.m */,
 				E5F46386134B4C440052CDDC /* SettingsViewController.xib */,
+				E5F4638D134CE5E40052CDDC /* BacklogViewController.h */,
+				E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */,
+				E5F4638F134CE6120052CDDC /* BacklogViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -546,6 +557,8 @@
 				E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */,
 				E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */,
 				E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */,
+				E5F4638A134CCEC00052CDDC /* Backlog.h */,
+				E5F4638B134CCEC60052CDDC /* Backlog.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -820,6 +833,7 @@
 				E5F609A113489AAF00D88587 /* bug.png in Resources */,
 				E5F609A313489C2400D88587 /* star.png in Resources */,
 				E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */,
+				E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +937,8 @@
 				E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */,
 				E5F6099913487F6300D88587 /* LogViewController.m in Sources */,
 				E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */,
+				E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */,
+				E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
