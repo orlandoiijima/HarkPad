@@ -19,9 +19,6 @@
     CGRect selectedOrderLineFrame;
 }
 
-
-typedef enum HitInfoType {orderLine, orderGridColumnHeader, orderGridRowHeader} HitInfoType ;
-
 @property int tableMarginWidth;
 @property int tableMarginHeight;
 @property int tableBorderWidth;

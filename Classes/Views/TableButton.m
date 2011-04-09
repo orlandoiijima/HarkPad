@@ -19,7 +19,7 @@
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
-    TableButton *button =  [[TableButton alloc] init];
+    TableButton *button =  [[[TableButton alloc] init] autorelease];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.cornerRadius = 4;
     gradientLayer.borderColor = [[UIColor grayColor] CGColor];
@@ -249,8 +249,7 @@
 
     int countSeatRow = table.countSeats / 2;
 
-    CGRect tableRect = self.bounds;
-    tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
+    CGRect tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
     
     if(table.seatOrientation == row)
     {
@@ -320,8 +319,7 @@
 {
     int countSeatRow = table.countSeats / 2;
     
-    CGRect tableRect = self.bounds;
-    tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
+    CGRect tableRect = CGRectInset([self bounds], self.tableLeftMargin, self.tableTopMargin);
 
     if(table.seatOrientation == row)
     {

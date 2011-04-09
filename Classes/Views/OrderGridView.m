@@ -371,34 +371,56 @@
 - (void) targetMoved: (CGPoint) point
 {
     OrderGridHitInfo *hitInfo = [self getHitInfo:point];
+
+    GridCell *newDropTarget;
     if(hitInfo.type == -1)
     {
-        dropTarget = nil;
+        newDropTarget = nil;
     }
     else
     {
-        dropTarget = [GridCell cellWithColumn:hitInfo.cell.column row:hitInfo.cell.row line: hitInfo.cell.line];
+        newDropTarget = [GridCell cellWithColumn:hitInfo.cell.column row:hitInfo.cell.row line: hitInfo.cell.line];
     }
-    [self redraw];
+    
+    if(newDropTarget != dropTarget)
+    {
+        if(dropTarget != nil)
+        {
+            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
+            [self drawRowHeader: rect row: dropTarget.row];
+            [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
+        }
+        dropTarget = newDropTarget;
+        if(dropTarget != nil)
+        {
+            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
+            if(dropTarget.row != -1)
+                [self drawRowHeader: rect row: dropTarget.row];
+            if(dropTarget.column != -1)
+                [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
+        }
+    }
+    
+//    [self redraw];
 }
 
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{   
-    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    [topController touchesEnded:touches withEvent:event];
-}
-
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    [topController touchesMoved:touches withEvent:event];
-}
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    [topController touchesBegan:touches withEvent:event];
-}
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{   
+//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
+//    [topController touchesEnded:touches withEvent:event];
+//}
+//
+//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
+//    [topController touchesMoved:touches withEvent:event];
+//}
+//
+//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
+//    [topController touchesBegan:touches withEvent:event];
+//}
 
 
 - (void) editOrderLineProperties

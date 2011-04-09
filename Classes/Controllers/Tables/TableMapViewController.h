@@ -25,7 +25,7 @@
 - (IBAction) refreshView;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
-- (IBAction) setupDistrictMap;
+//- (IBAction) setupDistrictMap;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
 - (void) startNextCourse: (Order *)order;
@@ -33,7 +33,7 @@
 - (void) closeOrderView;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
-- (CGRect) rotateRect: (CGRect) rect;
+//- (CGRect) rotateRect: (CGRect) rect;
 - (TableButton *) tableButtonAtPoint: (CGPoint) point;
 - (TableButton *) findButton: (Table *) table;
 - (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;

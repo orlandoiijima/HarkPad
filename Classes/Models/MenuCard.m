@@ -23,7 +23,7 @@
 
 + (MenuCard *) menuFromJson:(NSMutableArray *)jsonCategories
 {
-    MenuCard *menu = [[MenuCard alloc] init];
+    MenuCard *menu = [[[MenuCard alloc] init] autorelease];
     for(NSDictionary *categoryDic in jsonCategories)
     {
         ProductCategory *category = [ProductCategory categoryFromJsonDictionary: categoryDic]; 

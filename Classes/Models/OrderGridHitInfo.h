@@ -10,13 +10,18 @@
 #import "GridCell.h"
 #import "OrderLine.h"
 
-@interface OrderGridHitInfo : NSObject {
+typedef enum HitInfoType {nothing = -1, orderLine = 0, orderGridColumnHeader = 1, orderGridRowHeader = 2} HitInfoType ;
 
+@interface OrderGridHitInfo : NSObject {
+    GridCell *cell;
+    OrderLine *orderLine;
+    HitInfoType type;
+    CGRect frame;
 }
 
 @property (retain) GridCell *cell;
 @property (retain) OrderLine *orderLine;
-@property int type;
+@property HitInfoType type;
 @property CGRect frame;
 
 @end

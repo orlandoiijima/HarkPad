@@ -10,7 +10,9 @@
 
 
 @interface GridCell : NSObject {
-
+    int column;
+    int row;
+    int line;
 }
 
 @property int column;

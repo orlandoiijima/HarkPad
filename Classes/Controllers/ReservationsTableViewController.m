@@ -85,22 +85,23 @@
 
 - (void) refreshTable
 {
-    if([dateToShow isToday])
-        dateLabel.text = @"Vandaag";
-    else if([dateToShow isYesterday])
-        dateLabel.text = @"Gisteren";
-    else if([dateToShow isTomorrow])
-        dateLabel.text = @"Morgen";
-    else if([dateToShow isAfterTomorrow])
-        dateLabel.text = @"Overmorgen";
-    else if([dateToShow isAfterYesterday])
-        dateLabel.text = @"Eergisteren";
-    else
-    {
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        dateLabel.text = [dateFormatter stringFromDate:dateToShow];
-    }
+//    if([dateToShow isToday])
+//        dateLabel.text = @"Vandaag";
+//    else if([dateToShow isYesterday])
+//        dateLabel.text = @"Gisteren";
+//    else if([dateToShow isTomorrow])
+//        dateLabel.text = @"Morgen";
+//    else if([dateToShow isAfterTomorrow])
+//        dateLabel.text = @"Overmorgen";
+//    else if([dateToShow isAfterYesterday])
+//        dateLabel.text = @"Eergisteren";
+//    else
+//    {
+//        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+//        dateLabel.text = [dateFormatter stringFromDate:dateToShow];
+//    }
+    dateLabel.text = [dateToShow prettyDateString];
     reservations = [[[Service getInstance] getReservations:dateToShow] retain];
     
     groupedReservations = [[NSMutableDictionary alloc] init];
@@ -113,7 +114,7 @@
             NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
             NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
             if(slotArray == nil) {
-                slotArray = [[NSMutableArray alloc] init];
+                slotArray = [[[NSMutableArray alloc] init] autorelease];
                 [groupedReservations setObject:slotArray forKey:timeSlot];
             }
             [slotArray addObject:reservation];

@@ -56,48 +56,48 @@
     [firstView setNeedsDisplay];    
     [secondView redraw];
 }
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    CGPoint point = [[touches anyObject] locationInView:self];
-    if(CGRectContainsPoint(firstView.frame, point))
-    {
-        return;
-    }
-    if(CGRectContainsPoint(secondView.frame, point))
-        return;
-    isDrag = YES;
-    startDrag = point;
-}
-
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{    
-    CGPoint point  = [[touches anyObject] locationInView:self];
-    if(isDrag == NO)
-    {
-        if(CGRectContainsPoint(firstView.frame, point) || CGRectContainsPoint(secondView.frame, point))
-        {
-            [controller touchesMoved:touches withEvent:event];
-        }
-        
-        return;
-    }
-    int delta = point.x - startDrag.x;
-    firstView.frame = CGRectMake(firstView.frame.origin.x, firstView.frame.origin.y, firstView.frame.size.width + delta, firstView.frame.size.height);
-    secondView.frame = CGRectMake(secondView.frame.origin.x + delta, secondView.frame.origin.y, secondView.frame.size.width - delta, secondView.frame.size.height);
-    startDrag = point;
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    if(isDrag == NO)
-    {
-        [controller touchesEnded:touches withEvent:event];
-        return;
-    }
-    [firstView setNeedsDisplay];    
-    [secondView redraw];
-    isDrag = NO;
-}
-
+//
+//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    CGPoint point = [[touches anyObject] locationInView:self];
+//    if(CGRectContainsPoint(firstView.frame, point))
+//    {
+//        return;
+//    }
+//    if(CGRectContainsPoint(secondView.frame, point))
+//        return;
+//    isDrag = YES;
+//    startDrag = point;
+//}
+//
+//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{    
+//    CGPoint point  = [[touches anyObject] locationInView:self];
+//    if(isDrag == NO)
+//    {
+//        if(CGRectContainsPoint(firstView.frame, point) || CGRectContainsPoint(secondView.frame, point))
+//        {
+//            [controller touchesMoved:touches withEvent:event];
+//        }
+//        
+//        return;
+//    }
+//    int delta = point.x - startDrag.x;
+//    firstView.frame = CGRectMake(firstView.frame.origin.x, firstView.frame.origin.y, firstView.frame.size.width + delta, firstView.frame.size.height);
+//    secondView.frame = CGRectMake(secondView.frame.origin.x + delta, secondView.frame.origin.y, secondView.frame.size.width - delta, secondView.frame.size.height);
+//    startDrag = point;
+//}
+//
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    if(isDrag == NO)
+//    {
+//        [controller touchesEnded:touches withEvent:event];
+//        return;
+//    }
+//    [firstView setNeedsDisplay];    
+//    [secondView redraw];
+//    isDrag = NO;
+//}
+//
 @end

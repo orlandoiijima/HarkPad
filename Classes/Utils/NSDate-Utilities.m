@@ -107,6 +107,26 @@
 	return [self isEqualToDateIgnoringTime:[NSDate dateWithDaysBeforeNow:2]];
 }
 
+- (NSString *) prettyDateString
+{
+    if([self isToday])
+        return @"Vandaag";
+    else if([self isYesterday])
+        return @"Gisteren";
+    else if([self isTomorrow])
+        return @"Morgen";
+    else if([self isAfterTomorrow])
+        return @"Overmorgen";
+    else if([self isAfterYesterday])
+        return @"Eergisteren";
+    else
+    {
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        return [dateFormatter stringFromDate:self];
+    }
+    
+}
 
 // This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate

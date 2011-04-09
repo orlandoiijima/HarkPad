@@ -30,6 +30,10 @@
 + (NSString *) getCourseChar: (int) course
 {
     NSArray *chars = [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
+    if(course < 0 || course >= [chars count])
+    {
+        return @"";
+    }
     return [NSString stringWithFormat:@"%@", [chars objectAtIndex: course]]; 
 }
 

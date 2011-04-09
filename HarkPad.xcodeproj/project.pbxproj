@@ -34,6 +34,9 @@
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
+		E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F021350CA94005397C0 /* SalesViewController.m */; };
+		E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E42F031350CA95005397C0 /* SalesViewController.xib */; };
+		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
 		E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
@@ -296,6 +299,11 @@
 		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
 		E5E377B11309C4A100F93319 /* ReservationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationTableCell.m; sourceTree = "<group>"; };
 		E5E377B31309C4D000F93319 /* ReservationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationTableCell.xib; sourceTree = "<group>"; };
+		E5E42F011350CA93005397C0 /* SalesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesViewController.h; sourceTree = "<group>"; };
+		E5E42F021350CA94005397C0 /* SalesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesViewController.m; sourceTree = "<group>"; };
+		E5E42F031350CA95005397C0 /* SalesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SalesViewController.xib; sourceTree = "<group>"; };
+		E5E42F0A1350E4E1005397C0 /* ProductTotals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTotals.h; sourceTree = "<group>"; };
+		E5E42F0B1350E4E2005397C0 /* ProductTotals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTotals.m; sourceTree = "<group>"; };
 		E5E722E513116DFB00905959 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		E5E722E613116DFB00905959 /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
 		E5E722EE13118B3800905959 /* ChefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChefViewController.h; sourceTree = "<group>"; };
@@ -476,6 +484,9 @@
 				E5F4638D134CE5E40052CDDC /* BacklogViewController.h */,
 				E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */,
 				E5F4638F134CE6120052CDDC /* BacklogViewController.xib */,
+				E5E42F011350CA93005397C0 /* SalesViewController.h */,
+				E5E42F021350CA94005397C0 /* SalesViewController.m */,
+				E5E42F031350CA95005397C0 /* SalesViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -559,6 +570,8 @@
 				E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */,
 				E5F4638A134CCEC00052CDDC /* Backlog.h */,
 				E5F4638B134CCEC60052CDDC /* Backlog.m */,
+				E5E42F0A1350E4E1005397C0 /* ProductTotals.h */,
+				E5E42F0B1350E4E2005397C0 /* ProductTotals.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -834,6 +847,7 @@
 				E5F609A313489C2400D88587 /* star.png in Resources */,
 				E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */,
 				E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */,
+				E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -939,6 +953,8 @@
 				E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */,
 				E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */,
 				E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */,
+				E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */,
+				E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

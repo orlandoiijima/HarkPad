@@ -14,7 +14,7 @@
 #import "Splitter.h"
 #import "OrderGridView.h"
 
-@interface NewOrderVC : UIViewController <UIActionSheetDelegate,UIPopoverControllerDelegate> {
+@interface NewOrderVC : UIViewController <UIActionSheetDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate> {
     Order *order;
     DragNode *dragNode;
     TreeNode *rootNode, *currentNode;

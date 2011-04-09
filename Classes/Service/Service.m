@@ -9,6 +9,7 @@
 #import "Service.h"
 #import "KitchenStatistics.h"
 #import "Backlog.h"
+#import "ProductTotals.h"
 
 @implementation Service
 
@@ -17,8 +18,8 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        url = @"http://pos.restaurantanna.nl";
-//        url = @"http://localhost:10089";
+//       url = @"http://pos.restaurantanna.nl";
+        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -47,10 +48,10 @@ static Service *_service;
     NSError *error = nil;
 	NSDictionary *jsonDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
     if(error != nil)
-        return [[NSMutableDictionary alloc] init];
+        return [[[NSMutableDictionary alloc] init] autorelease];
     id result =  [jsonDictionary objectForKey:@"result"];
     if((NSNull *)result == [NSNull null])
-        return [[NSMutableDictionary alloc] init];
+        return [[[NSMutableDictionary alloc] init] autorelease];
     return result;
 }
 
@@ -219,6 +220,22 @@ static Service *_service;
     return stats;
 }
 
+- (NSMutableArray *) getSalesStatistics: (NSDate *)date
+{
+    int dateSeconds = [date timeIntervalSince1970];    
+	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *stats = [[NSMutableArray alloc] init];
+    NSMutableDictionary *statsDic = [self getResultFromJson: data];
+    for(NSDictionary *statDic in statsDic)
+    {
+        ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
+        [stats addObject:totals];
+    }
+    return stats;
+}
+
+
 - (Order *) getOrder: (int) orderId
 {
     NSURL *testUrl = [self makeEndPoint:@"getorder" withQuery:@""];
@@ -270,7 +287,7 @@ static Service *_service;
 
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
 {
-    NSURL *testUrl = [self makeEndPoint:@"processpayment" withQuery:[NSString stringWithFormat:@"orderId=%d&type=%d", orderId, paymentType]];
+    NSURL *testUrl = [self makeEndPoint:@"processpayment" withQuery:[NSString stringWithFormat:@"orderId=%d&paymentType=%d", orderId, paymentType]];
     
 	[NSData dataWithContentsOfURL: testUrl];
 	return;

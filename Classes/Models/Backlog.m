@@ -7,13 +7,11 @@
 //
 
 #import "Backlog.h"
-#import "Product.h"
 #import "Cache.h"
 
 @implementation Backlog
 
 @synthesize product, totals;
-
 
 + (Backlog *) backlogFromJsonDictionary: (NSDictionary *)jsonDictionary
 {

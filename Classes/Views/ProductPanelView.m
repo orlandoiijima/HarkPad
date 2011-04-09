@@ -30,17 +30,17 @@
 }
 
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
-    [controller touchesMoved:touches withEvent:event];
-}
-
-- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
-    [controller touchesEnded:touches withEvent:event];
-}
+//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
+//    [controller touchesMoved:touches withEvent:event];
+//}
+//
+//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
+//    [controller touchesEnded:touches withEvent:event];
+//}
 
 #define MARGIN 3
 #define COUNTCOLUMNS 3
