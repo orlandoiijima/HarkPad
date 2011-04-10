@@ -28,15 +28,17 @@
 @property (retain) IBOutlet UILabel *count2000;
 @property (retain) IBOutlet UILabel *count2030;
 @property (retain) IBOutlet UILabel *countTotal;
+@property (retain) IBOutlet UISegmentedControl *segmentShow; 
 
 - (void) refreshTable;
 - (NSString *) keyForSection:(int)section;
 - (int) countForKey: (NSString *)key;
 
 - (IBAction) add;
+- (IBAction) edit;
+- (IBAction) showMode;
 - (void) openEditPopup: (Reservation*)reservation;
 - (void) closePopup;
 - (void) cancelPopup;
-- (Reservation *) reservation: (NSIndexPath *) indexPath;
 
 @end

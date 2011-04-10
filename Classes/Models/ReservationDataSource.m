@@ -8,69 +8,128 @@
 
 #import "ReservationDataSource.h"
 #import "Service.h"
-#import "Reservation.h"
 #import "ReservationTableCell.h"
 
 @implementation ReservationDataSource
 
-@synthesize groupedReservations, reservations;
+@synthesize groupedReservations, reservations, includePlacedReservations;
 
-+ (ReservationDataSource *) dataSource
++ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
-    source.reservations = [[Service getInstance] getReservations: [NSDate date]];
-    source.groupedReservations = [[NSMutableDictionary alloc] init];
-    for (Reservation *reservation in source.reservations) {
-        //  skip 'placed' reservations
-        if(reservation.orderId != -1) continue;
+    source.reservations = [[Service getInstance] getReservations: date];
+    source.includePlacedReservations = includePlaced;
+//    [source createGroupedReservations];
+    return source;
+}
+
+- (void) createGroupedReservations
+{
+    groupedReservations = [[NSMutableDictionary alloc] init];
+    for (Reservation *reservation in reservations) {
+        if(includePlacedReservations == false)
+            if(reservation.orderId != -1) continue;
         NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
         NSInteger hour = [components hour];
         NSInteger minute = [components minute];            
         NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-        NSMutableArray *slotArray = [source.groupedReservations objectForKey:timeSlot];
+        NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
         if(slotArray == nil) {
             slotArray = [[NSMutableArray alloc] init];
-            [source.groupedReservations setObject:slotArray forKey:timeSlot];
+            [groupedReservations setObject:slotArray forKey:timeSlot];
         }
         [slotArray addObject:reservation];
     }
-    return source;
+    
 }
 
+- (void) setIncludePlacedReservations:(_Bool)include
+{
+    includePlacedReservations = include;
+    [self createGroupedReservations];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return groupedReservations.count;
 }	
 
+- (int) countGuestsForKey: (NSString *)key
+{
+    NSArray *slotReservations = [groupedReservations objectForKey:key];
+    if(groupedReservations == nil) return 0;
+    int count = 0;
+    for(Reservation *reservation in slotReservations)
+        count += reservation.countGuests;
+    return count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString *key = [[groupedReservations allKeys] objectAtIndex: section];
+    NSString *key = [self keyForSection:section];
     NSArray *slotReservations = [groupedReservations objectForKey:key];
-    return slotReservations.count;
+    return [slotReservations count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[groupedReservations allKeys] objectAtIndex: section];
+    return [self keyForSection:section];
 }
 
+- (NSString *) keyForSection: (int)section
+{
+    if(groupedReservations.count == 0)
+        return @"";
+    NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    return [sortedKeys objectAtIndex:section];    
+}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+//    NSString *key = [self keyForSection:section];
+//    return [NSString stringWithFormat:@"Aantal gasten %@: %d", key, [self countGuestsForKey:key]];
+//}
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
+    
+    if(groupedReservations == nil || groupedReservations.count == 0)
+    {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
+        cell.textLabel.text = @"Geen reserveringen";
+        return cell;
+    }
     
     ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
     }
     
-    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-    
-    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+    Reservation *reservation = [self getReservation:indexPath];
     cell.reservation = reservation;
     return cell;
 }
 
+- (Reservation *) getReservation: (NSIndexPath *) indexPath
+{
+    NSString *key = [self keyForSection: indexPath.section];
+    NSArray *slotReservations = [groupedReservations objectForKey:key];
+    if(slotReservations == nil || indexPath.row >= [slotReservations count])
+        return nil;
+    return [slotReservations objectAtIndex:indexPath.row];
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Reservation *reservation = [self getReservation:indexPath];
+        if(reservation == nil) return;
+        [[Service getInstance] deleteReservation: reservation.id];
+        //      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self refreshTable];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
 
 @end

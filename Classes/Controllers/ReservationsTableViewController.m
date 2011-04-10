@@ -10,10 +10,11 @@
 #import "Service.h"
 #import "ReservationTableCell.h"
 #import "ReservationViewController.h"
+#import "ReservationDataSource.h"
 
 @implementation ReservationsTableViewController
 
-@synthesize reservations, groupedReservations, table, dateToShow, dateLabel, popover, count1800, count1830, count1900, count1930, count2000, count2030, countTotal;
+@synthesize reservations, groupedReservations, table, dateToShow, dateLabel, popover, count1800, count1830, count1900, count1930, count2000, count2030, countTotal, segmentShow;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -62,13 +63,7 @@
     [tapGesture release];   
     
     [self refreshTable];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
+    }
 
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
 {
@@ -85,64 +80,62 @@
 
 - (void) refreshTable
 {
-//    if([dateToShow isToday])
-//        dateLabel.text = @"Vandaag";
-//    else if([dateToShow isYesterday])
-//        dateLabel.text = @"Gisteren";
-//    else if([dateToShow isTomorrow])
-//        dateLabel.text = @"Morgen";
-//    else if([dateToShow isAfterTomorrow])
-//        dateLabel.text = @"Overmorgen";
-//    else if([dateToShow isAfterYesterday])
-//        dateLabel.text = @"Eergisteren";
-//    else
-//    {
-//        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-//        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-//        dateLabel.text = [dateFormatter stringFromDate:dateToShow];
-//    }
     dateLabel.text = [dateToShow prettyDateString];
-    reservations = [[[Service getInstance] getReservations:dateToShow] retain];
     
-    groupedReservations = [[NSMutableDictionary alloc] init];
-    int count = 0;
-    for (Reservation *reservation in reservations) {
-        if([dateToShow isEqualToDateIgnoringTime: reservation.startsOn]) {
-            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
-            NSInteger hour = [components hour];
-            NSInteger minute = [components minute];            
-            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-            NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
-            if(slotArray == nil) {
-                slotArray = [[[NSMutableArray alloc] init] autorelease];
-                [groupedReservations setObject:slotArray forKey:timeSlot];
-            }
-            [slotArray addObject:reservation];
-            count += reservation.countGuests;
-        }
-    }
+    bool includePlaced = [segmentShow selectedSegmentIndex] == 1;
+    ReservationDataSource *dataSource = [ReservationDataSource dataSource:dateToShow includePlacedReservations: includePlaced];
+    table.dataSource = dataSource;
+    table.delegate = dataSource;
+    
+//    reservations = [[[Service getInstance] getReservations:dateToShow] retain];
+//    
+//    groupedReservations = [[NSMutableDictionary alloc] init];
+//    int count = 0;
+//    for (Reservation *reservation in reservations) {
+//        if([dateToShow isEqualToDateIgnoringTime: reservation.startsOn]) {
+//            NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
+//            NSInteger hour = [components hour];
+//            NSInteger minute = [components minute];            
+//            NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+//            NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
+//            if(slotArray == nil) {
+//                slotArray = [[[NSMutableArray alloc] init] autorelease];
+//                [groupedReservations setObject:slotArray forKey:timeSlot];
+//            }
+//            [slotArray addObject:reservation];
+//            count += reservation.countGuests;
+//        }
+//    }
     [table reloadData];
 
-    countTotal.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
-    countTotal.textColor = count == 0 ? [UIColor lightGrayColor] : [UIColor blackColor];
-    
-    count = [self countForKey:@"18:00"];
+
+    int total = 0;
+    int count = [dataSource countGuestsForKey:@"18:00"];
+    total += count;
     count1800.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
 
-    count = [self countForKey:@"18:30"];
+    count = [dataSource countGuestsForKey:@"18:30"];
+    total += count;
     count1830.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
 
-    count = [self countForKey:@"19:00"];
+    count = [dataSource countGuestsForKey:@"19:00"];
+    total += count;
     count1900.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
     
-    count = [self countForKey:@"19:30"];
+    count = [dataSource countGuestsForKey:@"19:30"];
+    total += count;
     count1930.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
     
-    count = [self countForKey:@"20:00"];
+    count = [dataSource countGuestsForKey:@"20:00"];
+    total += count;
     count2000.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
     
-    count = [self countForKey:@"20:30"];
+    count = [dataSource countGuestsForKey:@"20:30"];
+    total += count;
     count2030.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
+
+    countTotal.text = total == 0 ? @"-" : [NSString stringWithFormat:@"%d", total];
+    countTotal.textColor = total == 0 ? [UIColor lightGrayColor] : [UIColor blackColor];
 }
 
 - (void)viewDidUnload
@@ -178,77 +171,77 @@
 	return YES;
 }
 
-- (NSString *) keyForSection: (int)section
-{
-    if(groupedReservations.count == 0)
-        return @"";
-    return [[groupedReservations allKeys] objectAtIndex:section];    
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return groupedReservations.count == 0 ? 1 : groupedReservations.count;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if(groupedReservations.count == 0)
-        return 1;
-    
-    NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
-    
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-    if(slotReservations != nil)
-        return slotReservations.count;
-    return 0;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self keyForSection:section];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    NSString *key = [self keyForSection:section];
-    return [NSString stringWithFormat:@"Aantal gasten %@: %d", key, [self countForKey:key]];
-}
-
-- (int) countForKey: (NSString *)key
-{
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-    if(groupedReservations == nil) return 0;
-    int count = 0;
-    for(Reservation *reservation in slotReservations)
-        count += reservation.countGuests;
-    return count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-
-    if(groupedReservations == nil || groupedReservations.count == 0)
-    {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
-        cell.textLabel.text = @"Geen reserveringen";
-        return cell;
-    }
-    
-    ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
-    }
-    
-    NSString *key = [self keyForSection: indexPath.section];
-   
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-
-    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
-    cell.reservation = reservation;
-    
-    return cell;
-}
+//- (NSString *) keyForSection: (int)section
+//{
+//    if(groupedReservations.count == 0)
+//        return @"";
+//    return [[groupedReservations allKeys] objectAtIndex:section];    
+//}
+//
+//#pragma mark - Table view data source
+//
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return groupedReservations.count == 0 ? 1 : groupedReservations.count;
+//}
+//
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+//{
+//    if(groupedReservations.count == 0)
+//        return 1;
+//    
+//    NSString *key = [[groupedReservations allKeys] objectAtIndex:section];
+//    
+//    NSArray *slotReservations = [groupedReservations objectForKey:key];
+//    if(slotReservations != nil)
+//        return slotReservations.count;
+//    return 0;
+//}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    return [self keyForSection:section];
+//}
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+//    NSString *key = [self keyForSection:section];
+//    return [NSString stringWithFormat:@"Aantal gasten %@: %d", key, [self countForKey:key]];
+//}
+//
+//- (int) countForKey: (NSString *)key
+//{
+//    NSArray *slotReservations = [groupedReservations objectForKey:key];
+//    if(groupedReservations == nil) return 0;
+//    int count = 0;
+//    for(Reservation *reservation in slotReservations)
+//        count += reservation.countGuests;
+//    return count;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    static NSString *CellIdentifier = @"Cell";
+//
+//    if(groupedReservations == nil || groupedReservations.count == 0)
+//    {
+//        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
+//        cell.textLabel.text = @"Geen reserveringen";
+//        return cell;
+//    }
+//    
+//    ReservationTableCell *cell = (ReservationTableCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//    if (cell == nil) {
+//        cell = [[[NSBundle mainBundle] loadNibNamed:@"ReservationTableCell" owner:self options:nil] lastObject];
+//    }
+//    
+//    NSString *key = [self keyForSection: indexPath.section];
+//   
+//    NSArray *slotReservations = [groupedReservations objectForKey:key];
+//
+//    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+//    cell.reservation = reservation;
+//    
+//    return cell;
+//}
 
 
 // Override to support conditional editing of the table view.
@@ -274,17 +267,15 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-
-- (Reservation *) reservation: (NSIndexPath *) indexPath
-{
-    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
-    
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-    
-    return [slotReservations objectAtIndex:indexPath.row];    
-}
-
-#pragma mark - Table view delegate
+//
+//- (Reservation *) reservation: (NSIndexPath *) indexPath
+//{
+//    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
+//    
+//    NSArray *slotReservations = [groupedReservations objectForKey:key];
+//    
+//    return [slotReservations objectAtIndex:indexPath.row];    
+//}
 
 - (void) openEditPopup: (Reservation*)reservation
 {
@@ -293,17 +284,37 @@
     popup.hostController = self;
     popover.delegate = self;
     
-    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];    
+}
+
+#pragma mark - Table view delegate
+
+- (void) edit
+{
+    ReservationDataSource *dataSource = table.dataSource;
+    NSIndexPath *indexPath = [table indexPathForSelectedRow];
+    Reservation *reservation = [dataSource getReservation:indexPath];
+    [self openEditPopup:reservation];
 }	
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void) showMode
 {
-    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
-    NSArray *slotReservations = [groupedReservations objectForKey:key];
-    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
-        
-    [self openEditPopup:reservation];
+    ReservationDataSource *dataSource = table.dataSource;
+    if(segmentShow.selectedSegmentIndex == 0)
+        dataSource.includePlacedReservations = NO;
+    else
+        dataSource.includePlacedReservations = YES;
+    [table reloadData];
 }
+
+//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
+//    NSArray *slotReservations = [groupedReservations objectForKey:key];
+//    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+//        
+//    [self openEditPopup:reservation];
+//}
 
 - (void) closePopup
 {

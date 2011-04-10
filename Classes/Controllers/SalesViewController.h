@@ -23,5 +23,6 @@
 - (void) refreshView;
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender;
 - (IBAction)handleDoubleTapGesture:(UITapGestureRecognizer *)sender;
+- (UILabel *) addAmountLabelWithFrame: (CGRect) frame cell: (UITableViewCell *)cell;
 
 @end

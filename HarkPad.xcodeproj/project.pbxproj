@@ -119,6 +119,8 @@
 		E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */; };
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
+		E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */; };
+		E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2C9951351DA6300FDBE85 /* creditcard.png */; };
 		E5F46387134B4C490052CDDC /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F46385134B4C400052CDDC /* SettingsViewController.m */; };
 		E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F46386134B4C440052CDDC /* SettingsViewController.xib */; };
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
@@ -315,6 +317,9 @@
 		E5F06492130D4F8A0037816B /* fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fr.png; sourceTree = "<group>"; };
 		E5F06494130D4FB20037816B /* es.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = es.png; sourceTree = "<group>"; };
 		E5F06496130D4FC50037816B /* it.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = it.png; sourceTree = "<group>"; };
+		E5F2C991135188FF00FDBE85 /* KitchenStatisticsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatisticsDataSource.h; sourceTree = "<group>"; };
+		E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatisticsDataSource.m; sourceTree = "<group>"; };
+		E5F2C9951351DA6300FDBE85 /* creditcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creditcard.png; sourceTree = "<group>"; };
 		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		E5F46384134B4C3E0052CDDC /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
@@ -595,6 +600,7 @@
 				E5F609941348668300D88587 /* printer.png */,
 				E5F609A013489AAF00D88587 /* bug.png */,
 				E5F609A213489C2200D88587 /* star.png */,
+				E5F2C9951351DA6300FDBE85 /* creditcard.png */,
 				E5F06490130D4F7C0037816B /* de.png */,
 				E5F06492130D4F8A0037816B /* fr.png */,
 				E5DFC3C41318E9AC005E1FA3 /* calendar.png */,
@@ -727,6 +733,8 @@
 				E561E2691334B13C00229B76 /* ReservationDataSource.m */,
 				E5015258131306E4007959F5 /* SlotDataSource.h */,
 				E5015259131306E4007959F5 /* SlotDataSource.m */,
+				E5F2C991135188FF00FDBE85 /* KitchenStatisticsDataSource.h */,
+				E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */,
 			);
 			name = DataSources;
 			sourceTree = "<group>";
@@ -848,6 +856,7 @@
 				E5F46388134B4C490052CDDC /* SettingsViewController.xib in Resources */,
 				E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */,
 				E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */,
+				E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -955,6 +964,7 @@
 				E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */,
 				E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */,
 				E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */,
+				E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

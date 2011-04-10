@@ -51,18 +51,59 @@
     
     static NSString *CellIdentifier = @"Cell";
     
+    NSString *key = [self keyForSection:indexPath.section];
+    ProductTotals *totals = [[groupedTotals objectForKey:key] objectAtIndex:indexPath.row];
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        float width = 75;
+        float x = tableView.bounds.size.width - 4 * width - 100;
+        float y = 5;
+        float height = cell.contentView.bounds.size.height - 10;
+        for(int i=0; i < 3; i++) {
+            UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, width, height) cell:cell];
+            label.tag = 100 +i;
+            x += width;
+        }
+        UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, width, height) cell:cell];
+        label.tag = 200;
     }
+    float total = 0;
+    for(int i=0; i < 3; i++) {
+        UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
+        NSDecimalNumber *amount = [totals.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
+        label.text = [NSString stringWithFormat:@"%.02f", [amount floatValue]];
+        label.backgroundColor = totals.product.category.color;
+        label.highlightedTextColor = [UIColor whiteColor];
+        total += [amount floatValue];
+    }
+    UILabel *label = (UILabel *)[cell.contentView viewWithTag:200];
+    label.backgroundColor = totals.product.category.color;
+    label.shadowColor = [UIColor lightGrayColor];
+    label.highlightedTextColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%.02f", total];
 
-    NSString *key = [self keyForSection:indexPath.section];
-    ProductTotals *totals = [[groupedTotals objectForKey:key] objectAtIndex:indexPath.row];
     cell.backgroundColor = totals.product.category.color;
-    cell.textLabel.text = totals.product.name;
+    
+    if([key isEqualToString:@"Totals"])
+        cell.textLabel.text = totals.product.category.name;
+    else
+        cell.textLabel.text = totals.product.name;
+    cell.textLabel.shadowColor = [UIColor lightGrayColor];
 
     return cell;
 }
+
+- (UILabel *) addAmountLabelWithFrame: (CGRect) frame  cell: (UITableViewCell *)cell
+{
+    UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    label.textAlignment = UITextAlignmentRight;
+    label.shadowColor = [UIColor lightGrayColor];
+    [cell.contentView addSubview:label];
+    return label;
+}
+
 
 - (void) refreshView
 {
@@ -72,6 +113,10 @@
     NSMutableArray *productTotals = [[Service getInstance] getSalesStatistics:dateToShow];
     
     groupedTotals = [[NSMutableDictionary alloc] init];
+
+    NSMutableArray *grandTotals = [[NSMutableArray alloc] init];
+    [groupedTotals setObject: grandTotals forKey:@"Totals"];
+    
     for(ProductTotals *total in productTotals) {
         NSString *key = [NSString stringWithFormat:@"%d %@", total.product.category.sortOrder, total.product.category.name];
         NSMutableArray *totals = [groupedTotals objectForKey:key];
@@ -79,8 +124,27 @@
         {
             totals = [[NSMutableArray alloc] init];
             [groupedTotals setObject: totals forKey:key];
+            
+            ProductTotals *categoryTotals = [[ProductTotals alloc] init];
+            categoryTotals.product = total.product;
+            categoryTotals.totals = [[[NSMutableDictionary alloc] init] autorelease];
+            [grandTotals addObject: categoryTotals];
         }
         [totals addObject:total];
+        
+        for(ProductTotals *categoryTotals in grandTotals)
+        {
+            if(categoryTotals.product.category.id == total.product.category.id)
+            {
+                for(NSString *key in [total.totals allKeys])
+                {
+                    float amount = [[categoryTotals.totals objectForKey:key] floatValue];
+                    amount += [[total.totals objectForKey:key] floatValue];
+                    [categoryTotals.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
+                }
+                break;
+            }
+        }
     }
     [tableAmounts reloadData];
 }

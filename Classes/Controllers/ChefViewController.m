@@ -10,11 +10,12 @@
 #import "KitchenStatistics.h"
 #import "Service.h"
 #import "BacklogViewController.h"
+#import "KitchenStatisticsDataSource.h"
 
 @implementation ChefViewController
 
-@synthesize firstSlotDataSource, secondSlotDataSource, firstTable, secondTable, clockLabel, slots, startNextSlotButton, firstSlotOffset, firstTableLabel, secondTableLabel;
-@synthesize totalDoneLabel, totalInProgressLabel, totalInSlotLabel, totalNotYetRequestedLabel, isVisible;
+@synthesize table;
+@synthesize isVisible;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,24 +51,6 @@
                                    userInfo:nil
                                     repeats:YES];    
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                     target:self
-                                   selector:@selector(updateClock)
-                                   userInfo:nil
-                                    repeats:YES];    
- 
-    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:swipeGesture];
-    [swipeGesture release];   
-    
-    swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
-    swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:swipeGesture];
-    [swipeGesture release];   
-    
-    
-    [self updateClock];
     [self refreshView];
 }
 
@@ -84,18 +67,6 @@
     isVisible = false;
 }
 
-- (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
-{
-    if(slots == nil || [slots count] == 0)
-        return;
-    firstSlotOffset += sender.direction == UISwipeGestureRecognizerDirectionLeft ? 1 : -1;
-    if(firstSlotOffset < 0)
-        firstSlotOffset = 0;
-    if(firstSlotOffset > [slots count])
-        firstSlotOffset = [slots count] - 1; 
-    [self refreshView];
-}
-
 
 - (void)viewDidUnload
 {
@@ -108,67 +79,11 @@
 {	    
     if(isVisible == false) return;
 
-    slots = [[Service getInstance] getCurrentSlots];
-    if(slots != nil && slots.count > firstSlotOffset)
-    {
-        firstTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset]];
-        if(firstSlotOffset == 0)
-            firstTableLabel.text = @"Onderhanden";
-        else
-            firstTableLabel.text = [NSString stringWithFormat:@"Slot +	%d", firstSlotOffset];
-    }
-    else
-    {
-        firstTable.dataSource = nil;
-        firstTableLabel.text = @"";
-    }
+    KitchenStatisticsDataSource *dataSource = [KitchenStatisticsDataSource dataSource];
+    table.dataSource = dataSource;
+    table.delegate = dataSource;
     
-    if(slots != nil && slots.count > firstSlotOffset + 1)
-    {
-        secondTable.dataSource = [SlotDataSource dataSourceForSlot: [slots objectAtIndex:firstSlotOffset+1]];
-        secondTableLabel.text = [NSString stringWithFormat:@"Slot +%d", firstSlotOffset+1];
-    }
-    else
-    {
-        secondTable.dataSource = nil;
-        secondTableLabel.text = @"";
-    }   
-
-    [firstTable reloadData];
-    [secondTable reloadData];
-
-    KitchenStatistics *stats = [[Service getInstance] getKitchenStatistics];
-    totalDoneLabel.text = [NSString stringWithFormat: @"%d", stats.done];
-    totalInProgressLabel.text = [NSString stringWithFormat: @"%d", stats.inProgress];
-    totalInSlotLabel.text = [NSString stringWithFormat: @"%d", stats.inSlot];
-    totalNotYetRequestedLabel.text = [NSString stringWithFormat: @"%d", stats.notYetRequested];
-    
-}
-
-- (void) updateClock
-{
-    if(slots == nil || slots.count == 0)
-    {
-        	clockLabel.text = @"";    
-        return;
-    }
-    Slot *slot = [slots objectAtIndex:0];
-    int interval = -1 * (int)[slot.startedOn timeIntervalSinceNow];
-    clockLabel.text = [NSString stringWithFormat:@"%0d:%02d", interval / 60, interval % 60]; 
-}
-
-- (IBAction) startNextSlot
-{
-    [[Service getInstance] startNextSlot];   
-    [self refreshView];	
-}
-
-- (IBAction) showBacklog
-{
-    BacklogViewController *popup = [[BacklogViewController alloc] initWithNibName:@"BacklogViewController" bundle:[NSBundle mainBundle]];
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController: popup];
-    popover.delegate = self;
-    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [table reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

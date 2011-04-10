@@ -35,6 +35,8 @@
     self.phone.text = reservation.phone;
     self.email.text = reservation.email;
     self.count.text = [NSString stringWithFormat:@"%d", reservation.countGuests];
+    if(reservation.orderId != -1)
+        self.count.textColor = [UIColor lightGrayColor];
     self.notes.text = reservation.notes;
     NSString *imageName = [NSString stringWithFormat:@"%@.png", [reservation.language lowercaseString]	];
     self.flag.image = [UIImage imageNamed: imageName];

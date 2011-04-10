@@ -18,8 +18,8 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-//       url = @"http://pos.restaurantanna.nl";
-        url = @"http://localhost:10089";
+       url = @"http://pos.restaurantanna.nl";
+//        url = @"http://localhost:10089";
     }
     return self;
 }

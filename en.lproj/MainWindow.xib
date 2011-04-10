@@ -67,6 +67,10 @@
 				<object class="IBUIViewController" key="IBUISelectedViewController" id="717382963">
 					<object class="IBUITabBarItem" key="IBUITabBarItem" id="902715965">
 						<string key="IBUITitle">Totalen</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">creditcard.png</string>
+						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<reference key="IBUIParentViewController" ref="469052542"/>
@@ -347,6 +351,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="bug.png">{22, 23}</string>
 			<string key="calendar.png">{23, 25}</string>
+			<string key="creditcard.png">{28, 18}</string>
 			<string key="fork-and-knife.png">{18, 26}</string>
 			<string key="star.png">{26, 26}</string>
 		</dictionary>

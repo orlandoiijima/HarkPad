@@ -7,16 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Reservation.h"
 
-
-@interface ReservationDataSource : NSObject <UITableViewDataSource>{
+@interface ReservationDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>{
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
+    bool includePlacedReservations;
 }
 
 @property (retain) NSMutableArray *reservations;
 @property (retain) NSMutableDictionary *groupedReservations;
-
-+ (ReservationDataSource *) dataSource;
+@property bool includePlacedReservations;
++ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced;
+- (Reservation *) getReservation: (NSIndexPath *) indexPath;
+- (NSString *) keyForSection: (int)section;
+- (int) countGuestsForKey: (NSString *)key;
+- (void) createGroupedReservations;
 
 @end

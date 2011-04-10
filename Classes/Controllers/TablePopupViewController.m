@@ -33,7 +33,7 @@
     tablePopupMenu.order = order;
        
     if(order == nil) {
-        tablePopupMenu.reservationDataSource = [ReservationDataSource dataSource];
+        tablePopupMenu.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO];
     }
     
     return tablePopupMenu;

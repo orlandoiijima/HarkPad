@@ -10,32 +10,12 @@
 #import "SlotDataSource.h"
 
 @interface ChefViewController : UIViewController <UIPopoverControllerDelegate>{
-    UITableView *firstTable;
-    UITableView *secondTable;
-    SlotDataSource *firstSlotDataSource;
-    SlotDataSource *secondSlotDataSource;
-    NSMutableArray *slots;
+    UITableView *table;
     bool isVisible;
 }
 
-@property (retain) IBOutlet UITableView *firstTable; 
-@property (retain) IBOutlet UITableView *secondTable; 
-@property (retain) IBOutlet UIButton *startNextSlotButton;
-@property (retain) SlotDataSource *firstSlotDataSource; 
-@property (retain) SlotDataSource *secondSlotDataSource;
-@property (retain) NSMutableArray *slots;
-@property (retain) IBOutlet UILabel *firstTableLabel;
-@property (retain) IBOutlet UILabel *secondTableLabel;
-@property (retain) IBOutlet UILabel *clockLabel;
-@property (retain) IBOutlet UILabel *totalDoneLabel;
-@property (retain) IBOutlet UILabel *totalInProgressLabel;
-@property (retain) IBOutlet UILabel *totalInSlotLabel;
-@property (retain) IBOutlet UILabel *totalNotYetRequestedLabel;
-@property int firstSlotOffset;
+@property (retain) IBOutlet UITableView *table; 
 @property bool isVisible;
 
 - (void) refreshView;
-- (void) updateClock;
-- (IBAction) startNextSlot;
-- (IBAction) showBacklog;
 @end
