@@ -17,7 +17,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        languages = [[NSMutableArray arrayWithObjects:@"nl", @"de", @"fr", @"it", @"es", nil] retain];
+        languages = [[NSMutableArray arrayWithObjects:@"nl", @"de", @"uk", @"fr", @"it", @"es", nil] retain];
     }
     return self;
 }
