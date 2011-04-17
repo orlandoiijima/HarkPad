@@ -10,7 +10,7 @@
 
 @implementation Reservation
 
-@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId;
+@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table;
 
 - (id)init
 {
@@ -64,6 +64,10 @@
     else
         //  Not yet linked to order	
         reservation.orderId = -1;
+    NSNumber *tableId = [jsonDictionary objectForKey:@"tableId"];
+    if((NSNull *)tableId != [NSNull null])
+        reservation.table = [[[Cache getInstance] map] getTable:[tableId intValue]];
+
     return reservation;
 }
 

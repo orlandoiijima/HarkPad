@@ -52,6 +52,9 @@
 
 
 - (void)dealloc {
+    [treeNode release];
+    [orderLine release];
+    [label release];
     [super dealloc];
 }
 

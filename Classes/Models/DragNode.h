@@ -13,6 +13,7 @@
 @interface DragNode : UIView {
     OrderLine *orderLine;
     NSString *label;
+    TreeNode *treeNode;
 }
 
 + (DragNode *) nodeWithNode : (TreeNode *) product frame: (CGRect) frame;

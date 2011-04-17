@@ -23,5 +23,6 @@
 - (NSString *) keyForSection: (int)section;
 - (int) countGuestsForKey: (NSString *)key;
 - (void) createGroupedReservations;
+- (NSString *) currentTimeslot;
 
 @end

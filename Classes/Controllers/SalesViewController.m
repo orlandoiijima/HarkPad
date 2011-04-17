@@ -112,9 +112,9 @@
     // Do any additional setup after loading the view from its nib.
     NSMutableArray *productTotals = [[Service getInstance] getSalesStatistics:dateToShow];
     
-    groupedTotals = [[NSMutableDictionary alloc] init];
+    self.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
 
-    NSMutableArray *grandTotals = [[NSMutableArray alloc] init];
+    NSMutableArray *grandTotals = [[[NSMutableArray alloc] init] autorelease];
     [groupedTotals setObject: grandTotals forKey:@"Totals"];
     
     for(ProductTotals *total in productTotals) {
@@ -122,10 +122,10 @@
         NSMutableArray *totals = [groupedTotals objectForKey:key];
         if(totals == nil)
         {
-            totals = [[NSMutableArray alloc] init];
+            totals = [[[NSMutableArray alloc] init] autorelease];
             [groupedTotals setObject: totals forKey:key];
             
-            ProductTotals *categoryTotals = [[ProductTotals alloc] init];
+            ProductTotals *categoryTotals = [[[ProductTotals alloc] init] autorelease];
             categoryTotals.product = total.product;
             categoryTotals.totals = [[[NSMutableDictionary alloc] init] autorelease];
             [grandTotals addObject: categoryTotals];

@@ -63,7 +63,7 @@
     }
     price.text = [NSString stringWithFormat:@"%0.2f", [line.product.price doubleValue] * line.quantity];
 
-    self.backgroundColor = [orderLine.product.category.color colorWithAlphaComponent:0.8];
+    self.backgroundColor = [orderLine.product.category.color colorWithAlphaComponent:0.8];			
     self.opaque = NO;
 }
 

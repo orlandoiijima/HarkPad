@@ -71,7 +71,7 @@
 
 + (Order *) orderForTable: (Table *) table
 {
-    Order *order = [[Order alloc] init];
+    Order *order = [[[Order alloc] init] autorelease];
     order.table = table;
     return order;
 }
@@ -256,7 +256,7 @@
 
 - (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
 {
-    OrderLine *line = [[OrderLine alloc] init];
+    OrderLine *line = [[[OrderLine alloc] init] autorelease];
     line.entityState = New;
     line.quantity = 1;
     line.product = [[[Cache getInstance] menuCard] getProduct:productId];

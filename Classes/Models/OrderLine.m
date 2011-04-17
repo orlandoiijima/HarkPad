@@ -143,7 +143,7 @@
     OrderLinePropertyValue *propertyValue = [self getValueForProperty:property];
     if(propertyValue == nil)
     {
-        propertyValue = [[OrderLinePropertyValue alloc] init];
+        propertyValue = [[[OrderLinePropertyValue alloc] init] autorelease];
         propertyValue.orderLineProperty = property;
         [propertyValues addObject:propertyValue];
     }

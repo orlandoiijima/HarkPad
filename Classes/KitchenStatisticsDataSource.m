@@ -17,15 +17,15 @@
 
 + (KitchenStatisticsDataSource *) dataSource
 {
-    KitchenStatisticsDataSource *source = [[KitchenStatisticsDataSource alloc] init];
+    KitchenStatisticsDataSource *source = [[[KitchenStatisticsDataSource alloc] init] autorelease];
     NSMutableArray *backlog = [[Service getInstance] getBacklogStatistics];
-    source.groupedTotals = [[NSMutableDictionary alloc] init];
+    source.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
     for(Backlog *total in backlog) {
         NSString *key = [NSString stringWithFormat:@"%d %@", total.product.category.sortOrder, total.product.category.name];
         NSMutableArray *totals = [source.groupedTotals objectForKey:key];
         if(totals == nil)
         {
-            totals = [[NSMutableArray alloc] init];
+            totals = [[[NSMutableArray alloc] init] autorelease];
             [source.groupedTotals setObject: totals forKey:key];
         }
         [totals addObject:total];

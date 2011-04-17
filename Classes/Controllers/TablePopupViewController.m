@@ -28,7 +28,7 @@
 
 + (TablePopupViewController *) menuForTable: (Table *) table withOrder: (Order *) order
 {
-    TablePopupViewController *tablePopupMenu = [[TablePopupViewController alloc] initWithNibName:@"TablePopupViewController" bundle:[NSBundle mainBundle]];
+    TablePopupViewController *tablePopupMenu = [[[TablePopupViewController alloc] initWithNibName:@"TablePopupViewController" bundle:[NSBundle mainBundle]] autorelease];
     tablePopupMenu.table = table;
     tablePopupMenu.order = order;
        
@@ -139,7 +139,9 @@
     
     [self setButton: buttonGetPayment enabled: order.state == billed];
     [self setButton: buttonMakeOrder enabled: order == nil || order.state == ordering];
-    [self setButton: buttonMakeBill enabled: order.state != billed];
+    [self setButton: buttonMakeBill enabled: order != nil];
+    if(order.state == billed)
+        buttonMakeBill.titleLabel.textColor = [UIColor redColor];
     
     if(order.reservation != nil) {
         [tableReservations removeFromSuperview];

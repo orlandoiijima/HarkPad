@@ -24,7 +24,7 @@
 
 + (ReservationViewController *) initWithReservation: (Reservation *)reservation
 {
-    ReservationViewController *popup = [[ReservationViewController alloc] initWithNibName:@"ReservationViewController" bundle:[NSBundle mainBundle]];
+    ReservationViewController *popup = [[[ReservationViewController alloc] initWithNibName:@"ReservationViewController" bundle:[NSBundle mainBundle]] autorelease];
     popup.reservation = reservation;
     return popup;
 }

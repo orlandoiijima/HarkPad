@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Table.h"
+#import "Cache.h"
 
 @interface Reservation : NSObject {
     int id;
@@ -22,6 +23,7 @@
     int countGuests;
     BOOL mailingList;
     int orderId;
+    Table *table;
 }
 
 @property int id;
@@ -33,6 +35,7 @@
 @property (retain) NSDate *startsOn;
 @property (retain) NSDate *endsOn;
 @property (retain) NSDate *createdOn;
+@property (retain) Table *table;
 @property int countGuests;
 @property BOOL mailingList;
 @property int orderId;

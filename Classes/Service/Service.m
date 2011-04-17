@@ -1,4 +1,4 @@
-//
+	//
 //  OrderingService.m
 //  HarkPad
 //
@@ -18,8 +18,18 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-       url = @"http://pos.restaurantanna.nl";
-//        url = @"http://localhost:10089";
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];	
+	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
+        if([env isEqualToString:@"test"])
+            url = @"http://postest.restaurantanna.nl";
+        else if([env isEqualToString:@"development"])
+            url = @"http://localhost:10089";
+        else if([env isEqualToString:@"development2"])
+            url = @"http://30.1.1.1:10089";
+        else
+            url = @"http://pos.restaurantanna.nl";
+        url = @"http://postest.restaurantanna.nl";
     }
     return self;
 }
@@ -103,7 +113,7 @@ static Service *_service;
 
 - (void) dockTables: (NSMutableArray*)tables
 {
-    NSMutableArray *tableIds = [[NSMutableArray alloc] init];
+    NSMutableArray *tableIds = [[[NSMutableArray alloc] init] autorelease];
     for(Table *table in tables) {
         [tableIds addObject:[NSNumber numberWithInt:table.id]];
     }
@@ -120,7 +130,7 @@ static Service *_service;
     NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
     for(NSDictionary *tableDic in tablesDic)
     {
-        TableInfo *tableInfo = [[TableInfo alloc] init];
+        TableInfo *tableInfo = [[[TableInfo alloc] init] autorelease];
         tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
         NSDictionary *orderDic = [tableDic objectForKey:@"orderInfo"];
         if( (NSNull *)orderDic != [NSNull null])
@@ -182,7 +192,7 @@ static Service *_service;
 	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *slotsDic = [self getResultFromJson: data];
-    NSMutableArray *slots = [[NSMutableArray alloc] init];
+    NSMutableArray *slots = [[[NSMutableArray alloc] init] autorelease];
     for(NSDictionary *slotDic in slotsDic)
     {
         Slot *slot = [Slot slotFromJsonDictionary: slotDic]; 
@@ -210,7 +220,7 @@ static Service *_service;
 {
 	NSURL *testUrl = [self makeEndPoint:@"getBacklogStatistics" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[NSMutableArray alloc] init];
+	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
     {
@@ -225,7 +235,7 @@ static Service *_service;
     int dateSeconds = [date timeIntervalSince1970];    
 	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[NSMutableArray alloc] init];
+	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
     {
@@ -296,7 +306,7 @@ static Service *_service;
 
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer
 {
-    NSMutableDictionary *billsInfo = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *billsInfo = [[[NSMutableDictionary alloc] init] autorelease];
     [billsInfo setObject:[NSNumber numberWithInt: orderId] forKey:@"orderId"];
     [billsInfo setObject:printer forKey:@"printerId"];
     

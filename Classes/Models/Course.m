@@ -59,7 +59,7 @@
 
 - (NSString *) stringForCourse
 {
-    NSMutableDictionary *products = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *products = [[[NSMutableDictionary alloc] init] autorelease];
     for(OrderLine *line in lines)
     {
         if(line.product.category.isFood)

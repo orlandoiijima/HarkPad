@@ -25,7 +25,7 @@
 
 - (void) createGroupedReservations
 {
-    groupedReservations = [[NSMutableDictionary alloc] init];
+    self.groupedReservations = [[[NSMutableDictionary alloc] init] autorelease];
     for (Reservation *reservation in reservations) {
         if(includePlacedReservations == false)
             if(reservation.orderId != -1) continue;
@@ -35,7 +35,7 @@
         NSString *timeSlot = [NSString stringWithFormat:@"%02d:%02d", hour, minute];
         NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
         if(slotArray == nil) {
-            slotArray = [[NSMutableArray alloc] init];
+            slotArray = [[[NSMutableArray alloc] init] autorelease];
             [groupedReservations setObject:slotArray forKey:timeSlot];
         }
         [slotArray addObject:reservation];
@@ -80,19 +80,15 @@
     NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
     return [sortedKeys objectAtIndex:section];    
 }
-//
-//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-//    NSString *key = [self keyForSection:section];
-//    return [NSString stringWithFormat:@"Aantal gasten %@: %d", key, [self countGuestsForKey:key]];
-//}
 
+           
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
     
     if(groupedReservations == nil || groupedReservations.count == 0)
     {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
+        UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"] autorelease];
         cell.textLabel.text = @"Geen reserveringen";
         return cell;
     }
@@ -103,6 +99,9 @@
     }
     
     Reservation *reservation = [self getReservation:indexPath];
+    NSString * cellTimeSlot = [self keyForSection:indexPath.section];
+    UIColor *highlightColor = [UIColor colorWithRed:1.0 green:0.8 blue:0.8 alpha:1];
+    cell.backgroundColor = [cellTimeSlot isEqualToString:[self currentTimeslot]] ? highlightColor : [UIColor whiteColor];
     cell.reservation = reservation;
     return cell;
 }
@@ -116,6 +115,20 @@
     return [slotReservations objectAtIndex:indexPath.row];
 }
 
+- (NSString *) currentTimeslot
+{
+    NSDate *now = [NSDate date];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:-1 fromDate:now];
+    int minute = ([comps minute] + 10) - ([comps minute] + 10) % 30;
+    int hour = [comps hour];
+    if(minute == 60)
+    {
+        minute -= 60;
+        hour++;
+    }
+    NSString *timeSlot =  [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+    return timeSlot;
+}
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath

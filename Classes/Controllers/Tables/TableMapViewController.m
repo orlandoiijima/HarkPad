@@ -143,7 +143,7 @@
 
 - (NSMutableArray *) dockTableButton: (TableButton *)dropTableButton toTableButton: (TableButton*) targetTableButton
 {
-    NSMutableArray *tables = [[NSMutableArray alloc] init];
+    NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
 
     if([dropTableButton.table isSeatAlignedWith:targetTableButton.table] == false)
         return tables;
@@ -178,7 +178,7 @@
 
     Table *masterTable = masterTableButton.table;
     
-    NSMutableArray *tableButtons = [[NSMutableArray alloc] init];
+    NSMutableArray *tableButtons = [[[NSMutableArray alloc] init] autorelease];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableButton.table.bounds);
     CGRect saveBounds = masterTable.bounds;
     int saveCountSeats = masterTable.countSeats;
@@ -311,7 +311,7 @@
     
     NSMutableArray *tables = [[Service getInstance] getTablesInfo];
     
-    NSMutableDictionary *districtTables = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *districtTables = [[[NSMutableDictionary alloc] init] autorelease];
     for(TableInfo *tableInfo in tables)
     {
         if(tableInfo.table.dockedToTableId != -1)

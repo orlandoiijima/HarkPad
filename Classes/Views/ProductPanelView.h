@@ -12,6 +12,7 @@
 @interface ProductPanelView : UIView {
     TreeNode *rootNode;
     TreeNode *parentNode;
+    UISegmentedControl *menuCardSegment;
 }
 
 - (void) drawProductButton: (int)column row: (int)row productNode: (TreeNode *)node;
@@ -21,7 +22,11 @@
 - (TreeNode *) treeNodeByPoint: (CGPoint) point frame: (CGRect *)rect;
 - (CGRect) getButtonRect : (int) column row : (int) row;
 - (void) setupMenuCard: (CGRect) containerFrame;
+- (void) showInfoLabelWithNode: (TreeNode *)product;
+- (void) hideProductInfoButton;
 
 @property (retain) TreeNode *parentNode, *rootNode;
 @property (retain) UISegmentedControl *menuCardSegment;
+@property (retain) UILabel *productInfoLabel;
+
 @end

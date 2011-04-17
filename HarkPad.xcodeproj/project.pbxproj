@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
 		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
@@ -134,6 +135,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
 		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlotDataSource.m; path = Models/SlotDataSource.m; sourceTree = "<group>"; };
 		E50152661315A25A007959F5 /* SlotTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlotTable.h; sourceTree = "<group>"; };
@@ -396,6 +398,7 @@
 				E50A381312E21164007C2101 /* MainWindow.xib */,
 				E50A382612E21165007C2101 /* HarkPadTests-Info.plist */,
 				E50A382812E21165007C2101 /* InfoPlist.strings */,
+				E500D766135A31C000EA347E /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -857,6 +860,7 @@
 				E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */,
 				E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */,
 				E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */,
+				E500D767135A31C000EA347E /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

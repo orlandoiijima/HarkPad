@@ -14,7 +14,7 @@
 @synthesize countCourses, currentCourse, isCurrentCourseHot;
 
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse {
-    CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame]; 
+    CourseProgress *progress = [[[CourseProgress alloc] initWithFrame:frame] autorelease]; 
     progress.countCourses = countCourses;
     progress.currentCourse = currentCourse;
     progress.backgroundColor = [UIColor clearColor];

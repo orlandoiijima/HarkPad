@@ -76,6 +76,7 @@
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
     if(tapGestureRecognizer.state != UIGestureRecognizerStateEnded)
         return;
+    
     if(dragNode != nil) return;
     if([self isPoint: point inView: orderGridView])
     {
@@ -157,6 +158,7 @@
                 rect = [productPanelView convertRect:rect toView:self.view];
                 dragNode = [DragNode nodeWithNode: node frame:rect];
                 dragType = dragProduct;
+                [productPanelView showInfoLabelWithNode:node];
             }
             else
             {
@@ -184,8 +186,8 @@
         {
             dragNode.frame = CGRectMake(point.x - dragOffset.x, point.y - dragOffset.y, dragNode.frame.size.width, dragNode.frame.size.height);
 
-//            if([self isPoint: point inView:orderGridView])
-//                [orderGridView targetMoved: [self.view convertPoint:point toView:orderGridView]];
+            if([self isPoint: point inView:orderGridView])
+                [orderGridView targetMoved: [self.view convertPoint:point toView:orderGridView]];
             
             break;
         }
@@ -251,6 +253,7 @@
     }
 }
 
+
 - (void) gotoMenuCard
 {
     rootNode = [[Cache getInstance] tree];
@@ -290,16 +293,23 @@
 
 - (void) droppedDragNodeAtPoint: (CGPoint)point 
 {
+    [productPanelView hideProductInfoButton];
     if(dragNode == nil) return;
 //    [dragNode release];
     OrderGridHitInfo *hitInfo = [orderGridView getHitInfo: [self.view convertPoint:point toView:orderGridView]];
-    if(hitInfo.type == -1)
+    if(hitInfo.type == nothing)
     {
         if(dragNode.orderLine != nil)
         {
             NSUInteger answer = [ModalAlert confirm: @"Wil je de regel verwijderen ?"];
             if(answer == 1)
                 dragNode.orderLine.entityState = Deleted;
+            [dragNode removeFromSuperview];
+            dragNode = nil;
+        }
+        else
+        {
+            [self moveDragNodeHome];
         }
     }
     else
@@ -319,7 +329,8 @@
             else
             {
                 Product *product = dragNode.treeNode.product;
-                [order addLineWithProductId: product.id seat: seat course: course];
+                if(product != nil && product.id != 0)
+                    [order addLineWithProductId: product.id seat: seat course: course];
             }
         }
         else
@@ -327,12 +338,29 @@
             dragNode.orderLine.entityState = Deleted;
             [order addLineWithProductId:dragNode.orderLine.product.id seat:seat course: course];
         }
+        [dragNode removeFromSuperview];
+        dragNode = nil;
     }
-    [dragNode removeFromSuperview];
-    dragNode = nil;
+//    [dragNode release];
     orderGridView.dropTarget = nil;
     [orderGridView redraw];
 }
+
+- (void)  moveDragNodeHome
+{
+
+    [UIView animateWithDuration:0.2
+        animations:^{
+            dragNode.center = dragStart;
+        }
+        completion: ^(BOOL completed){
+            [dragNode removeFromSuperview];
+            dragNode = nil;
+        }
+     ];
+    
+}
+
 
 - (NSMutableArray *) orderLinesWithCourse: (int) courseOffset seat: (int)seatOffset
 {
@@ -430,7 +458,7 @@
     NSString *title = [Utils getSeatString:seat];
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", nil];
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", nil] autorelease];
     sheet.tag = 2 + (seat << 8);
     [sheet showInView:self.view];
 }
@@ -441,7 +469,7 @@
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
     NSString *getCourse = [NSString stringWithFormat:@"%@ opvragen", title];
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", getCourse, nil];
+    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", getCourse, nil] autorelease];
     sheet.tag = 1 + (course << 8);
     [sheet showInView:self.view];
 }

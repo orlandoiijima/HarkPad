@@ -17,7 +17,9 @@
 @interface NewOrderVC : UIViewController <UIActionSheetDelegate,UIPopoverControllerDelegate,UIGestureRecognizerDelegate> {
     Order *order;
     DragNode *dragNode;
+    CGPoint dragStart;
     TreeNode *rootNode, *currentNode;
+    OrderGridView *orderGridView;	
 }
 
 typedef enum Orientation {SeatColumns, CourseColumns} Orientation ;
@@ -72,6 +74,8 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 //- (DragNode *) createDragNode: (TreeNode *) treeNode frame:(CGRect) rect;
 - (NSMutableArray *) orderLinesWithCourse: (int) course seat: (int)seat;
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController;
+
+- (void)  moveDragNodeHome;
 
 - (void) gridScrollRight;
 - (void) gridScrollLeft;

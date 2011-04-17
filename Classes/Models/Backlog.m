@@ -15,7 +15,7 @@
 
 + (Backlog *) backlogFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Backlog *backlog = [[Backlog alloc] init];
+    Backlog *backlog = [[[Backlog alloc] init] autorelease];
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
     backlog.product = [[[Cache getInstance] menuCard] getProduct:productId];
     backlog.totals = [[NSMutableDictionary alloc] init];

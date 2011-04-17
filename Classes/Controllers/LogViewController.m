@@ -27,13 +27,21 @@
     return [logLines count];
 }
 
+- (NSString *) keyForSection: (int)section
+{
+    NSArray* sortedKeys = [[logLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    section = [sortedKeys count] - 1 - section;
+    return [sortedKeys objectAtIndex:section];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSMutableArray *group = [logLines objectForKey: [[logLines allKeys] objectAtIndex:section]];
+    NSString *key = [self keyForSection:section];
+    NSMutableArray *group = [logLines objectForKey: key];
     return [group count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [[logLines allKeys] objectAtIndex:section];
+    return [self keyForSection:section];
 }
 
 // Customize the appearance of table view cells.
@@ -46,7 +54,8 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    NSMutableArray *group = [logLines objectForKey: [[logLines allKeys] objectAtIndex:indexPath.section]];
+    NSString *key = [self keyForSection:indexPath.section];
+    NSMutableArray *group = [logLines objectForKey: key];
     NSString *line = [group objectAtIndex:indexPath.row];
     if(line != nil)
     {
@@ -101,14 +110,14 @@
 - (IBAction) refresh
 {
     NSMutableArray *lines = [[Service getInstance] getLog];
-    logLines = [[NSMutableDictionary alloc] init];
+    self.		logLines = [[[NSMutableDictionary alloc] init] autorelease];
     for(NSString *line in lines)
     {
         NSString *dateKey = [line substringToIndex:10];
         NSMutableArray *group = [logLines objectForKey:dateKey];
         if(group == nil)
         {
-            group = [[NSMutableArray alloc] init];
+            group = [[[NSMutableArray alloc] init] autorelease];
             [logLines setValue:group forKey:dateKey];
         }
         [group insertObject:line atIndex:0];
@@ -132,7 +141,9 @@
     // Do any additional setup after loading the view from its nib.
     [self refresh];
     
-    captionButton.title = [NSString stringWithFormat:@"Log %@", [[Service getInstance] url]];
+    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"Env"];
+    
+    captionButton.title = [NSString stringWithFormat:@"Log %@ [%@]", [[Service getInstance] url], env];
 }
 
 - (void)viewDidUnload

@@ -15,7 +15,7 @@
 
 
 + (ProductSymbol *) symbolWithFrame: (CGRect) frame seat: (int)seat {
-    ProductSymbol *symbol = [[ProductSymbol alloc] initWithFrame:frame]; 
+    ProductSymbol *symbol = [[[ProductSymbol alloc] initWithFrame:frame] autorelease]; 
     symbol.seat = seat;
     symbol.label = [[UILabel alloc] initWithFrame: CGRectInset(symbol.bounds, 4, 4)];
     symbol.label.adjustsFontSizeToFitWidth = YES;

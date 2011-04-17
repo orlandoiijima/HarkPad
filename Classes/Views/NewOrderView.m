@@ -20,11 +20,6 @@
     return self;
 }
 
-- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{   
-    [self.controller touchesMoved:touches withEvent:event]; 
-}
-
 - (void)dealloc {
     [super dealloc];
 }

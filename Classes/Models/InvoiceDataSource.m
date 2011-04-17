@@ -16,7 +16,7 @@
 
 + (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping
 {
-    InvoiceDataSource *source = [[InvoiceDataSource alloc] init];
+    InvoiceDataSource *source = [[[InvoiceDataSource alloc] init] autorelease];
     source.order = order;
     source.grouping = grouping;
     return source;
@@ -49,7 +49,7 @@
     switch(grouping)
     {
         case byCategory:
-            return line.product.category.name;
+            return [NSString stringWithFormat:@"%d.%@", line.product.category.sortOrder, line.product.category.name];
         case bySeat:
             return [NSString stringWithFormat:@"Stoel %d", line.guest.seat + 1];
         case byCourse:

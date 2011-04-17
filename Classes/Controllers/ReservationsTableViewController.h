@@ -29,10 +29,9 @@
 @property (retain) IBOutlet UILabel *count2030;
 @property (retain) IBOutlet UILabel *countTotal;
 @property (retain) IBOutlet UISegmentedControl *segmentShow; 
+@property bool isVisible;
 
-- (void) refreshTable;
-- (NSString *) keyForSection:(int)section;
-- (int) countForKey: (NSString *)key;
+- (void) refreshView;
 
 - (IBAction) add;
 - (IBAction) edit;

@@ -12,4 +12,12 @@
 
 @synthesize table, orderInfo;
 
+- (void)dealloc
+{
+    [table release];
+    [orderInfo release];
+    
+    [super dealloc];	
+}
+
 @end

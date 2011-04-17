@@ -32,7 +32,9 @@
         lineSeparatorHeight = 1;
         minimumColumnWidth = 80;
         firstColumn = 0;
-        
+        dropTarget = nil;
+        selectedCell = nil;
+        selectedOrderLine = nil;
 //        self.backgroundColor = [UIColor blackColor];
     }
     return self;
@@ -216,6 +218,8 @@
     else
     {
         bgrColor = orderLine.product.category.color;
+        if(bgrColor == [UIColor blackColor])
+            bgrColor = [UIColor greenColor];
         textColor = [UIColor blackColor];
     }
         
@@ -266,7 +270,7 @@
 - (OrderGridHitInfo *) getHitInfo : (CGPoint) point;
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    OrderGridHitInfo *hitInfo = [[OrderGridHitInfo alloc] init];
+    OrderGridHitInfo *hitInfo = [[[OrderGridHitInfo alloc] init] autorelease];
     int countRows = [topController.order getLastSeat] + 2;
     for(hitInfo.cell.column = -1; hitInfo.cell.column < firstColumn + countVisibleColumns; hitInfo.cell.column++)
     {
@@ -373,7 +377,7 @@
     OrderGridHitInfo *hitInfo = [self getHitInfo:point];
 
     GridCell *newDropTarget;
-    if(hitInfo.type == -1)
+    if(hitInfo.type == nothing)
     {
         newDropTarget = nil;
     }
@@ -390,7 +394,7 @@
             [self drawRowHeader: rect row: dropTarget.row];
             [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
         }
-        dropTarget = newDropTarget;
+        self.dropTarget = newDropTarget;
         if(dropTarget != nil)
         {
             CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
@@ -401,27 +405,8 @@
         }
     }
     
-//    [self redraw];
+    [self redraw];
 }
-
-//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{   
-//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-//    [topController touchesEnded:touches withEvent:event];
-//}
-//
-//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-//    [topController touchesMoved:touches withEvent:event];
-//}
-//
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-//    [topController touchesBegan:touches withEvent:event];
-//}
-
 
 - (void) editOrderLineProperties
 {
@@ -432,12 +417,12 @@
     OrderLineDetailViewController *detailViewController = [[OrderLineDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detailViewController.orderLine = orderLine;
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController: detailViewController];
+    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: detailViewController] autorelease];
     navController.title = orderLine.product.name;
     
     detailViewController.contentSizeForViewInPopover = CGSizeMake(600, 300);
     
-    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:navController];
+    UIPopoverController *popOver = [[[UIPopoverController alloc] initWithContentViewController:navController] autorelease];
     popOver.delegate = topController;
     [popOver presentPopoverFromRect: selectedOrderLineFrame inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     detailViewController.popoverContainer = popOver;

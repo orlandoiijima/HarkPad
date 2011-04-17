@@ -21,7 +21,7 @@
 {
     if ((self = [super init]) != NULL)
 	{
-        self.seats = [[NSMutableDictionary alloc] init];
+        self.seats = [[[NSMutableDictionary alloc] init] autorelease];
 	}
     return(self);
 }
@@ -76,6 +76,14 @@
             return YES;
     }
     return NO;
+}
+
+- (void)dealloc
+{
+    for(SeatInfo *seat in seats)
+        [seat release];
+    [seats release];
+    [super dealloc];
 }
 
 @end

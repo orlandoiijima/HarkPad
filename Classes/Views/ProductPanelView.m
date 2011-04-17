@@ -13,7 +13,7 @@
 
 @implementation ProductPanelView
 
-@synthesize rootNode, parentNode, menuCardSegment;
+@synthesize rootNode, parentNode, menuCardSegment, productInfoLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
@@ -27,20 +27,8 @@
 {
     menuCardSegment.hidden = self.frame.size.width < 20;
     menuCardSegment.frame = CGRectMake(10, 0, self.frame.size.width - 20, 35);
+    productInfoLabel.frame = menuCardSegment.frame;
 }
-
-
-//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
-//    [controller touchesMoved:touches withEvent:event];
-//}
-//
-//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
-//    [controller touchesEnded:touches withEvent:event];
-//}
 
 #define MARGIN 3
 #define COUNTCOLUMNS 3
@@ -189,8 +177,32 @@
     }
     [menuCardSegment addTarget:controller action:@selector(gotoMenuCard) forControlEvents:UIControlEventValueChanged];
     menuCardSegment.selectedSegmentIndex = 0;
+    
+    productInfoLabel = [[UILabel alloc] initWithFrame:menuCardSegment.frame];
+    productInfoLabel.backgroundColor = [UIColor clearColor];
+    productInfoLabel.font = [UIFont boldSystemFontOfSize:36];
+    productInfoLabel.textColor = [UIColor yellowColor];
+    productInfoLabel.textAlignment = UITextAlignmentCenter;
+    productInfoLabel.adjustsFontSizeToFitWidth = YES;
 }
 
+- (void) showInfoLabelWithNode: (TreeNode *) node
+{
+    [self addSubview: productInfoLabel];
+    [menuCardSegment removeFromSuperview];
+    NSString *text;
+    if(node.product != nil)
+        text = [NSString stringWithFormat:@"%@ (€%.2f)", node.product.name, [node.product.price floatValue]]; 
+    if(node.menu != nil)
+        text = [NSString stringWithFormat:@"%@", node.menu.name]; 
+    productInfoLabel.text = text;
+}
+
+- (void) hideProductInfoButton
+{
+    [self addSubview: menuCardSegment];
+    [productInfoLabel removeFromSuperview]	;
+}
 
 - (void)dealloc {
     [super dealloc];

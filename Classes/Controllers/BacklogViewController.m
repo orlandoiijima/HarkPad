@@ -23,16 +23,16 @@
         backlog = [[Service getInstance] getBacklogStatistics];
         float marginTop = 20;
         float marginLeft = 20;
-        float x = marginLeft;
+        float x;
         float y = marginTop;
         float cellWidth = 30;
         float labelWidth = 150;
         float lineHeight = 20;
-        NSMutableDictionary *courseTotals = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *courseTotals = [[[NSMutableDictionary alloc] init] autorelease];
         for(Backlog *line in backlog)
         {
             x = marginLeft;
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, labelWidth, lineHeight)];
+            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, labelWidth, lineHeight)] autorelease];
             [self.view addSubview:label];
             label.text = line.product.key;
             x += labelWidth;
@@ -40,7 +40,7 @@
             
             for(int i = 0; i < 6; i++)
             {
-                label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
+                label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
                 label.textAlignment = UITextAlignmentRight;
                 [self.view addSubview:label];
                 NSString *key = [NSString stringWithFormat:@"%d", i];
@@ -62,7 +62,7 @@
         int productTotal = 0;
         for(int i = 0; i < 6; i++)
         {
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
+            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
             label.textAlignment = UITextAlignmentRight;
             [self.view addSubview:label];
             NSString *key = [NSString stringWithFormat:@"%d", i];
@@ -72,7 +72,7 @@
             x += cellWidth;
             productTotal += [count intValue];
         }
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
+        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
         label.textAlignment = UITextAlignmentRight;
         [self.view addSubview:label];
         label.text = [NSString stringWithFormat:@"%d", productTotal];

@@ -32,11 +32,18 @@
 {
     reservation = newReservation;
     self.name.text = reservation.name;
-    self.phone.text = reservation.phone;
     self.email.text = reservation.email;
     self.count.text = [NSString stringWithFormat:@"%d", reservation.countGuests];
-    if(reservation.orderId != -1)
+    if(reservation.table != nil)
+    {
         self.count.textColor = [UIColor lightGrayColor];
+        self.phone.text = [NSString stringWithFormat:@"Tafel %@", reservation.table.name];
+        self.phone.textColor = [UIColor blueColor];
+    }
+    else
+    {
+        self.phone.text = reservation.phone;
+    }
     self.notes.text = reservation.notes;
     NSString *imageName = [NSString stringWithFormat:@"%@.png", [reservation.language lowercaseString]	];
     self.flag.image = [UIImage imageNamed: imageName];
