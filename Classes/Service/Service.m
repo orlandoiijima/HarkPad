@@ -26,10 +26,10 @@ static Service *_service;
         else if([env isEqualToString:@"development"])
             url = @"http://localhost:10089";
         else if([env isEqualToString:@"development2"])
-            url = @"http://30.1.1.1:10089";
+            url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
-        url = @"http://postest.restaurantanna.nl";
+        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -245,6 +245,13 @@ static Service *_service;
     return stats;
 }
 
+- (void) printSalesReport:(NSDate *)date
+{
+    int dateSeconds = [date timeIntervalSince1970];    
+	    NSURL *testUrl = [self makeEndPoint:@"printsalesreport"  withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
+	[NSData dataWithContentsOfURL: testUrl];
+	return;
+}
 
 - (Order *) getOrder: (int) orderId
 {
@@ -286,6 +293,30 @@ static Service *_service;
 	[NSData dataWithContentsOfURL: testUrl];
 	return;
 }
+
+- (void) serveCourse: (int) courseId
+{
+    NSURL *testUrl = [self makeEndPoint:@"servecourse" withQuery:[NSString stringWithFormat:@"courseId=%d", courseId]];
+    
+	[NSData dataWithContentsOfURL: testUrl];
+	return;
+}
+
+- (NSMutableArray *) getWorkInProgress
+{
+    NSURL *testUrl = [self makeEndPoint:@"getworkInProgress" withQuery:@""];
+    
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableDictionary *statsDic = [self getResultFromJson: data];
+    for(NSDictionary *statDic in statsDic)
+    {
+        WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
+        [stats addObject: work];
+    }
+    return stats;
+}
+
 
 - (void) setState: (int) state forOrder: (int) orderId
 {

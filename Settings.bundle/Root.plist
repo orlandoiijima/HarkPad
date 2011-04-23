@@ -21,17 +21,17 @@
 			<array>
 				<string>Production</string>
 				<string>Test</string>
-				<string>Development</string>
-				<string>Development2</string>
+				<string>Development localhost</string>
+				<string>Development IP</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<string>Production</string>
-				<string>Test</string>
-				<string>Development</string>
-				<string>Development2</string>
+				<string>production</string>
+				<string>test</string>
+				<string>development</string>
+				<string>development2</string>
 			</array>
 		</dict>
 	</array>

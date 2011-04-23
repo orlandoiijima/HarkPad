@@ -24,5 +24,11 @@
 - (int) countGuestsForKey: (NSString *)key;
 - (void) createGroupedReservations;
 - (NSString *) currentTimeslot;
+- (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll;
+- (NSInteger)numberOfItemsInSlot: (NSMutableArray *)slot showAll: (bool) showAll;
+- (NSString *) keyForReservation: (Reservation *)reservation;
+- (void) addReservation: (Reservation*) reservation  fromTableView: (UITableView *)tableView;
+- (void) deleteReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView;
+- (int) sectionForKey: (NSString *)searchKey;
 
 @end

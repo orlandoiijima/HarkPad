@@ -68,20 +68,20 @@
                                    userInfo:nil
                                     repeats:YES];    
     
-    [self refreshView];
+    [self reloadData];
 }
 
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
 {
     int interval = sender.direction == UISwipeGestureRecognizerDirectionLeft ? 24*60*60 : -24*60*60;
     dateToShow = [[dateToShow dateByAddingTimeInterval: interval] retain]; 
-    [self refreshTable];
+    [self reloadData];
 }
 
 - (IBAction)handleDoubleTapGesture:(UITapGestureRecognizer *)sender
 {
     dateToShow = [[NSDate date] retain]; 
-    [self refreshTable];
+    [self reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,10 +96,8 @@
     isVisible = false;
 }
 
-- (void) refreshView
+- (void) reloadData
 {
-    dateLabel.text = [dateToShow prettyDateString];
-    
     bool includePlaced = [segmentShow selectedSegmentIndex] == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:dateToShow includePlacedReservations: includePlaced];
     table.dataSource = dataSource;
@@ -107,15 +105,24 @@
     
     [table reloadData];
 
+    [self refreshView];
+}
+
+- (void) refreshView
+{
+    dateLabel.text = [dateToShow prettyDateString];
+    
+    ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
+   
     int total = 0;
     int count = [dataSource countGuestsForKey:@"18:00"];
     total += count;
     count1800.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
-
+    
     count = [dataSource countGuestsForKey:@"18:30"];
     total += count;
     count1830.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
-
+    
     count = [dataSource countGuestsForKey:@"19:00"];
     total += count;
     count1900.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
@@ -131,7 +138,7 @@
     count = [dataSource countGuestsForKey:@"20:30"];
     total += count;
     count2030.text = count == 0 ? @"-" : [NSString stringWithFormat:@"%d", count];
-
+    
     countTotal.text = total == 0 ? @"-" : [NSString stringWithFormat:@"%d", total];
     countTotal.textColor = total == 0 ? [UIColor lightGrayColor] : [UIColor blackColor];
 }
@@ -175,7 +182,7 @@
         if(reservation == nil) return;
         [[Service getInstance] deleteReservation: reservation.id];
   //      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self refreshTable];
+        [self refreshView];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -199,32 +206,29 @@
     ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
     NSIndexPath *indexPath = [table indexPathForSelectedRow];
     Reservation *reservation = [dataSource getReservation:indexPath];
+    if(reservation.id == 0) return;
     [self openEditPopup:reservation];
 }	
 
 - (void) showMode
 {
     ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
-    if(segmentShow.selectedSegmentIndex == 0)
-        dataSource.includePlacedReservations = NO;
-    else
-        dataSource.includePlacedReservations = YES;
-    [table reloadData];
-}
-
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSString *key = [[groupedReservations allKeys] objectAtIndex: indexPath.section];
-//    NSArray *slotReservations = [groupedReservations objectForKey:key];
-//    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
-//        
-//    [self openEditPopup:reservation];
-//}
+    bool includeSeated = segmentShow.selectedSegmentIndex == 1;
+    [dataSource tableView: table includeSeated: includeSeated];
+}			
 
 - (void) closePopup
 {
+    ReservationViewController *popup = (ReservationViewController *) popover.contentViewController;
+    Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
-    [self performSelector:@selector(refreshTable) withObject:nil afterDelay:0.5];
+    if(reservation.id == 0)
+    {
+        ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
+        [dataSource addReservation:reservation fromTableView:table];
+    }
+//    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.5];
+    [self refreshView];
 }
 
 - (void) cancelPopup
@@ -235,7 +239,15 @@
 - (IBAction) add
 {
     Reservation *reservation = [[Reservation alloc] init];
-    reservation.startsOn = dateToShow;
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:-1 fromDate:dateToShow];
+    [comps setHour:20];
+    [comps setMinute:0];
+    reservation.startsOn = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    if([reservation.startsOn compare:[NSDate date]] == NSOrderedAscending)
+    {
+        [comps setDay:[comps day] + 1];
+        reservation.startsOn = [[NSCalendar currentCalendar] dateFromComponents:comps];
+    }
     [self openEditPopup:reservation];
 }
 

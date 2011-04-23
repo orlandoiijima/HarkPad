@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "District.h";
+#import "District.h"
 
 typedef enum SeatOrientation {row, column} SeatOrientation;
 
@@ -32,5 +32,6 @@ typedef enum SeatOrientation {row, column} SeatOrientation;
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (Table *) initWithBounds:(CGRect)tableBounds name: (NSString *)tableName countSeats: (int) count;
 - (bool) isSeatAlignedWith: (Table *)table;
+- (bool) canUndock;
 
 @end

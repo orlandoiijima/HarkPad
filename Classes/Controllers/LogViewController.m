@@ -8,11 +8,10 @@
 
 #import "LogViewController.h"
 #import "Service.h"
-#import "SettingsViewController.h"
 
 @implementation LogViewController
 
-@synthesize logTableView, logLines, detailLabel, captionButton, settingsButton;
+@synthesize logTableView, logLines, detailLabel, captionButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,7 +77,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSMutableArray *group = [logLines objectForKey: [[logLines allKeys] objectAtIndex:indexPath.section]];
+    NSString *key = [self keyForSection:indexPath.section];
+    NSMutableArray *group = [logLines objectForKey: key];
     NSString *line = [group objectAtIndex:indexPath.row];
     if(line != nil)
     {
@@ -125,23 +125,13 @@
     [logTableView reloadData];
 }
 
-- (IBAction) settings
-{
-    SettingsViewController *popup = [[SettingsViewController alloc] init];
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController: popup];
-    popover.delegate = self;
-    
-    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self refresh];
     
-    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"Env"];
+    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
     
     captionButton.title = [NSString stringWithFormat:@"Log %@ [%@]", [[Service getInstance] url], env];
 }

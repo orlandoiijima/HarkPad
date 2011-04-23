@@ -41,23 +41,14 @@
     return self;
 }
 
-//- (void) getNeighboursForCapacity: (int) requiredCapacity
-//{
-//    NSMutableArray *neighbors = [[NSMutableArray alloc] init];
-//    for(Table *table in district.tables) {
-//        if(table.id == self.id) continue;
-//        if(table.seatOrientation == row)
-//        {
-//            if(table.bounds.origin.y == bounds.origin.y)
-//                [neighbors addObject:table];
-//        }
-//        else
-//        {
-//            if(table.bounds.origin.x == bounds.origin.x)
-//                [neighbors addObject:table];
-//        }
-//    }
-//}
+- (bool) canUndock
+{
+    for(Table *table in district.tables) {
+        if(table.dockedToTableId == self.id)
+            return true;
+    }
+    return false;
+}
 
 
 - (bool) isSeatAlignedWith: (Table *)table

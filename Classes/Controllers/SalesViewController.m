@@ -104,6 +104,10 @@
     return label;
 }
 
+- (IBAction)printDayReport
+{
+    [[Service getInstance] printSalesReport:[NSDate date]];
+}
 
 - (void) refreshView
 {
@@ -162,6 +166,11 @@
     [self refreshView];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self refreshView];	
+}
 
 - (void)dealloc
 {

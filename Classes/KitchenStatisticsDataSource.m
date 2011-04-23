@@ -17,7 +17,7 @@
 
 + (KitchenStatisticsDataSource *) dataSource
 {
-    KitchenStatisticsDataSource *source = [[[KitchenStatisticsDataSource alloc] init] autorelease];
+    KitchenStatisticsDataSource *source = [[KitchenStatisticsDataSource alloc] init];
     NSMutableArray *backlog = [[Service getInstance] getBacklogStatistics];
     source.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
     for(Backlog *total in backlog) {

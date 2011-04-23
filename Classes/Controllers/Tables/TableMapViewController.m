@@ -44,6 +44,10 @@
     [tableMapView addGestureRecognizer:tapGesture];
     [tapGesture release];   
 
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    [tableMapView addGestureRecognizer:pinchGesture];
+    [pinchGesture release];   
+    
     [self refreshView];		
 }
 
@@ -58,6 +62,21 @@
 {
     [super viewDidDisappear:animated];
     isVisible = false;
+}
+
+- (void) handlePinchGesture: (UIPinchGestureRecognizer *) pinchGestureRecognizer
+{
+    if(pinchGestureRecognizer.state != UIGestureRecognizerStateBegan)
+        return;
+    if(pinchGestureRecognizer.scale < 1)
+        return;
+    CGPoint point = [pinchGestureRecognizer locationInView:tableMapView];
+    TableButton *clickButton = [self tableButtonAtPoint:point];
+    if(clickButton == nil)
+        return;
+    if([clickButton.table canUndock] == false)
+        return;
+    [[Service getInstance] undockTable: clickButton.table.id]; 
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer

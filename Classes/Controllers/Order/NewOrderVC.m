@@ -155,6 +155,7 @@
             if([self isPoint: point inView:productPanelView])
             {
                 TreeNode *node = [productPanelView treeNodeByPoint: [self.view convertPoint:point toView:productPanelView] frame:&rect];
+                if(node == nil) return;
                 rect = [productPanelView convertRect:rect toView:self.view];
                 dragNode = [DragNode nodeWithNode: node frame:rect];
                 dragType = dragProduct;
@@ -387,53 +388,6 @@
 {
     [orderGridView redraw];    
 }
-
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    dragStart = [[touches anyObject] locationInView:self.view];
-//}
-//
-//- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-//{    
-//    CGPoint point = [[touches anyObject] locationInView:self.view];
-//    
-//    if(dragNode == nil)
-//    {
-//        CGRect rect = CGRectMake(0, 0, 0, 0);
-//        if([self isPoint: point inView:productPanelView])
-//        {
-//            TreeNode *node = [productPanelView treeNodeByPoint: [self.view convertPoint:point toView:productPanelView] frame:&rect];
-//            rect = [productPanelView convertRect:rect toView:self.view];
-//            dragNode = [DragNode nodeWithNode: node frame:rect];
-//            dragType = dragProduct;
-//        }
-//        else
-//        {
-//            OrderGridHitInfo *hitInfo = [orderGridView getHitInfo: [self.view convertPoint:point toView:orderGridView]];
-//            if(hitInfo.type == -1) return;
-//            if(hitInfo.type == 0)
-//            {
-//                rect = [orderGridView convertRect:hitInfo.frame toView:self.view];
-//                dragNode = [DragNode nodeWithOrderLine:hitInfo.orderLine frame:rect];
-//                dragType = dragOrderLine;
-//            }
-//            if(hitInfo.type == 1)
-//                dragType = dragOrderGridColumnHeader;
-//            if(hitInfo.type == 2)
-//                dragType = dragOrderGridRowHeader;
-//        }
-//        dragOffset = CGPointMake(point.x - rect.origin.x, point.y - rect.origin.y);
-//        [self.view addSubview:dragNode];    
-//    }   
-//    dragNode.frame = CGRectMake(point.x - dragOffset.x, point.y - dragOffset.y, dragNode.frame.size.width, dragNode.frame.size.height);
-//
-//    if([self isPoint: point inView:orderGridView])
-//        [orderGridView targetMoved: [self.view convertPoint:point toView:orderGridView]];
-//}
-//
-//- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-//{   
-//}
 
 - (BOOL) isPoint: (CGPoint) point inView: (UIView *) view
 {

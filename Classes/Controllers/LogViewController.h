@@ -19,10 +19,8 @@
 @property (retain) NSMutableDictionary *logLines;
 @property (retain) IBOutlet UITextView *detailLabel;
 @property (retain) IBOutlet UIBarButtonItem *captionButton;
-@property (retain) IBOutlet UIBarButtonItem *settingsButton;
 
 - (NSString *) keyForSection: (int)section;
 
 - (IBAction) refresh;
-- (IBAction) settings;
 @end

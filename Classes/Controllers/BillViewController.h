@@ -18,7 +18,8 @@
     UIButton *goButton; 
     UILabel *nameLabel; 
     UILabel *tableLabel; 
-    UILabel *amountLabel;     
+    UILabel *amountLabel;
+    InvoiceDataSource *dataSource;
 }
 
 @property (retain) Order *order; 

@@ -17,6 +17,7 @@
 #import "ServiceProtocol.h"
 #import "KitchenStatistics.h"
 #import "TableInfo.h"
+#import "WorkInProgress.h"
 
 @interface Service : NSObject <ServiceProtocol> {    
 }
@@ -36,12 +37,16 @@
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
 - (KitchenStatistics *) getKitchenStatistics;
+- (NSMutableArray *) getWorkInProgress;
 - (NSMutableArray *) getBacklogStatistics;
 - (NSMutableArray *) getSalesStatistics: (NSDate*)date;
+- (void) printSalesReport: (NSDate *)date;
 - (Order *) getOpenOrderByTable: (int) tableId;
 - (NSMutableArray *) getTablesInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
+- (void) startCourse: (int) courseId;
+- (void) serveCourse: (int) courseId;	
 - (void) setGender: (NSString *)gender forGuest: (int)guestId;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;

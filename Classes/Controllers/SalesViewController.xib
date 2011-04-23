@@ -52,7 +52,6 @@
 						<string key="NSFrame">{{84, 119}, {625, 911}}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MCAwIDAgMAA</bytes>
@@ -183,6 +182,14 @@
 					</object>
 					<int key="connectionID">12</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">printDayReport</string>
+						<reference key="source" ref="959919507"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">13</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -289,7 +296,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">12</int>
+			<int key="maxID">13</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -303,11 +310,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>handleDoubleTapGesture:</string>
 							<string>handleSwipeGesture:</string>
+							<string>printDayReport</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UITapGestureRecognizer</string>
 							<string>UISwipeGestureRecognizer</string>
+							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="actionInfosByName">
@@ -316,6 +325,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>handleDoubleTapGesture:</string>
 							<string>handleSwipeGesture:</string>
+							<string>printDayReport</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -326,6 +336,10 @@
 							<object class="IBActionInfo">
 								<string key="name">handleSwipeGesture:</string>
 								<string key="candidateClassName">UISwipeGestureRecognizer</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">printDayReport</string>
+								<string key="candidateClassName">id</string>
 							</object>
 						</object>
 					</object>

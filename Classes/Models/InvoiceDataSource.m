@@ -25,7 +25,7 @@
 - (void) setGrouping: (OrderGrouping) newGrouping
 {
     grouping = newGrouping;
-    groupedLines = [[NSMutableDictionary alloc] init];
+    self.groupedLines = [[[NSMutableDictionary alloc] init] autorelease];
     for(Course *course in order.courses)
     {
         for(OrderLine *line in course.lines)

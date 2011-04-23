@@ -10,7 +10,7 @@
 
 @implementation Reservation
 
-@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table;
+@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState;
 
 - (id)init
 {
@@ -24,6 +24,7 @@
         self.name = @"";
         self.phone = @"";
         self.email = @"";
+        self.orderId = -1;
 	}
     return(self);
 }
@@ -64,6 +65,9 @@
     else
         //  Not yet linked to order	
         reservation.orderId = -1;
+    NSNumber *orderState = [jsonDictionary objectForKey:@"orderState"];
+    if((NSNull *)orderState != [NSNull null])
+        reservation.orderState = [orderState intValue];
     NSNumber *tableId = [jsonDictionary objectForKey:@"tableId"];
     if((NSNull *)tableId != [NSNull null])
         reservation.table = [[[Cache getInstance] map] getTable:[tableId intValue]];
@@ -90,5 +94,9 @@
     return dic;
 }
 
+- (bool) isPlaced
+{
+    return orderId != -1;
+}
 
 @end

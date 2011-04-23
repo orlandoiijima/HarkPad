@@ -32,6 +32,7 @@
 @property bool isVisible;
 
 - (void) refreshView;
+- (void) reloadData;
 
 - (IBAction) add;
 - (IBAction) edit;

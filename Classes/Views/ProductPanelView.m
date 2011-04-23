@@ -180,7 +180,7 @@
     
     productInfoLabel = [[UILabel alloc] initWithFrame:menuCardSegment.frame];
     productInfoLabel.backgroundColor = [UIColor clearColor];
-    productInfoLabel.font = [UIFont boldSystemFontOfSize:36];
+    productInfoLabel.font = [UIFont boldSystemFontOfSize:18];
     productInfoLabel.textColor = [UIColor yellowColor];
     productInfoLabel.textAlignment = UITextAlignmentCenter;
     productInfoLabel.adjustsFontSizeToFitWidth = YES;

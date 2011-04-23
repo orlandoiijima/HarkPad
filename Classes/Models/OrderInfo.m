@@ -80,8 +80,8 @@
 
 - (void)dealloc
 {
-    for(SeatInfo *seat in seats)
-        [seat release];
+//    for(SeatInfo *seat in seats)
+//        [seat release];
     [seats release];
     [super dealloc];
 }

@@ -177,10 +177,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *key = [[reservationDataSource.groupedReservations allKeys] objectAtIndex: indexPath.section];
-    NSArray *slotReservations = [reservationDataSource.groupedReservations objectForKey:key];
-            
-    Reservation *reservation = [slotReservations objectAtIndex:indexPath.row];
+    Reservation *reservation = [reservationDataSource getReservation:indexPath];
     [self placeReservation:reservation];
 }
 

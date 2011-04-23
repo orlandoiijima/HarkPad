@@ -23,6 +23,7 @@
     int countGuests;
     BOOL mailingList;
     int orderId;
+    int orderState;
     Table *table;
 }
 
@@ -39,8 +40,9 @@
 @property int countGuests;
 @property BOOL mailingList;
 @property int orderId;
+@property int orderState;
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (NSMutableDictionary *) initDictionary;
-
+- (bool) isPlaced;
 @end
