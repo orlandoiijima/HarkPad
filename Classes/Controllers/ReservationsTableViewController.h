@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "Reservation.h"
+#import "GTMHTTPFetcher.h"
 
 @interface ReservationsTableViewController : UIViewController <UITableViewDelegate, UIPopoverControllerDelegate>{
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
     NSDate *dateToShow;
+    Reservation *copyReservation;
 }
 
 @property (retain) IBOutlet UITableView *table; 
@@ -30,6 +32,7 @@
 @property (retain) IBOutlet UILabel *countTotal;
 @property (retain) IBOutlet UISegmentedControl *segmentShow; 
 @property bool isVisible;
+@property (retain) NSDate *originalStartsOn;
 
 - (void) refreshView;
 - (void) reloadData;
@@ -40,5 +43,9 @@
 - (void) openEditPopup: (Reservation*)reservation;
 - (void) closePopup;
 - (void) cancelPopup;
+
+- (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
+- (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
+
 
 @end

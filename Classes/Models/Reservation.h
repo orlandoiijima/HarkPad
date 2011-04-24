@@ -10,7 +10,7 @@
 #import "Table.h"
 #import "Cache.h"
 
-@interface Reservation : NSObject {
+@interface Reservation : NSObject{
     int id;
     NSString *name;
     NSString *phone;

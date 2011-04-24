@@ -29,6 +29,8 @@
 - (NSString *) keyForReservation: (Reservation *)reservation;
 - (void) addReservation: (Reservation*) reservation  fromTableView: (UITableView *)tableView;
 - (void) deleteReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView;
+- (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView;
 - (int) sectionForKey: (NSString *)searchKey;
+- (int) getRow: (Reservation *) searchReservation inSlot: (NSMutableArray *)slot;
 
 @end

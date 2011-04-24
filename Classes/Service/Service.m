@@ -10,6 +10,7 @@
 #import "KitchenStatistics.h"
 #import "Backlog.h"
 #import "ProductTotals.h"
+#import "GTMHTTPFetcher.h"
 
 @implementation Service
 
@@ -29,7 +30,6 @@ static Service *_service;
             url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
-        url = @"http://localhost:10089";
     }
     return self;
 }
@@ -162,22 +162,22 @@ static Service *_service;
     return reservations;
 }
 
-- (void) updateReservation: (Reservation *)reservation;
+- (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
-    [self postToPage: @"updatereservation" key: @"reservation" value: jsonString];    
+    [self postToPageCallback: @"updatereservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
-- (void) createReservation: (Reservation *)reservation;
+- (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
-    [self postToPage: @"createreservation" key: @"reservation" value: jsonString];   
+    [self postToPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
 - (void) deleteReservation: (int)reservationId
@@ -381,5 +381,19 @@ static Service *_service;
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];    
 }
-	
+
+- (void)postToPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
+{
+    NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
+    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, value];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = userData;
+    [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
+}
+
 @end

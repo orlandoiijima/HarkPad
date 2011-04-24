@@ -74,7 +74,7 @@
     TableButton *clickButton = [self tableButtonAtPoint:point];
     if(clickButton == nil)
         return;
-    if([clickButton.table canUndock] == false)
+    if(clickButton.table.isDocked == false)
         return;
     [[Service getInstance] undockTable: clickButton.table.id]; 
 }

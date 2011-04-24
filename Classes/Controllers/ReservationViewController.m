@@ -72,11 +72,12 @@
     if([reservation.name isEqual:@""] || reservation.name == nil)
         return;
     if(reservation.id == 0)
-        [[Service getInstance] createReservation:reservation];
+        [[Service getInstance] createReservation:reservation delegate:hostController callback:@selector(createFetcher:finishedWithData:error:)];
     else
-        [[Service getInstance] updateReservation:reservation];
+        [[Service getInstance] updateReservation:reservation delegate:hostController callback:@selector(updateFetcher:finishedWithData:error:)];
     [hostController closePopup];
 }
+
 
 - (IBAction) cancel
 {

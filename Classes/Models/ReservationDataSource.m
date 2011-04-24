@@ -1,4 +1,4 @@
-//
+ //
 //  ReservationDataSource.m
 //  HarkPad
 //
@@ -32,6 +32,12 @@
     
 }
 
+- (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView
+{
+    [self deleteReservation:reservation fromTableView:tableView];
+    [self addReservation:reservation fromTableView:tableView];
+}
+
 - (void) addReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView
 {
     NSString *timeSlot = [self keyForReservation:reservation];
@@ -63,13 +69,11 @@
     NSString *timeSlot = [self keyForReservation:reservation];
     NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
     if(slotArray == nil) return;
-    [slotArray removeObject:reservation];
     if(tableView != nil)
     {
         [tableView beginUpdates];
         int section = [self sectionForKey:timeSlot];
-        int row = [self numberOfItemsInSlot:slotArray showAll:includePlacedReservations];
-        if(row == 0)
+        if([self numberOfItemsInSlot:slotArray showAll:includePlacedReservations] == 1)
         {
             NSMutableIndexSet *deleteIndexSet = [[[NSMutableIndexSet alloc] initWithIndex:section] autorelease];
             [tableView deleteSections:deleteIndexSet withRowAnimation:YES];
@@ -77,9 +81,11 @@
         else
         {
             NSMutableArray *deleteIndexPaths = [[[NSMutableArray alloc] init] autorelease];
+            int row = [self getRow:reservation inSlot:slotArray];
             [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:row inSection:section]];
             [tableView deleteRowsAtIndexPaths: deleteIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
         }
+        [slotArray removeObject:reservation];
         [tableView endUpdates];	
     }
 }
@@ -256,6 +262,21 @@
     return nil;
 }
 
+- (int) getRow: (Reservation *) searchReservation inSlot: (NSMutableArray *)slot
+{
+    int row = 0;
+    for(int i = 0; i < [slot count]; i++)
+    {
+        Reservation *reservation = [slot objectAtIndex:i];
+        if(includePlacedReservations == false)
+            if(reservation.orderId != -1) continue;
+        if(searchReservation.id == reservation.id)
+            return row;
+        row++;
+    }
+    return -1;
+}
+
 - (NSString *) currentTimeslot
 {
     NSDate *now = [NSDate date];
@@ -271,18 +292,17 @@
     return timeSlot;
 }
 
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        Reservation *reservation = [self getReservation:indexPath];
-//        if(reservation == nil) return;
-//        [[Service getInstance] deleteReservation: reservation.id];
-//        //      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        [self refreshTable];
-//    }   
-//    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-//    }   
-//}
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Reservation *reservation = [self getReservation:indexPath];
+        if(reservation == nil) return;
+        [[Service getInstance] deleteReservation: reservation.id];
+        [self deleteReservation:reservation fromTableView:tableView];
+    }   
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
 
 @end

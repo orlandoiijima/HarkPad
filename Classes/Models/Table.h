@@ -28,10 +28,10 @@ typedef enum SeatOrientation {row, column} SeatOrientation;
 @property SeatOrientation seatOrientation;
 @property (retain) District *district;
 @property int dockedToTableId;
+@property bool isDocked;
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (Table *) initWithBounds:(CGRect)tableBounds name: (NSString *)tableName countSeats: (int) count;
 - (bool) isSeatAlignedWith: (Table *)table;
-- (bool) canUndock;
 
 @end

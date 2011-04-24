@@ -11,10 +11,12 @@
 #import "ReservationTableCell.h"
 #import "ReservationViewController.h"
 #import "ReservationDataSource.h"
+#import "ServiceResult.h"
+#import "ModalAlert.h"
 
 @implementation ReservationsTableViewController
 
-@synthesize reservations, groupedReservations, table, dateToShow, dateLabel, popover, count1800, count1830, count1900, count1930, count2000, count2030, countTotal, segmentShow, isVisible;
+@synthesize reservations, groupedReservations, table, dateToShow, dateLabel, popover, count1800, count1830, count1900, count1930, count2000, count2030, countTotal, segmentShow, isVisible, originalStartsOn;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -46,7 +48,7 @@
     [super viewDidLoad];
     
     dateToShow = [[NSDate date] retain];
-    
+
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeGesture];
@@ -173,22 +175,6 @@
     return YES;
 }
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
-        Reservation *reservation = [dataSource getReservation:indexPath];
-        if(reservation == nil) return;
-        [[Service getInstance] deleteReservation: reservation.id];
-  //      [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [self refreshView];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-
 - (void) openEditPopup: (Reservation*)reservation
 {
     ReservationViewController *popup = [ReservationViewController initWithReservation: reservation];
@@ -199,7 +185,25 @@
     [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];    
 }
 
-#pragma mark - Table view delegate
+- (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    Reservation *reservation = (Reservation *)fetcher.userData;
+    if(reservation == nil) return;
+    
+    ServiceResult *serviceResult = [ServiceResult resultFromData:data];
+    if(serviceResult.id != -1) {
+        reservation.id = serviceResult.id;
+    }
+    else {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+    }
+    return;
+}
+
+- (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+}
 
 - (void) edit
 {
@@ -207,6 +211,7 @@
     NSIndexPath *indexPath = [table indexPathForSelectedRow];
     Reservation *reservation = [dataSource getReservation:indexPath];
     if(reservation.id == 0) return;
+    originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
 }	
 
@@ -222,12 +227,27 @@
     ReservationViewController *popup = (ReservationViewController *) popover.contentViewController;
     Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
+    ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
     if(reservation.id == 0)
     {
-        ReservationDataSource *dataSource = (ReservationDataSource*)table.dataSource;
         [dataSource addReservation:reservation fromTableView:table];
     }
-//    [self performSelector:@selector(refreshView) withObject:nil afterDelay:0.5];
+    else
+    {
+        if([reservation.startsOn isEqualToDate: originalStartsOn]) {
+            NSIndexPath *indexPath = [table indexPathForSelectedRow];
+            [table reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+        }
+        else {
+            NSDate *startsOn = reservation.startsOn;
+            reservation.startsOn = originalStartsOn;
+            [dataSource deleteReservation:reservation fromTableView:table];
+            if([startsOn isEqualToDateIgnoringTime: dateToShow]) {
+                reservation.startsOn = startsOn;
+                [dataSource addReservation:reservation fromTableView:table];
+            }
+        }
+    }
     [self refreshView];
 }
 

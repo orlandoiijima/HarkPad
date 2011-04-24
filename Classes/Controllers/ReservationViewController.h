@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Reservation.h"
 #import "ReservationsTableViewController.h"
+#import "GTMHTTPFetcher.h"
 
 @interface ReservationViewController : UIViewController {
     Reservation *reservation;
@@ -37,5 +38,6 @@
 - (IBAction) save;
 - (IBAction) cancel;
 - (void) initLanguageView: (NSString *)language;
+- (void)fetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)retrievedData error:(NSError *)error;
 
 @end

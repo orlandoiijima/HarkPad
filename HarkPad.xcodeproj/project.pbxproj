@@ -33,6 +33,8 @@
 		E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationViewController.m */; };
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
+		E5C1BD42136418B100B4D92A /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD41136418B100B4D92A /* GTMHTTPFetcher.m */; };
+		E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD4513642CDB00B4D92A /* ServiceResult.m */; };
 		E5DB4CA0135F2EBF005ADD06 /* WorkInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */; };
 		E5DB4CA4135F33E3005ADD06 /* ProductCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA3135F33E1005ADD06 /* ProductCount.m */; };
 		E5DB4CA8135F4081005ADD06 /* WorkInProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA6135F4080005ADD06 /* WorkInProgressViewController.m */; };
@@ -301,6 +303,10 @@
 		E5B7F678134704D10024AB35 /* ReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationViewController.m; sourceTree = "<group>"; };
 		E5B7F679134704D10024AB35 /* ReservationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
+		E5C1BD40136418B100B4D92A /* GTMHTTPFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMHTTPFetcher.h; sourceTree = "<group>"; };
+		E5C1BD41136418B100B4D92A /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
+		E5C1BD4413642CDB00B4D92A /* ServiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceResult.h; sourceTree = "<group>"; };
+		E5C1BD4513642CDB00B4D92A /* ServiceResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceResult.m; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
 		E5DB4C9E135F2EBE005ADD06 /* WorkInProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkInProgress.h; sourceTree = "<group>"; };
 		E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkInProgress.m; sourceTree = "<group>"; };
@@ -449,6 +455,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5C1BD3F136418B100B4D92A /* GTMHTTPFetcher */,
 				E561E2731336027800229B76 /* DataSources */,
 				E50A391212E23A43007C2101 /* Service */,
 				E50A390812E236A7007C2101 /* Utils */,
@@ -744,6 +751,8 @@
 				E50A391312E23A43007C2101 /* Service.h */,
 				E50A391412E23A43007C2101 /* Service.m */,
 				E50A391512E23A43007C2101 /* ServiceProtocol.h */,
+				E5C1BD4413642CDB00B4D92A /* ServiceResult.h */,
+				E5C1BD4513642CDB00B4D92A /* ServiceResult.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -763,6 +772,15 @@
 				E5DB4CAB135F40BC005ADD06 /* WorkInProgressDataSource.m */,
 			);
 			name = DataSources;
+			sourceTree = "<group>";
+		};
+		E5C1BD3F136418B100B4D92A /* GTMHTTPFetcher */ = {
+			isa = PBXGroup;
+			children = (
+				E5C1BD40136418B100B4D92A /* GTMHTTPFetcher.h */,
+				E5C1BD41136418B100B4D92A /* GTMHTTPFetcher.m */,
+			);
+			path = GTMHTTPFetcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -997,6 +1015,8 @@
 				E5DB4CA8135F4081005ADD06 /* WorkInProgressViewController.m in Sources */,
 				E5DB4CAC135F40BC005ADD06 /* WorkInProgressDataSource.m in Sources */,
 				E5DB4CB1135F473A005ADD06 /* WorkInProgressTableCell.m in Sources */,
+				E5C1BD42136418B100B4D92A /* GTMHTTPFetcher.m in Sources */,
+				E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

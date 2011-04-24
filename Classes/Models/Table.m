@@ -10,7 +10,7 @@
 #import "Service.h"
 
 @implementation Table
-@synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, id;
+@synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, isDocked, id;
 
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
@@ -23,6 +23,7 @@
         table.dockedToTableId = [dockedTo intValue];
     else
         table.dockedToTableId = -1;
+    table.isDocked = (BOOL)[[jsonDictionary objectForKey:@"isDocked"] intValue];
     table.countSeats = [[jsonDictionary objectForKey:@"capacity"] intValue];
     table.seatOrientation = [[jsonDictionary objectForKey:@"seatOrientation"] intValue];
     NSNumber *left = [jsonDictionary objectForKey:@"left"];
@@ -39,15 +40,6 @@
     name = tableName;
     countSeats = count;
     return self;
-}
-
-- (bool) canUndock
-{
-    for(Table *table in district.tables) {
-        if(table.dockedToTableId == self.id)
-            return true;
-    }
-    return false;
 }
 
 
