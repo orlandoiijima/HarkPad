@@ -32,5 +32,6 @@
 - (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView;
 - (int) sectionForKey: (NSString *)searchKey;
 - (int) getRow: (Reservation *) searchReservation inSlot: (NSMutableArray *)slot;
+- (bool) isInCurrentTimeslot: (Reservation *)reservation;
 
 @end

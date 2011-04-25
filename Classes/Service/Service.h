@@ -50,9 +50,8 @@
 - (void) setGender: (NSString *)gender forGuest: (int)guestId;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
-- (void) updateReservation: (Reservation *)reservation;
-//- (void) createReservation: (Reservation *)reservation;
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
+- (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
 - (id) getResultFromJson: (NSData *)data;
 - (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value;

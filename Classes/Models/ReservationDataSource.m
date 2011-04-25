@@ -238,7 +238,7 @@
     Reservation *reservation = [self getReservation:indexPath];
     NSString * cellTimeSlot = [self keyForSection:indexPath.section];
     UIColor *highlightColor = [UIColor colorWithRed:1.0 green:0.8 blue:0.8 alpha:1];
-    cell.backgroundColor = [cellTimeSlot isEqualToString:[self currentTimeslot]] ? highlightColor : [UIColor whiteColor];
+    cell.backgroundColor = [self isInCurrentTimeslot:reservation] ? highlightColor : [UIColor whiteColor];
     cell.reservation = reservation;
     return cell;
 }
@@ -277,9 +277,11 @@
     return -1;
 }
 
-- (NSString *) currentTimeslot
+- (bool) isInCurrentTimeslot: (Reservation *)reservation
 {
     NSDate *now = [NSDate date];
+    if([now isEqualToDateIgnoringTime: reservation.startsOn] == false)
+        return false;
     NSDateComponents *comps = [[NSCalendar currentCalendar] components:-1 fromDate:now];
     int minute = ([comps minute] + 10) - ([comps minute] + 10) % 30;
     int hour = [comps hour];
@@ -288,8 +290,9 @@
         minute -= 60;
         hour++;
     }
-    NSString *timeSlot =  [NSString stringWithFormat:@"%02d:%02d", hour, minute];
-    return timeSlot;
+    NSString *currentTimeSlot =  [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+    NSString * reservationTimeSlot = [self keyForReservation:reservation];
+    return [currentTimeSlot isEqualToString:reservationTimeSlot];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -299,9 +302,6 @@
         if(reservation == nil) return;
         [[Service getInstance] deleteReservation: reservation.id];
         [self deleteReservation:reservation fromTableView:tableView];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
 

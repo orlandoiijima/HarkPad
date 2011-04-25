@@ -38,6 +38,5 @@
 - (IBAction) save;
 - (IBAction) cancel;
 - (void) initLanguageView: (NSString *)language;
-- (void)fetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)retrievedData error:(NSError *)error;
 
 @end
