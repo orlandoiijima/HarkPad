@@ -106,7 +106,7 @@
     NSDecimalNumber *total = [NSDecimalNumber zero];
     for(OrderLine *line in group)
     {
-        total = [total decimalNumberByAdding:[line getAmount]];
+        total = [total decimalNumberByAdding:line.product.price];
     }
     return [NSString stringWithFormat:@"%@ (€ %.02f)", key, [total doubleValue]];
 }

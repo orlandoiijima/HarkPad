@@ -236,7 +236,6 @@
     }
     
     Reservation *reservation = [self getReservation:indexPath];
-    NSString * cellTimeSlot = [self keyForSection:indexPath.section];
     UIColor *highlightColor = [UIColor colorWithRed:1.0 green:0.8 blue:0.8 alpha:1];
     cell.backgroundColor = [self isInCurrentTimeslot:reservation] ? highlightColor : [UIColor whiteColor];
     cell.reservation = reservation;

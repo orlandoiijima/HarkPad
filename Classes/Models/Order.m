@@ -166,7 +166,7 @@
     {
         for(OrderLine *line in guest.lines)
         {        
-            total = [total decimalNumberByAdding:[line getAmount]];
+            total = [total decimalNumberByAdding:line.product.price];
         }
     }
     return total;

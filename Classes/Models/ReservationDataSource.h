@@ -23,7 +23,6 @@
 - (NSString *) keyForSection: (int)section;
 - (int) countGuestsForKey: (NSString *)key;
 - (void) createGroupedReservations;
-- (NSString *) currentTimeslot;
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll;
 - (NSInteger)numberOfItemsInSlot: (NSMutableArray *)slot showAll: (bool) showAll;
 - (NSString *) keyForReservation: (Reservation *)reservation;

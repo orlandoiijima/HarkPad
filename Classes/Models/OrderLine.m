@@ -110,16 +110,6 @@
     return dic;
 }
 
-
-- (NSDecimalNumber *) getAmount
-{
-    NSDecimalNumber *quantityDecimal = [NSDecimalNumber decimalNumberWithDecimal:[[NSNumber numberWithInt:quantity] decimalValue]];
-    NSDecimalNumber *amount = [product.price decimalNumberByMultiplyingBy: quantityDecimal];
-//    [amount retain]; 
-    return amount;
-}
-
-
 - (OrderLinePropertyValue *) getValueForProperty: (OrderLineProperty *) property
 {
     for(OrderLinePropertyValue *propertyValue in propertyValues)
