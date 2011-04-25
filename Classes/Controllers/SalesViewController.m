@@ -74,22 +74,25 @@
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
         NSDecimalNumber *amount = [totals.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
         label.text = [NSString stringWithFormat:@"%.02f", [amount floatValue]];
-        label.backgroundColor = totals.product.category.color;
+        label.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
         label.highlightedTextColor = [UIColor whiteColor];
         total += [amount floatValue];
     }
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:200];
-    label.backgroundColor = totals.product.category.color;
+    label.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
     label.shadowColor = [UIColor lightGrayColor];
     label.highlightedTextColor = [UIColor whiteColor];
     label.text = [NSString stringWithFormat:@"%.02f", total];
 
-    cell.backgroundColor = totals.product.category.color;
-    
-    if([key isEqualToString:@"Totals"])
-        cell.textLabel.text = totals.product.category.name;
-    else
+   
+    if([key isEqualToString:@"Totalen"]) {
+        cell.textLabel.text = totals.product == nil ? @"Totaal" : totals.product.category.name;
+        cell.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
+    }
+    else {
         cell.textLabel.text = totals.product.name;
+        cell.backgroundColor = totals.product.category.color;
+    }
     cell.textLabel.shadowColor = [UIColor lightGrayColor];
 
     return cell;
@@ -117,39 +120,51 @@
     NSMutableArray *productTotals = [[Service getInstance] getSalesStatistics:dateToShow];
     
     self.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
+    if([productTotals count] == 0) {
+        [tableAmounts reloadData];
+        return;
+    }
+    NSMutableArray *categoryTotals = [[[NSMutableArray alloc] init] autorelease];
+    [groupedTotals setObject: categoryTotals forKey:@"Totalen"];
 
-    NSMutableArray *grandTotals = [[[NSMutableArray alloc] init] autorelease];
-    [groupedTotals setObject: grandTotals forKey:@"Totals"];
+    ProductTotals *grandTotalLine = [[[ProductTotals alloc] init] autorelease];
+    grandTotalLine.product = nil;
+    grandTotalLine.totals = [[[NSMutableDictionary alloc] init] autorelease];
     
     for(ProductTotals *total in productTotals) {
-        NSString *key = [NSString stringWithFormat:@"%d %@", total.product.category.sortOrder, total.product.category.name];
+        NSString *key = [NSString stringWithFormat:@"%d.%@", total.product.category.sortOrder, total.product.category.name];
         NSMutableArray *totals = [groupedTotals objectForKey:key];
         if(totals == nil)
         {
             totals = [[[NSMutableArray alloc] init] autorelease];
             [groupedTotals setObject: totals forKey:key];
             
-            ProductTotals *categoryTotals = [[[ProductTotals alloc] init] autorelease];
-            categoryTotals.product = total.product;
-            categoryTotals.totals = [[[NSMutableDictionary alloc] init] autorelease];
-            [grandTotals addObject: categoryTotals];
+            ProductTotals *categoryLine = [[[ProductTotals alloc] init] autorelease];
+            categoryLine.product = total.product;
+            categoryLine.totals = [[[NSMutableDictionary alloc] init] autorelease];
+            [categoryTotals addObject: categoryLine];
         }
         [totals addObject:total];
         
-        for(ProductTotals *categoryTotals in grandTotals)
+        for(ProductTotals *categoryLine in categoryTotals)
         {
-            if(categoryTotals.product.category.id == total.product.category.id)
+            if(categoryLine.product.category.id == total.product.category.id)
             {
                 for(NSString *key in [total.totals allKeys])
                 {
-                    float amount = [[categoryTotals.totals objectForKey:key] floatValue];
+                    float amount = [[categoryLine.totals objectForKey:key] floatValue];
                     amount += [[total.totals objectForKey:key] floatValue];
-                    [categoryTotals.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
+                    [categoryLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
+
+                    amount = [[grandTotalLine.totals objectForKey:key] floatValue];
+                    amount += [[total.totals objectForKey:key] floatValue];
+                    [grandTotalLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
                 }
                 break;
             }
         }
     }
+    [categoryTotals addObject: grandTotalLine];
     [tableAmounts reloadData];
 }
 
