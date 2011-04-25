@@ -277,29 +277,27 @@ static Service *_service;
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [order initDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
+//    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
+
+    [self postToPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
     
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"order=%@", jsonString];
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
+//    NSString *postString = [NSString stringWithFormat: @"order=%@", jsonString];
+//    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+//    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
 }
 
 - (void) startCourse: (int) courseId
 {
-    NSURL *testUrl = [self makeEndPoint:@"startcourse" withQuery:[NSString stringWithFormat:@"courseId=%d", courseId]];
-    
-	[NSData dataWithContentsOfURL: testUrl];
+    [self getToPageCallback:@"startcourse" withQuery: [NSString stringWithFormat:@"courseId=%d", courseId] delegate:nil callback:nil userData:nil];
 	return;
 }
 
 - (void) serveCourse: (int) courseId
 {
-    NSURL *testUrl = [self makeEndPoint:@"servecourse" withQuery:[NSString stringWithFormat:@"courseId=%d", courseId]];
-    
-	[NSData dataWithContentsOfURL: testUrl];
+    [self getToPageCallback:@"servecourse" withQuery: [NSString stringWithFormat:@"courseId=%d", courseId] delegate:nil callback:nil userData:nil];
 	return;
 }
 
@@ -344,14 +342,8 @@ static Service *_service;
     
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:billsInfo error:&error];
-    NSURL *testUrl = [self makeEndPoint:@"makebills" withQuery:@""];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"bills=%@", jsonString];
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
+
+    [self postToPageCallback: @"makebills" key: @"bills" value: jsonString delegate: nil callback: nil userData: nil];
 }
 
 
@@ -392,6 +384,15 @@ static Service *_service;
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
     NSString *postString = [NSString stringWithFormat: @"%@=%@", key, value];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = userData;
+    [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
+}
+
+- (void)getToPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData
+{
+    NSURL *u = [self makeEndPoint:page withQuery:query];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: u];
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = userData;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];

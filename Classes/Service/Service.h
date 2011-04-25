@@ -56,5 +56,6 @@
 - (id) getResultFromJson: (NSData *)data;
 - (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
 - (void)postToPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
+- (void)getToPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 
 @end
