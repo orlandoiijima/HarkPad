@@ -90,7 +90,7 @@
         cell.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
     }
     else {
-        cell.textLabel.text = totals.product.name;
+        cell.textLabel.text = totals.product.key;
         cell.backgroundColor = totals.product.category.color;
     }
     cell.textLabel.shadowColor = [UIColor lightGrayColor];
