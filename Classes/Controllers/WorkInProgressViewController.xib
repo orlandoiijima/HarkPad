@@ -78,6 +78,7 @@
 							<object class="IBUIBarButtonItem" id="963571302">
 								<string key="IBUITitle">Opgevraagde gangen</string>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+								<float key="IBUIWidth">748</float>
 								<reference key="IBUIToolbar" ref="469752713"/>
 							</object>
 						</object>

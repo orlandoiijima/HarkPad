@@ -60,7 +60,15 @@
     
     CGRect frame = CGRectMake(0, 0, 10, 10);
     orderGridView = [[OrderGridView alloc] initWithFrame:frame];
-
+    if(order != nil) {
+        orderGridView.firstColumn = 0;
+        for (Course *course in order.courses) {
+            if(course.requestedOn != nil)
+                orderGridView.firstColumn++;
+        }
+        if(orderGridView.firstColumn >= [order.courses count])
+            orderGridView.firstColumn = 0;
+    }
     [splitter initWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
     [orderGridView redraw]; 
 }
