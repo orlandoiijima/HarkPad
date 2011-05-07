@@ -16,7 +16,6 @@
 		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
 		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
 		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
-		E5258BC3132D0BC700EE8E52 /* ReservationsTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */; };
 		E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */; };
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
@@ -35,6 +34,7 @@
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5C1BD42136418B100B4D92A /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD41136418B100B4D92A /* GTMHTTPFetcher.m */; };
 		E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD4513642CDB00B4D92A /* ServiceResult.m */; };
+		E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D7A24013742BE20079F89A /* ReservationDayView.m */; };
 		E5DB4CA0135F2EBF005ADD06 /* WorkInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */; };
 		E5DB4CA4135F33E3005ADD06 /* ProductCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA3135F33E1005ADD06 /* ProductCount.m */; };
 		E5DB4CA8135F4081005ADD06 /* WorkInProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA6135F4080005ADD06 /* WorkInProgressViewController.m */; };
@@ -44,6 +44,8 @@
 		E5DB4CB1135F473A005ADD06 /* WorkInProgressTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
+		E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */; };
+		E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */; };
 		E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F021350CA94005397C0 /* SalesViewController.m */; };
 		E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E42F031350CA95005397C0 /* SalesViewController.xib */; };
 		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
@@ -98,7 +100,6 @@
 		E5E723291311A12C00905959 /* Guest.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42112F34214006886C6 /* Guest.m */; };
 		E5E7232A1311A12C00905959 /* SeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E534F42412F46231006886C6 /* SeatInfo.m */; };
 		E5E7232B1311A12C00905959 /* Reservation.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3613081DC10097EB0A /* Reservation.m */; };
-		E5E7232C1311A12C00905959 /* ReservationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */; };
 		E5E7232D1311A12C00905959 /* ReservationTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E377B11309C4A100F93319 /* ReservationTableCell.m */; };
 		E5E7232E1311A12C00905959 /* Slot.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E722E613116DFB00905959 /* Slot.m */; };
 		E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E722EF13118B3900905959 /* ChefViewController.m */; };
@@ -264,7 +265,6 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
-		E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationsTableViewController.xib; sourceTree = "<group>"; };
 		E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
 		E533A0CB132D2931005CB4D6 /* TimeFormatters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeFormatters.h; sourceTree = "<group>"; };
@@ -281,8 +281,6 @@
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
 		E555BD3513081DC10097EB0A /* Reservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reservation.h; sourceTree = "<group>"; };
 		E555BD3613081DC10097EB0A /* Reservation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reservation.m; sourceTree = "<group>"; };
-		E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationsTableViewController.h; sourceTree = "<group>"; };
-		E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationsTableViewController.m; sourceTree = "<group>"; };
 		E561E25C13348E8900229B76 /* BillViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillViewController.h; sourceTree = "<group>"; };
 		E561E25D13348E8A00229B76 /* BillViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillViewController.m; sourceTree = "<group>"; };
 		E561E25E13348E8C00229B76 /* BillViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BillViewController.xib; sourceTree = "<group>"; };
@@ -307,6 +305,8 @@
 		E5C1BD41136418B100B4D92A /* GTMHTTPFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMHTTPFetcher.m; sourceTree = "<group>"; };
 		E5C1BD4413642CDB00B4D92A /* ServiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceResult.h; sourceTree = "<group>"; };
 		E5C1BD4513642CDB00B4D92A /* ServiceResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceResult.m; sourceTree = "<group>"; };
+		E5D7A23F13742BE20079F89A /* ReservationDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationDayView.h; sourceTree = "<group>"; };
+		E5D7A24013742BE20079F89A /* ReservationDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationDayView.m; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
 		E5DB4C9E135F2EBE005ADD06 /* WorkInProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkInProgress.h; sourceTree = "<group>"; };
 		E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkInProgress.m; sourceTree = "<group>"; };
@@ -323,6 +323,9 @@
 		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
 		E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatistics.m; sourceTree = "<group>"; };
+		E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTableViewController.h; sourceTree = "<group>"; };
+		E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTableViewController.m; sourceTree = "<group>"; };
+		E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollTableViewController.xib; sourceTree = "<group>"; };
 		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
 		E5E377B11309C4A100F93319 /* ReservationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationTableCell.m; sourceTree = "<group>"; };
 		E5E377B31309C4D000F93319 /* ReservationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationTableCell.xib; sourceTree = "<group>"; };
@@ -489,9 +492,6 @@
 				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
 				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
 				E50A386012E234B8007C2101 /* Tables */,
-				E555BD39130821FB0097EB0A /* ReservationsTableViewController.h */,
-				E555BD3A130821FC0097EB0A /* ReservationsTableViewController.m */,
-				E5258BC2132D0BC600EE8E52 /* ReservationsTableViewController.xib */,
 				E5E722EE13118B3800905959 /* ChefViewController.h */,
 				E5E722EF13118B3900905959 /* ChefViewController.m */,
 				E5E722F013118B3D00905959 /* ChefViewController.xib */,
@@ -516,6 +516,9 @@
 				E5DB4CA5135F4080005ADD06 /* WorkInProgressViewController.h */,
 				E5DB4CA6135F4080005ADD06 /* WorkInProgressViewController.m */,
 				E5DB4CA7135F4081005ADD06 /* WorkInProgressViewController.xib */,
+				E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */,
+				E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */,
+				E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -726,6 +729,8 @@
 				E5DB4CAD135F46FB005ADD06 /* WorkInProgressTableCell.xib */,
 				E5DB4CAF135F473A005ADD06 /* WorkInProgressTableCell.h */,
 				E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */,
+				E5D7A23F13742BE20079F89A /* ReservationDayView.h */,
+				E5D7A24013742BE20079F89A /* ReservationDayView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -886,7 +891,6 @@
 				E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */,
 				E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */,
 				E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */,
-				E5258BC3132D0BC700EE8E52 /* ReservationsTableViewController.xib in Resources */,
 				E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */,
 				E561E26213348E8F00229B76 /* BillViewController.xib in Resources */,
 				E561E267133499B100229B76 /* TablePopupViewController.xib in Resources */,
@@ -903,6 +907,7 @@
 				E500D767135A31C000EA347E /* Settings.bundle in Resources */,
 				E5DB4CA9135F4081005ADD06 /* WorkInProgressViewController.xib in Resources */,
 				E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */,
+				E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,7 +993,6 @@
 				E5E723291311A12C00905959 /* Guest.m in Sources */,
 				E5E7232A1311A12C00905959 /* SeatInfo.m in Sources */,
 				E5E7232B1311A12C00905959 /* Reservation.m in Sources */,
-				E5E7232C1311A12C00905959 /* ReservationsTableViewController.m in Sources */,
 				E5E7232D1311A12C00905959 /* ReservationTableCell.m in Sources */,
 				E5E7232E1311A12C00905959 /* Slot.m in Sources */,
 				E5E7232F1311A12C00905959 /* ChefViewController.m in Sources */,
@@ -1017,6 +1021,8 @@
 				E5DB4CB1135F473A005ADD06 /* WorkInProgressTableCell.m in Sources */,
 				E5C1BD42136418B100B4D92A /* GTMHTTPFetcher.m in Sources */,
 				E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */,
+				E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */,
+				E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -76,7 +76,7 @@
         return;
     if(clickButton.table.isDocked == false)
         return;
-    [[Service getInstance] undockTable: clickButton.table.id]; 
+    [self undockTable: clickButton.table.id]; 
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
@@ -472,6 +472,12 @@
     {
         [[Service getInstance] startCourse: nextCourse.id]; 
     }
+}
+
+- (void) undockTable: (int)tableId
+{
+    [[Service getInstance] undockTable: tableId];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
 - (void) makeBills: (Order*)order

@@ -27,7 +27,7 @@ static Service *_service;
         else if([env isEqualToString:@"development"])
             url = @"http://localhost:10089";
         else if([env isEqualToString:@"development2"])
-            url = @"http://80.101.82.103:10089";
+            url = @"http	://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
@@ -107,8 +107,7 @@ static Service *_service;
 
 - (void) undockTable: (int)tableId
 {
-    NSURL *testUrl = [self makeEndPoint:@"undocktable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
-	[NSData dataWithContentsOfURL: testUrl];
+    [self getToPageCallback:@"undocktable" withQuery: [NSString stringWithFormat:@"tableId=%d", tableId] delegate:nil callback:nil userData:nil];
 	return;    
 }
 
@@ -143,8 +142,7 @@ static Service *_service;
 
 - (void) setGender: (NSString *)gender forGuest: (int)guestId
 {
-    NSURL *testUrl = [self makeEndPoint:@"setgender" withQuery:[NSString stringWithFormat:@"guestId=%d&gender=%@", guestId, gender]];
-	[NSData dataWithContentsOfURL: testUrl];
+    [self getToPageCallback:@"setgender" withQuery: [NSString stringWithFormat:@"guestId=%d&gender=%@", guestId, gender] delegate:nil callback:nil userData:nil];
 	return;        
 }
 
@@ -280,13 +278,6 @@ static Service *_service;
 //    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
 
     [self postToPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
-    
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-//    NSString *postString = [NSString stringWithFormat: @"order=%@", jsonString];
-//    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-//    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
 }
 
 - (void) startCourse: (int) courseId

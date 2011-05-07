@@ -14,7 +14,7 @@
 @implementation TablePopupViewController
 
 @synthesize tableReservations, labelNextCourse, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
-@synthesize reservationDataSource, table, order, labelReservationNote;
+@synthesize reservationDataSource, table, order, labelReservationNote, buttonUndockTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,6 +78,13 @@
 - (IBAction) startNextCourse
 {
     [[self tableMapController] startNextCourse:order];
+    [popoverController dismissPopoverAnimated:YES];
+    return;
+}
+
+- (IBAction) undockTable
+{
+    [[self tableMapController] undockTable:table.id];
     [popoverController dismissPopoverAnimated:YES];
     return;
 }
@@ -151,6 +158,14 @@
     else {
         [labelReservationNote removeFromSuperview];
     }
+    
+    if(self.table.isDocked) {
+        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
+    }
+    else {
+        [buttonUndockTable removeFromSuperview];	
+    }
+    
     [self setPreferredSize];
 }
 

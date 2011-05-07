@@ -26,6 +26,7 @@
 @property (retain) IBOutlet UIButton *buttonMakeBill;
 @property (retain) IBOutlet UIButton *buttonGetPayment;
 @property (retain) IBOutlet UIButton *buttonStartCourse;
+@property (retain) IBOutlet UIButton *buttonUndockTable;
 @property (retain) IBOutlet UILabel *labelNextCourse;
 @property (retain) IBOutlet UILabel *labelTable;
 @property (retain) IBOutlet UILabel *labelReservations;
@@ -50,6 +51,7 @@
 - (IBAction) startNextCourse;
 - (IBAction) makeBill;
 - (IBAction) getPayment;
+- (IBAction) undockTable;
 - (void) placeReservation: (Reservation*)reservation;
 
 

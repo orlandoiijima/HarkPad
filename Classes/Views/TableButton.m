@@ -327,14 +327,14 @@
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            CGRect rect = CGRectMake(left, (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
+            CGRect rect = CGRectMake(left, 0, self.seatWidth, self.tableTopMargin);
             if(CGRectContainsPoint(rect, point))
                return seat;
             
             seat = 2*countSeatRow - i - 1;
             if(seat < table.countSeats)
             {
-                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height + (self.tableTopMargin - self.seatHeight)/2, self.seatWidth, self.seatHeight);
+                rect = CGRectMake(left, tableRect.origin.y + tableRect.size.height, self.seatWidth, self.tableTopMargin);
                 if(CGRectContainsPoint(rect, point))
                    return seat;
             }
@@ -347,14 +347,14 @@
         for(int i = 0; i < countSeatRow; i++)
         {
             int seat = i;
-            CGRect rect = CGRectMake((self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
+            CGRect rect = CGRectMake(0, top, self.tableLeftMargin, self.seatWidth);
             if(CGRectContainsPoint(rect, point))
                return seat;
             
             seat = 2 * countSeatRow - i - 1;
             if(seat < table.countSeats)
             {
-                rect = CGRectMake(tableRect.origin.x + tableRect.size.width + (self.tableLeftMargin - self.seatHeight)/2, top, self.seatHeight, self.seatWidth);
+                rect = CGRectMake(tableRect.origin.x + tableRect.size.width, top, self.tableLeftMargin, self.seatWidth);
                 if(CGRectContainsPoint(rect, point))
                    return seat;
             }

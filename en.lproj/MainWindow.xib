@@ -37,6 +37,7 @@
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{768, 1024}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -63,16 +64,19 @@
 				</object>
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
-				<object class="IBUIViewController" key="IBUISelectedViewController" id="746827996">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="491965367">
-						<string key="IBUITitle">Reserveringen</string>
+				<object class="IBUIViewController" key="IBUISelectedViewController" id="717382963">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="902715965">
+						<string key="IBUITitle">Totalen</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">calendar.png</string>
+							<string key="NSResourceName">creditcard.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 					</object>
 					<reference key="IBUIParentViewController" ref="469052542"/>
+					<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics">
+						<int key="IBUIStatusBarStyle">2</int>
+					</object>
 					<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 						<int key="IBUIInterfaceOrientation">1</int>
 						<int key="interfaceOrientation">1</int>
@@ -136,12 +140,13 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<object class="IBUIViewController" id="717382963">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="902715965">
-							<string key="IBUITitle">Totalen</string>
+					<reference ref="717382963"/>
+					<object class="IBUIViewController" id="551901318">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="237028022">
+							<string key="IBUITitle">Reserveringen</string>
 							<object class="NSCustomResource" key="IBUIImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">creditcard.png</string>
+								<string key="NSResourceName">calendar.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						</object>
@@ -156,7 +161,6 @@
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<bool key="IBUIHorizontal">NO</bool>
 					</object>
-					<reference ref="746827996"/>
 					<object class="IBUIViewController" id="179906620">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="157814127">
 							<string key="IBUITitle">Log</string>
@@ -183,6 +187,7 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 975}, {768, 49}}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSNextKeyView"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MCAwAA</bytes>
@@ -258,7 +263,7 @@
 							<reference ref="179906620"/>
 							<reference ref="717382963"/>
 							<reference ref="918692374"/>
-							<reference ref="746827996"/>
+							<reference ref="551901318"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -274,19 +279,6 @@
 							<reference ref="48446254"/>
 						</array>
 						<reference key="parent" ref="469052542"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">14</int>
-						<reference key="object" ref="746827996"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="491965367"/>
-						</array>
-						<reference key="parent" ref="469052542"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">15</int>
-						<reference key="object" ref="491965367"/>
-						<reference key="parent" ref="746827996"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">16</int>
@@ -345,6 +337,19 @@
 						<reference key="object" ref="786090702"/>
 						<reference key="parent" ref="918692374"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">34</int>
+						<reference key="object" ref="551901318"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="237028022"/>
+						</array>
+						<reference key="parent" ref="469052542"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">35</int>
+						<reference key="object" ref="237028022"/>
+						<reference key="parent" ref="551901318"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -354,8 +359,6 @@
 				<string key="12.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="13.CustomClassName">TableMapViewController</string>
 				<string key="13.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="14.CustomClassName">ReservationsTableViewController</string>
-				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="17.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="18.CustomClassName">ChefViewController</string>
 				<string key="2.IBEditorWindowLastContentRect">{{200, 57}, {783, 799}}</string>
@@ -369,6 +372,9 @@
 				<string key="30.CustomClassName">WorkInProgressViewController</string>
 				<string key="30.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="34.CustomClassName">ScrollTableViewController</string>
+				<string key="34.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="35.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.CustomClassName">HarkPadAppDelegate</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -376,7 +382,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">31</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>

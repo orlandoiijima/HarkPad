@@ -31,6 +31,7 @@
 - (void) startNextCourse: (Order *)order;
 - (void) makeBills: (Order*)order;
 - (void) closeOrderView;
+- (void) undockTable: (int)tableId;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
 //- (CGRect) rotateRect: (CGRect) rect;

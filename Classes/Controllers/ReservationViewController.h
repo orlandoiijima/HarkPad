@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Reservation.h"
-#import "ReservationsTableViewController.h"
 #import "GTMHTTPFetcher.h"
 
 @interface ReservationViewController : UIViewController {
@@ -20,7 +19,6 @@
     UIDatePicker *datePicker;
     UISegmentedControl *countView;
     UISegmentedControl *languageView;
-    
 }
 
 @property (retain) Reservation *reservation;
@@ -31,7 +29,7 @@
 @property (retain) IBOutlet UITextField *phoneView;
 @property (retain) IBOutlet UISegmentedControl *countView;
 @property (retain) IBOutlet UISegmentedControl *languageView;
-@property (retain) ReservationsTableViewController *hostController;
+@property (retain) UIViewController *hostController;
 @property (retain) NSMutableArray *languages;
 + (ReservationViewController *) initWithReservation: (Reservation *)reservation;
 

@@ -9,14 +9,16 @@
 #import "ReservationDataSource.h"
 #import "Service.h"
 #import "ReservationTableCell.h"
+#import "NSDate-Utilities.h"
 
 @implementation ReservationDataSource
 
-@synthesize groupedReservations, reservations, includePlacedReservations;
+@synthesize groupedReservations, reservations, includePlacedReservations, date;
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
+    source.date = date;
     source.reservations = [[Service getInstance] getReservations: date];
     source.includePlacedReservations = includePlaced;
     [source createGroupedReservations];
@@ -167,6 +169,15 @@
     return count;
 }
 
+- (int) countGuests
+{
+    int count = 0;
+    for(NSMutableArray *slotReservations in [groupedReservations allValues])
+        for(Reservation *reservation in slotReservations)
+            count += reservation.countGuests;
+    return count;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSString *key = [self keyForSection:section];
     NSArray *slotReservations = [groupedReservations objectForKey:key];
@@ -239,6 +250,7 @@
     UIColor *highlightColor = [UIColor colorWithRed:1.0 green:0.8 blue:0.8 alpha:1];
     cell.backgroundColor = [self isInCurrentTimeslot:reservation] ? highlightColor : [UIColor whiteColor];
     cell.reservation = reservation;
+    cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
