@@ -1,4 +1,4 @@
-//
+		//
 //  HarkPadAppDelegate.m
 //  HarkPad
 //
@@ -17,6 +17,9 @@
 @synthesize viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    CGRect  rect = [[UIScreen mainScreen] bounds];
+    [window setFrame:rect];
+    [viewController.view setFrame:rect];
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
     return YES;

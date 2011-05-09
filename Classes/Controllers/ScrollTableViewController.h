@@ -32,6 +32,7 @@
 - (NSDate *)pageToDate: (int)page;
 
 - (IBAction) add;
+- (IBAction) call;
 - (IBAction) editMode;
 - (void) edit;
 - (IBAction) showMode;

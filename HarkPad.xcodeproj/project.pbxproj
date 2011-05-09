@@ -10,15 +10,11 @@
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
-		E50A382312E21165007C2101 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380312E21164007C2101 /* UIKit.framework */; };
-		E50A382412E21165007C2101 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
-		E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
-		E50A382912E21165007C2101 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A382812E21165007C2101 /* InfoPlist.strings */; };
-		E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */ = {isa = PBXBuildFile; fileRef = E50A382A12E21165007C2101 /* HarkPadTests.h */; };
-		E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A382C12E21165007C2101 /* HarkPadTests.m */; };
 		E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */; };
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
+		E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E538F24813756383007F8438 /* MainWindow-iPhone.xib */; };
+		E538F24D1375BAD4007F8438 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = E538F24C1375BAD4007F8438 /* iToast.m */; };
 		E561E26013348E8F00229B76 /* BillViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E561E25D13348E8A00229B76 /* BillViewController.m */; };
 		E561E26213348E8F00229B76 /* BillViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E561E25E13348E8C00229B76 /* BillViewController.xib */; };
 		E561E266133499B100229B76 /* TablePopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E561E2641334998A00229B76 /* TablePopupViewController.m */; };
@@ -156,7 +152,6 @@
 		E50A380C12E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E50A380E12E21164007C2101 /* HarkPad-main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HarkPad-main.m"; sourceTree = "<group>"; };
 		E50A381412E21164007C2101 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		E50A382212E21165007C2101 /* HarkPadTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HarkPadTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E50A382612E21165007C2101 /* HarkPadTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HarkPadTests-Info.plist"; sourceTree = "<group>"; };
 		E50A382712E21165007C2101 /* HarkPadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarkPadTests-Prefix.pch"; sourceTree = "<group>"; };
 		E50A382812E21165007C2101 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/HarkPadTests/InfoPlist.strings; sourceTree = "<group>"; };
@@ -276,6 +271,9 @@
 		E534F42112F34214006886C6 /* Guest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guest.m; sourceTree = "<group>"; };
 		E534F42312F46231006886C6 /* SeatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatInfo.h; sourceTree = "<group>"; };
 		E534F42412F46231006886C6 /* SeatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatInfo.m; sourceTree = "<group>"; };
+		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
+		E538F24B1375BAD4007F8438 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
+		E538F24C1375BAD4007F8438 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
@@ -364,16 +362,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E50A381E12E21165007C2101 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E50A382312E21165007C2101 /* UIKit.framework in Frameworks */,
-				E50A382412E21165007C2101 /* Foundation.framework in Frameworks */,
-				E50A382512E21165007C2101 /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E5E723301311A12C00905959 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -422,6 +410,7 @@
 				E50A382612E21165007C2101 /* HarkPadTests-Info.plist */,
 				E50A382812E21165007C2101 /* InfoPlist.strings */,
 				E500D766135A31C000EA347E /* Settings.bundle */,
+				E538F24813756383007F8438 /* MainWindow-iPhone.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -440,7 +429,6 @@
 		E50A380112E21164007C2101 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E50A382212E21165007C2101 /* HarkPadTests.octest */,
 				E5E723521311A12C00905959 /* HarkPad.app */,
 			);
 			name = Products;
@@ -458,6 +446,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E538F24A1375BAD4007F8438 /* Toaster */,
 				E5C1BD3F136418B100B4D92A /* GTMHTTPFetcher */,
 				E561E2731336027800229B76 /* DataSources */,
 				E50A391212E23A43007C2101 /* Service */,
@@ -723,10 +712,10 @@
 				E50A38C412E234B8007C2101 /* TableInfoView.xib */,
 				E5557D2C12EC56C500CA547D /* ProductSymbol.h */,
 				E5557D2D12EC56C500CA547D /* ProductSymbol.m */,
+				E5DB4CAD135F46FB005ADD06 /* WorkInProgressTableCell.xib */,
 				E5E377B01309C4A100F93319 /* ReservationTableCell.h */,
 				E5E377B11309C4A100F93319 /* ReservationTableCell.m */,
 				E5E377B31309C4D000F93319 /* ReservationTableCell.xib */,
-				E5DB4CAD135F46FB005ADD06 /* WorkInProgressTableCell.xib */,
 				E5DB4CAF135F473A005ADD06 /* WorkInProgressTableCell.h */,
 				E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */,
 				E5D7A23F13742BE20079F89A /* ReservationDayView.h */,
@@ -762,6 +751,15 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		E538F24A1375BAD4007F8438 /* Toaster */ = {
+			isa = PBXGroup;
+			children = (
+				E538F24B1375BAD4007F8438 /* iToast.h */,
+				E538F24C1375BAD4007F8438 /* iToast.m */,
+			);
+			path = Toaster;
+			sourceTree = "<group>";
+		};
 		E561E2731336027800229B76 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
@@ -791,24 +789,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E50A382112E21165007C2101 /* HarkPadTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */;
-			buildPhases = (
-				E50A381D12E21165007C2101 /* Sources */,
-				E50A381E12E21165007C2101 /* Frameworks */,
-				E50A381F12E21165007C2101 /* Resources */,
-				E50A382012E21165007C2101 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = HarkPadTests;
-			productName = HarkPadTests;
-			productReference = E50A382212E21165007C2101 /* HarkPadTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 		E5E722F31311A12C00905959 /* HarkPad */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E5E7234F1311A12C00905959 /* Build configuration list for PBXNativeTarget "HarkPad" */;
@@ -846,22 +826,12 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E50A382112E21165007C2101 /* HarkPadTests */,
 				E5E722F31311A12C00905959 /* HarkPad */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		E50A381F12E21165007C2101 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E50A382912E21165007C2101 /* InfoPlist.strings in Resources */,
-				E50A382B12E21165007C2101 /* HarkPadTests.h in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E5E723351311A12C00905959 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -908,36 +878,13 @@
 				E5DB4CA9135F4081005ADD06 /* WorkInProgressViewController.xib in Resources */,
 				E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */,
 				E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */,
+				E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		E50A382012E21165007C2101 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		E50A381D12E21165007C2101 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E50A382D12E21165007C2101 /* HarkPadTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		E5E722F41311A12C00905959 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1023,6 +970,7 @@
 				E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */,
 				E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */,
 				E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */,
+				E538F24D1375BAD4007F8438 /* iToast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,7 +1009,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1077,7 +1025,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1090,69 +1038,6 @@
 		E50A383112E21165007C2101 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-			};
-			name = Release;
-		};
-		E50A383612E21165007C2101 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HarkPadTests-Prefix.pch";
-				INFOPLIST_FILE = "HarkPadTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		E50A383712E21165007C2101 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "HarkPadTests-Prefix.pch";
-				INFOPLIST_FILE = "HarkPadTests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				OTHER_LDFLAGS = (
-					"-framework",
-					SenTestingKit,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
-		E50A383812E21165007C2101 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = HarkPadTests;
-			};
-			name = Debug;
-		};
-		E50A383912E21165007C2101 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				PRODUCT_NAME = HarkPadTests;
 			};
 			name = Release;
 		};
@@ -1194,17 +1079,6 @@
 				E50A382F12E21165007C2101 /* Release */,
 				E50A383012E21165007C2101 /* Debug */,
 				E50A383112E21165007C2101 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		E50A383512E21165007C2101 /* Build configuration list for PBXNativeTarget "HarkPadTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E50A383612E21165007C2101 /* Debug */,
-				E50A383712E21165007C2101 /* Release */,
-				E50A383812E21165007C2101 /* Debug */,
-				E50A383912E21165007C2101 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

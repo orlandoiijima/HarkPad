@@ -27,7 +27,7 @@ static Service *_service;
         else if([env isEqualToString:@"development"])
             url = @"http://localhost:10089";
         else if([env isEqualToString:@"development2"])
-            url = @"http	://80.101.82.103:10089";
+            url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
@@ -132,7 +132,7 @@ static Service *_service;
     {
         TableInfo *tableInfo = [[[TableInfo alloc] init] autorelease];
         tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
-        NSDictionary *orderDic = [tableDic objectForKey:@"orderInfo"];
+        NSDictionary *orderDic = [tableDic objectForKey:@"order"];
         if( (NSNull *)orderDic != [NSNull null])
             tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic]; 
         [tables addObject:tableInfo];

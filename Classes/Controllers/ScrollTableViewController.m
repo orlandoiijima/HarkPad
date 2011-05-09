@@ -7,7 +7,7 @@
 //
 
 #import "ScrollTableViewController.h"
-
+#import "iToast.h"
 
 @implementation ScrollTableViewController
 
@@ -128,6 +128,7 @@
     ServiceResult *serviceResult = [ServiceResult resultFromData:data];
     if(serviceResult.id != -1) {
         reservation.id = serviceResult.id;
+        [[iToast makeText:@"Reservation stored"] show];
     }
     else {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -160,6 +161,14 @@
     if(reservation == nil || reservation.id == 0) return;
     originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
+}	
+
+- (void) call
+{
+    Reservation *reservation = [currentPage selectedReservation];
+    if(reservation == nil || reservation.phone == @"") return;
+    NSString *phoneNumber = [@"tel://" stringByAppendingString:reservation.phone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }	
 
 - (void) showMode

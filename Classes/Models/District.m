@@ -7,7 +7,7 @@
 //
 
 #import "District.h"
-#import "Table.h";
+#import "Table.h"
 
 @implementation District
 

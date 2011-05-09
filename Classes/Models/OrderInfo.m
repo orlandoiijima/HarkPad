@@ -22,6 +22,8 @@
     if ((self = [super init]) != NULL)
 	{
         self.seats = [[[NSMutableDictionary alloc] init] autorelease];
+        self.language = @"nl";
+        self.currentCourse = -1;
 	}
     return(self);
 }
@@ -38,13 +40,20 @@
     int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
     order.table = [cache.map getTable:tableId]; 
     
-    order.language = [jsonDictionary objectForKey:@"language"];
+    id language = [jsonDictionary objectForKey:@"language"];
+    if(language != nil)
+        order.language = language;
+    
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     order.countCourses = [[jsonDictionary objectForKey:@"countCourses"] intValue];
-    order.currentCourse = [[jsonDictionary objectForKey:@"currentCourse"] intValue];
-    seconds = [jsonDictionary objectForKey:@"currentCourseRequestedOn"];
-    if((NSNull *)seconds != [NSNull null])
+    
+    id currentCourse = [jsonDictionary objectForKey:@"current"];
+    if(currentCourse != nil)
+        order.currentCourse = [currentCourse intValue];
+    
+    seconds = [jsonDictionary objectForKey:@"requestedOn"];
+    if(seconds != nil)
         order.currentCourseRequestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     id seatDictionary = [jsonDictionary objectForKey:@"seats"];
     for(NSString *seat in [seatDictionary allKeys])

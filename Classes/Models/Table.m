@@ -1,4 +1,4 @@
-//
+	//
 //  Table.m
 //  HarkPad
 //
@@ -13,23 +13,45 @@
 @synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, isDocked, id;
 
 
+- (id)init
+{
+    if ((self = [super init]) != NULL)
+	{
+        self.dockedToTableId = -1;
+        self.isDocked = false;
+        self.countSeats = 2;
+        self.seatOrientation = 0;
+	}
+    return(self);
+}
+
+
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Table *table = [[[Table alloc] init] autorelease];
     table.name = [jsonDictionary objectForKey:@"name"];
     table.id = [[jsonDictionary objectForKey:@"id"] intValue];
+
     id dockedTo = [jsonDictionary objectForKey:@"dockedToTableId"];
-    if((NSNull *)dockedTo != [NSNull null])
+    if(dockedTo != nil)
         table.dockedToTableId = [dockedTo intValue];
-    else
-        table.dockedToTableId = -1;
-    table.isDocked = (BOOL)[[jsonDictionary objectForKey:@"isDocked"] intValue];
-    table.countSeats = [[jsonDictionary objectForKey:@"capacity"] intValue];
-    table.seatOrientation = [[jsonDictionary objectForKey:@"seatOrientation"] intValue];
-    NSNumber *left = [jsonDictionary objectForKey:@"left"];
-    NSNumber *top =  [jsonDictionary objectForKey:@"top"];
-    NSNumber *width = [jsonDictionary objectForKey:@"width"];
-    NSNumber *height = [jsonDictionary objectForKey:@"height"];
+    
+    id isDocked = [jsonDictionary objectForKey:@"isDocked"];
+    if(isDocked != nil)
+        table.isDocked = (BOOL)[isDocked intValue];
+
+    id countSeats = [jsonDictionary objectForKey:@"capacity"];
+    if(countSeats != nil)
+        table.countSeats = [countSeats intValue];
+
+    id seatOrientation = [jsonDictionary objectForKey:@"orientation"];
+    if(seatOrientation != nil)
+        table.seatOrientation = [seatOrientation intValue];
+    
+    NSNumber *left = [jsonDictionary objectForKey:@"l"];
+    NSNumber *top =  [jsonDictionary objectForKey:@"t"];
+    NSNumber *width = [jsonDictionary objectForKey:@"w"];
+    NSNumber *height = [jsonDictionary objectForKey:@"h"];
     table.bounds = CGRectMake([left floatValue], [top floatValue], [width floatValue], [height floatValue]);
     return table;
 }

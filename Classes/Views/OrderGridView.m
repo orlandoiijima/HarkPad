@@ -446,7 +446,7 @@
     int row = topController.orientation == CourseColumns ? line.guest.seat : line.course.offset;
     
     selectedCell = [GridCell cellWithColumn:column row:row line:offset];
-    [self redraw];
+//    [self redraw];
 }
 
 - (void) selectCourse: (int)course seat: (int)seat line: (int)line
@@ -463,7 +463,7 @@
         selectedOrderLine = [orderLines objectAtIndex:line];
     else
         selectedOrderLine = nil;
-    [self redraw];
+//    [self redraw];
 }
  
 - (void)dealloc {
