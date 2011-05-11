@@ -30,7 +30,6 @@ static Service *_service;
             url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
-        url = @"http://localhost:10089";
     }
     return self;
 }

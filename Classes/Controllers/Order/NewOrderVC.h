@@ -63,6 +63,8 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 - (void) moveCourses: (int)firstCourseToMove delta: (int) delta;
 - (void) moveSeats: (int)firstSeatToMove delta: (int) delta;
 
+- (void) refreshSelectedCell;
+
 - (void) startCourse: (int) courseId;
 
 - (IBAction) saveAction;

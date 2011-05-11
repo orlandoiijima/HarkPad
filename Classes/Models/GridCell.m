@@ -15,7 +15,7 @@
 
 + (GridCell *) cellWithColumn: (int) column row: (int) row line: (int) line
 {
-    GridCell *cell = [[[GridCell alloc] init] autorelease];
+    GridCell *cell = [[GridCell alloc] init];
     cell.row = row;
     cell.column = column;
     cell.line = line;

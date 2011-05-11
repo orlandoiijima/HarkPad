@@ -416,6 +416,7 @@
     if(orderLine == nil) return;
     OrderLineDetailViewController *detailViewController = [[OrderLineDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detailViewController.orderLine = orderLine;
+    detailViewController.controller = topController;
     
     UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: detailViewController] autorelease];
     navController.title = orderLine.product.name;
