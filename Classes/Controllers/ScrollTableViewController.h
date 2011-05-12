@@ -23,13 +23,16 @@
 @property (retain) IBOutlet UIScrollView *scrollView;
 @property (retain) ReservationDayView *currentPage;
 @property (retain) ReservationDayView *nextPage;
-@property (retain) NSMutableArray *dataSources;
+@property (retain) NSMutableDictionary *dataSources;
 @property (retain) NSDate *originalStartsOn;
 @property (retain) UIPopoverController *popover;
+@property (retain) IBOutlet UISlider *slider;
 @property (retain) IBOutlet UISegmentedControl *segmentShow;
 
 - (void) setupScrolledInPage: (int)page;
 - (NSDate *)pageToDate: (int)page;
+- (NSString *) dateToKey: (NSDate *)date;
+- (void) gotoDayoffset: (int)page;
 
 - (IBAction) add;
 - (IBAction) call;
@@ -42,5 +45,7 @@
 
 - (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
+
+- (IBAction) sliderUpdate;
 
 @end

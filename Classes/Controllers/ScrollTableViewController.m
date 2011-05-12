@@ -11,7 +11,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow;
+@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,9 +54,10 @@
     nextPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
     [scrollView addSubview:nextPage];
     
-    dataSources = [[NSMutableArray alloc] init];
+    dataSources = [[NSMutableDictionary alloc] init];
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations: YES];
-    [dataSources insertObject:dataSource atIndex:0];
+    NSString *key = [self dateToKey:[NSDate date]];
+    [dataSources setObject:dataSource forKey:key];
     currentPage.dataSource = dataSource;    
 }
 
@@ -65,17 +66,26 @@
     return [[NSDate date] dateByAddingDays: page];
 }
 
+- (NSString *) dateToKey: (NSDate *)date
+{
+    NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
+    [format setDateFormat:@"dd-MM-yy"];
+    return [format stringFromDate:date];
+}
+
 - (void) setupScrolledInPage: (int)page
 {
     NSDate *date = [self pageToDate:page];
+    NSString *key = [self dateToKey: date];
     CGFloat pageWidth = scrollView.frame.size.width;
     nextPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    if(page >= [dataSources count]) {
-        if(page > [dataSources count]) return;
-        [dataSources addObject: [ReservationDataSource dataSource:date includePlacedReservations:YES]];
+    ReservationDataSource *dataSource = [dataSources objectForKey:key];
+    if(dataSource == nil) {
+        dataSource = [ReservationDataSource dataSource:date includePlacedReservations:YES];
+        [dataSources setObject: dataSource forKey:key];
     }
     if(nextPage.dataSource == nil || [nextPage.dataSource.date isEqualToDateIgnoringTime:date] == false) {
-        nextPage.dataSource = [dataSources objectAtIndex:page];
+        nextPage.dataSource = dataSource;
         NSLog(@"Updated datasource");
     }
     
@@ -85,6 +95,7 @@
         ReservationDayView *swp = currentPage;
         currentPage = nextPage;
         nextPage = swp;
+        slider.value = mainPage;
     }
 }
 
@@ -108,6 +119,28 @@
     {
         [self setupScrolledInPage:lowerPage];
     }
+}
+
+- (void) gotoDayoffset: (int)page
+{
+    NSDate *date = [self pageToDate:page];
+    NSString *key = [self dateToKey: date];
+    CGFloat pageWidth = scrollView.frame.size.width;
+    currentPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+    nextPage.frame = CGRectMake(pageWidth * (page + 1), 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+    scrollView.contentOffset = CGPointMake(pageWidth * page, scrollView.contentOffset.y);
+    ReservationDataSource *dataSource = [dataSources objectForKey:key];
+    if(dataSource == nil) {
+        dataSource = [ReservationDataSource dataSource:date includePlacedReservations:YES];
+        [dataSources setObject: dataSource forKey:key];
+    }
+    currentPage.dataSource = dataSource;
+}
+
+- (IBAction) sliderUpdate
+{
+    int page = slider.value; 	
+    [self gotoDayoffset:page];
 }
 
 - (void) openEditPopup: (Reservation*)reservation
@@ -205,6 +238,7 @@
         }
     }
     [currentPage refreshTotals:dataSource];
+    [currentPage.table setEditing:NO];
 }
 
 - (void) cancelPopup

@@ -13,6 +13,7 @@
     NSMutableArray *reservations;
     NSMutableDictionary *groupedReservations;
     bool includePlacedReservations;
+    NSDate *date;
 }
 
 @property (retain) NSMutableArray *reservations;

@@ -20,7 +20,7 @@
     if (self) {
         // Initialization code
         
-        dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 50)];
+        dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 45)];
         dateLabel.font = [UIFont systemFontOfSize:28];
         dateLabel.textAlignment = UITextAlignmentCenter;
         [self addSubview:dateLabel];

@@ -17,7 +17,7 @@
     UITextField *emailView;
     UITextField *phoneView;
     UIDatePicker *datePicker;
-    UISegmentedControl *countView;
+    UITextField *countView;
     UISegmentedControl *languageView;
 }
 
@@ -27,7 +27,7 @@
 @property (retain) IBOutlet UITextField *nameView;
 @property (retain) IBOutlet UITextField *emailView;
 @property (retain) IBOutlet UITextField *phoneView;
-@property (retain) IBOutlet UISegmentedControl *countView;
+@property (retain) IBOutlet UITextField *countView;
 @property (retain) IBOutlet UISegmentedControl *languageView;
 @property (retain) UIViewController *hostController;
 @property (retain) NSMutableArray *languages;

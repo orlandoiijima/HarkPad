@@ -37,7 +37,7 @@
     nameView.text = reservation.name;
     phoneView.text = reservation.phone;
     emailView.text = reservation.email;
-    countView.selectedSegmentIndex = reservation.countGuests - 2;
+    countView.text = [NSString stringWithFormat:@"%d", reservation.countGuests];
     [self initLanguageView:reservation.language];
     datePicker.date = reservation.startsOn;
 }
@@ -65,7 +65,7 @@
     reservation.name = nameView.text;
     reservation.phone = phoneView.text;
     reservation.email = emailView.text;
-    reservation.countGuests = countView.selectedSegmentIndex + 2;
+    reservation.countGuests = [countView.text intValue];
     reservation.startsOn = datePicker.date;
     reservation.language = [languages objectAtIndex: languageView.selectedSegmentIndex];
     
