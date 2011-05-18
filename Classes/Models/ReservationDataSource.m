@@ -25,6 +25,16 @@
     return source;
 }
 
++ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
+{
+    ReservationDataSource *source = [[ReservationDataSource alloc] init];
+    source.date = [NSDate date];
+    source.reservations = reservations;
+    source.includePlacedReservations = includePlaced;
+    [source createGroupedReservations];
+    return source;
+}
+
 - (void) createGroupedReservations
 {
     self.groupedReservations = [[[NSMutableDictionary alloc] init] autorelease];
@@ -148,6 +158,13 @@
     return count++;
 }	
 
+- (bool)isEmpty {
+    for(NSMutableArray *slotReservations in [groupedReservations allValues])
+        if([self numberOfItemsInSlot:slotReservations showAll:includePlacedReservations] > 0)
+            return false;
+    return true;
+}	
+
 - (NSInteger)numberOfItemsInSlot: (NSMutableArray *)slot showAll: (bool) showAll
 {
     NSInteger count = 0;
@@ -234,7 +251,7 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    if(groupedReservations == nil || groupedReservations.count == 0)
+    if([self isEmpty])
     {
         UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"] autorelease];
         cell.textLabel.text = @"Geen reserveringen";

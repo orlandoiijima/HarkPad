@@ -107,7 +107,7 @@ static Service *_service;
 
 - (void) undockTable: (int)tableId
 {
-    [self getToPageCallback:@"undocktable" withQuery: [NSString stringWithFormat:@"tableId=%d", tableId] delegate:nil callback:nil userData:nil];
+    [self getPageCallback:@"undocktable" withQuery: [NSString stringWithFormat:@"tableId=%d", tableId] delegate:nil callback:nil userData:nil];
 	return;    
 }
 
@@ -119,7 +119,7 @@ static Service *_service;
     }
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject: tableIds error:&error];
-    [self postToPage: @"DockTables" key: @"tables" value: jsonString];
+    [self postPage: @"DockTables" key: @"tables" value: jsonString];
 }
 
 - (NSMutableArray *) getTablesInfo
@@ -142,7 +142,7 @@ static Service *_service;
 
 - (void) setGender: (NSString *)gender forGuest: (int)guestId
 {
-    [self getToPageCallback:@"setgender" withQuery: [NSString stringWithFormat:@"guestId=%d&gender=%@", guestId, gender] delegate:nil callback:nil userData:nil];
+    [self getPageCallback:@"setgender" withQuery: [NSString stringWithFormat:@"guestId=%d&gender=%@", guestId, gender] delegate:nil callback:nil userData:nil];
 	return;        
 }
 
@@ -161,13 +161,42 @@ static Service *_service;
     return reservations;
 }
 
+- (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
+{
+    int dateSeconds = [date timeIntervalSince1970];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getreservations"
+                withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]
+                 delegate: self
+                 callback:@selector(getReservationsCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getReservationsCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+	NSMutableArray *reservationsDic = [self getResultFromJson: data];
+    NSMutableArray *reservations = [[[NSMutableArray alloc] init] autorelease];
+    for(NSDictionary *reservationDic in reservationsDic)
+    {
+        Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
+        [reservations addObject:reservation];
+    }
+
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&reservations atIndex:2];
+    [invocation invoke];
+}
+
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
-    [self postToPageCallback: @"updatereservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
+    [self postPageCallback: @"updatereservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
@@ -176,7 +205,7 @@ static Service *_service;
     NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
-    [self postToPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
+    [self postPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
 - (void) deleteReservation: (int)reservationId
@@ -270,6 +299,31 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
+- (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getopenorderbytable"
+                withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]
+                 delegate:self
+                 callback:@selector(getOpenOrderByTableCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getOpenOrderByTableCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+	NSDictionary *orderDic = [self getResultFromJson:data];
+    Order *order = nil;
+    if(orderDic != nil && [orderDic count] > 0) {
+        order = [Order orderFromJsonDictionary:orderDic];
+    }
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&order atIndex:2];
+    [invocation invoke];
+}
+
 - (void) updateOrder: (Order *) order
 {
     NSError *error = nil;
@@ -277,18 +331,21 @@ static Service *_service;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
 //    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
 
-    [self postToPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
+    [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
 }
 
-- (void) startCourse: (int) courseId
+- (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback
 {
-    [self getToPageCallback:@"startcourse" withQuery: [NSString stringWithFormat:@"courseId=%d", courseId] delegate:nil callback:nil userData:nil];
+    [self getPageCallback:@"startcourse"
+                withQuery: [NSString stringWithFormat:@"courseId=%d", courseId]
+                 delegate:delegate
+                 callback:callback userData:nil];
 	return;
 }
 
 - (void) serveCourse: (int) courseId
 {
-    [self getToPageCallback:@"servecourse" withQuery: [NSString stringWithFormat:@"courseId=%d", courseId] delegate:nil callback:nil userData:nil];
+    [self getPageCallback:@"servecourse" withQuery: [NSString stringWithFormat:@"courseId=%d", courseId] delegate:nil callback:nil userData:nil];
 	return;
 }
 
@@ -334,7 +391,7 @@ static Service *_service;
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:billsInfo error:&error];
 
-    [self postToPageCallback: @"makebills" key: @"bills" value: jsonString delegate: nil callback: nil userData: nil];
+    [self postPageCallback: @"makebills" key: @"bills" value: jsonString delegate: nil callback: nil userData: nil];
 }
 
 
@@ -354,7 +411,7 @@ static Service *_service;
 {
 }
 
-- (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value
+- (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value
 {
     NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
     
@@ -366,7 +423,7 @@ static Service *_service;
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];    
 }
 
-- (void)postToPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
+- (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
 {
     NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
     
@@ -380,7 +437,7 @@ static Service *_service;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
 }
 
-- (void)getToPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData
+- (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData
 {
     NSURL *u = [self makeEndPoint:page withQuery:query];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: u];

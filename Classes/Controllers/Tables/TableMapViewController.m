@@ -30,11 +30,11 @@
     map = [[Cache getInstance] map];
     [self setupDistrictPicker];
     
-    [NSTimer scheduledTimerWithTimeInterval:10.0f
-                                     target:self
-                                   selector:@selector(refreshView)
-                                   userInfo:nil
-                                    repeats:YES];   
+//    [NSTimer scheduledTimerWithTimeInterval:10.0f
+//                                     target:self
+//                                   selector:@selector(refreshView)
+//                                   userInfo:nil
+//                                    repeats:YES];   
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [self.view addGestureRecognizer:panGesture];
@@ -313,6 +313,11 @@
     return nil;
 }
 
+- (void) refreshView:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    [self refreshView];
+}
+
 - (IBAction) refreshView
 {
     if(isRefreshTimerDisabled) return;
@@ -400,9 +405,8 @@
 - (void) clickTable: (UIControl *) sender
 {
     TableButton *tableButton = (TableButton *)sender;
-    Order *order = [[Service getInstance] getOpenOrderByTable: tableButton.table.id];
     
-    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table withOrder: order];
+    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table];
     popoverController = [[UIPopoverController alloc] initWithContentViewController:tablePopup];
 
     popoverController.delegate = self;
@@ -465,12 +469,9 @@
 - (void) startNextCourse: (Order *)order
 {
     Course *nextCourse = [order getNextCourse];
-    if(nextCourse == nil)
+    if(nextCourse != nil)
     {
-    }
-    else
-    {
-        [[Service getInstance] startCourse: nextCourse.id]; 
+        [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(refreshView:finishedWithData:error:	)];
     }
 }
 

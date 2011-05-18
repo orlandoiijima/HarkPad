@@ -16,7 +16,7 @@
 @interface TablePopupViewController : UIViewController <UITableViewDelegate>{
     Table *table;
     Order *order;
-    UITableView *reservationsTable;
+    UITableView *tableReservations;
     UILabel *labelReservations;
     ReservationDataSource *reservationDataSource;
 }
@@ -40,10 +40,10 @@
 
 @property (retain) ReservationDataSource *reservationDataSource;
 
-+ (TablePopupViewController *) menuForTable: (Table *) table withOrder: (Order *) order;
++ (TablePopupViewController *) menuForTable: (Table *) table;
 
 - (TableMapViewController *) tableMapController;
-- (void) setPreferredSize;
+- (void) setOptimalSize;
 - (void) setButton: (UIButton*) button enabled: (bool)enabled;
 
 - (IBAction) makeBill;
@@ -53,6 +53,8 @@
 - (IBAction) getPayment;
 - (IBAction) undockTable;
 - (void) placeReservation: (Reservation*)reservation;
+- (void) updateOnOrder;
+- (CGSize) getSizeFromBottomItem: (UIView *)view;
 
 
 @end

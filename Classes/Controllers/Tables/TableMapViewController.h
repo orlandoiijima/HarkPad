@@ -23,9 +23,9 @@
 
 - (void) clickTable : (UIControl *) c;
 - (IBAction) refreshView;
+- (void) refreshView:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
-//- (IBAction) setupDistrictMap;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
 - (void) startNextCourse: (Order *)order;
@@ -34,7 +34,6 @@
 - (void) undockTable: (int)tableId;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)payOrder: (Order *)order;
-//- (CGRect) rotateRect: (CGRect) rect;
 - (TableButton *) tableButtonAtPoint: (CGPoint) point;
 - (TableButton *) findButton: (Table *) table;
 - (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;

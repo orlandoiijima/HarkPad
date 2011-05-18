@@ -62,7 +62,7 @@
 - (Reservation *) selectedReservation
 {
     ReservationDataSource *dataSource = table.dataSource;
-    NSIndexPath *indexPath = [table indexPathForSelectedRow];
+    NSIndexPath *indexPath = [table indexPathForSelectedRow];	
     return [dataSource getReservation:indexPath];
 }
 

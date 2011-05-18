@@ -22,10 +22,12 @@
 @property (retain) NSDate* date;
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced;
++ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;
 - (Reservation *) getReservation: (NSIndexPath *) indexPath;
 - (NSString *) keyForSection: (int)section;
 - (int) countGuestsForKey: (NSString *)key;
 - (int) countGuests;
+- (bool)isEmpty;
 - (void) createGroupedReservations;
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll;
 - (NSInteger)numberOfItemsInSlot: (NSMutableArray *)slot showAll: (bool) showAll;

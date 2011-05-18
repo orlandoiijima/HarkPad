@@ -34,6 +34,7 @@
 - (void) dockTables: (NSMutableArray*)tables;
 - (Order *) getOrder: (int) orderId;
 - (NSMutableArray *) getReservations: (NSDate *)date;
+- (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
 - (KitchenStatistics *) getKitchenStatistics;
@@ -42,10 +43,11 @@
 - (NSMutableArray *) getSalesStatistics: (NSDate*)date;
 - (void) printSalesReport: (NSDate *)date;
 - (Order *) getOpenOrderByTable: (int) tableId;
+- (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getTablesInfo;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
-- (void) startCourse: (int) courseId;
+- (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
 - (void) serveCourse: (int) courseId;	
 - (void) setGender: (NSString *)gender forGuest: (int)guestId;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
@@ -54,8 +56,8 @@
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
 - (id) getResultFromJson: (NSData *)data;
-- (void)postToPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
-- (void)postToPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
-- (void)getToPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
+- (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
+- (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
+- (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 
 @end

@@ -14,7 +14,7 @@
 @implementation TablePopupViewController
 
 @synthesize tableReservations, labelNextCourse, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
-@synthesize reservationDataSource, table, order, labelReservationNote, buttonUndockTable;
+@synthesize 	table, order, labelReservationNote, buttonUndockTable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,18 +25,35 @@
     return self;
 }
 
+- (ReservationDataSource *)reservationDataSource
+{
+    return (ReservationDataSource *) tableReservations.dataSource;
+}
 
-+ (TablePopupViewController *) menuForTable: (Table *) table withOrder: (Order *) order
+- (void)setReservationDataSource:(ReservationDataSource *)dataSource
+{
+    tableReservations.dataSource = dataSource;
+}
+
++ (TablePopupViewController *) menuForTable: (Table *) table
 {
     TablePopupViewController *tablePopupMenu = [[[TablePopupViewController alloc] initWithNibName:@"TablePopupViewController" bundle:[NSBundle mainBundle]] autorelease];
     tablePopupMenu.table = table;
-    tablePopupMenu.order = order;
-       
-    if(order == nil) {
-        tablePopupMenu.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO];
-    }
+    
+    [[Service getInstance] getOpenOrderByTable:table.id delegate:tablePopupMenu callback:@selector(getOpenOrderByTableCallback:)];
     
     return tablePopupMenu;
+}
+
+-(void) getOpenOrderByTableCallback: (Order *)tableOrder
+{
+    self.order = tableOrder;
+    
+    [self updateOnOrder];
+    
+    if(order == nil) {
+        [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:)];
+    }
 }
 
 - (TableMapViewController *) tableMapController
@@ -44,25 +61,25 @@
     return (TableMapViewController*) popoverController.delegate;
 }
 
-- (void) setPreferredSize
+- (void) setOptimalSize
 {
-    if(order != nil || reservationDataSource == nil || [reservationDataSource.groupedReservations count] == 0) {
-        //  Existing order or no reservations: remove table + label
-        [reservationsTable removeFromSuperview];
-        [labelReservations removeFromSuperview];
-        
+    if(order != nil || self.reservationDataSource == nil || [self.reservationDataSource isEmpty]) {
         if(order.reservation == nil || order.reservation.notes == nil) {
             //  Not based on reservation or no note
-            [labelReservationNote removeFromSuperview];
-            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, 195);
-            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, buttonMakeBill.frame.origin.y + buttonMakeBill.frame.size.height + 10);
+            self.contentSizeForViewInPopover = [self getSizeFromBottomItem: buttonMakeBill];
         }
         else {
-            self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, labelReservationNote.frame.origin.y + labelReservationNote.frame.size.height + 10);
+            self.contentSizeForViewInPopover = [self getSizeFromBottomItem: labelReservationNote];
         }
     }
-    else
-        self.contentSizeForViewInPopover = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height);
+    else {
+        self.contentSizeForViewInPopover = [self getSizeFromBottomItem: tableReservations];
+    }
+}
+
+- (CGSize) getSizeFromBottomItem: (UIView *)bottomView
+{
+    return CGSizeMake(self.view.bounds.size.width, bottomView.frame.origin.y + bottomView.frame.size.height + 15);
 }
 
 - (IBAction) getOrder
@@ -77,7 +94,7 @@
 
 - (IBAction) startNextCourse
 {
-    [[self tableMapController] startNextCourse:order];
+    [self.tableMapController startNextCourse:order];
     [popoverController dismissPopoverAnimated:YES];
     return;
 }
@@ -125,15 +142,8 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
+- (void) updateOnOrder
 {
-    [super viewDidLoad];
-
-    tableReservations.dataSource = reservationDataSource;
-    tableReservations.delegate = self;
-    
-    labelTable.text = [NSString stringWithFormat:@"Tafel %@", table.name];
-    
     Course *nextCourse = [order getNextCourse];
     if(nextCourse != nil) {
         [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
@@ -159,14 +169,32 @@
         [labelReservationNote removeFromSuperview];
     }
     
+    [self setOptimalSize];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    tableReservations.delegate = self;
+    
+    labelTable.text = [NSString stringWithFormat:@"Tafel %@", table.name];
+    
     if(self.table.isDocked) {
         buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
     }
     else {
         [buttonUndockTable removeFromSuperview];	
     }
-    
-    [self setPreferredSize];
+
+    [self setOptimalSize];
+}
+     
+- (void) getReservationsCallback: (NSMutableArray *)reservations
+{
+    self.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO withReservations:reservations];
+    [tableReservations reloadData];
+    [self setOptimalSize];
 }
 
 - (void) setButton: (UIButton*) button enabled: (bool)enabled
@@ -192,7 +220,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Reservation *reservation = [reservationDataSource getReservation:indexPath];
+    Reservation *reservation = [self.reservationDataSource getReservation:indexPath];
     [self placeReservation:reservation];
 }
 
