@@ -11,7 +11,7 @@
 #import "Cache.h"
 #import "Reservation.h"
 
-typedef enum OrderGrouping {bySeat, byCourse, byCategory} OrderGrouping ;
+typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
 
 @interface Order : NSObject {
@@ -44,6 +44,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 - (Course *) getCourseByOffset: (int)offset;
 - (Guest *) getGuestBySeat: (int)seat;
 - (BOOL) isCourseAlreadyRequested: (int) courseOffset;
+- (void) removeOrderLine: (OrderLine *)lineToDelete;
 
 @property EntityState entityState;
 @property (retain) NSMutableArray *courses;

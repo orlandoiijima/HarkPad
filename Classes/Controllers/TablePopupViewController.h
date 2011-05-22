@@ -27,6 +27,7 @@
 @property (retain) IBOutlet UIButton *buttonGetPayment;
 @property (retain) IBOutlet UIButton *buttonStartCourse;
 @property (retain) IBOutlet UIButton *buttonUndockTable;
+@property (retain) IBOutlet UIButton *buttonTransferOrder;
 @property (retain) IBOutlet UILabel *labelNextCourse;
 @property (retain) IBOutlet UILabel *labelTable;
 @property (retain) IBOutlet UILabel *labelReservations;
@@ -52,6 +53,7 @@
 - (IBAction) makeBill;
 - (IBAction) getPayment;
 - (IBAction) undockTable;
+- (IBAction) transferOrder;
 - (void) placeReservation: (Reservation*)reservation;
 - (void) updateOnOrder;
 - (CGSize) getSizeFromBottomItem: (UIView *)view;

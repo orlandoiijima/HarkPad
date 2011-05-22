@@ -9,8 +9,8 @@
 #import "Service.h"
 #import "KitchenStatistics.h"
 #import "Backlog.h"
+#import "Invoice.h"
 #import "ProductTotals.h"
-#import "GTMHTTPFetcher.h"
 
 @implementation Service
 
@@ -31,7 +31,7 @@ static Service *_service;
         else
             url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
-    }
+     }
     return self;
 }
 
@@ -111,6 +111,13 @@ static Service *_service;
 	return;    
 }
 
+- (void) transferOrder: (int)orderId toTable: (int) tableId
+{
+    [self getPageCallback:@"transferorder" withQuery: [NSString stringWithFormat:@"orderId=%d&tableId=%d", orderId, tableId] delegate:nil callback:nil userData:nil];
+	return;    
+}
+
+
 - (void) dockTables: (NSMutableArray*)tables
 {
     NSMutableArray *tableIds = [[[NSMutableArray alloc] init] autorelease];
@@ -122,10 +129,21 @@ static Service *_service;
     [self postPage: @"DockTables" key: @"tables" value: jsonString];
 }
 
-- (NSMutableArray *) getTablesInfo
+- (void) getTablesInfo: (id) delegate callback: (SEL)callback
 {
-	NSURL *testUrl = [self makeEndPoint:@"gettablesinfo"  withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"gettablesinfo"
+                withQuery:@""
+                 delegate: self
+                 callback:@selector(getTablesInfoCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
 	NSMutableArray *tablesDic = [self getResultFromJson: data];
     NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
     for(NSDictionary *tableDic in tablesDic)
@@ -137,7 +155,9 @@ static Service *_service;
             tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic]; 
         [tables addObject:tableInfo];
     }
-    return tables;
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&tables atIndex:2];
+    [invocation invoke];
 }
 
 - (void) setGender: (NSString *)gender forGuest: (int)guestId
@@ -215,6 +235,13 @@ static Service *_service;
 	return;        
 }
 
+- (ServiceResult *) deleteOrderLine: (int)orderLineId
+{
+    NSURL *testUrl = [self makeEndPoint:@"deleteorderline" withQuery:[NSString stringWithFormat:@"orderlineId=%d", orderLineId]];
+	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+	return [ServiceResult resultFromData:data];
+}
+
 - (NSMutableArray *) getCurrentSlots
 {
 	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
@@ -258,6 +285,20 @@ static Service *_service;
     return stats;
 }
 
+- (NSMutableArray *) getInvoices
+{
+	NSURL *testUrl = [self makeEndPoint:@"getInvoices" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+	NSMutableArray *invoices = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
+    for(NSDictionary *invoiceDic in invoicesDic)
+    {
+        Invoice *invoice = [Invoice invoiceFromJsonDictionary: invoiceDic];
+        [invoices addObject:invoice];
+    }
+    return invoices;
+}
+
 - (NSMutableArray *) getSalesStatistics: (NSDate *)date
 {
     int dateSeconds = [date timeIntervalSince1970];    
@@ -283,7 +324,7 @@ static Service *_service;
 
 - (Order *) getOrder: (int) orderId
 {
-    NSURL *testUrl = [self makeEndPoint:@"getorder" withQuery:@""];
+    NSURL *testUrl = [self makeEndPoint:@"getorder" withQuery:[NSString stringWithFormat:@"orderId=%d", orderId]];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
 	NSDictionary *orderDic = [self getResultFromJson: data];
 	return [Order orderFromJsonDictionary:orderDic];
@@ -349,11 +390,21 @@ static Service *_service;
 	return;
 }
 
-- (NSMutableArray *) getWorkInProgress
+- (void) getWorkInProgress : (id) delegate callback: (SEL)callback
 {
-    NSURL *testUrl = [self makeEndPoint:@"getworkInProgress" withQuery:@""];
-    
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getworkinprogress"
+                withQuery:@""
+                 delegate:self
+                 callback:@selector(getWorkInProgressCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getWorkInProgressCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
 	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
@@ -361,7 +412,10 @@ static Service *_service;
         WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
         [stats addObject: work];
     }
-    return stats;
+
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&stats atIndex:2];
+    [invocation invoke];
 }
 
 

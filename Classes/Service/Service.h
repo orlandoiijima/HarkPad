@@ -14,12 +14,13 @@
 #import "Reservation.h"
 #import "Slot.h"
 #import "CJSONSerializer.h"
-#import "ServiceProtocol.h"
 #import "KitchenStatistics.h"
 #import "TableInfo.h"
 #import "WorkInProgress.h"
+#import "ServiceResult.h"
+#import "GTMHTTPFetcher.h"
 
-@interface Service : NSObject <ServiceProtocol> {    
+@interface Service : NSObject {    
 }
 
 
@@ -30,6 +31,7 @@
 - (NSMutableArray *) getMenus;
 - (NSMutableArray *) getLog;
 - (Map *) getMap;
+- (TreeNode *) getTree;
 - (void) undockTable: (int)tableId;
 - (void) dockTables: (NSMutableArray*)tables;
 - (Order *) getOrder: (int) orderId;
@@ -37,14 +39,16 @@
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
+- (void) transferOrder: (int)orderId toTable: (int) tableId;
 - (KitchenStatistics *) getKitchenStatistics;
-- (NSMutableArray *) getWorkInProgress;
+- (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
 - (NSMutableArray *) getSalesStatistics: (NSDate*)date;
+- (NSMutableArray *) getInvoices;
 - (void) printSalesReport: (NSDate *)date;
 - (Order *) getOpenOrderByTable: (int) tableId;
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
-- (NSMutableArray *) getTablesInfo;
+- (void) getTablesInfo: (id) delegate callback: (SEL)callback;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
@@ -55,6 +59,7 @@
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
+- (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;

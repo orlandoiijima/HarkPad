@@ -20,4 +20,16 @@
     [super dealloc];	
 }
 
+- (bool) isEmpty
+{
+    if(orderInfo == nil || orderInfo.seats == nil || [orderInfo.seats count] == 0)
+        return true;
+    return false;
+}
+
+- (NSComparisonResult) compare: (TableInfo *)tableInfo
+{
+    return [self.table.name compare:tableInfo.table.name];
+}
+
 @end

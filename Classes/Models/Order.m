@@ -32,7 +32,7 @@
 {
     Cache *cache = [Cache getInstance];
 
-    Order *order = [[[Order alloc] init] autorelease];
+    Order *order = [[Order alloc] init];
     order.id = [[jsonDictionary objectForKey:@"id"] intValue];
     order.entityState = None;
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
@@ -227,6 +227,30 @@
             return course;
     }
     return nil;
+}
+
+- (void) removeOrderLine: (OrderLine *)lineToDelete
+{
+    for(Guest *guest in guests)
+    {
+        for(int i=0; i < [guest.lines count]; i++) {
+            OrderLine *line = [guest.lines objectAtIndex:i];
+            if(line.id == lineToDelete.id) {
+                [guest.lines removeObjectAtIndex:i];
+                break;
+            }
+        }
+    }    
+    for(Course *course in courses)
+    {
+        for(int i=0; i < [course.lines count]; i++) {
+            OrderLine *line = [course.lines objectAtIndex:i];
+            if(line.id == lineToDelete.id) {
+                [course.lines removeObjectAtIndex:i];
+                break;
+            }
+        }
+    }
 }
 
 //

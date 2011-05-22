@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "Order.h"
+#import "ServiceResult.h"
+#import "InvoicesViewController.h"
 
 @interface InvoiceDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>{
     NSMutableDictionary *lines;
+    NSMutableDictionary *groupedLines;
+    OrderGrouping grouping;
+    Order *order;
 }
+
 @property (retain) NSMutableDictionary *groupedLines;
 @property OrderGrouping grouping;
 @property (retain) Order *order;
+@property (retain) InvoicesViewController *invoicesViewController;
 
 + (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping;
 

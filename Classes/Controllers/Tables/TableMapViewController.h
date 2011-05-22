@@ -23,7 +23,7 @@
 
 - (void) clickTable : (UIControl *) c;
 - (IBAction) refreshView;
-- (void) refreshView:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
+- (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;
 - (void) newOrderForTable: (Table *) table;
@@ -38,6 +38,9 @@
 - (TableButton *) findButton: (Table *) table;
 - (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;
 - (bool) TransgenderPopup: (TableButton *) button seat: (int)seat;
+- (void) transferOrder: (int)orderId;
+- (void) transferOrder: (int)orderId toTable: (int)tableId;
+- (TableButton *) buttonForOrder: (int)orderId;
 
 @property (retain) Map* map;
 @property (retain) District *currentDistrict;

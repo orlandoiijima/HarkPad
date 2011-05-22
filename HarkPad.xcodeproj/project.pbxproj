@@ -24,6 +24,8 @@
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
+		E5AC71531388E54800DB450E /* TablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC71521388E54600DB450E /* TablesViewController.m */; };
+		E5AC71561389146900DB450E /* TablesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC71551389146400DB450E /* TablesViewController.xib */; };
 		E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */; };
 		E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationViewController.m */; };
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
@@ -42,6 +44,10 @@
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
 		E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */; };
 		E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */; };
+		E5E2D7A113869D8B00745EFE /* Invoice.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7A013869D8B00745EFE /* Invoice.m */; };
+		E5E2D7A51386A28F00745EFE /* InvoicesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7A41386A28F00745EFE /* InvoicesDataSource.m */; };
+		E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */; };
+		E5E2D7AB1386B2EF00745EFE /* OrderLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7AA1386B2EB00745EFE /* OrderLinesViewController.m */; };
 		E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F021350CA94005397C0 /* SalesViewController.m */; };
 		E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E42F031350CA95005397C0 /* SalesViewController.xib */; };
 		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
@@ -255,7 +261,6 @@
 		E50A391012E23715007C2101 /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
 		E50A391312E23A43007C2101 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		E50A391412E23A43007C2101 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
-		E50A391512E23A43007C2101 /* ServiceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceProtocol.h; sourceTree = "<group>"; };
 		E50A391A12E23E19007C2101 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem.h; sourceTree = "<group>"; };
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
@@ -293,6 +298,9 @@
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
 		E5AC3D77132263820090F743 /* InvoiceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoiceDataSource.h; path = Models/InvoiceDataSource.h; sourceTree = "<group>"; };
 		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoiceDataSource.m; path = Models/InvoiceDataSource.m; sourceTree = "<group>"; };
+		E5AC71511388E54500DB450E /* TablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablesViewController.h; sourceTree = "<group>"; };
+		E5AC71521388E54600DB450E /* TablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablesViewController.m; sourceTree = "<group>"; };
+		E5AC71551389146400DB450E /* TablesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TablesViewController.xib; sourceTree = "<group>"; };
 		E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfo.h; sourceTree = "<group>"; };
 		E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfo.m; sourceTree = "<group>"; };
 		E5B7F677134704D10024AB35 /* ReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationViewController.h; sourceTree = "<group>"; };
@@ -324,6 +332,14 @@
 		E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTableViewController.h; sourceTree = "<group>"; };
 		E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTableViewController.m; sourceTree = "<group>"; };
 		E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollTableViewController.xib; sourceTree = "<group>"; };
+		E5E2D79F13869D8B00745EFE /* Invoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invoice.h; sourceTree = "<group>"; };
+		E5E2D7A013869D8B00745EFE /* Invoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invoice.m; sourceTree = "<group>"; };
+		E5E2D7A31386A28F00745EFE /* InvoicesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesDataSource.h; sourceTree = "<group>"; };
+		E5E2D7A41386A28F00745EFE /* InvoicesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoicesDataSource.m; sourceTree = "<group>"; };
+		E5E2D7A61386A5F300745EFE /* InvoicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesViewController.h; sourceTree = "<group>"; };
+		E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoicesViewController.m; sourceTree = "<group>"; };
+		E5E2D7A91386B2EA00745EFE /* OrderLinesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLinesViewController.h; sourceTree = "<group>"; };
+		E5E2D7AA1386B2EB00745EFE /* OrderLinesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLinesViewController.m; sourceTree = "<group>"; };
 		E5E377B01309C4A100F93319 /* ReservationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationTableCell.h; sourceTree = "<group>"; };
 		E5E377B11309C4A100F93319 /* ReservationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationTableCell.m; sourceTree = "<group>"; };
 		E5E377B31309C4D000F93319 /* ReservationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationTableCell.xib; sourceTree = "<group>"; };
@@ -508,6 +524,13 @@
 				E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */,
 				E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */,
 				E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */,
+				E5E2D7A61386A5F300745EFE /* InvoicesViewController.h */,
+				E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */,
+				E5E2D7A91386B2EA00745EFE /* OrderLinesViewController.h */,
+				E5E2D7AA1386B2EB00745EFE /* OrderLinesViewController.m */,
+				E5AC71511388E54500DB450E /* TablesViewController.h */,
+				E5AC71521388E54600DB450E /* TablesViewController.m */,
+				E5AC71551389146400DB450E /* TablesViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -597,6 +620,8 @@
 				E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */,
 				E5DB4CA2135F33E0005ADD06 /* ProductCount.h */,
 				E5DB4CA3135F33E1005ADD06 /* ProductCount.m */,
+				E5E2D79F13869D8B00745EFE /* Invoice.h */,
+				E5E2D7A013869D8B00745EFE /* Invoice.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -744,7 +769,6 @@
 			children = (
 				E50A391312E23A43007C2101 /* Service.h */,
 				E50A391412E23A43007C2101 /* Service.m */,
-				E50A391512E23A43007C2101 /* ServiceProtocol.h */,
 				E5C1BD4413642CDB00B4D92A /* ServiceResult.h */,
 				E5C1BD4513642CDB00B4D92A /* ServiceResult.m */,
 			);
@@ -773,6 +797,8 @@
 				E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */,
 				E5DB4CAA135F40BC005ADD06 /* WorkInProgressDataSource.h */,
 				E5DB4CAB135F40BC005ADD06 /* WorkInProgressDataSource.m */,
+				E5E2D7A31386A28F00745EFE /* InvoicesDataSource.h */,
+				E5E2D7A41386A28F00745EFE /* InvoicesDataSource.m */,
 			);
 			name = DataSources;
 			sourceTree = "<group>";
@@ -879,6 +905,7 @@
 				E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */,
 				E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */,
 				E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */,
+				E5AC71561389146900DB450E /* TablesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -971,6 +998,11 @@
 				E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */,
 				E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */,
 				E538F24D1375BAD4007F8438 /* iToast.m in Sources */,
+				E5E2D7A113869D8B00745EFE /* Invoice.m in Sources */,
+				E5E2D7A51386A28F00745EFE /* InvoicesDataSource.m in Sources */,
+				E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */,
+				E5E2D7AB1386B2EF00745EFE /* OrderLinesViewController.m in Sources */,
+				E5AC71531388E54800DB450E /* TablesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

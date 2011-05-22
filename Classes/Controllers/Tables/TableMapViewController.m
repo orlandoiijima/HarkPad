@@ -17,6 +17,8 @@
 #import "PaymentViewController.h"
 #import "BillViewController.h"
 #import "ModalAlert.h"
+#import "iToast.h"
+#import "TablesViewController.h"
 
 @implementation TableMapViewController
 
@@ -29,12 +31,12 @@
 
     map = [[Cache getInstance] map];
     [self setupDistrictPicker];
-    
-//    [NSTimer scheduledTimerWithTimeInterval:10.0f
-//                                     target:self
-//                                   selector:@selector(refreshView)
-//                                   userInfo:nil
-//                                    repeats:YES];   
+    	
+    [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                     target:self
+                                   selector:@selector(refreshView)
+                                   userInfo:nil
+                                    repeats:YES];   
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [self.view addGestureRecognizer:panGesture];
@@ -313,17 +315,16 @@
     return nil;
 }
 
-- (void) refreshView:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    [self refreshView];
-}
-
 - (IBAction) refreshView
 {
     if(isRefreshTimerDisabled) return;
     if(isVisible == false)
         return;
-    
+    [[Service getInstance] getTablesInfo:self callback:@selector(refreshViewWithInfo:)];
+}
+
+- (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo
+{
     for(UIView *view in tableMapView.subviews) [view removeFromSuperview];
     [tableMapView setNeedsDisplay];
     if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
@@ -333,10 +334,9 @@
     if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
         scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
     
-    NSMutableArray *tables = [[Service getInstance] getTablesInfo];
-    
+   
     NSMutableDictionary *districtTables = [[[NSMutableDictionary alloc] init] autorelease];
-    for(TableInfo *tableInfo in tables)
+    for(TableInfo *tableInfo in tablesInfo)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
@@ -365,7 +365,6 @@
         [districtPicker setTitle:title forSegmentAtIndex: i];
         i++;
     }
-
 }
 
 - (void) rotateTables
@@ -414,7 +413,35 @@
     tablePopup.popoverController = popoverController;
     
     [popoverController presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
 
+- (void) transferOrder: (int)orderId
+{
+    TablesViewController *tablesController = [[[TablesViewController alloc] init] autorelease];
+    tablesController.selectionMode = selectEmpty;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:tablesController];
+    tablesController.popoverController = popover;
+    tablesController.orderId = orderId;
+    popover.delegate = self;
+    TableButton *tableButton = [self buttonForOrder:orderId];
+    [popover presentPopoverFromRect:tableButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (TableButton *) buttonForOrder: (int)orderId
+{
+    for(TableButton *tableButton in tableMapView.subviews) {
+        Table* table = tableButton.table;
+        if(tableButton.orderInfo.id == orderId)
+            return tableButton;
+    }
+    return nil;
+}
+
+- (void) transferOrder: (int)orderId toTable: (int)tableId
+{
+    Service *service = [Service getInstance];
+    [service transferOrder: orderId toTable: tableId];
+    [self refreshView];
 }
 
 - (void)payOrder: (Order *)order
@@ -471,8 +498,14 @@
     Course *nextCourse = [order getNextCourse];
     if(nextCourse != nil)
     {
-        [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(refreshView:finishedWithData:error:	)];
+        [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourse:finishedWithData:error:	)];
     }
+}
+
+- (void) startNextCourse:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    [[iToast makeText:@"Gang doorgevraagd"] show];
+    [self refreshView];
 }
 
 - (void) undockTable: (int)tableId

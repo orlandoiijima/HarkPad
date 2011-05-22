@@ -13,12 +13,12 @@
 
 @synthesize workInProgress;
 
-+ (WorkInProgressDataSource *) dataSource
-{
-    WorkInProgressDataSource *source = [[WorkInProgressDataSource alloc] init];
-    source.workInProgress = [[Service getInstance] getWorkInProgress];
-    return source;
-}
+//+ (WorkInProgressDataSource *) dataSource
+//{
+//    WorkInProgressDataSource *source = [[WorkInProgressDataSource alloc] init];
+//    source.workInProgress = [[Service getInstance] getWorkInProgress];
+//    return source;
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

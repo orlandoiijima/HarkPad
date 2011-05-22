@@ -17,6 +17,6 @@
 
 @property (retain) NSMutableArray *workInProgress;
 
-+ (WorkInProgressDataSource *) dataSource;
+//+ (WorkInProgressDataSource *) dataSource;
 
 @end

@@ -18,5 +18,5 @@
 
 @property (retain) OrderInfo *orderInfo;
 @property (retain) Table *table;
-
+@property bool isEmpty;
 @end

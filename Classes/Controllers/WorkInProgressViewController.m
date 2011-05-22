@@ -30,8 +30,14 @@
 - (void) refreshView
 {
     if(isVisible == false) return;
-    
-    WorkInProgressDataSource *dataSource = [WorkInProgressDataSource dataSource];
+
+    [[Service getInstance] getWorkInProgress: self callback:@selector(refreshViewCallback:)];
+}
+
+- (void) refreshViewCallback:(NSMutableArray *)workInProgress
+{
+    WorkInProgressDataSource *dataSource = [[WorkInProgressDataSource alloc] init];
+    dataSource.workInProgress = workInProgress;
     
     table.dataSource = dataSource;
     

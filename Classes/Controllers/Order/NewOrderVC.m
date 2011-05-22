@@ -510,7 +510,7 @@
 
 - (void) startCourse: (int) courseId
 {
-    [[Service getInstance] startCourse:courseId];     
+    [[Service getInstance] startCourse:courseId delegate:nil callback:nil];
 }
 
 - (void) gridScrollRight

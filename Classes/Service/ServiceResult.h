@@ -13,11 +13,13 @@
 @interface ServiceResult : NSObject {
     NSMutableDictionary *data;
     NSString *error;
+    BOOL isSuccess;
     int id;    
 }
 
 @property (retain) NSMutableDictionary *data;
 @property (retain) NSString *error;
+@property BOOL isSuccess;
 @property int id;
 
 + (ServiceResult *) resultFromData:(NSData*)data;

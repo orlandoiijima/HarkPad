@@ -23,8 +23,22 @@
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    orderLine.quantity = [[jsonDictionary objectForKey:@"quantity"] intValue];
-    orderLine.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
+    
+    id val = [jsonDictionary objectForKey:@"quantity"];
+    if((NSNull *)val != [NSNull null])
+        orderLine.quantity = [val intValue];
+    
+    val = [jsonDictionary objectForKey:@"sortOrder"];
+    if((NSNull *)val != [NSNull null])
+        orderLine.sortOrder = [val intValue];
+    
+    val = [jsonDictionary objectForKey:@"state"];
+    if((NSNull *)val != [NSNull null])
+        orderLine.state = [val intValue];
+    
+    val = [jsonDictionary objectForKey:@"note"];
+    if((NSNull *)val != [NSNull null])
+        orderLine.note = val;
     
     if(guests != nil) {
         int seat = [[jsonDictionary objectForKey:@"seat"] intValue];
@@ -38,8 +52,6 @@
         [orderLine.course.lines addObject:orderLine];
     }
     
-    orderLine.state = [[jsonDictionary objectForKey:@"state"] intValue];
-    orderLine.note = [jsonDictionary objectForKey:@"note"];
     id propertyValues = [jsonDictionary objectForKey:@"propertyValues"];
     for(NSDictionary *propertyValueDic in propertyValues)
     {

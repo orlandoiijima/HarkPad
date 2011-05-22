@@ -67,5 +67,11 @@
 {
     return	[ModalAlert queryWithTitle:statement message:nil button1: @"Cancel" button2: @"OK"];
 }
+
++ (BOOL) inform: (NSString *) statement
+{
+    return	[ModalAlert queryWithTitle:statement message:nil button1: @"OK" button2: nil];
+}
+
 @end
 

@@ -10,6 +10,7 @@
 #import "Service.h"
 #import "ProductTotals.h"
 #import "NSDate-Utilities.h"
+#import "iToast.h"
 
 @implementation SalesViewController
 
@@ -110,7 +111,8 @@
 
 - (IBAction)printDayReport
 {
-    [[Service getInstance] printSalesReport:[NSDate date]];
+    [[Service getInstance] printSalesReport: dateToShow];
+    [[iToast makeText: NSLocalizedString(@"Dagrapport afgedrukt", nil)] show];
 }
 
 - (void) refreshView
@@ -207,7 +209,7 @@
 {
     [super viewDidLoad];
     
-    dateToShow = [[NSDate date] retain];
+    dateToShow = [[NSDate dateYesterday]  retain];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;

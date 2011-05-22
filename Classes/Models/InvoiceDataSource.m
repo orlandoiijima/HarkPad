@@ -1,4 +1,4 @@
-//
+	//
 //  InvoiceDataSource.m
 //  HarkPad
 //
@@ -9,14 +9,16 @@
 #import "InvoiceDataSource.h"
 #import "Order.h"
 #import "OrderLineCell.h"
+#import "Service.h"
+#import "ModalAlert.h"
 
 @implementation InvoiceDataSource
 
-@synthesize order, groupedLines, grouping;
+@synthesize order, groupedLines, grouping, invoicesViewController;
 
 + (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping
 {
-    InvoiceDataSource *source = [[[InvoiceDataSource alloc] init] autorelease];
+    InvoiceDataSource *source = [[InvoiceDataSource alloc] init];
     source.order = order;
     source.grouping = grouping;
     return source;
@@ -48,6 +50,8 @@
 {
     switch(grouping)
     {
+        case noGrouping:
+            return @"";
         case byCategory:
             return [NSString stringWithFormat:@"%d.%@", line.product.category.sortOrder, line.product.category.name];
         case bySeat:
@@ -89,7 +93,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[groupedLines allKeys] count];
+    int count = [[groupedLines allKeys] count];
+    return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -101,6 +106,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if(grouping == noGrouping) return nil;
     NSString *key = [self keyForSection:section];
     NSMutableArray *group = [groupedLines objectForKey:key];
     NSDecimalNumber *total = [NSDecimalNumber zero];
@@ -127,5 +133,37 @@
     return cell;
 }	
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *group = [self groupForSection: indexPath.section];
+    OrderLine *line = [group objectAtIndex:indexPath.row];
+    [cell setBackgroundColor:line.product.category.color];
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle != UITableViewCellEditingStyleDelete) return;
+    
+    NSMutableArray *group = [self groupForSection: indexPath.section];
+    if(group == nil) return;
+    OrderLine *line = [group objectAtIndex:indexPath.row];
+    if(line == nil) return;
+    
+    ServiceResult *result = [[Service getInstance] deleteOrderLine: line.id];
+    if(result == nil) return;
+    
+    if(result.isSuccess == false) {
+        [ModalAlert inform:NSLocalizedString(result.error, nil)];
+        return;
+    }
+    [group removeObject:line];
+    // Delete the row from the data source
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+    [order removeOrderLine: line];
+    if(self.invoicesViewController != nil)
+        [invoicesViewController onUpdateOrder: self.order];
+}
 
 @end

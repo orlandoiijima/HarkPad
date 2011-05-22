@@ -14,7 +14,7 @@
 @implementation TablePopupViewController
 
 @synthesize tableReservations, labelNextCourse, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
-@synthesize 	table, order, labelReservationNote, buttonUndockTable;
+@synthesize 	table, order, labelReservationNote, buttonUndockTable, buttonTransferOrder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -106,6 +106,13 @@
     return;
 }
 
+- (IBAction) transferOrder
+{
+    [[self tableMapController] transferOrder: order.id];
+    [popoverController dismissPopoverAnimated:YES];
+    return;
+}
+
 - (IBAction) makeBill
 {
     [[self tableMapController ] makeBills:order];
@@ -157,6 +164,7 @@
     [self setButton: buttonGetPayment enabled: order.state == billed];
     [self setButton: buttonMakeOrder enabled: order == nil || order.state == ordering];
     [self setButton: buttonMakeBill enabled: order != nil];
+    [self setButton: buttonTransferOrder enabled: order != nil];
     if(order.state == billed)
         buttonMakeBill.titleLabel.textColor = [UIColor redColor];
     
