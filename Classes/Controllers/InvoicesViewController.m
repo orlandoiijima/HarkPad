@@ -46,7 +46,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
 }
 
 - (void)viewDidUnload
@@ -54,6 +54,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void) refresh
+{
+    self.tableView.dataSource = [InvoicesDataSource dataSource];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated

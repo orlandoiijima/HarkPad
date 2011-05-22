@@ -11,7 +11,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider;
+@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,7 +40,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        buttonPhone.enabled = false;
+    }
+    else
+    {
+        buttonAdd.enabled = false;
+        buttonEdit.enabled = false;
+    }
     
     scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * 30	, scrollView.bounds.size.height);
     scrollView.directionalLockEnabled = YES; 	
@@ -96,6 +105,10 @@
         currentPage = nextPage;
         nextPage = swp;
         slider.value = mainPage;
+        if(currentPage.dataSource.includePlacedReservations)
+            segmentShow.selectedSegmentIndex = 1;
+        else
+            segmentShow.selectedSegmentIndex = 0;
     }
 }
 
@@ -208,6 +221,8 @@
 {
     ReservationDataSource *dataSource = (ReservationDataSource*)currentPage.dataSource;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
+    if(dataSource.includePlacedReservations == includeSeated)
+        return;
     [dataSource tableView: currentPage.table includeSeated: includeSeated];
 }			
 

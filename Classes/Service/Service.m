@@ -30,7 +30,6 @@ static Service *_service;
             url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
-        url = @"http://localhost:10089";
      }
     return self;
 }
@@ -151,7 +150,7 @@ static Service *_service;
         TableInfo *tableInfo = [[[TableInfo alloc] init] autorelease];
         tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
         NSDictionary *orderDic = [tableDic objectForKey:@"order"];
-        if( (NSNull *)orderDic != [NSNull null])
+        if(orderDic != nil)
             tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic]; 
         [tables addObject:tableInfo];
     }

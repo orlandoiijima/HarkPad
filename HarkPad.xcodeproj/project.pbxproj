@@ -26,6 +26,11 @@
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
 		E5AC71531388E54800DB450E /* TablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC71521388E54600DB450E /* TablesViewController.m */; };
 		E5AC71561389146900DB450E /* TablesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC71551389146400DB450E /* TablesViewController.xib */; };
+		E5AC7158138950B700DB450E /* anna-a-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC7157138950B200DB450E /* anna-a-57x57.png */; };
+		E5AC715A138950C600DB450E /* anna-a-114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC7159138950C500DB450E /* anna-a-114x114.png */; };
+		E5AC715C138950D700DB450E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC715B138950D600DB450E /* Default.png */; };
+		E5AC715E138950E600DB450E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC715D138950E400DB450E /* Default@2x.png */; };
+		E5AC7160138958F900DB450E /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC715F138958F800DB450E /* calculator.png */; };
 		E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */; };
 		E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationViewController.m */; };
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
@@ -301,6 +306,11 @@
 		E5AC71511388E54500DB450E /* TablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablesViewController.h; sourceTree = "<group>"; };
 		E5AC71521388E54600DB450E /* TablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablesViewController.m; sourceTree = "<group>"; };
 		E5AC71551389146400DB450E /* TablesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TablesViewController.xib; sourceTree = "<group>"; };
+		E5AC7157138950B200DB450E /* anna-a-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anna-a-57x57.png"; sourceTree = "<group>"; };
+		E5AC7159138950C500DB450E /* anna-a-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anna-a-114x114.png"; sourceTree = "<group>"; };
+		E5AC715B138950D600DB450E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E5AC715D138950E400DB450E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E5AC715F138958F800DB450E /* calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator.png; sourceTree = "<group>"; };
 		E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfo.h; sourceTree = "<group>"; };
 		E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfo.m; sourceTree = "<group>"; };
 		E5B7F677134704D10024AB35 /* ReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationViewController.h; sourceTree = "<group>"; };
@@ -395,6 +405,10 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E5AC715D138950E400DB450E /* Default@2x.png */,
+				E5AC715B138950D600DB450E /* Default.png */,
+				E5AC7159138950C500DB450E /* anna-a-114x114.png */,
+				E5AC7157138950B200DB450E /* anna-a-57x57.png */,
 				E561E2741336445600229B76 /* anna72.png */,
 				E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */,
 				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
@@ -638,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				E5B7F67D1347447D0024AB35 /* uk.png */,
+				E5AC715F138958F800DB450E /* calculator.png */,
 				E533A0D0132D44C8005CB4D6 /* refresh.png */,
 				E5F0648E130D4F260037816B /* nl.png */,
 				E5F06494130D4FB20037816B /* es.png */,
@@ -906,6 +921,11 @@
 				E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */,
 				E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */,
 				E5AC71561389146900DB450E /* TablesViewController.xib in Resources */,
+				E5AC7158138950B700DB450E /* anna-a-57x57.png in Resources */,
+				E5AC715A138950C600DB450E /* anna-a-114x114.png in Resources */,
+				E5AC715C138950D700DB450E /* Default.png in Resources */,
+				E5AC715E138950E600DB450E /* Default@2x.png in Resources */,
+				E5AC7160138958F900DB450E /* calculator.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

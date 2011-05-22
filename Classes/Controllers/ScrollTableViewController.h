@@ -28,6 +28,10 @@
 @property (retain) UIPopoverController *popover;
 @property (retain) IBOutlet UISlider *slider;
 @property (retain) IBOutlet UISegmentedControl *segmentShow;
+@property (retain) IBOutlet UIBarButtonItem *buttonEdit;
+@property (retain) IBOutlet UIBarButtonItem *buttonAdd;
+@property (retain) IBOutlet UIBarButtonItem *buttonPhone;
+@property (retain) IBOutlet UIToolbar *toolbar;
 
 - (void) setupScrolledInPage: (int)page;
 - (NSDate *)pageToDate: (int)page;

@@ -22,10 +22,15 @@ static 	Cache * _cache = nil;
         {
             _cache = [self alloc];
             id service = [Service getInstance];
+            NSLog(@"Start menucard");
             _cache.menuCard = [service getMenuCard];
+            NSLog(@"Start menus");
             _cache.menuCard.menus = [service getMenus];
+            NSLog(@"Start map");
             _cache.map = [service getMap];
+            NSLog(@"Start tree");
             _cache.tree = [service getTree];
+            NSLog(@"End cacheCac");
         }
     }
     return _cache;
