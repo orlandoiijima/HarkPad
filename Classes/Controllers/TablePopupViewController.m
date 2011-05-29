@@ -189,9 +189,10 @@
     labelTable.text = [NSString stringWithFormat:@"Tafel %@", table.name];
     
     if(self.table.isDocked) {
-        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
+//        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
     }
     else {
+        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonStartCourse.bounds.size.width, buttonMakeOrder.bounds.size.height);
         [buttonUndockTable removeFromSuperview];	
     }
 

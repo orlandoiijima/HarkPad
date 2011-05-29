@@ -14,7 +14,7 @@
 
 @implementation OrderGridView
 
-@synthesize cellSpaceWidth, cellBorderWidth, cellSpaceHeight, cellBorderHeight, tableMarginWidth, tableMarginHeight, tableBorderWidth, tableBorderHeight, columnWidth, firstRow, firstColumn, rowHeaderWidth, rowFooterWidth, columnHeaderHeight, columnFooterHeight, lineHeight, lineSeparatorHeight, minimumColumnWidth, countVisibleColumns, dropTarget, selectedCell, selectedOrderLine, selectedOrderLineFrame;
+@synthesize cellSpaceWidth, cellBorderWidth, cellSpaceHeight, cellBorderHeight, tableMarginWidth, tableMarginHeight, tableBorderWidth, tableBorderHeight, columnWidth, firstRow, firstColumn, rowHeaderWidth, rowFooterWidth, columnHeaderHeight, columnFooterHeight, lineHeight, lineSeparatorHeight, minimumColumnWidth, countVisibleColumns, dropTarget, selectedCell;
 /*
  
 |tableMarginWidth|tableBorderWidth|rowHeaderWidth|cellSpaceWidth| cellBorderWidth | cellcontent | cellBorderWidth | cellSpaceWidth | cellBorderWidth | cellcontent | cellBorderWidth | cellSpaceWidth | tableBorderWidth | tableMarginWidth
@@ -25,8 +25,6 @@
         lineHeight = 40;
         columnHeaderHeight = 22;
         rowHeaderWidth = 30;
-//        cellBorderHeight = 2;
-//        cellBorderWidth = 2;
         cellSpaceWidth = 8;
         cellSpaceHeight = 8;
         lineSeparatorHeight = 1;
@@ -34,9 +32,7 @@
         firstColumn = 0;
         dropTarget = nil;
         selectedCell = nil;
-        selectedOrderLine = nil;
-//        self.backgroundColor = [UIColor blackColor];
-    }
+	    }
     return self;
 }
 
@@ -67,7 +63,7 @@
                     [[UIColor colorWithWhite:0.1 alpha:1] set];
                     UIRectFill(frame);
                 }
-                CGRect rowHeaderFrame = CGRectMake(tableMarginWidth + tableBorderWidth, frame.origin.y, rowHeaderWidth, frame.size.height);
+                CGRect rowHeaderFrame = CGRectMake(tableMarginWidth + tableBorderWidth, frame.origin.y, rowHeaderWidth, frame.size.height - cellSpaceHeight);
                 [self drawRowHeader: rowHeaderFrame row: row];
             }
             if(row == firstRow)
@@ -91,7 +87,7 @@
             {
                 if([topController matchesFilter:line])
                 {
-                    BOOL selected = line == selectedOrderLine || (selectedCell != nil && selectedCell.column == column && selectedCell.row == row && selectedCell.line == lineOffset);
+                    BOOL selected = (selectedCell != nil && selectedCell.column == column && selectedCell.row == row && selectedCell.line == lineOffset);
                     [self drawOrderLine: line frame:frame selected: selected first: lineOffset == 0 last: lineOffset + 1 == cellOrderLines.count];
                     frame = CGRectOffset(frame, 0, lineHeight + lineSeparatorHeight);
                     lineOffset++;
@@ -213,7 +209,6 @@
     {
         bgrColor = [UIColor blueColor];
         textColor = [UIColor whiteColor];
-        selectedOrderLineFrame = frame;
     }
     else
     {
@@ -286,12 +281,12 @@
                 {
                     if(hitInfo.cell.column == -1)
                     {
-                        hitInfo.type = 2;
+                        hitInfo.type = orderGridRowHeader;
                         return hitInfo;
                     }
                     if(hitInfo.cell.row == -1)
                     {
-                        hitInfo.type = 1;
+                        hitInfo.type = orderGridColumnHeader;
                         return hitInfo;
                     }
                     frame = CGRectInset(frame, cellBorderWidth, cellBorderHeight);       
@@ -309,7 +304,7 @@
                         frame = CGRectOffset(frame, 0, lineHeight + lineSeparatorHeight);
                     }
                     hitInfo.frame = frame;
-                    hitInfo.type = 0;
+                    hitInfo.type = orderLine;
                     return hitInfo;
                 }
                 if(hitInfo.cell.row == -1)
@@ -343,13 +338,13 @@
                           tableMarginWidth + tableBorderWidth,
                           y,
                           rowHeaderWidth,
-                          [self getRowHeight:row] - cellSpaceHeight);
+                          [self getRowHeight:row]);
     else
         return CGRectMake(
                           tableMarginWidth + tableBorderWidth + rowHeaderWidth + (column - firstColumn) * columnWidth + cellSpaceWidth,
                           y,
                           columnWidth - cellSpaceWidth,
-                          [self getRowHeight:row] - cellSpaceHeight);
+                          [self getRowHeight:row]);
 }
 
 - (int) getRowHeight: (int) row
@@ -390,19 +385,24 @@
     {
         if(dropTarget != nil)
         {
-            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
-            [self drawRowHeader: rect row: dropTarget.row];
-            [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
+//            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
+//            [self drawRowHeader: rect row: dropTarget.row];
+//            [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
         }
         self.dropTarget = newDropTarget;
         if(dropTarget != nil)
         {
-            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
-            if(dropTarget.row != -1)
-                [self drawRowHeader: rect row: dropTarget.row];
-            if(dropTarget.column != -1)
-                [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
+//            CGRect rect = [self getRect: dropTarget.column row:dropTarget.row];
+//            if(dropTarget.row != -1)
+//                [self drawRowHeader: rect row: dropTarget.row];
+//            if(dropTarget.column != -1)
+//                [self drawColumnHeader: rect column: dropTarget.column textColor: [UIColor blueColor]];
         }
+        NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
+        int seat = topController.orientation == SeatColumns ? dropTarget.column : dropTarget.row;
+        int course = topController.orientation == CourseColumns ? dropTarget.column : dropTarget.row;
+        
+        [self selectCourse: course seat:seat line:dropTarget.line];
     }
     
     [self redraw];
@@ -412,7 +412,7 @@
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
 
-    OrderLine *orderLine = self.selectedOrderLine;
+    OrderLine *orderLine = [self getSelectedOrderLine];
     if(orderLine == nil) return;
     OrderLineDetailViewController *detailViewController = [[OrderLineDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detailViewController.orderLine = orderLine;
@@ -425,14 +425,29 @@
     
     UIPopoverController *popOver = [[[UIPopoverController alloc] initWithContentViewController:navController] autorelease];
     popOver.delegate = topController;
-    [popOver presentPopoverFromRect: selectedOrderLineFrame inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    CGRect rect = [self getRect:selectedCell.column row:selectedCell.row];
+    [popOver presentPopoverFromRect: rect inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     detailViewController.popoverContainer = popOver;
 }
 
+- (OrderLine *) getSelectedOrderLine
+{
+    if(selectedCell == nil) return nil;
+
+    NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
+
+    int seat = topController.orientation == SeatColumns ? selectedCell.column : selectedCell.row;
+    int course = topController.orientation == CourseColumns ? selectedCell.column : selectedCell.row;
+
+    NSMutableArray *orderLines = [topController orderLinesWithCourse: course seat:seat];
+    if(orderLines != nil && selectedCell.line < orderLines.count)
+        return [orderLines objectAtIndex: selectedCell.line];
+    else
+        return nil;    
+}
 
 - (void) select: (OrderLine *)line
 {
-    selectedOrderLine = line;
 
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     NSMutableArray *orderlines = [topController orderLinesWithCourse: line.course.offset seat:line.guest.seat];
@@ -447,7 +462,7 @@
     int row = topController.orientation == CourseColumns ? line.guest.seat : line.course.offset;
     
     selectedCell = [GridCell cellWithColumn:column row:row line:offset];
-//    [self redraw];
+    [self redraw];
 }
 
 - (void) selectCourse: (int)course seat: (int)seat line: (int)line
@@ -459,12 +474,7 @@
 
     selectedCell = [GridCell cellWithColumn:column row:row line:line];
 
-    NSMutableArray *orderLines = [topController orderLinesWithCourse: course seat:seat];
-    if(orderLines != nil && line < orderLines.count)
-        selectedOrderLine = [orderLines objectAtIndex:line];
-    else
-        selectedOrderLine = nil;
-//    [self redraw];
+    [self redraw];
 }
  
 - (void)dealloc {

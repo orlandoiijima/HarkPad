@@ -50,7 +50,7 @@
     [tableMapView addGestureRecognizer:pinchGesture];
     [pinchGesture release];   
     
-    [self refreshView];		
+    [self gotoDistrict];		
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -315,25 +315,30 @@
     return nil;
 }
 
+- (IBAction)gotoDistrict
+{
+    if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
+    currentDistrict = [map.districts objectAtIndex:districtPicker.selectedSegmentIndex];    
+    [self refreshView];
+}
+
 - (IBAction) refreshView
 {
     if(isRefreshTimerDisabled) return;
     if(isVisible == false)
         return;
-    [[Service getInstance] getTablesInfo:self callback:@selector(refreshViewWithInfo:)];
+    if(currentDistrict == nil) return;
+    [[Service getInstance] getTablesInfoForDistrict:currentDistrict.id delegate: self callback:@selector(refreshViewWithInfo:)];
 }
 
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo
 {
     for(UIView *view in tableMapView.subviews) [view removeFromSuperview];
     [tableMapView setNeedsDisplay];
-    if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
-    currentDistrict = [map.districts objectAtIndex:districtPicker.selectedSegmentIndex];
     CGRect boundingRect = [currentDistrict getRect]	;
     scaleX = ((float)tableMapView.bounds.size.width - 20) / boundingRect.size.width;
     if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
         scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
-    
    
     NSMutableDictionary *districtTables = [[[NSMutableDictionary alloc] init] autorelease];
     for(TableInfo *tableInfo in tablesInfo)
@@ -386,7 +391,6 @@
         [districtPicker insertSegmentWithTitle:district.name atIndex:districtPicker.numberOfSegments animated:YES];
     }
     districtPicker.selectedSegmentIndex = 0;
-    [districtPicker addTarget:self action:@selector(refreshView) forControlEvents:UIControlEventAllEvents];
 }
 
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *) orders

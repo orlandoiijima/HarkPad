@@ -16,7 +16,7 @@
 + (TreeNode *) nodeFromJsonDictionary: (NSDictionary *)jsonDictionary parent: (TreeNode *) parent
 {
     TreeNode *node = [[[TreeNode alloc] init] autorelease];
-    node.id = [jsonDictionary objectForKey:@"id"];
+    node.id = [[jsonDictionary objectForKey:@"id"] intValue];
     node.name = [jsonDictionary objectForKey:@"name"];
     node.nodes = [[NSMutableArray alloc] init];
     node.parent = parent;
@@ -56,7 +56,7 @@
 
 - (TreeNode *) getNode: (int)nodeId
 {
-    if([self.id intValue] == nodeId)
+    if(self.id == nodeId)
         return self;
     
     for(TreeNode *node in nodes)

@@ -30,7 +30,8 @@ static Service *_service;
             url = @"http://80.101.82.103:10089";
         else
             url = @"http://pos.restaurantanna.nl";
-     }
+        url = @"http://localhost:10089";
+        }
     return self;
 }
 
@@ -128,14 +129,14 @@ static Service *_service;
     [self postPage: @"DockTables" key: @"tables" value: jsonString];
 }
 
-- (void) getTablesInfo: (id) delegate callback: (SEL)callback
+- (void) getTablesInfoForDistrict:(int)districtId delegate: (id) delegate callback: (SEL)callback
 {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
     [self getPageCallback:@"gettablesinfo"
-                withQuery:@""
+                withQuery:[NSString stringWithFormat:@"districtId=%d", districtId]
                  delegate: self
                  callback:@selector(getTablesInfoCallback:finishedWithData:error:)
                  userData:invocation];

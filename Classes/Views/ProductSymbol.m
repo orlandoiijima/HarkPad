@@ -20,6 +20,7 @@
     symbol.label = [[UILabel alloc] initWithFrame: CGRectInset(symbol.bounds, 4, 4)];
     symbol.label.adjustsFontSizeToFitWidth = YES;
     symbol.label.backgroundColor = [UIColor clearColor];
+    symbol.label.textAlignment = UITextAlignmentCenter;
     [symbol addSubview:symbol.label];
     symbol.backgroundColor = [UIColor clearColor];
     symbol.userInteractionEnabled = false;

@@ -141,6 +141,7 @@
         noteTextField = [[UITextField alloc] initWithFrame:rect];
         noteTextField.text = orderLine.note;
         [cell.contentView addSubview: noteTextField];
+        [noteTextField becomeFirstResponder];
         return cell;
         
     }        

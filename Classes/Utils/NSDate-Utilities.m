@@ -201,14 +201,14 @@
 
 #pragma mark Adjusting Dates
 
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays
+- (NSDate *) dateByAddingDays: (NSInteger) dDays
 {
 	NSTimeInterval aTimeInterval = [self timeIntervalSinceReferenceDate] + D_DAY * dDays;
 	NSDate *newDate = [NSDate dateWithTimeIntervalSinceReferenceDate:aTimeInterval];
 	return newDate;		
 }
 
-- (NSDate *) dateBySubtractingDays: (NSUInteger) dDays
+- (NSDate *) dateBySubtractingDays: (NSInteger) dDays
 {
 	return [self dateByAddingDays: (dDays * -1)];
 }

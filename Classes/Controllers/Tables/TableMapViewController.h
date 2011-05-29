@@ -23,6 +23,7 @@
 
 - (void) clickTable : (UIControl *) c;
 - (IBAction) refreshView;
+- (IBAction)gotoDistrict;
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *)orders;
 - (void) setupDistrictPicker;

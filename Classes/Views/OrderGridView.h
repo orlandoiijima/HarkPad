@@ -15,8 +15,8 @@
 @interface OrderGridView : UIView {
     GridCell *dropTarget;
     GridCell *selectedCell;
-    OrderLine *selectedOrderLine;
-    CGRect selectedOrderLineFrame;
+//    OrderLine *selectedOrderLine;
+//    CGRect selectedOrderLineFrame;
 }
 
 @property int tableMarginWidth;
@@ -41,8 +41,10 @@
 
 @property (retain) GridCell *dropTarget;
 @property (retain) GridCell *selectedCell;
-@property (retain) OrderLine *selectedOrderLine;
-@property CGRect selectedOrderLineFrame;
+//@property (retain) OrderLine *selectedOrderLine;
+//@property CGRect selectedOrderLineFrame;
+
+- (OrderLine *) getSelectedOrderLine;
 
 - (CGRect) getRect: (int) column row: (int) row;
 - (int) getRowHeight: (int) seat;

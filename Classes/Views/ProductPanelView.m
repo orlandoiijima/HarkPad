@@ -88,9 +88,9 @@
         index++;
     }
     
-    TreeNode *grandParent = parentNode.parent.parent;
-    if(grandParent != nil)
+    if(parentNode.id != rootNode.id)
     {
+        TreeNode *grandParent = parentNode.parent;
         if(grandParent.id != rootNode.id)
         {
             int column = index % countColumns;

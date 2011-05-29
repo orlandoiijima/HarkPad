@@ -11,7 +11,7 @@
 #import "Menu.h"
 
 @interface TreeNode : NSObject {
-    NSNumber *id;
+    int id;
     NSString *name;
     NSMutableArray *nodes;
     TreeNode *parent;
@@ -21,7 +21,7 @@
     Menu *menu;
 }
 
-@property (retain) NSNumber *id;
+@property int id;
 @property (retain) NSString *name;
 @property (retain) NSMutableArray *nodes;
 @property (retain) TreeNode *parent;

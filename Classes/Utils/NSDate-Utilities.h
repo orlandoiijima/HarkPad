@@ -43,8 +43,8 @@
 - (BOOL) isLaterThanDate: (NSDate *) aDate;
 
 // Adjusting dates
-- (NSDate *) dateByAddingDays: (NSUInteger) dDays;
-- (NSDate *) dateBySubtractingDays: (NSUInteger) dDays;
+- (NSDate *) dateByAddingDays: (NSInteger) dDays;
+- (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 - (NSDate *) dateByAddingHours: (NSUInteger) dHours;
 - (NSDate *) dateBySubtractingHours: (NSUInteger) dHours;
 - (NSDate *) dateByAddingMinutes: (NSUInteger) dMinutes;

@@ -64,15 +64,16 @@
     [scrollView addSubview:nextPage];
     
     dataSources = [[NSMutableDictionary alloc] init];
-    ReservationDataSource *dataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations: YES];
-    NSString *key = [self dateToKey:[NSDate date]];
-    [dataSources setObject:dataSource forKey:key];
-    currentPage.dataSource = dataSource;    
+    [self gotoDayoffset:7];
+//    ReservationDataSource *dataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations: YES];
+//    NSString *key = [self dateToKey:[NSDate date]];
+//    [dataSources setObject:dataSource forKey:key];
+//    currentPage.dataSource = dataSource;    
 }
 
 - (NSDate *)pageToDate: (int)page
 {
-    return [[NSDate date] dateByAddingDays: page];
+    return [[	NSDate date] dateByAddingDays:page - 7];
 }
 
 - (NSString *) dateToKey: (NSDate *)date
@@ -119,10 +120,8 @@
 	int lowerPage = floor(fractionalPage);
     int upperPage = lowerPage + 1;
     
-    NSDate *today = [NSDate date];
-	NSDate *lowerDate = [today dateByAddingDays:lowerPage];
-//	NSDate *upperDate = [lowerDate dateByAddingDays:1];
-    
+	NSDate *lowerDate = [self pageToDate:lowerPage];
+	    
     ReservationDataSource *currentDataSource = (ReservationDataSource *) currentPage.dataSource;
 	if ([lowerDate isEqualToDateIgnoringTime: currentDataSource.date])
 	{

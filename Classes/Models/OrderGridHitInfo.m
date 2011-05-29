@@ -17,7 +17,7 @@
 {
     cell = [GridCell cellWithColumn:0 row:0 line:0];
     orderLine = nil;
-    type = -1;
+    type = nothing;
     return self;
 }
 
