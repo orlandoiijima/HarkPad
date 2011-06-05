@@ -64,7 +64,7 @@
 - (void) setOptimalSize
 {
     if(order != nil || self.reservationDataSource == nil || [self.reservationDataSource isEmpty]) {
-        if(order.reservation == nil || order.reservation.notes == nil) {
+        if(order.reservation == nil || order.reservation.notes == nil || [order.reservation.notes length] == 0) {
             //  Not based on reservation or no note
             self.contentSizeForViewInPopover = [self getSizeFromBottomItem: buttonMakeBill];
         }
@@ -189,7 +189,7 @@
     labelTable.text = [NSString stringWithFormat:@"Tafel %@", table.name];
     
     if(self.table.isDocked) {
-//        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
+//	        buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonMakeBill.bounds.size.width, buttonMakeOrder.bounds.size.height);
     }
     else {
         buttonMakeOrder.frame = CGRectMake(buttonMakeOrder.frame.origin.x, buttonMakeOrder.frame.origin.y, buttonStartCourse.bounds.size.width, buttonMakeOrder.bounds.size.height);

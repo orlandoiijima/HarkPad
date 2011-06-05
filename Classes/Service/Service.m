@@ -31,7 +31,7 @@ static Service *_service;
         else
             url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
-        }
+    }
     return self;
 }
 
@@ -285,10 +285,42 @@ static Service *_service;
     return stats;
 }
 
-- (NSMutableArray *) getInvoices
+- (void) getDashboardStatistics : (id) delegate callback: (SEL)callback
 {
-	NSURL *testUrl = [self makeEndPoint:@"getInvoices" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getdashboardstatistics"
+                withQuery:@""
+                 delegate:self
+                 callback:@selector(serviceCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) serviceCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data];
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
+}
+
+- (void) getInvoices: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getinvoices"
+                withQuery:@""
+                 delegate:self
+                 callback:@selector(getInvoicesCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
 	NSMutableArray *invoices = [[[NSMutableArray alloc] init] autorelease];
     NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
     for(NSDictionary *invoiceDic in invoicesDic)
@@ -296,7 +328,12 @@ static Service *_service;
         Invoice *invoice = [Invoice invoiceFromJsonDictionary: invoiceDic];
         [invoices addObject:invoice];
     }
-    return invoices;
+    
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&invoices atIndex:2];
+    [invocation invoke];
+
+    return;
 }
 
 - (NSMutableArray *) getSalesStatistics: (NSDate *)date

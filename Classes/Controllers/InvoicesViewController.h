@@ -10,8 +10,10 @@
 #import "Order.h"
 
 @interface InvoicesViewController : UITableViewController {
-    
+    NSMutableArray *invoices;
 }
+
+@property (retain) NSMutableArray *invoices;
 
 - (void) onUpdateOrder: (Order *)order;
 

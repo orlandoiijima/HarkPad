@@ -8,6 +8,7 @@
 
 #import "ScrollTableViewController.h"
 #import "iToast.h"
+#import "ReservationTableCell.h"
 
 @implementation ScrollTableViewController
 
@@ -184,11 +185,8 @@
 
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if([currentPage.table isEditing])
-        [self edit];
+    Reservation *reservation = [currentPage selectedReservation];
+    if(reservation == nil) return;
 }
 
 - (void) editMode

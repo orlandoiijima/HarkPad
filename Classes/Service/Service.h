@@ -15,7 +15,7 @@
 #import "Slot.h"
 #import "CJSONSerializer.h"
 #import "KitchenStatistics.h"
-#import "TableInfo.h"
+#import "TableInfo.h"	
 #import "WorkInProgress.h"
 #import "ServiceResult.h"
 #import "GTMHTTPFetcher.h"
@@ -44,7 +44,9 @@
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
 - (NSMutableArray *) getSalesStatistics: (NSDate*)date;
-- (NSMutableArray *) getInvoices;
+- (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
+- (void) getInvoices: (id) delegate callback: (SEL)callback;
+- (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void) printSalesReport: (NSDate *)date;
 - (Order *) getOpenOrderByTable: (int) tableId;
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;

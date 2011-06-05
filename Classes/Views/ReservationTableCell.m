@@ -1,4 +1,4 @@
-//
+			//
 //  ReservationTableCell.m
 //  HarkPad
 //
@@ -19,6 +19,15 @@
         // Initialization code
     }
     return self;
+}
+
+- (void) layoutSubviews
+{
+    [super layoutSubviews];
+    self.notes.frame = CGRectMake(self.notes.frame.origin.x,
+                                  self.notes.frame.origin.y,
+                                  self.contentView.frame.size.width - self.notes.frame.origin.x,
+                                  self.notes.frame.size.height);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -56,4 +65,4 @@
     [super dealloc];
 }
 
-@end
+@end		

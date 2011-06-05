@@ -11,6 +11,7 @@
 #import "OrderLineCell.h"
 #import "Service.h"
 #import "ModalAlert.h"
+#import "Utils.h"
 
 @implementation InvoiceDataSource
 
@@ -114,7 +115,7 @@
     {
         total = [total decimalNumberByAdding:line.product.price];
     }
-    return [NSString stringWithFormat:@"%@ (€ %.02f)", key, [total doubleValue]];
+    return [NSString stringWithFormat:@"%@ (%@)", key, [Utils getAmountString: total withCurrency:YES]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -60,8 +60,10 @@
     for(OrderLinePropertyValue *propertyValue in line.propertyValues)
     {
         props.text = [NSString stringWithFormat:@"%@ %@", props.text, propertyValue.displayValue];
-    }
-    price.text = [NSString stringWithFormat:@"%0.2f", [line.product.price doubleValue] * line.quantity];
+    } 
+    NSDecimalNumber *q = [NSDecimalNumber decimalNumberWithDecimal: [[NSNumber numberWithInt:line.quantity] decimalValue]];
+    NSDecimalNumber *amount = [line.product.price decimalNumberByMultiplyingBy:q]; 
+    price.text = [Utils getAmountString: amount withCurrency:NO];
 
     self.backgroundColor = [orderLine.product.category.color colorWithAlphaComponent:0.8];			
     self.opaque = NO;

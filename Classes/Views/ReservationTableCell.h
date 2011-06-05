@@ -11,6 +11,7 @@
 
 @interface ReservationTableCell : UITableViewCell {
     Reservation *reservation;
+    UILabel *notes;
 }
 
 @property (retain) IBOutlet UILabel *name;

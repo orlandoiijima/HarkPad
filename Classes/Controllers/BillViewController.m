@@ -8,6 +8,7 @@
 
 #import "BillViewController.h"
 #import "Service.h"
+#import "Utils.h"
 
 @implementation BillViewController
 
@@ -48,7 +49,7 @@
 
 - (IBAction) changeGrouping
 {
-    dataSource.grouping = groupingSegment.selectedSegmentIndex;
+    dataSource.grouping = groupingSegment.selectedSegmentIndex + 1;
     [orderTable reloadData];
 }
 
@@ -75,7 +76,7 @@
     tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
-    amountLabel.text = [NSString stringWithFormat:@"€ %0.2f", [[order getAmount] doubleValue]];
+    amountLabel.text = [NSString stringWithFormat:@"%@", [Utils getAmountString: [order getAmount] withCurrency:YES]];
     nameLabel.text = order.reservation == nil ? @"" : order.reservation.name;
 }
 

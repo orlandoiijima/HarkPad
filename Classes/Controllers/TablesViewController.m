@@ -45,7 +45,7 @@
     [super viewDidLoad];
 
     if(groupedTables == nil)
-        [[Service getInstance] getTablesInfo:self callback:@selector(createDataSource:)];
+        [[Service getInstance] getTablesInfoForDistrict:-1 delegate: self callback:@selector(createDataSource:)];
     self.contentSizeForViewInPopover = CGSizeMake(170, 500);
 }
 
@@ -138,7 +138,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if(groupedTables == nil || section >= [groupedTables count]) return @"";
-    return [NSString stringWithFormat:@"Wijk %@", [[groupedTables allKeys] objectAtIndex:section]];
+    return [NSString stringWithFormat:@"Wijk %@", [self keyForSection:section]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

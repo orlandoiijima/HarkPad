@@ -43,4 +43,15 @@
     NSString *hour = elapsed > 3600 ? [NSString stringWithFormat:@"%d ", elapsed / 3600] : @"";  
     return [NSString stringWithFormat:@"%@%d'", hour, (elapsed / 60) % 60];
 }
+
+
++ (NSString *) getAmountString: (NSDecimalNumber *)amount withCurrency: (bool) withCurrency
+{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    [formatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    if(withCurrency == false)
+        [formatter setCurrencySymbol:@""];	
+    return [formatter stringFromNumber:amount];
+}
+
 @end

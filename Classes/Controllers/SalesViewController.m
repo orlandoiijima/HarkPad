@@ -11,10 +11,13 @@
 #import "ProductTotals.h"
 #import "NSDate-Utilities.h"
 #import "iToast.h"
+#import "Utils.h"
 
 @implementation SalesViewController
 
 @synthesize groupedTotals, dateToShow, dateLabel, tableAmounts;
+
+#define COLUMN_WIDTH 75
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +29,6 @@
     return self;
 }
 
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [groupedTotals count];
 }
@@ -36,8 +38,28 @@
     return [[groupedTotals objectForKey:key] count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [self keyForSection:section];
+- (float)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] init];
+    UILabel *categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 20)];
+    categoryLabel.text = [self keyForSection:section];
+    [headerView addSubview:categoryLabel];
+    if(section == 0) {
+        NSArray *labels = [NSArray arrayWithObjects:@"Contant", @"Pin", @"Credit", @"Totaal", nil];
+        float x = tableView.bounds.size.width - 4 * COLUMN_WIDTH - 55;
+        for(int i=0; i < 4; i++) {
+            UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, COLUMN_WIDTH, 20)];
+            typeLabel.textAlignment = UITextAlignmentRight;
+            typeLabel.text = [labels objectAtIndex:i];
+            [headerView addSubview:typeLabel];
+            x += COLUMN_WIDTH;
+        }
+    }
+    return headerView;
 }
 
 - (NSString *) keyForSection: (int) section
@@ -48,7 +70,6 @@
     return [sortedKeys objectAtIndex:section];
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
@@ -59,32 +80,31 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        float width = 75;
-        float x = tableView.bounds.size.width - 4 * width - 100;
+        float x = tableView.bounds.size.width - 4 * COLUMN_WIDTH - 100;
         float y = 5;
         float height = cell.contentView.bounds.size.height - 10;
         for(int i=0; i < 3; i++) {
-            UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, width, height) cell:cell];
+            UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, COLUMN_WIDTH, height) cell:cell];
             label.tag = 100 +i;
-            x += width;
+            x += COLUMN_WIDTH;
         }
-        UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, width, height) cell:cell];
+        UILabel *label = [self addAmountLabelWithFrame:CGRectMake(x, y, COLUMN_WIDTH, height) cell:cell];
         label.tag = 200;
     }
-    float total = 0;
+    NSDecimalNumber *total = [NSDecimalNumber zero];
     for(int i=0; i < 3; i++) {
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
         NSDecimalNumber *amount = [totals.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
-        label.text = [NSString stringWithFormat:@"%.02f", [amount floatValue]];
+        label.text = [Utils getAmountString: amount withCurrency:NO];
         label.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
         label.highlightedTextColor = [UIColor whiteColor];
-        total += [amount floatValue];
+        total = [total decimalNumberByAdding: amount];
     }
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:200];
     label.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
     label.shadowColor = [UIColor lightGrayColor];
     label.highlightedTextColor = [UIColor whiteColor];
-    label.text = [NSString stringWithFormat:@"%.02f", total];
+    label.text = [Utils getAmountString: total withCurrency:NO];
 
    
     if([key isEqualToString:@"Totalen"]) {

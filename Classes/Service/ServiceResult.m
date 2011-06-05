@@ -10,7 +10,7 @@
 
 @implementation ServiceResult
 
-@synthesize data, id, error, isSuccess;
+@synthesize data, id, error, notification, isSuccess;
 
 - (id)init {
     if ((self = [super init])) {
@@ -18,6 +18,7 @@
         self.error = @"";
         self.isSuccess = false;
         self.data = [[NSMutableDictionary alloc] init];
+        self.notification = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -30,16 +31,16 @@
     }
     else {
         NSError *error = nil;
-        serviceResult.data = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
+        NSMutableDictionary *dic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
         if(error == nil) {
-            id result =  [serviceResult.data objectForKey:@"result"];
-            if(result != nil) {
-                serviceResult.id = [[result objectForKey:@"id"] intValue];
+            serviceResult.data =  [dic objectForKey:@"result"];
+            if(serviceResult.data != nil) {
+                serviceResult.id = [[serviceResult.data objectForKey:@"id"] intValue];
                 serviceResult.isSuccess = true;
             }
-            id error =  [serviceResult.data objectForKey:@"error"];
+            id error =  [dic objectForKey:@"error"];
             if(error != nil) {
-                serviceResult.error = [serviceResult.data objectForKey:@"error"];
+                serviceResult.error = [dic objectForKey:@"error"];
             }
         }
     }

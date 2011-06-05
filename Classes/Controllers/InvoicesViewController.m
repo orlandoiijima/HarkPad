@@ -14,6 +14,8 @@
 
 @implementation InvoicesViewController
 
+@synthesize invoices;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -40,14 +42,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.dataSource = [InvoicesDataSource dataSource];
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    [[Service getInstance] getInvoices:self callback:@selector(getInvoicesCallback:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
 }
+
+- (void) getInvoicesCallback: (NSMutableArray *)newInvoices;
+{
+    self.invoices = newInvoices;
+    [self.tableView reloadData];
+}
+
 
 - (void)viewDidUnload
 {
@@ -58,7 +63,7 @@
 
 - (void) refresh
 {
-    self.tableView.dataSource = [InvoicesDataSource dataSource];
+    [[Service getInstance] getInvoices:self callback:@selector(getInvoicesCallback:)];
     [self.tableView reloadData];
 }
 
@@ -88,53 +93,46 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - Table view data source
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return 1;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    if(section  != 0) return 0;
+    return [invoices count];
 }
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+	
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+    }
+    
+    if(indexPath.row < [invoices count]) {
+        Invoice *invoice = [invoices objectAtIndex:indexPath.row];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        [formatter setDateStyle:NSDateFormatterNoStyle];
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.table.name, [formatter stringFromDate:invoice.createdOn]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"€ %.02f", [invoice.amount doubleValue]];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        if(invoice.paymentType == -1)
+            cell.textLabel.textColor = [UIColor redColor];
+    }
+    return cell;
 }
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-#pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    InvoicesDataSource *dataSource = (InvoicesDataSource *)self.tableView.dataSource;
-    Invoice *invoice = [dataSource.invoices objectAtIndex:indexPath.row];
+    Invoice *invoice = [self.invoices objectAtIndex:indexPath.row];
     // Navigation logic may go here. Create and push another view controller.
     OrderLinesViewController *controller = [[OrderLinesViewController alloc] initWithStyle:UITableViewStylePlain];
     controller.invoicesViewController = self;
@@ -147,8 +145,7 @@
 
 - (void) onUpdateOrder: (Order *)order
 {
-    InvoicesDataSource *dataSource = (InvoicesDataSource *)self.tableView.dataSource;
-    for(Invoice *invoice in dataSource.invoices)
+    for(Invoice *invoice in self.invoices)
     {
         if(invoice.orderId == order.id)
         {

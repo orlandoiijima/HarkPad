@@ -138,6 +138,10 @@
 		E5E7234C1311A12C00905959 /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */; };
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
+		E5F00514139A124E00B2ED57 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F00513139A124E00B2ED57 /* DashboardViewController.m */; };
+		E5F00518139A290600B2ED57 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */; };
+		E5F0051B139A2B6300B2ED57 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */; };
+		E5F0051D139AC64600B2ED57 /* dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F0051C139AC64600B2ED57 /* dashboard.png */; };
 		E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */; };
 		E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2C9951351DA6300FDBE85 /* creditcard.png */; };
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
@@ -366,6 +370,13 @@
 		E5E722EF13118B3900905959 /* ChefViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChefViewController.m; sourceTree = "<group>"; };
 		E5E722F013118B3D00905959 /* ChefViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChefViewController.xib; sourceTree = "<group>"; };
 		E5E723521311A12C00905959 /* HarkPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarkPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5F00512139A124E00B2ED57 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		E5F00513139A124E00B2ED57 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		E5F00516139A290600B2ED57 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
+		E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
+		E5F00519139A2B6300B2ED57 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
+		E5F0051C139AC64600B2ED57 /* dashboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard.png; sourceTree = "<group>"; };
 		E5F0648E130D4F260037816B /* nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nl.png; sourceTree = "<group>"; };
 		E5F06490130D4F7C0037816B /* de.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = de.png; sourceTree = "<group>"; };
 		E5F06492130D4F8A0037816B /* fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fr.png; sourceTree = "<group>"; };
@@ -505,6 +516,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F00516139A290600B2ED57 /* PullToRefreshTableViewController.h */,
+				E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */,
 				E561E25C13348E8900229B76 /* BillViewController.h */,
 				E561E25D13348E8A00229B76 /* BillViewController.m */,
 				E561E25E13348E8C00229B76 /* BillViewController.xib */,
@@ -547,6 +560,8 @@
 				E5AC71511388E54500DB450E /* TablesViewController.h */,
 				E5AC71521388E54600DB450E /* TablesViewController.m */,
 				E5AC71551389146400DB450E /* TablesViewController.xib */,
+				E5F00512139A124E00B2ED57 /* DashboardViewController.h */,
+				E5F00513139A124E00B2ED57 /* DashboardViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -656,6 +671,7 @@
 				E5B7F67D1347447D0024AB35 /* uk.png */,
 				E5AC715F138958F800DB450E /* calculator.png */,
 				E533A0D0132D44C8005CB4D6 /* refresh.png */,
+				E5F0051C139AC64600B2ED57 /* dashboard.png */,
 				E5F0648E130D4F260037816B /* nl.png */,
 				E5F06494130D4FB20037816B /* es.png */,
 				E5F06496130D4FC50037816B /* it.png */,
@@ -733,6 +749,8 @@
 		E50A38AE12E234B8007C2101 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5F00519139A2B6300B2ED57 /* EGORefreshTableHeaderView.h */,
+				E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */,
 				E50A38AF12E234B8007C2101 /* CourseProgress.h */,
 				E50A38B012E234B8007C2101 /* CourseProgress.m */,
 				E50A38B112E234B8007C2101 /* NewOrderView.h */,
@@ -930,6 +948,7 @@
 				E5AC715E138950E600DB450E /* Default@2x.png in Resources */,
 				E5AC7160138958F900DB450E /* calculator.png in Resources */,
 				E5286C5B13925681004B1139 /* group.png in Resources */,
+				E5F0051D139AC64600B2ED57 /* dashboard.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,6 +1046,9 @@
 				E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */,
 				E5E2D7AB1386B2EF00745EFE /* OrderLinesViewController.m in Sources */,
 				E5AC71531388E54800DB450E /* TablesViewController.m in Sources */,
+				E5F00514139A124E00B2ED57 /* DashboardViewController.m in Sources */,
+				E5F00518139A290600B2ED57 /* PullToRefreshTableViewController.m in Sources */,
+				E5F0051B139A2B6300B2ED57 /* EGORefreshTableHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
