@@ -22,14 +22,6 @@ static Service *_service;
         
         [[NSUserDefaults standardUserDefaults] synchronize];	
 	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        if([env isEqualToString:@"test"])
-            url = @"http://postest.restaurantanna.nl";
-        else if([env isEqualToString:@"development"])
-            url = @"http://localhost:10089";
-        else if([env isEqualToString:@"development2"])
-            url = @"http://80.101.82.103:10089";
-        else
-            url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
 	    }
     return self;
