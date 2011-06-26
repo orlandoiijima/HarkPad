@@ -22,14 +22,13 @@
 
 @implementation TableMapViewController
 
-@synthesize map, tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX, isVisible;
+@synthesize tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX, isVisible;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    map = [[Cache getInstance] map];
     [self setupDistrictPicker];
     	
     [NSTimer scheduledTimerWithTimeInterval:10.0f
@@ -317,6 +316,7 @@
 
 - (IBAction)gotoDistrict
 {
+    Map *map = [[Cache getInstance] map];
     if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
     currentDistrict = [map.districts objectAtIndex:districtPicker.selectedSegmentIndex];    
     [self refreshView];
@@ -340,12 +340,14 @@
     if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
         scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
    
+    Map *map = [[Cache getInstance] map];
+    
     NSMutableDictionary *districtTables = [[[NSMutableDictionary alloc] init] autorelease];
     for(TableInfo *tableInfo in tablesInfo)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
-        District *district = [[[Cache getInstance] map] getDistrict:tableInfo.table.id];
+        District *district = [map getDistrict:tableInfo.table.id];
         if(district.id == currentDistrict.id) {
             TableButton *button = [TableButton buttonWithTable:tableInfo.table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX];
             button.userInteractionEnabled = false;
@@ -386,6 +388,7 @@
 - (void) setupDistrictPicker
 {
     [districtPicker removeAllSegments];
+    Map *map = [[Cache getInstance] map];
     for(District *district in map.districts)
     {
         [districtPicker insertSegmentWithTitle:district.name atIndex:districtPicker.numberOfSegments animated:YES];
@@ -434,7 +437,6 @@
 - (TableButton *) buttonForOrder: (int)orderId
 {
     for(TableButton *tableButton in tableMapView.subviews) {
-        Table* table = tableButton.table;
         if(tableButton.orderInfo.id == orderId)
             return tableButton;
     }

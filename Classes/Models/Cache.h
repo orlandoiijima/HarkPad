@@ -19,6 +19,7 @@
 }
 
 + (Cache *) getInstance;
++ (void) clear;
 
 @property (retain) MenuCard *menuCard;
 @property (retain) Map *map;

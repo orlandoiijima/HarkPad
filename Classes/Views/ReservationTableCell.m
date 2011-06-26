@@ -24,6 +24,8 @@
 - (void) layoutSubviews
 {
     [super layoutSubviews];
+    if([self.reservation.notes length] == 0)
+        self.name.frame = CGRectMake(self.name.frame.origin.x, self.name.frame.origin.y, self.contentView.frame.size.width, self.name.frame.size.height);
     self.notes.frame = CGRectMake(self.notes.frame.origin.x,
                                   self.notes.frame.origin.y,
                                   self.contentView.frame.size.width - self.notes.frame.origin.x,

@@ -34,4 +34,17 @@
     return product;
 }
 
+- (NSMutableDictionary *) initDictionary
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    [dic setObject: self.name forKey:@"name"];
+    [dic setObject: self.key forKey:@"key"];
+    [dic setObject: self.description forKey:@"description"];
+    [dic setObject: [NSNumber numberWithInt:self.category.id] forKey:@"categoryId"];
+    [dic setObject: self.price forKey:@"price"];
+    
+    return dic;
+}
+
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IASKSettingsReader.h"
+#import "Service.h"
 
 @class TableMapViewController;
 

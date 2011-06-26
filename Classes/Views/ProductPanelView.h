@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TreeNode.h"
 
-@interface ProductPanelView : UIView {
+@interface ProductPanelView : UIView <UIGestureRecognizerDelegate> {
     TreeNode *rootNode;
     TreeNode *parentNode;
     UISegmentedControl *menuCardSegment;
@@ -28,5 +28,5 @@
 @property (retain) TreeNode *parentNode, *rootNode;
 @property (retain) UISegmentedControl *menuCardSegment;
 @property (retain) UILabel *productInfoLabel;
-
+@property bool showMenuCard;
 @end

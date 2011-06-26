@@ -32,4 +32,6 @@
 @property (retain) NSMutableArray *properties;
 
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
+- (NSMutableDictionary *) initDictionary;
+
 @end

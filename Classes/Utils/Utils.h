@@ -18,5 +18,7 @@
 + (NSString *) getCourseChar: (int) course;
 + (NSString *) getElapsedMinutesString: (NSDate *) date;
 + (NSString *) getAmountString: (NSDecimalNumber *)amount withCurrency: (bool) withCurrency;
++ (NSDecimalNumber *) getAmountFromString: (NSString *)amount;
++ (NSString *) trim: (NSString *) text;
 
 @end

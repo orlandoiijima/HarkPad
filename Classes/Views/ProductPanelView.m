@@ -14,19 +14,48 @@
 @implementation ProductPanelView
 
 @synthesize rootNode, parentNode, menuCardSegment, productInfoLabel;
+@synthesize showMenuCard = _showMenuCard;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self setupMenuCard: frame];
+        _showMenuCard  =YES;
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        tapGesture.delegate = self;
+        [self addGestureRecognizer:tapGesture];
+        [tapGesture release];   
+        
     }
     return self;
 }
 
+- (void) setShowMenuCard: (bool)show
+{
+    _showMenuCard = show;
+    if(show)
+        [self addSubview:menuCardSegment];
+    else
+        [menuCardSegment removeFromSuperview];		
+}
+
+- (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
+{
+    CGPoint point = [tapGestureRecognizer locationInView:self];
+    if(tapGestureRecognizer.state != UIGestureRecognizerStateEnded)
+        return;
+    
+    CGRect rect;
+    TreeNode *node = [self treeNodeByPoint: point frame:&rect];
+    if(node == nil || node.product != nil)
+        return;
+    parentNode = node;
+    [self setNeedsDisplay];
+}
 
 - (void)layoutSubviews
 {
     menuCardSegment.hidden = self.frame.size.width < 20;
-    menuCardSegment.frame = CGRectMake(10, 0, self.frame.size.width - 20, 35);
+    menuCardSegment.frame = CGRectMake(10, 0, self.frame.size.width - 20, _showMenuCard ? 35 : 0);
     productInfoLabel.frame = menuCardSegment.frame;
 }
 
@@ -117,9 +146,10 @@
 
 - (void) drawProductButton: (int)column row: (int)row productNode: (TreeNode *)node
 {
-    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
+//    NewOrderVC *controller = [(NewOrderView*)[[self superview] superview] controller];
 
-    UIFont *font = [controller.order containsProductId: node.product.id] ? [UIFont boldSystemFontOfSize:17.0] : [UIFont systemFontOfSize:17.0];
+//    UIFont *font = [controller.order containsProductId: node.product.id] ? [UIFont boldSystemFontOfSize:17.0] : [UIFont systemFontOfSize:17.0];
+    UIFont *font = [UIFont systemFontOfSize:17.0];
     [self drawPanelButton: column row:row label:node.product.key font: font textColor: [UIColor blackColor] backgroundColor: node.product.category.color targetNode:nil];
 }
 

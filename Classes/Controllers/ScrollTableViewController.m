@@ -14,11 +14,14 @@
 
 @synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar;
 
+#define TOTALDAYS 60
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        slider.maximumValue = TOTALDAYS;				
     }
     return self;
 }
@@ -52,7 +55,7 @@
         buttonEdit.enabled = false;
     }
     
-    scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * 30	, scrollView.bounds.size.height);
+    scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * TOTALDAYS	, scrollView.bounds.size.height);
     scrollView.directionalLockEnabled = YES; 	
     scrollView.backgroundColor = [UIColor clearColor];
     

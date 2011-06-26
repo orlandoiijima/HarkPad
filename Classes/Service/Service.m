@@ -31,7 +31,7 @@ static Service *_service;
         else
             url = @"http://pos.restaurantanna.nl";
         url = @"http://localhost:10089";
-    }
+	    }
     return self;
 }
 
@@ -44,6 +44,11 @@ static Service *_service;
         }
     }
     return _service;
+}
+
++ (void) clear {
+    _service  = nil;
+    [Cache clear];
 }
 
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query
@@ -226,6 +231,24 @@ static Service *_service;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
     [self postPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
+}
+
+- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *productAsDictionary = [product initDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
+    
+    [self postPageCallback: @"updateproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
+}
+
+- (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *productAsDictionary = [product initDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
+    
+    [self postPageCallback: @"createproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
 }
 
 - (void) deleteReservation: (int)reservationId

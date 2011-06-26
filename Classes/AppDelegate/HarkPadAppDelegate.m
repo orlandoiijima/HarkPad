@@ -7,10 +7,8 @@
 //
 
 #import "HarkPadAppDelegate.h"
-#import "TableMapViewController.h"
 
 @implementation HarkPadAppDelegate
-
 
 @synthesize window;
 
@@ -19,10 +17,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     CGRect  rect = [[UIScreen mainScreen] bounds];
     [window setFrame:rect];
-    [viewController.view setFrame:rect];
-    [window addSubview:viewController.view];
     [window makeKeyAndVisible];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(settingChanged:)
+                                                 name: kIASKAppSettingChanged object:nil];
+    
     return YES;
+}
+- (void) settingChanged: (NSNotification *)notification {
+    [Service clear];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

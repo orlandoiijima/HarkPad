@@ -10,6 +10,7 @@
 #import "TableMapViewController.h"
 #import "ReservationDataSource.h"
 #import "Utils.h"
+#import "ProductPropertiesViewController.h"
 
 @implementation TablePopupViewController
 
@@ -83,7 +84,7 @@
 }
 
 - (IBAction) getOrder
-{
+{    
     if(order == nil)
         [[self tableMapController] newOrderForTable: table];
     else

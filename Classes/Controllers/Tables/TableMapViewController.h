@@ -15,7 +15,6 @@
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate> {    
     District *currentDistrict;
-    Map* map;
     TableButton *dragTableButton;
     bool isVisible;
     UISegmentedControl *districtPicker;
@@ -43,7 +42,6 @@
 - (void) transferOrder: (int)orderId toTable: (int)tableId;
 - (TableButton *) buttonForOrder: (int)orderId;
 
-@property (retain) Map* map;
 @property (retain) District *currentDistrict;
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;

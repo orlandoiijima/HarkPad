@@ -1,4 +1,4 @@
-//
+	//
 //  Utils.m
 //  HarkPad2
 //
@@ -52,6 +52,16 @@
     if(withCurrency == false)
         [formatter setCurrencySymbol:@""];	
     return [formatter stringFromNumber:amount];
+}
+
++ (NSDecimalNumber *) getAmountFromString: (NSString *)amount
+{
+    return [NSDecimalNumber decimalNumberWithString:amount locale: [NSLocale currentLocale]];
+}
+
++ (NSString *) trim: (NSString *) text
+{
+    return [text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];    
 }
 
 @end

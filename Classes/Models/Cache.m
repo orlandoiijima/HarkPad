@@ -36,4 +36,12 @@ static 	Cache * _cache = nil;
     return _cache;
 }
 
++ (void) clear
+{
+    _cache.menuCard = nil;
+    _cache.map = nil;
+    _cache.tree = nil;
+    _cache = nil;
+}
+
 @end

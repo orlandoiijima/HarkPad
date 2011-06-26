@@ -122,7 +122,7 @@
     else
     {
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
         return [dateFormatter stringFromDate:self];
     }
     

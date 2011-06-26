@@ -26,6 +26,7 @@
 
 @property (retain) NSString *url;
 + (Service *) getInstance;
++ (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (MenuCard *) getMenuCard;
 - (NSMutableArray *) getMenus;
@@ -61,6 +62,10 @@
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
+
+- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+- (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;

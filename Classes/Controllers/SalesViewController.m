@@ -45,12 +45,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] init];
-    UILabel *categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 200, 20)];
+    float x = tableView.bounds.size.width - 4 * COLUMN_WIDTH - 55;
+    UILabel *categoryLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, x, 20)];
+    categoryLabel.backgroundColor = [UIColor clearColor];
     categoryLabel.text = [self keyForSection:section];
     [headerView addSubview:categoryLabel];
     if(section == 0) {
         NSArray *labels = [NSArray arrayWithObjects:@"Contant", @"Pin", @"Credit", @"Totaal", nil];
-        float x = tableView.bounds.size.width - 4 * COLUMN_WIDTH - 55;
         for(int i=0; i < 4; i++) {
             UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, COLUMN_WIDTH, 20)];
             typeLabel.textAlignment = UITextAlignmentRight;
