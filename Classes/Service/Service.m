@@ -11,6 +11,7 @@
 #import "Backlog.h"
 #import "Invoice.h"
 #import "ProductTotals.h"
+#import "urls.h"
 
 @implementation Service
 
@@ -22,13 +23,13 @@ static Service *_service;
         [[NSUserDefaults standardUserDefaults] synchronize];	
 	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
         if([env isEqualToString:@"test"])
-            url = @"http://postest.restaurantanna.nl";
+            url = URL_TEST; 
         else if([env isEqualToString:@"development"])
-            url = @"http://localhost:10089";
+            url = URL_DEV;
         else if([env isEqualToString:@"development2"])
-            url = @"http://80.101.82.103:10089";
+            url = URL_DEV_EXT;
         else
-            url = @"http://pos.restaurantanna.nl";
+            url = URL_PRODUCTION;
 	    }
     return self;
 }

@@ -313,6 +313,7 @@
 		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
 		E53A10CC13BE137700F42E17 /* InvoicesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesDataSource.h; sourceTree = "<group>"; };
 		E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoicesDataSource.m; sourceTree = "<group>"; };
+		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
@@ -859,6 +860,7 @@
 				E50A391412E23A43007C2101 /* Service.m */,
 				E5C1BD4413642CDB00B4D92A /* ServiceResult.h */,
 				E5C1BD4513642CDB00B4D92A /* ServiceResult.m */,
+				E53A10D013BE5BEB00F42E17 /* urls.h */,
 			);
 			path = Service;
 			sourceTree = "<group>";
