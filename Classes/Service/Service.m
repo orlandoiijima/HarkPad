@@ -19,10 +19,16 @@ static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
-        
         [[NSUserDefaults standardUserDefaults] synchronize];	
 	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        url = @"http://localhost:10089";
+        if([env isEqualToString:@"test"])
+            url = @"http://postest.restaurantanna.nl";
+        else if([env isEqualToString:@"development"])
+            url = @"http://localhost:10089";
+        else if([env isEqualToString:@"development2"])
+            url = @"http://80.101.82.103:10089";
+        else
+            url = @"http://pos.restaurantanna.nl";
 	    }
     return self;
 }

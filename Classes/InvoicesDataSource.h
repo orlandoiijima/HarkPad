@@ -2,15 +2,19 @@
 //  InvoicesDataSource.h
 //  HarkPad
 //
-//  Created by Willem Bison on 01-07-11.
+//  Created by Willem Bison on 20-05-11.
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 
-@interface InvoicesDataSource : NSObject {
-    
+@interface InvoicesDataSource : NSObject <UITableViewDataSource>{
+    NSMutableArray *invoices;    
 }
+
+@property (retain) NSMutableArray *invoices;
+
++ (InvoicesDataSource *) dataSource;
 
 @end
