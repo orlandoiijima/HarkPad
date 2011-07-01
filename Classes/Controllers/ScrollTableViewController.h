@@ -14,7 +14,7 @@
 #import "ServiceResult.h"
 #import "NSDate-Utilities.h"
 
-@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate> {
+@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate> {
     UIScrollView *scrollView;
     ReservationDayView *currentPage;
     ReservationDayView *nextPage;

@@ -277,6 +277,11 @@
     [self openEditPopup:reservation];
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if([currentPage.table isEditing])
+        [self edit];
+}
 
 - (void)viewDidUnload
 {
