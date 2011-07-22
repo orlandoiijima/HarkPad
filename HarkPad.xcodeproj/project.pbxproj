@@ -20,7 +20,6 @@
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
 		E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E538F24813756383007F8438 /* MainWindow-iPhone.xib */; };
-		E53A10CE13BE137800F42E17 /* InvoicesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */; };
 		E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC85139FD89000EB7C69 /* GTMHTTPFetcher.m */; };
 		E55DFCCD139FD89000EB7C69 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC89139FD89000EB7C69 /* IASKAppSettingsViewController.m */; };
 		E55DFCCE139FD89000EB7C69 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC8B139FD89000EB7C69 /* IASKAppSettingsWebViewController.m */; };
@@ -311,8 +310,6 @@
 		E534F42312F46231006886C6 /* SeatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatInfo.h; sourceTree = "<group>"; };
 		E534F42412F46231006886C6 /* SeatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatInfo.m; sourceTree = "<group>"; };
 		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
-		E53A10CC13BE137700F42E17 /* InvoicesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesDataSource.h; sourceTree = "<group>"; };
-		E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoicesDataSource.m; sourceTree = "<group>"; };
 		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
@@ -1052,8 +1049,6 @@
 				E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */,
 				E5DB4CAA135F40BC005ADD06 /* WorkInProgressDataSource.h */,
 				E5DB4CAB135F40BC005ADD06 /* WorkInProgressDataSource.m */,
-				E53A10CC13BE137700F42E17 /* InvoicesDataSource.h */,
-				E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */,
 			);
 			name = DataSources;
 			sourceTree = "<group>";
@@ -1302,7 +1297,6 @@
 				E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */,
 				E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */,
 				E513729413A918E20037C033 /* CellPath.m in Sources */,
-				E53A10CE13BE137800F42E17 /* InvoicesDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
