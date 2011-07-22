@@ -15,11 +15,13 @@
 
 @implementation InvoiceDataSource
 
-@synthesize order, groupedLines, grouping, invoicesViewController;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController;
 
-+ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping
++ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree
 {
     InvoiceDataSource *source = [[InvoiceDataSource alloc] init];
+    source.totalizeProducts = totalize;
+    source.showFreeProducts = showFree;
     source.order = order;
     source.grouping = grouping;
     return source;
@@ -27,21 +29,23 @@
 
 - (void) setGrouping: (OrderGrouping) newGrouping
 {
-    grouping = newGrouping;
+    grouping = 	newGrouping;
     self.groupedLines = [[[NSMutableDictionary alloc] init] autorelease];
     for(Course *course in order.courses)
     {
         for(OrderLine *line in course.lines)
         {
-            NSString *key = [self groupingKeyForLine:line];
+            if([line.product.price isEqualToNumber: [NSDecimalNumber zero]] == false || showFreeProducts) {
+                NSString *key = [self groupingKeyForLine:line];
             
-            NSMutableArray *group = [groupedLines objectForKey:key];
-            if(group == nil)
-            {
-                group = [[NSMutableArray alloc] init];
-                [groupedLines setObject:group forKey:key]; 
+                NSMutableArray *group = [groupedLines objectForKey:key];
+                if(group == nil)
+                {
+                    group = [[NSMutableArray alloc] init];
+                    [groupedLines setObject:group forKey:key]; 
+                }
+                [self addLineToGroup: line group:group];        
             }
-            [self addLineToGroup: line group:group];
         }
     }
     return;    
@@ -65,12 +69,14 @@
 
 - (void) addLineToGroup: (OrderLine *)line group: (NSMutableArray *) group
 {
-    for(OrderLine * groupLine in group)
-    {
-        if(groupLine.product.id == line.product.id)
+    if(totalizeProducts) {
+        for(OrderLine * groupLine in group)
         {
-            groupLine.quantity += line.quantity;
-            return;
+            if(groupLine.product.id == line.product.id)
+            {
+                groupLine.quantity += line.quantity;
+                return;
+            }
         }
     }
     line.quantity = 1;

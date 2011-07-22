@@ -10,6 +10,8 @@
 #import "Table.h"
 #import "Cache.h"
 
+typedef enum ReservationType {Online = 0, Phone, Walkin} ReservationType;
+
 @interface Reservation : NSObject{
     int id;
     NSString *name;
@@ -22,6 +24,7 @@
     NSDate *createdOn;
     int countGuests;
     BOOL mailingList;
+    ReservationType type;
     int orderId;
     int orderState;
     Table *table;
@@ -38,6 +41,7 @@
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
 @property int countGuests;
+@property ReservationType type;
 @property BOOL mailingList;
 @property int orderId;
 @property int orderState;

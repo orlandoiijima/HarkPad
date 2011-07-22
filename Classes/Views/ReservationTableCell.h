@@ -16,6 +16,7 @@
 
 @property (retain) IBOutlet UILabel *name;
 @property (retain) IBOutlet UILabel *count;
+@property (retain) IBOutlet UIButton *status;
 @property (retain) IBOutlet UILabel *email;
 @property (retain) IBOutlet UILabel *phone;
 @property (retain) IBOutlet UILabel *notes;

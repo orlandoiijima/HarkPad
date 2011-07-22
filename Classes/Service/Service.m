@@ -30,6 +30,7 @@ static Service *_service;
             url = URL_DEV_EXT;
         else
             url = URL_PRODUCTION;
+//        url = URL_DEV;
 	    }
     return self;
 }
@@ -192,6 +193,7 @@ static Service *_service;
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
+    [invocation setArgument:&date atIndex:3];
     [self getPageCallback:@"getreservations"
                 withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]
                  delegate: self

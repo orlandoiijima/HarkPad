@@ -7,7 +7,6 @@
 //
 
 #import "InvoicesViewController.h"
-#import "InvoicesDataSource.h"
 #import "OrderLinesViewController.h"
 #import "Invoice.h"
 #import "Service.h"
@@ -134,7 +133,7 @@
 {
     Invoice *invoice = [self.invoices objectAtIndex:indexPath.row];
     // Navigation logic may go here. Create and push another view controller.
-    OrderLinesViewController *controller = [[OrderLinesViewController alloc] initWithStyle:UITableViewStylePlain];
+    OrderLinesViewController *controller = [[OrderLinesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     controller.invoicesViewController = self;
     controller.order = [[Service getInstance] getOrder:invoice.orderId];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];

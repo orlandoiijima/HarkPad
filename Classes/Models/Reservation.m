@@ -10,7 +10,7 @@
 
 @implementation Reservation
 
-@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState;
+@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState, type;
 
 - (id)init
 {
@@ -24,6 +24,7 @@
         self.name = @"";
         self.phone = @"";
         self.email = @"";
+        self.type = Phone;
         self.orderId = -1;
 	}
     return(self);
@@ -52,6 +53,10 @@
     if((NSNull *)val != [NSNull null])
         reservation.phone = val;
 
+    val = [jsonDictionary objectForKey:@"type"];
+    if(val != nil && (NSNull *)val != [NSNull null])
+        reservation.type = (ReservationType)[val intValue];
+    
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     reservation.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     seconds = [jsonDictionary objectForKey:@"startsOn"];
@@ -79,8 +84,10 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
-    [dic setObject: self.name forKey:@"name"];
+    if(self.name != nil)
+        [dic setObject: self.name forKey:@"name"];
     [dic setObject: [NSNumber numberWithInt:self.countGuests] forKey:@"countGuests"];
+    [dic setObject: [NSNumber numberWithInt:self.type] forKey:@"type"];
     if(self.email != nil)
         [dic setObject: self.email forKey:@"email"];
     if(self.notes != nil)

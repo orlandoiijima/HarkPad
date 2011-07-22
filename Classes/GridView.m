@@ -120,6 +120,7 @@
     cellLine.isSelected = isSelected;
 
     if(isSelected) {
+        [self.superview bringSubviewToFront: self	];
         [cellLine.superview bringSubviewToFront: cellLine];
         [UIView animateWithDuration:0.2
                      animations:^{

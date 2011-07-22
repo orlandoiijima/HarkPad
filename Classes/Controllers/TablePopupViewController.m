@@ -53,7 +53,7 @@
     [self updateOnOrder];
     
     if(order == nil) {
-        [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:)];
+        [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
     }
 }
 
@@ -199,8 +199,8 @@
 
     [self setOptimalSize];
 }
-     
-- (void) getReservationsCallback: (NSMutableArray *)reservations
+
+- (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
 {
     self.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO withReservations:reservations];
     [tableReservations reloadData];

@@ -24,7 +24,8 @@
 
 + (ReservationViewController *) initWithReservation: (Reservation *)reservation
 {
-    ReservationViewController *popup = [[[ReservationViewController alloc] initWithNibName:@"ReservationViewController" bundle:[NSBundle mainBundle]] autorelease];
+    NSString *nib = reservation.type == Walkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
+    ReservationViewController *popup = [[[ReservationViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]] autorelease];
     popup.reservation = reservation;
     return popup;
 }
@@ -62,19 +63,26 @@
 - (IBAction) save
 {
     reservation.notes = notesView.text;
-    reservation.name = nameView.text;
-    reservation.phone = phoneView.text;
-    reservation.email = emailView.text;
     reservation.countGuests = [countView.text intValue];
-    reservation.startsOn = datePicker.date;
     reservation.language = [languages objectAtIndex: languageView.selectedSegmentIndex];
     
-    if([reservation.name isEqual:@""] || reservation.name == nil)
-        return;
+    if(reservation.type == Walkin) {
+    
+    }
+    else {
+        if([reservation.name isEqual:@""] || reservation.name == nil)
+            return;
+        reservation.name = nameView.text;
+        reservation.phone = phoneView.text;
+        reservation.email = emailView.text;
+        reservation.startsOn = datePicker.date;
+    }
+    
     if(reservation.id == 0)
         [[Service getInstance] createReservation:reservation delegate:hostController callback:@selector(createFetcher:finishedWithData:error:)];
     else
         [[Service getInstance] updateReservation:reservation delegate:hostController callback:@selector(updateFetcher:finishedWithData:error:)];
+    
     [hostController closePopup];
 }
 

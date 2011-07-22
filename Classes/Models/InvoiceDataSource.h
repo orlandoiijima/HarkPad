@@ -15,15 +15,19 @@
     NSMutableDictionary *lines;
     NSMutableDictionary *groupedLines;
     OrderGrouping grouping;
+    bool totalizeProducts;
+    bool showFreeProducts;
     Order *order;
 }
 
 @property (retain) NSMutableDictionary *groupedLines;
 @property OrderGrouping grouping;
+@property bool totalizeProducts;
+@property bool showFreeProducts;
 @property (retain) Order *order;
 @property (retain) InvoicesViewController *invoicesViewController;
 
-+ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping;
++ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree;
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line;
 - (void) addLineToGroup: (OrderLine *)line group: (NSMutableArray *) group;

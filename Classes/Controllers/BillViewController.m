@@ -31,7 +31,7 @@
         [order release];
         order = [newOrder retain];
         
-        self.dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory];
+        self.dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO];
     }
 }
 

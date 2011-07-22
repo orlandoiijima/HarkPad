@@ -30,6 +30,7 @@
 @property (retain) IBOutlet UISegmentedControl *segmentShow;
 @property (retain) IBOutlet UIBarButtonItem *buttonEdit;
 @property (retain) IBOutlet UIBarButtonItem *buttonAdd;
+@property (retain) IBOutlet UIBarButtonItem *buttonWalkin;
 @property (retain) IBOutlet UIBarButtonItem *buttonPhone;
 @property (retain) IBOutlet UIToolbar *toolbar;
 
@@ -39,6 +40,7 @@
 - (void) gotoDayoffset: (int)page;
 
 - (IBAction) add;
+- (IBAction) addWalkin;
 - (IBAction) call;
 - (IBAction) editMode;
 - (void) edit;

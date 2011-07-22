@@ -30,7 +30,7 @@
         [order release];
         order = [newOrder retain];
         
-        dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory];
+        dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO];
     }
 }
 

@@ -10,7 +10,7 @@
 
 @implementation ReservationTableCell
 
-@synthesize reservation, name, count, notes, email, phone, flag;
+@synthesize reservation, name, count, notes, email, phone, flag, status;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -42,7 +42,14 @@
 - (void) setReservation: (Reservation*)newReservation
 {
     reservation = newReservation;
-    self.name.text = reservation.name;
+    if(reservation.type == Walkin) {
+        self.name.text = NSLocalizedString(@"walk-in", nil);
+        self.name.font = [UIFont italicSystemFontOfSize: self.name.font.pointSize];
+        self.name.textColor = [UIColor blueColor];		
+    }
+    else {
+        self.name.text = reservation.name;
+    }
     self.email.text = reservation.email;
     self.count.text = [NSString stringWithFormat:@"%d", reservation.countGuests];
     if(reservation.table != nil)
