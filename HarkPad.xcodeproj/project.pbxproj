@@ -15,12 +15,12 @@
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
 		E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729013A916DD0037C033 /* GridViewHeaderCell.m */; };
 		E513729413A918E20037C033 /* CellPath.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729313A918E20037C033 /* CellPath.m */; };
-		E522AC0613D2EF76003622C4 /* ReservationWalkinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E522AC0513D2EF76003622C4 /* ReservationWalkinViewController.xib */; };
 		E5286C5B13925681004B1139 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5286C5A13925680004B1139 /* group.png */; };
 		E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */; };
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
 		E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E538F24813756383007F8438 /* MainWindow-iPhone.xib */; };
+		E53A10CE13BE137800F42E17 /* InvoicesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */; };
 		E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC85139FD89000EB7C69 /* GTMHTTPFetcher.m */; };
 		E55DFCCD139FD89000EB7C69 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC89139FD89000EB7C69 /* IASKAppSettingsViewController.m */; };
 		E55DFCCE139FD89000EB7C69 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC8B139FD89000EB7C69 /* IASKAppSettingsWebViewController.m */; };
@@ -78,6 +78,7 @@
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD4513642CDB00B4D92A /* ServiceResult.m */; };
+		E5CDB15113D94BD700A7236D /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CDB15013D94BD700A7236D /* clear.png */; };
 		E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D7A24013742BE20079F89A /* ReservationDayView.m */; };
 		E5DB4CA0135F2EBF005ADD06 /* WorkInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */; };
 		E5DB4CA4135F33E3005ADD06 /* ProductCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA3135F33E1005ADD06 /* ProductCount.m */; };
@@ -181,7 +182,6 @@
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
 		E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */; };
 		E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F4638F134CE6120052CDDC /* BacklogViewController.xib */; };
-		E5F4703913B50894009B002D /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4703813B50894009B002D /* clear.png */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
 		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
 		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
@@ -298,7 +298,6 @@
 		E513729013A916DD0037C033 /* GridViewHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewHeaderCell.m; sourceTree = "<group>"; };
 		E513729213A918E20037C033 /* CellPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellPath.h; sourceTree = "<group>"; };
 		E513729313A918E20037C033 /* CellPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellPath.m; sourceTree = "<group>"; };
-		E522AC0513D2EF76003622C4 /* ReservationWalkinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationWalkinViewController.xib; sourceTree = "<group>"; };
 		E5286C5A13925680004B1139 /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate-Utilities.h"; sourceTree = "<group>"; };
 		E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate-Utilities.m"; sourceTree = "<group>"; };
@@ -312,6 +311,8 @@
 		E534F42312F46231006886C6 /* SeatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatInfo.h; sourceTree = "<group>"; };
 		E534F42412F46231006886C6 /* SeatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatInfo.m; sourceTree = "<group>"; };
 		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
+		E53A10CC13BE137700F42E17 /* InvoicesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesDataSource.h; sourceTree = "<group>"; };
+		E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoicesDataSource.m; sourceTree = "<group>"; };
 		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
@@ -412,6 +413,7 @@
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
 		E5C1BD4413642CDB00B4D92A /* ServiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceResult.h; sourceTree = "<group>"; };
 		E5C1BD4513642CDB00B4D92A /* ServiceResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceResult.m; sourceTree = "<group>"; };
+		E5CDB15013D94BD700A7236D /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
 		E5D7A23F13742BE20079F89A /* ReservationDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationDayView.h; sourceTree = "<group>"; };
 		E5D7A24013742BE20079F89A /* ReservationDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationDayView.m; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -485,7 +487,6 @@
 		E5F4638D134CE5E40052CDDC /* BacklogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BacklogViewController.h; sourceTree = "<group>"; };
 		E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BacklogViewController.m; sourceTree = "<group>"; };
 		E5F4638F134CE6120052CDDC /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
-		E5F4703813B50894009B002D /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear.png; path = ../../../../../Desktop/clear.png; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
 		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -634,7 +635,6 @@
 				E5B7F677134704D10024AB35 /* ReservationViewController.h */,
 				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
 				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
-				E522AC0513D2EF76003622C4 /* ReservationWalkinViewController.xib */,
 				E5F6099613487F6000D88587 /* LogViewController.h */,
 				E5F6099713487F6000D88587 /* LogViewController.m */,
 				E5F6099813487F6100D88587 /* LogViewController.xib */,
@@ -772,7 +772,7 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E5F4703813B50894009B002D /* clear.png */,
+				E5CDB15013D94BD700A7236D /* clear.png */,
 				E5B7F67D1347447D0024AB35 /* uk.png */,
 				E5AC715F138958F800DB450E /* calculator.png */,
 				E533A0D0132D44C8005CB4D6 /* refresh.png */,
@@ -1052,6 +1052,8 @@
 				E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */,
 				E5DB4CAA135F40BC005ADD06 /* WorkInProgressDataSource.h */,
 				E5DB4CAB135F40BC005ADD06 /* WorkInProgressDataSource.m */,
+				E53A10CC13BE137700F42E17 /* InvoicesDataSource.h */,
+				E53A10CD13BE137800F42E17 /* InvoicesDataSource.m */,
 			);
 			name = DataSources;
 			sourceTree = "<group>";
@@ -1092,7 +1094,6 @@
 		E50A37F312E21163007C2101 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "The Attic";
 			};
 			buildConfigurationList = E50A37F612E21163007C2101 /* Build configuration list for PBXProject "HarkPad" */;
@@ -1176,9 +1177,8 @@
 				E55DFCE1139FD89000EB7C69 /* IASKSpecifierValuesView.xib in Resources */,
 				E5F055B113A4D13700720DB5 /* ProductPropertiesViewController.xib in Resources */,
 				E5F055E613A6454C00720DB5 /* ProductMaintenanceViewController.xib in Resources */,
-				E5F4703913B50894009B002D /* clear.png in Resources */,
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
-				E522AC0613D2EF76003622C4 /* ReservationWalkinViewController.xib in Resources */,
+				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1302,6 +1302,7 @@
 				E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */,
 				E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */,
 				E513729413A918E20037C033 /* CellPath.m in Sources */,
+				E53A10CE13BE137800F42E17 /* InvoicesDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,6 +1339,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
+				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1353,6 +1355,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
