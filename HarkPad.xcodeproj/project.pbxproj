@@ -78,6 +78,7 @@
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD4513642CDB00B4D92A /* ServiceResult.m */; };
+		E5CDB15113D94BD700A7236D /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CDB15013D94BD700A7236D /* clear.png */; };
 		E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D7A24013742BE20079F89A /* ReservationDayView.m */; };
 		E5DB4CA0135F2EBF005ADD06 /* WorkInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */; };
 		E5DB4CA4135F33E3005ADD06 /* ProductCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA3135F33E1005ADD06 /* ProductCount.m */; };
@@ -181,7 +182,6 @@
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
 		E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */; };
 		E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F4638F134CE6120052CDDC /* BacklogViewController.xib */; };
-		E5F4703913B50894009B002D /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F4703813B50894009B002D /* clear.png */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
 		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
 		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
@@ -413,6 +413,7 @@
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
 		E5C1BD4413642CDB00B4D92A /* ServiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceResult.h; sourceTree = "<group>"; };
 		E5C1BD4513642CDB00B4D92A /* ServiceResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceResult.m; sourceTree = "<group>"; };
+		E5CDB15013D94BD700A7236D /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clear.png; sourceTree = "<group>"; };
 		E5D7A23F13742BE20079F89A /* ReservationDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationDayView.h; sourceTree = "<group>"; };
 		E5D7A24013742BE20079F89A /* ReservationDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationDayView.m; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -486,7 +487,6 @@
 		E5F4638D134CE5E40052CDDC /* BacklogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BacklogViewController.h; sourceTree = "<group>"; };
 		E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BacklogViewController.m; sourceTree = "<group>"; };
 		E5F4638F134CE6120052CDDC /* BacklogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
-		E5F4703813B50894009B002D /* clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = clear.png; path = ../../../../../Desktop/clear.png; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
 		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
 		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
@@ -772,7 +772,7 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E5F4703813B50894009B002D /* clear.png */,
+				E5CDB15013D94BD700A7236D /* clear.png */,
 				E5B7F67D1347447D0024AB35 /* uk.png */,
 				E5AC715F138958F800DB450E /* calculator.png */,
 				E533A0D0132D44C8005CB4D6 /* refresh.png */,
@@ -1177,8 +1177,8 @@
 				E55DFCE1139FD89000EB7C69 /* IASKSpecifierValuesView.xib in Resources */,
 				E5F055B113A4D13700720DB5 /* ProductPropertiesViewController.xib in Resources */,
 				E5F055E613A6454C00720DB5 /* ProductMaintenanceViewController.xib in Resources */,
-				E5F4703913B50894009B002D /* clear.png in Resources */,
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
+				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
