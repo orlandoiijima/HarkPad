@@ -270,17 +270,17 @@
     cell.editingAccessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.status.hidden = true;
     
-    if([reservation.startsOn isToday]) {
-        if(reservation.orderState != ordering) {
-            [UIView animateWithDuration:0.3 delay:0 options: UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
-                cell.count.transform = CGAffineTransformMakeScale(1.15, 1.15);
-                cell.count.textColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
-                } completion:nil
-             ];
-            cell.status.hidden = false;
-            cell.status.titleLabel.text	 = reservation.orderState == billed ? @"In rekening" : @"Afgerekend";
-        }
-    }
+//    if([reservation.startsOn isToday]) {
+//        if(reservation.orderState != ordering) {
+//            [UIView animateWithDuration:0.3 delay:0 options: UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat animations:^{
+//                cell.count.transform = CGAffineTransformMakeScale(1.15, 1.15);
+//                cell.count.textColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+//                } completion:nil
+//             ];
+//            cell.status.hidden = false;
+//            cell.status.titleLabel.text	 = reservation.orderState == billed ? @"In rekening" : @"Afgerekend";
+//        }
+//    }
     
     return cell;
 }
