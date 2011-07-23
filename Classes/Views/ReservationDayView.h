@@ -10,13 +10,15 @@
 #import "ReservationDataSource.h"
 
 @interface ReservationDayView : UIView {
-    
+    UILabel *dateLabel;
+    UILabel *dayLabel;
 }
 
 @property (retain) NSMutableDictionary *countLabels;
 @property (retain) UITableView *table;
 @property (retain) IBOutlet UILabel *dateLabel;
-@property ReservationDataSource *dataSource;
+@property (retain) IBOutlet UILabel *dayLabel;
+@property (retain) ReservationDataSource *dataSource;
 
 - (Reservation *) selectedReservation;
 - (void) refreshTotals: (ReservationDataSource *)dataSource;

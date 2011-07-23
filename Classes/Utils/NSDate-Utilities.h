@@ -31,6 +31,9 @@
 - (BOOL) isAfterTomorrow;
 - (BOOL) isYesterday;
 - (BOOL) isAfterYesterday;
+
+- (NSString *)weekdayString;
+
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate;
 - (BOOL) isThisWeek;
 - (BOOL) isNextWeek;

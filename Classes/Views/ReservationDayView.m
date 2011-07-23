@@ -12,7 +12,7 @@
 
 @implementation ReservationDayView
 
-@synthesize table, dateLabel, countLabels;
+@synthesize table, dayLabel, dateLabel, countLabels;
 
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate
 {
@@ -20,10 +20,16 @@
     if (self) {
         // Initialization code
         
-        dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 35)];
+        dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
         dateLabel.font = [UIFont systemFontOfSize:28];
-        dateLabel.textAlignment = UITextAlignmentCenter;
+        dateLabel.textAlignment = UITextAlignmentRight;
         [self addSubview:dateLabel];
+
+        dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/2 + 5, 0, frame.size.width/2, 35)];
+        dayLabel.font = [UIFont systemFontOfSize:28];
+        dayLabel.textColor = [UIColor colorWithWhite: 0.5 alpha: 0.5];
+        dayLabel.textAlignment = UITextAlignmentLeft;
+        [self addSubview:dayLabel];
 
         int spacing = 5;
         int width = (frame.size.width - 6 * spacing) / 7;
@@ -74,7 +80,8 @@
 - (void) setDataSource: (ReservationDataSource *)dataSource
 {
     dateLabel.text = [dataSource.date prettyDateString];
-    
+    dayLabel.text = [dataSource.date weekdayString];
+
     [self refreshTotals: dataSource];
     
     table.dataSource = dataSource;
