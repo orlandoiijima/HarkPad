@@ -21,6 +21,7 @@
 #import "GTMHTTPFetcher.h"
 
 @interface Service : NSObject {    
+    NSString *url;
 }
 
 

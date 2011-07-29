@@ -110,9 +110,10 @@
 - (IBAction) refresh
 {
     NSMutableArray *lines = [[Service getInstance] getLog];
-    self.		logLines = [[[NSMutableDictionary alloc] init] autorelease];
+    self.logLines = [[[NSMutableDictionary alloc] init] autorelease];
     for(NSString *line in lines)
     {
+        if([line length] < 10) continue;
         NSString *dateKey = [line substringToIndex:10];
         NSMutableArray *group = [logLines objectForKey:dateKey];
         if(group == nil)
