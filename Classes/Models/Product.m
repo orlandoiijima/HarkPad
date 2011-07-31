@@ -13,6 +13,18 @@
 @implementation Product
 
 @synthesize category, price, name, key, description, sortOrder, properties, isQueued, id;
+@synthesize vat;
+
+
+- (id)init
+{
+    if ((self = [super init]) != NULL)
+	{
+        self.properties = [[NSMutableArray alloc] init];
+        self.price = [NSDecimalNumber zero];
+	}
+    return(self);
+}
 
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
@@ -21,9 +33,14 @@
     product.name = [jsonDictionary objectForKey:@"name"];
     product.description = [jsonDictionary objectForKey:@"description"];
     product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
-    product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];    
+    product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
+    id vat = [jsonDictionary objectForKey:@"vat"];
+    if (vat != nil)
+    {
+        product.vat = (Vat) [vat intValue];
+    }
     product.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    product.properties = [[NSMutableArray alloc] init];
+//    product.properties = [[NSMutableArray alloc] init];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
     id props =  [jsonDictionary objectForKey:@"properties"];
     for(NSDictionary *item in props)
@@ -40,9 +57,10 @@
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     [dic setObject: self.name forKey:@"name"];
     [dic setObject: self.key forKey:@"key"];
-    [dic setObject: self.description forKey:@"description"];
+//    [dic setObject: self.description forKey:@"description"];
     [dic setObject: [NSNumber numberWithInt:self.category.id] forKey:@"categoryId"];
     [dic setObject: self.price forKey:@"price"];
+    [dic setObject: [NSNumber numberWithInt: self.vat] forKey:@"vat"];
     
     return dic;
 }

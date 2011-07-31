@@ -12,6 +12,7 @@
 #import "GridView.h"
 #import "Utils.h"
 #import "Service.h"
+#import "ProductPropertiesViewController.h"
 
 @implementation ProductMaintenanceViewController
 
@@ -171,4 +172,13 @@
 	return YES;
 }
 
-@end
+ - (IBAction)addProduct:(id)sender {
+     Product *product = [[[Product alloc] init] autorelease];
+     ProductPropertiesViewController *controller = [[ProductPropertiesViewController alloc] initWithProduct:product];
+     UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+     controller.popoverController = popover;
+     [popover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+ }
+
+
+ @end

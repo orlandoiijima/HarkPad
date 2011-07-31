@@ -9,27 +9,34 @@
 #import <UIKit/UIKit.h>
 #import "Product.h"
 
-@interface ProductPropertiesViewController : UIViewController {
+@interface ProductPropertiesViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
     Product *product;
     UITextField *uiKey;
     UITextField *uiName;
-    UITextView *uiDescription;
     UITextField *uiPrice;
+    UISegmentedControl *uiVat;
+    UIPickerView *uiCategory;
+    UIPopoverController *popoverController;
 }
 
 @property (retain) Product *product;
 @property (retain) IBOutlet UITextField *uiKey;
 @property (retain) IBOutlet UITextField *uiName;
-@property (retain) IBOutlet UITextView *uiDescription;
+@property (retain) IBOutlet UIPickerView *uiCategory;
 @property (retain) IBOutlet UITextField *uiPrice;
-@property (retain) IBOutlet UIButton *uiCategory;
+@property (retain) IBOutlet UISegmentedControl *uiVat;
 @property (retain) UIPopoverController *popoverController;
 
 - (id) initWithProduct: (Product *)newProduct;
 
 - (IBAction) saveAction;
+
+- (ProductCategory *)categoryByRow:(int)row;
+
+- (int)rowByCategory:(ProductCategory *)searchCategory;
+
+
 - (IBAction) cancelAction;
-- (IBAction) getCategoryAction;
 - (bool) validate;
 
 @end

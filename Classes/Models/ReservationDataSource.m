@@ -28,7 +28,7 @@
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
-    source.date = [NSDate date];
+    source.date = date;
     source.reservations = reservations;
     source.includePlacedReservations = includePlaced;
     [source createGroupedReservations];

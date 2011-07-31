@@ -12,6 +12,7 @@
 @interface ReservationDayView : UIView {
     UILabel *dateLabel;
     UILabel *dayLabel;
+    ReservationDataSource *dataSource;
 }
 
 @property (retain) NSMutableDictionary *countLabels;

@@ -24,4 +24,7 @@
 @property (retain) TreeNode *parentNode;
 @property (retain) TreeNode *rootNode;
 
+
+- (IBAction)addProduct:(id)sender;
+
 @end

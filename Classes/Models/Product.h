@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ProductCategory.h"
 
+typedef enum Vat {Low=0, High=1} Vat;
+
 @interface Product : NSObject {
     NSString *name;
     NSString *key;
@@ -19,7 +21,9 @@
     bool isQueued;
     int id;
     NSMutableArray *properties;
+    Vat vat;
 }
+
 
 @property (retain) NSString *name;
 @property (retain) NSString *key;
@@ -27,6 +31,7 @@
 @property (retain) NSString *description;
 @property (retain) NSDecimalNumber *price;
 @property int sortOrder;
+@property Vat vat;
 @property bool isQueued;
 @property int id;
 @property (retain) NSMutableArray *properties;

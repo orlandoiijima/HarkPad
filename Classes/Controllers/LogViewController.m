@@ -88,6 +88,10 @@
 
 - (void)dealloc
 {
+    [logTableView release];
+    [logLines release];
+    [detailLabel release];
+    [captionButton release];
     [super dealloc];
 }
 

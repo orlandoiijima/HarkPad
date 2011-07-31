@@ -29,6 +29,7 @@
 
 - (void)dealloc
 {
+    [scrollView release];
     [super dealloc];
 }
 
@@ -72,11 +73,11 @@
     dataSources = [[NSMutableDictionary alloc] init];
     [self gotoDayoffset:7];
     
-//    [NSTimer scheduledTimerWithTimeInterval:10.0f
-//                                     target:self
-//                                   selector:@selector(refreshView)
-//                                   userInfo:nil
-//                                    repeats:YES];   
+    [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                     target:self
+                                   selector:@selector(refreshView)
+                                   userInfo:nil
+                                    repeats:YES];   
     
 //    ReservationDataSource *dataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations: YES];
 //    NSString *key = [self dateToKey:[NSDate date]];
@@ -155,7 +156,7 @@
     
 	NSDate *lowerDate = [self pageToDate:lowerPage];
 	    
-    ReservationDataSource *currentDataSource = (ReservationDataSource *) currentPage.dataSource;
+    ReservationDataSource *currentDataSource = currentPage.dataSource;
 	if ([lowerDate isEqualToDateIgnoringTime: currentDataSource.date])
 	{
         [self setupScrolledInPage:upperPage];
