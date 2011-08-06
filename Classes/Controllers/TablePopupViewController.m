@@ -7,14 +7,11 @@
 //
 
 #import "TablePopupViewController.h"
-#import "TableMapViewController.h"
-#import "ReservationDataSource.h"
 #import "Utils.h"
-#import "ProductPropertiesViewController.h"
 
 @implementation TablePopupViewController
 
-@synthesize tableReservations, labelNextCourse, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
+@synthesize tableReservations, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
 @synthesize 	table, order, labelReservationNote, buttonUndockTable, buttonTransferOrder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -137,6 +134,20 @@
 
 - (void)dealloc
 {
+    [tableReservations release];
+    [labelNextCourse release];
+    [buttonGetPayment release];
+    [buttonMakeBill release];
+    [buttonMakeOrder release];
+    [buttonStartCourse release];
+    [labelTable release];
+    [labelReservations release];
+    [popoverController release];
+    [table release];
+    [order release];
+    [labelReservationNote release];
+    [buttonUndockTable release];
+    [buttonTransferOrder release];
     [super dealloc];
 }
 

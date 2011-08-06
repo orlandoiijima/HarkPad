@@ -8,12 +8,8 @@
 
 #import "TableMapViewController.h"
 #import "Service.h"
-#import "Table.h"
-#import "TableInfo.h"
 #import "TablePopupViewController.h"
 #import "NewOrderVC.h"
-//#import "ReservationsTableViewController.h"
-#import "ChefViewController.h"
 #import "PaymentViewController.h"
 #import "BillViewController.h"
 #import "ModalAlert.h"
@@ -22,7 +18,7 @@
 
 @implementation TableMapViewController
 
-@synthesize tableMapView, districtPicker, currentDistrict, isRefreshTimerDisabled, buttonEdit, buttonRefresh, dragPosition, dragTableButton, dragTableOriginalCenter, popoverController, scaleX, isVisible;
+@synthesize tableMapView, districtPicker, buttonRefresh, popoverController;
 
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -241,7 +237,7 @@
             message = [NSString stringWithFormat:@"Tafels %@ en %@", ((TableButton*)[tableButtons objectAtIndex:0]).table.name, ((TableButton*)[tableButtons objectAtIndex:1]).table.name];
         else {
             message = [NSString stringWithFormat:@"Tafels %@", ((TableButton*)[tableButtons objectAtIndex:0]).table.name];
-            int i = 1;
+            NSUInteger i = 1;
             for(; i < [tableButtons count] - 1; i++) {
                 TableButton *tableButton = [tableButtons objectAtIndex:i];
                 message = [NSString stringWithFormat:@"%@, %@,", message, tableButton.table.name];
@@ -289,24 +285,13 @@
     return tables;
 }
 
-- (TableButton *) findButton: (Table *) table
-{
-    for(UIView *view in tableMapView.subviews)
-    {
-        TableButton *button = (TableButton*)view;
-        if(button.table.id == table.id)
-            return button;
-    }
-    return nil;
-}
-
 - (TableButton *) tableButtonAtPoint: (CGPoint) point
 {
     for(UIView *view in tableMapView.subviews)
     {
         if(view == dragTableButton) continue;
         CGPoint p = [tableMapView convertPoint:point toView:view];
-        if([view pointInside:p withEvent:UIEventTypeTouches])
+        if([view pointInside:p withEvent:(UIEvent *) UIEventTypeTouches])
         {
             return (TableButton*)view;
         }
@@ -318,7 +303,7 @@
 {
     Map *map = [[Cache getInstance] map];
     if(districtPicker.selectedSegmentIndex >= map.districts.count) return; 
-    currentDistrict = [map.districts objectAtIndex:districtPicker.selectedSegmentIndex];    
+    currentDistrict = [map.districts objectAtIndex:(NSUInteger) districtPicker.selectedSegmentIndex];    
     [self refreshView];
 }
 
@@ -363,7 +348,7 @@
         }
     }
     
-    int i = 0;
+    NSUInteger i = 0;
     for(District *district in map.districts)
     {
         NSNumber *count = [districtTables valueForKey:district.name];
@@ -371,17 +356,6 @@
         NSString *title = [NSString stringWithFormat:@"%@%@", district.name, countString];
         [districtPicker setTitle:title forSegmentAtIndex: i];
         i++;
-    }
-}
-
-- (void) rotateTables
-{
-    double quarter = M_PI_2;
-    for(Table *table in [currentDistrict tables])
-    {
-        CGAffineTransform rotate = CGAffineTransformMakeRotation(quarter);
-        table.bounds = CGRectApplyAffineTransform(table.bounds, rotate);
-        table.seatOrientation = table.seatOrientation == row ? column : row;
     }
 }
 
@@ -394,18 +368,6 @@
         [districtPicker insertSegmentWithTitle:district.name atIndex:districtPicker.numberOfSegments animated:YES];
     }
     districtPicker.selectedSegmentIndex = 0;
-}
-
-- (OrderInfo *) orderInfoForTable: (int)tableId inOrders: (NSMutableArray *) orders
-{
-    for(OrderInfo *order in orders)
-    {
-        if(order.table.id == tableId)
-        {
-            return order;
-        }
-    }
-    return nil;
 }
 
 - (void) clickTable: (UIControl *) sender
@@ -426,7 +388,7 @@
 {
     TablesViewController *tablesController = [[[TablesViewController alloc] init] autorelease];
     tablesController.selectionMode = selectEmpty;
-    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:tablesController];
+    UIPopoverController *popover = [[[UIPopoverController alloc] initWithContentViewController:tablesController] autorelease];
     tablesController.popoverController = popover;
     tablesController.orderId = orderId;
     popover.delegate = self;
@@ -454,7 +416,7 @@
 {
     if(order == nil)
         return;
-    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];	
+    PaymentViewController *paymentVC = [[[PaymentViewController alloc] init] autorelease];	
     paymentVC.order = order;
     paymentVC.tableMapViewController = self;
     paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
@@ -466,7 +428,7 @@
     if(order == nil)
         return;
     isRefreshTimerDisabled = true;
-    NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
+    NewOrderVC *newOrderVC = [[[NewOrderVC alloc] init] autorelease];
     newOrderVC.order = order;
     newOrderVC.tableMapViewController = self;
 
@@ -525,7 +487,7 @@
 {
     if(order == nil)
         return;
-    BillViewController *billVC = [[BillViewController alloc] init];	
+    BillViewController *billVC = [[[BillViewController alloc] init] autorelease];	
     billVC.order = order;
     billVC.tableMapViewController = self;
     billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
@@ -554,6 +516,13 @@
 
 
 - (void)dealloc {
+    [tableMapView release];
+    [districtPicker release];
+    [currentDistrict release];
+    [buttonEdit release];
+    [buttonRefresh release];
+    [dragTableButton release];
+    [popoverController release];
     [super dealloc];
 }
 

@@ -18,7 +18,16 @@
     Order *order;
     UITableView *tableReservations;
     UILabel *labelReservations;
-    ReservationDataSource *reservationDataSource;
+    UILabel *labelNextCourse;
+    UIButton *buttonGetPayment;
+    UIButton *buttonMakeBill;
+    UIButton *buttonMakeOrder;
+    UIButton *buttonStartCourse;
+    UILabel *labelTable;
+    UIPopoverController *popoverController;
+    UITextView *labelReservationNote;
+    UIButton *buttonUndockTable;
+    UIButton *buttonTransferOrder;
 }
 
 @property (retain) IBOutlet UITableView *tableReservations;
@@ -28,7 +37,6 @@
 @property (retain) IBOutlet UIButton *buttonStartCourse;
 @property (retain) IBOutlet UIButton *buttonUndockTable;
 @property (retain) IBOutlet UIButton *buttonTransferOrder;
-@property (retain) IBOutlet UILabel *labelNextCourse;
 @property (retain) IBOutlet UILabel *labelTable;
 @property (retain) IBOutlet UILabel *labelReservations;
 @property (retain) IBOutlet UITextView *labelReservationNote;
@@ -47,7 +55,6 @@
 - (void) setOptimalSize;
 - (void) setButton: (UIButton*) button enabled: (bool)enabled;
 
-- (IBAction) makeBill;
 - (IBAction) getOrder;
 - (IBAction) startNextCourse;
 - (IBAction) makeBill;
