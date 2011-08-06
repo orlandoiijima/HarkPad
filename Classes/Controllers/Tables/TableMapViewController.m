@@ -492,6 +492,7 @@
 {
     Service *service = [Service getInstance];
     [service startTable:table.id fromReservation: reservation.id];
+    [self refreshView];
 }
 
 - (void) editOrder: (Order *) order
