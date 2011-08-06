@@ -41,7 +41,7 @@
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getCurrentSlots;
 - (void) startNextSlot;
-- (void) transferOrder: (int)orderId toTable: (int) tableId;
+- (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
 - (KitchenStatistics *) getKitchenStatistics;
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;

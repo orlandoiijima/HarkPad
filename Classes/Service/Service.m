@@ -116,12 +116,19 @@ static Service *_service;
 	return;    
 }
 
-- (void) transferOrder: (int)orderId toTable: (int) tableId
+- (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback
 {
-    [self getPageCallback:@"transferorder" withQuery: [NSString stringWithFormat:@"orderId=%d&tableId=%d", orderId, tableId] delegate:nil callback:nil userData:nil];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"transferorder"
+            withQuery: [NSString stringWithFormat:@"orderId=%d&tableId=%d", orderId, tableId]
+            delegate:self
+            callback:@selector(serviceCallback:finishedWithData:error:)
+            userData:invocation];
 	return;    
 }
-
 
 - (void) dockTables: (NSMutableArray*)tables
 {

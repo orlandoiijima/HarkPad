@@ -35,7 +35,11 @@
         if(error == nil) {
             serviceResult.data =  [dic objectForKey:@"result"];
             if(serviceResult.data != nil) {
-                serviceResult.id = [[serviceResult.data objectForKey:@"id"] intValue];
+                if ([serviceResult.data isKindOfClass:[NSMutableDictionary class]]) {
+                    id id = [serviceResult.data objectForKey:@"id"];
+                    if (id != nil)
+                        serviceResult.id = [id intValue];
+                }
                 serviceResult.isSuccess = true;
             }
             id error =  [dic objectForKey:@"error"];
