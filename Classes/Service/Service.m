@@ -7,7 +7,6 @@
 //
 
 #import "Service.h"
-#import "KitchenStatistics.h"
 #import "Backlog.h"
 #import "Invoice.h"
 #import "ProductTotals.h"
@@ -15,7 +14,8 @@
 
 @implementation Service
 
-@synthesize url;				
+@synthesize url;
+
 static Service *_service;
 
 - (id)init {
@@ -180,7 +180,7 @@ static Service *_service;
 
 - (NSMutableArray *) getReservations: (NSDate *)date
 {
-    int dateSeconds = [date timeIntervalSince1970];
+    int dateSeconds = (int) [date timeIntervalSince1970];
 	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *reservationsDic = [self getResultFromJson: data];
@@ -195,7 +195,7 @@ static Service *_service;
 
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
-    int dateSeconds = [date timeIntervalSince1970];
+    int dateSeconds = (int) [date timeIntervalSince1970];
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
     [invocation setTarget:delegate];
@@ -270,7 +270,7 @@ static Service *_service;
 {
     NSURL *testUrl = [self makeEndPoint:@"deleteorderline" withQuery:[NSString stringWithFormat:@"orderlineId=%d", orderLineId]];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [ServiceResult resultFromData:data];
+	return [ServiceResult resultFromData:data error:nil];
 }
 
 - (NSMutableArray *) getCurrentSlots
@@ -331,7 +331,7 @@ static Service *_service;
 
 - (void) serviceCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-    ServiceResult *result = [ServiceResult resultFromData:data];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
     NSInvocation *invocation = (NSInvocation *)fetcher.userData;
     [invocation setArgument:&result atIndex:2];
     [invocation invoke];
@@ -369,7 +369,7 @@ static Service *_service;
 
 - (NSMutableArray *) getSalesStatistics: (NSDate *)date
 {
-    int dateSeconds = [date timeIntervalSince1970];    
+    int dateSeconds = (int) [date timeIntervalSince1970];    
 	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
@@ -384,7 +384,7 @@ static Service *_service;
 
 - (void) printSalesReport:(NSDate *)date
 {
-    int dateSeconds = [date timeIntervalSince1970];    
+    int dateSeconds = (int) [date timeIntervalSince1970];    
 	    NSURL *testUrl = [self makeEndPoint:@"printsalesreport"  withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	[NSData dataWithContentsOfURL: testUrl];
 	return;
@@ -566,6 +566,11 @@ static Service *_service;
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = userData;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
+}
+
+- (void)dealloc {
+    [url release];
+    [super dealloc];
 }
 
 @end

@@ -204,7 +204,7 @@
     Reservation *reservation = (Reservation *)fetcher.userData;
     if(reservation == nil) return;
     
-    ServiceResult *serviceResult = [ServiceResult resultFromData:data];
+    ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
     if(serviceResult.id != -1) {
         reservation.id = serviceResult.id;
         [[iToast makeText:@"Reservation stored"] show];

@@ -408,10 +408,14 @@
 - (void) transferOrder: (int)orderId toTable: (int)tableId
 {
     Service *service = [Service getInstance];
-    [service transferOrder: orderId toTable: tableId];
-    [self refreshView];
+    [service transferOrder: orderId toTable: tableId delegate: self callback: @selector(transferOrderCallback:)];
 }
 
+- (void) transferOrderCallback: (ServiceResult *) result
+{
+    [self refreshView];
+}
+    
 - (void)payOrder: (Order *)order
 {
     if(order == nil)

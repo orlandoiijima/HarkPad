@@ -24,6 +24,6 @@
 @property BOOL isSuccess;
 @property int id;
 
-+ (ServiceResult *) resultFromData:(NSData*)data;
++ (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)error;
 
 @end

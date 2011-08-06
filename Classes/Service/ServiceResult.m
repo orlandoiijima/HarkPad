@@ -17,15 +17,19 @@
         self.id = -1;
         self.error = @"";
         self.isSuccess = false;
-        self.data = [[NSMutableDictionary alloc] init];
-        self.notification = [[NSMutableDictionary alloc] init];
+        self.data = [[[NSMutableDictionary alloc] init] autorelease];
+        self.notification = [[[NSMutableDictionary alloc] init] autorelease];
     }
     return self;
 }
 
-+ (ServiceResult *) resultFromData:(NSData*)data
++ (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)error
 {
     ServiceResult *serviceResult = [[[ServiceResult alloc] init] autorelease];
+    if (error != nil) {
+        serviceResult.error = [error localizedDescription];
+        return serviceResult;
+    }
     if((NSNull *)data == [NSNull null] || [data length] == 0) {
         serviceResult.error = NSLocalizedString(@"Geen data ontvangen van service", nil);
     }
@@ -50,5 +54,12 @@
     }
     return serviceResult;
     
+}
+
+- (void)dealloc {
+    [data release];
+    [error release];
+    [notification release];
+    [super dealloc];
 }
 @end
