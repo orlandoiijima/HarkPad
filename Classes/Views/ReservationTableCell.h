@@ -10,8 +10,13 @@
 #import "Reservation.h"
 
 @interface ReservationTableCell : UITableViewCell {
-    Reservation *reservation;
     UILabel *notes;
+    UILabel *name;
+    UILabel *count;
+    UILabel *email;
+    UILabel *phone;
+    UIImageView *flag;
+    UIButton *status;
 }
 
 @property (retain) IBOutlet UILabel *name;
@@ -21,5 +26,7 @@
 @property (retain) IBOutlet UILabel *phone;
 @property (retain) IBOutlet UILabel *notes;
 @property (retain) IBOutlet UIImageView *flag;
-@property (retain) Reservation* reservation;
+
+- (void) setReservation: (Reservation*)reservation;
+
 @end

@@ -8,7 +8,6 @@
 
 #import "ScrollTableViewController.h"
 #import "iToast.h"
-#import "ReservationTableCell.h"
 #import "Service.h"
 
 @implementation ScrollTableViewController
@@ -30,6 +29,21 @@
 - (void)dealloc
 {
     [scrollView release];
+    [currentPage release];
+    [nextPage release];
+    [dataSources release];
+    [originalStartsOn release];
+    [popover release];
+    [segmentShow release];
+    [slider release];
+    [buttonAdd release];
+    [buttonEdit release];
+    [buttonPhone release];
+    [toolbar release];
+    [buttonWalkin release];
+    [dataSources release];
+    [popover release];
+    [originalStartsOn release];
     [super dealloc];
 }
 
@@ -63,14 +77,14 @@
     scrollView.backgroundColor = [UIColor clearColor];
     
     CGRect frame = CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    currentPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
+    self.currentPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
     [scrollView addSubview:currentPage];
     
     frame = CGRectOffset(frame, scrollView.bounds.size.width, 0);
-    nextPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
+    self.nextPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
     [scrollView addSubview:nextPage];
     
-    dataSources = [[NSMutableDictionary alloc] init];
+    self.dataSources = [[NSMutableDictionary alloc] init];
     [self gotoDayoffset:7];
     
     [NSTimer scheduledTimerWithTimeInterval:10.0f
@@ -94,15 +108,21 @@
 
 - (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
 {
-    if(currentPage == nil) return;
+    NSLog(@"Refresh %@", date);
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
-    [dataSources setObject: dataSource forKey:key];
-    if([currentPage.dataSource.date isEqualToDateIgnoringTime:date]) {
-        currentPage.dataSource = dataSource;
+    if(currentPage != nil) {
+        if([currentPage.date isEqualToDateIgnoringTime:date]) {
+            currentPage.dataSource = dataSource;
+        }
     }
-    
+    if(nextPage != nil) {
+        if([nextPage.date isEqualToDateIgnoringTime:date]) {
+            nextPage.dataSource = dataSource;
+        }    
+    }
+    [dataSources setObject: dataSource forKey:key];
 }
 
 - (NSDate *)pageToDate: (int)page
@@ -119,23 +139,27 @@
 
 - (void) setupScrolledInPage: (int)page
 {
-    NSDate *date = [self pageToDate:page];
+    NSDate *date = [[self pageToDate:page]retain];
     NSString *key = [self dateToKey: date];
+    NSLog(@"Scrolled in %@", date);
     CGFloat pageWidth = scrollView.frame.size.width;
     nextPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+    nextPage.date = date;
     ReservationDataSource *dataSource = [dataSources objectForKey:key];
     if(dataSource == nil) {
-        dataSource = [ReservationDataSource dataSource:date includePlacedReservations:YES];
+        dataSource = [[[ReservationDataSource alloc] init] autorelease];
         [dataSources setObject: dataSource forKey:key];
+        [[Service getInstance] getReservations: date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
     }
-    if(nextPage.dataSource == nil || [nextPage.dataSource.date isEqualToDateIgnoringTime:date] == false) {
-        nextPage.dataSource = dataSource;
-        NSLog(@"Updated datasource");
+    else {
+        if(dataSource.date != nil)
+            nextPage.dataSource = dataSource;
     }
-    
-    int mainPage = floor((self.scrollView.contentOffset.x + pageWidth / 2) / pageWidth);    
+        
+    int mainPage = (int) floor((self.scrollView.contentOffset.x + pageWidth / 2) / pageWidth);    
     if(mainPage == page)
     {
+        NSLog(@"New current %@", date);
         ReservationDayView *swp = currentPage;
         currentPage = nextPage;
         nextPage = swp;
@@ -151,7 +175,7 @@
 {
     CGFloat pageWidth = scrollView.frame.size.width;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
-	int lowerPage = floor(fractionalPage);
+	int lowerPage = (int) floor(fractionalPage);
     int upperPage = lowerPage + 1;
     
 	NSDate *lowerDate = [self pageToDate:lowerPage];
@@ -169,23 +193,24 @@
 
 - (void) gotoDayoffset: (int)page
 {
-    NSDate *date = [self pageToDate:page];
-    NSString *key = [self dateToKey: date];
+    currentPage.date = [self pageToDate:page];
+    NSString *key = [self dateToKey: currentPage.date];
     CGFloat pageWidth = scrollView.frame.size.width;
     currentPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
     nextPage.frame = CGRectMake(pageWidth * (page + 1), 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
     scrollView.contentOffset = CGPointMake(pageWidth * page, scrollView.contentOffset.y);
-    ReservationDataSource *dataSource = [dataSources objectForKey:key];
-    if(dataSource == nil) {
-        dataSource = [ReservationDataSource dataSource:date includePlacedReservations:YES];
-        [dataSources setObject: dataSource forKey:key];
-    }
-    currentPage.dataSource = dataSource;
+//    ReservationDataSource *dataSource = [dataSources objectForKey:key];
+//    if(dataSource == nil) {
+//        [[Service getInstance] getReservations: currentPage.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
+//    }
+//    else {
+//        currentPage.dataSource = dataSource;
+//    }
 }
 
 - (IBAction) sliderUpdate
 {
-    int page = slider.value; 	
+    int page = (int) slider.value; 	
     [self gotoDayoffset:page];
 }
 
@@ -210,7 +235,7 @@
         [[iToast makeText:@"Reservation stored"] show];
     }
     else {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        UIAlertView *view = [[[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
         [view show];
     }
     return;
@@ -249,7 +274,7 @@
 
 - (void) showMode
 {
-    ReservationDataSource *dataSource = (ReservationDataSource*)currentPage.dataSource;
+    ReservationDataSource *dataSource = currentPage.dataSource;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     if(dataSource.includePlacedReservations == includeSeated)
         return;
@@ -261,7 +286,7 @@
     ReservationViewController *popup = (ReservationViewController *) popover.contentViewController;
     Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
-    ReservationDataSource *dataSource = (ReservationDataSource*)currentPage.dataSource;
+    ReservationDataSource *dataSource = currentPage.dataSource;
     if(reservation.id == 0)
     {
         [dataSource addReservation:reservation fromTableView:currentPage.table];
@@ -282,7 +307,7 @@
             }
         }
     }
-    [currentPage refreshTotals:dataSource];
+    [currentPage refreshTotals];
     [currentPage.table setEditing:NO];
 }
 
@@ -293,9 +318,9 @@
 
 - (IBAction) add
 {
-    Reservation *reservation = [[Reservation alloc] init];
+    Reservation *reservation = [[[Reservation alloc] init] autorelease];
     NSDate *date = currentPage.dataSource.date;
-    NSDateComponents *comps = [[NSCalendar currentCalendar] components:-1 fromDate:date];
+    NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSUInteger) -1 fromDate:date];
     [comps setHour:20];
     [comps setMinute:0];
     reservation.startsOn = [[NSCalendar currentCalendar] dateFromComponents:comps];
@@ -309,7 +334,7 @@
 
 - (IBAction) addWalkin
 {
-    Reservation *reservation = [[Reservation alloc] init];
+    Reservation *reservation = [[[Reservation alloc] init] autorelease];
     reservation.type = Walkin;
     [self openEditPopup:reservation];
 }

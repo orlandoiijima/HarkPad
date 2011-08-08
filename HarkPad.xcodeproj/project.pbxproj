@@ -20,6 +20,7 @@
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
 		E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E538F24813756383007F8438 /* MainWindow-iPhone.xib */; };
+		E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */; };
 		E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC85139FD89000EB7C69 /* GTMHTTPFetcher.m */; };
 		E55DFCCD139FD89000EB7C69 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC89139FD89000EB7C69 /* IASKAppSettingsViewController.m */; };
 		E55DFCCE139FD89000EB7C69 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC8B139FD89000EB7C69 /* IASKAppSettingsWebViewController.m */; };
@@ -312,6 +313,7 @@
 		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
 		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReservationWalkinViewController.xib; sourceTree = "<group>"; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
 		E555BD3513081DC10097EB0A /* Reservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reservation.h; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */,
 				E5F055AC13A4D09400720DB5 /* Dialogs */,
 				E5F00516139A290600B2ED57 /* PullToRefreshTableViewController.h */,
 				E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */,
@@ -1174,6 +1177,7 @@
 				E5F055E613A6454C00720DB5 /* ProductMaintenanceViewController.xib in Resources */,
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
 				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
+				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

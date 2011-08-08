@@ -12,7 +12,7 @@
 
 @implementation ReservationDayView
 
-@synthesize table, dayLabel, dateLabel, countLabels;
+@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date;
 
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate
 {
@@ -32,12 +32,12 @@
         [self addSubview:dayLabel];
 
         int spacing = 5;
-        int width = (frame.size.width - 6 * spacing) / 7;
+        int width = (int) ((frame.size.width - 6 * spacing) / 7);
         int x = 15;
         int y = 40;
         int labelHeight = 20;
 
-        NSArray *labels = [[NSArray alloc] initWithObjects:@"18:00", @"18:30", @"19:00", @"19:30", @"20:00", @"20:30", @"T", nil];
+        NSArray *labels = [[[NSArray alloc] initWithObjects:@"18:00", @"18:30", @"19:00", @"19:30", @"20:00", @"20:30", @"T", nil] autorelease];
         self.countLabels = [[[NSMutableDictionary alloc] init] autorelease];
         for(NSString *slot in labels)
         {
@@ -57,7 +57,10 @@
             x += width + spacing;
         }    
     
+        self.dataSource = [[[ReservationDataSource alloc] init] autorelease];
+
         table = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, frame.size.width, frame.size.height - 60) style:UITableViewStyleGrouped];
+        table.dataSource = self.dataSource;
         table.delegate = delegate;
         table.allowsSelectionDuringEditing = YES;
         [self addSubview:table];
@@ -67,28 +70,33 @@
 
 - (Reservation *) selectedReservation
 {
-    ReservationDataSource *dataSource = table.dataSource;
     NSIndexPath *indexPath = [table indexPathForSelectedRow];	
     return [dataSource getReservation:indexPath];
 }
 
-- (ReservationDataSource *) dataSource
+- (void) setDataSource: (ReservationDataSource *)aDataSource
 {
-    return table.dataSource;
-}
+    NSLog(@"Set datasource");
 
-- (void) setDataSource: (ReservationDataSource *)dataSource
-{
-    dateLabel.text = [dataSource.date prettyDateString];
-    dayLabel.text = [dataSource.date weekdayString];
+    self.date = aDataSource.date;
+    [dataSource autorelease];
+    dataSource = [aDataSource retain];
+    table.dataSource = aDataSource;
+    [self refreshTotals];
 
-    [self refreshTotals: dataSource];
-    
-    table.dataSource = dataSource;
     [table reloadData];
 }
 
-- (void) refreshTotals: (ReservationDataSource *)dataSource
+- (void) setDate:(NSDate *)aDate
+{
+    NSLog(@"Set date %@", aDate);
+    [date autorelease];
+    date = [aDate retain];
+    dateLabel.text = [aDate prettyDateString];
+    dayLabel.text = [aDate weekdayString];    
+}
+
+- (void) refreshTotals
 {
     for(NSString *slot in [countLabels allKeys])
     {
@@ -104,17 +112,15 @@
     label.text = total == 0 ? @" -" : [NSString stringWithFormat:@" %d", total];
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)dealloc
 {
+    NSLog(@"Dealloc ResDayView %@", date);
+    [table release];
+    [dayLabel release];
+    [dateLabel release];
+    [countLabels release];
+    [date release];
+    [dataSource release];
     [super dealloc];
 }
 

@@ -180,6 +180,7 @@ static Service *_service;
 
 - (NSMutableArray *) getReservations: (NSDate *)date
 {
+    NSLog(@"Service: getReservations: %@", date);
     int dateSeconds = (int) [date timeIntervalSince1970];
 	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
@@ -195,6 +196,7 @@ static Service *_service;
 
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
+    NSLog(@"Service: getReservations: %@", date);
     int dateSeconds = (int) [date timeIntervalSince1970];
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];

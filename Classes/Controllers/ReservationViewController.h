@@ -19,6 +19,8 @@
     UIDatePicker *datePicker;
     UITextField *countView;
     UISegmentedControl *languageView;
+    NSMutableArray *languages;
+    UIViewController *hostController;
 }
 
 @property (retain) Reservation *reservation;

@@ -18,6 +18,16 @@
     UIScrollView *scrollView;
     ReservationDayView *currentPage;
     ReservationDayView *nextPage;
+    NSMutableDictionary *dataSources;
+    NSDate *originalStartsOn;
+    UIPopoverController *popover;
+    UISegmentedControl *segmentShow;
+    UISlider *slider;
+    UIBarButtonItem *buttonAdd;
+    UIBarButtonItem *buttonEdit;
+    UIBarButtonItem *buttonPhone;
+    UIToolbar *toolbar;
+    UIBarButtonItem *buttonWalkin;
 }
 
 @property (retain) IBOutlet UIScrollView *scrollView;

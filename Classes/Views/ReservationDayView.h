@@ -13,16 +13,20 @@
     UILabel *dateLabel;
     UILabel *dayLabel;
     ReservationDataSource *dataSource;
+    UITableView *table;
+    NSMutableDictionary *countLabels;
+    NSDate *date;
 }
 
 @property (retain) NSMutableDictionary *countLabels;
 @property (retain) UITableView *table;
 @property (retain) IBOutlet UILabel *dateLabel;
 @property (retain) IBOutlet UILabel *dayLabel;
-@property (retain) ReservationDataSource *dataSource;
+@property (retain, nonatomic) ReservationDataSource *dataSource;
+@property (retain, nonatomic) NSDate *date;
 
 - (Reservation *) selectedReservation;
-- (void) refreshTotals: (ReservationDataSource *)dataSource;
+- (void) refreshTotals;
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate;
 
 @end

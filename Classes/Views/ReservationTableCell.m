@@ -10,7 +10,7 @@
 
 @implementation ReservationTableCell
 
-@synthesize reservation, name, count, notes, email, phone, flag, status;
+@synthesize name, count, notes, email, phone, flag, status;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -24,7 +24,7 @@
 - (void) layoutSubviews
 {
     [super layoutSubviews];
-    if([self.reservation.notes length] == 0)
+    if([self.notes.text length] == 0)
         self.name.frame = CGRectMake(self.name.frame.origin.x, self.name.frame.origin.y, self.contentView.frame.size.width, self.name.frame.size.height);
     self.notes.frame = CGRectMake(self.notes.frame.origin.x,
                                   self.notes.frame.origin.y,
@@ -39,9 +39,8 @@
     // Configure the view for the selected state
 }
 
-- (void) setReservation: (Reservation*)newReservation
+- (void) setReservation: (Reservation*)reservation
 {
-    reservation = newReservation;
     if(reservation.type == Walkin) {
         self.name.text = NSLocalizedString(@"walk-in", nil);
         self.name.font = [UIFont italicSystemFontOfSize: self.name.font.pointSize];
@@ -71,6 +70,13 @@
 
 - (void)dealloc
 {
+    [name release];
+    [count release];
+    [notes release];
+    [email release];
+    [phone release];
+    [flag release];
+    [status release];
     [super dealloc];
 }
 

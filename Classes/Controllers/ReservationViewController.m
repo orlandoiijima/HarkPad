@@ -47,7 +47,7 @@
 - (void) initLanguageView: (NSString *)selectedLanguage
 {
     [languageView removeAllSegments];
-    for(int i=0; i < languages.count; i++)
+    for(NSUInteger i=0; i < languages.count; i++)
     {
         NSString *language = [languages objectAtIndex:i];
         NSString *imageName = [NSString stringWithFormat:@"%@.png", language]; 
@@ -64,13 +64,13 @@
 {
     reservation.notes = notesView.text;
     reservation.countGuests = [countView.text intValue];
-    reservation.language = [languages objectAtIndex: languageView.selectedSegmentIndex];
+    reservation.language = [languages objectAtIndex:(NSUInteger) languageView.selectedSegmentIndex];
     
     if(reservation.type == Walkin) {
     
     }
     else {
-        if([reservation.name isEqual:@""] || reservation.name == nil)
+        if([nameView.text isEqual:@""])
             return;
         reservation.name = nameView.text;
         reservation.phone = phoneView.text;
@@ -94,6 +94,18 @@
 
 - (void)dealloc
 {
+    [reservation release];
+    [languages release];
+    [datePicker release];
+    [notesView release];
+    [nameView release];
+    [emailView release];
+    [phoneView release];
+    [countView release];
+    [languageView release];
+    [hostController release];
+    [languages release];
+    [reservation release];
     [super dealloc];
 }
 

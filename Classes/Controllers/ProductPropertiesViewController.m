@@ -87,7 +87,6 @@
 
 - (void)dealloc {
     [uiKey release];
-    [uiKey release];
     [uiName release];
     [uiPrice release];
     [uiCategory release];
