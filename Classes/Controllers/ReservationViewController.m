@@ -125,6 +125,10 @@
     self.contentSizeForViewInPopover = self.view.bounds.size;
     datePicker.minimumDate = [NSDate date];
     [self setReservation:reservation];
+    if (reservation.type == Walkin)
+        [countView becomeFirstResponder];
+    else
+        [nameView becomeFirstResponder];
 }
 
 - (void)viewDidUnload
