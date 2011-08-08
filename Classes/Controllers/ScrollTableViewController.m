@@ -86,17 +86,22 @@
     
     self.dataSources = [[NSMutableDictionary alloc] init];
     [self gotoDayoffset:7];
+
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tapGesture.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:tapGesture];
+    [tapGesture release];   
     
-    [NSTimer scheduledTimerWithTimeInterval:10.0f
+    [NSTimer scheduledTimerWithTimeInterval:20.0f
                                      target:self
                                    selector:@selector(refreshView)
                                    userInfo:nil
                                     repeats:YES];   
     
-//    ReservationDataSource *dataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations: YES];
-//    NSString *key = [self dateToKey:[NSDate date]];
-//    [dataSources setObject:dataSource forKey:key];
-//    currentPage.dataSource = dataSource;    
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
+    [self gotoDayoffset:7];
 }
 
 - (void) refreshView
