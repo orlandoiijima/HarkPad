@@ -92,11 +92,11 @@
     [self.view addGestureRecognizer:tapGesture];
     [tapGesture release];   
     
-    [NSTimer scheduledTimerWithTimeInterval:20.0f
-                                     target:self
-                                   selector:@selector(refreshView)
-                                   userInfo:nil
-                                    repeats:YES];   
+//    [NSTimer scheduledTimerWithTimeInterval:20.0f
+//                                     target:self
+//                                   selector:@selector(refreshView)
+//                                   userInfo:nil
+//                                    repeats:YES];   
     
 }
 

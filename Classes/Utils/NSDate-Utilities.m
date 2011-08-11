@@ -122,7 +122,7 @@
     else
     {
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+        [dateFormatter setDateFormat:@"dd MMM"];
         return [dateFormatter stringFromDate:self];
     }
     
@@ -358,5 +358,13 @@
 {
 	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
 	return [components year];
+}
+
+- (NSString *)stringISO8601
+{
+    NSDateFormatter* sISO8601 = [[[NSDateFormatter alloc] init] autorelease];
+    [sISO8601 setTimeStyle:NSDateFormatterFullStyle];
+    [sISO8601 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    return [sISO8601 stringFromDate: self];
 }
 @end

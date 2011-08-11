@@ -372,13 +372,10 @@
 }
 
 - (void)dealloc {
-    NSLog(@"Dealloc ResDataSource %@", date);
-    self.groupedReservations = nil;
-    self.reservations = nil;
-    self.date = nil;
-//    [groupedReservations release];
-//    [reservations release];
-//    [date release];
+//    NSLog(@"Dealloc ResDataSource %@", date);
+//    self.groupedReservations = nil;
+//    self.reservations = nil;
+//    self.date = nil;
     [super dealloc];
 }
 

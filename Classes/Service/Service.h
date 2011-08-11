@@ -72,5 +72,6 @@
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
+- (NSString *)urlEncode: (NSString *)unencodedString;
 
 @end

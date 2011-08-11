@@ -30,7 +30,7 @@ static Service *_service;
             url = URL_DEV_EXT;
         else
             url = URL_PRODUCTION;
-        url = URL_DEV;
+//        url = URL_DEV;
 	    }
     return self;
 }
@@ -542,7 +542,7 @@ static Service *_service;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, value];
+    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];    
 }
@@ -554,11 +554,21 @@ static Service *_service;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, value];
+    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = userData;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
+}
+
+- (NSString *)urlEncode: (NSString *)unencodedString
+{
+    return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+        NULL,
+        (CFStringRef)unencodedString,
+        NULL,
+        (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+        kCFStringEncodingUTF8 );    
 }
 
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData

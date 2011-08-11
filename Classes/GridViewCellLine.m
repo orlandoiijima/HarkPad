@@ -96,9 +96,7 @@
     self.deleteButton.frame = CGRectMake(self.frame.size.width - 20, -10, 30, 30);
     self.deleteButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin; 
 
-    UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
-    self.deleteButton.frame = [window convertRect: self.deleteButton.frame fromView:self];
-    [window addSubview: deleteButton];
+    [self addSubview: deleteButton];
 }
 
 - (void) removeDeleteButton

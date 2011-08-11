@@ -21,12 +21,12 @@
         // Initialization code
         
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
-        dateLabel.font = [UIFont systemFontOfSize:28];
+        dateLabel.font = [UIFont systemFontOfSize:22];
         dateLabel.textAlignment = UITextAlignmentRight;
         [self addSubview:dateLabel];
 
         dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/2 + 5, 0, frame.size.width/2, 35)];
-        dayLabel.font = [UIFont systemFontOfSize:28];
+        dayLabel.font = [UIFont systemFontOfSize:22];
         dayLabel.textColor = [UIColor colorWithWhite: 0.5 alpha: 0.5];
         dayLabel.textAlignment = UITextAlignmentLeft;
         [self addSubview:dayLabel];

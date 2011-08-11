@@ -12,7 +12,7 @@
 @implementation TablePopupViewController
 
 @synthesize tableReservations, buttonGetPayment, buttonMakeBill, buttonMakeOrder, buttonStartCourse, labelTable, labelReservations, popoverController;
-@synthesize 	table, order, labelReservationNote, buttonUndockTable, buttonTransferOrder;
+@synthesize 	table, order, labelReservationNote, buttonUndockTable, buttonTransferOrder, reservationDataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,6 +30,8 @@
 
 - (void)setReservationDataSource:(ReservationDataSource *)dataSource
 {
+    [reservationDataSource autorelease];
+    reservationDataSource = [dataSource retain];
     tableReservations.dataSource = dataSource;
 }
 

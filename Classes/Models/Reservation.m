@@ -95,10 +95,10 @@
     [dic setObject: self.language forKey:@"language"];
     if(self.phone != nil)
         [dic setObject: self.phone forKey:@"phone"];
-    [dic setObject: [NSNumber numberWithInt:[self.startsOn timeIntervalSince1970]] forKey:@"startsOn"];
+    [dic setObject: [self.startsOn stringISO8601] forKey:@"startsOn"];
     [dic setObject: [NSNumber numberWithInt:[self.createdOn timeIntervalSince1970]] forKey:@"createdOn"];
     
-    return dic;
+    return dic; 
 }
 
 - (bool) isPlaced
