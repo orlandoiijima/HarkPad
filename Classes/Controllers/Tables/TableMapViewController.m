@@ -333,6 +333,10 @@
         if(tableInfo.table.dockedToTableId != -1)
             continue;
         District *district = [map getDistrict:tableInfo.table.id];
+        if(district == nil) {
+            NSLog(@"district not found for table id %d", tableInfo.table.id);
+            continue;
+        }
         if(district.id == currentDistrict.id) {
             TableButton *button = [TableButton buttonWithTable:tableInfo.table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX];
             button.userInteractionEnabled = false;

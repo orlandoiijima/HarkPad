@@ -265,7 +265,7 @@
 {
     Reservation *reservation = [currentPage selectedReservation];
     if(reservation == nil || reservation.id == 0) return;
-    originalStartsOn = [reservation.startsOn copyWithZone:nil];
+    self.originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
 }	
 
@@ -291,10 +291,20 @@
     ReservationViewController *popup = (ReservationViewController *) popover.contentViewController;
     Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
-    ReservationDataSource *dataSource = currentPage.dataSource;
+    NSString *key = [self dateToKey:reservation.startsOn];
+    ReservationDataSource *dataSource = [dataSources objectForKey:key];
+    ReservationDayView *page = nil;
+    if(dataSource != nil)
+    {
+        if ([currentPage.date isEqualToDateIgnoringTime:dataSource.date])
+            page = currentPage;
+        else if ([nextPage.date isEqualToDateIgnoringTime:dataSource.date])
+            page = nextPage;
+    }
     if(reservation.id == 0)
     {
-        [dataSource addReservation:reservation fromTableView:currentPage.table];
+        if(dataSource != nil)
+            [dataSource addReservation:reservation fromTableView: page.table];
     }
     else
     {
@@ -305,17 +315,17 @@
         else {
             NSDate *startsOn = reservation.startsOn;
             reservation.startsOn = originalStartsOn;
-            [dataSource deleteReservation:reservation fromTableView:currentPage.table];
-            if([startsOn isEqualToDateIgnoringTime: currentPage.dataSource.date]) {
+            [currentPage.dataSource deleteReservation:reservation fromTableView: currentPage.table];
+            if([startsOn isEqualToDateIgnoringTime: page.dataSource.date]) {
                 reservation.startsOn = startsOn;
-                [dataSource addReservation:reservation fromTableView:currentPage.table];
+                [dataSource addReservation:reservation fromTableView: page.table];
             }
         }
     }
-    [currentPage refreshTotals];
-    [currentPage.table setEditing:NO];
+    [page refreshTotals];
+    [page.table setEditing:NO];
 }
-
+    
 - (void) cancelPopup
 {
     [popover dismissPopoverAnimated:YES];
