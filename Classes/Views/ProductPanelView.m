@@ -46,7 +46,7 @@
     
     CGRect rect;
     TreeNode *node = [self treeNodeByPoint: point frame:&rect];
-    if(node == nil || node.product != nil)
+    if(node == nil || node.product != nil || node.menu != nil)
         return;
     parentNode = node;
     [self setNeedsDisplay];
@@ -220,7 +220,7 @@
 {
     [self addSubview: productInfoLabel];
     [menuCardSegment removeFromSuperview];
-    NSString *text;
+    NSString *text = @"";
     if(node.product != nil)
         text = [NSString stringWithFormat:@"%@ (€%.2f)", node.product.name, [node.product.price floatValue]]; 
     if(node.menu != nil)
