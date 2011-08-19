@@ -10,7 +10,6 @@
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
-		E50EB9F413FE5F8400129255 /* quickdialog in Resources */ = {isa = PBXBuildFile; fileRef = E50EB9F313FE5F8400129255 /* quickdialog */; };
 		E513726913A8E01D0037C033 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E513726813A8E01D0037C033 /* GridView.m */; };
 		E513727813A8E1630037C033 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E513727713A8E1630037C033 /* GridViewController.m */; };
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
@@ -64,6 +63,37 @@
 		E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E561E2691334B13C00229B76 /* ReservationDataSource.m */; };
 		E561E2751336446400229B76 /* anna72.png in Resources */ = {isa = PBXBuildFile; fileRef = E561E2741336445600229B76 /* anna72.png */; };
 		E56231AB13B74AD900EEE977 /* closebox.png in Resources */ = {isa = PBXBuildFile; fileRef = E56231AA13B74AD900EEE977 /* closebox.png */; };
+		E573701013FE63B6007E05C0 /* QBadgeElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FD113FE63B6007E05C0 /* QBadgeElement.m */; };
+		E573701113FE63B6007E05C0 /* QBadgeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FD313FE63B6007E05C0 /* QBadgeTableCell.m */; };
+		E573701213FE63B6007E05C0 /* QBooleanElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FD513FE63B6007E05C0 /* QBooleanElement.m */; };
+		E573701313FE63B6007E05C0 /* QButtonElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FD713FE63B6007E05C0 /* QButtonElement.m */; };
+		E573701413FE63B6007E05C0 /* QDateEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FD913FE63B6007E05C0 /* QDateEntryTableViewCell.m */; };
+		E573701513FE63B6007E05C0 /* QDateTimeElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FDB13FE63B6007E05C0 /* QDateTimeElement.m */; };
+		E573701613FE63B6007E05C0 /* QDateTimeInlineElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FDD13FE63B6007E05C0 /* QDateTimeInlineElement.m */; };
+		E573701713FE63B6007E05C0 /* QDecimalElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FDF13FE63B6007E05C0 /* QDecimalElement.m */; };
+		E573701813FE63B6007E05C0 /* QDecimalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE113FE63B6007E05C0 /* QDecimalTableViewCell.m */; };
+		E573701913FE63B6007E05C0 /* QElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE313FE63B6007E05C0 /* QElement.m */; };
+		E573701A13FE63B6007E05C0 /* QEntryElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE513FE63B6007E05C0 /* QEntryElement.m */; };
+		E573701B13FE63B6007E05C0 /* QEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE713FE63B6007E05C0 /* QEntryTableViewCell.m */; };
+		E573701C13FE63B6007E05C0 /* QFloatElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE913FE63B6007E05C0 /* QFloatElement.m */; };
+		E573701D13FE63B6007E05C0 /* QLabelElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FEB13FE63B6007E05C0 /* QLabelElement.m */; };
+		E573701E13FE63B6007E05C0 /* QMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */; };
+		E573701F13FE63B6007E05C0 /* QMapElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FEF13FE63B6007E05C0 /* QMapElement.m */; };
+		E573702013FE63B6007E05C0 /* QMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF113FE63B6007E05C0 /* QMapViewController.m */; };
+		E573702113FE63B6007E05C0 /* QRadioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF313FE63B6007E05C0 /* QRadioElement.m */; };
+		E573702213FE63B6007E05C0 /* QRadioItemElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF513FE63B6007E05C0 /* QRadioItemElement.m */; };
+		E573702313FE63B6007E05C0 /* QRadioSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF713FE63B6007E05C0 /* QRadioSection.m */; };
+		E573702413FE63B6007E05C0 /* QRootElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF913FE63B6007E05C0 /* QRootElement.m */; };
+		E573702513FE63B6007E05C0 /* QSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FFB13FE63B6007E05C0 /* QSection.m */; };
+		E573702613FE63B6007E05C0 /* QSortingSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FFD13FE63B6007E05C0 /* QSortingSection.m */; };
+		E573702713FE63B6007E05C0 /* QTextElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FFF13FE63B6007E05C0 /* QTextElement.m */; };
+		E573702813FE63B6007E05C0 /* QuickDialogController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700113FE63B6007E05C0 /* QuickDialogController+Loading.m */; };
+		E573702913FE63B6007E05C0 /* QuickDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700313FE63B6007E05C0 /* QuickDialogController.m */; };
+		E573702A13FE63B6007E05C0 /* QuickDialogDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700513FE63B6007E05C0 /* QuickDialogDataSource.m */; };
+		E573702B13FE63B6007E05C0 /* QuickDialogTableDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700813FE63B6007E05C0 /* QuickDialogTableDelegate.m */; };
+		E573702C13FE63B6007E05C0 /* QuickDialogTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700A13FE63B6007E05C0 /* QuickDialogTableView.m */; };
+		E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700D13FE63B6007E05C0 /* QWebElement.m */; };
+		E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700F13FE63B6007E05C0 /* QWebViewController.m */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
@@ -289,7 +319,6 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
-		E50EB9F313FE5F8400129255 /* quickdialog */ = {isa = PBXFileReference; lastKnownFileType = folder; path = quickdialog; sourceTree = "<group>"; };
 		E513726713A8E01D0037C033 /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		E513726813A8E01D0037C033 /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		E513727613A8E1630037C033 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
@@ -393,6 +422,70 @@
 		E561E2691334B13C00229B76 /* ReservationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReservationDataSource.m; path = Models/ReservationDataSource.m; sourceTree = "<group>"; };
 		E561E2741336445600229B76 /* anna72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anna72.png; sourceTree = "<group>"; };
 		E56231AA13B74AD900EEE977 /* closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closebox.png; sourceTree = "<group>"; };
+		E5736FD013FE63B6007E05C0 /* QBadgeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeElement.h; sourceTree = "<group>"; };
+		E5736FD113FE63B6007E05C0 /* QBadgeElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeElement.m; sourceTree = "<group>"; };
+		E5736FD213FE63B6007E05C0 /* QBadgeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeTableCell.h; sourceTree = "<group>"; };
+		E5736FD313FE63B6007E05C0 /* QBadgeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeTableCell.m; sourceTree = "<group>"; };
+		E5736FD413FE63B6007E05C0 /* QBooleanElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBooleanElement.h; sourceTree = "<group>"; };
+		E5736FD513FE63B6007E05C0 /* QBooleanElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBooleanElement.m; sourceTree = "<group>"; };
+		E5736FD613FE63B6007E05C0 /* QButtonElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QButtonElement.h; sourceTree = "<group>"; };
+		E5736FD713FE63B6007E05C0 /* QButtonElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QButtonElement.m; sourceTree = "<group>"; };
+		E5736FD813FE63B6007E05C0 /* QDateEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateEntryTableViewCell.h; sourceTree = "<group>"; };
+		E5736FD913FE63B6007E05C0 /* QDateEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateEntryTableViewCell.m; sourceTree = "<group>"; };
+		E5736FDA13FE63B6007E05C0 /* QDateTimeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateTimeElement.h; sourceTree = "<group>"; };
+		E5736FDB13FE63B6007E05C0 /* QDateTimeElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateTimeElement.m; sourceTree = "<group>"; };
+		E5736FDC13FE63B6007E05C0 /* QDateTimeInlineElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDateTimeInlineElement.h; sourceTree = "<group>"; };
+		E5736FDD13FE63B6007E05C0 /* QDateTimeInlineElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDateTimeInlineElement.m; sourceTree = "<group>"; };
+		E5736FDE13FE63B6007E05C0 /* QDecimalElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDecimalElement.h; sourceTree = "<group>"; };
+		E5736FDF13FE63B6007E05C0 /* QDecimalElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDecimalElement.m; sourceTree = "<group>"; };
+		E5736FE013FE63B6007E05C0 /* QDecimalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDecimalTableViewCell.h; sourceTree = "<group>"; };
+		E5736FE113FE63B6007E05C0 /* QDecimalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDecimalTableViewCell.m; sourceTree = "<group>"; };
+		E5736FE213FE63B6007E05C0 /* QElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QElement.h; sourceTree = "<group>"; };
+		E5736FE313FE63B6007E05C0 /* QElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QElement.m; sourceTree = "<group>"; };
+		E5736FE413FE63B6007E05C0 /* QEntryElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QEntryElement.h; sourceTree = "<group>"; };
+		E5736FE513FE63B6007E05C0 /* QEntryElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QEntryElement.m; sourceTree = "<group>"; };
+		E5736FE613FE63B6007E05C0 /* QEntryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QEntryTableViewCell.h; sourceTree = "<group>"; };
+		E5736FE713FE63B6007E05C0 /* QEntryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QEntryTableViewCell.m; sourceTree = "<group>"; };
+		E5736FE813FE63B6007E05C0 /* QFloatElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QFloatElement.h; sourceTree = "<group>"; };
+		E5736FE913FE63B6007E05C0 /* QFloatElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFloatElement.m; sourceTree = "<group>"; };
+		E5736FEA13FE63B6007E05C0 /* QLabelElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLabelElement.h; sourceTree = "<group>"; };
+		E5736FEB13FE63B6007E05C0 /* QLabelElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLabelElement.m; sourceTree = "<group>"; };
+		E5736FEC13FE63B6007E05C0 /* QMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapAnnotation.h; sourceTree = "<group>"; };
+		E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapAnnotation.m; sourceTree = "<group>"; };
+		E5736FEE13FE63B6007E05C0 /* QMapElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapElement.h; sourceTree = "<group>"; };
+		E5736FEF13FE63B6007E05C0 /* QMapElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapElement.m; sourceTree = "<group>"; };
+		E5736FF013FE63B6007E05C0 /* QMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapViewController.h; sourceTree = "<group>"; };
+		E5736FF113FE63B6007E05C0 /* QMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapViewController.m; sourceTree = "<group>"; };
+		E5736FF213FE63B6007E05C0 /* QRadioElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioElement.h; sourceTree = "<group>"; };
+		E5736FF313FE63B6007E05C0 /* QRadioElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioElement.m; sourceTree = "<group>"; };
+		E5736FF413FE63B6007E05C0 /* QRadioItemElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioItemElement.h; sourceTree = "<group>"; };
+		E5736FF513FE63B6007E05C0 /* QRadioItemElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioItemElement.m; sourceTree = "<group>"; };
+		E5736FF613FE63B6007E05C0 /* QRadioSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioSection.h; sourceTree = "<group>"; };
+		E5736FF713FE63B6007E05C0 /* QRadioSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioSection.m; sourceTree = "<group>"; };
+		E5736FF813FE63B6007E05C0 /* QRootElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRootElement.h; sourceTree = "<group>"; };
+		E5736FF913FE63B6007E05C0 /* QRootElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRootElement.m; sourceTree = "<group>"; };
+		E5736FFA13FE63B6007E05C0 /* QSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSection.h; sourceTree = "<group>"; };
+		E5736FFB13FE63B6007E05C0 /* QSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSection.m; sourceTree = "<group>"; };
+		E5736FFC13FE63B6007E05C0 /* QSortingSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QSortingSection.h; sourceTree = "<group>"; };
+		E5736FFD13FE63B6007E05C0 /* QSortingSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QSortingSection.m; sourceTree = "<group>"; };
+		E5736FFE13FE63B6007E05C0 /* QTextElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QTextElement.h; sourceTree = "<group>"; };
+		E5736FFF13FE63B6007E05C0 /* QTextElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QTextElement.m; sourceTree = "<group>"; };
+		E573700013FE63B6007E05C0 /* QuickDialogController+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickDialogController+Loading.h"; sourceTree = "<group>"; };
+		E573700113FE63B6007E05C0 /* QuickDialogController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QuickDialogController+Loading.m"; sourceTree = "<group>"; };
+		E573700213FE63B6007E05C0 /* QuickDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogController.h; sourceTree = "<group>"; };
+		E573700313FE63B6007E05C0 /* QuickDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogController.m; sourceTree = "<group>"; };
+		E573700413FE63B6007E05C0 /* QuickDialogDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogDataSource.h; sourceTree = "<group>"; };
+		E573700513FE63B6007E05C0 /* QuickDialogDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogDataSource.m; sourceTree = "<group>"; };
+		E573700613FE63B6007E05C0 /* QuickDialogStyleProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogStyleProvider.h; sourceTree = "<group>"; };
+		E573700713FE63B6007E05C0 /* QuickDialogTableDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogTableDelegate.h; sourceTree = "<group>"; };
+		E573700813FE63B6007E05C0 /* QuickDialogTableDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogTableDelegate.m; sourceTree = "<group>"; };
+		E573700913FE63B6007E05C0 /* QuickDialogTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickDialogTableView.h; sourceTree = "<group>"; };
+		E573700A13FE63B6007E05C0 /* QuickDialogTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickDialogTableView.m; sourceTree = "<group>"; };
+		E573700B13FE63B6007E05C0 /* quickform-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "quickform-Prefix.pch"; sourceTree = "<group>"; };
+		E573700C13FE63B6007E05C0 /* QWebElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebElement.h; sourceTree = "<group>"; };
+		E573700D13FE63B6007E05C0 /* QWebElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebElement.m; sourceTree = "<group>"; };
+		E573700E13FE63B6007E05C0 /* QWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebViewController.h; sourceTree = "<group>"; };
+		E573700F13FE63B6007E05C0 /* QWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebViewController.m; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -889,7 +982,7 @@
 		E55DFC82139FD89000EB7C69 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				E50EB9F313FE5F8400129255 /* quickdialog */,
+				E5736FCF13FE63B6007E05C0 /* quickdialog */,
 				E55DFC83139FD89000EB7C69 /* GTMHTTPFetcher */,
 				E55DFC86139FD89000EB7C69 /* InAppSettingsKit */,
 				E55DFCAF139FD89000EB7C69 /* Toaster */,
@@ -1061,6 +1154,77 @@
 			name = DataSources;
 			sourceTree = "<group>";
 		};
+		E5736FCF13FE63B6007E05C0 /* quickdialog */ = {
+			isa = PBXGroup;
+			children = (
+				E5736FD013FE63B6007E05C0 /* QBadgeElement.h */,
+				E5736FD113FE63B6007E05C0 /* QBadgeElement.m */,
+				E5736FD213FE63B6007E05C0 /* QBadgeTableCell.h */,
+				E5736FD313FE63B6007E05C0 /* QBadgeTableCell.m */,
+				E5736FD413FE63B6007E05C0 /* QBooleanElement.h */,
+				E5736FD513FE63B6007E05C0 /* QBooleanElement.m */,
+				E5736FD613FE63B6007E05C0 /* QButtonElement.h */,
+				E5736FD713FE63B6007E05C0 /* QButtonElement.m */,
+				E5736FD813FE63B6007E05C0 /* QDateEntryTableViewCell.h */,
+				E5736FD913FE63B6007E05C0 /* QDateEntryTableViewCell.m */,
+				E5736FDA13FE63B6007E05C0 /* QDateTimeElement.h */,
+				E5736FDB13FE63B6007E05C0 /* QDateTimeElement.m */,
+				E5736FDC13FE63B6007E05C0 /* QDateTimeInlineElement.h */,
+				E5736FDD13FE63B6007E05C0 /* QDateTimeInlineElement.m */,
+				E5736FDE13FE63B6007E05C0 /* QDecimalElement.h */,
+				E5736FDF13FE63B6007E05C0 /* QDecimalElement.m */,
+				E5736FE013FE63B6007E05C0 /* QDecimalTableViewCell.h */,
+				E5736FE113FE63B6007E05C0 /* QDecimalTableViewCell.m */,
+				E5736FE213FE63B6007E05C0 /* QElement.h */,
+				E5736FE313FE63B6007E05C0 /* QElement.m */,
+				E5736FE413FE63B6007E05C0 /* QEntryElement.h */,
+				E5736FE513FE63B6007E05C0 /* QEntryElement.m */,
+				E5736FE613FE63B6007E05C0 /* QEntryTableViewCell.h */,
+				E5736FE713FE63B6007E05C0 /* QEntryTableViewCell.m */,
+				E5736FE813FE63B6007E05C0 /* QFloatElement.h */,
+				E5736FE913FE63B6007E05C0 /* QFloatElement.m */,
+				E5736FEA13FE63B6007E05C0 /* QLabelElement.h */,
+				E5736FEB13FE63B6007E05C0 /* QLabelElement.m */,
+				E5736FEC13FE63B6007E05C0 /* QMapAnnotation.h */,
+				E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */,
+				E5736FEE13FE63B6007E05C0 /* QMapElement.h */,
+				E5736FEF13FE63B6007E05C0 /* QMapElement.m */,
+				E5736FF013FE63B6007E05C0 /* QMapViewController.h */,
+				E5736FF113FE63B6007E05C0 /* QMapViewController.m */,
+				E5736FF213FE63B6007E05C0 /* QRadioElement.h */,
+				E5736FF313FE63B6007E05C0 /* QRadioElement.m */,
+				E5736FF413FE63B6007E05C0 /* QRadioItemElement.h */,
+				E5736FF513FE63B6007E05C0 /* QRadioItemElement.m */,
+				E5736FF613FE63B6007E05C0 /* QRadioSection.h */,
+				E5736FF713FE63B6007E05C0 /* QRadioSection.m */,
+				E5736FF813FE63B6007E05C0 /* QRootElement.h */,
+				E5736FF913FE63B6007E05C0 /* QRootElement.m */,
+				E5736FFA13FE63B6007E05C0 /* QSection.h */,
+				E5736FFB13FE63B6007E05C0 /* QSection.m */,
+				E5736FFC13FE63B6007E05C0 /* QSortingSection.h */,
+				E5736FFD13FE63B6007E05C0 /* QSortingSection.m */,
+				E5736FFE13FE63B6007E05C0 /* QTextElement.h */,
+				E5736FFF13FE63B6007E05C0 /* QTextElement.m */,
+				E573700013FE63B6007E05C0 /* QuickDialogController+Loading.h */,
+				E573700113FE63B6007E05C0 /* QuickDialogController+Loading.m */,
+				E573700213FE63B6007E05C0 /* QuickDialogController.h */,
+				E573700313FE63B6007E05C0 /* QuickDialogController.m */,
+				E573700413FE63B6007E05C0 /* QuickDialogDataSource.h */,
+				E573700513FE63B6007E05C0 /* QuickDialogDataSource.m */,
+				E573700613FE63B6007E05C0 /* QuickDialogStyleProvider.h */,
+				E573700713FE63B6007E05C0 /* QuickDialogTableDelegate.h */,
+				E573700813FE63B6007E05C0 /* QuickDialogTableDelegate.m */,
+				E573700913FE63B6007E05C0 /* QuickDialogTableView.h */,
+				E573700A13FE63B6007E05C0 /* QuickDialogTableView.m */,
+				E573700B13FE63B6007E05C0 /* quickform-Prefix.pch */,
+				E573700C13FE63B6007E05C0 /* QWebElement.h */,
+				E573700D13FE63B6007E05C0 /* QWebElement.m */,
+				E573700E13FE63B6007E05C0 /* QWebViewController.h */,
+				E573700F13FE63B6007E05C0 /* QWebViewController.m */,
+			);
+			path = quickdialog;
+			sourceTree = "<group>";
+		};
 		E5F055AC13A4D09400720DB5 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1183,7 +1347,6 @@
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
 				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
-				E50EB9F413FE5F8400129255 /* quickdialog in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1470,37 @@
 				E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */,
 				E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */,
 				E513729413A918E20037C033 /* CellPath.m in Sources */,
+				E573701013FE63B6007E05C0 /* QBadgeElement.m in Sources */,
+				E573701113FE63B6007E05C0 /* QBadgeTableCell.m in Sources */,
+				E573701213FE63B6007E05C0 /* QBooleanElement.m in Sources */,
+				E573701313FE63B6007E05C0 /* QButtonElement.m in Sources */,
+				E573701413FE63B6007E05C0 /* QDateEntryTableViewCell.m in Sources */,
+				E573701513FE63B6007E05C0 /* QDateTimeElement.m in Sources */,
+				E573701613FE63B6007E05C0 /* QDateTimeInlineElement.m in Sources */,
+				E573701713FE63B6007E05C0 /* QDecimalElement.m in Sources */,
+				E573701813FE63B6007E05C0 /* QDecimalTableViewCell.m in Sources */,
+				E573701913FE63B6007E05C0 /* QElement.m in Sources */,
+				E573701A13FE63B6007E05C0 /* QEntryElement.m in Sources */,
+				E573701B13FE63B6007E05C0 /* QEntryTableViewCell.m in Sources */,
+				E573701C13FE63B6007E05C0 /* QFloatElement.m in Sources */,
+				E573701D13FE63B6007E05C0 /* QLabelElement.m in Sources */,
+				E573701E13FE63B6007E05C0 /* QMapAnnotation.m in Sources */,
+				E573701F13FE63B6007E05C0 /* QMapElement.m in Sources */,
+				E573702013FE63B6007E05C0 /* QMapViewController.m in Sources */,
+				E573702113FE63B6007E05C0 /* QRadioElement.m in Sources */,
+				E573702213FE63B6007E05C0 /* QRadioItemElement.m in Sources */,
+				E573702313FE63B6007E05C0 /* QRadioSection.m in Sources */,
+				E573702413FE63B6007E05C0 /* QRootElement.m in Sources */,
+				E573702513FE63B6007E05C0 /* QSection.m in Sources */,
+				E573702613FE63B6007E05C0 /* QSortingSection.m in Sources */,
+				E573702713FE63B6007E05C0 /* QTextElement.m in Sources */,
+				E573702813FE63B6007E05C0 /* QuickDialogController+Loading.m in Sources */,
+				E573702913FE63B6007E05C0 /* QuickDialogController.m in Sources */,
+				E573702A13FE63B6007E05C0 /* QuickDialogDataSource.m in Sources */,
+				E573702B13FE63B6007E05C0 /* QuickDialogTableDelegate.m in Sources */,
+				E573702C13FE63B6007E05C0 /* QuickDialogTableView.m in Sources */,
+				E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */,
+				E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
