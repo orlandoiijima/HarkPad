@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Order.h"
 #import "Invoice.h"
+#import "InvoiceDataSource.h"
 
 @interface OrderLinesViewController : UITableViewController {
     Order *order;
+    InvoiceDataSource *dataSource;
 }
 
 @property (retain) Order *order;
-@property (retain) UIViewController *invoicesViewController;
+@property (retain) InvoicesViewController *invoicesViewController;
+@property (retain) InvoiceDataSource *dataSource;
 
 @end

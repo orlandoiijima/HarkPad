@@ -11,7 +11,7 @@
 
 @implementation OrderLinesViewController
 
-@synthesize order, invoicesViewController;
+@synthesize order, invoicesViewController, dataSource;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    InvoiceDataSource *dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO];
+    dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO];
     dataSource.invoicesViewController = invoicesViewController;
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;
