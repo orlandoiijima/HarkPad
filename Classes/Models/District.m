@@ -22,7 +22,7 @@
 
 + (District *) districtFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    District *district = [[[District alloc] init] autorelease];
+    District *district = [[District alloc] init];
     district.name = [jsonDictionary objectForKey:@"name"];
     district.id = [[jsonDictionary objectForKey:@"id"] intValue];
     district.tables = [[NSMutableArray alloc] init];

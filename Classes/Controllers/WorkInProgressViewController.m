@@ -11,7 +11,7 @@
 
 @implementation WorkInProgressViewController
 
-@synthesize table, isVisible;
+@synthesize table, isVisible, dataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,7 +36,7 @@
 
 - (void) refreshViewCallback:(NSMutableArray *)workInProgress
 {
-    WorkInProgressDataSource *dataSource = [[WorkInProgressDataSource alloc] init];
+    dataSource = [[WorkInProgressDataSource alloc] init];
     dataSource.workInProgress = workInProgress;
     
     table.dataSource = dataSource;
@@ -44,10 +44,6 @@
     [table reloadData];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -59,7 +55,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WorkInProgressDataSource *dataSource = table.dataSource;
     WorkInProgress *work = [dataSource.workInProgress objectAtIndex:indexPath.row];
     NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.table.name];
     if([ModalAlert confirm:query]) {
@@ -70,7 +65,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    WorkInProgressDataSource *dataSource = table.dataSource;
     WorkInProgress *work = [dataSource.workInProgress objectAtIndex:indexPath.row];
     int minutes = (int) ((float)[[NSDate date] timeIntervalSinceDate: work.course.requestedOn] / 60);
     if(minutes > 20)

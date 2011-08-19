@@ -15,7 +15,7 @@
 
 + (WorkInProgress *) workFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    WorkInProgress *work = [[[WorkInProgress alloc] init] autorelease];
+    WorkInProgress *work = [[WorkInProgress alloc] init];
     id course = [jsonDictionary objectForKey:@"course"];
     work.course = [Course courseFromJsonDictionary:course];
     int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];

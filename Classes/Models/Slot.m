@@ -17,7 +17,7 @@
 
 + (Slot *) slotFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Slot *slot = [[[Slot alloc] init] autorelease];
+    Slot *slot = [[Slot alloc] init];
     slot.id = [[jsonDictionary objectForKey:@"id"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"startedOn"];
     if((NSNull*)seconds != [NSNull null])

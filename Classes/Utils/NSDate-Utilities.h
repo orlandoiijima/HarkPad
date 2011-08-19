@@ -75,4 +75,7 @@
 @property (readonly) NSInteger weekday;
 @property (readonly) NSInteger nthWeekday; // e.g. 2nd Tuesday of the month == 2
 @property (readonly) NSInteger year;
+
+- (NSString *)stringISO8601;
+
 @end

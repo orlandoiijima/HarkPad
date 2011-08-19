@@ -27,10 +27,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -173,7 +169,7 @@
 }
 
  - (IBAction)addProduct:(id)sender {
-     Product *product = [[[Product alloc] init] autorelease];
+     Product *product = [[Product alloc] init];
      ProductPropertiesViewController *controller = [[ProductPropertiesViewController alloc] initWithProduct:product];
      UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:controller];
      controller.popoverController = popover;

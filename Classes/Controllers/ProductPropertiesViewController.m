@@ -23,7 +23,7 @@
 }
 
 - (id)initWithProduct:(Product *)newProduct {
-    [super initWithNibName:@"ProductPropertiesViewController" bundle:nil];
+    self = [super initWithNibName:@"ProductPropertiesViewController" bundle:nil];
 
     self.product = newProduct;
 
@@ -85,16 +85,6 @@
     [popoverController dismissPopoverAnimated:YES];
 }
 
-- (void)dealloc {
-    [uiKey release];
-    [uiName release];
-    [uiPrice release];
-    [uiCategory release];
-    [uiVat release];
-    [product release];
-    [popoverController release];
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

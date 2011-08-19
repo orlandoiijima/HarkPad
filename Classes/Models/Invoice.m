@@ -15,10 +15,10 @@
 
 + (Invoice *) invoiceFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Invoice *invoice = [[[Invoice alloc] init] autorelease];
+    Invoice *invoice = [[Invoice alloc] init];
     int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
     invoice.table = [[[Cache getInstance] map] getTable:tableId];
-    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     id createdOn = [jsonDictionary objectForKey:@"createdOn"];
     invoice.createdOn = [df dateFromString: createdOn];

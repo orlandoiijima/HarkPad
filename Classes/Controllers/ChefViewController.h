@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SlotDataSource.h"
+#import "KitchenStatisticsDataSource.h"
 
 @interface ChefViewController : UIViewController <UIPopoverControllerDelegate>{
     UITableView *table;
@@ -15,6 +16,7 @@
 }
 
 @property (retain) IBOutlet UITableView *table; 
+@property (retain) KitchenStatisticsDataSource *dataSource; 
 @property bool isVisible;
 
 - (void) refreshView;

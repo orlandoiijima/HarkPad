@@ -19,8 +19,8 @@
 @class IASKSwitch;
 
 @interface IASKPSToggleSwitchSpecifierViewCell : UITableViewCell {
-    UILabel *_label;
-    IASKSwitch *_toggle;
+    UILabel *__unsafe_unretained _label;
+    IASKSwitch *__unsafe_unretained _toggle;
 }
 
 @property (nonatomic, assign) IBOutlet UILabel *label;

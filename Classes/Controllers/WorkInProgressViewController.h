@@ -16,6 +16,7 @@
 }
 
 @property (retain) IBOutlet UITableView *table;
+@property (retain) WorkInProgressDataSource *dataSource; 
 @property bool isVisible;
 
 @end

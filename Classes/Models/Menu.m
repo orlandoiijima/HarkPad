@@ -16,7 +16,7 @@
 
 + (NSMutableArray *) menuFromJson:(NSMutableArray *)menusJson
 {
-    NSMutableArray *menus = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *menus = [[NSMutableArray alloc] init];
     for(NSDictionary *menuDic in menusJson)
     {
         Menu *menu = [Menu menuFromJsonDictionary: menuDic]; 
@@ -27,7 +27,7 @@
 
 + (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Menu *menu = [[[Menu alloc] init] autorelease];
+    Menu *menu = [[Menu alloc] init];
     menu.id = [[jsonDictionary objectForKey:@"id"] intValue];
     menu.price = [jsonDictionary objectForKey:@"price"];
     menu.key = [jsonDictionary objectForKey:@"key"];

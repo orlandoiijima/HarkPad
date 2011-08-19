@@ -35,15 +35,12 @@
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [self.view addGestureRecognizer:panGesture];
-    [panGesture release];   
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [tableMapView addGestureRecognizer:tapGesture];
-    [tapGesture release];   
 
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     [tableMapView addGestureRecognizer:pinchGesture];
-    [pinchGesture release];   
     
     [self gotoDistrict];		
 }
@@ -159,7 +156,7 @@
 
 - (NSMutableArray *) dockTableButton: (TableButton *)dropTableButton toTableButton: (TableButton*) targetTableButton
 {
-    NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *tables = [[NSMutableArray alloc] init];
 
     if([dropTableButton.table isSeatAlignedWith:targetTableButton.table] == false)
         return tables;
@@ -194,7 +191,7 @@
 
     Table *masterTable = masterTableButton.table;
     
-    NSMutableArray *tableButtons = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *tableButtons = [[NSMutableArray alloc] init];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableButton.table.bounds);
     CGRect saveBounds = masterTable.bounds;
     int saveCountSeats = masterTable.countSeats;
@@ -291,7 +288,7 @@
     {
         if(view == dragTableButton) continue;
         CGPoint p = [tableMapView convertPoint:point toView:view];
-        if([view pointInside:p withEvent:(UIEvent *) UIEventTypeTouches])
+        if([view pointInside:p withEvent:nil])
         {
             return (TableButton*)view;
         }
@@ -327,7 +324,7 @@
    
     Map *map = [[Cache getInstance] map];
     
-    NSMutableDictionary *districtTables = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *districtTables = [[NSMutableDictionary alloc] init];
     for(TableInfo *tableInfo in tablesInfo)
     {
         if(tableInfo.table.dockedToTableId != -1)
@@ -390,9 +387,9 @@
 
 - (void) transferOrder: (int)orderId
 {
-    TablesViewController *tablesController = [[[TablesViewController alloc] init] autorelease];
+    TablesViewController *tablesController = [[TablesViewController alloc] init];
     tablesController.selectionMode = selectEmpty;
-    UIPopoverController *popover = [[[UIPopoverController alloc] initWithContentViewController:tablesController] autorelease];
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:tablesController];
     tablesController.popoverController = popover;
     tablesController.orderId = orderId;
     popover.delegate = self;
@@ -424,7 +421,7 @@
 {
     if(order == nil)
         return;
-    PaymentViewController *paymentVC = [[[PaymentViewController alloc] init] autorelease];	
+    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];	
     paymentVC.order = order;
     paymentVC.tableMapViewController = self;
     paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
@@ -436,7 +433,7 @@
     if(order == nil)
         return;
     isRefreshTimerDisabled = true;
-    NewOrderVC *newOrderVC = [[[NewOrderVC alloc] init] autorelease];
+    NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
     newOrderVC.tableMapViewController = self;
 
@@ -495,7 +492,7 @@
 {
     if(order == nil)
         return;
-    BillViewController *billVC = [[[BillViewController alloc] init] autorelease];	
+    BillViewController *billVC = [[BillViewController alloc] init];	
     billVC.order = order;
     billVC.tableMapViewController = self;
     billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
@@ -523,16 +520,6 @@
 }
 
 
-- (void)dealloc {
-    [tableMapView release];
-    [districtPicker release];
-    [currentDistrict release];
-    [buttonEdit release];
-    [buttonRefresh release];
-    [dragTableButton release];
-    [popoverController release];
-    [super dealloc];
-}
 
 
 @end

@@ -77,7 +77,7 @@
         label = [NSString stringWithFormat:@"Column %d", path.column];
     else
         label = [NSString stringWithFormat:@"%d x %d", path.column, path.row];
-    GridViewCellLine *cellLine = [[GridViewCellLine alloc] initWithTitle:label path:path];
+    GridViewCellLine *cellLine = [[GridViewCellLine alloc] initWithTitle:label middleLabel:@"" bottomLabel:@"" path:path];
     return cellLine;
 }
 
@@ -108,10 +108,6 @@
 }
 
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

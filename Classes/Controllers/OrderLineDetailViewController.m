@@ -8,6 +8,7 @@
 
 #import "OrderLineDetailViewController.h"
 #import "OrderLinePropertyValue.h"
+#import "NewOrderVC.h"
 
 @implementation OrderLineDetailViewController
 
@@ -30,7 +31,6 @@
                                    initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneAction)];
     
     self.navigationItem.leftBarButtonItem = doneButton;
-    [doneButton release];
   }
 
 //  Resize popover to size of table
@@ -62,7 +62,7 @@
         }
         orderLine.entityState = Modified;
         [popoverContainer dismissPopoverAnimated:YES];
-        [controller refreshSelectedCell];
+        [(NewOrderVC *)controller refreshSelectedCell];
     }
 }
 
@@ -99,7 +99,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     if(indexPath.section == 0 && orderLine.product.properties.count > 0)
@@ -170,9 +170,6 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

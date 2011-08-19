@@ -15,7 +15,7 @@
 
 - (id)init
 {
-    [super init];
+    self = [super init];
     self.row = 0;
     self.column = 0;
     self.line =0;
@@ -24,7 +24,7 @@
 
 + (CellPath *)pathForColumn: (int)column row : (int)row line: (int) line
 {
-    CellPath *path = [[[CellPath alloc] init] autorelease];
+    CellPath *path = [[CellPath alloc] init];
     path.column = column;
     path.row = row;
     path.line = line;

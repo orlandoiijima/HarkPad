@@ -16,7 +16,7 @@
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses
 {
-    OrderLine *orderLine = [[[OrderLine alloc] init] autorelease];
+    OrderLine *orderLine = [[OrderLine alloc] init];
 //    orderLine.entityState = None;
     orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
@@ -97,7 +97,7 @@
     return self;
 }
 
-- (NSDictionary *) initDictionary
+- (NSDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
@@ -111,11 +111,11 @@
         [dic setObject: note forKey:@"note"];
 
     if([propertyValues count] > 0) {
-        NSMutableArray *dicProps = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *dicProps = [[NSMutableArray alloc] init];
         [dic setObject:dicProps forKey:@"propertyValues"];
         for(OrderLinePropertyValue *value in propertyValues)
         {
-            [dicProps addObject: [value initDictionary]];
+            [dicProps addObject: [value toDictionary]];
         }
     }
 
@@ -145,7 +145,7 @@
     OrderLinePropertyValue *propertyValue = [self getValueForProperty:property];
     if(propertyValue == nil)
     {
-        propertyValue = [[[OrderLinePropertyValue alloc] init] autorelease];
+        propertyValue = [[OrderLinePropertyValue alloc] init];
         propertyValue.orderLineProperty = property;
         [propertyValues addObject:propertyValue];
     }

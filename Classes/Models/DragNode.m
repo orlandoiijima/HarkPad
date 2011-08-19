@@ -16,7 +16,7 @@
 
 + (DragNode *) nodeWithNode : (TreeNode *) node frame: (CGRect) frame
 {
-    DragNode *drag =  [[[DragNode alloc] init] autorelease];
+    DragNode *drag =  [[DragNode alloc] init];
     drag.treeNode = node;
     drag.frame = frame;
     if(node.menu == nil)
@@ -34,7 +34,7 @@
 
 + (DragNode *) nodeWithOrderLine : (OrderLine *) orderLine frame: (CGRect) frame
 {
-    DragNode *drag =  [[[DragNode alloc] init] autorelease];
+    DragNode *drag =  [[DragNode alloc] init];
     drag.orderLine = orderLine;
     drag.frame = frame;
     drag.label = orderLine.product.key;
@@ -51,12 +51,6 @@
 }
 
 
-- (void)dealloc {
-    [treeNode release];
-    [orderLine release];
-    [label release];
-    [super dealloc];
-}
 
 
 @end

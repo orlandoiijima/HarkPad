@@ -18,7 +18,7 @@
 }
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary;
-- (NSMutableDictionary *) initDictionary;
+- (NSMutableDictionary *)toDictionary;
 - (NSString *) stringForCourse;
 
 NSInteger intSort(id num1, id num2, void *context);

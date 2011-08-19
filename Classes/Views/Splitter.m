@@ -37,16 +37,13 @@
 }
 */
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (void) collapseFirst
 {
     firstView.frame = CGRectMake(0, 0, 0, self.frame.size.height);
     secondView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);    
     [firstView setNeedsDisplay];    
-    [secondView redraw];
+//    [secondView redraw];
 }
 
 - (void) expandFirst
@@ -54,7 +51,7 @@
     firstView.frame = CGRectMake(0, 0, position - width/2, self.frame.size.height);
     secondView.frame = CGRectMake(position + width/2, 0, self.frame.size.width - (position + width/2), self.frame.size.height);
     [firstView setNeedsDisplay];    
-    [secondView redraw];
+//    [secondView redraw];
 }
 //
 //- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

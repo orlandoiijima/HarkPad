@@ -40,7 +40,7 @@
 
 
 @interface IASKAppSettingsViewController : UIViewController <UITextFieldDelegate, UINavigationControllerDelegate, MFMailComposeViewControllerDelegate> {
-	id<IASKSettingsDelegate>  _delegate;
+	id<IASKSettingsDelegate>  __unsafe_unretained _delegate;
     UITableView    			*_tableView;
     
     NSMutableArray          *_viewList;

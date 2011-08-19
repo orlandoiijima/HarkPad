@@ -17,7 +17,7 @@
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced
 {
-    ReservationDataSource *source = [[[ReservationDataSource alloc] init] autorelease];
+    ReservationDataSource *source = [[ReservationDataSource alloc] init];
     source.date = date;
     source.reservations = [[Service getInstance] getReservations: date];
     source.includePlacedReservations = includePlaced;
@@ -27,7 +27,7 @@
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
 {
-    ReservationDataSource *source = [[[ReservationDataSource alloc] init] autorelease];
+    ReservationDataSource *source = [[ReservationDataSource alloc] init];
     source.date = date;
     source.reservations = reservations;
     source.includePlacedReservations = includePlaced;
@@ -37,7 +37,7 @@
 
 - (void) createGroupedReservations
 {
-    self.groupedReservations = [[[NSMutableDictionary alloc] init] autorelease];
+    self.groupedReservations = [[NSMutableDictionary alloc] init];
     for (Reservation *reservation in reservations) {
         [self addReservation:reservation fromTableView:nil];
     }
@@ -67,7 +67,7 @@
     NSString *timeSlot = [self keyForReservation:reservation];
     NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
     if(slotArray == nil) {
-        slotArray = [[[NSMutableArray alloc] init] autorelease];
+        slotArray = [[NSMutableArray alloc] init];
         [groupedReservations setObject:slotArray forKey:timeSlot];
     }
     [slotArray addObject:reservation];
@@ -78,10 +78,10 @@
         NSInteger row = [self numberOfItemsInSlot:slotArray showAll:includePlacedReservations] - 1;
         if(row == 0)
         {
-            NSMutableIndexSet *insertIndexSet = [[[NSMutableIndexSet alloc] initWithIndex:(NSUInteger) section] autorelease];
+            NSMutableIndexSet *insertIndexSet = [[NSMutableIndexSet alloc] initWithIndex:(NSUInteger) section];
             [tableView insertSections:insertIndexSet withRowAnimation:YES];
         }
-        NSMutableArray *insertIndexPaths = [[[NSMutableArray alloc] init] autorelease];
+        NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] init];
         [insertIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) section]];
         [tableView insertRowsAtIndexPaths: insertIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
         [tableView endUpdates];	
@@ -99,12 +99,12 @@
         NSInteger section = [self sectionForKey:timeSlot];
         if([self numberOfItemsInSlot:slotArray showAll:includePlacedReservations] == 1)
         {
-            NSMutableIndexSet *deleteIndexSet = [[[NSMutableIndexSet alloc] initWithIndex:(NSUInteger) section] autorelease];
+            NSMutableIndexSet *deleteIndexSet = [[NSMutableIndexSet alloc] initWithIndex:(NSUInteger) section];
             [tableView deleteSections:deleteIndexSet withRowAnimation:YES];
         }
         else
         {
-            NSMutableArray *deleteIndexPaths = [[[NSMutableArray alloc] init] autorelease];
+            NSMutableArray *deleteIndexPaths = [[NSMutableArray alloc] init];
             int row = [self getRow:reservation inSlot:slotArray];
             [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) section]];
             [tableView deleteRowsAtIndexPaths: deleteIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
@@ -125,10 +125,10 @@
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll
 {
     [tableView beginUpdates];
-    NSMutableIndexSet *insertIndexSet = [[[NSMutableIndexSet alloc] init] autorelease];
-    NSMutableIndexSet *deleteIndexSet = [[[NSMutableIndexSet alloc] init] autorelease];
-    NSMutableArray *insertIndexPaths = [[[NSMutableArray alloc] init] autorelease];
-    NSMutableArray *deleteIndexPaths = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableIndexSet *insertIndexSet = [[NSMutableIndexSet alloc] init];
+    NSMutableIndexSet *deleteIndexSet = [[NSMutableIndexSet alloc] init];
+    NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] init];
+    NSMutableArray *deleteIndexPaths = [[NSMutableArray alloc] init];
     for(NSUInteger section = 0; section < [groupedReservations count]; section++)
     {
         NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -268,7 +268,7 @@
     
     if([self isEmpty])
     {
-        UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"] autorelease];
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
         cell.textLabel.text = @"Geen reserveringen";
         return cell;
     }
@@ -371,12 +371,5 @@
     }   
 }
 
-- (void)dealloc {
-//    NSLog(@"Dealloc ResDataSource %@", date);
-//    self.groupedReservations = nil;
-//    self.reservations = nil;
-//    self.date = nil;
-    [super dealloc];
-}
 
 @end

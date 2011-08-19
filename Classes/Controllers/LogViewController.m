@@ -50,7 +50,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier];
     }
     
     NSString *key = [self keyForSection:indexPath.section];
@@ -86,14 +86,6 @@
     }
 }
 
-- (void)dealloc
-{
-    [logTableView release];
-    [logLines release];
-    [detailLabel release];
-    [captionButton release];
-    [super dealloc];
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -114,7 +106,7 @@
 - (IBAction) refresh
 {
     NSMutableArray *lines = [[Service getInstance] getLog];
-    self.logLines = [[[NSMutableDictionary alloc] init] autorelease];
+    self.logLines = [[NSMutableDictionary alloc] init];
     for(NSString *line in lines)
     {
         if([line length] < 10) continue;
@@ -122,7 +114,7 @@
         NSMutableArray *group = [logLines objectForKey:dateKey];
         if(group == nil)
         {
-            group = [[[NSMutableArray alloc] init] autorelease];
+            group = [[NSMutableArray alloc] init];
             [logLines setValue:group forKey:dateKey];
         }
         [group insertObject:line atIndex:0];

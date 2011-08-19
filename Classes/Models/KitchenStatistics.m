@@ -15,7 +15,7 @@
 
 + (KitchenStatistics *) statsFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    KitchenStatistics *stats = [[[KitchenStatistics alloc] init] autorelease];
+    KitchenStatistics *stats = [[KitchenStatistics alloc] init];
     stats.done = [[jsonDictionary objectForKey:@"done"] intValue];
     stats.inProgress = [[jsonDictionary objectForKey:@"inProgress"] intValue];
     stats.inSlot = [[jsonDictionary objectForKey:@"inSlot"] intValue];

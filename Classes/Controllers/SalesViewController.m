@@ -80,7 +80,7 @@
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         float x = tableView.bounds.size.width - 4 * COLUMN_WIDTH - 100;
         float y = 5;
         float height = cell.contentView.bounds.size.height - 10;
@@ -123,7 +123,7 @@
 
 - (UILabel *) addAmountLabelWithFrame: (CGRect) frame  cell: (UITableViewCell *)cell
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.textAlignment = UITextAlignmentRight;
     label.shadowColor = [UIColor lightGrayColor];
     [cell.contentView addSubview:label];
@@ -143,29 +143,29 @@
     // Do any additional setup after loading the view from its nib.
     NSMutableArray *productTotals = [[Service getInstance] getSalesStatistics:dateToShow];
     
-    self.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
+    self.groupedTotals = [[NSMutableDictionary alloc] init];
     if([productTotals count] == 0) {
         [tableAmounts reloadData];
         return;
     }
-    NSMutableArray *categoryTotals = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *categoryTotals = [[NSMutableArray alloc] init];
     [groupedTotals setObject: categoryTotals forKey:@"Totalen"];
 
-    ProductTotals *grandTotalLine = [[[ProductTotals alloc] init] autorelease];
+    ProductTotals *grandTotalLine = [[ProductTotals alloc] init];
     grandTotalLine.product = nil;
-    grandTotalLine.totals = [[[NSMutableDictionary alloc] init] autorelease];
+    grandTotalLine.totals = [[NSMutableDictionary alloc] init];
     
     for(ProductTotals *total in productTotals) {
         NSString *key = [NSString stringWithFormat:@"%d.%@", total.product.category.sortOrder, total.product.category.name];
         NSMutableArray *totals = [groupedTotals objectForKey:key];
         if(totals == nil)
         {
-            totals = [[[NSMutableArray alloc] init] autorelease];
+            totals = [[NSMutableArray alloc] init];
             [groupedTotals setObject: totals forKey:key];
             
-            ProductTotals *categoryLine = [[[ProductTotals alloc] init] autorelease];
+            ProductTotals *categoryLine = [[ProductTotals alloc] init];
             categoryLine.product = total.product;
-            categoryLine.totals = [[[NSMutableDictionary alloc] init] autorelease];
+            categoryLine.totals = [[NSMutableDictionary alloc] init];
             [categoryTotals addObject: categoryLine];
         }
         [totals addObject:total];
@@ -195,13 +195,13 @@
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender
 {
     int interval = sender.direction == UISwipeGestureRecognizerDirectionLeft ? 24*60*60 : -24*60*60;
-    dateToShow = [[dateToShow dateByAddingTimeInterval: interval] retain]; 
+    dateToShow = [dateToShow dateByAddingTimeInterval: interval]; 
     [self refreshView];
 }
 
 - (IBAction)handleDoubleTapGesture:(UITapGestureRecognizer *)sender
 {
-    dateToShow = [[NSDate date] retain]; 
+    dateToShow = [NSDate date]; 
     [self refreshView];
 }
 
@@ -211,10 +211,6 @@
     [self refreshView];	
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -230,22 +226,19 @@
 {
     [super viewDidLoad];
     
-    dateToShow = [[NSDate dateYesterday]  retain];
+    dateToShow = [NSDate dateYesterday];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:swipeGesture];
-    [swipeGesture release];   
     
     swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.view addGestureRecognizer:swipeGesture];
-    [swipeGesture release];   
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
-    [tapGesture release];   
     
     [self refreshView];
 }

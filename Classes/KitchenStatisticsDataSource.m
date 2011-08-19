@@ -19,13 +19,13 @@
 {
     KitchenStatisticsDataSource *source = [[KitchenStatisticsDataSource alloc] init];
     NSMutableArray *backlog = [[Service getInstance] getBacklogStatistics];
-    source.groupedTotals = [[[NSMutableDictionary alloc] init] autorelease];
+    source.groupedTotals = [[NSMutableDictionary alloc] init];
     for(Backlog *total in backlog) {
         NSString *key = [NSString stringWithFormat:@"%d %@", total.product.category.sortOrder, total.product.category.name];
         NSMutableArray *totals = [source.groupedTotals objectForKey:key];
         if(totals == nil)
         {
-            totals = [[[NSMutableArray alloc] init] autorelease];
+            totals = [[NSMutableArray alloc] init];
             [source.groupedTotals setObject: totals forKey:key];
         }
         [totals addObject:total];
@@ -103,7 +103,7 @@
 
 - (UILabel *) addCountLabelWithFrame: (CGRect) frame backgroundColor: (UIColor *) color cell: (UITableViewCell *)cell
 {
-    UILabel *label = [[[UILabel alloc] initWithFrame:frame] autorelease];
+    UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.backgroundColor = color;
     label.shadowColor = [UIColor lightGrayColor];
     label.textAlignment = UITextAlignmentRight;

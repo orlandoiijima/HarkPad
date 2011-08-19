@@ -8,7 +8,7 @@
 
 @implementation OrderLineCell
 
-@synthesize newLineIcon, orderLine, price, name, note, props, seat, course, quantity;
+@synthesize nLineIcon, orderLine, price, name, note, props, seat, course, quantity;
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
@@ -45,7 +45,7 @@
     }
     else
     {
-        newLineIcon.hidden = YES;
+        nLineIcon.hidden = YES;
     }
     
     if(line.note.length > 0) {
@@ -69,9 +69,5 @@
     self.opaque = NO;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

@@ -19,7 +19,7 @@
 }
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary;
-- (NSMutableDictionary *) initDictionary;
+- (NSMutableDictionary *)toDictionary;
 
 @property int id;
 @property int seat;

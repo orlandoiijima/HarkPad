@@ -15,7 +15,7 @@
 
 + (SeatInfo *) seatInfoFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    SeatInfo *seatInfo = [[[SeatInfo alloc] init] autorelease];
+    SeatInfo *seatInfo = [[SeatInfo alloc] init];
 
     id foodId = [jsonDictionary objectForKey:@"foodId"];
     if(foodId != nil)

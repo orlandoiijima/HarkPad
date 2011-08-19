@@ -43,9 +43,5 @@
 }
 */
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

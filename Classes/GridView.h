@@ -58,8 +58,8 @@ typedef enum
 @end
 
 @interface GridView : UIView <UIGestureRecognizerDelegate> {
-	id<GridViewDataSource> _dataSource;
-    id<UIScrollViewDelegate,GridViewDelegate> _delegate;
+	id<GridViewDataSource> __unsafe_unretained _dataSource;
+    id<UIScrollViewDelegate,GridViewDelegate> __unsafe_unretained _delegate;
 }
 
 @property (retain) UIScrollView *topView;

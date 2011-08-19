@@ -13,8 +13,9 @@
 #import "GTMHTTPFetcher.h"
 #import "ServiceResult.h"
 #import "NSDate-Utilities.h"
+#import "PopupHost.h"
 
-@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate> {
+@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost> {
     UIScrollView *scrollView;
     ReservationDayView *currentPage;
     ReservationDayView *nextPage;

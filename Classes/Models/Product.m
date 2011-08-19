@@ -28,7 +28,7 @@
 
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Product *product = [[[Product alloc] init] autorelease];
+    Product *product = [[Product alloc] init];
     product.key = [jsonDictionary objectForKey:@"key"];
     product.name = [jsonDictionary objectForKey:@"name"];
     product.description = [jsonDictionary objectForKey:@"description"];
@@ -51,7 +51,7 @@
     return product;
 }
 
-- (NSMutableDictionary *) initDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];

@@ -15,7 +15,7 @@
 
 + (OrderLineProperty *) propertyFromJsonDictionary: (NSDictionary *) jsonDictionary
 {
-    OrderLineProperty *property = [[[OrderLineProperty alloc] init] autorelease];
+    OrderLineProperty *property = [[OrderLineProperty alloc] init];
     property.id = [[jsonDictionary objectForKey:@"id"] intValue];
     property.name = [jsonDictionary objectForKey:@"name"];
     NSString *options = [jsonDictionary objectForKey:@"options"];

@@ -19,12 +19,12 @@
 
 + (TableButton*) buttonWithTable: (Table*)table offset: (CGPoint)offset scaleX: (float)scaleX scaleY:(float)scaleY
 {
-    TableButton *button =  [[[TableButton alloc] init] autorelease];
+    TableButton *button =  [[TableButton alloc] init];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.cornerRadius = 4;
     gradientLayer.borderColor = [[UIColor grayColor] CGColor];
     gradientLayer.borderWidth = 1;
-    gradientLayer.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+    gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
     gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];		
     [button.layer insertSublayer:gradientLayer atIndex:0];        
     
@@ -192,17 +192,16 @@
 {
     CAGradientLayer *gradient = [self.layer.sublayers objectAtIndex:0];
     if(info != orderInfo) {
-        [orderInfo release];
-        orderInfo = [info retain];
+        orderInfo = info;
         if(orderInfo != nil)
         {
             progress.countCourses = orderInfo.countCourses;
             progress.currentCourse = orderInfo.currentCourse;
             progress.isCurrentCourseHot = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60;
             if(orderInfo.state == ordering)
-                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+                gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             else
-                gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.9 green:0.6 blue:0.6 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+                gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.9 green:0.6 blue:0.6 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             for(int seat=0; seat < table.countSeats; seat++)
             {
                 ProductSymbol *symbol = [self symbolBySeat:seat];
@@ -227,7 +226,7 @@
         {
             progress.countCourses = 0;
             progress.currentCourse = 0;
-            gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+            gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             flag.image = nil;
             for(int seat=0; seat < table.countSeats; seat++)
             {
@@ -364,9 +363,6 @@
     return -1;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

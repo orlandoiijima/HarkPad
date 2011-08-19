@@ -15,7 +15,7 @@
 
 + (TreeNode *) nodeFromJsonDictionary: (NSDictionary *)jsonDictionary parent: (TreeNode *) parent
 {
-    TreeNode *node = [[[TreeNode alloc] init] autorelease];
+    TreeNode *node = [[TreeNode alloc] init];
     node.id = [[jsonDictionary objectForKey:@"id"] intValue];
     node.name = [jsonDictionary objectForKey:@"name"];
     node.nodes = [[NSMutableArray alloc] init];

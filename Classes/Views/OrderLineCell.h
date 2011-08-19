@@ -15,7 +15,7 @@
 @property (retain) IBOutlet UIButton *course;
 @property (retain) IBOutlet UIButton *seat;
 @property (retain) IBOutlet UILabel *quantity;
-@property (retain) IBOutlet UIImageView *newLineIcon;
+@property (retain) IBOutlet UIImageView *nLineIcon;
 + (OrderLineCell *) cellWithOrderLine: (OrderLine *) line;
 
 @end

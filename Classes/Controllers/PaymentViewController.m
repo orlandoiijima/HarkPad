@@ -27,8 +27,7 @@
 {
     if(order != newOrder)
     {
-        [order release];
-        order = [newOrder retain];
+        order = newOrder;
         
         dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO];
     }
@@ -52,10 +51,6 @@
     [orderTable reloadData];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

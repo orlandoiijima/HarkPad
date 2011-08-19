@@ -15,7 +15,7 @@
 
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    ProductCategory *category = [[[ProductCategory alloc] init] autorelease];
+    ProductCategory *category = [[ProductCategory alloc] init];
     category.id = [[jsonDictionary objectForKey:@"id"] intValue];
     category.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     category.name = [jsonDictionary objectForKey:@"name"];

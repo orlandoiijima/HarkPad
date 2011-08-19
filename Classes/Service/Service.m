@@ -30,7 +30,7 @@ static Service *_service;
             url = URL_DEV_EXT;
         else
             url = URL_PRODUCTION;
-//        url = URL_DEV;
+        url = URL_DEV;
 	    }
     return self;
 }
@@ -64,10 +64,10 @@ static Service *_service;
     NSError *error = nil;
 	NSDictionary *jsonDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
     if(error != nil)
-        return [[[NSMutableDictionary alloc] init] autorelease];
+        return [[NSMutableDictionary alloc] init];
     id result =  [jsonDictionary objectForKey:@"result"];
     if((NSNull *)result == [NSNull null])
-        return [[[NSMutableDictionary alloc] init] autorelease];
+        return [[NSMutableDictionary alloc] init];
     return result;
 }
 
@@ -132,7 +132,7 @@ static Service *_service;
 
 - (void) dockTables: (NSMutableArray*)tables
 {
-    NSMutableArray *tableIds = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *tableIds = [[NSMutableArray alloc] init];
     for(Table *table in tables) {
         [tableIds addObject:[NSNumber numberWithInt:table.id]];
     }
@@ -157,10 +157,10 @@ static Service *_service;
 - (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
 	NSMutableArray *tablesDic = [self getResultFromJson: data];
-    NSMutableArray *tables = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *tables = [[NSMutableArray alloc] init];
     for(NSDictionary *tableDic in tablesDic)
     {
-        TableInfo *tableInfo = [[[TableInfo alloc] init] autorelease];
+        TableInfo *tableInfo = [[TableInfo alloc] init];
         tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
         NSDictionary *orderDic = [tableDic objectForKey:@"order"];
         if(orderDic != nil)
@@ -181,11 +181,13 @@ static Service *_service;
 - (NSMutableArray *) getReservations: (NSDate *)date
 {
     NSLog(@"Service: getReservations: %@", date);
+    if(date == nil)
+        date = [NSDate date];
     int dateSeconds = (int) [date timeIntervalSince1970];
 	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *reservationsDic = [self getResultFromJson: data];
-    NSMutableArray *reservations = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *reservations = [[NSMutableArray alloc] init];
     for(NSDictionary *reservationDic in reservationsDic)
     {
         Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
@@ -200,6 +202,7 @@ static Service *_service;
     int dateSeconds = (int) [date timeIntervalSince1970];
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation retainArguments];
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
     [invocation setArgument:&date atIndex:3];
@@ -213,7 +216,7 @@ static Service *_service;
 - (void) getReservationsCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
 	NSMutableArray *reservationsDic = [self getResultFromJson: data];
-    NSMutableArray *reservations = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *reservations = [[NSMutableArray alloc] init];
     for(NSDictionary *reservationDic in reservationsDic)
     {
         Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
@@ -228,7 +231,7 @@ static Service *_service;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
+    NSMutableDictionary *orderAsDictionary = [reservation toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
     [self postPageCallback: @"updatereservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
@@ -237,7 +240,7 @@ static Service *_service;
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [reservation initDictionary];
+    NSMutableDictionary *orderAsDictionary = [reservation toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     
     [self postPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
@@ -246,7 +249,7 @@ static Service *_service;
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
     NSError *error = nil;
-    NSMutableDictionary *productAsDictionary = [product initDictionary];
+    NSMutableDictionary *productAsDictionary = [product toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
     
     [self postPageCallback: @"updateproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
@@ -255,7 +258,7 @@ static Service *_service;
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
     NSError *error = nil;
-    NSMutableDictionary *productAsDictionary = [product initDictionary];
+    NSMutableDictionary *productAsDictionary = [product toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
     
     [self postPageCallback: @"createproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
@@ -280,7 +283,7 @@ static Service *_service;
 	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	NSMutableArray *slotsDic = [self getResultFromJson: data];
-    NSMutableArray *slots = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *slots = [[NSMutableArray alloc] init];
     for(NSDictionary *slotDic in slotsDic)
     {
         Slot *slot = [Slot slotFromJsonDictionary: slotDic]; 
@@ -308,7 +311,7 @@ static Service *_service;
 {
 	NSURL *testUrl = [self makeEndPoint:@"getBacklogStatistics" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *stats = [[NSMutableArray alloc] init];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
     {
@@ -354,7 +357,7 @@ static Service *_service;
 
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSMutableArray *invoices = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *invoices = [[NSMutableArray alloc] init];
     NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
     for(NSDictionary *invoiceDic in invoicesDic)
     {
@@ -374,7 +377,7 @@ static Service *_service;
     int dateSeconds = (int) [date timeIntervalSince1970];    
 	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *stats = [[NSMutableArray alloc] init];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
     {
@@ -438,7 +441,7 @@ static Service *_service;
 - (void) updateOrder: (Order *) order
 {
     NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [order initDictionary];
+    NSMutableDictionary *orderAsDictionary = [order toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
 //    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
 
@@ -475,7 +478,7 @@ static Service *_service;
 
 - (void) getWorkInProgressCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSMutableArray *stats = [[[NSMutableArray alloc] init] autorelease];
+	NSMutableArray *stats = [[NSMutableArray alloc] init];
     NSMutableDictionary *statsDic = [self getResultFromJson: data];
     for(NSDictionary *statDic in statsDic)
     {
@@ -508,7 +511,7 @@ static Service *_service;
 
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer
 {
-    NSMutableDictionary *billsInfo = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *billsInfo = [[NSMutableDictionary alloc] init];
     [billsInfo setObject:[NSNumber numberWithInt: orderId] forKey:@"orderId"];
     [billsInfo setObject:printer forKey:@"printerId"];
     
@@ -544,7 +547,7 @@ static Service *_service;
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
     NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
     [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    [[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];    
+    [[NSURLConnection alloc] initWithRequest:request delegate:self];    
 }
 
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
@@ -563,9 +566,9 @@ static Service *_service;
 
 - (NSString *)urlEncode: (NSString *)unencodedString
 {
-    return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+    return (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
         NULL,
-        (CFStringRef)unencodedString,
+        (__bridge CFStringRef)unencodedString,
         NULL,
         (CFStringRef)@"!*'();:@&=+$,/?%#[]",
         kCFStringEncodingUTF8 );    
@@ -580,9 +583,5 @@ static Service *_service;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
 }
 
-- (void)dealloc {
-    [url release];
-    [super dealloc];
-}
 
 @end

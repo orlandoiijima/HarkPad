@@ -37,8 +37,8 @@
         int y = 40;
         int labelHeight = 20;
 
-        NSArray *labels = [[[NSArray alloc] initWithObjects:@"18:00", @"18:30", @"19:00", @"19:30", @"20:00", @"20:30", @"T", nil] autorelease];
-        self.countLabels = [[[NSMutableDictionary alloc] init] autorelease];
+        NSArray *labels = [[NSArray alloc] initWithObjects:@"18:00", @"18:30", @"19:00", @"19:30", @"20:00", @"20:30", @"T", nil];
+        self.countLabels = [[NSMutableDictionary alloc] init];
         for(NSString *slot in labels)
         {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, labelHeight)];
@@ -57,7 +57,7 @@
             x += width + spacing;
         }    
     
-        self.dataSource = [[[ReservationDataSource alloc] init] autorelease];
+        self.dataSource = [[ReservationDataSource alloc] init];
 
         table = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, frame.size.width, frame.size.height - 60) style:UITableViewStyleGrouped];
         table.dataSource = self.dataSource;
@@ -79,8 +79,7 @@
     NSLog(@"Set datasource");
 
     self.date = aDataSource.date;
-    [dataSource autorelease];
-    dataSource = [aDataSource retain];
+    dataSource = aDataSource;
     table.dataSource = aDataSource;
     [self refreshTotals];
 
@@ -90,8 +89,7 @@
 - (void) setDate:(NSDate *)aDate
 {
     NSLog(@"Set date %@", aDate);
-    [date autorelease];
-    date = [aDate retain];
+    date = aDate;
     dateLabel.text = [aDate prettyDateString];
     dayLabel.text = [aDate weekdayString];    
 }
@@ -115,13 +113,6 @@
 - (void)dealloc
 {
     NSLog(@"Dealloc ResDayView %@", date);
-    [table release];
-    [dayLabel release];
-    [dateLabel release];
-    [countLabels release];
-    [date release];
-    [dataSource release];
-    [super dealloc];
 }
 
 @end

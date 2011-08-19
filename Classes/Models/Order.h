@@ -28,7 +28,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 
 + (Order *) orderForTable: (Table *) table;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;
-- (NSMutableDictionary *) initDictionary;
+- (NSMutableDictionary *)toDictionary;
 - (NSDecimalNumber *) getAmount;
 - (BOOL) containsProductId:(int)id;
 - (OrderLine *) addLineWithProductId: (int) productId seat: (int) seat course: (int) course;

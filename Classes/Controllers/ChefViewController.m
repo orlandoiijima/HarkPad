@@ -15,7 +15,7 @@
 @implementation ChefViewController
 
 @synthesize table;
-@synthesize isVisible;
+@synthesize isVisible, dataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,10 +26,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -79,7 +75,7 @@
 {	    
     if(isVisible == false) return;
 
-    KitchenStatisticsDataSource *dataSource = [KitchenStatisticsDataSource dataSource];
+    dataSource = [KitchenStatisticsDataSource dataSource];
     table.dataSource = dataSource;
     table.delegate = dataSource;
     

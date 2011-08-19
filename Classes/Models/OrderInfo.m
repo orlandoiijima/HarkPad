@@ -21,7 +21,7 @@
 {
     if ((self = [super init]) != NULL)
 	{
-        self.seats = [[[NSMutableDictionary alloc] init] autorelease];
+        self.seats = [[NSMutableDictionary alloc] init];
         self.language = @"nl";
         self.currentCourse = -1;
 	}
@@ -30,7 +30,7 @@
 
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    OrderInfo *order = [[[OrderInfo alloc] init] autorelease];
+    OrderInfo *order = [[OrderInfo alloc] init];
     
     Cache *cache = [Cache getInstance];
     
@@ -74,7 +74,7 @@
         if([seat intValue] == querySeat)
             return [self.seats objectForKey:seat];
     }
-    return NO;
+    return nil;
 }
 
 - (BOOL) isSeatOccupied: (int) querySeat
@@ -87,13 +87,6 @@
     return NO;
 }
 
-- (void)dealloc
-{
-//    for(SeatInfo *seat in seats)
-//        [seat release];
-    [seats release];
-    [super dealloc];
-}
 
 @end
 

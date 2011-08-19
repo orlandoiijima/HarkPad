@@ -34,11 +34,5 @@
     // Save data if appropriate.
 }
 
-- (void)dealloc {
-
-    [window release];
-    [viewController release];
-    [super dealloc];
-}
 
 @end

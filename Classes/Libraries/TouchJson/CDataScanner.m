@@ -56,7 +56,7 @@ return(theCharacter);
 
 + (id)scannerWithData:(NSData *)inData
 {
-CDataScanner *theScanner = [[[self alloc] init] autorelease];
+CDataScanner *theScanner = [[self alloc] init];
 theScanner.data = inData;
 return(theScanner);
 }
@@ -73,9 +73,7 @@ return(self);
 - (void)dealloc
 {
 self.data = NULL;
-self.doubleCharacters = NULL;
 //
-[super dealloc];
 }
 
 - (NSUInteger)scanLocation
@@ -94,13 +92,12 @@ if (data != inData)
 	{
 	if (data)
 		{
-		[data release];
 		data = NULL;
 		}
 
 	if (inData)
 		{
-		data = [inData retain];
+		data = inData;
 		//
 		start = (u_int8_t *)data.bytes;
 		end = start + data.length;
@@ -187,7 +184,7 @@ if (P == current)
 
 if (outValue)
 	{
-	*outValue = [[[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding] autorelease];
+	*outValue = [[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding];
 	}
 
 current = P;
@@ -206,7 +203,7 @@ if (theResult == NULL)
 
 if (outValue)
 	{
-	*outValue = [[[NSString alloc] initWithBytes:current length:theResult - (char *)current encoding:NSUTF8StringEncoding] autorelease];
+	*outValue = [[NSString alloc] initWithBytes:current length:theResult - (char *)current encoding:NSUTF8StringEncoding];
 	}
 
 current = (u_int8_t *)theResult;
@@ -227,7 +224,7 @@ if (P == current)
 
 if (outValue)
 	{
-	*outValue = [[[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding] autorelease];
+	*outValue = [[NSString alloc] initWithBytes:current length:P - current encoding:NSUTF8StringEncoding];
 	}
 
 current = P;
@@ -260,7 +257,7 @@ current = P;
 - (NSString *)remainingString
 {
 NSData *theRemainingData = [NSData dataWithBytes:current length:end - current];
-NSString *theString = [[[NSString alloc] initWithData:theRemainingData encoding:NSUTF8StringEncoding] autorelease];
+NSString *theString = [[NSString alloc] initWithData:theRemainingData encoding:NSUTF8StringEncoding];
 return(theString);
 }
 

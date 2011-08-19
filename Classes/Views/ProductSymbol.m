@@ -15,7 +15,7 @@
 
 
 + (ProductSymbol *) symbolWithFrame: (CGRect) frame seat: (int)seat {
-    ProductSymbol *symbol = [[[ProductSymbol alloc] initWithFrame:frame] autorelease]; 
+    ProductSymbol *symbol = [[ProductSymbol alloc] initWithFrame:frame]; 
     symbol.seat = seat;
     symbol.label = [[UILabel alloc] initWithFrame: CGRectInset(symbol.bounds, 4, 4)];
     symbol.label.adjustsFontSizeToFitWidth = YES;
@@ -46,8 +46,8 @@
         gradient.borderWidth = 1;
         gradient.borderColor = [[UIColor blackColor] CGColor];
         gradient.colors = [NSArray arrayWithObjects:
-                           (id)[food.category.color CGColor],
-                           (id)[[food.category.color colorWithAlphaComponent:0.5] CGColor],
+                           (__bridge id)[food.category.color CGColor],
+                           (__bridge id)[[food.category.color colorWithAlphaComponent:0.5] CGColor],
                            nil];
     }
     else
@@ -60,7 +60,7 @@
         {
             gradient.borderWidth = 1;
             gradient.borderColor = [[UIColor grayColor] CGColor];
-            gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor clearColor] CGColor], nil];
+            gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor clearColor] CGColor], nil];
         }
     }
     if(drink != nil)
@@ -76,9 +76,5 @@
     [self setNeedsDisplay];
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

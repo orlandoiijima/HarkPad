@@ -28,6 +28,7 @@
 - (int) countGuestsForKey: (NSString *)key;
 - (int) countGuests;
 - (bool)isEmpty;
+- (void) logDataSource;
 - (void) createGroupedReservations;
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll;
 - (NSInteger)numberOfItemsInSlot: (NSMutableArray *)slot showAll: (bool) showAll;

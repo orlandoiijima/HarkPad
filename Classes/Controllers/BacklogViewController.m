@@ -28,11 +28,11 @@
         float cellWidth = 30;
         float labelWidth = 150;
         float lineHeight = 20;
-        NSMutableDictionary *courseTotals = [[[NSMutableDictionary alloc] init] autorelease];
+        NSMutableDictionary *courseTotals = [[NSMutableDictionary alloc] init];
         for(Backlog *line in backlog)
         {
             x = marginLeft;
-            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, labelWidth, lineHeight)] autorelease];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, labelWidth, lineHeight)];
             [self.view addSubview:label];
             label.text = line.product.key;
             x += labelWidth;
@@ -40,7 +40,7 @@
             
             for(int i = 0; i < 6; i++)
             {
-                label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
+                label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
                 label.textAlignment = UITextAlignmentRight;
                 [self.view addSubview:label];
                 NSString *key = [NSString stringWithFormat:@"%d", i];
@@ -62,7 +62,7 @@
         int productTotal = 0;
         for(int i = 0; i < 6; i++)
         {
-            UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
             label.textAlignment = UITextAlignmentRight;
             [self.view addSubview:label];
             NSString *key = [NSString stringWithFormat:@"%d", i];
@@ -72,7 +72,7 @@
             x += cellWidth;
             productTotal += [count intValue];
         }
-        UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)] autorelease];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
         label.textAlignment = UITextAlignmentRight;
         [self.view addSubview:label];
         label.text = [NSString stringWithFormat:@"%d", productTotal];
@@ -83,10 +83,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

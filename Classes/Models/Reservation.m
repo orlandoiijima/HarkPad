@@ -7,6 +7,7 @@
 //
 
 #import "Reservation.h"
+#import "NSDate-Utilities.h"
 
 @implementation Reservation
 
@@ -32,7 +33,7 @@
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Reservation *reservation = [[[Reservation alloc] init] autorelease];
+    Reservation *reservation = [[Reservation alloc] init];
     reservation.id = [[jsonDictionary objectForKey:@"id"] intValue];
     
     id val = [jsonDictionary objectForKey:@"notes"];
@@ -80,7 +81,7 @@
     return reservation;
 }
 
-- (NSDictionary *) initDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];

@@ -28,7 +28,7 @@
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Table *table = [[[Table alloc] init] autorelease];
+    Table *table = [[Table alloc] init];
     table.name = [jsonDictionary objectForKey:@"name"];
     table.id = [[jsonDictionary objectForKey:@"id"] intValue];
 

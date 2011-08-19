@@ -47,6 +47,6 @@ typedef enum ReservationType {Online = 0, Phone, Walkin} ReservationType;
 @property int orderState;
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary;
-- (NSMutableDictionary *) initDictionary;
+- (NSMutableDictionary *)toDictionary;
 - (bool) isPlaced;
 @end

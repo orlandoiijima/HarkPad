@@ -18,7 +18,7 @@
 
 + (SlotTable *) slotTableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    SlotTable *slotTable = [[[SlotTable alloc] init] autorelease];
+    SlotTable *slotTable = [[SlotTable alloc] init];
 
     slotTable.lines = [[NSMutableArray alloc] init];
     id lines =  [jsonDictionary objectForKey:@"lines"];

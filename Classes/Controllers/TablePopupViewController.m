@@ -30,14 +30,13 @@
 
 - (void)setReservationDataSource:(ReservationDataSource *)dataSource
 {
-    [reservationDataSource autorelease];
-    reservationDataSource = [dataSource retain];
+    reservationDataSource = dataSource;
     tableReservations.dataSource = dataSource;
 }
 
 + (TablePopupViewController *) menuForTable: (Table *) table
 {
-    TablePopupViewController *tablePopupMenu = [[[TablePopupViewController alloc] initWithNibName:@"TablePopupViewController" bundle:[NSBundle mainBundle]] autorelease];
+    TablePopupViewController *tablePopupMenu = [[TablePopupViewController alloc] initWithNibName:@"TablePopupViewController" bundle:[NSBundle mainBundle]];
     tablePopupMenu.table = table;
     
     [[Service getInstance] getOpenOrderByTable:table.id delegate:tablePopupMenu callback:@selector(getOpenOrderByTableCallback:)];
@@ -50,9 +49,8 @@
     self.order = tableOrder;
     
     [self updateOnOrder];
-    
     if(order == nil) {
-        [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
+        [[Service getInstance] getReservations: nil delegate:self callback:@selector(getReservationsCallback:onDate:)];
     }
 }
 
@@ -134,24 +132,6 @@
     return;
 }
 
-- (void)dealloc
-{
-    [tableReservations release];
-    [labelNextCourse release];
-    [buttonGetPayment release];
-    [buttonMakeBill release];
-    [buttonMakeOrder release];
-    [buttonStartCourse release];
-    [labelTable release];
-    [labelReservations release];
-    [popoverController release];
-    [table release];
-    [order release];
-    [labelReservationNote release];
-    [buttonUndockTable release];
-    [buttonTransferOrder release];
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

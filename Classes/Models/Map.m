@@ -21,7 +21,7 @@
 
 + (Map *) mapFromJson:(NSMutableArray *)d
 {
-    Map *map = [[[Map alloc] init] autorelease];
+    Map *map = [[Map alloc] init];
     for(NSDictionary *districtDic in d)
     {
         District *district = [District districtFromJsonDictionary: districtDic]; 

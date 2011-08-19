@@ -265,7 +265,7 @@
 - (OrderGridHitInfo *) getHitInfo : (CGPoint) point;
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
-    OrderGridHitInfo *hitInfo = [[[OrderGridHitInfo alloc] init] autorelease];
+    OrderGridHitInfo *hitInfo = [[OrderGridHitInfo alloc] init];
     int countRows = [topController.order getLastSeat] + 2;
     for(hitInfo.cell.column = -1; hitInfo.cell.column < firstColumn + countVisibleColumns; hitInfo.cell.column++)
     {
@@ -418,12 +418,12 @@
     detailViewController.orderLine = orderLine;
     detailViewController.controller = topController;
     
-    UINavigationController *navController = [[[UINavigationController alloc] initWithRootViewController: detailViewController] autorelease];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController: detailViewController];
     navController.title = orderLine.product.name;
     
     detailViewController.contentSizeForViewInPopover = CGSizeMake(600, 300);
     
-    UIPopoverController *popOver = [[[UIPopoverController alloc] initWithContentViewController:navController] autorelease];
+    UIPopoverController *popOver = [[UIPopoverController alloc] initWithContentViewController:navController];
     popOver.delegate = topController;
     CGRect rect = [self getRect:selectedCell.column row:selectedCell.row];
     [popOver presentPopoverFromRect: rect inView: self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -477,9 +477,6 @@
     [self redraw];
 }
  
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

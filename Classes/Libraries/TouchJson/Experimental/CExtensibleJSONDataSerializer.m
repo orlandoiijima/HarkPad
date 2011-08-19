@@ -13,16 +13,6 @@
 @synthesize tests;
 @synthesize convertersByName;
 
-- (void)dealloc
-{
-[tests release];
-tests = NULL;
-//
-[convertersByName release];
-convertersByName = NULL;
-//
-[super dealloc];
-}
 
 - (NSData *)serializeObject:(id)inObject error:(NSError **)outError
 {

@@ -21,7 +21,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-    [super initWithCoder:aDecoder];
+    self = [super initWithCoder:aDecoder];
     [self initView];
     return self;
 }
@@ -29,19 +29,19 @@
 - (void) initView
 {
 
-    UIScrollView *topHeader = [[[UIScrollView alloc] initWithFrame: CGRectZero] autorelease];
+    UIScrollView *topHeader = [[UIScrollView alloc] initWithFrame: CGRectZero];
     topHeader.backgroundColor = [UIColor yellowColor];
     topHeader.directionalLockEnabled = YES;
     self.topView = topHeader;        
     [self addSubview:topHeader];
     
-    UIScrollView *leftHeader = [[[UIScrollView alloc] initWithFrame:CGRectZero] autorelease];
+    UIScrollView *leftHeader = [[UIScrollView alloc] initWithFrame:CGRectZero];
     leftHeader.backgroundColor = [UIColor yellowColor];
     leftHeader.directionalLockEnabled = YES;
     self.leftView = leftHeader;
     [self addSubview:leftHeader];
     
-    UIScrollView *view = [[[UIScrollView alloc] initWithFrame: CGRectZero] autorelease];
+    UIScrollView *view = [[UIScrollView alloc] initWithFrame: CGRectZero];
     view.directionalLockEnabled = YES; 	
     view.backgroundColor = [UIColor redColor];
     view.clipsToBounds = false;
@@ -60,12 +60,10 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.delegate = self;
     [self addGestureRecognizer:tapGesture];
-    [tapGesture release];           
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     panGesture.delegate = self;
     [view addGestureRecognizer:panGesture];
-    [panGesture release];   
 }
 
 - (id)initWithFrame:(CGRect)frame 
@@ -164,7 +162,7 @@
     int countColumns = [self.dataSource numberOfColumnsInGridView:self];
     int countRows = [self.dataSource numberOfRowsInGridView:self];
 
-    CellPath *path = [[[CellPath alloc] init] autorelease];
+    CellPath *path = [[CellPath alloc] init];
 
     NSTimeInterval duration = 0.3;
     NSTimeInterval delay = 0;	
@@ -267,7 +265,7 @@
     float top = 0;
     NSMutableArray *rowHeights = [[NSMutableArray alloc] init];
 
-    CellPath *path = [[[CellPath alloc] init] autorelease];
+    CellPath *path = [[CellPath alloc] init];
     
     for(; path.row < countRows; path.row++) {
 
@@ -354,7 +352,7 @@
 
 - (GridViewCellLine *)cellAtColumn: (NSUInteger)column row: (NSUInteger) row
 {
-    CellPath *path = [[CellPath pathForColumn:column row:row line:0] autorelease];
+    CellPath *path = [CellPath pathForColumn:column row:row line:0];
     if(row == -1)
         return [self findCellLineInView:topView path:path];
     if(column == -1)
@@ -389,9 +387,5 @@
 }
 */
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 @end

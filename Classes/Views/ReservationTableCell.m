@@ -68,16 +68,5 @@
         self.flag.image = [UIImage imageNamed:@"nl.png"];
 }
 
-- (void)dealloc
-{
-    [name release];
-    [count release];
-    [notes release];
-    [email release];
-    [phone release];
-    [flag release];
-    [status release];
-    [super dealloc];
-}
 
 @end		

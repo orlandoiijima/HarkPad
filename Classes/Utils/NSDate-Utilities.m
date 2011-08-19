@@ -121,7 +121,7 @@
         return @"Eergisteren";
     else
     {
-        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"dd MMM"];
         return [dateFormatter stringFromDate:self];
     }
@@ -130,7 +130,7 @@
 
 - (NSString *) weekdayString
 {
-    NSDateFormatter *weekday = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *weekday = [[NSDateFormatter alloc] init];
     [weekday setDateFormat: @"EEEE"];
     return [weekday stringFromDate: self];
 }
@@ -362,7 +362,7 @@
 
 - (NSString *)stringISO8601
 {
-    NSDateFormatter* sISO8601 = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter* sISO8601 = [[NSDateFormatter alloc] init];
     [sISO8601 setTimeStyle:NSDateFormatterFullStyle];
     [sISO8601 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     return [sISO8601 stringFromDate: self];

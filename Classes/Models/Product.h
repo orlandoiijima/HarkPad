@@ -37,6 +37,6 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property (retain) NSMutableArray *properties;
 
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
-- (NSMutableDictionary *) initDictionary;
+- (NSMutableDictionary *)toDictionary;
 
 @end

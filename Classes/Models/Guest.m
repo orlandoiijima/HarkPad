@@ -26,7 +26,7 @@
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Guest *guest = [[[Guest alloc] init] autorelease];
+    Guest *guest = [[Guest alloc] init];
     guest.entityState = None;
     guest.id = [[jsonDictionary objectForKey:@"id"] intValue];
     guest.seat = [[jsonDictionary objectForKey:@"seat"] intValue];
@@ -35,7 +35,7 @@
     return guest;
 }
 
-- (NSDictionary *) initDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];

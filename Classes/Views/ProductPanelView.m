@@ -23,7 +23,6 @@
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
         tapGesture.delegate = self;
         [self addGestureRecognizer:tapGesture];
-        [tapGesture release];   
         
     }
     return self;
@@ -234,9 +233,6 @@
     [productInfoLabel removeFromSuperview]	;
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 
 @end

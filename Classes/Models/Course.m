@@ -25,7 +25,7 @@
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Course *course = [[[Course alloc] init] autorelease];
+    Course *course = [[Course alloc] init];
     course.id = [[jsonDictionary objectForKey:@"id"] intValue];
     course.entityState = None;
     course.offset = [[jsonDictionary objectForKey:@"offset"] intValue];
@@ -36,7 +36,7 @@
     return course;
 }
 
-- (NSDictionary *) initDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
@@ -59,7 +59,7 @@
 
 - (NSString *) stringForCourse
 {
-    NSMutableDictionary *products = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *products = [[NSMutableDictionary alloc] init];
     for(OrderLine *line in lines)
     {
         if(line.product.category.isFood)

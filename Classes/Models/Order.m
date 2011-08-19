@@ -71,39 +71,39 @@
 
 + (Order *) orderForTable: (Table *) table
 {
-    Order *order = [[[Order alloc] init] autorelease];
+    Order *order = [[Order alloc] init];
     order.table = table;
     return order;
 }
 
-- (NSMutableDictionary *) initDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt: [self id]] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
     [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
     
-    NSMutableArray *dicCourses = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *dicCourses = [[NSMutableArray alloc] init];
     [dic setObject:dicCourses forKey:@"courses"];
     for(Course *course in [self courses])
     {
-        [dicCourses addObject: [course initDictionary]];
+        [dicCourses addObject: [course toDictionary]];
     }
     
-    NSMutableArray *dicGuests = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *dicGuests = [[NSMutableArray alloc] init];
     [dic setObject:dicGuests forKey:@"guests"];
     for(Guest *guest in [self guests])
     {
-        [dicGuests addObject: [guest initDictionary]];
+        [dicGuests addObject: [guest toDictionary]];
     }
     
-    NSMutableArray *dicLines = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *dicLines = [[NSMutableArray alloc] init];
     [dic setObject:dicLines forKey:@"lines"];
     for(Guest *guest in guests)
     {
         for(OrderLine *line in guest.lines)
         {
-            [dicLines addObject: [line initDictionary]];
+            [dicLines addObject: [line toDictionary]];
         }
     }
     return dic;
@@ -280,7 +280,7 @@
 
 - (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
 {
-    OrderLine *line = [[[OrderLine alloc] init] autorelease];
+    OrderLine *line = [[OrderLine alloc] init];
     line.entityState = New;
     line.quantity = 1;
     line.product = [[[Cache getInstance] menuCard] getProduct:productId];

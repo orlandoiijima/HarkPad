@@ -16,7 +16,7 @@
 	
 + (SlotDataSource *) dataSourceForSlot: (Slot *)slot
 {
-    SlotDataSource *source = [[[SlotDataSource alloc] init] autorelease];
+    SlotDataSource *source = [[SlotDataSource alloc] init];
     source.slot = slot;
     return source;
 }
@@ -47,7 +47,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier: CellIdentifier];
     }
     
     SlotTable *slotTable = [slot.slotTables objectAtIndex:indexPath.section];

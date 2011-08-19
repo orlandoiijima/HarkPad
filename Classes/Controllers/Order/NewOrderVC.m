@@ -45,18 +45,15 @@
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     panGesture.delegate = self;
     [self.view addGestureRecognizer:panGesture];
-    [panGesture release];   
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.delegate = self;
     [self.view addGestureRecognizer:tapGesture];
-    [tapGesture release];   
     
     UITapGestureRecognizer *tapDoubleGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
     tapDoubleGesture.delegate = self;
     tapDoubleGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapDoubleGesture];
-    [tapDoubleGesture release];   
     
     CGRect frame = CGRectMake(0, 0, 10, 10);
     orderGridView = [[OrderGridView alloc] initWithFrame:frame];
@@ -257,8 +254,7 @@
 {
     if(order != newOrder)
     {
-        [order release];
-        order = [newOrder retain];
+        order = newOrder;
     }
 }
 
@@ -373,7 +369,7 @@
 
 - (NSMutableArray *) orderLinesWithCourse: (int) courseOffset seat: (int)seatOffset
 {
-    NSMutableArray *lines = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *lines = [[NSMutableArray alloc] init];
    
     Course *course = [order getCourseByOffset:courseOffset];
     if(course == nil) return lines;
@@ -420,7 +416,7 @@
     NSString *title = [Utils getSeatString:seat];
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", nil] autorelease];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", nil];
     sheet.tag = 2 + (seat << 8);
     [sheet showInView:self.view];
 }
@@ -431,7 +427,7 @@
     NSString *insertBefore = [NSString stringWithFormat:@"Invoegen voor %@", title];
     NSString *insertAfter = [NSString stringWithFormat:@"Invoegen na %@", title];
     NSString *getCourse = [NSString stringWithFormat:@"%@ opvragen", title];
-    UIActionSheet *sheet = [[[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", getCourse, nil] autorelease];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:title delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: insertBefore, insertAfter, @"Verwijderen", getCourse, nil];
     sheet.tag = 1 + (course << 8);
     [sheet showInView:self.view];
 }
@@ -575,9 +571,6 @@
 }
 
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 - (void) saveAction
 {

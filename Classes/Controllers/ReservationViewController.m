@@ -17,7 +17,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        languages = [[NSMutableArray arrayWithObjects:@"nl", @"de", @"uk", @"fr", @"it", @"es", nil] retain];
+        languages = [NSMutableArray arrayWithObjects:@"nl", @"de", @"uk", @"fr", @"it", @"es", nil];
     }
     return self;
 }
@@ -25,15 +25,14 @@
 + (ReservationViewController *) initWithReservation: (Reservation *)reservation
 {
     NSString *nib = reservation.type == Walkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
-    ReservationViewController *popup = [[[ReservationViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]] autorelease];
+    ReservationViewController *popup = [[ReservationViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]];
     popup.reservation = reservation;
     return popup;
 }
 
 - (void)setReservation:(Reservation *)newReservation
 {
-    [reservation release];
-    reservation = [newReservation retain];
+    reservation = newReservation;
     notesView.text = reservation.notes;
     nameView.text = reservation.name;
     phoneView.text = reservation.phone;
@@ -92,22 +91,6 @@
     [hostController cancelPopup];    
 }
 
-- (void)dealloc
-{
-    [reservation release];
-    [languages release];
-    [datePicker release];
-    [notesView release];
-    [nameView release];
-    [emailView release];
-    [phoneView release];
-    [countView release];
-    [languageView release];
-    [hostController release];
-    [languages release];
-    [reservation release];
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {

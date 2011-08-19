@@ -26,26 +26,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [scrollView release];
-    [currentPage release];
-    [nextPage release];
-    [dataSources release];
-    [originalStartsOn release];
-    [popover release];
-    [segmentShow release];
-    [slider release];
-    [buttonAdd release];
-    [buttonEdit release];
-    [buttonPhone release];
-    [toolbar release];
-    [buttonWalkin release];
-    [dataSources release];
-    [popover release];
-    [originalStartsOn release];
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -77,11 +57,11 @@
     scrollView.backgroundColor = [UIColor clearColor];
     
     CGRect frame = CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    self.currentPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
+    self.currentPage = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
     [scrollView addSubview:currentPage];
     
     frame = CGRectOffset(frame, scrollView.bounds.size.width, 0);
-    self.nextPage = [[[ReservationDayView alloc] initWithFrame:frame delegate:self] autorelease];
+    self.nextPage = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
     [scrollView addSubview:nextPage];
     
     self.dataSources = [[NSMutableDictionary alloc] init];
@@ -90,7 +70,6 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
-    [tapGesture release];   
     
 //    [NSTimer scheduledTimerWithTimeInterval:20.0f
 //                                     target:self
@@ -137,14 +116,14 @@
 
 - (NSString *) dateToKey: (NSDate *)date
 {
-    NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
     [format setDateFormat:@"dd-MM-yy"];
     return [format stringFromDate:date];
 }
 
 - (void) setupScrolledInPage: (int)page
 {
-    NSDate *date = [[self pageToDate:page]retain];
+    NSDate *date = [self pageToDate:page];
     NSString *key = [self dateToKey: date];
     NSLog(@"Scrolled in %@", date);
     CGFloat pageWidth = scrollView.frame.size.width;
@@ -152,7 +131,7 @@
     nextPage.date = date;
     ReservationDataSource *dataSource = [dataSources objectForKey:key];
     if(dataSource == nil) {
-        dataSource = [[[ReservationDataSource alloc] init] autorelease];
+        dataSource = [[ReservationDataSource alloc] init];
         [dataSources setObject: dataSource forKey:key];
         [[Service getInstance] getReservations: date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
     }
@@ -240,7 +219,7 @@
         [[iToast makeText:@"Reservation stored"] show];
     }
     else {
-        UIAlertView *view = [[[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil] autorelease];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [view show];
     }
     return;
@@ -333,7 +312,7 @@
 
 - (IBAction) add
 {
-    Reservation *reservation = [[[Reservation alloc] init] autorelease];
+    Reservation *reservation = [[Reservation alloc] init];
     NSDate *date = currentPage.dataSource.date;
     NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSUInteger) -1 fromDate:date];
     [comps setHour:20];
@@ -349,7 +328,7 @@
 
 - (IBAction) addWalkin
 {
-    Reservation *reservation = [[[Reservation alloc] init] autorelease];
+    Reservation *reservation = [[Reservation alloc] init];
     reservation.type = Walkin;
     [self openEditPopup:reservation];
 }

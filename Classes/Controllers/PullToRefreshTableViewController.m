@@ -26,11 +26,6 @@
     
 }
 
-- (void)dealloc
-{
-	[refreshHeaderView release];
-    [super dealloc];
-}
 
 #pragma mark State Changes
 

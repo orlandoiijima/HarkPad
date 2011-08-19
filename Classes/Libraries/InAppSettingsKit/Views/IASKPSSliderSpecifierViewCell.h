@@ -19,9 +19,9 @@
 @class IASKSlider;
 
 @interface IASKPSSliderSpecifierViewCell : UITableViewCell {
-    IASKSlider *_slider;
-    UIImageView *_minImage;
-    UIImageView *_maxImage;
+    IASKSlider *__unsafe_unretained _slider;
+    UIImageView *__unsafe_unretained _minImage;
+    UIImageView *__unsafe_unretained _maxImage;
 }
 
 @property (nonatomic, assign) IBOutlet IASKSlider *slider;

@@ -15,7 +15,7 @@
 
 + (OrderLinePropertyValue *) valueFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    OrderLinePropertyValue *orderLinePropertyValue = [[[OrderLinePropertyValue alloc] init] autorelease];
+    OrderLinePropertyValue *orderLinePropertyValue = [[OrderLinePropertyValue alloc] init];
     orderLinePropertyValue.value = [jsonDictionary objectForKey:@"value"];
     orderLinePropertyValue.id = [[jsonDictionary objectForKey:@"id"] intValue];
     int propertyId = [[jsonDictionary objectForKey:@"propertyId"] intValue];
@@ -33,7 +33,7 @@
 }
 
 
-- (NSDictionary *) initDictionary
+- (NSDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];

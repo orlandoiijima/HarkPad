@@ -18,7 +18,7 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     TreeNode *rootNode = [[Cache getInstance] tree];
-    [self initWithStyle:style treeNode: rootNode];
+    self = [self initWithStyle:style treeNode: rootNode];
     return self;
 }
 
@@ -31,10 +31,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -59,10 +55,10 @@
  
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    UIToolbar *toolbar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 400, 44)] autorelease];
-    UIBarButtonItem *buttonDelete = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Verwijderen", nil) style:UIBarButtonItemStyleBordered target:self action:nil] autorelease];
-    UIBarButtonItem *buttonAddExisting = [[[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Toevoegen", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addExisting)] autorelease];
-    UIBarButtonItem *buttonAddNew = [[[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Nieuw", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addNew)] autorelease];
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
+    UIBarButtonItem *buttonDelete = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Verwijderen", nil) style:UIBarButtonItemStyleBordered target:self action:nil];
+    UIBarButtonItem *buttonAddExisting = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Toevoegen", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addExisting)];
+    UIBarButtonItem *buttonAddNew = [[UIBarButtonItem alloc] initWithTitle: NSLocalizedString(@"Nieuw", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(addNew)];
     [toolbar setItems:[[NSArray alloc] initWithObjects:buttonDelete, buttonAddExisting, buttonAddNew, nil] animated:YES];
     self.navigationItem.titleView = toolbar;
 }
@@ -145,7 +141,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
 
     id item = [self itemAtIndexPath: indexPath];
@@ -249,7 +245,6 @@
     if(node.product != nil) return;
     MenuTree *detailViewController = [[MenuTree alloc] initWithStyle:UITableViewStylePlain treeNode:node];
     [self.navigationController pushViewController:detailViewController animated:YES];
-    [MenuTree release];
 }
 
 @end
