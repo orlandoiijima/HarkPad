@@ -10,6 +10,7 @@
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
+		E50EB9F413FE5F8400129255 /* quickdialog in Resources */ = {isa = PBXBuildFile; fileRef = E50EB9F313FE5F8400129255 /* quickdialog */; };
 		E513726913A8E01D0037C033 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E513726813A8E01D0037C033 /* GridView.m */; };
 		E513727813A8E1630037C033 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E513727713A8E1630037C033 /* GridViewController.m */; };
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
@@ -288,6 +289,7 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
+		E50EB9F313FE5F8400129255 /* quickdialog */ = {isa = PBXFileReference; lastKnownFileType = folder; path = quickdialog; sourceTree = "<group>"; };
 		E513726713A8E01D0037C033 /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		E513726813A8E01D0037C033 /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		E513727613A8E1630037C033 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 		E55DFC82139FD89000EB7C69 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E50EB9F313FE5F8400129255 /* quickdialog */,
 				E55DFC83139FD89000EB7C69 /* GTMHTTPFetcher */,
 				E55DFC86139FD89000EB7C69 /* InAppSettingsKit */,
 				E55DFCAF139FD89000EB7C69 /* Toaster */,
@@ -1180,6 +1183,7 @@
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
 				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
+				E50EB9F413FE5F8400129255 /* quickdialog in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
