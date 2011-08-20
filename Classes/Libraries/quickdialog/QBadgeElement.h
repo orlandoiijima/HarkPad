@@ -15,6 +15,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "QLabelElement.h"
+
 @class QLabelElement;
 @class QRootElement;
 

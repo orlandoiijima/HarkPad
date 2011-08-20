@@ -16,9 +16,10 @@
 // the animation is not smooth when using the dateselector as a keyboard
 
 
-
+#import "QDateTimeElement.h"
 #import "QDateTimeInlineElement.h"
 #import "QSection.h"
+#import "QuickDialogController.h"
 
 @interface QDateTimeElement ()
 - (void)initializeRoot;

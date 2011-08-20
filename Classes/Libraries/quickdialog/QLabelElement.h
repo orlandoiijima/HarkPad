@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "QRootElement.h"
+
 @class QElement;
 @class QRootElement;
 

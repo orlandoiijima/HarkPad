@@ -17,7 +17,9 @@
 #import "QuickDialogDataSource.h"
 #import "QuickDialogTableDelegate.h"
 #import "QuickDialogStyleProvider.h"
-
+#import "QuickDialogController.h"
+#import "QSection.h"
+#import "QRootElement.h"
 
 @implementation QuickDialogTableView {
     

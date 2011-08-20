@@ -14,6 +14,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "QEntryElement.h"
 
 @interface QDecimalElement : QEntryElement {
 

@@ -13,6 +13,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QLabelElement.h"
 
 @class QLabelElement;
 

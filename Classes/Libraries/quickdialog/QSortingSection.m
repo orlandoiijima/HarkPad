@@ -14,7 +14,7 @@
 
 #import "QSection.h"
 #import "QSortingSection.h"
-
+#import "QElement.h"
 
 @implementation QSortingSection
 

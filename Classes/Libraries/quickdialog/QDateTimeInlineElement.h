@@ -15,6 +15,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "QEntryElement.h"
+
 @class QTextElement;
 @class QEntryElement;
 
