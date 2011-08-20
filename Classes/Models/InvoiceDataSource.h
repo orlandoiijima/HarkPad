@@ -21,7 +21,7 @@
 }
 
 @property (retain) NSMutableDictionary *groupedLines;
-@property OrderGrouping grouping;
+@property (nonatomic) OrderGrouping grouping;
 @property bool totalizeProducts;
 @property bool showFreeProducts;
 @property (retain) Order *order;

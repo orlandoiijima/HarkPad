@@ -13,7 +13,7 @@
 
 static 	Cache * _cache = nil;
 
-@synthesize menuCard, map,tree;
+@synthesize menuCard, map,tree, productProperties;
 
 + (Cache*) getInstance {
     @synchronized(self)
@@ -23,7 +23,7 @@ static 	Cache * _cache = nil;
             _cache = [self alloc];
             id service = [Service getInstance];
             NSLog(@"Start menucard");
-            _cache.menuCard = [service getMenuCard];
+            [service getCard];
             NSLog(@"Start menus");
             _cache.menuCard.menus = [service getMenus];
             NSLog(@"Start map");
@@ -41,6 +41,7 @@ static 	Cache * _cache = nil;
     _cache.menuCard = nil;
     _cache.map = nil;
     _cache.tree = nil;
+    _cache.productProperties = nil;
     _cache = nil;
 }
 

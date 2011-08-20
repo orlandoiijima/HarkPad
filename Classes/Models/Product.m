@@ -65,4 +65,13 @@
     return dic;
 }
 
+- (BOOL) hasProperty: (int)propertyId
+{
+    for (OrderLineProperty *prop in properties) {
+        if(prop.id == propertyId)
+            return YES;
+    }
+    return NO;
+}
+
 @end

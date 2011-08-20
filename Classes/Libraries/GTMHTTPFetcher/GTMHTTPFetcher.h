@@ -494,6 +494,8 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 - (BOOL)beginFetchWithCompletionHandler:(void (^)(NSData *data, NSError *error))handler;
 #endif
 
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+
 
 // Returns YES if this is in the process of fetching a URL
 - (BOOL)isFetching;

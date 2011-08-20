@@ -32,7 +32,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @property int id;
 @property (retain) NSDate *createdOn;
-@property EntityState entityState;
+@property (nonatomic) EntityState entityState;
 @property (retain) Guest *guest;
 @property int quantity;
 @property (retain) Course *course;

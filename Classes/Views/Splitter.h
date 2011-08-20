@@ -20,7 +20,7 @@
 @property BOOL isDrag;
 @property (retain) UIViewController *controller;
 
-- (id)initWithView: (UIView *) first secondView : (UIView *)second controller: (UIViewController*)controller position: (int) pos width: (int) width;
+- (void)setupWithView: (UIView *) first secondView : (UIView *)second controller: (UIViewController*)controller position: (int) pos width: (int) width;
 
 - (void) collapseFirst;
 - (void) expandFirst;

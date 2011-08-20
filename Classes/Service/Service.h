@@ -29,6 +29,7 @@
 + (Service *) getInstance;
 + (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
+- (void) getCard;
 - (MenuCard *) getMenuCard;
 - (NSMutableArray *) getMenus;
 - (NSMutableArray *) getLog;

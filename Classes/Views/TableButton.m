@@ -28,11 +28,11 @@
     gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];		
     [button.layer insertSublayer:gradientLayer atIndex:0];        
     
-    [button initByTable:table offset:offset scaleX:scaleX];
+    [button setupByTable:table offset:offset scaleX:scaleX];
     return button;
 }
 
-- (TableButton *) initByTable: (Table *) newTable offset: (CGPoint) offset scaleX: (float)scaleX
+- (void) setupByTable: (Table *) newTable offset: (CGPoint) offset scaleX: (float)scaleX
 {
     self.table = newTable;
     self.orderInfo = nil;
@@ -174,7 +174,7 @@
 //    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
 //    gradient.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];		
 //    [self.layer insertSublayer:gradient atIndex:0];        
-    return self;
+    return;
 }
 
 - (ProductSymbol *)symbolBySeat: (int) seat
@@ -310,7 +310,7 @@
     for(UIView *view in self.subviews) [view removeFromSuperview];
     
     [UIView animateWithDuration:1.0 animations:^{
-        [self initByTable: newTable offset: offset scaleX:scaleX];
+        [self setupByTable: newTable offset: offset scaleX:scaleX];
     }];
 }
 

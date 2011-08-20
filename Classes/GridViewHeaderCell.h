@@ -17,7 +17,7 @@
 
 @property int column;
 @property int row;
-@property bool isSelected;
+@property (nonatomic) bool isSelected;
 
 - (id)initWithFrame:(CGRect)frame atPath: (CellPath *)path;
 

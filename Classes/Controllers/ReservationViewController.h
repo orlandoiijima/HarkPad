@@ -24,7 +24,7 @@
     UIViewController<PopupHost> *hostController;
 }
 
-@property (retain) Reservation *reservation;
+@property (retain, nonatomic) Reservation *reservation;
 @property (retain) IBOutlet UIDatePicker *datePicker;
 @property (retain) IBOutlet UITextView *notesView;
 @property (retain) IBOutlet UITextField *nameView;

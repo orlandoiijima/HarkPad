@@ -9,6 +9,7 @@
 #import "ProductListViewController.h"
 #import "Cache.h"
 #import "Utils.h"
+#import "ProductDialogController.h"
 
 @implementation ProductListViewController
 
@@ -107,7 +108,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
     
     ProductCategory *category = [self categoryForSection:indexPath.section];
@@ -158,18 +159,20 @@
 }
 */
 
+- (Product *) productForIndexPath: (NSIndexPath *) indexPath
+{
+    ProductCategory *category = [self categoryForSection:indexPath.section];
+    Product *product = [[category products] objectAtIndex:indexPath.row];
+    return product;
+}
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    Product *product = [self productForIndexPath:indexPath];
+    ProductDialogController *detailViewController = [[ProductDialogController alloc] initWithProduct: product];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 @end

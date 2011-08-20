@@ -24,8 +24,8 @@
 @property (retain) UILabel *bottomLabel;
 @property (retain) UIButton *deleteButton;
 @property (retain) CellPath *path;
-@property bool isSelected;
-@property bool isDropTarget;
+@property (nonatomic) bool isSelected;
+@property (nonatomic) bool isDropTarget;
 
 - (id)initWithTitle: (NSString *) title middleLabel: (NSString *)middleLabel bottomLabel: (NSString *)bottomLabel path: (CellPath *)path;
 - (void) addDeleteButtonWithTarget: (id)target action: (SEL) action;

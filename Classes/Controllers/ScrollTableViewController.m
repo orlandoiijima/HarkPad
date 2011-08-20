@@ -178,7 +178,6 @@
 - (void) gotoDayoffset: (int)page
 {
     currentPage.date = [self pageToDate:page];
-    NSString *key = [self dateToKey: currentPage.date];
     CGFloat pageWidth = scrollView.frame.size.width;
     currentPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
     nextPage.frame = CGRectMake(pageWidth * (page + 1), 0, scrollView.bounds.size.width, scrollView.bounds.size.height);

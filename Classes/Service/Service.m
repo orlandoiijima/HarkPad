@@ -78,6 +78,22 @@ static Service *_service;
 	return [self getResultFromJson:data];
 }
 
+- (void) getCard
+{
+	NSURL *testUrl = [self makeEndPoint:@"getcard" withQuery:@""];
+	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+	NSMutableDictionary *resultDic = [self getResultFromJson:data];
+    Cache *cache = [Cache getInstance];
+    cache.menuCard = [MenuCard menuFromJson: [resultDic objectForKey:@"categories"]];
+    cache.menuCard.menus = [Menu menuFromJson: [resultDic objectForKey:@"menus"]];
+    NSMutableArray *productProperties = [resultDic objectForKey:@"productproperties"];
+    cache.productProperties = [[NSMutableArray alloc] init];
+    for (NSMutableDictionary *propDic in productProperties) {
+        [cache.productProperties addObject:[OrderLineProperty propertyFromJsonDictionary:propDic]];
+    }
+}
+
+
 - (MenuCard *) getMenuCard
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmenucard" withQuery:@""];

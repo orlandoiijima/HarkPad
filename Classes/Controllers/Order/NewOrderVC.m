@@ -66,7 +66,7 @@
         if(orderGridView.firstColumn >= [order.courses count])
             orderGridView.firstColumn = [order.courses count] - 1;
     }
-    [splitter initWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
+    [splitter setupWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
     [orderGridView redraw]; 
 }
 

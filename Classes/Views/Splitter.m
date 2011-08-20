@@ -13,7 +13,7 @@
 
 @synthesize startDrag, firstView, secondView, position, isDrag, controller, width;
 
-- (id)initWithView: (UIView *) first secondView : (UIView *)second controller: (UIViewController *) topController position: (int) pos width: (int) w
+- (void)setupWithView: (UIView *) first secondView : (UIView *)second controller: (UIViewController *) topController position: (int) pos width: (int) w
 {
     second.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     first.autoresizingMask = UIViewAutoresizingFlexibleHeight;
@@ -26,7 +26,7 @@
     [self addSubview:second];
     firstView.frame = CGRectMake(0, 0, pos - width/2, self.frame.size.height);
     secondView.frame = CGRectMake(pos + width/2, 0, self.frame.size.width - (pos + width/2), self.frame.size.height);
-    return self;
+    return;
 }
 
 /*

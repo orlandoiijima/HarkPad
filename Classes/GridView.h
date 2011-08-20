@@ -84,7 +84,7 @@ typedef enum
 
 - (void) reloadData;
 - (void) initView;
-- (GridViewHeaderCell *)findCellInView: (UIView *)view column: (NSUInteger)column row: (NSUInteger) row;
+//- (GridViewHeaderCell *)findCellInView: (UIView *)view column: (NSUInteger)column row: (NSUInteger) row;
 - (GridViewHeaderCell *)cellAtColumn: (NSUInteger)column row: (NSUInteger) row;
 - (void) selectCellLine: (GridViewCellLine *)cellLine select: (bool) isSelected;
 - (CGRect) frameForPath: (CellPath *)path;

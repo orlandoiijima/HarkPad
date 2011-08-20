@@ -136,6 +136,11 @@
              }
             break;
         }
+            
+        case UIGestureRecognizerStatePossible:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+            break;
     }
 }
 
@@ -247,7 +252,7 @@
         
         [masterTableButton setNeedsDisplay];
         [UIView animateWithDuration:1.0  animations:^{
-            [masterTableButton initByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
+            [masterTableButton setupByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
         }];
         
         bool continueDock = [ModalAlert confirm:message];
@@ -261,7 +266,7 @@
             masterTable.bounds = saveBounds;
             masterTable.countSeats = saveCountSeats;
             [UIView animateWithDuration:1.0  animations:^{
-                [masterTableButton initByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
+                [masterTableButton setupByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
             }];
             [masterTableButton setNeedsDisplay];
         }

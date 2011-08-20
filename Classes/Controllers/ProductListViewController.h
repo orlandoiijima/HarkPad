@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Product.h"
 
 @interface ProductListViewController : UITableViewController {
     
 }
+
+- (Product *) productForIndexPath: (NSIndexPath *) indexPath;
 
 @end

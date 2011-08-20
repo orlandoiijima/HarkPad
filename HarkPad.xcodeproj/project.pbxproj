@@ -10,6 +10,8 @@
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
+		E50E7E6A13FECD8E007EDB13 /* imgOff.png in Resources */ = {isa = PBXBuildFile; fileRef = E50E7E6813FECD8E007EDB13 /* imgOff.png */; };
+		E50E7E6B13FECD8E007EDB13 /* imgOn.png in Resources */ = {isa = PBXBuildFile; fileRef = E50E7E6913FECD8E007EDB13 /* imgOn.png */; };
 		E513726913A8E01D0037C033 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E513726813A8E01D0037C033 /* GridView.m */; };
 		E513727813A8E1630037C033 /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E513727713A8E1630037C033 /* GridViewController.m */; };
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
@@ -77,9 +79,6 @@
 		E573701B13FE63B6007E05C0 /* QEntryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE713FE63B6007E05C0 /* QEntryTableViewCell.m */; };
 		E573701C13FE63B6007E05C0 /* QFloatElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FE913FE63B6007E05C0 /* QFloatElement.m */; };
 		E573701D13FE63B6007E05C0 /* QLabelElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FEB13FE63B6007E05C0 /* QLabelElement.m */; };
-		E573701E13FE63B6007E05C0 /* QMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */; };
-		E573701F13FE63B6007E05C0 /* QMapElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FEF13FE63B6007E05C0 /* QMapElement.m */; };
-		E573702013FE63B6007E05C0 /* QMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF113FE63B6007E05C0 /* QMapViewController.m */; };
 		E573702113FE63B6007E05C0 /* QRadioElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF313FE63B6007E05C0 /* QRadioElement.m */; };
 		E573702213FE63B6007E05C0 /* QRadioItemElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF513FE63B6007E05C0 /* QRadioItemElement.m */; };
 		E573702313FE63B6007E05C0 /* QRadioSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E5736FF713FE63B6007E05C0 /* QRadioSection.m */; };
@@ -94,6 +93,7 @@
 		E573702C13FE63B6007E05C0 /* QuickDialogTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700A13FE63B6007E05C0 /* QuickDialogTableView.m */; };
 		E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700D13FE63B6007E05C0 /* QWebElement.m */; };
 		E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700F13FE63B6007E05C0 /* QWebViewController.m */; };
+		E57AECA213FE6B6E003B2F75 /* ProductDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57AECA113FE6B6E003B2F75 /* ProductDialogController.m */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
@@ -319,6 +319,8 @@
 		E50A391B12E23E19007C2101 /* MenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuItem.m; sourceTree = "<group>"; };
 		E50A391C12E23E19007C2101 /* ModalAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalAlert.h; path = ../Models/ModalAlert.h; sourceTree = "<group>"; };
 		E50A391D12E23E19007C2101 /* ModalAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalAlert.m; path = ../Models/ModalAlert.m; sourceTree = "<group>"; };
+		E50E7E6813FECD8E007EDB13 /* imgOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgOff.png; sourceTree = "<group>"; };
+		E50E7E6913FECD8E007EDB13 /* imgOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = imgOn.png; sourceTree = "<group>"; };
 		E513726713A8E01D0037C033 /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		E513726813A8E01D0037C033 /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		E513727613A8E1630037C033 /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
@@ -450,12 +452,6 @@
 		E5736FE913FE63B6007E05C0 /* QFloatElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QFloatElement.m; sourceTree = "<group>"; };
 		E5736FEA13FE63B6007E05C0 /* QLabelElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLabelElement.h; sourceTree = "<group>"; };
 		E5736FEB13FE63B6007E05C0 /* QLabelElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLabelElement.m; sourceTree = "<group>"; };
-		E5736FEC13FE63B6007E05C0 /* QMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapAnnotation.h; sourceTree = "<group>"; };
-		E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapAnnotation.m; sourceTree = "<group>"; };
-		E5736FEE13FE63B6007E05C0 /* QMapElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapElement.h; sourceTree = "<group>"; };
-		E5736FEF13FE63B6007E05C0 /* QMapElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapElement.m; sourceTree = "<group>"; };
-		E5736FF013FE63B6007E05C0 /* QMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QMapViewController.h; sourceTree = "<group>"; };
-		E5736FF113FE63B6007E05C0 /* QMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QMapViewController.m; sourceTree = "<group>"; };
 		E5736FF213FE63B6007E05C0 /* QRadioElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioElement.h; sourceTree = "<group>"; };
 		E5736FF313FE63B6007E05C0 /* QRadioElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRadioElement.m; sourceTree = "<group>"; };
 		E5736FF413FE63B6007E05C0 /* QRadioItemElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRadioItemElement.h; sourceTree = "<group>"; };
@@ -486,6 +482,8 @@
 		E573700D13FE63B6007E05C0 /* QWebElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebElement.m; sourceTree = "<group>"; };
 		E573700E13FE63B6007E05C0 /* QWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebViewController.h; sourceTree = "<group>"; };
 		E573700F13FE63B6007E05C0 /* QWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebViewController.m; sourceTree = "<group>"; };
+		E57AECA013FE6B6E003B2F75 /* ProductDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDialogController.h; sourceTree = "<group>"; };
+		E57AECA113FE6B6E003B2F75 /* ProductDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDialogController.m; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -869,6 +867,8 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E50E7E6813FECD8E007EDB13 /* imgOff.png */,
+				E50E7E6913FECD8E007EDB13 /* imgOn.png */,
 				E5CDB15013D94BD700A7236D /* clear.png */,
 				E5B7F67D1347447D0024AB35 /* uk.png */,
 				E5AC715F138958F800DB450E /* calculator.png */,
@@ -1185,12 +1185,6 @@
 				E5736FE913FE63B6007E05C0 /* QFloatElement.m */,
 				E5736FEA13FE63B6007E05C0 /* QLabelElement.h */,
 				E5736FEB13FE63B6007E05C0 /* QLabelElement.m */,
-				E5736FEC13FE63B6007E05C0 /* QMapAnnotation.h */,
-				E5736FED13FE63B6007E05C0 /* QMapAnnotation.m */,
-				E5736FEE13FE63B6007E05C0 /* QMapElement.h */,
-				E5736FEF13FE63B6007E05C0 /* QMapElement.m */,
-				E5736FF013FE63B6007E05C0 /* QMapViewController.h */,
-				E5736FF113FE63B6007E05C0 /* QMapViewController.m */,
 				E5736FF213FE63B6007E05C0 /* QRadioElement.h */,
 				E5736FF313FE63B6007E05C0 /* QRadioElement.m */,
 				E5736FF413FE63B6007E05C0 /* QRadioItemElement.h */,
@@ -1231,6 +1225,8 @@
 				E5F055AD13A4D13700720DB5 /* ProductPropertiesViewController.h */,
 				E5F055AE13A4D13700720DB5 /* ProductPropertiesViewController.m */,
 				E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */,
+				E57AECA013FE6B6E003B2F75 /* ProductDialogController.h */,
+				E57AECA113FE6B6E003B2F75 /* ProductDialogController.m */,
 			);
 			name = Dialogs;
 			sourceTree = "<group>";
@@ -1261,6 +1257,7 @@
 		E50A37F312E21163007C2101 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "The Attic";
 			};
 			buildConfigurationList = E50A37F612E21163007C2101 /* Build configuration list for PBXProject "HarkPad" */;
@@ -1347,6 +1344,8 @@
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
 				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
+				E50E7E6A13FECD8E007EDB13 /* imgOff.png in Resources */,
+				E50E7E6B13FECD8E007EDB13 /* imgOn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1484,9 +1483,6 @@
 				E573701B13FE63B6007E05C0 /* QEntryTableViewCell.m in Sources */,
 				E573701C13FE63B6007E05C0 /* QFloatElement.m in Sources */,
 				E573701D13FE63B6007E05C0 /* QLabelElement.m in Sources */,
-				E573701E13FE63B6007E05C0 /* QMapAnnotation.m in Sources */,
-				E573701F13FE63B6007E05C0 /* QMapElement.m in Sources */,
-				E573702013FE63B6007E05C0 /* QMapViewController.m in Sources */,
 				E573702113FE63B6007E05C0 /* QRadioElement.m in Sources */,
 				E573702213FE63B6007E05C0 /* QRadioItemElement.m in Sources */,
 				E573702313FE63B6007E05C0 /* QRadioSection.m in Sources */,
@@ -1501,6 +1497,7 @@
 				E573702C13FE63B6007E05C0 /* QuickDialogTableView.m in Sources */,
 				E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */,
 				E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */,
+				E57AECA213FE6B6E003B2F75 /* ProductDialogController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1537,7 +1534,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1553,7 +1549,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

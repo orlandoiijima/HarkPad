@@ -15,6 +15,7 @@
 @interface Cache : NSObject {
     MenuCard *menuCard;
     Map *map;
+    NSMutableArray *productProperties;
     TreeNode *tree;
 }
 
@@ -23,5 +24,6 @@
 
 @property (retain) MenuCard *menuCard;
 @property (retain) Map *map;
+@property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
 @end

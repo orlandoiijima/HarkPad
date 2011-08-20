@@ -22,7 +22,7 @@
     InvoiceDataSource *dataSource;
 }
 
-@property (retain) Order *order; 
+@property (retain, nonatomic) Order *order; 
 
 @property (retain) IBOutlet UITableView *orderTable; 
 @property (retain) IBOutlet UISegmentedControl *printerSegment; 

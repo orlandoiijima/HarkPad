@@ -10,7 +10,7 @@
 
 @implementation TableInfo
 
-@synthesize table, orderInfo;
+@synthesize table, orderInfo, isEmpty;
 
 
 - (bool) isEmpty

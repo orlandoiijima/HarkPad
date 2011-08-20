@@ -24,7 +24,7 @@
 
 @property (retain) UILabel *name;
 @property (retain) Table *table;
-@property (retain) OrderInfo *orderInfo;
+@property (retain, nonatomic) OrderInfo *orderInfo;
 @property (retain) CourseProgress * progress;
 @property (retain) UIImageView *flag;
 @property float unit, widthPerPerson, tableLeftMargin, tableTopMargin, seatWidth, seatHeight, symbolWidth, seatMargin, tableDepth, tableWidth;
@@ -33,7 +33,7 @@
 - (void) drawSeat: (CGContextRef)context withBounds: (CGRect) bounds info: (SeatInfo *) seatInfo;
 //- (CGRect) rotateRect: (CGRect) rect;
 - (void) rePosition: (Table *) newTable offset: (CGPoint) offset scaleX: (float) scaleX;
-- (TableButton *) initByTable: (Table *) table offset: (CGPoint) offset scaleX: (float)scaleX;
+- (void) setupByTable: (Table *) table offset: (CGPoint) offset scaleX: (float)scaleX;
 - (int) seatByPoint: (CGPoint) point;
 
 @end

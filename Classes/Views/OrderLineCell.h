@@ -6,7 +6,7 @@
 {
 }
 
-@property (retain) OrderLine* orderLine;
+@property (retain, nonatomic) OrderLine* orderLine;
 
 @property (retain) IBOutlet UILabel *name;
 @property (retain) IBOutlet UILabel *note;

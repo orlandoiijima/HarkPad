@@ -53,7 +53,7 @@
             log = [log stringByAppendingString:[NSString stringWithFormat:@" %d", reservation.countGuests]];
         }
     }
-    NSLog(log);
+    NSLog(@"%@", log);
 }
 
 - (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView

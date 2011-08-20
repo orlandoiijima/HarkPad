@@ -14,6 +14,6 @@
     GridView *gridView;
 }
 
-@property (retain) GridView *gridView;
+@property (retain, nonatomic) GridView *gridView;
 
 @end

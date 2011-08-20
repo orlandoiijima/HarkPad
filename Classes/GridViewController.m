@@ -10,6 +10,7 @@
 
 @implementation GridViewController
 
+@synthesize gridView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

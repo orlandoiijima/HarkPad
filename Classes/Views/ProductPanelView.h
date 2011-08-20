@@ -28,5 +28,5 @@
 @property (retain) TreeNode *parentNode, *rootNode;
 @property (retain) UISegmentedControl *menuCardSegment;
 @property (retain) UILabel *productInfoLabel;
-@property bool showMenuCard;
+@property (nonatomic) bool showMenuCard;
 @end
