@@ -146,7 +146,7 @@
 								<reference key="IBUICustomView" ref="107475956"/>
 								<reference key="IBUIToolbar" ref="782054719"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="776883314">
+							<object class="IBUIBarButtonItem" id="793260622">
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIToolbar" ref="782054719"/>
 								<int key="IBUISystemItemIdentifier">5</int>
@@ -156,7 +156,7 @@
 								<reference key="IBUICustomView" ref="118153453"/>
 								<reference key="IBUIToolbar" ref="782054719"/>
 							</object>
-							<object class="IBUIBarButtonItem" id="1039514656">
+							<object class="IBUIBarButtonItem" id="419226440">
 								<bool key="IBUIEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<reference key="IBUIToolbar" ref="782054719"/>
@@ -279,7 +279,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">buttonEndSearch</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="1039514656"/>
+						<reference key="destination" ref="419226440"/>
 					</object>
 					<int key="connectionID">36</int>
 				</object>
@@ -290,6 +290,14 @@
 						<reference key="destination" ref="118153453"/>
 					</object>
 					<int key="connectionID">37</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">toolbar</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="782054719"/>
+					</object>
+					<int key="connectionID">38</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -360,7 +368,7 @@
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">endSearchMode</string>
-						<reference key="source" ref="1039514656"/>
+						<reference key="source" ref="419226440"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">34</int>
@@ -410,8 +418,8 @@
 							<reference ref="646330947"/>
 							<reference ref="779923955"/>
 							<reference ref="910010795"/>
-							<reference ref="1039514656"/>
-							<reference ref="776883314"/>
+							<reference ref="419226440"/>
+							<reference ref="793260622"/>
 						</object>
 						<reference key="parent" ref="766721923"/>
 						<string key="objectName">Toolbar</string>
@@ -477,12 +485,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">33</int>
-						<reference key="object" ref="1039514656"/>
+						<reference key="object" ref="419226440"/>
 						<reference key="parent" ref="782054719"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">35</int>
-						<reference key="object" ref="776883314"/>
+						<reference key="object" ref="793260622"/>
 						<reference key="parent" ref="782054719"/>
 					</object>
 				</object>
@@ -546,7 +554,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">37</int>
+			<int key="maxID">38</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

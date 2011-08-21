@@ -12,7 +12,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate;
+@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate, saveFrame;
 
 #define TOTALDAYS 60
 
@@ -354,6 +354,7 @@
     scrollView.hidden = NO;
     [currentPage.table removeFromSuperview];
     [currentPage addSubview:currentPage.table];
+    currentPage.table.frame = saveFrame;
     NSString *key = [self dateToKey: saveDate];
     currentPage.dataSource = [dataSources objectForKey:key];
 }
@@ -365,6 +366,8 @@
     slider.hidden = YES;
     scrollView.hidden = YES;
     saveDate = currentPage.date;
+    saveFrame = currentPage.frame;
+    currentPage.table.frame = CGRectMake(0, toolbar.frame.size.height, currentPage.table.frame.size.width, self.view.frame.size.height - toolbar.frame.size.height);
     [currentPage.table removeFromSuperview];
     [self.view addSubview:currentPage.table];
     [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    

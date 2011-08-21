@@ -48,6 +48,7 @@
 @property (retain) IBOutlet UIToolbar *toolbar;
 @property BOOL isInSearchMode;
 @property (retain) NSDate *saveDate;
+@property CGRect saveFrame;
 
 - (void) setupScrolledInPage: (int)page;
 - (NSDate *)pageToDate: (int)page;
