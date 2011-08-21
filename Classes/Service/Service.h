@@ -64,8 +64,8 @@
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
-
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+- (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;

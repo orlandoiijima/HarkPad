@@ -20,6 +20,7 @@
 @property (retain) NSMutableDictionary *groupedReservations;
 @property bool includePlacedReservations;
 @property (retain) NSDate* date;
+@property (assign,nonatomic) NSArray * sortedKeys;
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced;
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;

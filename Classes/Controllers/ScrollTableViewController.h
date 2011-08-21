@@ -15,7 +15,7 @@
 #import "NSDate-Utilities.h"
 #import "PopupHost.h"
 
-@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost> {
+@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate> {
     UIScrollView *scrollView;
     ReservationDayView *currentPage;
     ReservationDayView *nextPage;
@@ -42,13 +42,21 @@
 @property (retain) IBOutlet UIBarButtonItem *buttonEdit;
 @property (retain) IBOutlet UIBarButtonItem *buttonAdd;
 @property (retain) IBOutlet UIBarButtonItem *buttonWalkin;
+@property (retain) IBOutlet UIBarButtonItem *buttonEndSearch;
 @property (retain) IBOutlet UIBarButtonItem *buttonPhone;
+@property (retain) IBOutlet UISearchBar *searchBar;
 @property (retain) IBOutlet UIToolbar *toolbar;
+@property BOOL isInSearchMode;
+@property (retain) NSDate *saveDate;
 
 - (void) setupScrolledInPage: (int)page;
 - (NSDate *)pageToDate: (int)page;
 - (NSString *) dateToKey: (NSDate *)date;
 - (void) gotoDayoffset: (int)page;
+
+- (void) startSearchForText: (NSString *) query;
+- (void) searchReservationsCallback: (NSMutableArray *)reservations;
+- (IBAction) endSearchMode;
 
 - (IBAction) add;
 - (IBAction) addWalkin;

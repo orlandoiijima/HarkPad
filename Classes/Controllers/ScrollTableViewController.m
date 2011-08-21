@@ -12,7 +12,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin;
+@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate;
 
 #define TOTALDAYS 60
 
@@ -71,11 +71,11 @@
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
     
-//    [NSTimer scheduledTimerWithTimeInterval:20.0f
-//                                     target:self
-//                                   selector:@selector(refreshView)
-//                                   userInfo:nil
-//                                    repeats:YES];   
+    [NSTimer scheduledTimerWithTimeInterval:20.0f
+                                     target:self
+                                   selector:@selector(refreshView)
+                                   userInfo:nil
+                                    repeats:YES];   
     
 }
 
@@ -86,7 +86,7 @@
 - (void) refreshView
 {
     if(currentPage == nil) return;
-    if(currentPage.dataSource == nil) return;
+    if(currentPage.dataSource == nil || currentPage.dataSource.date == nil) return;
     [[Service getInstance] getReservations: currentPage.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
 }
 
@@ -157,6 +157,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
+    if(isInSearchMode) return;
+    
     CGFloat pageWidth = scrollView.frame.size.width;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
 	int lowerPage = (int) floor(fractionalPage);
@@ -330,6 +332,50 @@
     Reservation *reservation = [[Reservation alloc] init];
     reservation.type = Walkin;
     [self openEditPopup:reservation];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)bar
+{
+    [bar endEditing:YES];
+    [self startSearchForText: bar.text];
+}
+
+- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [self endSearchMode];
+}
+
+- (void) endSearchMode
+{
+    searchBar.text = @"";
+    buttonEndSearch.enabled = NO;
+    isInSearchMode = NO;
+    slider.hidden = NO;
+    scrollView.hidden = NO;
+    [currentPage.table removeFromSuperview];
+    [currentPage addSubview:currentPage.table];
+    NSString *key = [self dateToKey: saveDate];
+    currentPage.dataSource = [dataSources objectForKey:key];
+}
+
+- (void) startSearchForText: (NSString *) query
+{
+    isInSearchMode = YES;
+    buttonEndSearch.enabled = YES;
+    slider.hidden = YES;
+    scrollView.hidden = YES;
+    saveDate = currentPage.date;
+    [currentPage.table removeFromSuperview];
+    [self.view addSubview:currentPage.table];
+    [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
+}
+
+- (void) searchReservationsCallback: (NSMutableArray *)reservations
+{
+    ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
+    if(currentPage != nil) {
+        currentPage.dataSource = dataSource;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

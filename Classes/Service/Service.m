@@ -262,6 +262,20 @@ static Service *_service;
     [self postPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
+- (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation retainArguments];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"searchreservations"
+                withQuery:[NSString stringWithFormat:@"q=%@", query]
+                 delegate: self
+                 callback:@selector(getReservationsCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
     NSError *error = nil;

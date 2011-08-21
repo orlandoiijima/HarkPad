@@ -13,7 +13,7 @@
 
 @implementation ReservationDataSource
 
-@synthesize groupedReservations, reservations, includePlacedReservations, date;
+@synthesize groupedReservations, reservations, includePlacedReservations, date, sortedKeys;
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced
 {
@@ -118,8 +118,13 @@
 {
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(kCFCalendarUnitHour | kCFCalendarUnitMinute) fromDate:reservation.startsOn];
     NSInteger hour = [components hour];
-    NSInteger minute = [components minute];            
-    return [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+    NSInteger minute = [components minute];     
+    if(date == nil) {
+        return [NSString stringWithFormat:@"%@ %02d:%02d", [reservation.startsOn prettyDateString], hour, minute];
+    }
+    else {
+        return [NSString stringWithFormat:@"%02d:%02d", hour, minute];
+    }
 }
 
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll
@@ -131,8 +136,8 @@
     NSMutableArray *deleteIndexPaths = [[NSMutableArray alloc] init];
     for(NSUInteger section = 0; section < [groupedReservations count]; section++)
     {
-        NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
-        NSString *key = [sortedKeys objectAtIndex:section];
+//        NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        NSString *key = [self.sortedKeys objectAtIndex:section];
         NSMutableArray *slotReservations = [groupedReservations objectForKey:key];
         int oldCount = [self numberOfItemsInSlot:slotReservations showAll: includePlacedReservations];
         int newCount = [self numberOfItemsInSlot:slotReservations showAll: showAll];
@@ -231,9 +236,9 @@
 {
     if(groupedReservations.count == 0)
         return @"";
-    NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+//    NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
     int s = 0;
-    for(NSString *key in sortedKeys)
+    for(NSString *key in self.sortedKeys)
     {
         NSMutableArray *slotReservations = [groupedReservations objectForKey:key];
         if([self numberOfItemsInSlot:slotReservations showAll:includePlacedReservations] > 0)
@@ -247,9 +252,9 @@
 
 - (int) sectionForKey: (NSString *)searchKey
 {
-    NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+//    NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
     int section = 0;
-    for(NSString *key in sortedKeys)
+    for(NSString *key in self.sortedKeys)
     {
         NSMutableArray *slotReservations = [groupedReservations objectForKey:key];
         if([self numberOfItemsInSlot:slotReservations showAll:includePlacedReservations] > 0)
@@ -260,7 +265,14 @@
     }
     return -1;    
 }
-         
+
+- (NSArray *) sortedKeys
+{
+    if(date == nil)
+        return [groupedReservations allKeys];
+    else
+        return [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
+}
          
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
