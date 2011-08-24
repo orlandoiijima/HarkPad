@@ -197,7 +197,10 @@
         {
             progress.countCourses = orderInfo.countCourses;
             progress.currentCourse = orderInfo.currentCourse;
-            progress.isCurrentCourseHot = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60;
+            if(orderInfo.currentCourseServedOn)
+                progress.currentCourseState = Served;
+            else
+                progress.currentCourseState = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60 ? RequestedOverdue : Requested;
             if(orderInfo.state == ordering)
                 gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             else

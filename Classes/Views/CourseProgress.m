@@ -11,7 +11,7 @@
 
 @implementation CourseProgress
 
-@synthesize countCourses, currentCourse, isCurrentCourseHot;
+@synthesize countCourses, currentCourse, currentCourseState;
 
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse {
     CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame]; 
@@ -37,7 +37,20 @@
         if(course < currentCourse)
             fillColor = [UIColor greenColor];
         else
-            fillColor = isCurrentCourseHot ? [UIColor redColor] : [UIColor greenColor];
+        {
+            switch(currentCourseState)
+            {
+                case Served:
+                    fillColor = [UIColor greenColor];
+                    break;
+                case Requested:
+                    fillColor = [UIColor colorWithRed:1 green:0.7 blue:0 alpha:1];
+                    break;
+                case RequestedOverdue:
+                    fillColor = [UIColor redColor];
+                    break;
+            }
+        }
         UIColor *strokeColor = course <= currentCourse ? [UIColor blackColor] : [UIColor grayColor];
         [self drawArc: context inRect: rect startAngle: startAngle endAngle: endAngle strokeColor: strokeColor strokeWidth: 1.0f fillColor: fillColor];
     }

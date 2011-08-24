@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum CourseState { Served, Requested, RequestedOverdue } CourseState;
+
 @interface CourseProgress : UIView {
     int countCourses;
     int currentCourse;
@@ -19,6 +21,6 @@
                                                                                                                                                                                                                                           
 @property int countCourses;
 @property int currentCourse;
-@property BOOL isCurrentCourseHot; 
+@property CourseState currentCourseState;
 @end
 				
