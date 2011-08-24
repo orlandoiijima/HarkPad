@@ -118,6 +118,7 @@
 		E5DB4CAC135F40BC005ADD06 /* WorkInProgressDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CAB135F40BC005ADD06 /* WorkInProgressDataSource.m */; };
 		E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5DB4CAD135F46FB005ADD06 /* WorkInProgressTableCell.xib */; };
 		E5DB4CB1135F473A005ADD06 /* WorkInProgressTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */; };
+		E5DFB9F01401495900EAD1EC /* AmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFB9EF1401495900EAD1EC /* AmountView.m */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
 		E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */; };
@@ -521,6 +522,8 @@
 		E5DB4CAD135F46FB005ADD06 /* WorkInProgressTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkInProgressTableCell.xib; sourceTree = "<group>"; };
 		E5DB4CAF135F473A005ADD06 /* WorkInProgressTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkInProgressTableCell.h; sourceTree = "<group>"; };
 		E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorkInProgressTableCell.m; sourceTree = "<group>"; };
+		E5DFB9EE1401495900EAD1EC /* AmountView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmountView.h; sourceTree = "<group>"; };
+		E5DFB9EF1401495900EAD1EC /* AmountView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmountView.m; sourceTree = "<group>"; };
 		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
 		E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatistics.m; sourceTree = "<group>"; };
@@ -931,6 +934,8 @@
 				E5DB4CB0135F473A005ADD06 /* WorkInProgressTableCell.m */,
 				E5D7A23F13742BE20079F89A /* ReservationDayView.h */,
 				E5D7A24013742BE20079F89A /* ReservationDayView.m */,
+				E5DFB9EE1401495900EAD1EC /* AmountView.h */,
+				E5DFB9EF1401495900EAD1EC /* AmountView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1498,6 +1503,7 @@
 				E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */,
 				E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */,
 				E57AECA213FE6B6E003B2F75 /* ProductDialogController.m in Sources */,
+				E5DFB9F01401495900EAD1EC /* AmountView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@
 @implementation OrderInfo
 
 
-@synthesize table, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn;
+@synthesize table, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn, currentCourseServedOn;
 
 
 - (id)init
@@ -55,6 +55,11 @@
     seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil)
         order.currentCourseRequestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+
+    seconds = [jsonDictionary objectForKey:@"servedOn"];
+    if(seconds != nil)
+        order.currentCourseServedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+
     id seatDictionary = [jsonDictionary objectForKey:@"seats"];
     for(NSString *seat in [seatDictionary allKeys])
     {

@@ -18,12 +18,12 @@
     SeatInfo *seatInfo = [[SeatInfo alloc] init];
 
     id foodId = [jsonDictionary objectForKey:@"foodId"];
-    if(foodId != nil)
+    if(foodId != nil && foodId != [NSNull null])
         seatInfo.food = [[[Cache getInstance] menuCard] getProduct:[foodId intValue]];
     seatInfo.guestId = [[jsonDictionary objectForKey:@"guestId"] intValue];
 
     id drinkId = [jsonDictionary objectForKey:@"drinkId"];
-    if(drinkId != nil)
+    if(drinkId != nil  && drinkId != [NSNull null])
         seatInfo.drink = [[[Cache getInstance] menuCard] getProduct:[drinkId intValue]];
 
     NSString *gender = [jsonDictionary objectForKey:@"gender"];

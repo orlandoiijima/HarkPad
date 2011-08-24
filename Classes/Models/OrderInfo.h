@@ -19,6 +19,7 @@
     int countCourses;
     int currentCourse;
     NSDate *currentCourseRequestedOn;
+    NSDate *currentCourseServedOn;
     NSString *language;
 }
 
@@ -32,6 +33,7 @@
 @property int countCourses;
 @property int currentCourse;
 @property (retain) NSDate *currentCourseRequestedOn;
+@property (retain) NSDate *currentCourseServedOn;
 @property (retain) NSString *language;
 
 - (SeatInfo *) getSeatInfo: (int) querySeat;
