@@ -85,12 +85,14 @@
     for(int i=0; i < 8; i++) {
         NSNumber *count = [backlog.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
+        label.backgroundColor = backlog.product.category.color;
         label.text = count == nil ? @"-" : [NSString stringWithFormat:@"%@", count];
         label.highlightedTextColor = [UIColor whiteColor];
         total += [count intValue];
     }
 
     UILabel *label = (UILabel *)[cell.contentView viewWithTag:200];
+    label.font = [UIFont boldSystemFontOfSize:18];
     label.highlightedTextColor = [UIColor whiteColor];
     label.text = [NSString stringWithFormat:@"%d", total];
     
