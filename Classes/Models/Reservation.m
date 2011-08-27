@@ -66,16 +66,16 @@
     reservation.endsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     reservation.countGuests = [[jsonDictionary objectForKey:@"countGuests"] intValue];
     NSNumber *orderId = [jsonDictionary objectForKey:@"orderId"];
-    if((NSNull *)orderId != [NSNull null])
+    if(orderId != nil && (NSNull *)orderId != [NSNull null])
         reservation.orderId = [orderId intValue];
     else
         //  Not yet linked to order	
         reservation.orderId = -1;
     NSNumber *orderState = [jsonDictionary objectForKey:@"orderState"];
-    if((NSNull *)orderState != [NSNull null])
+    if(orderState != nil && (NSNull *)orderState != [NSNull null])
         reservation.orderState = [orderState intValue];
     NSNumber *tableId = [jsonDictionary objectForKey:@"tableId"];
-    if((NSNull *)tableId != [NSNull null])
+    if(tableId != nil && (NSNull *)tableId != [NSNull null])
         reservation.table = [[[Cache getInstance] map] getTable:[tableId intValue]];
 
     return reservation;
