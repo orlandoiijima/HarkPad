@@ -19,4 +19,6 @@
 
 //+ (WorkInProgressDataSource *) dataSource;
 
+- (void) deleteLine: (WorkInProgress*) itemToDelete fromTableView: (UITableView *)tableView ;
+
 @end

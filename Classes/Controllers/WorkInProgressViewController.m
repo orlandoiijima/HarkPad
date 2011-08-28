@@ -59,7 +59,7 @@
     NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.table.name];
     if([ModalAlert confirm:query]) {
         [[Service getInstance] serveCourse:work.course.id];	
-        [self refreshView];		
+        [dataSource deleteLine:work fromTableView:tableView];
     }
 }
 

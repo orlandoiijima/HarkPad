@@ -58,5 +58,23 @@
     return cell;
 }	
 
+- (void) deleteLine: (WorkInProgress*) itemToDelete fromTableView: (UITableView *)tableView 
+{
+    int row = 0;
+    for (WorkInProgress *item in workInProgress) {
+        if(item.course.id == itemToDelete.course.id)
+            break;
+        row++;
+    }
+    if(row >= [workInProgress count]) return;
+    
+    [tableView beginUpdates];
+    NSMutableArray *deleteIndexPaths = [[NSMutableArray alloc] init];
+    [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) 0]];
+    [tableView deleteRowsAtIndexPaths: deleteIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    [workInProgress removeObject: itemToDelete];
+    [tableView endUpdates];	
+}
+
 
 @end
