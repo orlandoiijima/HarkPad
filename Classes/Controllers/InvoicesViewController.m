@@ -10,6 +10,7 @@
 #import "OrderLinesViewController.h"
 #import "Invoice.h"
 #import "Service.h"
+#import "Utils.h"
 
 @implementation InvoicesViewController
 
@@ -116,7 +117,7 @@
         [formatter setDateStyle:NSDateFormatterNoStyle];
         
         cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.table.name, [formatter stringFromDate:invoice.createdOn]];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"€ %.02f", [invoice.amount doubleValue]];
+        cell.detailTextLabel.text = [Utils getAmountString:invoice.amount withCurrency:YES];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         if(invoice.paymentType == -1)
