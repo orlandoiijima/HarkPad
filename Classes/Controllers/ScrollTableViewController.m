@@ -12,7 +12,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate, saveFrame;
+@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate, saveFrame, buttonSearch;
 
 #define TOTALDAYS 60
 
@@ -41,17 +41,15 @@
 {
     [super viewDidLoad];
 
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
-        buttonPhone.enabled = false;
+        [toolbar setItems:nil animated:NO];
+        [toolbar setItems: [[NSArray alloc] initWithObjects:buttonPhone, buttonSearch, buttonEndSearch, nil]];    
     }
     else
     {
-        buttonAdd.enabled = false;
-        buttonWalkin.enabled = false;
-        buttonEdit.enabled = false;
+        buttonPhone.enabled = false;
     }
-    
     scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * TOTALDAYS, scrollView.bounds.size.height);
     scrollView.directionalLockEnabled = YES; 	
     scrollView.backgroundColor = [UIColor clearColor];

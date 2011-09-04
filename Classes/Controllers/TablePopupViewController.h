@@ -13,6 +13,8 @@
 #import "ReservationDataSource.h"
 #import "TableMapViewController.h"
 
+typedef enum buttonState {disabled, enabled,highlighted, special} buttonState;
+
 @interface TablePopupViewController : UIViewController <UITableViewDelegate>{
     Table *table;
     Order *order;
@@ -53,7 +55,7 @@
 
 - (TableMapViewController *) tableMapController;
 - (void) setOptimalSize;
-- (void) setButton: (UIButton*) button enabled: (bool)enabled;
+- (void) setButton: (UIButton*) button state: (buttonState)state;
 
 - (IBAction) getOrder;
 - (IBAction) startNextCourse;
@@ -64,6 +66,7 @@
 - (void) placeReservation: (Reservation*)reservation;
 - (void) updateOnOrder;
 - (CGSize) getSizeFromBottomItem: (UIView *)view;
+- (void) makeGlassButtons;
 
 
 @end

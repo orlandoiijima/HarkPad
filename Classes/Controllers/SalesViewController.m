@@ -56,6 +56,7 @@
             UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, COLUMN_WIDTH, 20)];
             typeLabel.textAlignment = UITextAlignmentRight;
             typeLabel.text = [labels objectAtIndex:i];
+            typeLabel.backgroundColor = [UIColor clearColor];
             [headerView addSubview:typeLabel];
             x += COLUMN_WIDTH;
         }

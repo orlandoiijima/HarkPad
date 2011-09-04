@@ -43,6 +43,7 @@
 @property (retain) IBOutlet UIBarButtonItem *buttonAdd;
 @property (retain) IBOutlet UIBarButtonItem *buttonWalkin;
 @property (retain) IBOutlet UIBarButtonItem *buttonEndSearch;
+@property (retain) IBOutlet UIBarButtonItem *buttonSearch;
 @property (retain) IBOutlet UIBarButtonItem *buttonPhone;
 @property (retain) IBOutlet UISearchBar *searchBar;
 @property (retain) IBOutlet UIToolbar *toolbar;

@@ -1,4 +1,4 @@
-//
+	//
 //  TablePopupViewController.m
 //  HarkPad
 //
@@ -145,24 +145,27 @@
 
 - (void) updateOnOrder
 {
-    Course *nextCourse = [order getNextCourse];
-    if(nextCourse != nil) {
-        [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
-    }
-    else {
-        [buttonStartCourse setTitle:@"Geen volgende gang" forState:UIControlStateDisabled];
-        [self setButton:buttonStartCourse enabled: false];
-        labelNextCourse.text = @"";
+    Course *nextCourse = nil;
+    bool allCoursesDone = false;
+    if(order != nil && order.state == ordering) {
+        nextCourse = [order getNextCourse];
+        if(nextCourse != nil) {
+            [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
+        }
+        else {
+            if([order.courses count] > 0)
+                allCoursesDone = true;
+        }
     }
     
-    [self setButton: buttonGetPayment enabled: order.state == billed];
-    [self setButton: buttonMakeOrder enabled: order == nil || order.state == ordering];
-    [self setButton: buttonMakeBill enabled: order != nil];
-    [self setButton: buttonTransferOrder enabled: order != nil];
-    if(order.state == billed)
-        buttonMakeBill.titleLabel.textColor = [UIColor redColor];
+    [self setButton: buttonStartCourse state: nextCourse != nil ? highlighted : disabled];
+    [self setButton: buttonGetPayment state: order.state == billed ? highlighted : disabled];
+    [self setButton: buttonMakeBill state: order.state == billed ? special : disabled];
+    [self setButton: buttonMakeOrder state: order == nil || order.state == ordering ? highlighted : disabled];
+    [self setButton: buttonMakeBill state: order == nil ? disabled : (allCoursesDone ? highlighted : (order.state == billed ? special : enabled))];
+    [self setButton: buttonTransferOrder state: order == nil ? disabled : enabled];
     
-    if(order.reservation != nil) {
+	    if(order.reservation != nil) {
         [tableReservations removeFromSuperview];
         [labelReservations removeFromSuperview];
         labelReservationNote.text = order.reservation.notes;
@@ -200,11 +203,11 @@
     [self setOptimalSize];
 }
 
-- (void) setButton: (UIButton*) button enabled: (bool)enabled
+- (void) setButton: (UIButton*) button state: (buttonState) state
 {
-    button.enabled = enabled;
-//    button.titleLabel.textColor = enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
-    button.titleLabel.textColor = [button.titleLabel.textColor colorWithAlphaComponent:enabled ? 1: 0.5];
+    button.enabled = state != disabled;
+    button.titleLabel.textColor = [button.titleLabel.textColor colorWithAlphaComponent: button.enabled ? 1: 0.5];
+    button.tintColor = state == special ? [UIColor redColor] : (state == highlighted ? [UIColor blueColor] : [UIColor blackColor]);
 }
 
 - (void)viewDidUnload

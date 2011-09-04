@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">1280</int>
-		<string key="IBDocument.SystemVersion">11A511</string>
+		<string key="IBDocument.SystemVersion">11B26</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1923</string>
 		<string key="IBDocument.AppKitVersion">1138</string>
 		<string key="IBDocument.HIToolboxVersion">566.00</string>
@@ -301,6 +301,14 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">buttonSearch</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="910010795"/>
+					</object>
+					<int key="connectionID">39</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="289411434"/>
 						<reference key="destination" ref="841351856"/>
@@ -554,7 +562,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">38</int>
+			<int key="maxID">39</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -637,6 +645,7 @@
 							<string>buttonEdit</string>
 							<string>buttonEndSearch</string>
 							<string>buttonPhone</string>
+							<string>buttonSearch</string>
 							<string>buttonWalkin</string>
 							<string>scrollView</string>
 							<string>searchBar</string>
@@ -646,6 +655,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
@@ -666,6 +676,7 @@
 							<string>buttonEdit</string>
 							<string>buttonEndSearch</string>
 							<string>buttonPhone</string>
+							<string>buttonSearch</string>
 							<string>buttonWalkin</string>
 							<string>scrollView</string>
 							<string>searchBar</string>
@@ -689,6 +700,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">buttonPhone</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">buttonSearch</string>
 								<string key="candidateClassName">UIBarButtonItem</string>
 							</object>
 							<object class="IBToOneOutletInfo">
