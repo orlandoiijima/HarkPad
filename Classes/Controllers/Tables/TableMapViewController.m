@@ -315,7 +315,28 @@
     if(isVisible == false)
         return;
     if(currentDistrict == nil) return;
+    [self showActivityIndicator];
     [[Service getInstance] getTablesInfoForDistrict:currentDistrict.id delegate: self callback:@selector(refreshViewWithInfo:)];
+}
+
+- (void) showActivityIndicator
+{
+    CGPoint point = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [indicator startAnimating];
+    indicator.frame = CGRectMake(point.x, point.y, indicator.frame.size.width, indicator.frame.size.height);
+    indicator.tag = 666;
+    [self.view addSubview:indicator];
+}
+
+- (void)hideActivityIndicator
+{
+    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *) [self.view viewWithTag:666];
+    if(indicator != nil)
+    {
+        [indicator removeFromSuperview];
+    }
 }
 
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo
@@ -363,6 +384,7 @@
         [districtPicker setTitle:title forSegmentAtIndex: i];
         i++;
     }
+    [self hideActivityIndicator];
 }
 
 - (void) setupDistrictPicker

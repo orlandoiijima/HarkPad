@@ -47,6 +47,8 @@
 - (void) transferOrder: (int)orderId;
 - (void) transferOrder: (int)orderId toTable: (int)tableId;
 - (TableButton *) buttonForOrder: (int)orderId;
+- (void) showActivityIndicator;
+- (void)hideActivityIndicator;
 
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;
