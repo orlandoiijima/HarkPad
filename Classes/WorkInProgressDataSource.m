@@ -32,7 +32,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-    return @"Tap om gang te serveren";
+    if([workInProgress count] == 0)
+        return NSLocalizedString(@"Er zijn nog geen gangen opgevraagd", nil);
+    else
+        return NSLocalizedString(@"Tap om gang te serveren", nil);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
