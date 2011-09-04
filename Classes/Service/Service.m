@@ -30,7 +30,7 @@ static Service *_service;
             url = URL_DEV_EXT;
         else
             url = URL_PRODUCTION;
-        url = URL_DEV;
+//        url = URL_DEV;
 	    }
     return self;
 }
