@@ -109,7 +109,12 @@
             [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) section]];
             [tableView deleteRowsAtIndexPaths: deleteIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
         }
-        [slotArray removeObject:reservation];
+        for (Reservation *reservationInSlot in slotArray) {
+            if(reservationInSlot.id == reservation.id) {
+                [slotArray removeObject:reservationInSlot];
+                break;
+            }
+        }
         [tableView endUpdates];	
     }
 }
