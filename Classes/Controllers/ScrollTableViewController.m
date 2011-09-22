@@ -268,7 +268,7 @@
 - (void) call
 {
     Reservation *reservation = [self.currentDayView selectedReservation];
-    if(reservation == nil || reservation.phone == @"") return;
+    if(reservation == nil || reservation.phone == nil || reservation.phone == @"") return;
     NSString *phoneNumber = [@"tel://" stringByAppendingString:reservation.phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
 }	
