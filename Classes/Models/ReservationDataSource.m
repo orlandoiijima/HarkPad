@@ -1,4 +1,4 @@
- //
+		 //
 //  ReservationDataSource.m
 //  HarkPad
 //
@@ -93,6 +93,7 @@
     NSString *timeSlot = [self keyForReservation:reservation];
     NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
     if(slotArray == nil) return;
+
     if(tableView != nil)
     {
         [tableView beginUpdates];
@@ -109,14 +110,17 @@
             [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) section]];
             [tableView deleteRowsAtIndexPaths: deleteIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
         }
-        for (Reservation *reservationInSlot in slotArray) {
-            if(reservationInSlot.id == reservation.id) {
-                [slotArray removeObject:reservationInSlot];
-                break;
-            }
-        }
-        [tableView endUpdates];	
     }
+
+    for (Reservation *reservationInSlot in slotArray) {
+        if(reservationInSlot.id == reservation.id) {
+            [slotArray removeObject:reservationInSlot];
+            break;
+        }
+    }
+    
+    if(tableView != nil)
+        [tableView endUpdates];	
 }
 
 - (NSString *) keyForReservation: (Reservation *)reservation
@@ -141,7 +145,6 @@
     NSMutableArray *deleteIndexPaths = [[NSMutableArray alloc] init];
     for(NSUInteger section = 0; section < [groupedReservations count]; section++)
     {
-//        NSArray* sortedKeys = [[groupedReservations allKeys] sortedArrayUsingSelector:@selector(compare:)];
         NSString *key = [self.sortedKeys objectAtIndex:section];
         NSMutableArray *slotReservations = [groupedReservations objectForKey:key];
         int oldCount = [self numberOfItemsInSlot:slotReservations showAll: includePlacedReservations];
@@ -326,7 +329,6 @@
     NSString *key = [self keyForSection: indexPath.section];
     if([key length] == 0)
         return nil;
-    NSLog(@"Key %@", key);    
     NSArray *slotReservations = [groupedReservations objectForKey:key];
     if(slotReservations == nil || indexPath.row >= [slotReservations count])
         return nil;

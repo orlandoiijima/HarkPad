@@ -12,7 +12,7 @@
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, currentPage, nextPage, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, buttonEndSearch, isInSearchMode, searchBar, saveDate, saveFrame, buttonSearch;
+@synthesize scrollView, dayView1, dayView2, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader;
 
 #define TOTALDAYS 60
 
@@ -44,7 +44,8 @@
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [toolbar setItems:nil animated:NO];
-        [toolbar setItems: [[NSArray alloc] initWithObjects:buttonPhone, buttonSearch, buttonEndSearch, nil]];    
+        [toolbar setItems: [[NSArray alloc] initWithObjects:buttonPhone, buttonSearch, nil]]; 
+        buttonSearch.width = 130;
     }
     else
     {
@@ -55,12 +56,12 @@
     scrollView.backgroundColor = [UIColor clearColor];
     
     CGRect frame = CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    self.currentPage = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
-    [scrollView addSubview:currentPage];
+    self.dayView1 = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
+    [scrollView addSubview:dayView1];
     
     frame = CGRectOffset(frame, scrollView.bounds.size.width, 0);
-    self.nextPage = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
-    [scrollView addSubview:nextPage];
+    self.dayView2 = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
+    [scrollView addSubview:dayView2];
     
     self.dataSources = [[NSMutableDictionary alloc] init];
     [self gotoDayoffset:7];
@@ -78,33 +79,40 @@
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGestureRecognizer {
-    [self gotoDayoffset:7];
+    if(isInSearchMode)
+        [self endSearchMode];
+    else
+        [self gotoDayoffset:7];
+}
+
+- (ReservationDayView *) currentDayView
+{
+    if(scrollView.contentOffset.x == dayView1.frame.origin.x)
+        return dayView1;
+    if(scrollView.contentOffset.x == dayView2.frame.origin.x)
+        return dayView2;
+    return nil;
 }
 
 - (void) refreshView
 {
-    if(currentPage == nil) return;
-    if(currentPage.dataSource == nil || currentPage.dataSource.date == nil) return;
-    [[Service getInstance] getReservations: currentPage.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
+    if(self.currentDayView == nil) return;
+    if(self.currentDayView.dataSource == nil || self.currentDayView.dataSource.date == nil) return;
+    [[Service getInstance] getReservations: self.currentDayView.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
 }
 
 - (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
 {
-    NSLog(@"Refresh %@", date);
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
-    if(currentPage != nil) {
-        if([currentPage.date isEqualToDateIgnoringTime:date]) {
-            currentPage.dataSource = dataSource;
-        }
-    }
-    if(nextPage != nil) {
-        if([nextPage.date isEqualToDateIgnoringTime:date]) {
-            nextPage.dataSource = dataSource;
-        }    
-    }
     [dataSources setObject: dataSource forKey:key];
+    if([dayView1.date isEqualToDateIgnoringTime:date]) {
+        dayView1.dataSource = dataSource;
+    }
+    if([dayView2.date isEqualToDateIgnoringTime:date]) {
+        dayView2.dataSource = dataSource;
+    }    
 }
 
 - (NSDate *)pageToDate: (int)page
@@ -119,76 +127,86 @@
     return [format stringFromDate:date];
 }
 
-- (void) setupScrolledInPage: (int)page
-{
-    NSDate *date = [self pageToDate:page];
-    NSString *key = [self dateToKey: date];
-    NSLog(@"Scrolled in %@", date);
-    CGFloat pageWidth = scrollView.frame.size.width;
-    nextPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    nextPage.date = date;
-    ReservationDataSource *dataSource = [dataSources objectForKey:key];
-    if(dataSource == nil) {
-        dataSource = [[ReservationDataSource alloc] init];
-        [dataSources setObject: dataSource forKey:key];
-        [[Service getInstance] getReservations: date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
-    }
-    else {
-        if(dataSource.date != nil)
-            nextPage.dataSource = dataSource;
-    }
-        
-    int mainPage = (int) floor((self.scrollView.contentOffset.x + pageWidth / 2) / pageWidth);    
-    if(mainPage == page)
-    {
-        NSLog(@"New current %@", date);
-        ReservationDayView *swp = currentPage;
-        currentPage = nextPage;
-        nextPage = swp;
-        slider.value = mainPage;
-        if(currentPage.dataSource.includePlacedReservations)
-            segmentShow.selectedSegmentIndex = 1;
-        else
-            segmentShow.selectedSegmentIndex = 0;
-    }
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)sender
 {
-    if(isInSearchMode) return;
+    if(isInSearchMode)
+        [self endSearchMode];
     
     CGFloat pageWidth = scrollView.frame.size.width;
     float fractionalPage = scrollView.contentOffset.x / pageWidth;
 	int lowerPage = (int) floor(fractionalPage);
     int upperPage = lowerPage + 1;
-    
+
 	NSDate *lowerDate = [self pageToDate:lowerPage];
-	    
-    ReservationDataSource *currentDataSource = currentPage.dataSource;
-	if ([lowerDate isEqualToDateIgnoringTime: currentDataSource.date])
-	{
-        [self setupScrolledInPage:upperPage];
-	}
+	NSDate *upperDate = [self pageToDate:upperPage];
+    
+    if([upperDate isEqualToDateIgnoringTime:dayView1.date] == false && [lowerDate isEqualToDateIgnoringTime:dayView1.date] == false)
+    {
+        //  dayView1 is scrolled out of view
+        if([upperDate isEqualToDateIgnoringTime:dayView2.date])
+        {
+            //  and dayView2 uses upperdate -> use dayView1 for lowerDate
+            [self setupDayView:dayView1 page:lowerPage];
+        }
+        else
+        {
+            [self setupDayView:dayView1 page:upperPage];
+            
+        }
+    }
     else
     {
-        [self setupScrolledInPage:lowerPage];
+        if([upperDate isEqualToDateIgnoringTime:dayView2.date] == false && [lowerDate isEqualToDateIgnoringTime:dayView2.date] == false)
+        {
+            //  dayView2 is scrolled out of view
+            if([upperDate isEqualToDateIgnoringTime:dayView1.date])
+            {
+                //  and dayView1 uses upperdate -> use dayView2 for lowerDate
+                [self setupDayView:dayView2 page:lowerPage];
+            }
+            else
+            {
+                //  and dayView2 uses upperdate -> use dayView1 for lowerDate
+                [self setupDayView:dayView2 page:upperPage];
+                
+            }
+        }
+    }
+
+    slider.value = lowerPage;
+    
+//    if([lowerDate isEqualToDateIgnoringTime:dayView2.date])
+//    {
+//        [self setupDayView:dayView2 page:lowerPage];
+//        slider.value = lowerPage;
+//    }    
+}
+
+- (void) setupDayView: (ReservationDayView *)dayView page: (int)page
+{
+    dayView.frame = CGRectMake(scrollView.frame.size.width * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+    dayView.date = [self pageToDate:page];
+    NSString *key = [self dateToKey: dayView.date];
+    ReservationDataSource *dataSource = [dataSources objectForKey:key];
+    if(dataSource == nil) {
+        dataSource = [[ReservationDataSource alloc] init];
+        [dataSources setObject: dataSource forKey:key];
+        [[Service getInstance] getReservations: dayView.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
+    }
+    else {
+        dayView.dataSource = dataSource;
     }
 }
 
 - (void) gotoDayoffset: (int)page
 {
-    currentPage.date = [self pageToDate:page];
-    CGFloat pageWidth = scrollView.frame.size.width;
-    currentPage.frame = CGRectMake(pageWidth * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    nextPage.frame = CGRectMake(pageWidth * (page + 1), 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    scrollView.contentOffset = CGPointMake(pageWidth * page, scrollView.contentOffset.y);
-//    ReservationDataSource *dataSource = [dataSources objectForKey:key];
-//    if(dataSource == nil) {
-//        [[Service getInstance] getReservations: currentPage.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
-//    }
-//    else {
-//        currentPage.dataSource = dataSource;
-//    }
+    if(isInSearchMode)
+        [self endSearchMode];
+    
+    scrollView.contentOffset = CGPointMake(scrollView.frame.size.width * page, scrollView.contentOffset.y);
+    [self setupDayView:dayView1 page:page];
+    [self setupDayView:dayView2 page:page+1];
+    slider.value = page;
 }
 
 - (IBAction) sliderUpdate
@@ -226,22 +244,22 @@
 
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-    Reservation *reservation = [currentPage selectedReservation];
+    Reservation *reservation = [self.currentDayView selectedReservation];
     if(reservation == nil) return;
 }
 
 - (void) editMode
 {
-    if(currentPage == nil || currentPage.table == nil) return;
-    if([currentPage.table isEditing])
-        [currentPage.table setEditing:NO];
+    if(self.currentDayView == nil || self.currentDayView.table == nil) return;
+    if([self.currentDayView.table isEditing])
+        [self.currentDayView.table setEditing:NO];
     else
-        [currentPage.table setEditing:YES];
+        [self.currentDayView.table setEditing:YES];
 }
 
 - (void) edit
 {
-    Reservation *reservation = [currentPage selectedReservation];
+    Reservation *reservation = [self.currentDayView selectedReservation];
     if(reservation == nil || reservation.id == 0) return;
     self.originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
@@ -249,7 +267,7 @@
 
 - (void) call
 {
-    Reservation *reservation = [currentPage selectedReservation];
+    Reservation *reservation = [self.currentDayView selectedReservation];
     if(reservation == nil || reservation.phone == @"") return;
     NSString *phoneNumber = [@"tel://" stringByAppendingString:reservation.phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
@@ -257,11 +275,11 @@
 
 - (void) showMode
 {
-    ReservationDataSource *dataSource = currentPage.dataSource;
+    ReservationDataSource *dataSource = self.currentDayView.dataSource;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     if(dataSource.includePlacedReservations == includeSeated)
         return;
-    [dataSource tableView: currentPage.table includeSeated: includeSeated];
+    [dataSource tableView: self.currentDayView.table includeSeated: includeSeated];
 }			
 
 - (void) closePopup
@@ -270,38 +288,47 @@
     Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
     NSString *key = [self dateToKey:reservation.startsOn];
-    ReservationDataSource *dataSource = [dataSources objectForKey:key];
-    ReservationDayView *page = nil;
-    if(dataSource != nil)
+    ReservationDayView *dayViewNew = nil;
+    ReservationDataSource *dataSourceNew = nil;
+    if(isInSearchMode)
     {
-        if ([currentPage.date isEqualToDateIgnoringTime:dataSource.date])
-            page = currentPage;
-        else if ([nextPage.date isEqualToDateIgnoringTime:dataSource.date])
-            page = nextPage;
+        dayViewNew = self.currentDayView;
+        dataSourceNew = dayViewNew.dataSource;
     }
+    else
+    {        
+        if([dayView1.date isEqualToDateIgnoringTime:reservation.startsOn])
+            dayViewNew = dayView1;
+        else
+            if([dayView2.date isEqualToDateIgnoringTime:reservation.startsOn])
+                dayViewNew = dayView2;
+        dataSourceNew = [dataSources objectForKey:key];
+    }
+
     if(reservation.id == 0)
     {
-        if(dataSource != nil)
-            [dataSource addReservation:reservation fromTableView: page.table];
+        //  New reservation
+        [dataSourceNew addReservation:reservation fromTableView: dayViewNew.table];
     }
     else
     {
         if([reservation.startsOn isEqualToDate: originalStartsOn]) {
-            NSIndexPath *indexPath = [currentPage.table indexPathForSelectedRow];
-            [currentPage.table reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            //  Edit but same date/timeslot -> just refresh line
+            NSIndexPath *indexPath = [self.currentDayView.table indexPathForSelectedRow];
+            [self.currentDayView.table reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
         }
         else {
+            //  Edit, new day
             NSDate *startsOn = reservation.startsOn;
             reservation.startsOn = originalStartsOn;
-            [currentPage.dataSource deleteReservation:reservation fromTableView: currentPage.table];
-            if([startsOn isEqualToDateIgnoringTime: page.dataSource.date]) {
-                reservation.startsOn = startsOn;
-                [dataSource addReservation:reservation fromTableView: page.table];
-            }
+            [self.currentDayView.dataSource deleteReservation:reservation fromTableView: self.currentDayView.table];
+
+            reservation.startsOn = startsOn;
+            [dataSourceNew addReservation:reservation fromTableView: dayViewNew.table];
         }
     }
-    [page refreshTotals];
-    [page.table setEditing:NO];
+    [self.currentDayView refreshTotals];
+    [self.currentDayView.table setEditing:NO];
 }
     
 - (void) cancelPopup
@@ -312,7 +339,7 @@
 - (IBAction) add
 {
     Reservation *reservation = [[Reservation alloc] init];
-    NSDate *date = currentPage.dataSource.date;
+    NSDate *date = self.currentDayView.dataSource.date;
     NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSUInteger) -1 fromDate:date];
     [comps setHour:20];
     [comps setMinute:0];
@@ -338,50 +365,47 @@
     [self startSearchForText: bar.text];
 }
 
-- (void) searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [self endSearchMode];
-}
-
 - (void) endSearchMode
 {
     searchBar.text = @"";
-    buttonEndSearch.enabled = NO;
     isInSearchMode = NO;
     slider.hidden = NO;
-    scrollView.hidden = NO;
-    [currentPage.table removeFromSuperview];
-    [currentPage addSubview:currentPage.table];
-    currentPage.table.frame = saveFrame;
+    searchHeader.hidden = YES;
+    [dayView1 showHeader];
+    [dayView2 showHeader];
     NSString *key = [self dateToKey: saveDate];
-    currentPage.dataSource = [dataSources objectForKey:key];
+    self.currentDayView.dataSource = [dataSources objectForKey:key];
 }
 
 - (void) startSearchForText: (NSString *) query
 {
     isInSearchMode = YES;
-    buttonEndSearch.enabled = YES;
     slider.hidden = YES;
-    scrollView.hidden = YES;
-    saveDate = currentPage.date;
-    saveFrame = currentPage.frame;
-    currentPage.table.frame = CGRectMake(0, toolbar.frame.size.height, currentPage.table.frame.size.width, self.view.frame.size.height - toolbar.frame.size.height);
-    [currentPage.table removeFromSuperview];
-    [self.view addSubview:currentPage.table];
+    searchHeader.hidden = NO;
+    
+    [dayView1 hideHeader];
+    [dayView2 hideHeader];
+    saveDate = dayView1.date;
+    searchHeader.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Zoeken naar ''", nil), query];
     [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
 }
 
 - (void) searchReservationsCallback: (NSMutableArray *)reservations
 {
+    if(reservations == nil || [reservations count] == 0)
+        searchHeader.text = NSLocalizedString(@"Geen reserveringen gevonden", nil);
+    else
+        searchHeader.text = NSLocalizedString(@"Gevonden reserveringen:", nil);
+
     ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
-    if(currentPage != nil) {
-        currentPage.dataSource = dataSource;
+    if(self.currentDayView != nil) {
+        self.currentDayView.dataSource = dataSource;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([currentPage.table isEditing])
+    if([self.currentDayView.table isEditing])
         [self edit];
 }
 

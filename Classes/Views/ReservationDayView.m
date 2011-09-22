@@ -68,6 +68,16 @@
     return self;
 }
 
+- (void) hideHeader
+{
+    table.frame = CGRectMake(0, 0, table.frame.size.width, self.frame.size.height);
+}
+
+- (void) showHeader
+{
+    table.frame = CGRectMake(0, 60, table.frame.size.width, self.frame.size.height - 60);
+}
+
 - (Reservation *) selectedReservation
 {
     NSIndexPath *indexPath = [table indexPathForSelectedRow];	

@@ -29,4 +29,7 @@
 - (void) refreshTotals;
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate;
 
+- (void) showHeader;
+- (void) hideHeader;
+
 @end
