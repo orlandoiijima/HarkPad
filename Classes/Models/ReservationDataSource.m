@@ -309,13 +309,12 @@
     
     if([reservation.startsOn isToday]) {
         if(reservation.orderState != ordering) {
-            [UIView animateWithDuration:0.3 delay:0 options: UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction animations:^{
-                cell.count.transform = CGAffineTransformMakeScale(1.20, 1.1);
-                cell.count.textColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
-                } completion:nil
-             ];
-//            cell.status.hidden = false;
-//            cell.status.titleLabel.text	 = reservation.orderState == billed ? @"In rekening" : @"Afgerekend";
+            if(reservation.paidOn == nil || ([[NSDate date] timeIntervalSinceDate:reservation.paidOn] < 60*10))
+                [UIView animateWithDuration:0.5 delay:0 options: UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction animations:^{
+                    cell.count.transform = CGAffineTransformMakeScale(1.20, 1.1);
+                    cell.count.textColor = [UIColor colorWithRed:0.8 green:0 blue:0 alpha:1];
+                    } completion:nil
+                 ];
         }
     }
     

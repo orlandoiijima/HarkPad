@@ -11,7 +11,7 @@
 
 @implementation Reservation
 
-@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState, type;
+@synthesize id, startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState, type, paidOn		;
 
 - (id)init
 {
@@ -60,10 +60,13 @@
     
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     reservation.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+
     seconds = [jsonDictionary objectForKey:@"startsOn"];
     reservation.startsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    
     seconds = [jsonDictionary objectForKey:@"endsOn"];
     reservation.endsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    
     reservation.countGuests = [[jsonDictionary objectForKey:@"countGuests"] intValue];
     NSNumber *orderId = [jsonDictionary objectForKey:@"orderId"];
     if(orderId != nil && (NSNull *)orderId != [NSNull null])
@@ -74,6 +77,11 @@
     NSNumber *orderState = [jsonDictionary objectForKey:@"orderState"];
     if(orderState != nil && (NSNull *)orderState != [NSNull null])
         reservation.orderState = [orderState intValue];
+
+    seconds = [jsonDictionary objectForKey:@"paidOn"];
+    if(seconds != nil && (NSNull *)seconds != [NSNull null])
+        reservation.paidOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    
     NSNumber *tableId = [jsonDictionary objectForKey:@"tableId"];
     if(tableId != nil && (NSNull *)tableId != [NSNull null])
         reservation.table = [[[Cache getInstance] map] getTable:[tableId intValue]];
