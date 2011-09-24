@@ -12,7 +12,7 @@
 
 @implementation ReservationDayView
 
-@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date;
+@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date, selectedReservation;
 
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate
 {
@@ -80,8 +80,17 @@
 
 - (Reservation *) selectedReservation
 {
-    NSIndexPath *indexPath = [table indexPathForSelectedRow];	
+    NSIndexPath *indexPath = [table indexPathForSelectedRow];
+    if(indexPath == nil)
+        return nil;
     return [dataSource getReservation:indexPath];
+}
+
+- (void) setSelectedReservation: (Reservation*) newReservation
+{
+    NSIndexPath *indexPath = [dataSource getIndexPath:newReservation inTable:table];
+    if(indexPath != nil)
+        [table selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void) setDataSource: (ReservationDataSource *)aDataSource

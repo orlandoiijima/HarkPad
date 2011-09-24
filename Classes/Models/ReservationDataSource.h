@@ -40,5 +40,6 @@
 - (int) sectionForKey: (NSString *)searchKey;
 - (int) getRow: (Reservation *) searchReservation inSlot: (NSMutableArray *)slot;
 - (bool) isInCurrentTimeslot: (Reservation *)reservation;
+- (NSIndexPath *) getIndexPath: (Reservation*) reservation inTable: (UITableView *)table;
 
 @end

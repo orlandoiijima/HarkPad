@@ -24,8 +24,7 @@
 @property (retain) IBOutlet UILabel *dayLabel;
 @property (retain, nonatomic) ReservationDataSource *dataSource;
 @property (retain, nonatomic) NSDate *date;
-
-- (Reservation *) selectedReservation;
+@property (retain) Reservation *selectedReservation;
 - (void) refreshTotals;
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate;
 

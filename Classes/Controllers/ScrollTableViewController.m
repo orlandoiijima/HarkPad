@@ -1,4 +1,4 @@
-	//
+                            //
 //  ScrollTableViewController.m
 //  HarkPad
 //
@@ -103,6 +103,7 @@
 
 - (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
 {
+    Reservation *selectedReservation = self.currentDayView.selectedReservation;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
@@ -113,6 +114,8 @@
     if([dayView2.date isEqualToDateIgnoringTime:date]) {
         dayView2.dataSource = dataSource;
     }    
+    if(selectedReservation != nil)
+        self.currentDayView.selectedReservation = selectedReservation;	
 }
 
 - (NSDate *)pageToDate: (int)page
@@ -313,9 +316,7 @@
     else
     {
         if([reservation.startsOn isEqualToDate: originalStartsOn]) {
-            //  Edit but same date/timeslot -> just refresh line
-            NSIndexPath *indexPath = [self.currentDayView.table indexPathForSelectedRow];
-            [self.currentDayView.table reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            [self.currentDayView.dataSource updateReservation:reservation fromTableView:self.currentDayView.table];
         }
         else {
             //  Edit, new day

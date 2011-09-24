@@ -56,12 +56,6 @@
     NSLog(@"%@", log);
 }
 
-- (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView
-{
-    [self deleteReservation:reservation fromTableView:tableView];
-    [self addReservation:reservation fromTableView:tableView];
-}
-
 - (void) addReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView
 {
     NSString *timeSlot = [self keyForReservation:reservation];
@@ -122,6 +116,31 @@
     if(tableView != nil)
         [tableView endUpdates];	
 }
+
+- (void) updateReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView 
+{
+    NSString *timeSlot = [self keyForReservation:reservation];
+    NSMutableArray *slotArray = [groupedReservations objectForKey:timeSlot];
+    if(slotArray == nil) return;
+
+    for (int i = 0; i < [slotArray count]; i++)
+    {
+        Reservation *reservationInSlot = [slotArray objectAtIndex:i];
+        if(reservationInSlot.id == reservation.id) {
+            [slotArray replaceObjectAtIndex:i withObject:reservation];
+
+            if(tableView != nil)
+            {
+                NSIndexPath *indexPath = [self getIndexPath:reservation inTable:tableView];
+                if(indexPath != nil)
+                    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+            }
+            break;
+        }
+    }
+    
+}
+
 
 - (NSString *) keyForReservation: (Reservation *)reservation
 {
@@ -340,6 +359,22 @@
         if(row == indexPath.row)
             return reservation;
         row++;
+    }
+    return nil;
+}
+
+- (NSIndexPath *) getIndexPath: (Reservation*) reservation inTable: (UITableView *)table
+{
+    for (int section = 0; section < [table numberOfSections]; section++) {
+        for (int row = 0; row < [table numberOfRowsInSection:section]; row++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            Reservation *r = [self getReservation: indexPath];
+            if(r != nil) {
+                if(r.id == reservation.id) {
+                    return indexPath;
+                }
+            }
+        }
     }
     return nil;
 }
