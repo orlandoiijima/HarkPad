@@ -8,9 +8,13 @@
 #import <Foundation/Foundation.h>
 #import "MaintenanceSplitViewController.h"
 #import "ProductCategory.h"
+#import "Product.h"
 
 @interface ProductMaintenance : MaintenanceSplitViewController <MaintenanceViewDelegate,UITableViewDataSource>
+{
+}
 
 - (ProductCategory *) categoryForSection: (int)section;
+- (int) sectionForCategory: (ProductCategory *)category;
 
 @end

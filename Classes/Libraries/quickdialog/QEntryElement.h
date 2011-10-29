@@ -23,6 +23,7 @@
 @private
     NSString *_placeholder;
     NSString *_textValue;
+    NSString *_originalValue;
 
     BOOL _hiddenToolbar;
     BOOL _isPassword;
@@ -30,6 +31,7 @@
 
 
 @property(nonatomic, strong) NSString *textValue;
+@property(nonatomic, strong) NSString *originalValue;
 @property(nonatomic, strong) NSString *placeholder;
 @property(assign) BOOL hiddenToolbar;
 @property(assign) BOOL isPassword;

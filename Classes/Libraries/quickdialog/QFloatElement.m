@@ -41,6 +41,11 @@
     [obj setValue:[NSNumber numberWithFloat:_floatValue] forKey:_key];
 }
 
+- (id) getValue
+{
+    return [NSNumber numberWithBool:_floatValue];
+}
+
 - (CGFloat)calculateSliderWidth:(QuickDialogTableView *)view cell:(UITableViewCell *)cell {
     if (_title==nil)
         return view.contentSize.width-40;

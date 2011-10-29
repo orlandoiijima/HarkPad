@@ -67,4 +67,7 @@
 - (void)fetchValueIntoObject:(id)obj {
 }
 
+- (void)putValue:(id)value {
+}
+
 @end

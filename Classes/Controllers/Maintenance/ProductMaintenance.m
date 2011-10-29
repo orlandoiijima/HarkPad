@@ -4,6 +4,8 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "ProductMaintenance.h"
 #import "Product.h"
 #import "QRootElement.h"
@@ -15,16 +17,70 @@
 #import "QRadioElement.h"
 #import "OrderLineProperty.h"
 #import "Utils.h"
+#import "MaintenanceSplitViewController.h"
+#import "ProductCategory.h"
+#import "QElement.h"
+#import "QuickDialogController.h"
+#import "Service.h"
 
 @implementation ProductMaintenance
 
-
-- (void) viewDidLoad
-{
-}
-
 - (void)fillDetailViewWithObject:(id)object {
     Product *product = (Product *)object;
+    NSLog(@"fill %@ %@", product.key, product.name);
+    [self putValue:product.name forKey:@"name"];
+    [self putValue:product.key forKey:@"key"];
+    [self putValue: [NSNumber numberWithFloat: [product.price floatValue]] forKey:@"price"];
+    [self putValue: [NSNumber numberWithBool: product.vat == 1] forKey:@"vat"];
+    for (OrderLineProperty*productProperty in [[Cache getInstance] productProperties]) {
+        NSString *key = [NSString stringWithFormat:@"prop%d", productProperty.id];
+        [self putValue: [NSNumber numberWithBool: [product hasProperty:productProperty.id]] forKey: key];
+    }
+    [self putValue: [NSNumber numberWithBool: product.isDeleted] forKey:@"isDeleted"];
+    detailsViewController.tableView.reloadData;
+}
+
+- (void)addItem
+{
+    int currentSection = 0;
+    Product *currentProduct = [self currentItem];
+    if (currentProduct != nil)
+        currentSection = [self sectionForCategory:currentProduct.category];
+    ProductCategory *currentCategory = [self categoryForSection:currentSection];
+    if (currentCategory == nil)
+        return;
+
+    Product *product = [[Product alloc] init];
+    product.entityState = New;
+    product.name = NSLocalizedString(@"Nieuw", nil);
+    product.key = NSLocalizedString(@"Nieuw", nil);
+
+    product.category = currentCategory;
+    [product.category.products insertObject:product atIndex:0];
+
+    UITableView *tableView = listViewController.tableView;
+    [tableView beginUpdates];
+    NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] init];
+    NSIndexPath *insertIndexPath = [NSIndexPath indexPathForRow:(NSUInteger) 0 inSection:(NSUInteger) currentSection];
+    [insertIndexPaths addObject: insertIndexPath];
+    [tableView insertRowsAtIndexPaths: insertIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    [tableView endUpdates];
+
+    [tableView selectRowAtIndexPath:insertIndexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self fillDetailViewWithObject:product];
+}
+
+- (ProductMaintenance *) init
+{
+    self = [super init];
+    if(self) {
+        delegate = self;
+    }
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
 }
 
 - (QRootElement *)setupDetailView {
@@ -32,42 +88,41 @@
     form.grouped = YES;
     QSection *section = [[QSection alloc] init];
     [form addSection: section];
+    
+    QEntryElement *name = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Naam", nil) Value:@"Name" Placeholder:NSLocalizedString(@"Bon, rekening", nil)];
+    name.key = @"name";
+    [section addElement:name];
 
     QEntryElement *key = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Code", nil) Value:@"" Placeholder:NSLocalizedString(@"Bestelpanel", nil)];
-    key.key = @"Code";
+    key.key = @"key";
     [section addElement:key];
-
-    QEntryElement *name = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Naam", nil) Value:@"" Placeholder:NSLocalizedString(@"Bon, rekening", nil)];
-    name.key = @"login";
-    [section addElement:name];
 
     QDecimalElement *price = [[QDecimalElement alloc] initWithTitle:NSLocalizedString(@"Prijs", nil) value:0.0];
     price.fractionDigits = 2;
     price.key = @"price";
     [section addElement:price];
 
-	QBooleanElement *bool1 = [[QBooleanElement alloc] initWithTitle: NSLocalizedString(@"BTW Hoog", nil) BoolValue:true];
-    [section addElement:bool1];
-
-    NSMutableArray *categories = [[NSMutableArray alloc] init];
-    int i = 0, selected = 0;
-    for (ProductCategory *category in [[[Cache getInstance] menuCard] categories]) {
-        [categories addObject:category.name];
-        i++;
-    }
-    QRadioElement *category = [[QRadioElement alloc] initWithItems: categories selected:selected title: NSLocalizedString(@"Group", nil)];
-	category.key = NSLocalizedString(@"Group", nil);
-    [section addElement:category];
-
+	QBooleanElement *vat = [[QBooleanElement alloc] initWithTitle: NSLocalizedString(@"BTW Hoog", nil) BoolValue: true];
+    vat.key = @"vat";
+    [section addElement:vat];
+   
     QSection *propSection = [[QSection alloc] init];
-    propSection.title = NSLocalizedString(@"Properties", nil);
+    propSection.title = NSLocalizedString(@"Bijzonderheden", nil);
     for (OrderLineProperty*productProperty in [[Cache getInstance] productProperties]) {
         QBooleanElement *property = [[QBooleanElement alloc] initWithTitle:productProperty.name BoolValue: true];
+        property.key = [NSString stringWithFormat:@"prop%d", productProperty.id];
         property.onImage = [UIImage imageNamed:@"imgOn"];
         property.offImage = [UIImage imageNamed:@"imgOff"];
         [propSection addElement:property];
     }
     [form addSection:propSection];
+
+    QSection *deletedSection = [[QSection alloc] init];
+    deletedSection.title = NSLocalizedString(@"Verwijderd", nil);
+    QBooleanElement *deleted = [[QBooleanElement alloc] initWithTitle: NSLocalizedString(@"Verwijderd", nil) BoolValue: false];
+    deleted.key = @"isDeleted";
+    [deletedSection addElement:deleted];
+    [form addSection:deletedSection];
 
     return form;
 }
@@ -78,11 +133,18 @@
     return product;
 }
 
-
 - (ProductCategory *) categoryForSection: (int)section
 {
     NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
     return [categories objectAtIndex:section];
+}
+
+- (int) sectionForCategory: (ProductCategory *)category
+{
+    NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
+    for(int section=0; section < [categories count]; section++)
+        if ( ((ProductCategory *)[categories objectAtIndex:section]).id == category.id)
+            return section;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -115,9 +177,128 @@
     Product *product = [[category products] objectAtIndex:indexPath.row];
 
     cell.textLabel.text = product.name;
-    cell.detailTextLabel.text = [Utils getAmountString:product.price withCurrency:YES];
+    cell.detailTextLabel.text = product.isDeleted ? @"" : [Utils getAmountString:product.price withCurrency:YES];
 
+    cell.textLabel.alpha = product.isDeleted ? 0.3 : 1;
+
+    cell.textLabel.textColor = product.entityState == New || product.entityState == Modified ? [UIColor blueColor] : [UIColor blackColor];
+
+    cell.showsReorderControl = product.isDeleted == NO;
+    cell.shouldIndentWhileEditing = NO;
     return cell;
+}
+
+- (bool)tableView: (UITableView *)tableView canMoveRowAtIndexPath: (NSIndexPath *)indexPath {
+    Product *product = [self itemAtIndexPath:indexPath];
+    return product != nil && product.isDeleted == false;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    Product *product = [self itemAtIndexPath:sourceIndexPath];
+    ProductCategory *category = [self categoryForSection:destinationIndexPath.section];
+    if (product == nil || category == nil) return;
+    [product.category.products removeObject:product];
+    [category.products insertObject:product atIndex:destinationIndexPath.row];
+    product.category = category;
+    if (product.entityState != New)
+        product.entityState = Modified;
+}
+
+- (bool)validate {
+    Product *product = [self currentItem];
+    if (product == nil) return;
+
+    NSLog(@"validate %@ %@", product.key, product.name);
+    if([self getValueForKey:@"name"] == @"")
+        return false;
+    if([self getValueForKey:@"key"] == @"")
+        return false;
+    return true;
+}
+
+- (void)endEdit {
+    Product *product = [self currentItem];
+    if (product == nil) return;
+
+    NSLog(@"endEdit %@ %@", product.key, product.name);
+
+    product.name = [self getValueForKey:@"name"];
+    product.key = [self getValueForKey:@"key"];
+    product.price = [self getValueForKey:@"price"];
+    product.vat = [[self getValueForKey:@"vat"] intValue];
+    for (OrderLineProperty*productProperty in [[Cache getInstance] productProperties]) {
+        NSString *key = [NSString stringWithFormat:@"prop%d", productProperty.id];
+        bool hasProperty = [[self getValueForKey:key] boolValue];
+        if (hasProperty)
+            [product addProperty: productProperty];
+        else
+            [product deleteProperty:productProperty];
+    }
+    product.isDeleted = [[self getValueForKey:@"isDeleted"] boolValue];
+
+    if ([self isDirty])
+        product.entityState = Modified;
+    return;
+}
+
+- (NSIndexPath *) indexPathForItem: (id)object {
+    NSIndexPath *indexPath = [[NSIndexPath alloc] init];
+    int countSections = [self numberOfSectionsInTableView:listViewController.tableView];
+    for(int section = 0; section < countSections; section++) {
+        ProductCategory *category = [self categoryForSection:section];
+        int countRows = [self tableView:listViewController.tableView numberOfRowsInSection: section];
+        for(int row=0; row < countRows; row++) {
+            if ([category.products objectAtIndex:row] == object)
+            {
+                return [NSIndexPath indexPathForRow:row inSection:section];
+            }
+        }
+    }
+    return nil;
+}
+
+- (void)commitChanges
+{
+    NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
+    for(ProductCategory *category in categories) {
+        for(Product *product in category.products)
+        {
+            switch(product.entityState) {
+                case Modified:
+                    [[Service getInstance] updateProduct: product delegate:self callback:@selector(updateFetcher:finishedWithData:error:)];
+                    break;
+                case New:
+                    [[Service getInstance] createProduct: product delegate:self callback:@selector(createFetcher:finishedWithData:error:)];
+                    break;
+            }
+        }
+    }
+}
+
+- (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    Product *product = (Product *)fetcher.userData;
+    if(product == nil) return;
+
+    ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
+    if(serviceResult.id != -1) {
+        product.id = serviceResult.id;
+        product.entityState = None;
+        [self invalidateRowForItem:product];
+    }
+    else {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+    }
+    return;
+}
+
+- (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    Product *product = (Product *)fetcher.userData;
+    if(product == nil) return;
+    product.entityState = None;
+    [self invalidateRowForItem:product];
 }
 
 @end

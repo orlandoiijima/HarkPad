@@ -12,6 +12,7 @@
 // permissions and limitations under the License.
 //
 
+#import <Foundation/Foundation.h>
 #import "QDecimalElement.h"
 #import "QEntryTableViewCell.h"
 #import "QDecimalTableViewCell.h"
@@ -24,12 +25,15 @@
     NSUInteger _fractionDigits;
 }
 @synthesize floatValue = _floatValue;
+@synthesize originalFloatValue = _originalFloatValue;
 @synthesize fractionDigits = _fractionDigits;
 
 
 - (QDecimalElement *)initWithTitle:(NSString *)title value:(float)value {
     self = [super initWithTitle:title Value:nil] ;
     _floatValue = value;
+    _originalFloatValue = value;
+    _fractionDigits = 2;
     return self;
 }
 
@@ -37,6 +41,8 @@
 - (QDecimalElement *)initWithValue:(float)value {
     self = [super init];
     _floatValue = value;
+    _originalFloatValue = value;
+
     return self;
 }
 
@@ -55,6 +61,21 @@
 	if (_key==nil)
 		return;
     [obj setValue:[NSNumber numberWithFloat:_floatValue] forKey:_key];
+}
+
+
+- (void)putValue:(id)value {
+    _floatValue = [((NSNumber *)value) floatValue];
+    _originalFloatValue = [((NSNumber *)value) floatValue];
+}
+
+- (id)getValue {
+    return [NSNumber numberWithFloat:_floatValue];
+}
+
+- (bool)isDirty
+{
+    return _floatValue != _originalFloatValue;
 }
 
 @end

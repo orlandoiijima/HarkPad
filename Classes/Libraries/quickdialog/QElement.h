@@ -37,6 +37,7 @@
 @property(nonatomic, retain) QSection *parentSection;
 
 @property(nonatomic, retain) NSString *key;
+@property (assign) bool isDirty;
 
 - (QElement *)initWithKey:(NSString *)key;
 
@@ -47,5 +48,8 @@
 - (CGFloat)getRowHeightForTableView:(QuickDialogTableView *)tableView;
 
 - (void)fetchValueIntoObject:(id)obj;
+
+- (void)putValue:(id)obj;
+- (id)getValue;
 
 @end

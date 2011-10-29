@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "ProductCategory.h"
+#import "EntityState.h"
+
+@class OrderLineProperty;
 
 typedef enum Vat {Low=0, High=1} Vat;
 
@@ -19,9 +22,11 @@ typedef enum Vat {Low=0, High=1} Vat;
     NSDecimalNumber *price;
     int sortOrder;
     bool isQueued;
+    bool isDeleted;
     int id;
     NSMutableArray *properties;
     Vat vat;
+    EntityState entityState;
 }
 
 
@@ -33,11 +38,15 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property int sortOrder;
 @property Vat vat;
 @property bool isQueued;
+@property bool isDeleted;
+@property EntityState entityState;
 @property int id;
 @property (retain) NSMutableArray *properties;
 
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
 - (NSMutableDictionary *)toDictionary;
 - (BOOL) hasProperty: (int)propertyId;
+- (void) addProperty: (OrderLineProperty *) orderLineProperty;
+- (void) deleteProperty: (OrderLineProperty *) orderLineProperty;
 
 @end

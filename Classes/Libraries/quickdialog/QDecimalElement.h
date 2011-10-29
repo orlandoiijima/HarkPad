@@ -22,6 +22,7 @@
 
 
 @property(nonatomic, assign) float floatValue;
+@property(nonatomic, assign) float originalFloatValue;
 @property(nonatomic, assign) NSUInteger fractionDigits;
 
 - (QDecimalElement *)initWithTitle:(NSString *)string value:(float)value;

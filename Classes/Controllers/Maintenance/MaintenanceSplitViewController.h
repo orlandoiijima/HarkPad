@@ -16,7 +16,12 @@
 @required
 - (void) fillDetailViewWithObject: (id) object;
 - (QRootElement *) setupDetailView;
+- (void)addItem;
 - (id) itemAtIndexPath: (NSIndexPath *)indexPath;
+- (NSIndexPath *) indexPathForItem: (id)object;
+- (void)endEdit;
+- (bool)validate;
+- (void)commitChanges;
 @optional
 @end
 
@@ -25,10 +30,19 @@
     MaintenanceDetailsViewController *detailsViewController;
     MaintenanceListViewController *listViewController;
     id<MaintenanceViewDelegate> __unsafe_unretained  delegate;
+    id<UITableViewDataSource> __unsafe_unretained  dataSource;
+    id currentItem;
 }
 
 @property (retain) MaintenanceDetailsViewController *detailsViewController;
 @property (retain) MaintenanceListViewController *listViewController;
 @property (nonatomic, assign) id<MaintenanceViewDelegate> delegate;
+@property (nonatomic, assign) id<UITableViewDataSource> dataSource;
+@property (retain) id currentItem;
 
+- (void)putValue: (id)value forKey: (NSString *)key;
+- (id)getValueForKey: (NSString *)key;
+- (bool)isDirty;
+- (id)currentItem;
+- (void)invalidateRowForItem: (id)object;
 @end

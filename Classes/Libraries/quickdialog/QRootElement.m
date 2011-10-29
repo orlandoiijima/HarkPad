@@ -12,6 +12,7 @@
 // permissions and limitations under the License.
 //
 
+#import <Foundation/Foundation.h>
 #import "QElement.h"
 #import "QRootElement.h"
 #import "QSection.h"
@@ -65,6 +66,5 @@
         }
     }
 }
-
 
 @end

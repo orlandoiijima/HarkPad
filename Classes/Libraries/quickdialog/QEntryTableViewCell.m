@@ -98,7 +98,6 @@
 
 - (void)prepareForElement:(QEntryElement *)element inTableView:(QuickDialogTableView *)tableView{
     self.textLabel.text = element.title;
-    
     _quickformTableView = tableView;
     _entryElement = element;
     [self recalculatePositioning];

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "ProductPanelView.h"
-#import "ProductListViewController.h"
 #import "GridView.h"
 
 @interface ProductMaintenanceViewController : UIViewController <UIScrollViewDelegate, GridViewDelegate, GridViewDataSource> {

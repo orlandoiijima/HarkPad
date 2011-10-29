@@ -58,16 +58,16 @@ typedef enum
 @end
 
 @interface GridView : UIView <UIGestureRecognizerDelegate> {
-	id<GridViewDataSource> __unsafe_unretained _dataSource;
-    id<UIScrollViewDelegate,GridViewDelegate> __unsafe_unretained _delegate;
+	id<GridViewDataSource> __strong _dataSource;
+    id<UIScrollViewDelegate,GridViewDelegate> __strong _delegate;
 }
 
 @property (retain) UIScrollView *topView;
 @property (retain) UIScrollView *leftView;
 @property (retain) UIScrollView *contentView;
 
-@property (nonatomic, assign) id<GridViewDataSource> dataSource;
-@property (nonatomic, assign) id<UIScrollViewDelegate, GridViewDelegate> delegate;
+@property (nonatomic, retain) id<GridViewDataSource> dataSource;
+@property (nonatomic, retain) id<UIScrollViewDelegate, GridViewDelegate> delegate;
 
 @property float leftHeaderWidth;
 @property float topHeaderHeight;

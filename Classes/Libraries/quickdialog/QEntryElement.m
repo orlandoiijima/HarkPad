@@ -13,6 +13,7 @@
 //
 
 
+#import <Foundation/Foundation.h>
 #import "QElement.h"
 #import "QLabelElement.h"
 #import "QEntryElement.h"
@@ -23,6 +24,7 @@
 @implementation QEntryElement
 
 @synthesize textValue = _textValue;
+@synthesize originalValue = _originalValue;
 @synthesize placeholder = _placeholder;
 @synthesize hiddenToolbar = _hiddenToolbar;
 @synthesize isPassword = _isPassword;
@@ -31,6 +33,7 @@
 - (QEntryElement *)initWithTitle:(NSString *)title Value:(NSString *)value Placeholder:(NSString *)placeholder {
     self = [self initWithTitle:title Value:nil];
     _textValue = value;
+    _originalValue = value;
     _placeholder = placeholder;
     return self;
 }
@@ -58,5 +61,19 @@
 	[obj setValue:_textValue forKey:_key];
 }
 
+- (bool)isDirty
+{
+    return [_textValue isEqual:_originalValue] == false;
+}
+
+- (void)putValue:(id)value {
+    _textValue = value;
+    _originalValue = value;
+}
+
+
+- (id)getValue {
+    return _textValue;
+}
 
 @end

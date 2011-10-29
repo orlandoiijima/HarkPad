@@ -13,6 +13,6 @@
     
 }
 
-- (Product *) productForIndexPath: (NSIndexPath *) indexPath;
+- (Product *) productAtIndexPath: (NSIndexPath *) indexPath;
 
 @end

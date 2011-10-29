@@ -61,4 +61,8 @@
     return size.height+20;
 }
 
+- (void)putValue:(id)value {
+    _text = value;
+}
+
 @end

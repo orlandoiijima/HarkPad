@@ -12,11 +12,11 @@
 // permissions and limitations under the License.
 //
 
+#import <Foundation/Foundation.h>
 #import "QElement.h"
 #import "QLabelElement.h"
 #import "QBooleanElement.h"
 #import "QuickDialogTableView.h"
-
 
 @implementation QBooleanElement
 
@@ -24,6 +24,7 @@
 @synthesize onImage = _onImage;
 @synthesize offImage = _offImage;
 @synthesize boolValue = _boolValue;
+@synthesize originalValue = _originalValue;
 @synthesize enabled = _enabled;
 
 
@@ -35,6 +36,7 @@
 - (QBooleanElement *)initWithTitle:(NSString *)title BoolValue:(BOOL)value {
     self = [self initWithTitle:title Value:nil];
     _boolValue = value;
+    _originalValue = value;
     _enabled = YES;
     return self;
 }
@@ -78,6 +80,19 @@
 	if (_key==nil)
 		return;
     [obj setValue:[NSNumber numberWithBool:_boolValue] forKey:_key];
+}
+
+- (void)putValue:(id)value {
+    _boolValue = _originalValue = [((NSNumber *)value) boolValue];
+}
+
+- (id) getValue
+{
+    return [NSNumber numberWithBool:_boolValue];
+}
+- (bool)isDirty
+{
+    return _boolValue != _originalValue;
 }
 
 
