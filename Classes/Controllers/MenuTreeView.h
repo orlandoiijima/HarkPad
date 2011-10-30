@@ -9,7 +9,7 @@
 #import "GridViewController.h"
 #import "TreeNode.h"
 
-@interface MenuTreeViewController : GridViewController {
+@interface MenuTreeView : GridView {
     TreeNode *parentNode;
     TreeNode *rootNode;
 }

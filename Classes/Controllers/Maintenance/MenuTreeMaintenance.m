@@ -14,7 +14,7 @@
 #import "Utils.h"
 #import "Cache.h"
 #import "GridViewController.h"
-#import "MenuTreeViewController.h"
+#import "MenuTreeView.h"
 
 @implementation MenuTreeMaintenance
 
@@ -46,21 +46,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    menuViewController = [[MenuTreeViewController alloc] init];
-//    menuViewController.gridView.dataSource = self;
-    [self.view addSubview: menuViewController.view];
-    menuViewController.view.frame = CGRectMake(self.view.frame.origin.x, 44, self.view.frame.size.width/2, self.view.frame.size.height);
+    MenuTreeView *menuView = [[MenuTreeView alloc] init];
+    [self.view addSubview: menuView];
+    menuView.frame = CGRectMake(self.view.frame.origin.x, 44, self.view.frame.size.width/2, self.view.frame.size.height);
+    menuView.leftHeaderWidth = 0;
+    menuView.topHeaderHeight = 0;
 
     productViewController = [[ProductListViewController alloc] init];
     [self.view addSubview: self.productViewController.view];
     self.productViewController.view.frame = CGRectMake(
-            self.view.frame.origin.x + menuViewController.view.frame.size.width,
+            self.view.frame.origin.x + menuView.frame.size.width,
             44,
-            self.view.frame.size.width - menuViewController.view.frame.size.width,
+            self.view.frame.size.width - menuView.frame.size.width,
             self.view.frame.size.height);
 
-    [menuViewController.gridView reloadData];
-    [menuViewController.gridView setNeedsDisplay];
+    [menuView reloadData];
+    [menuView setNeedsDisplay];
 }
 
 - (void)viewDidUnload

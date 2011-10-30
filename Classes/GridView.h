@@ -60,6 +60,8 @@ typedef enum
 @interface GridView : UIView <UIGestureRecognizerDelegate> {
 	id<GridViewDataSource> __strong _dataSource;
     id<UIScrollViewDelegate,GridViewDelegate> __strong _delegate;
+    float leftHeaderWidth;
+    float topHeaderHeight;
 }
 
 @property (retain) UIScrollView *topView;

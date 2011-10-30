@@ -7,35 +7,45 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MenuTreeViewController.h"
+#import <Foundation/Foundation.h>
+#import "MenuTreeView.h"
 #import "Cache.h"
 #import "Utils.h"
 #import "GridViewController.h"
 #import "GridView.h"
 
-@implementation MenuTreeViewController
+@implementation MenuTreeView
 
 @synthesize parentNode, rootNode;
 
 #define COUNT_PANEL_COLUMNS 3
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void) initTreeView {
+    self.delegate = self;
+    self.dataSource = self;
+    parentNode = rootNode =	 [[Cache getInstance] tree];
+    [self reloadData];
+    [self setNeedsDisplay];
+    return;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
+    self = [super initWithCoder:aDecoder];
+    [self initTreeView];
     return self;
 }
 
-- (void)didReceiveMemoryWarning
+- (id)initWithFrame:(CGRect)frame
 {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
-}
+    self = [super initWithFrame:frame];
+    if (self) {
 
+        [self initTreeView];
+
+    }
+    return self;
+}
 
 - (bool)gridView:(GridView *)gridView shouldSelectCellLine:(GridViewCellLine *)cellLine
 {
@@ -116,37 +126,5 @@
     return 30;
 }
 
-
-#pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.gridView.dataSource = self;
-    parentNode = rootNode =	 [[Cache getInstance] tree];
-}
-
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-	return YES;
-}
 
 @end
