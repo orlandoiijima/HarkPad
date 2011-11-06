@@ -25,7 +25,7 @@
 
 - (void) didDataReceiveCallback: (ServiceResult *)result
 {
-    self.data = result.data;
+    self.data = result.jsonData;
     [super dataSourceDidFinishLoadingNewData]; 
     self.lastUpdate = [NSDate date];
     [self.tableView reloadData];

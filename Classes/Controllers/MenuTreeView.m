@@ -13,19 +13,20 @@
 #import "Utils.h"
 #import "GridViewController.h"
 #import "GridView.h"
+#import "TreeNode.h"
 
 @implementation MenuTreeView
 
-@synthesize parentNode, rootNode;
+@synthesize parentNode = _parentNode, rootNode, menuDelegate = _menuDelegate;
 
 #define COUNT_PANEL_COLUMNS 3
 
 - (void) initTreeView {
     self.delegate = self;
     self.dataSource = self;
-    parentNode = rootNode =	 [[Cache getInstance] tree];
-    [self reloadData];
-    [self setNeedsDisplay];
+    self.parentNode = rootNode = [[Cache getInstance] tree];
+//    [self reloadData];
+//    [self setNeedsDisplay];
     return;
 }
 
@@ -47,29 +48,40 @@
     return self;
 }
 
-- (bool)gridView:(GridView *)gridView shouldSelectCellLine:(GridViewCellLine *)cellLine
+- (void) setParentNode: (TreeNode *)newParentNode
+{
+    if (newParentNode == _parentNode)
+        return;
+
+    _parentNode = newParentNode;
+    [self reloadData];
+}
+
+- (void)gridView:(GridView *)gridView didSelectCellLine:(GridViewCellLine *)cellLine
 {
     int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
 
-    if(offset < [parentNode.nodes count]) {
-        TreeNode *node = [parentNode.nodes objectAtIndex:offset];
+    if(offset < [_parentNode.nodes count]) {
+        TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
         if([node.nodes count] > 0) {
-            parentNode = node;
-            [gridView reloadData];
-            return false;
+            self.parentNode = node;
         }
-        return true;
+        else {
+            if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didTapProduct:)])
+                [self.menuDelegate menuTreeView:self didTapProduct: node.product];
+        }
     }
+    else {
+        if(offset == [_parentNode.nodes count]) {
+            self.parentNode = _parentNode.parent;
+//            [gridView reloadData];
+//            return false;
+        }
 
-    if(offset == [parentNode.nodes count]) {
-        parentNode = parentNode.parent;
-        [gridView reloadData];
-        return false;
+        self.parentNode = rootNode;
+//        [gridView reloadData];
     }
-
-    parentNode = rootNode;
-    [gridView reloadData];
-    return false;
+    return;
 }
 
 - (void)gridView:(GridView *)gridView startsDragWithCellLine:(GridViewCellLine *)cellLine
@@ -80,17 +92,17 @@
 {
     int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
 
-    if(offset >= [parentNode.nodes count])
+    if(offset >= [_parentNode.nodes count])
         return;
-    TreeNode *node = [parentNode.nodes objectAtIndex:offset];
+    TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
     if(node == nil)
         return;
     [node.nodes removeObject:node];
 }
 
 - (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {
-    int countButtons = [parentNode.nodes count];
-    if(rootNode != parentNode)
+    int countButtons = [_parentNode.nodes count];
+    if(rootNode != _parentNode)
         countButtons += 2;
     return (countButtons + 1) / COUNT_PANEL_COLUMNS;
 }
@@ -107,17 +119,17 @@
     if(path.row == -1 || path.column == -1) return nil;
 
     int offset = path.row * COUNT_PANEL_COLUMNS + path.column;
-    if(offset < [parentNode.nodes count])
+    if(offset < [_parentNode.nodes count])
     {
-        TreeNode *node = [parentNode.nodes objectAtIndex:offset];
+        TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
         if(node.product != nil)
             return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES] path:path];
         else
             return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" path:path];
     }
-    if(offset == [parentNode.nodes count])
+    if(offset == [_parentNode.nodes count])
         return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  path:path];
-    if(offset == [parentNode.nodes count] + 1)
+    if(offset == [_parentNode.nodes count] + 1)
         return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  path:path];
     return nil;
 }

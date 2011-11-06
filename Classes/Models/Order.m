@@ -6,13 +6,15 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "Order.h"
 #import "Guest.h"
 #import "Course.h"
+#import "OrderLine.h"
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, state, entityState, reservation, id;
+@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name;
 
 
 - (id)init
@@ -21,6 +23,7 @@
 	{
         self.courses = [[NSMutableArray alloc] init];
         self.guests = [[NSMutableArray alloc] init];
+        self.lines = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
         self.state = 0;
         self.entityState = New;
@@ -38,8 +41,12 @@
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
-    order.table = [cache.map getTable:tableId]; 
+
+    order.name = [jsonDictionary objectForKey:@"name"];
+    
+    id tableId = [jsonDictionary objectForKey:@"tableId"];
+    if (tableId != nil)
+        order.table = [cache.map getTable:[tableId intValue]];
 
     id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
@@ -58,7 +65,7 @@
     id lines =  [jsonDictionary objectForKey:@"lines"];
     for(NSDictionary *item in lines)
     {
-        [OrderLine orderLineFromJsonDictionary:item guests: order.guests courses: order.courses];
+        [OrderLine orderLineFromJsonDictionary:item order: order];
     }
     
     id reservationDic = [jsonDictionary objectForKey:@"reservation"];
@@ -81,30 +88,36 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: [NSNumber numberWithInt: [self id]] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
-    [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
-    
-    NSMutableArray *dicCourses = [[NSMutableArray alloc] init];
-    [dic setObject:dicCourses forKey:@"courses"];
-    for(Course *course in [self courses])
-    {
-        [dicCourses addObject: [course toDictionary]];
+
+    if (table != nil)
+        [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
+
+    if (name != nil)    
+        [dic setObject:name forKey:@"name"];
+
+    if ([courses count] > 0) {
+        NSMutableArray *dicCourses = [[NSMutableArray alloc] init];
+        [dic setObject:dicCourses forKey:@"courses"];
+        for(Course *course in [self courses])
+        {
+            [dicCourses addObject: [course toDictionary]];
+        }
     }
-    
-    NSMutableArray *dicGuests = [[NSMutableArray alloc] init];
-    [dic setObject:dicGuests forKey:@"guests"];
-    for(Guest *guest in [self guests])
-    {
-        [dicGuests addObject: [guest toDictionary]];
+
+    if ([guests count] > 0) {
+        NSMutableArray *dicGuests = [[NSMutableArray alloc] init];
+        [dic setObject:dicGuests forKey:@"guests"];
+        for(Guest *guest in [self guests])
+        {
+            [dicGuests addObject: [guest toDictionary]];
+        }
     }
-    
+
     NSMutableArray *dicLines = [[NSMutableArray alloc] init];
     [dic setObject:dicLines forKey:@"lines"];
-    for(Guest *guest in guests)
+    for(OrderLine *line in lines)
     {
-        for(OrderLine *line in guest.lines)
-        {
-            [dicLines addObject: [line toDictionary]];
-        }
+        [dicLines addObject: [line toDictionary]];
     }
     return dic;
 }
@@ -285,24 +298,37 @@
     line.quantity = 1;
     line.product = [[[Cache getInstance] menuCard] getProduct:productId];
     line.sortOrder = 0;
-    line.course = [self getCourseByOffset:courseOffset];
-    if(line.course == nil)
-    {
-        line.course = [[Course alloc] init];
-        line.course.offset = courseOffset;
-        [self.courses addObject:line.course];
+    if (courseOffset >= 0) {
+        line.course = [self getCourseByOffset:courseOffset];
+        if(line.course == nil)
+        {
+            line.course = [[Course alloc] init];
+            line.course.offset = courseOffset;
+            [self.courses addObject:line.course];
+        }
     }
-    [line.course.lines addObject:line];
-    
-    line.guest = [self getGuestBySeat:seat];
-    if(line.guest == nil)
-    {
-        line.guest = [[Guest alloc] init];
-        line.guest.seat = seat;
-        [self.guests addObject:line.guest];
+
+    if (seat >= 0) {
+        line.guest = [self getGuestBySeat:seat];
+        if(line.guest == nil)
+        {
+            line.guest = [[Guest alloc] init];
+            line.guest.seat = seat;
+            [self.guests addObject:line.guest];
+        }
     }
-    [line.guest.lines addObject:line];
+
+    [self addOrderLine:line];
     return line;
+}
+
+- (void)addOrderLine: (OrderLine *)line {
+    [self.lines addObject:line];
+    if(line.course != nil)
+        [line.course.lines addObject:line];
+    if (line.guest != nil)
+        [line.guest.lines addObject:line];
+    return;
 }
 
 - (BOOL) containsProductId:(int)productId

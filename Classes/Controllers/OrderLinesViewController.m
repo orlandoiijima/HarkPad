@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO];
+    dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO showProductProperties:YES];
     dataSource.invoicesViewController = invoicesViewController;
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;

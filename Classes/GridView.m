@@ -100,17 +100,22 @@
     if(cellLine == selectedCellLine)
         return;
 
-    if(selectedCellLine != nil)
+    if(selectedCellLine != nil) {
         [self selectCellLine:selectedCellLine select:NO];
-        
-    if([self.delegate respondsToSelector:@selector(gridView: shouldSelectCellLine:)])
-        if([self.delegate gridView:self shouldSelectCellLine: cellLine] == NO)
-            return;
+        if([self.delegate respondsToSelector:@selector(gridView: didDeselectCellLine:)])
+            [self.delegate gridView:self didDeselectCellLine: cellLine];
+    }
+
+//    if([self.delegate respondsToSelector:@selector(gridView: shouldSelectCellLine:)])
+//        if([self.delegate gridView:self shouldSelectCellLine: cellLine] == NO)
+//            return;
     
     selectedCellLine = cellLine;
-    if(selectedCellLine != nil)
+    if(selectedCellLine != nil) {
         [self selectCellLine:selectedCellLine select: YES];
-
+        if([self.delegate respondsToSelector:@selector(gridView: didSelectCellLine:)])
+            [self.delegate gridView:self didSelectCellLine: cellLine];
+    }
 }
 
 - (void) selectCellLine: (GridViewCellLine *)cellLine select: (bool) isSelected
@@ -118,33 +123,37 @@
     cellLine.isSelected = isSelected;
 
     if(isSelected) {
-        [self.superview bringSubviewToFront: self	];
-        [cellLine.superview bringSubviewToFront: cellLine];
-        [UIView animateWithDuration:0.2
-                     animations:^{
-                         cellLine.frame = CGRectInset(cellLine.frame, -35, -15);
-                     }
-                         completion:^ (BOOL completed){
-                             if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
-                                 [selectedCellLine addDeleteButtonWithTarget:self action: @selector(deleteButtonTap)];
-                         }
-         ];
+        [self popoutCellLine:cellLine];
     }
     else {
-        if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
-            [selectedCellLine removeDeleteButton];
-        [UIView animateWithDuration:0.2
-                     animations:^{
-                         cellLine.frame = [self frameForPath:cellLine.path]; // CGRectInset(cellLine.frame, 35, 15);
-                     }
-         ];
+        [self popinCellLine:cellLine];
     }
-    
-//    GridViewHeaderCell *rowHeader = [self cellAtColumn:-1 row: cellLine.path.row];
-//    rowHeader.isSelected = isSelected;
-//    
-//    GridViewHeaderCell *columnHeader = [self cellAtColumn:cellLine.path.column row: -1];
-//    columnHeader.isSelected = isSelected;
+}
+
+- (void) popoutCellLine: (GridViewCellLine *)cellLine
+{
+    [self.superview bringSubviewToFront: self	];
+    [cellLine.superview bringSubviewToFront: cellLine];
+    [UIView animateWithDuration:0.2
+                 animations:^{
+                     cellLine.frame = CGRectInset(cellLine.frame, -35, -15);
+                 }
+                     completion:^ (BOOL completed){
+                         if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
+                             [selectedCellLine addDeleteButtonWithTarget:self action: @selector(deleteButtonTap)];
+                     }
+     ];
+}
+
+- (void) popinCellLine: (GridViewCellLine *)cellLine
+{
+    if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
+        [selectedCellLine removeDeleteButton];
+    [UIView animateWithDuration:0.2
+                 animations:^{
+                     cellLine.frame = [self frameForPath:cellLine.path]; // CGRectInset(cellLine.frame, 35, 15);
+                 }
+     ];
 }
 
 - (void) deleteButtonTap

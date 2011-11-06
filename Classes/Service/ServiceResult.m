@@ -10,14 +10,14 @@
 
 @implementation ServiceResult
 
-@synthesize data, id, error, notification, isSuccess;
+@synthesize jsonData, data, id, error, notification, isSuccess;
 
 - (id)init {
     if ((self = [super init])) {
         self.id = -1;
         self.error = @"";
         self.isSuccess = false;
-        self.data = [[NSMutableDictionary alloc] init];
+        self.jsonData = [[NSMutableDictionary alloc] init];
         self.notification = [[NSMutableDictionary alloc] init];
     }
     return self;
@@ -37,10 +37,10 @@
         NSError *error = nil;
         NSMutableDictionary *dic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
         if(error == nil) {
-            serviceResult.data =  [dic objectForKey:@"result"];
-            if(serviceResult.data != nil) {
-                if ([serviceResult.data isKindOfClass:[NSMutableDictionary class]]) {
-                    id id = [serviceResult.data objectForKey:@"id"];
+            serviceResult.jsonData =  [dic objectForKey:@"result"];
+            if(serviceResult.jsonData != nil) {
+                if ([serviceResult.jsonData isKindOfClass:[NSMutableDictionary class]]) {
+                    id id = [serviceResult.jsonData objectForKey:@"id"];
                     if (id != nil)
                         serviceResult.id = [id intValue];
                 }

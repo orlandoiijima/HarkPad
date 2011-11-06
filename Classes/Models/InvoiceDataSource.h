@@ -17,6 +17,7 @@
     OrderGrouping grouping;
     bool totalizeProducts;
     bool showFreeProducts;
+    bool showProductProperties;
     Order *order;
 }
 
@@ -24,10 +25,11 @@
 @property (nonatomic) OrderGrouping grouping;
 @property bool totalizeProducts;
 @property bool showFreeProducts;
+@property bool showProductProperties;
 @property (retain) Order *order;
 @property (retain) InvoicesViewController *invoicesViewController;
 
-+ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree;
++ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps;
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line;
 - (void) addLineToGroup: (OrderLine *)line group: (NSMutableArray *) group;

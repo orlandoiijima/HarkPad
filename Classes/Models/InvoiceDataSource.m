@@ -15,13 +15,14 @@
 
 @implementation InvoiceDataSource
 
-@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties;
 
-+ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree
++ (InvoiceDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps
 {
     InvoiceDataSource *source = [[InvoiceDataSource alloc] init];
     source.totalizeProducts = totalize;
     source.showFreeProducts = showFree;
+    source.showProductProperties = showProps;
     source.order = order;
     source.grouping = grouping;
     return source;
@@ -132,7 +133,7 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"OrderLineCell" owner:self options:nil] lastObject];
     }
-    
+    cell.showProductProperties = self.showProductProperties;
     NSMutableArray *group = [self groupForSection: indexPath.section];
     OrderLine *line = [group objectAtIndex:indexPath.row];
     cell.orderLine = line;

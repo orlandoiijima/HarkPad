@@ -50,8 +50,15 @@ typedef enum
 - (void) gridView: (GridView *) gridView movesDragWithCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView endsDragWithCellLine: (GridViewCellLine *)cellLine;
 - (bool) gridView: (GridView *) gridView canDeleteCellLine: (GridViewCellLine *)cellLine;
-- (bool) gridView: (GridView *) gridView shouldSelectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeleteCellLine: (GridViewCellLine *)cellLine;
+
+//- (bool) gridView: (GridView *) gridView shouldSelectCellLine: (GridViewCellLine *)cellLine;
+- (GridViewCellLine *) gridView: (GridView *) gridView willSelectCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView didSelectCellLine: (GridViewCellLine *)cellLine;
+
+- (GridViewCellLine *) gridView: (GridView *) gridView willDeselectCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;
+
 - (bool) gridView: (GridView *) gridView canDragCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;
 - (UIView *)gridView:(GridView *)gridView viewForSelectedCellLine: (GridViewCellLine *)cellLine;
@@ -91,5 +98,7 @@ typedef enum
 - (void) selectCellLine: (GridViewCellLine *)cellLine select: (bool) isSelected;
 - (CGRect) frameForPath: (CellPath *)path;
 - (GridViewCellLine *)findCellLineInView: (UIView *)view path: (CellPath *)path;
-	
+- (void) popoutCellLine: (GridViewCellLine *)cellLine;
+- (void) popinCellLine: (GridViewCellLine *)cellLine;
+
 @end

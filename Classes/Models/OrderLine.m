@@ -6,15 +6,18 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "OrderLine.h"
 #import "OrderLinePropertyValue.h"
 #import "Cache.h"
+#import "Order.h"
+#import "OrderGridHitInfo.h"
 
 @implementation OrderLine
 
 @synthesize id, quantity, product, sortOrder, guest, note, course, entityState, propertyValues, state, createdOn;
 
-+ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses
++ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
     OrderLine *orderLine = [[OrderLine alloc] init];
 //    orderLine.entityState = None;
@@ -40,16 +43,20 @@
     if((NSNull *)val != [NSNull null])
         orderLine.note = val;
     
-    if(guests != nil) {
+    if(order != nil) {
         int seat = [[jsonDictionary objectForKey:@"seat"] intValue];
-        orderLine.guest = [orderLine getGuestBySeat: seat guests:guests];
+        orderLine.guest = [orderLine getGuestBySeat: seat guests: order.guests];
         [orderLine.guest.lines addObject:orderLine];
     }
     
-    if(courses != nil) {
+    if(order != nil) {
         int offset = [[jsonDictionary objectForKey:@"course"] intValue];
-        orderLine.course = [orderLine getCourseByOffset: offset courses:courses];
+        orderLine.course = [orderLine getCourseByOffset: offset courses: order.courses];
         [orderLine.course.lines addObject:orderLine];
+    }
+    
+    if (order != nil) {
+        [order.lines addObject:orderLine];
     }
     
     id propertyValues = [jsonDictionary objectForKey:@"propertyValues"];
@@ -58,6 +65,7 @@
         OrderLinePropertyValue *propertyValue = [OrderLinePropertyValue valueFromJsonDictionary: propertyValueDic]; 
         [orderLine.propertyValues addObject:propertyValue];
     }
+    
     return orderLine;
 }
 

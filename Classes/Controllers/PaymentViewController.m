@@ -29,7 +29,7 @@
     {
         order = newOrder;
         
-        dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO];
+        dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES];
     }
 }
 

@@ -8,13 +8,24 @@
 
 #import "GridViewController.h"
 #import "TreeNode.h"
+#import "Product.h"
 
-@interface MenuTreeView : GridView {
-    TreeNode *parentNode;
-    TreeNode *rootNode;
+@class MenuTreeView;
+
+@protocol MenuTreeViewDelegate <NSObject>
+
+@optional
+- (void) menuTreeView: (MenuTreeView *) menuTreeView didTapProduct: (Product *)product;
+@end
+
+@interface MenuTreeView : GridView <GridViewDelegate, UIScrollViewDelegate> {
+    TreeNode *_parentNode;
+    TreeNode *_rootNode;
+    id<MenuTreeViewDelegate> __strong _menuDelegate;
 }
 
 @property (retain) TreeNode *parentNode;
 @property (retain) TreeNode *rootNode;
+@property (retain) id<MenuTreeViewDelegate> menuDelegate;
 
 @end

@@ -18,8 +18,10 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
     EntityState entityState;
     NSMutableArray *courses;
     NSMutableArray *guests;
+    NSMutableArray *lines;
     Reservation *reservation;
     NSDate *createdOn;
+    NSString *name;
     Table *table;
     int id;
     OrderState state;
@@ -45,14 +47,17 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 - (Guest *) getGuestBySeat: (int)seat;
 - (BOOL) isCourseAlreadyRequested: (int) courseOffset;
 - (void) removeOrderLine: (OrderLine *)lineToDelete;
+- (void)addOrderLine: (OrderLine *)line;
 
 @property EntityState entityState;
 @property (retain) NSMutableArray *courses;
 @property (retain) NSMutableArray *guests;
+@property (retain) NSMutableArray *lines;
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
 @property (retain) Reservation *reservation;
 @property int id;
 @property OrderState state;
+@property (retain) NSString *name;
 
 @end

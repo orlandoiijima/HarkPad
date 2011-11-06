@@ -228,6 +228,10 @@
 		E5F609A313489C2400D8858E /* MenuTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8858D /* MenuTreeView.m */; };
 		E5F609A313489C2400D88593 /* SimpleOrderScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88592 /* SimpleOrderScreen.m */; };
 		E5F609A313489C2400D88595 /* SimpleOrderScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88594 /* SimpleOrderScreen.xib */; };
+		E5F609A313489C2400D88599 /* SelectOpenOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88598 /* SelectOpenOrder.m */; };
+		E5F609A313489C2400D8859B /* SelectOpenOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859A /* SelectOpenOrder.xib */; };
+		E5F609A313489C2400D8859E /* OrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859D /* OrderView.m */; };
+		E5F609A313489C2400D885A0 /* OrderTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859F /* OrderTag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -615,6 +619,13 @@
 		E5F609A313489C2400D88591 /* SimpleOrderScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleOrderScreen.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88592 /* SimpleOrderScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleOrderScreen.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88594 /* SimpleOrderScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleOrderScreen.xib; sourceTree = "<group>"; };
+		E5F609A313489C2400D88597 /* SelectOpenOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOpenOrder.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88598 /* SelectOpenOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpenOrder.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8859A /* SelectOpenOrder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectOpenOrder.xib; sourceTree = "<group>"; };
+		E5F609A313489C2400D8859C /* OrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8859D /* OrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8859F /* OrderTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTag.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885A1 /* OrderTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTag.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -930,6 +941,8 @@
 		E50A38AE12E234B8007C2101 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885A1 /* OrderTag.h */,
+				E5F609A313489C2400D8859F /* OrderTag.m */,
 				E5F00519139A2B6300B2ED57 /* EGORefreshTableHeaderView.h */,
 				E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */,
 				E50A38AF12E234B8007C2101 /* CourseProgress.h */,
@@ -1297,6 +1310,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F609A313489C2400D88590 /* SimpleOrder */,
+				E5F609A313489C2400D88596 /* SelectOpenOrder */,
 			);
 			path = Srceens;
 			sourceTree = "<group>";
@@ -1309,6 +1323,18 @@
 				E5F609A313489C2400D88591 /* SimpleOrderScreen.h */,
 			);
 			path = SimpleOrder;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D88596 /* SelectOpenOrder */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D8859D /* OrderView.m */,
+				E5F609A313489C2400D8859C /* OrderView.h */,
+				E5F609A313489C2400D8859A /* SelectOpenOrder.xib */,
+				E5F609A313489C2400D88598 /* SelectOpenOrder.m */,
+				E5F609A313489C2400D88597 /* SelectOpenOrder.h */,
+			);
+			path = SelectOpenOrder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1427,6 +1453,7 @@
 				E50E7E6A13FECD8E007EDB13 /* imgOff.png in Resources */,
 				E50E7E6B13FECD8E007EDB13 /* imgOn.png in Resources */,
 				E5F609A313489C2400D88595 /* SimpleOrderScreen.xib in Resources */,
+				E5F609A313489C2400D8859B /* SelectOpenOrder.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1588,6 +1615,9 @@
 				E5F609A313489C2400D8858B /* MenuTreeMaintenance.m in Sources */,
 				E5F609A313489C2400D8858E /* MenuTreeView.m in Sources */,
 				E5F609A313489C2400D88593 /* SimpleOrderScreen.m in Sources */,
+				E5F609A313489C2400D88599 /* SelectOpenOrder.m in Sources */,
+				E5F609A313489C2400D8859E /* OrderView.m in Sources */,
+				E5F609A313489C2400D885A0 /* OrderTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

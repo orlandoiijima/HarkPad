@@ -468,6 +468,39 @@ static Service *_service;
     [invocation invoke];
 }
 
+- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getopenorders"
+                withQuery:[NSString stringWithFormat:@"districtId=%d", districtId]
+                 delegate:self
+                 callback:@selector(getOpenOrdersCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getOpenOrdersCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+    
+    if (result.isSuccess) {
+        NSMutableArray *ordersDic = [self getResultFromJson: data];
+        NSMutableArray *orders = [[NSMutableArray alloc] init];
+        for(NSDictionary *orderDic in ordersDic)
+        {
+           Order *order = [Order orderFromJsonDictionary: orderDic];
+           [orders addObject:order];
+        }
+
+        result.data = orders;
+    }
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
+}
+
 - (void) updateOrder: (Order *) order
 {
     NSError *error = nil;
@@ -476,6 +509,19 @@ static Service *_service;
 //    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
 
     [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
+}
+
+- (void)quickOrder: (Order *)order paymentType: (int)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
+    NSMutableDictionary *orderAsDictionary = [order toDictionary];
+    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
+    [orderInfo setObject:orderAsDictionary forKey:@"order"];
+    [orderInfo setObject: [NSNumber numberWithInt:paymentType] forKey:@"paymentType"];
+    [orderInfo setObject: [NSNumber numberWithBool:printInvoice] forKey:@"printInvoice"];
+
+    NSError *error = nil;
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderInfo error:&error];
+
+    [self postPageCallback: @"quickOrder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
 }
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback

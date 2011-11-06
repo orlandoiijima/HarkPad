@@ -24,7 +24,7 @@
     id lines =  [jsonDictionary objectForKey:@"lines"];
     for(NSDictionary *item in lines)
     {
-        OrderLine *line = [OrderLine orderLineFromJsonDictionary:item guests: nil courses: nil];
+        OrderLine *line = [OrderLine orderLineFromJsonDictionary:item order: nil];
         [slotTable.lines addObject:line];
     }
     

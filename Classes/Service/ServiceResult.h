@@ -12,14 +12,16 @@
 
 @interface ServiceResult : NSObject {
     NSMutableDictionary *notification;
-    NSMutableDictionary *data;
+    NSMutableDictionary *jsonData;
+    id data;
     NSString *error;
     BOOL isSuccess;
     int id;    
 }
 
 @property (retain) NSMutableDictionary *notification;
-@property (retain) NSMutableDictionary *data;
+@property (retain) NSMutableDictionary *jsonData;
+@property (retain) id data;
 @property (retain) NSString *error;
 @property BOOL isSuccess;
 @property int id;

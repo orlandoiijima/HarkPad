@@ -53,9 +53,11 @@
 - (void) printSalesReport: (NSDate *)date;
 - (Order *) getOpenOrderByTable: (int) tableId;
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) getTablesInfoForDistrict:(int)districtid delegate: (id) delegate callback: (SEL)callback;
+- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
+- (void) getTablesInfoForDistrict: (int)districtid delegate: (id) delegate callback: (SEL)callback;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order;
+- (void) quickOrder: (Order *)order paymentType: (int)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback;
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
 - (void) serveCourse: (int) courseId;	
 - (void) setGender: (NSString *)gender forGuest: (int)guestId;

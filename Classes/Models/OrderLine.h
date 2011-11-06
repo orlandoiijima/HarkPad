@@ -16,6 +16,8 @@
 
 typedef enum State {Ordered = 0, Preparing = 1} State;
 
+@class Order;
+
 @interface OrderLine : NSObject {
     int id;
     NSDate *createdOn;
@@ -42,7 +44,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 @property State state;
 @property (retain) NSMutableArray *propertyValues;
 
-+ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary guests: (NSArray *) guests courses: (NSArray *) courses;
++ (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 
 - (NSDictionary *)toDictionary;
 - (NSString *) getStringValueForProperty: (OrderLineProperty *) property;
