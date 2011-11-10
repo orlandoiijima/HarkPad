@@ -10,7 +10,12 @@
 
 #import "Order.h"
 #import "InvoiceDataSource.h"
-#import "TableMapViewController.h"
+//#import "TableMapViewController.h"
+
+@protocol PaymentDelegate <NSObject>
+@optional
+- (void) didProcessPaymentType: (PaymentType)type forOrder: (Order *)order;
+@end
 
 @interface PaymentViewController : UIViewController {
     UITableView *orderTable; 
@@ -18,7 +23,8 @@
     UIButton *goButton; 
     UILabel *nameLabel; 
     UILabel *tableLabel; 
-    UILabel *amountLabel;     
+    UILabel *amountLabel;
+    id<PaymentDelegate> delegate;
 }
 
 @property (retain, nonatomic) Order *order; 
@@ -31,7 +37,8 @@
 @property (retain) IBOutlet UILabel *amountLabel; 
 @property (retain) IBOutlet UIBarButtonItem *backButton; 
 @property (retain) IBOutlet UISegmentedControl *groupingSegment; 
-@property (retain) TableMapViewController *tableMapViewController;
+@property (retain) id<PaymentDelegate> delegate;
+//@property (retain) TableMapViewController *tableMapViewController;
 
 @property (retain) InvoiceDataSource *dataSource;
 

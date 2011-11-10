@@ -13,15 +13,16 @@
 
 @synthesize order = _order, dataSource, tableView, label, isSelected = _isSelected;
 
-- (id)initWithFrame:(CGRect)frame order: (Order *)anOrder
+- (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 25) andOrder: anOrder];
+        self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 34) andOrder: anOrder delegate: delegate];
         [self addSubview:self.label];
         self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.label.frame.size.height + 2, frame.size.width, frame.size.height - self.label.frame.size.height - 6) style:UITableViewStyleGrouped];
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.backgroundView = nil;
+        self.tableView.sectionHeaderHeight = 1;
         [self addSubview:self.tableView];
         self.order = anOrder;
 

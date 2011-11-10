@@ -14,7 +14,7 @@
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name;
+@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name, paymentType;
 
 
 - (id)init
@@ -44,6 +44,8 @@
 
     order.name = [jsonDictionary objectForKey:@"name"];
     
+    order.paymentType = [jsonDictionary objectForKey:@"paymentType"];
+
     id tableId = [jsonDictionary objectForKey:@"tableId"];
     if (tableId != nil)
         order.table = [cache.map getTable:[tableId intValue]];

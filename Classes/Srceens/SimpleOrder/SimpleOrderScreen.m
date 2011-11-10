@@ -10,19 +10,22 @@
 #import <UIKit/UIKit.h>
 #import "SimpleOrderScreen.h"
 #import "MenuTreeView.h"
-#import "GridView.h"
-#import "Order.h"
+//#import "GridView.h"
+//#import "Order.h"
 #import "OrderLineCell.h"
-#import "Product.h"
+//#import "Product.h"
 #import "Service.h"
-#import "SelectOpenOrder.h"
+#import "UserListViewController.h"
+#import "User.h"
+#import "ModalAlert.h"
+//#import "SelectOpenOrder.h"
 
 @implementation SimpleOrderScreen
 
 @synthesize productView = _productView;
 @synthesize orderView = _orderView;
 @synthesize order = _order;
-
+@synthesize userButton, popoverController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,6 +94,17 @@
     _order = [[Order alloc] init];
 }
 
+- (IBAction) selectUser
+{
+    UserListViewController *usersController = [[UserListViewController alloc] init];
+    usersController.delegate = self;
+
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController: usersController];
+    popoverController.delegate = self;
+
+    [popoverController presentPopoverFromRect:userButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
 - (IBAction) cashOrder
 {
     [[Service getInstance] quickOrder:_order paymentType:0 printInvoice:NO delegate:self callback:nil];
@@ -99,7 +113,28 @@
 - (IBAction) selectOrder
 {
     SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] init];
+    selectOpenOrder.delegate = self;
     [self.navigationController pushViewController:selectOpenOrder animated:YES];
+}
+
+- (void)didSelectItem:(id)item {
+    
+    if ([item isKindOfClass:[Order class]]) {
+        Order *order = (Order *)item;
+        for(OrderLine *line in _order.lines) {
+            [order addOrderLine:line];
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        [[Service getInstance] updateOrder:order];
+    }
+
+    if ([item isKindOfClass:[User class]]) {
+        User *user = (User *)item;
+        [self.popoverController dismissPopoverAnimated:YES];
+        if (user.isNullUser) {
+            [ModalAlert inform:NSLocalizedString(@"Geen gebruikers gevonden !", nil)];
+        }
+    }
 }
 
 - (void)viewDidUnload

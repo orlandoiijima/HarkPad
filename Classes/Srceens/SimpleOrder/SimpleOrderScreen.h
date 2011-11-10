@@ -8,16 +8,21 @@
 
 #import "MenuTreeView.h"
 #import "Order.h"
+#import "SelectOpenOrder.h"
 
-@interface SimpleOrderScreen : UIViewController <MenuTreeViewDelegate, UITableViewDataSource> {
+@interface SimpleOrderScreen : UIViewController <MenuTreeViewDelegate, UITableViewDataSource, SelectItemDelegate> {
     Order * _order;
 }
 
 @property (retain) IBOutlet MenuTreeView *productView;
 @property (retain) IBOutlet UITableView *orderView;
+@property (retain) IBOutlet UIButton *userButton;
 @property (retain) Order *order;
+@property (retain) UIPopoverController *popoverController;
 
 - (IBAction) cashOrder;
 - (IBAction) selectOrder;
+- (IBAction) selectUser;
+
 @end
 

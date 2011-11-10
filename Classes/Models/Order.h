@@ -13,6 +13,7 @@
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
+typedef enum PaymentType {unPaid, Cash, Pin, CreditCard} PaymentType ;
 
 @interface Order : NSObject {
     EntityState entityState;
@@ -23,6 +24,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
     NSDate *createdOn;
     NSString *name;
     Table *table;
+    PaymentType paymentType;
     int id;
     OrderState state;
 }
@@ -55,6 +57,7 @@ typedef enum OrderState {ordering, billed, paid} OrderState ;
 @property (retain) NSMutableArray *lines;
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
+@property PaymentType paymentType;
 @property (retain) Reservation *reservation;
 @property int id;
 @property OrderState state;

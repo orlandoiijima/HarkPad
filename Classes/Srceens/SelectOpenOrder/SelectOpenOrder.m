@@ -8,11 +8,13 @@
 
 #import "SelectOpenOrder.h"
 #import "Service.h"
-#import "OrderView.h"
+#import "SelectItemDelegate.h"
+//#import "OrderView.h"
+//#import "PaymentViewController.h"
 
 @implementation SelectOpenOrder
 
-@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder;
+@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,17 +50,37 @@
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.view addGestureRecognizer:tapGesture];
+
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
+    doubleTapGesture.numberOfTapsRequired = 2;
+    [self.view addGestureRecognizer:doubleTapGesture];
+}
+
+- (OrderView *)orderViewAtGesture: (UIGestureRecognizer *)gesture
+{
+    for(OrderView *orderView in self.scrollView.subviews)
+    {
+        if ([orderView pointInside:[gesture locationInView: orderView] withEvent:nil]) {
+            return orderView;
+        }
+    }
+    return nil;
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
 {
-    CGPoint point = [tapGestureRecognizer locationInView: self.view];
-    for(OrderView *orderView in self.scrollView.subviews)
-    {
-        if ([orderView pointInside:[tapGestureRecognizer locationInView: orderView] withEvent:nil])
-           self.selectedOrder = orderView.order;
-    }
-    return nil;
+    OrderView *orderView = [self orderViewAtGesture:tapGestureRecognizer];
+    if (orderView == nil) return;
+
+    self.selectedOrder = orderView.order;
+}
+
+- (void) handleDoubleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
+{
+    OrderView *orderView = [self orderViewAtGesture:tapGestureRecognizer];
+    if (orderView == nil) return;
+    [self done];
+    return;
 }
 
 - (void) setSelectedOrder: (Order *)order
@@ -92,6 +114,16 @@
 
     self.orders = serviceResult.data;
 
+    if ([self.orders count] == 0) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, scrollView.bounds.size.height / 3, scrollView.bounds.size.width, 50)];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor whiteColor];
+        label.text = NSLocalizedString(@"Geen open orders gevonden", nil);
+        label.textAlignment = UITextAlignmentCenter;
+        [self.scrollView addSubview:label];
+        return;    
+    }
+    
     int i = 0;
     int leftMargin = 25;
     int topMargin = 15;
@@ -103,7 +135,7 @@
                 topMargin + (i / countColumns) * (height + topMargin),
                 width,
                 height);
-        OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order];
+        OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order delegate:self];
         orderView.backgroundColor = self.scrollView.backgroundColor;
         [self.scrollView addSubview:orderView];
         i++;
@@ -114,6 +146,21 @@
 
 - (void) done
 {
+    if([self.delegate respondsToSelector:@selector(didSelectItem:)])
+        [self.delegate didSelectItem: self.selectedOrder];
+    else
+        [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) didTapPayButtonForOrder: (Order *)order
+{
+    PaymentViewController *paymentController = [[PaymentViewController alloc] init];
+    paymentController.order = order;
+    paymentController.delegate = self;
+    [self.navigationController pushViewController:paymentController animated:YES];
+}
+
+- (void)didProcessPaymentType:(PaymentType)type forOrder:(Order *)order {
     [self.navigationController popViewControllerAnimated:YES];
 }
 

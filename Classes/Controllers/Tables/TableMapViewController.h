@@ -12,8 +12,9 @@
 #import "Order.h"
 #import "Reservation.h"
 #import "TableButton.h"
+#import "PaymentViewController.h"
 
-@interface TableMapViewController : UIViewController <UIPopoverControllerDelegate> {    
+@interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate> {
     District *currentDistrict;
     TableButton *dragTableButton;
     bool isVisible;

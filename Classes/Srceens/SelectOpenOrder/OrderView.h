@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Order.h";
+#import "Order.h"
 #import "InvoiceDataSource.h"
 #import "OrderTag.h"
+
 
 @interface OrderView : UIView <UITableViewDelegate>{
     Order *_order;
@@ -25,6 +26,6 @@
 @property (retain) OrderTag *label;
 @property BOOL isSelected;
 
-- (id)initWithFrame:(CGRect)frame order: (Order *)anOrder;
+- (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate;
 
 @end

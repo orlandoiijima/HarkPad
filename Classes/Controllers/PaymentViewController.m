@@ -11,7 +11,7 @@
 
 @implementation PaymentViewController
 
-@synthesize orderTable, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, tableMapViewController, nameLabel, backButton;
+@synthesize orderTable, delegate, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel, backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,14 +35,16 @@
 
 - (IBAction) goPay
 {
-    int type = paymentType.selectedSegmentIndex;
+    int type = paymentType.selectedSegmentIndex + 1;
     [[Service getInstance] processPayment:type forOrder:order.id];
-    [tableMapViewController closeOrderView];
+    if([self.delegate respondsToSelector:@selector(didProcessPaymentType:forOrder:)])
+        [self.delegate didProcessPaymentType:type forOrder:order];
 }
 
 - (IBAction) goBack
 {
-    [tableMapViewController closeOrderView];    
+    if([self.delegate respondsToSelector:@selector(didProcessPaymentType:forOrder:)])
+        [self.delegate didProcessPaymentType:0 forOrder:order];
 }
 
 - (IBAction) changeGrouping

@@ -11,6 +11,7 @@
 #import "Invoice.h"
 #import "ProductTotals.h"
 #import "urls.h"
+#import "User.h"
 
 @implementation Service
 
@@ -124,6 +125,38 @@ static Service *_service;
 	NSURL *testUrl = [self makeEndPoint:@"getmap" withQuery:@""];
 	NSData *data = [NSData dataWithContentsOfURL:testUrl];
 	return [Map mapFromJson:[self getResultFromJson: data]];    
+}
+
+- (void) getUsers: (id) delegate callback: (SEL)callback
+{
+    [self getUsersIncludingDeleted:NO delegate:delegate callback:callback];
+	return;
+}
+
+- (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getusers"
+            withQuery: [NSString stringWithFormat:@"includeDeleted=%d", includeDeleted ? 1:0]
+            delegate:self
+            callback:@selector(getUsersCallback:finishedWithData:error:)
+            userData:invocation];
+	return;
+}
+
+- (void) getUsersCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        result.data = [User usersFromJson: [self getResultFromJson:data]];
+    }
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
 }
 
 - (void) undockTable: (int)tableId

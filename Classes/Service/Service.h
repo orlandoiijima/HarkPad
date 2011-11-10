@@ -70,6 +70,9 @@
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 
+- (void) getUsers: (id) delegate callback: (SEL)callback;
+- (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback;
+
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;

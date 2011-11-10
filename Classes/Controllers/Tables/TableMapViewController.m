@@ -450,7 +450,7 @@
         return;
     PaymentViewController *paymentVC = [[PaymentViewController alloc] init];	
     paymentVC.order = order;
-    paymentVC.tableMapViewController = self;
+    paymentVC.delegate = self;
     paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     [self presentModalViewController: paymentVC animated:YES];
 }	
@@ -466,6 +466,12 @@
 
     newOrderVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     [self presentModalViewController:newOrderVC animated:YES];
+}
+
+- (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
+    isRefreshTimerDisabled = false;
+    [self dismissModalViewControllerAnimated:YES];
+    [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
 - (void) closeOrderView

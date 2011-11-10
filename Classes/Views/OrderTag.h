@@ -9,16 +9,23 @@
 #import <UIKit/UIKit.h>
 #import "Order.h"
 
+@protocol OrderViewDelegate <NSObject>
+@optional
+- (void) didTapPayButtonForOrder: (Order *)order;
+@end
+
 @interface OrderTag : UIView {
     UILabel *time;
     UILabel *name;
-    UILabel *amount;
+    UIButton *amountButton;
 }
 
+@property (retain) id<OrderViewDelegate> delegate;
 @property (retain) IBOutlet UILabel *name;
-@property (retain) IBOutlet UILabel *amount;
+@property (retain) IBOutlet UIButton *amountButton;
 @property (retain) IBOutlet UILabel *time;
-
-+ (OrderTag *)tagWithFrame: (CGRect) frame andOrder: (Order *)order;
+@property (retain)Order *order;
++ (OrderTag *)tagWithFrame: (CGRect) frame andOrder: (Order *)order delegate: (id<OrderViewDelegate>)delegate;
+- (void)pay;
 
 @end
