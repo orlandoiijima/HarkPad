@@ -10,6 +10,7 @@
 #import "OrderLine.h"
 #import "Cache.h"
 #import "Reservation.h"
+#import "User.h"
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
@@ -27,11 +28,14 @@ typedef enum PaymentType {unPaid, Cash, Pin, CreditCard} PaymentType ;
     PaymentType paymentType;
     int id;
     OrderState state;
+    User *invoicedTo;
 }
 
 
 + (Order *) orderForTable: (Table *) table;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;
++ (Order *) orderNull;
+- (BOOL) isNullOrder;
 - (NSMutableDictionary *)toDictionary;
 - (NSDecimalNumber *) getAmount;
 - (BOOL) containsProductId:(int)id;
@@ -62,5 +66,6 @@ typedef enum PaymentType {unPaid, Cash, Pin, CreditCard} PaymentType ;
 @property int id;
 @property OrderState state;
 @property (retain) NSString *name;
+@property (retain) User *invoicedTo;
 
 @end

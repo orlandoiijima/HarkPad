@@ -57,7 +57,7 @@
     [self reloadData];
 }
 
-- (void)gridView:(GridView *)gridView didSelectCellLine:(GridViewCellLine *)cellLine
+- (void)gridView:(GridView *)gridView didTapCellLine:(GridViewCellLine *)cellLine
 {
     int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
 
@@ -74,12 +74,9 @@
     else {
         if(offset == [_parentNode.nodes count]) {
             self.parentNode = _parentNode.parent;
-//            [gridView reloadData];
-//            return false;
         }
 
         self.parentNode = rootNode;
-//        [gridView reloadData];
     }
     return;
 }

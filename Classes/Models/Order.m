@@ -14,7 +14,7 @@
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name, paymentType;
+@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo;
 
 
 - (id)init
@@ -29,6 +29,18 @@
         self.entityState = New;
 	}
     return(self);
+}
+
++ (Order *) orderNull
+{
+    Order *order = [[Order alloc] init];
+    order.id = -1;
+    return order;
+}
+
+- (BOOL) isNullOrder
+{
+    return id == -1;
 }
 
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary
@@ -94,7 +106,10 @@
     if (table != nil)
         [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
 
-    if (name != nil)    
+    if (invoicedTo != nil)
+        [dic setObject: [NSNumber numberWithInt: invoicedTo.id] forKey:@"invoicedToId"];
+
+    if (name != nil)
         [dic setObject:name forKey:@"name"];
 
     if ([courses count] > 0) {
@@ -177,12 +192,9 @@
 - (NSDecimalNumber *) getAmount
 {
     id total = [NSDecimalNumber zero];
-    for(Guest *guest in guests)
-    {
-        for(OrderLine *line in guest.lines)
-        {        
-            total = [total decimalNumberByAdding:line.product.price];
-        }
+    for(OrderLine *line in lines)
+    {        
+        total = [total decimalNumberByAdding:[line.product.price decimalNumberByMultiplyingBy:[NSDecimalNumber numberWithInt: line.quantity]]];
     }
     return total;
 }
@@ -206,14 +218,11 @@
 - (NSDate *) getLastOrderDate
 {
     NSDate *latestDate = createdOn;
-    for(Guest *guest in guests)
-    {
-        for(OrderLine *line in guest.lines)
-        {        
-            if([line.createdOn compare: latestDate] == NSOrderedDescending)
-                latestDate = line.createdOn;
-        }    
-    }
+    for(OrderLine *line in lines)
+    {        
+        if([line.createdOn compare: latestDate] == NSOrderedDescending)
+            latestDate = line.createdOn;
+    }    
     return latestDate;
 }
 
@@ -266,32 +275,16 @@
             }
         }
     }
+
+    for(int i=0; i < [lines count]; i++) {
+        OrderLine *line = [lines objectAtIndex:i];
+        if(line.id == lineToDelete.id) {
+            [lines removeObjectAtIndex:i];
+            break;
+        }
+    }
 }
 
-//
-//NSInteger compareLine(OrderLine *lineA, OrderLine * lineB, id context) 
-//{
-//    OrderGrouping orderGrouping = *((OrderGrouping *)context);
-//    switch(orderGrouping)
-//    {
-//        case bySeat:
-//            if(lineA.seat == lineB.seat)
-//                return lineA.course - lineB.course;
-//            return lineA.seat - lineB.seat;
-//        case byCourse:
-//            if(lineA.course == lineB.course)
-//                return lineA.seat - lineB.seat;
-//            return lineA.course - lineB.course;
-//        case byCategory:
-//            if(lineA.product.category.sortOrder == lineB.product.category.sortOrder) {
-//                if(lineA.seat == lineB.seat)
-//                    return lineA.course  - lineB.course;
-//                return lineA.seat - lineB.seat;
-//            }
-//            return lineA.product.category.sortOrder - lineB.product.category.sortOrder;
-//    }
-//    return 0;
-//}
 
 - (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
 {
@@ -335,13 +328,10 @@
 
 - (BOOL) containsProductId:(int)productId
 {
-    for(Guest *guest in guests)
+    for(OrderLine *line in lines)
     {
-        for(OrderLine *line in guest.lines)
-        {
-            if(line.product.id == productId)
-                return YES;
-        }
+        if(line.product.id == productId)
+            return YES;
     }
     return NO;
 }

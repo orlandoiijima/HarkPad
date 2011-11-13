@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "Order.h"
-#import "InvoiceDataSource.h"
+#import "../Models/OrderDataSource.h"
 #import "TableMapViewController.h"
 
 @interface BillViewController : UIViewController {
@@ -19,7 +19,7 @@
     UILabel *nameLabel; 
     UILabel *tableLabel; 
     UILabel *amountLabel;
-    InvoiceDataSource *dataSource;
+    OrderDataSource *dataSource;
 }
 
 @property (retain, nonatomic) Order *order; 
@@ -34,7 +34,7 @@
 @property (retain) IBOutlet UISegmentedControl *groupingSegment; 
 @property (retain) TableMapViewController *tableMapViewController;
 
-@property (retain) InvoiceDataSource *dataSource;
+@property (retain) OrderDataSource *dataSource;
 
 - (IBAction) goPrint;
 - (IBAction) goBack;

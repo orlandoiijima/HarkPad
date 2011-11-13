@@ -89,6 +89,18 @@
     return reservation;
 }
 
++ (Reservation *)null
+{
+    Reservation *reservation = [[Reservation alloc] init];
+    reservation.id = -1;
+    return reservation;
+}
+
+- (BOOL) isNullReservation
+{
+    return id < 0;
+}
+
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];

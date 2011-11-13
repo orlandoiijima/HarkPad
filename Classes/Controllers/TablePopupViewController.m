@@ -196,8 +196,9 @@
     [self setOptimalSize];
 }
 
-- (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
+- (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
 {
+    NSMutableArray *reservations = serviceResult.data;
     self.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO withReservations:reservations];
     [tableReservations reloadData];
     [self setOptimalSize];

@@ -101,8 +101,9 @@
     [[Service getInstance] getReservations: self.currentDayView.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
 }
 
-- (void) getReservationsCallback: (NSMutableArray *)reservations onDate: (NSDate *)date
+- (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
 {
+    NSMutableArray *reservations = serviceResult.data;
     Reservation *selectedReservation = self.currentDayView.selectedReservation;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];

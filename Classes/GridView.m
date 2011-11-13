@@ -17,6 +17,7 @@
 @implementation GridView
 
 @synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth, topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
+@synthesize tapStyle;
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -30,20 +31,20 @@
 {
 
     UIScrollView *topHeader = [[UIScrollView alloc] initWithFrame: CGRectZero];
-    topHeader.backgroundColor = [UIColor yellowColor];
+    topHeader.backgroundColor = [UIColor clearColor];
     topHeader.directionalLockEnabled = YES;
     self.topView = topHeader;        
     [self addSubview:topHeader];
     
     UIScrollView *leftHeader = [[UIScrollView alloc] initWithFrame:CGRectZero];
-    leftHeader.backgroundColor = [UIColor yellowColor];
+    leftHeader.backgroundColor = [UIColor clearColor];
     leftHeader.directionalLockEnabled = YES;
     self.leftView = leftHeader;
     [self addSubview:leftHeader];
     
     UIScrollView *view = [[UIScrollView alloc] initWithFrame: CGRectZero];
     view.directionalLockEnabled = YES; 	
-    view.backgroundColor = [UIColor redColor];
+    view.backgroundColor = [UIColor clearColor];
     view.clipsToBounds = false;
     self.contentView = view;
     [self addSubview:contentView];
@@ -122,11 +123,22 @@
 {
     cellLine.isSelected = isSelected;
 
-    if(isSelected) {
-        [self popoutCellLine:cellLine];
-    }
-    else {
-        [self popinCellLine:cellLine];
+    switch(tapStyle)
+    {
+        case tapNothing:
+            break;
+        case tapPopout:
+            if(isSelected) {
+                [self popoutCellLine:cellLine];
+            }
+            else {
+                [self popinCellLine:cellLine];
+            }
+            break;
+        case tapPopoutPopin:
+            if(isSelected) {
+                [self popoutCellLine:cellLine];
+            }
     }
 }
 
@@ -216,6 +228,9 @@
 {
     CGPoint point = [tapGestureRecognizer locationInView:self];
     GridViewCellLine *tappedCellLine = [self cellLineAtPoint:point];
+    if (tappedCellLine != nil)
+        if([self.delegate respondsToSelector:@selector(gridView:didTapCellLine:)])
+            [self.delegate gridView:self didTapCellLine:tappedCellLine];
     [self selectCellLine: tappedCellLine];
 }
 

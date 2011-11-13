@@ -30,7 +30,7 @@
     {
         order = newOrder;
         
-        self.dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES];
+        self.dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO];
     }
 }
 

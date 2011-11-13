@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "Order.h"
-#import "InvoiceDataSource.h"
+#import "../Models/OrderDataSource.h"
 //#import "TableMapViewController.h"
 
 @protocol PaymentDelegate <NSObject>
@@ -40,7 +40,7 @@
 @property (retain) id<PaymentDelegate> delegate;
 //@property (retain) TableMapViewController *tableMapViewController;
 
-@property (retain) InvoiceDataSource *dataSource;
+@property (retain) OrderDataSource *dataSource;
 
 - (IBAction) goPay;
 - (IBAction) goBack;

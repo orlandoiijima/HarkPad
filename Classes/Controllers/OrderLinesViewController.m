@@ -7,7 +7,7 @@
 //
 
 #import "OrderLinesViewController.h"
-#import "InvoiceDataSource.h"
+#import "../Models/OrderDataSource.h"
 
 @implementation OrderLinesViewController
 
@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dataSource = [InvoiceDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO showProductProperties:YES];
+    dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO showProductProperties:YES isEditable:NO];
     dataSource.invoicesViewController = invoicesViewController;
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;

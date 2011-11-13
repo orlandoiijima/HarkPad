@@ -11,7 +11,8 @@
 #import "PaymentViewController.h"
 #import "SelectItemDelegate.h"
 
-@interface SelectOpenOrder : UIViewController <OrderViewDelegate, PaymentDelegate> {
+
+@interface SelectOpenOrder : UIViewController <OrderViewDelegate, PaymentDelegate, SelectItemDelegate> {
     NSMutableArray *orders;
     int countColumns;
     UIScrollView *scrollView;
@@ -19,14 +20,19 @@
     id<SelectItemDelegate> delegate;
 }
 
+typedef enum NewOrderType {byNothing = -1, byReservation = -2, byEmployee = -3} NewOrderType;
+
 @property (retain) UIScrollView *scrollView;
 @property (retain) NSMutableArray *orders;
 @property int countColumns;
 @property (retain) Order *selectedOrder;
 @property (retain) id<SelectItemDelegate> delegate;
+@property (retain) UIPopoverController *popoverController;
 
 - (OrderView *)viewForOrder: (Order *)order;
 - (OrderView *)orderViewAtGesture: (UIGestureRecognizer *)gesture;
+- (void) selectUser;
+- (void) selectReservation;
 
 - (void) done;
 

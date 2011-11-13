@@ -6,15 +6,17 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SelectOpenOrder.h"
 #import "Service.h"
 #import "SelectItemDelegate.h"
-//#import "OrderView.h"
-//#import "PaymentViewController.h"
+#import "UserListViewController.h"
+#import "ModalAlert.h"
+#import "ReservationListController.h"
 
 @implementation SelectOpenOrder
 
-@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate;
+@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,7 +75,14 @@
     if (orderView == nil) return;
 
     self.selectedOrder = orderView.order;
+    if (orderView.order.id == byEmployee) {
+        [self selectUser];
+    }
+    if (orderView.order.id == byReservation) {
+        [self selectReservation];
+    }
 }
+
 
 - (void) handleDoubleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
 {
@@ -81,6 +90,51 @@
     if (orderView == nil) return;
     [self done];
     return;
+}
+
+- (void) selectUser
+{
+    OrderView *orderView = [self viewForOrder:self.selectedOrder];
+    UserListViewController *usersController = [[UserListViewController alloc] init];
+    usersController.delegate = self;
+
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController: usersController];
+
+    [popoverController presentPopoverFromRect: orderView.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
+
+- (void) selectReservation
+{
+    OrderView *orderView = [self viewForOrder:self.selectedOrder];
+    ReservationListController *reservationsController = [[ReservationListController alloc] init];
+    reservationsController.delegate = self;
+
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController: reservationsController];
+
+    [popoverController presentPopoverFromRect: orderView.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+}
+
+- (void)didSelectItem:(id)item {
+    if ([item isKindOfClass:[User class]]) {
+        User *user = (User *)item;
+        [self.popoverController dismissPopoverAnimated:YES];
+        if (user.isNullUser) {
+            [ModalAlert inform:NSLocalizedString(@"Geen gebruikers gevonden !", nil)];
+        }
+        else {
+            self.selectedOrder.invoicedTo = user;
+        }
+    }
+    if ([item isKindOfClass:[Reservation class]]) {
+        Reservation *reservation = (Reservation *)item;
+        [self.popoverController dismissPopoverAnimated:YES];
+        if (reservation.isNullReservation) {
+            [ModalAlert inform:NSLocalizedString(@"Geen reserveringen gevonden !", nil)];
+        }
+        else {
+            self.selectedOrder.reservation = reservation;
+        }
+    }
 }
 
 - (void) setSelectedOrder: (Order *)order
@@ -111,22 +165,37 @@
         [view show];
         return;
     }
-
+    
     self.orders = serviceResult.data;
+    
+    Order *order = [Order orderNull];
+    order.name = NSLocalizedString(@"Rekening", nil);
+    order.id = byNothing;
+    [self.orders insertObject: order atIndex:0];
 
-    if ([self.orders count] == 0) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, scrollView.bounds.size.height / 3, scrollView.bounds.size.width, 50)];
-        label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor whiteColor];
-        label.text = NSLocalizedString(@"Geen open orders gevonden", nil);
-        label.textAlignment = UITextAlignmentCenter;
-        [self.scrollView addSubview:label];
-        return;    
-    }
+    Order *orderEmployee = [Order orderNull];
+    orderEmployee.name = NSLocalizedString(@"Personeel", nil);
+    orderEmployee.id = byEmployee;
+    [self.orders insertObject: orderEmployee atIndex:1];
+
+    Order *orderReservation = [Order orderNull];
+    orderReservation.name = NSLocalizedString(@"Reservering", nil);
+    orderReservation.id = byReservation;
+    [self.orders insertObject: orderReservation atIndex:2];
+    
+//    if ([self.orders count] == 0) {
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, scrollView.bounds.size.height / 3, scrollView.bounds.size.width, 50)];
+//        label.backgroundColor = [UIColor clearColor];
+//        label.textColor = [UIColor whiteColor];
+//        label.text = NSLocalizedString(@"Geen open orders gevonden", nil);
+//        label.textAlignment = UITextAlignmentCenter;
+//        [self.scrollView addSubview:label];
+//        return;    
+//    }
     
     int i = 0;
     int leftMargin = 25;
-    int topMargin = 15;
+    int topMargin = 5;
     int width = (self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
@@ -139,6 +208,15 @@
         orderView.backgroundColor = self.scrollView.backgroundColor;
         [self.scrollView addSubview:orderView];
         i++;
+
+        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+        gradientLayer.cornerRadius = 4;
+        gradientLayer.borderColor = [[UIColor grayColor] CGColor];
+        gradientLayer.borderWidth = 1;
+        gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
+        gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];
+        [orderView.layer insertSublayer:gradientLayer atIndex:1];
+
     }
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, ((i-1)/countColumns + 1) * (height + topMargin));

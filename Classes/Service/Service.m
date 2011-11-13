@@ -264,16 +264,20 @@ static Service *_service;
 
 - (void) getReservationsCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSMutableArray *reservationsDic = [self getResultFromJson: data];
-    NSMutableArray *reservations = [[NSMutableArray alloc] init];
-    for(NSDictionary *reservationDic in reservationsDic)
-    {
-        Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
-        [reservations addObject:reservation];
-    }
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
 
+    if (result.isSuccess) {
+        NSMutableArray *reservationsDic = [self getResultFromJson: data];
+        NSMutableArray *reservations = [[NSMutableArray alloc] init];
+        for(NSDictionary *reservationDic in reservationsDic)
+        {
+            Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
+            [reservations addObject:reservation];
+        }
+        result.data = reservations;
+    }
     NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&reservations atIndex:2];
+    [invocation setArgument:&result atIndex:2];
     [invocation invoke];
 }
 

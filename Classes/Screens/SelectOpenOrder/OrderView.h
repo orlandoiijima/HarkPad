@@ -9,19 +9,19 @@
 #import <UIKit/UIKit.h>
 
 #import "Order.h"
-#import "InvoiceDataSource.h"
+#import "../../Models/OrderDataSource.h"
 #import "OrderTag.h"
 
 
 @interface OrderView : UIView <UITableViewDelegate>{
     Order *_order;
-    InvoiceDataSource *dataSource;
+    OrderDataSource *dataSource;
     UITableView *tableView;
     BOOL _isSelected;
 }
 
 @property (retain) Order *order;
-@property (retain) InvoiceDataSource *dataSource;
+@property (retain) OrderDataSource *dataSource;
 @property (retain) UITableView *tableView;
 @property (retain) OrderTag *label;
 @property BOOL isSelected;

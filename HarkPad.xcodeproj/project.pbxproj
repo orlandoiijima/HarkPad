@@ -102,7 +102,7 @@
 		E57BB9151452ADC30003049E /* ProductMaintenance.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB9111452ADC30003049E /* ProductMaintenance.m */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
-		E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* InvoiceDataSource.m */; };
+		E5AC3D79132263870090F743 /* OrderDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* OrderDataSource.m */; };
 		E5AC71531388E54800DB450E /* TablesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC71521388E54600DB450E /* TablesViewController.m */; };
 		E5AC71561389146900DB450E /* TablesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC71551389146400DB450E /* TablesViewController.xib */; };
 		E5AC7158138950B700DB450E /* anna-a-57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC7157138950B200DB450E /* anna-a-57x57.png */; };
@@ -227,13 +227,14 @@
 		E5F609A313489C2400D8858B /* MenuTreeMaintenance.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8858A /* MenuTreeMaintenance.m */; };
 		E5F609A313489C2400D8858E /* MenuTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8858D /* MenuTreeView.m */; };
 		E5F609A313489C2400D88593 /* SimpleOrderScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88592 /* SimpleOrderScreen.m */; };
-		E5F609A313489C2400D88595 /* SimpleOrderScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88594 /* SimpleOrderScreen.xib */; };
 		E5F609A313489C2400D88599 /* SelectOpenOrder.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88598 /* SelectOpenOrder.m */; };
 		E5F609A313489C2400D8859B /* SelectOpenOrder.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859A /* SelectOpenOrder.xib */; };
 		E5F609A313489C2400D8859E /* OrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859D /* OrderView.m */; };
 		E5F609A313489C2400D885A0 /* OrderTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8859F /* OrderTag.m */; };
 		E5F609A313489C2400D885A4 /* UserListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885A3 /* UserListViewController.m */; };
 		E5F609A313489C2400D885A6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885A5 /* User.m */; };
+		E5F609A313489C2400D885AB /* ReservationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885AA /* ReservationListController.m */; };
+		E5F609A313489C2400D885AE /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885AD /* ToggleButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -515,8 +516,8 @@
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
-		E5AC3D77132263820090F743 /* InvoiceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoiceDataSource.h; path = Models/InvoiceDataSource.h; sourceTree = "<group>"; };
-		E5AC3D78132263830090F743 /* InvoiceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoiceDataSource.m; path = Models/InvoiceDataSource.m; sourceTree = "<group>"; };
+		E5AC3D77132263820090F743 /* OrderDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderDataSource.h; path = Models/OrderDataSource.h; sourceTree = "<group>"; };
+		E5AC3D78132263830090F743 /* OrderDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderDataSource.m; path = Models/OrderDataSource.m; sourceTree = "<group>"; };
 		E5AC71511388E54500DB450E /* TablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablesViewController.h; sourceTree = "<group>"; };
 		E5AC71521388E54600DB450E /* TablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablesViewController.m; sourceTree = "<group>"; };
 		E5AC71551389146400DB450E /* TablesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TablesViewController.xib; sourceTree = "<group>"; };
@@ -620,7 +621,6 @@
 		E5F609A313489C2400D8858D /* MenuTreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTreeView.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88591 /* SimpleOrderScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleOrderScreen.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88592 /* SimpleOrderScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleOrderScreen.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D88594 /* SimpleOrderScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SimpleOrderScreen.xib; sourceTree = "<group>"; };
 		E5F609A313489C2400D88597 /* SelectOpenOrder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectOpenOrder.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88598 /* SelectOpenOrder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectOpenOrder.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8859A /* SelectOpenOrder.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectOpenOrder.xib; sourceTree = "<group>"; };
@@ -633,6 +633,11 @@
 		E5F609A313489C2400D885A5 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885A7 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D885A8 /* SelectItemDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectItemDelegate.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885A9 /* ReservationListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationListController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885AA /* ReservationListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationListController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885AC /* TableCellUpdated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellUpdated.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885AD /* ToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleButton.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885AF /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -726,6 +731,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885AC /* TableCellUpdated.h */,
 				E5F609A313489C2400D885A8 /* SelectItemDelegate.h */,
 				E513726313A8DEEF0037C033 /* GridView */,
 				E55DFC82139FD89000EB7C69 /* Libraries */,
@@ -737,7 +743,7 @@
 				E50A386412E234B8007C2101 /* Models */,
 				E50A388D12E234B8007C2101 /* Resources */,
 				E50A38AE12E234B8007C2101 /* Views */,
-				E5F609A313489C2400D8858F /* Srceens */,
+				E5F609A313489C2400D8858F /* Screens */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -754,6 +760,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885AA /* ReservationListController.m */,
+				E5F609A313489C2400D885A9 /* ReservationListController.h */,
 				E5F609A313489C2400D885A3 /* UserListViewController.m */,
 				E5F609A313489C2400D885A2 /* UserListViewController.h */,
 				E5F609A313489C2400D8858D /* MenuTreeView.m */,
@@ -953,6 +961,8 @@
 		E50A38AE12E234B8007C2101 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885AF /* ToggleButton.h */,
+				E5F609A313489C2400D885AD /* ToggleButton.m */,
 				E5F609A313489C2400D885A1 /* OrderTag.h */,
 				E5F609A313489C2400D8859F /* OrderTag.m */,
 				E5F00519139A2B6300B2ED57 /* EGORefreshTableHeaderView.h */,
@@ -1210,8 +1220,8 @@
 		E561E2731336027800229B76 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				E5AC3D77132263820090F743 /* InvoiceDataSource.h */,
-				E5AC3D78132263830090F743 /* InvoiceDataSource.m */,
+				E5AC3D77132263820090F743 /* OrderDataSource.h */,
+				E5AC3D78132263830090F743 /* OrderDataSource.m */,
 				E561E2681334B13B00229B76 /* ReservationDataSource.h */,
 				E561E2691334B13C00229B76 /* ReservationDataSource.m */,
 				E5015258131306E4007959F5 /* SlotDataSource.h */,
@@ -1318,19 +1328,18 @@
 			name = Dialogs;
 			sourceTree = "<group>";
 		};
-		E5F609A313489C2400D8858F /* Srceens */ = {
+		E5F609A313489C2400D8858F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
 				E5F609A313489C2400D88590 /* SimpleOrder */,
 				E5F609A313489C2400D88596 /* SelectOpenOrder */,
 			);
-			path = Srceens;
+			path = Screens;
 			sourceTree = "<group>";
 		};
 		E5F609A313489C2400D88590 /* SimpleOrder */ = {
 			isa = PBXGroup;
 			children = (
-				E5F609A313489C2400D88594 /* SimpleOrderScreen.xib */,
 				E5F609A313489C2400D88592 /* SimpleOrderScreen.m */,
 				E5F609A313489C2400D88591 /* SimpleOrderScreen.h */,
 			);
@@ -1464,7 +1473,6 @@
 				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
 				E50E7E6A13FECD8E007EDB13 /* imgOff.png in Resources */,
 				E50E7E6B13FECD8E007EDB13 /* imgOn.png in Resources */,
-				E5F609A313489C2400D88595 /* SimpleOrderScreen.xib in Resources */,
 				E5F609A313489C2400D8859B /* SelectOpenOrder.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1523,7 +1531,7 @@
 				E50152681315A26B007959F5 /* SlotTable.m in Sources */,
 				E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */,
 				E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */,
-				E5AC3D79132263870090F743 /* InvoiceDataSource.m in Sources */,
+				E5AC3D79132263870090F743 /* OrderDataSource.m in Sources */,
 				E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */,
 				E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */,
 				E561E26013348E8F00229B76 /* BillViewController.m in Sources */,
@@ -1632,6 +1640,8 @@
 				E5F609A313489C2400D885A0 /* OrderTag.m in Sources */,
 				E5F609A313489C2400D885A4 /* UserListViewController.m in Sources */,
 				E5F609A313489C2400D885A6 /* User.m in Sources */,
+				E5F609A313489C2400D885AB /* ReservationListController.m in Sources */,
+				E5F609A313489C2400D885AE /* ToggleButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

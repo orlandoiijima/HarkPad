@@ -55,6 +55,7 @@ typedef enum
 //- (bool) gridView: (GridView *) gridView shouldSelectCellLine: (GridViewCellLine *)cellLine;
 - (GridViewCellLine *) gridView: (GridView *) gridView willSelectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didSelectCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView didTapCellLine: (GridViewCellLine *)cellLine;
 
 - (GridViewCellLine *) gridView: (GridView *) gridView willDeselectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;
@@ -70,6 +71,8 @@ typedef enum
     float leftHeaderWidth;
     float topHeaderHeight;
 }
+
+typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 
 @property (retain) UIScrollView *topView;
 @property (retain) UIScrollView *leftView;
@@ -90,6 +93,7 @@ typedef enum
 @property DropMode dropMode;
 @property DragMode dragMode;
 @property CellMode cellMode;
+@property TapStyle tapStyle;
 
 - (void) reloadData;
 - (void) initView;
