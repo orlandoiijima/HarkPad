@@ -18,7 +18,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @class Order;
 
-@interface OrderLine : NSObject {
+@interface OrderLine : NSObject <NSCopying> {
     int id;
     NSDate *createdOn;
     EntityState entityState;

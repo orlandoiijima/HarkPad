@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Kies openstaande order", nil);
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -129,7 +131,7 @@
         Reservation *reservation = (Reservation *)item;
         [self.popoverController dismissPopoverAnimated:YES];
         if (reservation.isNullReservation) {
-            [ModalAlert inform:NSLocalizedString(@"Geen reserveringen gevonden !", nil)];
+            [ModalAlert inform:NSLocalizedString(@"Geen reserveringen gevonden", nil)];
         }
         else {
             self.selectedOrder.reservation = reservation;

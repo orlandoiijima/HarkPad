@@ -27,7 +27,7 @@
 @property (nonatomic) bool isSelected;
 @property (nonatomic) bool isDropTarget;
 
-- (id)initWithTitle: (NSString *) title middleLabel: (NSString *)middleLabel bottomLabel: (NSString *)bottomLabel path: (CellPath *)path;
+- (id)initWithTitle: (NSString *) title middleLabel: (NSString *)middleLabel bottomLabel: (NSString *)bottomLabel backgroundColor: (UIColor *)backgroundColor path: (CellPath *)path;
 - (void) addDeleteButtonWithTarget: (id)target action: (SEL) action;
 - (void) removeDeleteButton;
 

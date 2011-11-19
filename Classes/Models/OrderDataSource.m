@@ -15,14 +15,15 @@
 
 @implementation OrderDataSource
 
-@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable
++ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice
 {
     OrderDataSource *source = [[OrderDataSource alloc] init];
     source.totalizeProducts = totalize;
     source.showFreeProducts = showFree;
     source.showProductProperties = showProps;
+    source.showPrice = showPrice;
     source.order = order;
     source.grouping = grouping;
     source.isEditable = isEditable;
@@ -74,8 +75,9 @@
             }
             row++;
         }
+        line = [line copyWithZone:nil];
     }
-    line.quantity = 1;
+
     int row = [self insertionPointForLine:line inGroup:group];
     [group insertObject:line atIndex:row];
     
@@ -87,36 +89,53 @@
             [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
         [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [tableView endUpdates];
-        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+//        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
 - (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (NSMutableArray *)group {
     int i = 0;
     for(OrderLine *line in group) {
-        if (line.product.category.sortOrder >= lineToInsert.product.category.sortOrder)
-                return i;
-//        switch(sortOrder) {
-//            case sortByOrder:
-//                if (line.sortOrder > lineToInsert.sortOrder)
-//                        return i;
-//                break;
-//            case sortByCategory:
-//                if (line.product.category.sortOrder > lineToInsert.product.category.sortOrder)
-//                        return i;
-//                break;
-//        }
+        switch(sortOrder) {
+            case sortByOrder:
+                if (line.sortOrder > lineToInsert.sortOrder)
+                    return i;
+                break;
+            case sortByCreatedOn:
+                if ([line.createdOn compare:lineToInsert.createdOn] == NSOrderedAscending)
+                    return i;
+                break;
+            case sortByCategory:
+                if (line.product.category.sortOrder > lineToInsert.product.category.sortOrder)
+                    return i;
+                break;
+        }
         i++;
     }
     return i;
 }
+- (void) tableView:(UITableView *)tableView removeOrderLine:(OrderLine *)line {
+    NSIndexPath *indexPath = [self indexPathForLine:line];
+    if (indexPath == nil) return;
+    NSMutableArray *group = [self groupForSection:indexPath.section];
+    if (group == nil) return;
+    [group removeObject:line];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
 
-- (void)removeOrderLine:(OrderLine *)line {
-    if (line == nil) return;
-
+- (NSIndexPath *)indexPathForLine: (OrderLine *)line {
+    if (line == nil) return nil;
     NSString *key = [self groupingKeyForLine:line];
     NSMutableArray *group = [groupedLines objectForKey:key];
-
+    if (group == nil || key == nil)
+        return nil;
+    int section = [self sectionForKey:key];
+    for(int row = 0; row < [group count]; row++) {
+        if([group objectAtIndex:row] == line) {
+            return [NSIndexPath indexPathForRow:row inSection:section];
+        }        
+    }
+    return nil;
 }
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line
@@ -183,7 +202,8 @@
     NSDecimalNumber *total = [NSDecimalNumber zero];
     for(OrderLine *line in group)
     {
-        total = [total decimalNumberByAdding:line.product.price];
+        total = [total decimalNumberByAdding:[line.product.price decimalNumberByMultiplyingBy:[NSDecimalNumber numberWithInt: line.quantity]]];
+
     }
     return [NSString stringWithFormat:@"%@ (%@)", key, [Utils getAmountString: total withCurrency:YES]];
 }
@@ -196,9 +216,10 @@
 
     OrderLineCell *cell = (OrderLineCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable delegate: self.delegate rowHeight: rowHeight];
+        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties delegate: self.delegate rowHeight: rowHeight];
     }
-    cell.showProductProperties = self.showProductProperties;
+//    cell.showProductProperties = self.showProductProperties;
+//    cell.showPrice = self.showPrice;
 //    cell.orderLine = line;
 
     cell.isInEditMode = cell.isSelected;
@@ -211,7 +232,7 @@
     NSIndexPath *indexPathSelected = [tableView indexPathForSelectedRow];
     if (indexPathSelected != nil)
         if (indexPath.row == indexPathSelected.row && indexPath.section == indexPathSelected.section) {
-            height += [OrderLineCell getExtraHeightForEditMode: [self orderLineAtIndexPath:indexPath ]];
+            height += [OrderLineCell getExtraHeightForEditMode: [self orderLineAtIndexPath:indexPath] width:320];
         }
     return height;
 }

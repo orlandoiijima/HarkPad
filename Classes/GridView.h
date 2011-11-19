@@ -63,6 +63,8 @@ typedef enum
 - (bool) gridView: (GridView *) gridView canDragCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;
 - (UIView *)gridView:(GridView *)gridView viewForSelectedCellLine: (GridViewCellLine *)cellLine;
+- (void)gridView:(GridView *)gridView willDisplayCellLine:(GridViewCellLine *)cell;
+
 @end
 
 @interface GridView : UIView <UIGestureRecognizerDelegate> {

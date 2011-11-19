@@ -12,7 +12,7 @@
 #import "InvoicesViewController.h"
 #import "TableCellUpdated.h"
 
-typedef enum OrderLineSortOrder {sortByOrder, sortByCategory} OrderLineSortOrder;
+typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} OrderLineSortOrder;
 
 @interface OrderDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>{
     NSMutableDictionary *groupedLines;
@@ -20,6 +20,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCategory} OrderLineSortOrder
     bool totalizeProducts;
     bool showFreeProducts;
     bool showProductProperties;
+    bool showPrice;
     Order *order;
     OrderLineSortOrder sortOrder;
 }
@@ -29,6 +30,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCategory} OrderLineSortOrder
 @property bool totalizeProducts;
 @property bool showFreeProducts;
 @property bool showProductProperties;
+@property bool showPrice;
 @property bool isEditable;
 @property (retain) id<TableCellUpdated> delegate;
 @property (retain) Order *order;
@@ -36,7 +38,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCategory} OrderLineSortOrder
 @property float rowHeight;
 @property OrderLineSortOrder sortOrder;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable;
++ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice;
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line;
 - (NSString *) keyForSection:(int)section;
@@ -44,7 +46,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCategory} OrderLineSortOrder
 - (NSMutableArray *) groupForSection:(int) section;
 - (OrderLine *) orderLineAtIndexPath: (NSIndexPath *)indexPath;
 - (void) tableView:(UITableView *)tableView addLine: (OrderLine *)line;
-- (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (NSMutableArray *)group ;
-
-- (void)removeOrderLine:(OrderLine *)line;
+- (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (NSMutableArray *)group;
+- (NSIndexPath *)indexPathForLine: (OrderLine *)line;
+- (void) tableView:(UITableView *)tableView removeOrderLine:(OrderLine *)line;
 @end

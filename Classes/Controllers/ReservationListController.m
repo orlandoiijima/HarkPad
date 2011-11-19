@@ -52,7 +52,7 @@
     NSMutableArray *reservations = serviceResult.data;
     if ([reservations count] == 0) {
         if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-            [self.delegate didSelectItem: [User userNull]];
+            [self.delegate didSelectItem: [Reservation null]];
         }
     }
     self.dataSource = [ReservationDataSource dataSource:nil includePlacedReservations:NO withReservations: reservations];

@@ -13,11 +13,11 @@
 
 @synthesize textLabel, middleLabel, bottomLabel, isSelected = _isSelected, isDropTarget, path, deleteButton;
 
-- (id)initWithTitle: (NSString *) title middleLabel: (NSString *)label2 bottomLabel: (NSString *)label3 path: (CellPath *)aPath {
+- (id)initWithTitle: (NSString *) title middleLabel: (NSString *)label2 bottomLabel: (NSString *)label3 backgroundColor: (UIColor *)backgroundColor path: (CellPath *)aPath {
     if ((self = [super init])) {
         self.path = [CellPath pathForColumn:aPath.column row:aPath.row line:aPath.line];
         // Initialization code
-        self.layer.cornerRadius = 10;
+        self.layer.cornerRadius = 3;
         // Drop shadow.
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOpacity = 1.0;
@@ -55,7 +55,7 @@
         self.bottomLabel.hidden = YES;
         [self addSubview: self.bottomLabel];
         
-        self.backgroundColor = [UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1];
+        self.backgroundColor = backgroundColor;
     }
     return self;
 }

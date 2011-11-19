@@ -57,6 +57,14 @@
     [self reloadData];
 }
 
+- (TreeNode *)nodeAtCellLine: (GridViewCellLine *)cellLine {
+    int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
+
+    if(offset < [_parentNode.nodes count])
+        return [_parentNode.nodes objectAtIndex:offset];
+    return nil;
+}
+
 - (void)gridView:(GridView *)gridView didTapCellLine:(GridViewCellLine *)cellLine
 {
     int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
@@ -120,20 +128,40 @@
     {
         TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
         if(node.product != nil)
-            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES] path:path];
+            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel: @"" bottomLabel: @"" backgroundColor: node.product.category.color path:path];
+//            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES] backgroundColor: node.product.category.color path:path];
         else
-            return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" path:path];
+            return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" backgroundColor:[UIColor blueColor] path:path];
     }
     if(offset == [_parentNode.nodes count])
-        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  path:path];
+        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
     if(offset == [_parentNode.nodes count] + 1)
-        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  path:path];
+        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
     return nil;
 }
 
 - (CGFloat)gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path {
-    return 30;
+    return 50;
 }
 
+- (void)gridView:(GridView *)gridView willDisplayCellLine:(GridViewCellLine *)cell {
+    if (cell == nil)
+        return;
+    if (cell.isSelected) {
+        cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.7];
+        cell.textLabel.textColor = [UIColor whiteColor];
+    }
+    else {
+        TreeNode *node = [self nodeAtCellLine:cell];
+        if (node != nil && node.product != nil) {
+            cell.backgroundColor = node.product.category.color;
+            cell.textLabel.textColor = [UIColor blackColor];
+        }
+        else {
+            cell.backgroundColor = [UIColor blueColor];
+            cell.textLabel.textColor = [UIColor whiteColor];
+        }
+    }
+}
 
 @end

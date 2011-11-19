@@ -139,14 +139,14 @@
     {
         TreeNode *node = [parentNode.nodes objectAtIndex:offset];
         if(node.product != nil)
-            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES] path:path];
+            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES]  backgroundColor:[UIColor redColor] path:path];
         else
-            return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" path:path];
+            return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor redColor] path:path];
     }
     if(offset == [parentNode.nodes count])
-        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  path:path];
+        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor redColor] path:path];
     if(offset == [parentNode.nodes count] + 1)
-        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  path:path];
+        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor redColor] path:path];
     return nil;
 }
 

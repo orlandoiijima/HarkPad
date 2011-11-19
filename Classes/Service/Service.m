@@ -31,7 +31,7 @@ static Service *_service;
             url = URL_DEV_EXT;
         else
             url = URL_PRODUCTION;
-	        url = URL_DEV;
+	        url = URL_DEV_EXT;
 	    }
     return self;
 }
@@ -640,6 +640,28 @@ static Service *_service;
     NSURL *testUrl = [self makeEndPoint:@"starttable" withQuery:[NSString stringWithFormat:@"tableId=%d&reservationId=%d", tableId, reservationId]];
     
 	[NSData dataWithContentsOfURL: testUrl];
+}
+
+- (void) getDeviceConfig: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getdeviceconfig"
+                withQuery:@""
+                 delegate:self
+                 callback:@selector(getDeviceConfigCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+- (void) getDeviceConfigCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *) connection

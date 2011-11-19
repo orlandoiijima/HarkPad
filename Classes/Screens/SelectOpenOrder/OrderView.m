@@ -21,7 +21,7 @@
     if (self) {
 
         if ([anOrder.lines count] > 0) {
-            self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 34) andOrder: anOrder delegate: delegate];
+            self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 38) andOrder: anOrder delegate: delegate];
             [self addSubview:self.label];
             self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.label.frame.size.height + 2, frame.size.width, frame.size.height - self.label.frame.size.height - 10) style:UITableViewStyleGrouped];
             self.tableView.backgroundColor = [UIColor clearColor];
@@ -44,6 +44,7 @@
             if (anOrder.id == byReservation)
                 infoLabel.text = NSLocalizedString(@"Klik om reservering te kiezen", nil);
             else
+            if (anOrder.id == byEmployee)
                 infoLabel.text = NSLocalizedString(@"Klik om personeelslid te kiezen", nil);
             infoLabel.textAlignment = UITextAlignmentCenter;
         }
@@ -54,7 +55,7 @@
 
 - (void)setOrder: (Order *)newOrder {
     _order = newOrder;
-    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO];
+    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO];
     self.tableView.dataSource = dataSource;
 }
 

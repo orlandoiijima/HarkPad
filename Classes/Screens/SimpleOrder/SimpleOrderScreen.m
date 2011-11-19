@@ -46,7 +46,9 @@
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor blackColor];
-    
+
+    self.title = NSLocalizedString(@"Nieuwe order", nil);
+
     float margin = 5;
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
     float columnHeight = self.view.bounds.size.height - 2*margin - 200;
@@ -56,11 +58,12 @@
     self.productView.menuDelegate = self;
     self.productView.leftHeaderWidth = 20;
     self.productView.topHeaderHeight = 20;
+    self.productView.cellPadding = CGSizeMake(3, 3);
     [self.productView setNeedsDisplay];
     self.productView.tapStyle = tapNothing;
 
     float x = 2*margin + self.productView.frame.size.width;
-    self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin, columnWidth, 80)];
+    self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin+20, columnWidth, 80)];
     [self.view addSubview:self.amountLabel];
     self.amountLabel.backgroundColor = [UIColor clearColor];
     self.amountLabel.textColor = [UIColor whiteColor];
@@ -69,9 +72,9 @@
 
     self.orderView = [[UITableView alloc] initWithFrame:CGRectMake(
             x,
-            self.amountLabel.frame.origin.y + self.amountLabel.frame.size.height,
+            self.amountLabel.frame.origin.y + self.amountLabel.frame.size.height + 20,
             columnWidth,
-            columnHeight - 2*self.amountLabel.frame.size.height) style:UITableViewStyleGrouped];
+            columnHeight - 2*self.amountLabel.frame.size.height - 20) style:UITableViewStyleGrouped];
     self.orderView.backgroundView = nil;
     [self.view addSubview:self.orderView];
 
@@ -82,7 +85,7 @@
             100)];
     [self.view addSubview:self.cashButton];
     [self.cashButton setTitle: NSLocalizedString(@"Contant", nil) forState:UIControlStateNormal];
-    self.cashButton.titleLabel.font = [UIFont boldSystemFontOfSize:80];
+    self.cashButton.titleLabel.font = [UIFont boldSystemFontOfSize:50];
     [self.cashButton addTarget:self action:@selector(cashOrder) forControlEvents:UIControlEventTouchDown];
 
     self.orderButton = [[CrystalButton alloc] initWithFrame:
@@ -94,6 +97,8 @@
     [self.view addSubview:self.orderButton];
     [self.orderButton setTitle: NSLocalizedString(@"Op rekening", nil) forState:UIControlStateNormal];
     [self.orderButton addTarget:self action:@selector(selectOrder) forControlEvents:UIControlEventTouchDown];
+
+    [self.productView reloadData];
 
     [self prepareForNewOrder];
 }
@@ -138,8 +143,9 @@
 
 - (void) prepareForNewOrder {
     _order = [[Order alloc] init];
-    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES];
+    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES showPrice:YES];
     self.dataSource.delegate = self;
+    self.dataSource.sortOrder = sortByCreatedOn;
     self.orderView.dataSource = self.dataSource;
     self.orderView.delegate = self.dataSource;
     [self.orderView reloadData];
@@ -157,7 +163,7 @@
     OrderLineCell *orderLineCell = (OrderLineCell *)cell;
     if (orderLineCell != nil) {
         if (orderLineCell.orderLine.quantity == 0) {
-            [self.dataSource removeOrderLine: orderLineCell.orderLine];
+            [self.dataSource tableView: self.orderView removeOrderLine: orderLineCell.orderLine];
         }
     }
     [self onOrderUpdated];

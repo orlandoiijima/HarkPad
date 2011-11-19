@@ -23,9 +23,11 @@
 
 @property bool showProductProperties;
 @property BOOL isInEditMode;
+@property BOOL isEditable;
+@property BOOL showPrice;
 @property int heightInEditMode;
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable delegate: (id) delegate rowHeight: (float)rowHeight;
-+ (float) getExtraHeightForEditMode: (OrderLine *)line;
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight;
++ (float) getExtraHeightForEditMode: (OrderLine *)line width: (float)width;
 
 @end

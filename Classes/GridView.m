@@ -123,6 +123,9 @@
 {
     cellLine.isSelected = isSelected;
 
+    if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
+        [self.delegate gridView:self willDisplayCellLine: cellLine];
+
     switch(tapStyle)
     {
         case tapNothing:
@@ -313,8 +316,11 @@
                     float height = [_dataSource gridView:self heightForLineAtPath:path];
                     cellLine.frame = CGRectMake(lineLeft, lineTop, columnWidth - 2 * (cellPadding.width), height);
                     cellHeight += height;
-                    if(cellLine != nil)
+                    if(cellLine != nil) {
                         [contentView addSubview:cellLine];
+                        if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
+                            [self.delegate gridView:self willDisplayCellLine: cellLine];
+                    }
                     lineTop += height;
                 }
             

@@ -448,12 +448,17 @@
 {
     if(order == nil)
         return;
-    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];	
-    paymentVC.order = order;
-    paymentVC.delegate = self;
-    paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
-    [self presentModalViewController: paymentVC animated:YES];
-}	
+//    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
+//    paymentVC.order = order;
+//    paymentVC.delegate = self;
+//    paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//    [self presentModalViewController: paymentVC animated:YES];
+
+    PaymentViewController *paymentController = [[PaymentViewController alloc] init];
+    paymentController.order = order;
+    paymentController.delegate = self;
+    [self.navigationController pushViewController:paymentController animated:YES];
+}
 
 - (void)gotoOrderViewWithOrder: (Order *)order
 {
@@ -462,10 +467,11 @@
     isRefreshTimerDisabled = true;
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
-    newOrderVC.tableMapViewController = self;
+//    newOrderVC.tableMapViewController = self;
 
     newOrderVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
-    [self presentModalViewController:newOrderVC animated:YES];
+//    [self presentModalViewController:newOrderVC animated:YES];
+    [self.navigationController pushViewController: newOrderVC animated:YES];
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
@@ -527,9 +533,10 @@
         return;
     BillViewController *billVC = [[BillViewController alloc] init];	
     billVC.order = order;
-    billVC.tableMapViewController = self;
-    billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
-    [self presentModalViewController: billVC animated:YES];
+//    billVC.tableMapViewController = self;
+//    billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+//    [self presentModalViewController: billVC animated:YES];
+    [self.navigationController pushViewController: billVC animated:YES];
 }
 
 // Override to allow orientations other than the default portrait orientation.

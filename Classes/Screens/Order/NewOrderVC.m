@@ -20,7 +20,7 @@
 
 @implementation NewOrderVC
 
-@synthesize splitter, menuViewController, productPanelView, orderGridView, tableLabel, tableMapViewController;
+@synthesize splitter, menuViewController, productPanelView, orderGridView, tableLabel;
 @synthesize order, dragType, orientation, dragStart;
 @synthesize saveButton, existingButton, orientationSegment, filterSegment, panelSegment;
 @synthesize currentNode, rootNode, dragNode, dragOffset, showType, showExisting;
@@ -575,12 +575,14 @@
 - (void) saveAction
 {
     [[Service getInstance] updateOrder:order]; 
-    [tableMapViewController closeOrderView];
+//    [tableMapViewController closeOrderView];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) cancelAction
 {
-    [tableMapViewController closeOrderView];
+//    [tableMapViewController closeOrderView];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void) existingAction

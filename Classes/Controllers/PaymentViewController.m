@@ -8,6 +8,7 @@
 
 #import "PaymentViewController.h"
 #import "Service.h"
+#import "Utils.h"
 
 @implementation PaymentViewController
 
@@ -29,7 +30,7 @@
     {
         order = newOrder;
         
-        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO];
+        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES];
     }
 }
 
@@ -72,7 +73,7 @@
     tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
-    amountLabel.text = [NSString stringWithFormat:@"€ %0.2f", [[order getAmount] doubleValue]];
+    amountLabel.text = [Utils getAmountString:[order getAmount] withCurrency:YES];
     nameLabel.text = order.reservation == nil ? @"" : order.reservation.name;
 }
 

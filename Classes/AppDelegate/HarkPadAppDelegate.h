@@ -18,7 +18,9 @@
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-
 @property (nonatomic, retain) IBOutlet UITabBarController *viewController;
+
+- (void) getConfig;
+- (void) setupBarControllerCallback: (ServiceResult *)result;
 
 @end

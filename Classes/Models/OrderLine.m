@@ -100,6 +100,7 @@
     if ((self = [super init])) {
         self.quantity = 1;
         propertyValues = [[NSMutableArray alloc] init];
+        self.createdOn = [NSDate date];
 //        entityState = New;
     }
     return self;
@@ -160,6 +161,19 @@
     propertyValue.value = value;
     
     return;
+}
+
+- (id)copyWithZone: (NSZone *)zone {
+    OrderLine *line = [[OrderLine alloc] init];
+    line.product = self.product;
+    line.course = self.course;
+    line.guest = self.guest;
+    line.quantity = self.quantity;
+    line.state = self.state;
+    line.createdOn = self.createdOn;
+    line.entityState = self.entityState;
+    line.id = self.id;
+    return line;
 }
 
 @end

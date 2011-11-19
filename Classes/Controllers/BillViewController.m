@@ -12,7 +12,7 @@
 
 @implementation BillViewController
 
-@synthesize orderTable, goButton, printerSegment, amountLabel, tableLabel, order,dataSource, groupingSegment, tableMapViewController, nameLabel, backButton;
+@synthesize orderTable, goButton, printerSegment, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel, backButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,7 +30,7 @@
     {
         order = newOrder;
         
-        self.dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO];
+        self.dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES];
     }
 }
 
@@ -38,12 +38,14 @@
 {
     NSString *printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
     [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]]; 
-    [tableMapViewController closeOrderView];
+//    [tableMapViewController closeOrderView];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) goBack
 {
-    [tableMapViewController closeOrderView];    
+//    [tableMapViewController closeOrderView];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) changeGrouping

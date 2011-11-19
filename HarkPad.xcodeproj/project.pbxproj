@@ -775,14 +775,10 @@
 				E561E25C13348E8900229B76 /* BillViewController.h */,
 				E561E25D13348E8A00229B76 /* BillViewController.m */,
 				E561E25E13348E8C00229B76 /* BillViewController.xib */,
-				E50A384912E234B8007C2101 /* Order */,
 				E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */,
 				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
 				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
 				E50A386012E234B8007C2101 /* Tables */,
-				E5E722EE13118B3800905959 /* ChefViewController.h */,
-				E5E722EF13118B3900905959 /* ChefViewController.m */,
-				E5E722F013118B3D00905959 /* ChefViewController.xib */,
 				E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */,
 				E5AC3D7013224CDC0090F743 /* PaymentViewController.m */,
 				E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */,
@@ -792,21 +788,6 @@
 				E5B7F677134704D10024AB35 /* ReservationViewController.h */,
 				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
 				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
-				E5F6099613487F6000D88587 /* LogViewController.h */,
-				E5F6099713487F6000D88587 /* LogViewController.m */,
-				E5F6099813487F6100D88587 /* LogViewController.xib */,
-				E5F4638D134CE5E40052CDDC /* BacklogViewController.h */,
-				E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */,
-				E5F4638F134CE6120052CDDC /* BacklogViewController.xib */,
-				E5E42F011350CA93005397C0 /* SalesViewController.h */,
-				E5E42F021350CA94005397C0 /* SalesViewController.m */,
-				E5E42F031350CA95005397C0 /* SalesViewController.xib */,
-				E5DB4CA5135F4080005ADD06 /* WorkInProgressViewController.h */,
-				E5DB4CA6135F4080005ADD06 /* WorkInProgressViewController.m */,
-				E5DB4CA7135F4081005ADD06 /* WorkInProgressViewController.xib */,
-				E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */,
-				E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */,
-				E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */,
 				E5E2D7A61386A5F300745EFE /* InvoicesViewController.h */,
 				E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */,
 				E5E2D7A91386B2EA00745EFE /* OrderLinesViewController.h */,
@@ -814,8 +795,6 @@
 				E5AC71511388E54500DB450E /* TablesViewController.h */,
 				E5AC71521388E54600DB450E /* TablesViewController.m */,
 				E5AC71551389146400DB450E /* TablesViewController.xib */,
-				E5F00512139A124E00B2ED57 /* DashboardViewController.h */,
-				E5F00513139A124E00B2ED57 /* DashboardViewController.m */,
 				E5F055DF13A632B900720DB5 /* ProductListViewController.h */,
 				E5F055E013A632BB00720DB5 /* ProductListViewController.m */,
 				E5F055E213A6454100720DB5 /* ProductMaintenanceViewController.h */,
@@ -838,9 +817,6 @@
 		E50A386012E234B8007C2101 /* Tables */ = {
 			isa = PBXGroup;
 			children = (
-				E50A386112E234B8007C2101 /* TableMapViewController.h */,
-				E50A386212E234B8007C2101 /* TableMapViewController.m */,
-				E50A386312E234B8007C2101 /* TableMapViewController.xib */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -1331,8 +1307,17 @@
 		E5F609A313489C2400D8858F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				E50A384912E234B8007C2101 /* Order */,
 				E5F609A313489C2400D88590 /* SimpleOrder */,
 				E5F609A313489C2400D88596 /* SelectOpenOrder */,
+				E5F609A313489C2400D885B0 /* Chef */,
+				E5F609A313489C2400D885B1 /* Inprogress */,
+				E5F609A313489C2400D885B2 /* Reservations */,
+				E5F609A313489C2400D885B3 /* Sales */,
+				E5F609A313489C2400D885B4 /* Log */,
+				E5F609A313489C2400D885B5 /* Dashboard */,
+				E5F609A313489C2400D885B6 /* Backlog */,
+				E5F609A313489C2400D885B7 /* Tables */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1356,6 +1341,85 @@
 				E5F609A313489C2400D88597 /* SelectOpenOrder.h */,
 			);
 			path = SelectOpenOrder;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B0 /* Chef */ = {
+			isa = PBXGroup;
+			children = (
+				E5E722F013118B3D00905959 /* ChefViewController.xib */,
+				E5E722EF13118B3900905959 /* ChefViewController.m */,
+				E5E722EE13118B3800905959 /* ChefViewController.h */,
+			);
+			path = Chef;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B1 /* Inprogress */ = {
+			isa = PBXGroup;
+			children = (
+				E5DB4CA7135F4081005ADD06 /* WorkInProgressViewController.xib */,
+				E5DB4CA6135F4080005ADD06 /* WorkInProgressViewController.m */,
+				E5DB4CA5135F4080005ADD06 /* WorkInProgressViewController.h */,
+			);
+			path = Inprogress;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B2 /* Reservations */ = {
+			isa = PBXGroup;
+			children = (
+				E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */,
+				E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */,
+				E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */,
+			);
+			path = Reservations;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B3 /* Sales */ = {
+			isa = PBXGroup;
+			children = (
+				E5E42F031350CA95005397C0 /* SalesViewController.xib */,
+				E5E42F021350CA94005397C0 /* SalesViewController.m */,
+				E5E42F011350CA93005397C0 /* SalesViewController.h */,
+			);
+			path = Sales;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B4 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				E5F6099813487F6100D88587 /* LogViewController.xib */,
+				E5F6099713487F6000D88587 /* LogViewController.m */,
+				E5F6099613487F6000D88587 /* LogViewController.h */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B5 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				E5F00513139A124E00B2ED57 /* DashboardViewController.m */,
+				E5F00512139A124E00B2ED57 /* DashboardViewController.h */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B6 /* Backlog */ = {
+			isa = PBXGroup;
+			children = (
+				E5F4638F134CE6120052CDDC /* BacklogViewController.xib */,
+				E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */,
+				E5F4638D134CE5E40052CDDC /* BacklogViewController.h */,
+			);
+			path = Backlog;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D885B7 /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				E50A386312E234B8007C2101 /* TableMapViewController.xib */,
+				E50A386212E234B8007C2101 /* TableMapViewController.m */,
+				E50A386112E234B8007C2101 /* TableMapViewController.h */,
+			);
+			path = Tables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

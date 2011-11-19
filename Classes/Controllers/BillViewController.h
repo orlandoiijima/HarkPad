@@ -32,7 +32,6 @@
 @property (retain) IBOutlet UILabel *amountLabel; 
 @property (retain) IBOutlet UIBarButtonItem *backButton; 
 @property (retain) IBOutlet UISegmentedControl *groupingSegment; 
-@property (retain) TableMapViewController *tableMapViewController;
 
 @property (retain) OrderDataSource *dataSource;
 
