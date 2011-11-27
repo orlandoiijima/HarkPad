@@ -89,7 +89,6 @@
             [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
         [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         [tableView endUpdates];
-//        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
 }
 
@@ -120,7 +119,15 @@
     NSMutableArray *group = [self groupForSection:indexPath.section];
     if (group == nil) return;
     [group removeObject:line];
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    if ([group count] == 0) {
+        NSString *key = [self groupingKeyForLine:line];
+        [groupedLines removeObjectForKey: key];
+    }
+    [order removeOrderLine:line];
+    if ([group count] == 0)
+        [tableView deleteSections:[NSIndexSet indexSetWithIndex: indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
+    else
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line {

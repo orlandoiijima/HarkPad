@@ -33,7 +33,6 @@
 - (IBAction) refreshView;
 - (IBAction)gotoDistrict;
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
-- (void) setupDistrictPicker;
 - (void) newOrderForTable: (Table *) table;
 - (void) editOrder: (Order *) order;
 - (void) startNextCourse: (Order *)order;
@@ -50,6 +49,7 @@
 - (TableButton *) buttonForOrder: (int)orderId;
 - (void) showActivityIndicator;
 - (void)hideActivityIndicator;
+- (void) setupToolbar;
 
 @property (retain) IBOutlet UISegmentedControl *districtPicker;
 @property (retain) IBOutlet UIScrollView *tableMapView;

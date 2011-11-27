@@ -1,4 +1,4 @@
-                            //
+//
 //  ScrollTableViewController.m
 //  HarkPad
 //
@@ -237,7 +237,7 @@
     ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
     if(serviceResult.id != -1) {
         reservation.id = serviceResult.id;
-        [[iToast makeText:@"Reservation stored"] show];
+        [[iToast makeText:NSLocalizedString(@"Reservation stored", @"Reservation stored")] show];
     }
     else {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -388,16 +388,16 @@
     [dayView1 hideHeader];
     [dayView2 hideHeader];
     saveDate = dayView1.date;
-    searchHeader.text = [NSString stringWithFormat:@"%@%@", NSLocalizedString(@"Zoeken naar ''", nil), query];
+    searchHeader.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Searching for", nil), query];
     [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
 }
 
 - (void) searchReservationsCallback: (NSMutableArray *)reservations
 {
     if(reservations == nil || [reservations count] == 0)
-        searchHeader.text = NSLocalizedString(@"Geen reserveringen gevonden", nil);
+        searchHeader.text = NSLocalizedString(@"No reservations found", nil);
     else
-        searchHeader.text = NSLocalizedString(@"Gevonden reserveringen:", nil);
+        searchHeader.text = NSLocalizedString(@"Reservations found:", nil);
 
     ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
     if(self.currentDayView != nil) {

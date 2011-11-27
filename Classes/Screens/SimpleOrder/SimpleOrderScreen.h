@@ -18,8 +18,11 @@
 @property (retain) UITableView *orderView;
 @property (retain) UIButton *cashButton;
 @property (retain) UIButton *orderButton;
+@property (retain) UIButton *printInvoiceButton;
 @property (retain) UILabel *amountLabel;
+@property (retain) UILabel *infoLabel;
 @property (retain) Order *order;
+@property (retain) Order *previousOrder;
 @property (retain) UIPopoverController *popoverController;
 @property (retain) OrderDataSource *dataSource;
 
@@ -28,6 +31,8 @@
 
 - (void) onOrderUpdated;
 - (void) prepareForNewOrder;
+- (void) setupStartScreen;
+- (void) setupScreenForNewOrder;
 
 @end
 

@@ -84,7 +84,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    table.backgroundView = nil;
     
     [NSTimer scheduledTimerWithTimeInterval:15.0f
                                      target:self

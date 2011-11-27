@@ -36,8 +36,8 @@
 @property (retain) OrderDataSource *dataSource;
 
 - (IBAction) goPrint;
-- (IBAction) goBack;
 
 - (IBAction) changeGrouping;
+- (void) setupToolbar;
 
 @end

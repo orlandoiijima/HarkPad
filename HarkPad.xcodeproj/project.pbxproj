@@ -17,6 +17,7 @@
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
 		E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729013A916DD0037C033 /* GridViewHeaderCell.m */; };
 		E513729413A918E20037C033 /* CellPath.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729313A918E20037C033 /* CellPath.m */; };
+		E52774251482CE5600DEBF8F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E52774231482CE5500DEBF8F /* Localizable.strings */; };
 		E5286C5B13925681004B1139 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5286C5A13925680004B1139 /* group.png */; };
 		E531E57C140FFB9B00BB6E11 /* CrystalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E531E57B140FFB9B00BB6E11 /* CrystalButton.m */; };
 		E531E57F140FFBC900BB6E11 /* UIColor-Expanded.m in Sources */ = {isa = PBXBuildFile; fileRef = E531E57E140FFBC900BB6E11 /* UIColor-Expanded.m */; };
@@ -100,6 +101,10 @@
 		E57BB9131452ADC30003049E /* MaintenanceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90D1452ADC30003049E /* MaintenanceListViewController.m */; };
 		E57BB9141452ADC30003049E /* MaintenanceSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90F1452ADC30003049E /* MaintenanceSplitViewController.m */; };
 		E57BB9151452ADC30003049E /* ProductMaintenance.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB9111452ADC30003049E /* ProductMaintenance.m */; };
+		E5A7FE4A1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE431482CF610064CAB5 /* InfoPlist.strings */; };
+		E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE441482CF610064CAB5 /* InfoPlist.strings */; };
+		E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE461482CF610064CAB5 /* Localizable.strings */; };
+		E5A7FE4D1482CF610064CAB5 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE481482CF610064CAB5 /* MainWindow.xib */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* OrderDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* OrderDataSource.m */; };
@@ -348,6 +353,7 @@
 		E513729013A916DD0037C033 /* GridViewHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewHeaderCell.m; sourceTree = "<group>"; };
 		E513729213A918E20037C033 /* CellPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellPath.h; sourceTree = "<group>"; };
 		E513729313A918E20037C033 /* CellPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellPath.m; sourceTree = "<group>"; };
+		E52774241482CE5500DEBF8F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Localizable.strings; sourceTree = "<group>"; };
 		E5286C5A13925680004B1139 /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		E531E57A140FFB9B00BB6E11 /* CrystalButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrystalButton.h; sourceTree = "<group>"; };
 		E531E57B140FFB9B00BB6E11 /* CrystalButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrystalButton.m; sourceTree = "<group>"; };
@@ -513,6 +519,10 @@
 		E57BB90F1452ADC30003049E /* MaintenanceSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintenanceSplitViewController.m; sourceTree = "<group>"; };
 		E57BB9101452ADC30003049E /* ProductMaintenance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductMaintenance.h; sourceTree = "<group>"; };
 		E57BB9111452ADC30003049E /* ProductMaintenance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductMaintenance.m; sourceTree = "<group>"; };
+		E5A7FE431482CF610064CAB5 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		E5A7FE451482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
+		E5A7FE471482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		E5A7FE491482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -659,6 +669,7 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E5A7FE411482CF610064CAB5 /* en.lproj */,
 				E55DFCEE139FDA5C00EB7C69 /* MessageUI.framework */,
 				E5AC715D138950E400DB450E /* Default@2x.png */,
 				E5AC715B138950D600DB450E /* Default.png */,
@@ -689,6 +700,7 @@
 		E50A37FA12E21164007C2101 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E52774221482CE5500DEBF8F /* nl.lproj */,
 				E50A380912E21164007C2101 /* HarkPad-Info.plist */,
 				E50A380B12E21164007C2101 /* InfoPlist.strings */,
 				E50A381312E21164007C2101 /* MainWindow.xib */,
@@ -1023,6 +1035,14 @@
 			name = GridView;
 			sourceTree = "<group>";
 		};
+		E52774221482CE5500DEBF8F /* nl.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				E52774231482CE5500DEBF8F /* Localizable.strings */,
+			);
+			path = nl.lproj;
+			sourceTree = "<group>";
+		};
 		E531E578140FFB7300BB6E11 /* CrystalButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1292,6 +1312,25 @@
 			path = Maintenance;
 			sourceTree = "<group>";
 		};
+		E5A7FE411482CF610064CAB5 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7FE421482CF610064CAB5 /* HarkPadTests */,
+				E5A7FE441482CF610064CAB5 /* InfoPlist.strings */,
+				E5A7FE461482CF610064CAB5 /* Localizable.strings */,
+				E5A7FE481482CF610064CAB5 /* MainWindow.xib */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		E5A7FE421482CF610064CAB5 /* HarkPadTests */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7FE431482CF610064CAB5 /* InfoPlist.strings */,
+			);
+			path = HarkPadTests;
+			sourceTree = "<group>";
+		};
 		E5F055AC13A4D09400720DB5 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1457,6 +1496,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				du,
+				nl,
 			);
 			mainGroup = E50A37F112E21163007C2101;
 			productRefGroup = E50A380112E21164007C2101 /* Products */;
@@ -1538,6 +1579,11 @@
 				E50E7E6A13FECD8E007EDB13 /* imgOff.png in Resources */,
 				E50E7E6B13FECD8E007EDB13 /* imgOn.png in Resources */,
 				E5F609A313489C2400D8859B /* SelectOpenOrder.xib in Resources */,
+				E52774251482CE5600DEBF8F /* Localizable.strings in Resources */,
+				E5A7FE4A1482CF610064CAB5 /* InfoPlist.strings in Resources */,
+				E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */,
+				E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */,
+				E5A7FE4D1482CF610064CAB5 /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1724,6 +1770,38 @@
 			isa = PBXVariantGroup;
 			children = (
 				E50A381412E21164007C2101 /* MainWindow.xib */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		E52774231482CE5500DEBF8F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E52774241482CE5500DEBF8F /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E5A7FE441482CF610064CAB5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5A7FE451482CF610064CAB5 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E5A7FE461482CF610064CAB5 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5A7FE471482CF610064CAB5 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E5A7FE481482CF610064CAB5 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E5A7FE491482CF610064CAB5 /* en */,
 			);
 			name = MainWindow.xib;
 			sourceTree = "<group>";

@@ -30,6 +30,10 @@ static iToastSettings *sharedSettings = nil;
 }
 
 - (void) show{
+    [self showWithActivityIndicator:NO];
+}
+
+- (void) showWithActivityIndicator: (bool) withActivity {
     
     iToastSettings *theSettings = _settings;
     
@@ -57,6 +61,14 @@ static iToastSettings *sharedSettings = nil;
     v.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     v.layer.cornerRadius = 5;
     
+    if (withActivity) {
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
+        [v addSubview:activityIndicatorView];
+        v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height + activityIndicatorView.frame.size.height);
+        label.frame = CGRectOffset(label.frame, 0, activityIndicatorView.frame.size.height);
+        [activityIndicatorView startAnimating];
+    }
+    
     UIWindow *window = [[[UIApplication sharedApplication] windows] objectAtIndex:0];
     
     CGPoint point = CGPointMake(window.frame.size.width/2, window.frame.size.height/2);
@@ -74,11 +86,13 @@ static iToastSettings *sharedSettings = nil;
     point = CGPointMake(point.x + offsetLeft, point.y + offsetTop);
     v.center = point;
     
-    NSTimer *timer1 = [NSTimer timerWithTimeInterval:((float)theSettings.duration)/1000 
-                                              target:self selector:@selector(hideToast:) 
-                                            userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:timer1 forMode:NSDefaultRunLoopMode];
-    
+    if (withActivity == false) {
+        NSTimer *timer1 = [NSTimer timerWithTimeInterval:((float)theSettings.duration)/1000
+                                                  target:self selector:@selector(hideToast:)
+                                                userInfo:nil repeats:NO];
+        [[NSRunLoop mainRunLoop] addTimer:timer1 forMode:NSDefaultRunLoopMode];
+    }
+
     [window addSubview:v];
     
     view = v;

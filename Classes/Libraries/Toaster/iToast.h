@@ -43,6 +43,7 @@ typedef enum iToastType {
 }
 
 - (void) show;
+- (void) showWithActivityIndicator: (bool) withActivity;
 
 - (iToast *) setDuration:(NSInteger ) duration;
 - (iToast *) setGravity:(iToastGravity) gravity 

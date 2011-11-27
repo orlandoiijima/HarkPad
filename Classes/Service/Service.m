@@ -439,6 +439,13 @@ static Service *_service;
     return;
 }
 
+- (ServiceResult *) printInvoice: (int)orderId
+{
+    NSURL *testUrl = [self makeEndPoint:@"printinvoice" withQuery:[NSString stringWithFormat:@"orderId=%d", orderId]];
+	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+	return [ServiceResult resultFromData:data error:nil];
+}
+
 - (NSMutableArray *) getSalesStatistics: (NSDate *)date
 {
     int dateSeconds = (int) [date timeIntervalSince1970];    
@@ -558,7 +565,21 @@ static Service *_service;
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderInfo error:&error];
 
-    [self postPageCallback: @"quickOrder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation retainArguments];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self postPageCallback:@"quickorder" key:@"order" value: jsonString delegate: self callback:@selector(simpleCallback:finishedWithData:error:) userData:invocation];
+}
+
+- (void) simpleCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
 }
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback
@@ -651,17 +672,8 @@ static Service *_service;
     [self getPageCallback:@"getdeviceconfig"
                 withQuery:@""
                  delegate:self
-                 callback:@selector(getDeviceConfigCallback:finishedWithData:error:)
+                 callback:@selector(simpleCallback:finishedWithData:error:)
                  userData:invocation];
-}
-
-- (void) getDeviceConfigCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
 }
 
 - (void) connectionDidFinishLoading: (NSURLConnection *) connection

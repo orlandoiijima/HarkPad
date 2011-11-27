@@ -39,8 +39,11 @@
 
     if(order != nil)
     {
-        tableLabel.title = [NSString stringWithFormat: @"Tafel %@", order.table.name];
+        tableLabel.title = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"Table", nil), order.table.name];
+        self.title = tableLabel.title;
     }
+
+    [self setupToolbar];
     
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     panGesture.delegate = self;
@@ -68,6 +71,46 @@
     }
     [splitter setupWithView: productPanelView secondView: orderGridView controller: self position:300 width: 30];
     [orderGridView redraw]; 
+}
+
+- (void) setupToolbar {
+    existingButton = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 100, 33)];
+    existingButton.segmentedControlStyle = UISegmentedControlStyleBar;
+    [existingButton insertSegmentWithTitle:NSLocalizedString(@"New", nil) atIndex:0 animated:NO];
+    [existingButton insertSegmentWithTitle:NSLocalizedString(@"All", nil) atIndex:1 animated:NO];
+    existingButton.selectedSegmentIndex = 1;
+    [existingButton addTarget:self action:@selector(existingAction) forControlEvents:UIControlEventValueChanged];
+
+    filterSegment = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 100, 33)];
+    filterSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    [filterSegment insertSegmentWithImage:[UIImage imageNamed:@"wine-bottle.png"] atIndex:0 animated:NO];
+    [filterSegment insertSegmentWithImage:[UIImage imageNamed:@"fork-and-knife.png"] atIndex:1 animated:NO];
+    [filterSegment insertSegmentWithImage:[UIImage imageNamed:@"food.png"] atIndex:2 animated:NO];
+    filterSegment.selectedSegmentIndex = 2;
+    [filterSegment addTarget:self action:@selector(filterAction) forControlEvents:UIControlEventValueChanged];
+
+    panelSegment = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 100, 33)];
+    panelSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    [panelSegment insertSegmentWithTitle:@"O" atIndex:0 animated:NO];
+    [panelSegment insertSegmentWithTitle:@"PO" atIndex:0 animated:NO];
+    panelSegment.selectedSegmentIndex = 1;
+    [panelSegment addTarget:self action:@selector(panelAction) forControlEvents:UIControlEventValueChanged];
+    
+    orientationSegment = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 100, 33)];
+    orientationSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    [orientationSegment insertSegmentWithImage:[UIImage imageNamed:@"fork-and-knife.png"] atIndex:0 animated:NO];
+    [orientationSegment insertSegmentWithImage:[UIImage imageNamed:@"group.png"] atIndex:1 animated:NO];
+    orientationSegment.selectedSegmentIndex = 0;
+    [orientationSegment addTarget:self action:@selector(orientationAction) forControlEvents:UIControlEventValueChanged];
+
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
+            [[UIBarButtonItem alloc] initWithCustomView: existingButton],
+            [[UIBarButtonItem alloc] initWithCustomView: filterSegment],
+            [[UIBarButtonItem alloc] initWithCustomView: panelSegment],
+            [[UIBarButtonItem alloc] initWithCustomView: orientationSegment]
+            , nil];
+
+    self.navigationItem.leftItemsSupplementBackButton = YES;
 }
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -306,7 +349,7 @@
     {
         if(dragNode.orderLine != nil)
         {
-            NSUInteger answer = [ModalAlert confirm: @"Wil je de regel verwijderen ?"];
+            NSUInteger answer = [ModalAlert confirm:NSLocalizedString(@"Are you sure you want to remove the line ?", nil)];
             if(answer == 1)
                 dragNode.orderLine.entityState = Deleted;
             [dragNode removeFromSuperview];

@@ -25,8 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self setupDistrictPicker];
-    	
+    [self setupToolbar];
+
     [NSTimer scheduledTimerWithTimeInterval:10.0f
                                      target:self
                                    selector:@selector(refreshView)
@@ -387,17 +387,25 @@
     [self hideActivityIndicator];
 }
 
-- (void) setupDistrictPicker
-{
-    [districtPicker removeAllSegments];
+- (void) setupToolbar {
+    districtPicker = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 200, 33)];
+    [districtPicker addTarget:self action:@selector(gotoDistrict) forControlEvents:UIControlEventValueChanged];
+    districtPicker.segmentedControlStyle = UISegmentedControlStyleBar;
     Map *map = [[Cache getInstance] map];
     for(District *district in map.districts)
     {
         [districtPicker insertSegmentWithTitle:district.name atIndex:districtPicker.numberOfSegments animated:YES];
     }
     districtPicker.selectedSegmentIndex = 0;
-}
 
+    UIBarButtonItem * refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshView)];
+
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
+            [[UIBarButtonItem alloc] initWithCustomView: districtPicker],
+            refreshButton,
+            nil];
+    }
+    
 - (void) clickTable: (UIControl *) sender
 {
     TableButton *tableButton = (TableButton *)sender;
@@ -448,11 +456,6 @@
 {
     if(order == nil)
         return;
-//    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
-//    paymentVC.order = order;
-//    paymentVC.delegate = self;
-//    paymentVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//    [self presentModalViewController: paymentVC animated:YES];
 
     PaymentViewController *paymentController = [[PaymentViewController alloc] init];
     paymentController.order = order;
@@ -467,10 +470,6 @@
     isRefreshTimerDisabled = true;
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
-//    newOrderVC.tableMapViewController = self;
-
-    newOrderVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
-//    [self presentModalViewController:newOrderVC animated:YES];
     [self.navigationController pushViewController: newOrderVC animated:YES];
 }
 

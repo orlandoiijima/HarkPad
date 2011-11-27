@@ -31,13 +31,19 @@
             self.tableView.delegate = self;
         }
         else {
-            UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 20, 10)];
+            UILabel *infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(20, self.bounds.size.height/2, self.bounds.size.width - 40, 40)];
             infoLabel.backgroundColor = [UIColor clearColor];
             infoLabel.textColor = [UIColor grayColor];
             infoLabel.numberOfLines = 0;
             infoLabel.lineBreakMode = UILineBreakModeWordWrap;
             [self addSubview:infoLabel];
             if (anOrder.id == byNothing) {
+                UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x, infoLabel.frame.origin.y - 25, infoLabel.frame.size.width, 25)];
+                [nameField addTarget:self action:@selector(updateOrderName:) forControlEvents:UIControlEventEditingChanged];
+                [self addSubview:nameField];
+                nameField.placeholder = @"Naam";
+                nameField.backgroundColor = [UIColor whiteColor];
+                nameField.borderStyle = UITextBorderStyleBezel;
                 infoLabel.text = NSLocalizedString(@"Nieuwe rekening", nil);
             }
             else
@@ -57,6 +63,12 @@
     _order = newOrder;
     dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO];
     self.tableView.dataSource = dataSource;
+}
+
+- (void)updateOrderName: (id)sender
+{
+    UITextField *nameField = (UITextField *)sender;
+    _order.name = nameField.text;
 }
 
 - (void)setIsSelected: (bool)selected {

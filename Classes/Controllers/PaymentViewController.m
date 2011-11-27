@@ -12,7 +12,7 @@
 
 @implementation PaymentViewController
 
-@synthesize orderTable, delegate, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel, backButton;
+@synthesize orderTable, delegate, goButton, paymentType, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,6 +34,21 @@
     }
 }
 
+- (void) setupToolbar {
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+    groupingSegment = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 200, 33)];
+    groupingSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Seat", nil) atIndex:0 animated:NO];
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Course", nil) atIndex:1 animated:NO];
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Category", nil) atIndex:2 animated:NO];
+    groupingSegment.selectedSegmentIndex = 2;
+    [groupingSegment addTarget:self action:@selector(changeGrouping) forControlEvents:UIControlEventValueChanged];
+
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
+            [[UIBarButtonItem alloc] initWithCustomView: groupingSegment],
+            nil];
+}
+
 - (IBAction) goPay
 {
     int type = paymentType.selectedSegmentIndex + 1;
@@ -42,18 +57,11 @@
         [self.delegate didProcessPaymentType:type forOrder:order];
 }
 
-- (IBAction) goBack
-{
-    if([self.delegate respondsToSelector:@selector(didProcessPaymentType:forOrder:)])
-        [self.delegate didProcessPaymentType:0 forOrder:order];
-}
-
 - (IBAction) changeGrouping
 {
     dataSource.grouping = groupingSegment.selectedSegmentIndex;
     [orderTable reloadData];
 }
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -68,13 +76,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    [self setupToolbar];
+    self.title = NSLocalizedString(@"Payment", nil);
     
     tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
     amountLabel.text = [Utils getAmountString:[order getAmount] withCurrency:YES];
-    nameLabel.text = order.reservation == nil ? @"" : order.reservation.name;
+    nameLabel.text = order.reservation == nil ? order.name : order.reservation.name;
 }
 
 - (void)viewDidUnload

@@ -35,16 +35,15 @@
 @property (retain) IBOutlet UILabel *nameLabel; 
 @property (retain) IBOutlet UILabel *tableLabel; 
 @property (retain) IBOutlet UILabel *amountLabel; 
-@property (retain) IBOutlet UIBarButtonItem *backButton; 
-@property (retain) IBOutlet UISegmentedControl *groupingSegment; 
+@property (retain) IBOutlet UISegmentedControl *groupingSegment;
 @property (retain) id<PaymentDelegate> delegate;
 //@property (retain) TableMapViewController *tableMapViewController;
 
 @property (retain) OrderDataSource *dataSource;
 
 - (IBAction) goPay;
-- (IBAction) goBack;
 
 - (IBAction) changeGrouping;
+- (void) setupToolbar;
 
 @end

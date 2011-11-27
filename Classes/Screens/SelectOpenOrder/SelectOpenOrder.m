@@ -125,6 +125,7 @@
         }
         else {
             self.selectedOrder.invoicedTo = user;
+            self.selectedOrder.name = user.name;
         }
     }
     if ([item isKindOfClass:[Reservation class]]) {
@@ -135,6 +136,7 @@
         }
         else {
             self.selectedOrder.reservation = reservation;
+            self.selectedOrder.name = reservation.name;
         }
     }
 }
@@ -184,16 +186,6 @@
     orderReservation.name = NSLocalizedString(@"Reservering", nil);
     orderReservation.id = byReservation;
     [self.orders insertObject: orderReservation atIndex:2];
-    
-//    if ([self.orders count] == 0) {
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, scrollView.bounds.size.height / 3, scrollView.bounds.size.width, 50)];
-//        label.backgroundColor = [UIColor clearColor];
-//        label.textColor = [UIColor whiteColor];
-//        label.text = NSLocalizedString(@"Geen open orders gevonden", nil);
-//        label.textAlignment = UITextAlignmentCenter;
-//        [self.scrollView addSubview:label];
-//        return;    
-//    }
     
     int i = 0;
     int leftMargin = 25;

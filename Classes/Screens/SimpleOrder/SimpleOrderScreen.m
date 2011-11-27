@@ -23,7 +23,8 @@
 @synthesize productView = _productView;
 @synthesize orderView = _orderView;
 @synthesize order = _order;
-@synthesize dataSource, cashButton, orderButton, amountLabel, popoverController;
+@synthesize previousOrder = _previousOrder;
+@synthesize dataSource, cashButton, orderButton, amountLabel, popoverController, infoLabel, printInvoiceButton;
 
 - (void)didReceiveMemoryWarning
 {
@@ -33,6 +34,8 @@
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
     if (product == nil) return;
+    if ([_order.lines count] == 0)
+        [self setupScreenForNewOrder];
     OrderLine *line = [_order addLineWithProductId:product.id seat:-1 course:-1];
     [self.dataSource tableView:self.orderView addLine:line];
     [self onOrderUpdated];
@@ -65,10 +68,32 @@
     float x = 2*margin + self.productView.frame.size.width;
     self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin+20, columnWidth, 80)];
     [self.view addSubview:self.amountLabel];
+    self.amountLabel.alpha = 0;
     self.amountLabel.backgroundColor = [UIColor clearColor];
     self.amountLabel.textColor = [UIColor whiteColor];
     self.amountLabel.font = [UIFont systemFontOfSize:100];
     self.amountLabel.textAlignment = UITextAlignmentCenter;
+
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin+20, columnWidth, 100)];
+    [self.view addSubview:self.infoLabel];
+    self.infoLabel.alpha = 0;
+    self.infoLabel.text = NSLocalizedString(@"Tap op product in linkerpanel voor nieuwe bestelling", nil);
+    self.infoLabel.numberOfLines = 0;
+    self.infoLabel.backgroundColor = [UIColor clearColor];
+    self.infoLabel.textColor = [UIColor whiteColor];
+    self.infoLabel.font = [UIFont systemFontOfSize:18];
+    self.infoLabel.textAlignment = UITextAlignmentCenter;
+
+    self.printInvoiceButton = [[CrystalButton alloc] initWithFrame: CGRectMake(
+            x + (columnWidth - 200)/2,
+            self.infoLabel.frame.origin.y + self.infoLabel.frame.size.height + 5,
+            200,
+            60)];
+    [self.view addSubview:self.printInvoiceButton];
+    self.printInvoiceButton.alpha = 0;
+    [self.printInvoiceButton setTitle: NSLocalizedString(@"Bon afdrukken", nil) forState:UIControlStateNormal];
+    self.printInvoiceButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [self.printInvoiceButton addTarget:self action:@selector(printPreviousOrder) forControlEvents:UIControlEventTouchDown];
 
     self.orderView = [[UITableView alloc] initWithFrame:CGRectMake(
             x,
@@ -79,23 +104,25 @@
     [self.view addSubview:self.orderView];
 
     self.cashButton = [[CrystalButton alloc] initWithFrame: CGRectMake(
-            x,
+            x + (columnWidth - 300)/2,
             self.orderView.frame.origin.y + self.orderView.frame.size.height + 5,
-            columnWidth,
+            300,
             100)];
     [self.view addSubview:self.cashButton];
+    self.cashButton.alpha = 0;
     [self.cashButton setTitle: NSLocalizedString(@"Contant", nil) forState:UIControlStateNormal];
     self.cashButton.titleLabel.font = [UIFont boldSystemFontOfSize:50];
     [self.cashButton addTarget:self action:@selector(cashOrder) forControlEvents:UIControlEventTouchDown];
 
     self.orderButton = [[CrystalButton alloc] initWithFrame:
             CGRectMake(
-                    x,
+                    x + (columnWidth - 300)/2,
                     self.cashButton.frame.origin.y + self.cashButton.frame.size.height + 5,
-                    columnWidth,
+                    300,
                     60)];
     [self.view addSubview:self.orderButton];
     [self.orderButton setTitle: NSLocalizedString(@"Op rekening", nil) forState:UIControlStateNormal];
+    self.orderButton.alpha = 0;
     [self.orderButton addTarget:self action:@selector(selectOrder) forControlEvents:UIControlEventTouchDown];
 
     [self.productView reloadData];
@@ -103,21 +130,22 @@
     [self prepareForNewOrder];
 }
 
-//- (IBAction) selectUser
-//{
-//    UserListViewController *usersController = [[UserListViewController alloc] init];
-//    usersController.delegate = self;
-//
-//    self.popoverController = [[UIPopoverController alloc] initWithContentViewController: usersController];
-//    popoverController.delegate = self;
-//
-//    [popoverController presentPopoverFromRect:userButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//}
-
 - (IBAction) cashOrder
 {
-    [[Service getInstance] quickOrder:_order paymentType:0 printInvoice:NO delegate:self callback:nil];
+    [[Service getInstance] quickOrder:_order paymentType:0 printInvoice:NO delegate:self callback:@selector(cashOrderCallback:)];
+}
+
+- (void) cashOrderCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+    _order.id = serviceResult.id;
+    _previousOrder = _order;
     [self prepareForNewOrder];
+    [self setupStartScreen];
 }
 
 - (IBAction) selectOrder
@@ -125,6 +153,12 @@
     SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] init];
     selectOpenOrder.delegate = self;
     [self.navigationController pushViewController:selectOpenOrder animated:YES];
+}
+
+- (void) printPreviousOrder
+{
+    if(_previousOrder == nil) return;
+    [[Service getInstance] printInvoice:_previousOrder.id];
 }
 
 - (void)didSelectItem:(id)item {
@@ -138,7 +172,6 @@
         [[Service getInstance] updateOrder:order];
         [self prepareForNewOrder];
     }
-
 }
 
 - (void) prepareForNewOrder {
@@ -149,14 +182,47 @@
     self.orderView.dataSource = self.dataSource;
     self.orderView.delegate = self.dataSource;
     [self.orderView reloadData];
-    [self onOrderUpdated];
+    [self setupStartScreen];
 }
 
 - (void) onOrderUpdated {
     amountLabel.text = [Utils getAmountString: [_order getAmount] withCurrency:NO];
-    amountLabel.hidden = [_order.lines count] == 0;
-    cashButton.hidden = [_order.lines count] == 0;
-    orderButton.hidden = [_order.lines count] == 0;
+    if([_order.lines count] == 0) {
+        [self setupStartScreen];
+    }
+}
+
+- (void) setupStartScreen
+{
+    [UIView animateWithDuration:0.6
+                 animations:^{
+                     //  Hide items that are only used when an order is being entered
+                     amountLabel.alpha = 0;
+                     cashButton.alpha = 0;
+                     orderButton.alpha = 0;
+
+                     infoLabel.alpha = 1;
+                     printInvoiceButton.alpha = _previousOrder != nil ? 1 : 0;
+                 }
+     ];
+    [self.view bringSubviewToFront:printInvoiceButton];
+    printInvoiceButton.enabled = YES;
+}
+
+- (void) setupScreenForNewOrder
+{
+    [UIView animateWithDuration:0.6
+                 animations:^{
+                    //  Show items that are used when an order is being entered
+                    amountLabel.alpha = 1;
+                    cashButton.alpha = 1;
+                    orderButton.alpha = 1;
+
+                    infoLabel.alpha = 0;
+                    printInvoiceButton.alpha = 0;
+                 }
+   ];
+    printInvoiceButton.enabled = NO;
 }
 
 - (void)updatedCell:(UITableViewCell *)cell {

@@ -1,4 +1,4 @@
-		//
+//
 //  HarkPadAppDelegate.m
 //  HarkPad
 //
@@ -17,6 +17,7 @@
 #import "ScrollTableViewController.h"
 #import "LogViewController.h"
 #import "IASKAppSettingsViewController.h"
+#import "iToast.h"
 
 @implementation HarkPadAppDelegate
 
@@ -48,6 +49,8 @@
 
 - (void) getConfig
 {
+    [[iToast makeText:NSLocalizedString(@"Loading configuration", nil)] showWithActivityIndicator:YES];
+
     [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 
@@ -67,68 +70,69 @@
     NSDictionary *ipad = [result.jsonData objectForKey:@"ipad"];
     NSDictionary * screen = [ipad objectForKey:@"screen"];
 
-    NSMutableArray *controllers = [[NSMutableArray alloc] init];
+    NSMutableDictionary *controllers = [[NSMutableDictionary alloc] init];
     for(NSString *key in screen.allKeys) {
-
+        UIViewController *controller = nil;
         if ([key isEqualToString:@"tables"]) {
             TableMapViewController *tableMapViewController = [[TableMapViewController alloc] init];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
-            navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Tafels" image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
-            [controllers addObject: navigationController];
+            controller = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
         }
 
         if ([key isEqualToString:@"dashboard"]) {
-            DashboardViewController *dashboardViewController = [[DashboardViewController alloc] init];
-            dashboardViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Dashboard" image:[UIImage imageNamed:@"dashboard"] tag:1];
-            [controllers addObject: dashboardViewController];
+            controller = [[DashboardViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
         }
 
         if ([key isEqualToString:@"chef"]) {
-            ChefViewController *chefViewController = [[ChefViewController alloc] init];
-            chefViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Chef" image:[UIImage imageNamed:@"star"] tag:1];
-            [controllers addObject: chefViewController];
+            controller = [[ChefViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Chef" image:[UIImage imageNamed:@"star"] tag:1];
         }
 
         if ([key isEqualToString:@"inprogress"]) {
-            WorkInProgressViewController *inprogressViewController = [[WorkInProgressViewController alloc] init];
-            inprogressViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Serveren" image:[UIImage imageNamed:@"food"] tag:1];
-            [controllers addObject: inprogressViewController];
+            controller = [[WorkInProgressViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Serve", nil) image:[UIImage imageNamed:@"food"] tag:1];
         }
 
         if ([key isEqualToString:@"sales"]) {
-            SalesViewController *salesViewController = [[SalesViewController alloc] init];
-            salesViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Sales" image:[UIImage imageNamed:@"creditcard"] tag:1];
-            [controllers addObject: salesViewController];
+            controller = [[SalesViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Sales", nil) image:[UIImage imageNamed:@"creditcard"] tag:1];
         }
 
         if ([key isEqualToString:@"reservations"]) {
-            ScrollTableViewController *reservationsViewController = [[ScrollTableViewController alloc] init];
-            reservationsViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reserveringen" image:[UIImage imageNamed:@"calendar"] tag:1];
-            [controllers addObject: reservationsViewController];
+            controller = [[ScrollTableViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Reservations", nil) image:[UIImage imageNamed:@"calendar"] tag:1];
         }
 
         if ([key isEqualToString:@"log"]) {
-            LogViewController *logViewController = [[LogViewController alloc] init];
-            logViewController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
-            [controllers addObject: logViewController];
+            controller = [[LogViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
         if ([key isEqualToString:@"settings"]) {
             IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-            navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage imageNamed:@""] tag:2];
-            [controllers addObject:navigationController];
+            controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@""] tag:2];
         }
 
         if ([key isEqualToString:@"quickorder"]) {
             SimpleOrderScreen *simpleOrderScreen = [[SimpleOrderScreen alloc] init];
-            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController: simpleOrderScreen];
-            navigationController.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Quick" image:[UIImage imageNamed:@"fork-and-knife"] tag:2];
-            [controllers addObject:navigationController];
+            controller = [[UINavigationController alloc] initWithRootViewController: simpleOrderScreen];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Quick" image:[UIImage imageNamed:@"fork-and-knife"] tag:2];
+        }
+        
+        if (controller != nil) {
+            NSDictionary *screenName = [screen objectForKey:key];
+            NSString *index = [screenName objectForKey:@"index"];
+            [controllers setObject:controller forKey:index];
         }
     }
 
-    tabBarController.viewControllers = controllers;
+    id sortedIndices = [[controllers allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    NSMutableArray *sortedControllers = [[NSMutableArray alloc] init];
+    for(NSString *key in sortedIndices)
+        [sortedControllers addObject:[controllers objectForKey:key]];
+    tabBarController.viewControllers = sortedControllers;
     self.viewController = tabBarController;
 }
 

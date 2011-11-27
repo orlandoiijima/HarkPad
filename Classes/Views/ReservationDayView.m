@@ -63,6 +63,7 @@
         table.dataSource = self.dataSource;
         table.delegate = delegate;
         table.allowsSelectionDuringEditing = YES;
+        table.backgroundView = nil;
         [self addSubview:table];
     }
     return self;

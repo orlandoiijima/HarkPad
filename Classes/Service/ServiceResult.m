@@ -23,11 +23,11 @@
     return self;
 }
 
-+ (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)error
++ (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)connectionError
 {
     ServiceResult *serviceResult = [[ServiceResult alloc] init];
-    if (error != nil) {
-        serviceResult.error = [error localizedDescription];
+    if (connectionError != nil) {
+        serviceResult.error = [connectionError localizedDescription];
         return serviceResult;
     }
     if((NSNull *)data == [NSNull null] || [data length] == 0) {

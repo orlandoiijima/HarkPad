@@ -67,6 +67,8 @@ typedef enum ShowType {Drink, Food, FoodAndDrink} ShowType ;
 
 - (void) startCourse: (int) courseId;
 
+- (void) setupToolbar;
+
 - (IBAction) saveAction;
 - (IBAction) cancelAction;
 - (IBAction) existingAction;

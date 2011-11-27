@@ -34,17 +34,25 @@
     }
 }
 
+- (void) setupToolbar {
+    self.navigationItem.leftItemsSupplementBackButton = YES;
+    groupingSegment = [[UISegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 200, 33)];
+    groupingSegment.segmentedControlStyle = UISegmentedControlStyleBar;
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Seat", nil) atIndex:0 animated:NO];
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Course", nil) atIndex:1 animated:NO];
+    [groupingSegment insertSegmentWithTitle:NSLocalizedString(@"Category", nil) atIndex:2 animated:NO];
+    groupingSegment.selectedSegmentIndex = 2;
+    [groupingSegment addTarget:self action:@selector(changeGrouping) forControlEvents:UIControlEventValueChanged];
+
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
+            [[UIBarButtonItem alloc] initWithCustomView: groupingSegment],
+            nil];
+}
+
 - (IBAction) goPrint
 {
     NSString *printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
     [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]]; 
-//    [tableMapViewController closeOrderView];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (IBAction) goBack
-{
-//    [tableMapViewController closeOrderView];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -68,9 +76,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
+
+    self.title = NSLocalizedString(@"Bill", nil);
+    [self setupToolbar];
+
+    tableLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), order.table.name];
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
     amountLabel.text = [NSString stringWithFormat:@"%@", [Utils getAmountString: [order getAmount] withCurrency:YES]];

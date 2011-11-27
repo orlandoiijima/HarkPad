@@ -41,6 +41,8 @@
 {
     [super viewDidLoad];
 
+    table.backgroundView = nil;
+    
     [NSTimer scheduledTimerWithTimeInterval:10.0f
                                      target:self
                                    selector:@selector(refreshView)

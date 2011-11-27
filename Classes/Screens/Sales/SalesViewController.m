@@ -226,7 +226,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    tableAmounts.backgroundView = nil;
+
     dateToShow = [NSDate dateYesterday];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
