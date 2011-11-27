@@ -26,5 +26,5 @@
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
-@property (retain) NSMutableArray *config;
+@property (retain) NSMutableDictionary *config;
 @end
