@@ -7,28 +7,20 @@
 //
 
 #import "HarkPadAppDelegate.h"
-#import "TableMapViewController.h"
-#import "SimpleOrderScreen.h"
-#import "ModalAlert.h"
-#import "ChefViewController.h"
-#import "DashboardViewController.h"
-#import "SalesViewController.h"
-#import "WorkInProgressViewController.h"
-#import "ScrollTableViewController.h"
-#import "LogViewController.h"
-#import "IASKAppSettingsViewController.h"
-#import "iToast.h"
 
 @implementation HarkPadAppDelegate
 
-@synthesize window;
+@synthesize window, toast;
 
-@synthesize viewController;
+@synthesize tabBarController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     CGRect  rect = [[UIScreen mainScreen] bounds];
     window = [[UIWindow alloc] initWithFrame:rect];
     [window makeKeyAndVisible];
+
+    tabBarController = [[UITabBarController alloc] init];
+    [window addSubview:tabBarController.view];
 
     [self getConfig];
 
@@ -40,6 +32,7 @@
 }
 - (void) settingChanged: (NSNotification *)notification {
     [Service clear];
+    [self getConfig];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -49,13 +42,16 @@
 
 - (void) getConfig
 {
-    [[iToast makeText:NSLocalizedString(@"Loading configuration", nil)] showWithActivityIndicator:YES];
+    toast = [iToast makeText:NSLocalizedString(@"Loading configuration", nil)];
+    [toast showWithActivityIndicator:YES];
 
     [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 
 - (void) setupBarControllerCallback: (ServiceResult *)result
 {
+    [toast hideToast];
+
     Cache *cache = [Cache getInstance];
     cache.config = result.jsonData;
     
@@ -63,9 +59,6 @@
         [ModalAlert inform:result.error];
         return;
     }
-
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
-    [window addSubview:tabBarController.view];
 
     NSDictionary *ipad = [result.jsonData objectForKey:@"ipad"];
     NSDictionary * screen = [ipad objectForKey:@"screen"];
@@ -133,7 +126,6 @@
     for(NSString *key in sortedIndices)
         [sortedControllers addObject:[controllers objectForKey:key]];
     tabBarController.viewControllers = sortedControllers;
-    self.viewController = tabBarController;
 }
 
 @end

@@ -24,7 +24,7 @@
     if((NSNull *)color != [NSNull null])
         node.color = [node getColor:color];
     NSNumber *productId = [jsonDictionary objectForKey:@"productId"];
-    if((NSNull *)productId != [NSNull null])
+    if(productId != nil && (NSNull *)productId != [NSNull null])
         node.product = [[[Cache getInstance] menuCard] getProduct:[productId intValue]];
     NSNumber *menuId = [jsonDictionary objectForKey:@"menuId"];
     if((NSNull *)menuId != [NSNull null])

@@ -41,7 +41,7 @@ typedef enum iToastType {
     UIView *view;
     NSString *text;
 }
-
+- (void) hideToast;
 - (void) show;
 - (void) showWithActivityIndicator: (bool) withActivity;
 

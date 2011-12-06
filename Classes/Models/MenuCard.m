@@ -41,7 +41,8 @@
             if(product.id == productId)
                 return product;
         }    
-    }   
+    }
+    NSLog([NSString stringWithFormat:@"product %@ not found", productId]);
     return nil;
 }
 
@@ -52,6 +53,7 @@
         if(menu.id == menuId)
             return menu;
     }   
+    NSLog([NSString stringWithFormat:@"product %@ not found", menuId]);
     return nil;
 }
 

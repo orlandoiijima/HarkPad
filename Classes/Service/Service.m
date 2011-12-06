@@ -23,15 +23,14 @@ static Service *_service;
     if ((self = [super init])) {
         [[NSUserDefaults standardUserDefaults] synchronize];	
 	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        if([env isEqualToString:@"test"])
-            url = URL_TEST; 
-        else if([env isEqualToString:@"development"])
-            url = URL_DEV;
-        else if([env isEqualToString:@"development2"])
-            url = URL_DEV_EXT;
+        if([env isEqualToString:@"annatest"])
+            url = URL_ANNATEST;
+        else if([env isEqualToString:@"anna"])
+            url = URL_ANNA;
+        else if([env isEqualToString:@"frascati"])
+            url = URL_FRASCATI;
         else
-            url = URL_PRODUCTION;
-	        url = URL_DEV_EXT;
+            url = URL_DEV;
 	    }
     return self;
 }

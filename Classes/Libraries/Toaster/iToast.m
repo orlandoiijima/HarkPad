@@ -88,7 +88,7 @@ static iToastSettings *sharedSettings = nil;
     
     if (withActivity == false) {
         NSTimer *timer1 = [NSTimer timerWithTimeInterval:((float)theSettings.duration)/1000
-                                                  target:self selector:@selector(hideToast:)
+                                                  target:self selector:@selector(hideToast)
                                                 userInfo:nil repeats:NO];
         [[NSRunLoop mainRunLoop] addTimer:timer1 forMode:NSDefaultRunLoopMode];
     }
@@ -97,18 +97,22 @@ static iToastSettings *sharedSettings = nil;
     
     view = v;
     
-    [v addTarget:self action:@selector(hideToast:) forControlEvents:UIControlEventTouchDown];
+    [v addTarget:self action:@selector(hideToast) forControlEvents:UIControlEventTouchDown];
 }
 
-- (void) hideToast:(NSTimer*)theTimer{
-    [UIView beginAnimations:nil context:NULL];
-    view.alpha = 0;
-    [UIView commitAnimations];
-    
-    NSTimer *timer2 = [NSTimer timerWithTimeInterval:500 
-                                              target:self selector:@selector(hideToast:) 
-                                            userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:timer2 forMode:NSDefaultRunLoopMode];
+- (void) hideToast{
+    [UIView animateWithDuration:0.8
+                     animations:^{
+                         view.alpha = 0;
+                     }
+                     completion: ^ (BOOL finished){
+                         [view removeFromSuperview];
+                     }];
+
+//    NSTimer *timer2 = [NSTimer timerWithTimeInterval:500
+//                                              target:self selector:@selector(hideToast)
+//                                            userInfo:nil repeats:NO];
+//    [[NSRunLoop mainRunLoop] addTimer:timer2 forMode:NSDefaultRunLoopMode];
 }
 
 - (void) removeToast:(NSTimer*)theTimer{

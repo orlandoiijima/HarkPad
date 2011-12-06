@@ -9,16 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "IASKSettingsReader.h"
 #import "Service.h"
+#import "TableMapViewController.h"
+#import "SimpleOrderScreen.h"
+#import "ModalAlert.h"
+#import "ChefViewController.h"
+#import "DashboardViewController.h"
+#import "SalesViewController.h"
+#import "WorkInProgressViewController.h"
+#import "ScrollTableViewController.h"
+#import "LogViewController.h"
+#import "IASKAppSettingsViewController.h"
+#import "iToast.h"
 
 @class TableMapViewController;
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    UITabBarController *viewController;
+    UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *viewController;
+@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) iToast *toast;
 
 - (void) getConfig;
 - (void) setupBarControllerCallback: (ServiceResult *)result;
