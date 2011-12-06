@@ -28,7 +28,7 @@
 			<key>Key</key>
 			<string>key</string>
 			<key>DefaultValue</key>
-			<string>1.1.0</string>
+			<string>1.1.1</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -45,15 +45,17 @@
 			<string>Mode</string>
 			<key>Titles</key>
 			<array>
-				<string>Production</string>
-				<string>Test</string>
+				<string>Anna</string>
+				<string>Anna Test</string>
+                <string>Frascati</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Values</key>
 			<array>
-				<string>production</string>
-				<string>test</string>
+				<string>anna</string>
+				<string>annatest</string>
+                <string>frascati</string>
 			</array>
 		</dict>
 	</array>
