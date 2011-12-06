@@ -57,6 +57,10 @@
     
     if (result.isSuccess == false) {
         [ModalAlert inform:result.error];
+        IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
+        UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
+        controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@""] tag:2];
+        tabBarController.viewControllers = [NSArray arrayWithObject:controller];
         return;
     }
 
