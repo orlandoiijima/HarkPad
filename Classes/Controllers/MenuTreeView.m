@@ -140,7 +140,7 @@
     return nil;
 }
 
-- (CGFloat)gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path {
+- (int)gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path {
     return 50;
 }
 

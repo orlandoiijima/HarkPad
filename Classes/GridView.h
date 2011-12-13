@@ -13,6 +13,7 @@
 
 typedef enum
 {
+    DragModeNone,
     DragModeCopy,
     DragModeMove
 } DragMode;
@@ -39,7 +40,6 @@ typedef enum
 - (NSUInteger) numberOfColumnsInGridView: (GridView *) gridView;
 - (NSUInteger) numberOfLinesInGridView: (GridView *) gridView column: (NSUInteger)column row:(NSUInteger)row;
 - (GridViewCellLine *)gridView:(GridView *)gridView cellLineForPath: (CellPath *)path;
-- (CGFloat)gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path;
 
 @end
 
@@ -52,6 +52,8 @@ typedef enum
 - (bool) gridView: (GridView *) gridView canDeleteCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeleteCellLine: (GridViewCellLine *)cellLine;
 
+- (NSUInteger)gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path;
+
 //- (bool) gridView: (GridView *) gridView shouldSelectCellLine: (GridViewCellLine *)cellLine;
 - (GridViewCellLine *) gridView: (GridView *) gridView willSelectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didSelectCellLine: (GridViewCellLine *)cellLine;
@@ -63,6 +65,8 @@ typedef enum
 - (bool) gridView: (GridView *) gridView canDragCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;
 - (UIView *)gridView:(GridView *)gridView viewForSelectedCellLine: (GridViewCellLine *)cellLine;
+- (UIView *) viewForHeader:(GridView *)gridView;
+- (NSUInteger) heightForHeader:(GridView *)gridView;
 - (void)gridView:(GridView *)gridView willDisplayCellLine:(GridViewCellLine *)cell;
 
 @end
@@ -72,6 +76,7 @@ typedef enum
     id<UIScrollViewDelegate,GridViewDelegate> __strong _delegate;
     float leftHeaderWidth;
     float topHeaderHeight;
+    DragMode _dragMode;
 }
 
 typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
@@ -87,7 +92,7 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 @property float topHeaderHeight;
 @property float spaceBetweenCellLines;
 @property CGSize cellPadding;
-@property float columnWidth;
+@property int columnWidth;
 @property CGPoint dragCellLineCenter;
 @property CGPoint dragTouchPoint;
 @property (retain) GridViewCellLine *dragCellLine;

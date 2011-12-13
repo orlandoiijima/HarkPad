@@ -101,6 +101,9 @@
 		E57BB9131452ADC30003049E /* MaintenanceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90D1452ADC30003049E /* MaintenanceListViewController.m */; };
 		E57BB9141452ADC30003049E /* MaintenanceSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90F1452ADC30003049E /* MaintenanceSplitViewController.m */; };
 		E57BB9151452ADC30003049E /* ProductMaintenance.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB9111452ADC30003049E /* ProductMaintenance.m */; };
+		E59F903C14925179008EA0DA /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E59F903914925179008EA0DA /* libstdc++.dylib */; };
+		E59F903D14925179008EA0DA /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E59F903A14925179008EA0DA /* libz.dylib */; };
+		E59F903E14925179008EA0DA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E59F903B14925179008EA0DA /* Security.framework */; };
 		E5A7FE4A1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE431482CF610064CAB5 /* InfoPlist.strings */; };
 		E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE441482CF610064CAB5 /* InfoPlist.strings */; };
 		E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE461482CF610064CAB5 /* Localizable.strings */; };
@@ -240,6 +243,11 @@
 		E5F609A313489C2400D885A6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885A5 /* User.m */; };
 		E5F609A313489C2400D885AB /* ReservationListController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885AA /* ReservationListController.m */; };
 		E5F609A313489C2400D885AE /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885AD /* ToggleButton.m */; };
+		E5F609A313489C2400D885B9 /* Couchbase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885B8 /* Couchbase.framework */; };
+		E5F609A313489C2400D885BB /* CalendarMonthView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885BA /* CalendarMonthView.m */; };
+		E5F609A313489C2400D885BE /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885BD /* CalendarDayCell.m */; };
+		E5F609A313489C2400D885C1 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C0 /* CalendarHeaderView.m */; };
+		E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C3 /* DayReservationsInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -519,6 +527,9 @@
 		E57BB90F1452ADC30003049E /* MaintenanceSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaintenanceSplitViewController.m; sourceTree = "<group>"; };
 		E57BB9101452ADC30003049E /* ProductMaintenance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductMaintenance.h; sourceTree = "<group>"; };
 		E57BB9111452ADC30003049E /* ProductMaintenance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductMaintenance.m; sourceTree = "<group>"; };
+		E59F903914925179008EA0DA /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
+		E59F903A14925179008EA0DA /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		E59F903B14925179008EA0DA /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		E5A7FE431482CF610064CAB5 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		E5A7FE451482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		E5A7FE471482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
@@ -648,6 +659,15 @@
 		E5F609A313489C2400D885AC /* TableCellUpdated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableCellUpdated.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D885AD /* ToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleButton.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885AF /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885B8 /* Couchbase.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Couchbase.framework; path = /Users/wbison/Documents/Dev/HarkPad/Frameworks/Couchbase.framework; sourceTree = "<absolute>"; };
+		E5F609A313489C2400D885BA /* CalendarMonthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarMonthView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885BC /* CalendarMonthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarMonthView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885BD /* CalendarDayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDayCell.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885BF /* CalendarDayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDayCell.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C0 /* CalendarHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarHeaderView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C2 /* CalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarHeaderView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C3 /* DayReservationsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayReservationsInfo.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C5 /* DayReservationsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayReservationsInfo.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -655,11 +675,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E59F903C14925179008EA0DA /* libstdc++.dylib in Frameworks */,
+				E59F903D14925179008EA0DA /* libz.dylib in Frameworks */,
+				E59F903E14925179008EA0DA /* Security.framework in Frameworks */,
 				E55DFCEF139FDA5C00EB7C69 /* MessageUI.framework in Frameworks */,
 				E5E723311311A12C00905959 /* QuartzCore.framework in Frameworks */,
 				E5E723321311A12C00905959 /* UIKit.framework in Frameworks */,
 				E5E723331311A12C00905959 /* Foundation.framework in Frameworks */,
 				E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */,
+				E5F609A313489C2400D885B9 /* Couchbase.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,8 +693,9 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E59F903914925179008EA0DA /* libstdc++.dylib */,
+				E59F903A14925179008EA0DA /* libz.dylib */,
 				E5A7FE411482CF610064CAB5 /* en.lproj */,
-				E55DFCEE139FDA5C00EB7C69 /* MessageUI.framework */,
 				E5AC715D138950E400DB450E /* Default@2x.png */,
 				E5AC715B138950D600DB450E /* Default.png */,
 				E5AC7159138950C500DB450E /* anna-a-114x114.png */,
@@ -715,6 +740,9 @@
 		E50A37FB12E21164007C2101 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885B8 /* Couchbase.framework */,
+				E59F903B14925179008EA0DA /* Security.framework */,
+				E55DFCEE139FDA5C00EB7C69 /* MessageUI.framework */,
 				E542E59212E2405700BD434C /* QuartzCore.framework */,
 				E50A380312E21164007C2101 /* UIKit.framework */,
 				E50A380512E21164007C2101 /* Foundation.framework */,
@@ -772,6 +800,12 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885C2 /* CalendarHeaderView.h */,
+				E5F609A313489C2400D885C0 /* CalendarHeaderView.m */,
+				E5F609A313489C2400D885BF /* CalendarDayCell.h */,
+				E5F609A313489C2400D885BD /* CalendarDayCell.m */,
+				E5F609A313489C2400D885BC /* CalendarMonthView.h */,
+				E5F609A313489C2400D885BA /* CalendarMonthView.m */,
 				E5F609A313489C2400D885AA /* ReservationListController.m */,
 				E5F609A313489C2400D885A9 /* ReservationListController.h */,
 				E5F609A313489C2400D885A3 /* UserListViewController.m */,
@@ -836,6 +870,8 @@
 		E50A386412E234B8007C2101 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885C5 /* DayReservationsInfo.h */,
+				E5F609A313489C2400D885C3 /* DayReservationsInfo.m */,
 				E5F609A313489C2400D885A7 /* User.h */,
 				E5F609A313489C2400D885A5 /* User.m */,
 				E50A391A12E23E19007C2101 /* MenuItem.h */,
@@ -1471,6 +1507,7 @@
 				E5E722F41311A12C00905959 /* Sources */,
 				E5E723301311A12C00905959 /* Frameworks */,
 				E5E723351311A12C00905959 /* Resources */,
+				E59F903F149251EC008EA0DA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1588,6 +1625,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E59F903F149251EC008EA0DA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "rsync -a \"${SRCROOT}/Frameworks/Couchbase.framework/CouchbaseResources\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E5E722F41311A12C00905959 /* Sources */ = {
@@ -1752,6 +1805,10 @@
 				E5F609A313489C2400D885A6 /* User.m in Sources */,
 				E5F609A313489C2400D885AB /* ReservationListController.m in Sources */,
 				E5F609A313489C2400D885AE /* ToggleButton.m in Sources */,
+				E5F609A313489C2400D885BB /* CalendarMonthView.m in Sources */,
+				E5F609A313489C2400D885BE /* CalendarDayCell.m in Sources */,
+				E5F609A313489C2400D885C1 /* CalendarHeaderView.m in Sources */,
+				E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1858,6 +1915,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
@@ -1874,6 +1935,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Frameworks\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

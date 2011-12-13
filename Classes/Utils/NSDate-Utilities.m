@@ -135,6 +135,33 @@
     return [weekday stringFromDate: self];
 }
 
+
+- (NSString *) monthString
+{
+    NSDateFormatter *m = [[NSDateFormatter alloc] init];
+    [m setDateFormat: @"MMMM"];
+    return [m stringFromDate: self];
+}
+
+- (NSDate *) startOfWeek
+{
+    int weekDay = [self weekday];
+    return [self dateBySubtractingDays: [NSDate columnFromWeekday: weekDay]];
+}
+
++ (int) columnFromWeekday: (int) weekDay {
+    if (weekDay == 1)
+        return 6;
+    return weekDay - 2;
+}
+
+- (NSString *) inJson
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    return [formatter stringFromDate:self];
+}
+
 // This hard codes the assumption that a week is 7 days
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate
 {

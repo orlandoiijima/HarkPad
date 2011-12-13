@@ -31,6 +31,7 @@ static Service *_service;
             url = URL_FRASCATI;
         else
             url = URL_DEV;
+        url = URL_DEV;
 	    }
     return self;
 }
@@ -226,6 +227,8 @@ static Service *_service;
 	return;        
 }
 
+// *********************************
+
 - (NSMutableArray *) getReservations: (NSDate *)date
 {
     NSLog(@"Service: getReservations: %@", date);
@@ -311,6 +314,21 @@ static Service *_service;
                  callback:@selector(getReservationsCallback:finishedWithData:error:)
                  userData:invocation];
 }
+
+- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getcountavailableseatsperslot"
+                withQuery:[NSString stringWithFormat:@"date1=%@&date2=%@", [self stringParameterForDate:from], [self stringParameterForDate:to]]
+                 delegate:self
+                 callback:@selector(simpleCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
+// *********************************
 
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
@@ -684,6 +702,13 @@ static Service *_service;
 {
 }
 
+- (NSString *) stringParameterForDate: (NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    return [formatter stringFromDate:date];
+}
+    
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value
 {
     NSURL *testUrl = [self makeEndPoint:page withQuery:@""];

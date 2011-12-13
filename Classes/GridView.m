@@ -16,7 +16,7 @@
 
 @implementation GridView
 
-@synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth, topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
+@synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth, topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine = _selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
 @synthesize tapStyle;
 
 
@@ -55,7 +55,7 @@
     topHeaderHeight = 100;
     
     _dropMode = DropModeInsertCell;
-    _dragMode = DragModeCopy;
+    _dragMode = DragModeNone;
     _cellMode = CellModeFlow;
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
@@ -98,11 +98,11 @@
 
 - (void) selectCellLine: (GridViewCellLine *)cellLine
 {
-    if(cellLine == selectedCellLine)
+    if(cellLine == _selectedCellLine)
         return;
 
-    if(selectedCellLine != nil) {
-        [self selectCellLine:selectedCellLine select:NO];
+    if(_selectedCellLine != nil) {
+//        [self selectCellLine:selectedCellLine select:NO];
         if([self.delegate respondsToSelector:@selector(gridView: didDeselectCellLine:)])
             [self.delegate gridView:self didDeselectCellLine: cellLine];
     }
@@ -111,9 +111,9 @@
 //        if([self.delegate gridView:self shouldSelectCellLine: cellLine] == NO)
 //            return;
     
-    selectedCellLine = cellLine;
-    if(selectedCellLine != nil) {
-        [self selectCellLine:selectedCellLine select: YES];
+    self.selectedCellLine = cellLine;
+    if(_selectedCellLine != nil) {
+//        [self selectCellLine:selectedCellLine select: YES];
         if([self.delegate respondsToSelector:@selector(gridView: didSelectCellLine:)])
             [self.delegate gridView:self didSelectCellLine: cellLine];
     }
@@ -145,6 +145,14 @@
     }
 }
 
+- (void) setSelectedCellLine: (GridViewCellLine *)cellLine {
+    if (_selectedCellLine != nil)
+        _selectedCellLine.isSelected = NO;
+    _selectedCellLine = cellLine;    
+    if (_selectedCellLine != nil)
+        _selectedCellLine.isSelected = YES;
+}
+
 - (void) popoutCellLine: (GridViewCellLine *)cellLine
 {
     [self.superview bringSubviewToFront: self	];
@@ -154,16 +162,16 @@
                      cellLine.frame = CGRectInset(cellLine.frame, -35, -15);
                  }
                      completion:^ (BOOL completed){
-                         if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
-                             [selectedCellLine addDeleteButtonWithTarget:self action: @selector(deleteButtonTap)];
+                         if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: _selectedCellLine] == YES)
+                             [_selectedCellLine addDeleteButtonWithTarget:self action: @selector(deleteButtonTap)];
                      }
      ];
 }
 
 - (void) popinCellLine: (GridViewCellLine *)cellLine
 {
-    if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: selectedCellLine] == YES)
-        [selectedCellLine removeDeleteButton];
+    if([self.delegate respondsToSelector:@selector(gridView: canDeleteCellLine:)] == false || [self.delegate gridView:self canDeleteCellLine: _selectedCellLine] == YES)
+        [_selectedCellLine removeDeleteButton];
     [UIView animateWithDuration:0.2
                  animations:^{
                      cellLine.frame = [self frameForPath:cellLine.path]; // CGRectInset(cellLine.frame, 35, 15);
@@ -174,12 +182,12 @@
 - (void) deleteButtonTap
 {
     if([self.delegate respondsToSelector:@selector(gridView: didDeleteCellLine:)])
-        [self.delegate gridView: self didDeleteCellLine: selectedCellLine];
-    [selectedCellLine removeDeleteButton];
-    [selectedCellLine removeFromSuperview];
+        [self.delegate gridView: self didDeleteCellLine: _selectedCellLine];
+    [_selectedCellLine removeDeleteButton];
+    [_selectedCellLine removeFromSuperview];
     if(_cellMode == CellModeFixed)
     {
-        selectedCellLine = nil;
+        _selectedCellLine = nil;
         return;
     }
 
@@ -191,11 +199,11 @@
     NSTimeInterval duration = 0.3;
     NSTimeInterval delay = 0;	
     NSTimeInterval delayStep = 0.06;
-    for(path.row = selectedCellLine.path.row; path.row < countRows; path.row++) {
+    for(path.row = _selectedCellLine.path.row; path.row < countRows; path.row++) {
         
         for(path.column = 0; path.column < countColumns; path.column++) {
 
-            if(path.row == selectedCellLine.path.row && path.column <= selectedCellLine.path.column)
+            if(path.row == _selectedCellLine.path.row && path.column <= _selectedCellLine.path.column)
                 continue;
             GridViewCellLine *cellLine = [self findCellLineInView:contentView path:path];
             if(cellLine != nil) {
@@ -239,6 +247,8 @@
 
 - (void) handlePanGesture: (UIPanGestureRecognizer *)panGestureRecognizer
 {
+    if (_dragMode == DragModeNone)
+        return;
     CGPoint point = [panGestureRecognizer locationInView:self];
     switch(panGestureRecognizer.state)
     {
@@ -283,13 +293,25 @@
 
 - (void) reloadData
 {
-    [self selectCellLine:selectedCellLine select:NO];
+//    [self selectCellLine:selectedCellLine select:NO];
     int countRows = [_dataSource numberOfRowsInGridView:self];
     int countColumns = [_dataSource numberOfColumnsInGridView:self];
     [contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     float left = 0;
     float heightTotal;
     float top = 0;
+
+    float headerHeight = 0;
+    if([self.delegate respondsToSelector:@selector(heightForHeader:)])
+        headerHeight = [self.delegate heightForHeader:self];
+
+    if([self.delegate respondsToSelector:@selector(viewForHeader:)]) {
+        UIView *headerView = [self.delegate viewForHeader:self];
+        headerView.frame = CGRectMake(left + cellPadding.width, top + cellPadding.height, self.frame.size.width, headerHeight);
+        [contentView addSubview: headerView];
+        top += headerHeight;
+    }
+
     NSMutableArray *rowHeights = [[NSMutableArray alloc] init];
 
     CellPath *path = [[CellPath alloc] init];
@@ -313,7 +335,8 @@
                         cellHeight += spaceBetweenCellLines;
                     }
                     GridViewCellLine *cellLine = [_dataSource gridView:self cellLineForPath:path];
-                    float height = [_dataSource gridView:self heightForLineAtPath:path];
+                    cellLine.path = [CellPath pathForColumn:path.column row:path.row line:0];
+                    int height = [self.delegate gridView:self heightForLineAtPath:path];
                     cellLine.frame = CGRectMake(lineLeft, lineTop, columnWidth - 2 * (cellPadding.width), height);
                     cellHeight += height;
                     if(cellLine != nil) {
@@ -403,19 +426,15 @@
 
 - (CGRect) frameForPath: (CellPath *)path
 {
-    float lineHeight = [_dataSource gridView:self heightForLineAtPath:path];
+    float lineHeight = [self.delegate gridView:self heightForLineAtPath:path];
     float rowHeight = lineHeight + 2 * (cellPadding.height);
     return CGRectMake( path.column * columnWidth + cellPadding.width, path.row * rowHeight + cellPadding.height, columnWidth - 2 * cellPadding.width, lineHeight);
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+//- (void)drawRect:(CGRect)rect
+//{
+//    // Drawing code
+//}
 
 
 @end

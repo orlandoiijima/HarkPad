@@ -9,19 +9,17 @@
 #import "ScrollTableViewController.h"
 #import "iToast.h"
 #import "Service.h"
+#import "CalendarDayCell.h"
+#import "DayReservationsInfo.h"
 
 @implementation ScrollTableViewController
 
-@synthesize scrollView, dayView1, dayView2, dataSources, originalStartsOn, popover, segmentShow, slider, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader;
-
-#define TOTALDAYS 60
+@synthesize dayView, dataSources, originalStartsOn, popover, segmentShow, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-        slider.maximumValue = TOTALDAYS;				
     }
     return self;
 }
@@ -51,20 +49,31 @@
     {
         buttonPhone.enabled = false;
     }
-    scrollView.contentSize = CGSizeMake(scrollView.bounds.size.width * TOTALDAYS, scrollView.bounds.size.height);
-    scrollView.directionalLockEnabled = YES; 	
-    scrollView.backgroundColor = [UIColor clearColor];
-    
-    CGRect frame = CGRectMake(0, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    self.dayView1 = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
-    [scrollView addSubview:dayView1];
-    
-    frame = CGRectOffset(frame, scrollView.bounds.size.width, 0);
-    self.dayView2 = [[ReservationDayView alloc] initWithFrame:frame delegate:self];
-    [scrollView addSubview:dayView2];
-    
+
+    calendarViews = [[NSMutableArray alloc] init];
+    int margin = 10;
+    int top = 60;
+    int width = (self.view.bounds.size.width - 3*margin) / 2;
+    int height = (self.view.bounds.size.height - 3 * margin - top) / 3;
+    int y = top;
+    for(int month = 0; month < 3; month++) {
+        CalendarMonthView *view = [[CalendarMonthView alloc] initWithFrame:CGRectMake(margin, y, width, height)];
+        [self.view addSubview:view];
+        view.calendarDelegate = self;
+        view.startMonth = [[[NSDate date] dateByAddingDays:30 * month] month];
+        view.startYear = [[[NSDate date] dateByAddingDays:30 * month] year];
+        [calendarViews addObject:view];
+        [view reloadData];
+        y += height + margin;
+    }
+    [self refreshCalendar];
+
+    CGRect frameDay = CGRectMake(self.view.bounds.size.width/2, top, self.view.bounds.size.width/2, self.view.bounds.size.height - 50);
+    self.dayView = [[ReservationDayView alloc] initWithFrame:frameDay delegate:self];
+    [self.view addSubview:dayView];
+
     self.dataSources = [[NSMutableDictionary alloc] init];
-    [self gotoDayoffset:7];
+    [self gotoDate:[NSDate date]];
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
@@ -82,46 +91,29 @@
     if(isInSearchMode)
         [self endSearchMode];
     else
-        [self gotoDayoffset:7];
-}
-
-- (ReservationDayView *) currentDayView
-{
-    if(scrollView.contentOffset.x == dayView1.frame.origin.x)
-        return dayView1;
-    if(scrollView.contentOffset.x == dayView2.frame.origin.x)
-        return dayView2;
-    return nil;
+        [self gotoDate: [NSDate date]];
 }
 
 - (void) refreshView
 {
-    if(self.currentDayView == nil) return;
-    if(self.currentDayView.dataSource == nil || self.currentDayView.dataSource.date == nil) return;
-    [[Service getInstance] getReservations: self.currentDayView.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
+    if(self.dayView == nil) return;
+    if(self.dayView.dataSource == nil || self.dayView.dataSource.date == nil) return;
+    [[Service getInstance] getReservations: self.dayView.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];
 }
 
 - (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
 {
     NSMutableArray *reservations = serviceResult.data;
-    Reservation *selectedReservation = self.currentDayView.selectedReservation;
+    Reservation *selectedReservation = self.dayView.selectedReservation;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
     [dataSources setObject: dataSource forKey:key];
-    if([dayView1.date isEqualToDateIgnoringTime:date]) {
-        dayView1.dataSource = dataSource;
+    if([dayView.date isEqualToDateIgnoringTime:date]) {
+        dayView.dataSource = dataSource;
     }
-    if([dayView2.date isEqualToDateIgnoringTime:date]) {
-        dayView2.dataSource = dataSource;
-    }    
     if(selectedReservation != nil)
-        self.currentDayView.selectedReservation = selectedReservation;	
-}
-
-- (NSDate *)pageToDate: (int)page
-{
-    return [[NSDate date] dateByAddingDays:page - 7];
+        self.dayView.selectedReservation = selectedReservation;
 }
 
 - (NSString *) dateToKey: (NSDate *)date
@@ -131,92 +123,30 @@
     return [format stringFromDate:date];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)sender
+- (void) gotoDate: (NSDate *)date
 {
     if(isInSearchMode)
         [self endSearchMode];
     
-    CGFloat pageWidth = scrollView.frame.size.width;
-    float fractionalPage = scrollView.contentOffset.x / pageWidth;
-	int lowerPage = (int) floor(fractionalPage);
-    int upperPage = lowerPage + 1;
-
-	NSDate *lowerDate = [self pageToDate:lowerPage];
-	NSDate *upperDate = [self pageToDate:upperPage];
-    
-    if([upperDate isEqualToDateIgnoringTime:dayView1.date] == false && [lowerDate isEqualToDateIgnoringTime:dayView1.date] == false)
-    {
-        //  dayView1 is scrolled out of view
-        if([upperDate isEqualToDateIgnoringTime:dayView2.date])
-        {
-            //  and dayView2 uses upperdate -> use dayView1 for lowerDate
-            [self setupDayView:dayView1 page:lowerPage];
-        }
-        else
-        {
-            [self setupDayView:dayView1 page:upperPage];
-            
-        }
-    }
-    else
-    {
-        if([upperDate isEqualToDateIgnoringTime:dayView2.date] == false && [lowerDate isEqualToDateIgnoringTime:dayView2.date] == false)
-        {
-            //  dayView2 is scrolled out of view
-            if([upperDate isEqualToDateIgnoringTime:dayView1.date])
-            {
-                //  and dayView1 uses upperdate -> use dayView2 for lowerDate
-                [self setupDayView:dayView2 page:lowerPage];
-            }
-            else
-            {
-                //  and dayView2 uses upperdate -> use dayView1 for lowerDate
-                [self setupDayView:dayView2 page:upperPage];
-                
-            }
-        }
-    }
-
-    slider.value = lowerPage;
-    
-//    if([lowerDate isEqualToDateIgnoringTime:dayView2.date])
-//    {
-//        [self setupDayView:dayView2 page:lowerPage];
-//        slider.value = lowerPage;
-//    }    
-}
-
-- (void) setupDayView: (ReservationDayView *)dayView page: (int)page
-{
-    dayView.frame = CGRectMake(scrollView.frame.size.width * page, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
-    dayView.date = [self pageToDate:page];
+    dayView.date = date;
     NSString *key = [self dateToKey: dayView.date];
     ReservationDataSource *dataSource = [dataSources objectForKey:key];
     if(dataSource == nil) {
         dataSource = [[ReservationDataSource alloc] init];
         [dataSources setObject: dataSource forKey:key];
-        [[Service getInstance] getReservations: dayView.date delegate:self callback:@selector(getReservationsCallback:onDate:)];    
+        [[Service getInstance] getReservations: dayView.date delegate:self callback:@selector(getReservationsCallback:onDate:)];
     }
     else {
         dayView.dataSource = dataSource;
     }
 }
 
-- (void) gotoDayoffset: (int)page
-{
-    if(isInSearchMode)
-        [self endSearchMode];
-    
-    scrollView.contentOffset = CGPointMake(scrollView.frame.size.width * page, scrollView.contentOffset.y);
-    [self setupDayView:dayView1 page:page];
-    [self setupDayView:dayView2 page:page+1];
-    slider.value = page;
-}
-
-- (IBAction) sliderUpdate
-{
-    int page = (int) slider.value; 	
-    [self gotoDayoffset:page];
+- (void)calendarView:(CalendarMonthView *)calendarView didTapDate:(NSDate *)date {
+    for(CalendarMonthView *view in calendarViews) {
+        if (view != calendarView)
+            view.selectedDate = nil;
+    }
+    [self gotoDate:date];
 }
 
 - (void) openEditPopup: (Reservation*)reservation
@@ -248,22 +178,22 @@
 
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-    Reservation *reservation = [self.currentDayView selectedReservation];
+    Reservation *reservation = [self.dayView selectedReservation];
     if(reservation == nil) return;
 }
 
 - (void) editMode
 {
-    if(self.currentDayView == nil || self.currentDayView.table == nil) return;
-    if([self.currentDayView.table isEditing])
-        [self.currentDayView.table setEditing:NO];
+    if(self.dayView == nil || self.dayView.table == nil) return;
+    if([self.dayView.table isEditing])
+        [self.dayView.table setEditing:NO];
     else
-        [self.currentDayView.table setEditing:YES];
+        [self.dayView.table setEditing:YES];
 }
 
 - (void) edit
 {
-    Reservation *reservation = [self.currentDayView selectedReservation];
+    Reservation *reservation = [self.dayView selectedReservation];
     if(reservation == nil || reservation.id == 0) return;
     self.originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
@@ -271,7 +201,7 @@
 
 - (void) call
 {
-    Reservation *reservation = [self.currentDayView selectedReservation];
+    Reservation *reservation = [self.dayView selectedReservation];
     if(reservation == nil || reservation.phone == nil || reservation.phone == @"") return;
     NSString *phoneNumber = [@"tel://" stringByAppendingString:reservation.phone];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneNumber]];
@@ -279,11 +209,11 @@
 
 - (void) showMode
 {
-    ReservationDataSource *dataSource = self.currentDayView.dataSource;
+    ReservationDataSource *dataSource = self.dayView.dataSource;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
     if(dataSource.includePlacedReservations == includeSeated)
         return;
-    [dataSource tableView: self.currentDayView.table includeSeated: includeSeated];
+    [dataSource tableView: self.dayView.table includeSeated: includeSeated];
 }			
 
 - (void) closePopup
@@ -296,16 +226,13 @@
     ReservationDataSource *dataSourceNew = nil;
     if(isInSearchMode)
     {
-        dayViewNew = self.currentDayView;
+        dayViewNew = self.dayView;
         dataSourceNew = dayViewNew.dataSource;
     }
     else
     {        
-        if([dayView1.date isEqualToDateIgnoringTime:reservation.startsOn])
-            dayViewNew = dayView1;
-        else
-            if([dayView2.date isEqualToDateIgnoringTime:reservation.startsOn])
-                dayViewNew = dayView2;
+        if([dayView.date isEqualToDateIgnoringTime:reservation.startsOn])
+            dayViewNew = dayView;
         dataSourceNew = [dataSources objectForKey:key];
     }
 
@@ -317,20 +244,20 @@
     else
     {
         if([reservation.startsOn isEqualToDate: originalStartsOn]) {
-            [self.currentDayView.dataSource updateReservation:reservation fromTableView:self.currentDayView.table];
+            [self.dayView.dataSource updateReservation:reservation fromTableView:self.dayView.table];
         }
         else {
             //  Edit, new day
             NSDate *startsOn = reservation.startsOn;
             reservation.startsOn = originalStartsOn;
-            [self.currentDayView.dataSource deleteReservation:reservation fromTableView: self.currentDayView.table];
+            [self.dayView.dataSource deleteReservation:reservation fromTableView: self.dayView.table];
 
             reservation.startsOn = startsOn;
             [dataSourceNew addReservation:reservation fromTableView: dayViewNew.table];
         }
     }
-    [self.currentDayView refreshTotals];
-    [self.currentDayView.table setEditing:NO];
+    [self.dayView refreshTotals];
+    [self.dayView.table setEditing:NO];
 }
     
 - (void) cancelPopup
@@ -341,7 +268,7 @@
 - (IBAction) add
 {
     Reservation *reservation = [[Reservation alloc] init];
-    NSDate *date = self.currentDayView.dataSource.date;
+    NSDate *date = self.dayView.dataSource.date;
     NSDateComponents *comps = [[NSCalendar currentCalendar] components:(NSUInteger) -1 fromDate:date];
     [comps setHour:20];
     [comps setMinute:0];
@@ -371,23 +298,19 @@
 {
     searchBar.text = @"";
     isInSearchMode = NO;
-    slider.hidden = NO;
     searchHeader.hidden = YES;
-    [dayView1 showHeader];
-    [dayView2 showHeader];
+    [dayView showHeader];
     NSString *key = [self dateToKey: saveDate];
-    self.currentDayView.dataSource = [dataSources objectForKey:key];
+    self.dayView.dataSource = [dataSources objectForKey:key];
 }
 
 - (void) startSearchForText: (NSString *) query
 {
     isInSearchMode = YES;
-    slider.hidden = YES;
     searchHeader.hidden = NO;
     
-    [dayView1 hideHeader];
-    [dayView2 hideHeader];
-    saveDate = dayView1.date;
+    [dayView hideHeader];
+    saveDate = dayView.date;
     searchHeader.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Searching for", nil), query];
     [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
 }
@@ -400,15 +323,54 @@
         searchHeader.text = NSLocalizedString(@"Reservations found:", nil);
 
     ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
-    if(self.currentDayView != nil) {
-        self.currentDayView.dataSource = dataSource;
+    if(self.dayView != nil) {
+        self.dayView.dataSource = dataSource;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if([self.currentDayView.table isEditing])
+    if([self.dayView.table isEditing])
         [self edit];
+}
+
+- (void)refreshCalendar
+{
+    NSDate *fromDate = [[calendarViews objectAtIndex:0] firstDateInView];
+    NSDate *toDate = [[calendarViews objectAtIndex:[calendarViews count]-1] lastDateInView];
+    Service *service = [Service getInstance];
+//    service.url = @"http://pos.restaurantanna.nl";
+    [service getCountAvailableSeatsPerSlotFromDate:fromDate toDate:toDate delegate:self callback:@selector(refreshCalendarCallback:)];
+}
+
+- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+
+    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
+    for(id item in serviceResult.jsonData) {
+        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
+        [reservations setObject:info forKey:[info.date inJson]];
+    }
+    for(CalendarMonthView *calendarView in self.calendarViews) {
+        for(int week = 0; week < 10; week++) {
+            for(int day = 0; day < 7; day++) {
+                CalendarDayCell *cell = (CalendarDayCell *)[calendarView cellAtColumn:day row: week];
+                if (cell != nil) {
+                    NSString *key = [cell.date inJson];
+                    DayReservationsInfo *info = [reservations objectForKey:key];
+                    if (info != nil) {
+                        cell.dinnerStatus = info.dinnerStatus;
+                        cell.lunchStatus = info.lunchStatus;
+                    }
+                }
+            }
+        }
+    }
 }
 
 - (void)viewDidUnload

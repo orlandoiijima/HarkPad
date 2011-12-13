@@ -63,11 +63,14 @@
 - (void) setGender: (NSString *)gender forGuest: (int)guestId;
 - (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
+
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
+- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback;
+
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 - (ServiceResult *) printInvoice: (int)orderId;
 
@@ -82,5 +85,6 @@
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (NSString *)urlEncode: (NSString *)unencodedString;
+- (NSString *) stringParameterForDate: (NSDate *)date;
 
 @end

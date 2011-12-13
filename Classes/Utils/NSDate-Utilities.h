@@ -33,6 +33,10 @@
 - (BOOL) isAfterYesterday;
 
 - (NSString *)weekdayString;
+- (NSString *)monthString;
++ (int) columnFromWeekday: (int) weekDay;
+- (NSDate *) startOfWeek;
+
 
 - (BOOL) isSameWeekAsDate: (NSDate *) aDate;
 - (BOOL) isThisWeek;
@@ -63,6 +67,7 @@
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
 
 - (NSString *) prettyDateString;
+- (NSString *) inJson;
 
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;

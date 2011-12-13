@@ -255,34 +255,46 @@
 
 - (void) removeOrderLine: (OrderLine *)lineToDelete
 {
-    for(Guest *guest in guests)
-    {
-        for(int i=0; i < [guest.lines count]; i++) {
-            OrderLine *line = [guest.lines objectAtIndex:i];
-            if(line.id == lineToDelete.id) {
-                [guest.lines removeObjectAtIndex:i];
-                break;
-            }
-        }
-    }    
-    for(Course *course in courses)
-    {
-        for(int i=0; i < [course.lines count]; i++) {
-            OrderLine *line = [course.lines objectAtIndex:i];
-            if(line.id == lineToDelete.id) {
-                [course.lines removeObjectAtIndex:i];
-                break;
-            }
-        }
-    }
+    if (guests != nil)
+        [guests removeObject:lineToDelete];
+//    for(Guest *guest in guests)
+//    {
+//        for(int i=0; i < [guest.lines count]; i++) {
+//            OrderLine *line = [guest.lines objectAtIndex:i];
+//            if(line.id == lineToDelete.id) {
+//                [guest.lines removeObjectAtIndex:i];
+//                break;
+//            }
+//        }
+//    }    
+    
+    if (courses != nil)
+        [courses removeObject:lineToDelete];
+//    for(Course *course in courses)
+//    {
+//        for(int i=0; i < [course.lines count]; i++) {
+//            OrderLine *line = [course.lines objectAtIndex:i];
+//            if(line.id == lineToDelete.id) {
+//                [course.lines removeObjectAtIndex:i];
+//                break;
+//            }
+//        }
+//    }
 
-    for(int i=0; i < [lines count]; i++) {
-        OrderLine *line = [lines objectAtIndex:i];
-        if(line.id == lineToDelete.id) {
-            [lines removeObjectAtIndex:i];
-            break;
-        }
+    
+    if ([lines indexOfObject: lineToDelete] == NSNotFound) {
+        NSLog(@"orderline not found in removeOrderLine");
     }
+        
+    [lines removeObject:lineToDelete];
+
+//    for(int i=0; i < [lines count]; i++) {
+//        OrderLine *line = [lines objectAtIndex:i];
+//        if(line.id == lineToDelete.id) {
+//            [lines removeObjectAtIndex:i];
+//            break;
+//        }
+//    }
 }
 
 

@@ -16,15 +16,14 @@
 - (id)initWithTitle: (NSString *) title middleLabel: (NSString *)label2 bottomLabel: (NSString *)label3 backgroundColor: (UIColor *)backgroundColor path: (CellPath *)aPath {
     if ((self = [super init])) {
         self.path = [CellPath pathForColumn:aPath.column row:aPath.row line:aPath.line];
-        // Initialization code
+
         self.layer.cornerRadius = 3;
-        // Drop shadow.
         self.layer.shadowColor = [UIColor blackColor].CGColor;
         self.layer.shadowOpacity = 1.0;
         self.layer.shadowRadius = 2.0;
-        self.layer.shadowOffset = CGSizeMake(0, 2);        
-	        self.autoresizesSubviews = YES;
- //       self.autoresizingMask = UIViewAutoresizingFlexibleWidth; // | UIViewAutoresizingFlexibleHeight; 
+        self.layer.shadowOffset = CGSizeMake(0, 2);
+
+        self.autoresizesSubviews = YES;
         self.textLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin; 
         self.textLabel.backgroundColor = [UIColor clearColor];
@@ -73,7 +72,7 @@
     }
 }
 
-- (void) setIsSelected:(bool)selected
+- (void) setIsSelected:(BOOL)selected
 {
     _isSelected = selected;
     middleLabel.hidden = selected == NO;
@@ -81,7 +80,7 @@
     self.backgroundColor = selected ? [UIColor colorWithRed:0.5 green:0.5 blue:1 alpha:1] : [UIColor colorWithRed:0.7 green:0.7 blue:1 alpha:1];
 }
 
-- (void) setIsDropTarget:(bool)isDropTarget
+- (void) setIsDropTarget:(BOOL)isDropTarget
 {
     //    self.layer.borderColor = [[UIColor blackColor] CGColor]	;
     //   self.layer.borderWidth = isSelected ? 1 : 0;

@@ -10,15 +10,14 @@
 #import "ReservationDayView.h"
 #import "ReservationDataSource.h"
 #import "ReservationViewController.h"
+#import "CalendarMonthView.h"
 #import "GTMHTTPFetcher.h"
 #import "ServiceResult.h"
 #import "NSDate-Utilities.h"
 #import "PopupHost.h"
 
-@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate> {
-    UIScrollView *scrollView;
-    ReservationDayView *dayView1;
-    ReservationDayView *dayView2;
+@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate> {
+    ReservationDayView *dayView;
     NSMutableDictionary *dataSources;
     NSDate *originalStartsOn;
     UIPopoverController *popover;
@@ -31,14 +30,11 @@
     UIBarButtonItem *buttonWalkin;
 }
 
-@property (retain) IBOutlet UIScrollView *scrollView;
-@property (retain,atomic) ReservationDayView *currentDayView;
-@property (retain) ReservationDayView *dayView1;
-@property (retain) ReservationDayView *dayView2;
+@property (retain) NSMutableArray *calendarViews;
+@property (retain) IBOutlet ReservationDayView *dayView;
 @property (retain) NSMutableDictionary *dataSources;
 @property (retain) NSDate *originalStartsOn;
 @property (retain) UIPopoverController *popover;
-@property (retain) IBOutlet UISlider *slider;
 @property (retain) IBOutlet UILabel *searchHeader;
 @property (retain) IBOutlet UISegmentedControl *segmentShow;
 @property (retain) IBOutlet UIBarButtonItem *buttonEdit;
@@ -50,13 +46,9 @@
 @property (retain) IBOutlet UIToolbar *toolbar;
 @property BOOL isInSearchMode;
 @property (retain) NSDate *saveDate;
-//@property CGRect saveFrame;
-//
-//- (void) setupScrolledInPage: (int)page;
-- (NSDate *)pageToDate: (int)page;
+
 - (NSString *) dateToKey: (NSDate *)date;
-- (void) gotoDayoffset: (int)page;
-- (void) setupDayView: (ReservationDayView *)dayView page: (int)page;
+- (void) gotoDate: (NSDate *)date;
 
 - (void) startSearchForText: (NSString *) query;
 - (void) searchReservationsCallback: (NSMutableArray *)reservations;
@@ -75,6 +67,7 @@
 - (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 
-- (IBAction) sliderUpdate;
+- (void)refreshCalendar;
+- (void) refreshCalendarCallback: (ServiceResult *)serviceResult;
 
 @end

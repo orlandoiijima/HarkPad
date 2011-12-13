@@ -15,8 +15,8 @@
     UILabel *middleLabel;
     UILabel *bottomLabel;
     CellPath *path;
-    bool isSelected;
-    bool isDropTarget;
+    BOOL isSelected;
+    BOOL isDropTarget;
 }
 
 @property (retain) UILabel *textLabel;
@@ -24,8 +24,8 @@
 @property (retain) UILabel *bottomLabel;
 @property (retain) UIButton *deleteButton;
 @property (retain) CellPath *path;
-@property (nonatomic) bool isSelected;
-@property (nonatomic) bool isDropTarget;
+@property (nonatomic) BOOL isSelected;
+@property (nonatomic) BOOL isDropTarget;
 
 - (id)initWithTitle: (NSString *) title middleLabel: (NSString *)middleLabel bottomLabel: (NSString *)bottomLabel backgroundColor: (UIColor *)backgroundColor path: (CellPath *)path;
 - (void) addDeleteButtonWithTarget: (id)target action: (SEL) action;
