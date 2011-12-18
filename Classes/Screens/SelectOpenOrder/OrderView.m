@@ -13,7 +13,7 @@
 
 @implementation OrderView
 
-@synthesize order = _order, dataSource, tableView, label, isSelected = _isSelected;
+@synthesize order = _order, dataSource, tableView, label, isSelected = _isSelected, infoLabel;
 
 - (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate
 {
@@ -31,14 +31,14 @@
             self.tableView.delegate = self;
         }
         else {
-            UILabel *infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(20, self.bounds.size.height/2, self.bounds.size.width - 40, 40)];
+            infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(20, self.bounds.size.height/3, self.bounds.size.width - 40, 40)];
             infoLabel.backgroundColor = [UIColor clearColor];
             infoLabel.textColor = [UIColor grayColor];
             infoLabel.numberOfLines = 0;
             infoLabel.lineBreakMode = UILineBreakModeWordWrap;
             [self addSubview:infoLabel];
             if (anOrder.id == byNothing) {
-                UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x, infoLabel.frame.origin.y - 25, infoLabel.frame.size.width, 25)];
+                UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x, infoLabel.frame.origin.y - 30, infoLabel.frame.size.width, 30)];
                 [nameField addTarget:self action:@selector(updateOrderName:) forControlEvents:UIControlEventEditingChanged];
                 [self addSubview:nameField];
                 nameField.placeholder = @"Naam";
@@ -56,6 +56,16 @@
         }
         self.order = anOrder;
     }
+
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.cornerRadius = 6;
+    gradientLayer.frame = self.bounds;
+    gradientLayer.borderColor = [[UIColor lightGrayColor] CGColor];
+    gradientLayer.borderWidth = 4;
+    gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
+    gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.7], [NSNumber numberWithFloat:1.0], nil];
+    [self.layer insertSublayer:gradientLayer atIndex:0];
+
     return self;
 }
 
@@ -72,8 +82,10 @@
 }
 
 - (void)setIsSelected: (bool)selected {
-    self.backgroundColor = selected ? [UIColor colorWithRed:0.4 green:0.4 blue:0.4 alpha:1] : [UIColor clearColor];
-    self.label.backgroundColor = self.backgroundColor;
+//    self.backgroundColor = selected ? [UIColor colorWithRed:1.0 green:1.0 blue:0.8 alpha:1] : [UIColor clearColor];
+//    self.label.backgroundColor = self.backgroundColor;
+    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
+    layer.borderColor = selected ? [[UIColor blueColor] CGColor] :  [[UIColor lightGrayColor] CGColor];
     _isSelected = selected;
 }
 

@@ -118,6 +118,12 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Quick" image:[UIImage imageNamed:@"fork-and-knife"] tag:2];
         }
         
+        if ([key isEqualToString:@"orders"]) {
+            SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeOverview title: NSLocalizedString(@"Running orders", nil)];
+            controller = [[UINavigationController alloc] initWithRootViewController: selectOpenOrder];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+        
         if (controller != nil) {
             NSDictionary *screenName = [screen objectForKey:key];
             NSString *index = [screenName objectForKey:@"index"];

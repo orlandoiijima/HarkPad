@@ -246,7 +246,7 @@ static Service *_service;
     }
     return reservations;
 }
-
+    
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
     NSLog(@"Service: getReservations: %@", date);
@@ -463,21 +463,54 @@ static Service *_service;
 	return [ServiceResult resultFromData:data error:nil];
 }
 
-- (NSMutableArray *) getSalesStatistics: (NSDate *)date
+//- (NSMutableArray *) getSalesStatistics: (NSDate *)date
+//{
+//    int dateSeconds = (int) [date timeIntervalSince1970];
+//	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
+//	NSData *data = [NSData dataWithContentsOfURL:testUrl];
+//	NSMutableArray *stats = [[NSMutableArray alloc] init];
+//    NSMutableDictionary *statsDic = [self getResultFromJson: data];
+//    for(NSDictionary *statDic in statsDic)
+//    {
+//        ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
+//        [stats addObject:totals];
+//    }
+//    return stats;
+//}
+
+- (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
-    int dateSeconds = (int) [date timeIntervalSince1970];    
-	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[NSMutableArray alloc] init];
-    NSMutableDictionary *statsDic = [self getResultFromJson: data];
-    for(NSDictionary *statDic in statsDic)
-    {
-        ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
-        [stats addObject:totals];
-    }
-    return stats;
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getsales"
+                withQuery:[NSString stringWithFormat:@"date=%@", [self stringParameterForDateTimestamp:date]]
+                 delegate:self
+                 callback:@selector(getSalesStatisticsCallback:finishedWithData:error:)
+                 userData:invocation];
 }
 
+- (void) getSalesStatisticsCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        NSMutableArray *stats = [[NSMutableArray alloc] init];
+        NSMutableDictionary *statsDic = [self getResultFromJson: data];
+        for(NSDictionary *statDic in statsDic)
+        {
+            ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
+            [stats addObject:totals];
+        }
+        result.data = stats;
+    }
+    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+    [invocation setArgument:&result atIndex:2];
+    [invocation invoke];
+    return;
+}
+    
 - (void) printSalesReport:(NSDate *)date
 {
     int dateSeconds = (int) [date timeIntervalSince1970];    
@@ -707,6 +740,14 @@ static Service *_service;
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     return [formatter stringFromDate:date];
+}
+
+- (NSString *) stringParameterForDateTimestamp: (NSDate *)date
+{
+    if(date == nil)
+        date = [NSDate date];
+    int dateSeconds = (int) [date timeIntervalSince1970];
+    return [NSString stringWithFormat:@"%d", dateSeconds];
 }
     
 - (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value

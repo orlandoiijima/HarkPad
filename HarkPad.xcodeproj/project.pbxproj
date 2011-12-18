@@ -248,6 +248,7 @@
 		E5F609A313489C2400D885BE /* CalendarDayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885BD /* CalendarDayCell.m */; };
 		E5F609A313489C2400D885C1 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C0 /* CalendarHeaderView.m */; };
 		E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C3 /* DayReservationsInfo.m */; };
+		E5F609A313489C2400D885C7 /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C6 /* order.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -668,6 +669,7 @@
 		E5F609A313489C2400D885C2 /* CalendarHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarHeaderView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D885C3 /* DayReservationsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayReservationsInfo.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885C5 /* DayReservationsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayReservationsInfo.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C6 /* order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -953,6 +955,7 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885C6 /* order.png */,
 				E50E7E6813FECD8E007EDB13 /* imgOff.png */,
 				E50E7E6913FECD8E007EDB13 /* imgOn.png */,
 				E5CDB15013D94BD700A7236D /* clear.png */,
@@ -1621,6 +1624,7 @@
 				E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */,
 				E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */,
 				E5A7FE4D1482CF610064CAB5 /* MainWindow.xib in Resources */,
+				E5F609A313489C2400D885C7 /* order.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

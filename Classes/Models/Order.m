@@ -83,7 +83,7 @@
     }
     
     id reservationDic = [jsonDictionary objectForKey:@"reservation"];
-    if((NSNull *)reservationDic != [NSNull null])
+    if(reservationDic != nil &&  (NSNull *)reservationDic != [NSNull null])
     {
         order.reservation = [Reservation reservationFromJsonDictionary: reservationDic];
     }

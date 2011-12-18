@@ -150,7 +150,7 @@
 
 - (IBAction) selectOrder
 {
-    SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] init];
+    SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeSelection title: NSLocalizedString(@"Kies openstaande order", nil)];
     selectOpenOrder.delegate = self;
     [self.navigationController pushViewController:selectOpenOrder animated:YES];
 }

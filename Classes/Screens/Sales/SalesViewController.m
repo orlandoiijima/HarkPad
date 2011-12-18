@@ -139,11 +139,21 @@
 
 - (void) refreshView
 {
+    [[Service getInstance] getSalesStatistics:dateToShow delegate:self callback:@selector(refreshViewCallback:)];
+}
+
+- (void) refreshViewCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+
     dateLabel.text = [dateToShow prettyDateString];
 
-    // Do any additional setup after loading the view from its nib.
-    NSMutableArray *productTotals = [[Service getInstance] getSalesStatistics:dateToShow];
-    
+    NSMutableArray *productTotals = serviceResult.data;
+
     self.groupedTotals = [[NSMutableDictionary alloc] init];
     if([productTotals count] == 0) {
         [tableAmounts reloadData];
@@ -206,11 +216,11 @@
     [self refreshView];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self refreshView];	
-}
+//- (void)viewDidAppear:(BOOL)animated
+//{
+//    [super viewDidAppear:animated];
+//    [self refreshView];
+//}
 
 
 - (void)didReceiveMemoryWarning

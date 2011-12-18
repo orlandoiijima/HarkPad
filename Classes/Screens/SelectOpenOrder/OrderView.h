@@ -24,6 +24,7 @@
 @property (retain) OrderDataSource *dataSource;
 @property (retain) UITableView *tableView;
 @property (retain) OrderTag *label;
+@property (retain) UILabel *infoLabel;
 @property BOOL isSelected;
 
 - (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate;

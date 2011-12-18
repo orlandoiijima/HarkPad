@@ -34,18 +34,20 @@
         [tag addSubview: tag.amountButton];
     }
 
-    tag.name = [[UILabel alloc] initWithFrame:CGRectMake(10, vSpace, frame.size.width - amountWidth, frame.size.height - 2 * vSpace)];
+    tag.name = [[UILabel alloc] initWithFrame:CGRectMake(13, vSpace, frame.size.width - amountWidth, frame.size.height - 2 * vSpace)];
     tag.name.textAlignment = UITextAlignmentLeft;
-    tag.name.font = [UIFont systemFontOfSize:16];
+    tag.name.font = [UIFont boldSystemFontOfSize:16];
     tag.name.backgroundColor = [UIColor clearColor];
-    tag.name.shadowColor = [UIColor lightGrayColor];
+//    tag.name.shadowColor = [UIColor lightGrayColor];
     [tag addSubview: tag.name];
-    if ([anOrder.name length] > 0)
+    if ([anOrder.name length] > 0) {
         tag.name.text = anOrder.name;
+        tag.name.textColor = [UIColor colorWithRed:0 green:0 blue:0.7 alpha:1];
+    }
     else
     {
         tag.name.text = NSLocalizedString(@"Naamloos", nil);
-        tag.name.textColor = [UIColor grayColor];
+        tag.name.textColor = [UIColor lightGrayColor];
     }
     return tag;
 }

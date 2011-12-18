@@ -46,7 +46,8 @@
 - (KitchenStatistics *) getKitchenStatistics;
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
-- (NSMutableArray *) getSalesStatistics: (NSDate*)date;
+- (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
+
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
@@ -86,5 +87,6 @@
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (NSString *)urlEncode: (NSString *)unencodedString;
 - (NSString *) stringParameterForDate: (NSDate *)date;
+- (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 @end

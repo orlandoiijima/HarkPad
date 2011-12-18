@@ -16,7 +16,7 @@
 
 @implementation SelectOpenOrder
 
-@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController;
+@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController, selectedOpenOrderType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,15 +35,23 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (id) initWithType: (SelectOpenOrderType)type title: (NSString *)title {
+    self = [super init];
+    if (self) {
+        self.title = title;
+        self.selectedOpenOrderType = type;
+        if (type == typeSelection) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
+        }
+    }
+    return self;
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.title = NSLocalizedString(@"Kies openstaande order", nil);
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.scrollView.backgroundColor = [UIColor blackColor];
@@ -88,6 +96,8 @@
 
 - (void) handleDoubleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
 {
+    if (selectedOpenOrderType != typeSelection)
+        return;
     OrderView *orderView = [self orderViewAtGesture:tapGestureRecognizer];
     if (orderView == nil) return;
     [self done];
@@ -117,6 +127,7 @@
 }
 
 - (void)didSelectItem:(id)item {
+    OrderView *orderView = [self viewForOrder:self.selectedOrder];
     if ([item isKindOfClass:[User class]]) {
         User *user = (User *)item;
         [self.popoverController dismissPopoverAnimated:YES];
@@ -126,6 +137,7 @@
         else {
             self.selectedOrder.invoicedTo = user;
             self.selectedOrder.name = user.name;
+            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Nieuwe rekening voor collega '%@'", nil), user.name];
         }
     }
     if ([item isKindOfClass:[Reservation class]]) {
@@ -137,6 +149,7 @@
         else {
             self.selectedOrder.reservation = reservation;
             self.selectedOrder.name = reservation.name;
+            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Nieuwe rekening voor reservering '%@'", nil), reservation.name];
         }
     }
 }
@@ -172,24 +185,26 @@
     
     self.orders = serviceResult.data;
     
-    Order *order = [Order orderNull];
-    order.name = NSLocalizedString(@"Rekening", nil);
-    order.id = byNothing;
-    [self.orders insertObject: order atIndex:0];
+    if (selectedOpenOrderType == typeSelection) {
+        Order *order = [Order orderNull];
+        order.name = NSLocalizedString(@"Rekening", nil);
+        order.id = byNothing;
+        [self.orders insertObject: order atIndex:0];
 
-    Order *orderEmployee = [Order orderNull];
-    orderEmployee.name = NSLocalizedString(@"Personeel", nil);
-    orderEmployee.id = byEmployee;
-    [self.orders insertObject: orderEmployee atIndex:1];
+        Order *orderEmployee = [Order orderNull];
+        orderEmployee.name = NSLocalizedString(@"Personeel", nil);
+        orderEmployee.id = byEmployee;
+        [self.orders insertObject: orderEmployee atIndex:1];
 
-    Order *orderReservation = [Order orderNull];
-    orderReservation.name = NSLocalizedString(@"Reservering", nil);
-    orderReservation.id = byReservation;
-    [self.orders insertObject: orderReservation atIndex:2];
-    
+        Order *orderReservation = [Order orderNull];
+        orderReservation.name = NSLocalizedString(@"Reservering", nil);
+        orderReservation.id = byReservation;
+        [self.orders insertObject: orderReservation atIndex:2];
+    }
+
     int i = 0;
-    int leftMargin = 25;
-    int topMargin = 5;
+    int leftMargin = 15;
+    int topMargin = 15;
     int width = (self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
@@ -199,18 +214,9 @@
                 width,
                 height);
         OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order delegate:self];
-        orderView.backgroundColor = self.scrollView.backgroundColor;
+        orderView.backgroundColor = [UIColor clearColor];//self.scrollView.backgroundColor;
         [self.scrollView addSubview:orderView];
         i++;
-
-        CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-        gradientLayer.cornerRadius = 4;
-        gradientLayer.borderColor = [[UIColor grayColor] CGColor];
-        gradientLayer.borderWidth = 1;
-        gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
-        gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.5], [NSNumber numberWithFloat:1.0], nil];
-        [orderView.layer insertSublayer:gradientLayer atIndex:1];
-
     }
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, ((i-1)/countColumns + 1) * (height + topMargin));

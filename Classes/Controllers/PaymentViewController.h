@@ -24,11 +24,11 @@
     UILabel *nameLabel; 
     UILabel *tableLabel; 
     UILabel *amountLabel;
+    Order *order;
     id<PaymentDelegate> delegate;
 }
 
-@property (retain, nonatomic) Order *order; 
-
+@property (retain, nonatomic) Order *order;
 @property (retain) IBOutlet UITableView *orderTable; 
 @property (retain) IBOutlet UISegmentedControl *paymentType; 
 @property (retain) IBOutlet UIButton *goButton; 
@@ -37,7 +37,6 @@
 @property (retain) IBOutlet UILabel *amountLabel; 
 @property (retain) IBOutlet UISegmentedControl *groupingSegment;
 @property (retain) id<PaymentDelegate> delegate;
-//@property (retain) TableMapViewController *tableMapViewController;
 
 @property (retain) OrderDataSource *dataSource;
 

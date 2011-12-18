@@ -80,11 +80,17 @@
     [self setupToolbar];
     self.title = NSLocalizedString(@"Payment", nil);
     
-    tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];    
+    if (order.table == nil) {
+        tableLabel.text = order.reservation == nil ? order.name : order.reservation.name;
+        nameLabel.text = @"";
+    }
+    else {
+        tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];
+        nameLabel.text = order.reservation == nil ? order.name : order.reservation.name;
+    }
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
     amountLabel.text = [Utils getAmountString:[order getAmount] withCurrency:YES];
-    nameLabel.text = order.reservation == nil ? order.name : order.reservation.name;
 }
 
 - (void)viewDidUnload
