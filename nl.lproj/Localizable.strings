@@ -19,3 +19,6 @@
 "Course" = "Gang";
 "Category" = "Categorie";
 "Payment" = "Betaling";
+"No users found !" = "Geen gebruikers gevonden !";
+"New bill for coworker '%@'" = "Nieuwe rekening voor collega '%@'";
+"New bill for reservation '%@'" = "Nieuwe rekening voor reservering '%@'";

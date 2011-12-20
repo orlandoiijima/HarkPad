@@ -58,7 +58,8 @@
     [self.view addSubview:self.scrollView];
     
     countColumns = 3;
-    [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
+
+    [self refreshView];
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.view addGestureRecognizer:tapGesture];
@@ -132,24 +133,24 @@
         User *user = (User *)item;
         [self.popoverController dismissPopoverAnimated:YES];
         if (user.isNullUser) {
-            [ModalAlert inform:NSLocalizedString(@"Geen gebruikers gevonden !", nil)];
+            [ModalAlert inform:NSLocalizedString(@"No users found !", nil)];
         }
         else {
             self.selectedOrder.invoicedTo = user;
             self.selectedOrder.name = user.name;
-            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Nieuwe rekening voor collega '%@'", nil), user.name];
+            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"New bill for coworker '%@'", nil), user.name];
         }
     }
     if ([item isKindOfClass:[Reservation class]]) {
         Reservation *reservation = (Reservation *)item;
         [self.popoverController dismissPopoverAnimated:YES];
         if (reservation.isNullReservation) {
-            [ModalAlert inform:NSLocalizedString(@"Geen reserveringen gevonden", nil)];
+            [ModalAlert inform:NSLocalizedString(@"No reservations found", nil)];
         }
         else {
             self.selectedOrder.reservation = reservation;
             self.selectedOrder.name = reservation.name;
-            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"Nieuwe rekening voor reservering '%@'", nil), reservation.name];
+            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"New bill for reservation '%@'", nil), reservation.name];
         }
     }
 }
@@ -176,7 +177,14 @@
     return nil;
 }
 
+- (void) refreshView {
+    [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
+}
+
 - (void) getOpenOrdersCallback: (ServiceResult *)serviceResult {
+
+    [self.scrollView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+
     if(serviceResult.isSuccess == false) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [view show];
@@ -240,6 +248,8 @@
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder:(Order *)order {
     [self.navigationController popViewControllerAnimated:YES];
+
+    [self refreshView];
 }
 
 - (void)viewDidUnload

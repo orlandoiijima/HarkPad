@@ -21,3 +21,6 @@
 "Course" = "Course";
 "Category" = "Category";
 "Payment" = "Payment";
+"No users found !" = "No users found !";
+"New bill for coworker '%@'" = "New bill for coworker '%@'";
+"New bill for reservation '%@'" = "New bill for reservation '%@'";

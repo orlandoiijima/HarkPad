@@ -50,13 +50,13 @@
     Order *order = [[Order alloc] init];
     order.id = [[jsonDictionary objectForKey:@"id"] intValue];
     order.entityState = None;
-    order.state = [[jsonDictionary objectForKey:@"state"] intValue];
+    order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
     order.name = [jsonDictionary objectForKey:@"name"];
     
-    order.paymentType = [jsonDictionary objectForKey:@"paymentType"];
+    order.paymentType =(PaymentType) [[jsonDictionary objectForKey:@"paymentType"] intValue];
 
     id tableId = [jsonDictionary objectForKey:@"tableId"];
     if (tableId != nil)

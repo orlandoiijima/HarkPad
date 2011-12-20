@@ -101,19 +101,26 @@
     if(cellLine == _selectedCellLine)
         return;
 
+    id previousSelection = _selectedCellLine;
+
+    self.selectedCellLine = cellLine;
+
     if(_selectedCellLine != nil) {
-//        [self selectCellLine:selectedCellLine select:NO];
+        if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
+            [self.delegate gridView:self willDisplayCellLine: previousSelection];
         if([self.delegate respondsToSelector:@selector(gridView: didDeselectCellLine:)])
-            [self.delegate gridView:self didDeselectCellLine: cellLine];
+            [self.delegate gridView:self didDeselectCellLine: previousSelection];
     }
 
 //    if([self.delegate respondsToSelector:@selector(gridView: shouldSelectCellLine:)])
 //        if([self.delegate gridView:self shouldSelectCellLine: cellLine] == NO)
 //            return;
     
-    self.selectedCellLine = cellLine;
     if(_selectedCellLine != nil) {
 //        [self selectCellLine:selectedCellLine select: YES];
+        if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
+            [self.delegate gridView:self willDisplayCellLine: cellLine];
+
         if([self.delegate respondsToSelector:@selector(gridView: didSelectCellLine:)])
             [self.delegate gridView:self didSelectCellLine: cellLine];
     }
@@ -122,9 +129,6 @@
 - (void) selectCellLine: (GridViewCellLine *)cellLine select: (bool) isSelected
 {
     cellLine.isSelected = isSelected;
-
-    if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
-        [self.delegate gridView:self willDisplayCellLine: cellLine];
 
     switch(tapStyle)
     {

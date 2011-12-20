@@ -29,9 +29,8 @@ static Service *_service;
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-        else
+//        else
             url = URL_DEV;
-        url = URL_DEV;
 	    }
     return self;
 }
@@ -527,15 +526,15 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
-- (Order *) getOpenOrderByTable: (int) tableId
-{
-    NSURL *testUrl = [self makeEndPoint:@"getopenorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
-    
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	NSDictionary *orderDic = [self getResultFromJson:data];
-    if((orderDic == nil) || ([orderDic count] == 0)) return nil;
-	return [Order orderFromJsonDictionary:orderDic];
-}
+//- (Order *) getOpenOrderByTable: (int) tableId
+//{
+//    NSURL *testUrl = [self makeEndPoint:@"getopenorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
+//
+//	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+//	NSDictionary *orderDic = [self getResultFromJson:data];
+//    if((orderDic == nil) || ([orderDic count] == 0)) return nil;
+//	return [Order orderFromJsonDictionary:orderDic];
+//}
 
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback
 {

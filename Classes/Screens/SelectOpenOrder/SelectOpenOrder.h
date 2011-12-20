@@ -37,6 +37,7 @@ typedef enum SelectOpenOrderType {typeSelection, typeOverview} SelectOpenOrderTy
 - (void) selectUser;
 - (void) selectReservation;
 - (id) initWithType: (SelectOpenOrderType)type title: (NSString *)title;
+- (void) refreshView;
 
 - (void) done;
 

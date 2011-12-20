@@ -52,7 +52,7 @@
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void) printSalesReport: (NSDate *)date;
-- (Order *) getOpenOrderByTable: (int) tableId;
+//- (Order *) getOpenOrderByTable: (int) tableId;
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (int)districtid delegate: (id) delegate callback: (SEL)callback;
