@@ -22,3 +22,16 @@
 "No users found !" = "Geen gebruikers gevonden !";
 "New bill for coworker '%@'" = "Nieuwe rekening voor collega '%@'";
 "New bill for reservation '%@'" = "Nieuwe rekening voor reservering '%@'";
+"Reservation" = "Reservering";
+"Personel" = "Personeel";
+"Tap to select coworker" = "Tap om collega te selecteren";
+"Tap to select reservation" = "Tap om reservering te kiezen";
+"New bill" = "Nieuwe rekening";
+"No name" = "Naamloos";
+"New order" = "Nieuwe rekening";
+"Tap on product in left panel to start order" = "Tap op product in linkerpanel voor nieuwe bestelling";
+"Print bill" = "Bon afdrukken";
+"Cash" = "Contant";
+"Credit" = "Op rekening";
+"Select running order" = "Kies openstaande order";
+"walk-in" = "walk-in";

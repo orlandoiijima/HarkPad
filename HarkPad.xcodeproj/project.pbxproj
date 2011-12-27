@@ -119,7 +119,7 @@
 		E5AC715E138950E600DB450E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC715D138950E400DB450E /* Default@2x.png */; };
 		E5AC7160138958F900DB450E /* calculator.png in Resources */ = {isa = PBXBuildFile; fileRef = E5AC715F138958F800DB450E /* calculator.png */; };
 		E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */; };
-		E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationViewController.m */; };
+		E5B7F67A134704D10024AB35 /* ReservationEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5B7F678134704D10024AB35 /* ReservationEditViewController.m */; };
 		E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F679134704D10024AB35 /* ReservationViewController.xib */; };
 		E5B7F67E1347447D0024AB35 /* uk.png in Resources */ = {isa = PBXBuildFile; fileRef = E5B7F67D1347447D0024AB35 /* uk.png */; };
 		E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1BD4513642CDB00B4D92A /* ServiceResult.m */; };
@@ -135,8 +135,8 @@
 		E5DFB9F01401495900EAD1EC /* AmountView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFB9EF1401495900EAD1EC /* AmountView.m */; };
 		E5DFC3C51318E9AC005E1FA3 /* calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5DFC3C41318E9AC005E1FA3 /* calendar.png */; };
 		E5DFC3CC13190A69005E1FA3 /* KitchenStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */; };
-		E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */; };
-		E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */; };
+		E5E0DB04136DD94B00B9C0B6 /* ReservationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E0DB02136DD94B00B9C0B6 /* ReservationsViewController.m */; };
+		E5E0DB05136DD94B00B9C0B6 /* ReservationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E0DB03136DD94B00B9C0B6 /* ReservationsViewController.xib */; };
 		E5E2D7A113869D8B00745EFE /* Invoice.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7A013869D8B00745EFE /* Invoice.m */; };
 		E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */; };
 		E5E2D7AB1386B2EF00745EFE /* OrderLinesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E2D7AA1386B2EB00745EFE /* OrderLinesViewController.m */; };
@@ -458,7 +458,7 @@
 		E561E2651334999A00229B76 /* TablePopupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TablePopupViewController.xib; sourceTree = "<group>"; };
 		E561E2681334B13B00229B76 /* ReservationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReservationDataSource.h; path = Models/ReservationDataSource.h; sourceTree = "<group>"; };
 		E561E2691334B13C00229B76 /* ReservationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReservationDataSource.m; path = Models/ReservationDataSource.m; sourceTree = "<group>"; };
-		E561E2741336445600229B76 /* anna72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anna72.png; sourceTree = "<group>"; };
+		E561E2741336445600229B76 /* anna72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = anna72.png; path = ../../../anna72.png; sourceTree = "<group>"; };
 		E56231AA13B74AD900EEE977 /* closebox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closebox.png; sourceTree = "<group>"; };
 		E5736FD013FE63B6007E05C0 /* QBadgeElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBadgeElement.h; sourceTree = "<group>"; };
 		E5736FD113FE63B6007E05C0 /* QBadgeElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBadgeElement.m; sourceTree = "<group>"; };
@@ -543,15 +543,15 @@
 		E5AC71511388E54500DB450E /* TablesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TablesViewController.h; sourceTree = "<group>"; };
 		E5AC71521388E54600DB450E /* TablesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TablesViewController.m; sourceTree = "<group>"; };
 		E5AC71551389146400DB450E /* TablesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TablesViewController.xib; sourceTree = "<group>"; };
-		E5AC7157138950B200DB450E /* anna-a-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anna-a-57x57.png"; sourceTree = "<group>"; };
-		E5AC7159138950C500DB450E /* anna-a-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "anna-a-114x114.png"; sourceTree = "<group>"; };
-		E5AC715B138950D600DB450E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		E5AC715D138950E400DB450E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E5AC7157138950B200DB450E /* anna-a-57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anna-a-57x57.png"; path = "../../../anna-a-57x57.png"; sourceTree = "<group>"; };
+		E5AC7159138950C500DB450E /* anna-a-114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "anna-a-114x114.png"; path = "../../../anna-a-114x114.png"; sourceTree = "<group>"; };
+		E5AC715B138950D600DB450E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../../../Default.png; sourceTree = "<group>"; };
+		E5AC715D138950E400DB450E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../../../Default@2x.png"; sourceTree = "<group>"; };
 		E5AC715F138958F800DB450E /* calculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator.png; sourceTree = "<group>"; };
 		E5B7BEC7133F3D6B0020FD74 /* TableInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfo.h; sourceTree = "<group>"; };
 		E5B7BEC8133F3D6B0020FD74 /* TableInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfo.m; sourceTree = "<group>"; };
-		E5B7F677134704D10024AB35 /* ReservationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationViewController.h; sourceTree = "<group>"; };
-		E5B7F678134704D10024AB35 /* ReservationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationViewController.m; sourceTree = "<group>"; };
+		E5B7F677134704D10024AB35 /* ReservationEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationEditViewController.h; sourceTree = "<group>"; };
+		E5B7F678134704D10024AB35 /* ReservationEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationEditViewController.m; sourceTree = "<group>"; };
 		E5B7F679134704D10024AB35 /* ReservationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReservationViewController.xib; sourceTree = "<group>"; };
 		E5B7F67D1347447D0024AB35 /* uk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uk.png; sourceTree = "<group>"; };
 		E5C1BD4413642CDB00B4D92A /* ServiceResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceResult.h; sourceTree = "<group>"; };
@@ -577,9 +577,9 @@
 		E5DFC3C41318E9AC005E1FA3 /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
 		E5DFC3CA13190A69005E1FA3 /* KitchenStatistics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatistics.h; sourceTree = "<group>"; };
 		E5DFC3CB13190A69005E1FA3 /* KitchenStatistics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatistics.m; sourceTree = "<group>"; };
-		E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollTableViewController.h; sourceTree = "<group>"; };
-		E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollTableViewController.m; sourceTree = "<group>"; };
-		E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScrollTableViewController.xib; sourceTree = "<group>"; };
+		E5E0DB01136DD94B00B9C0B6 /* ReservationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationsViewController.h; sourceTree = "<group>"; };
+		E5E0DB02136DD94B00B9C0B6 /* ReservationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationsViewController.m; sourceTree = "<group>"; };
+		E5E0DB03136DD94B00B9C0B6 /* ReservationsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReservationsViewController.xib; sourceTree = "<group>"; };
 		E5E2D79F13869D8B00745EFE /* Invoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Invoice.h; sourceTree = "<group>"; };
 		E5E2D7A013869D8B00745EFE /* Invoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Invoice.m; sourceTree = "<group>"; };
 		E5E2D7A61386A5F300745EFE /* InvoicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoicesViewController.h; sourceTree = "<group>"; };
@@ -623,8 +623,8 @@
 		E5F2C991135188FF00FDBE85 /* KitchenStatisticsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KitchenStatisticsDataSource.h; sourceTree = "<group>"; };
 		E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KitchenStatisticsDataSource.m; sourceTree = "<group>"; };
 		E5F2C9951351DA6300FDBE85 /* creditcard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = creditcard.png; sourceTree = "<group>"; };
-		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
-		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "../../../Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "../../../Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		E5F4638A134CCEC00052CDDC /* Backlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Backlog.h; sourceTree = "<group>"; };
 		E5F4638B134CCEC60052CDDC /* Backlog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Backlog.m; sourceTree = "<group>"; };
 		E5F4638D134CE5E40052CDDC /* BacklogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BacklogViewController.h; sourceTree = "<group>"; };
@@ -697,14 +697,6 @@
 			children = (
 				E59F903914925179008EA0DA /* libstdc++.dylib */,
 				E59F903A14925179008EA0DA /* libz.dylib */,
-				E5A7FE411482CF610064CAB5 /* en.lproj */,
-				E5AC715D138950E400DB450E /* Default@2x.png */,
-				E5AC715B138950D600DB450E /* Default.png */,
-				E5AC7159138950C500DB450E /* anna-a-114x114.png */,
-				E5AC7157138950B200DB450E /* anna-a-57x57.png */,
-				E561E2741336445600229B76 /* anna72.png */,
-				E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */,
-				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
 				E50A37FA12E21164007C2101 /* Resources */,
@@ -727,6 +719,8 @@
 		E50A37FA12E21164007C2101 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E50A388E12E234B8007C2101 /* Images */,
+				E5A7FE411482CF610064CAB5 /* en.lproj */,
 				E52774221482CE5500DEBF8F /* nl.lproj */,
 				E50A380912E21164007C2101 /* HarkPad-Info.plist */,
 				E50A380B12E21164007C2101 /* InfoPlist.strings */,
@@ -826,15 +820,14 @@
 				E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */,
 				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
 				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
-				E50A386012E234B8007C2101 /* Tables */,
 				E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */,
 				E5AC3D7013224CDC0090F743 /* PaymentViewController.m */,
 				E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */,
 				E561E2631334998400229B76 /* TablePopupViewController.h */,
 				E561E2641334998A00229B76 /* TablePopupViewController.m */,
 				E561E2651334999A00229B76 /* TablePopupViewController.xib */,
-				E5B7F677134704D10024AB35 /* ReservationViewController.h */,
-				E5B7F678134704D10024AB35 /* ReservationViewController.m */,
+				E5B7F677134704D10024AB35 /* ReservationEditViewController.h */,
+				E5B7F678134704D10024AB35 /* ReservationEditViewController.m */,
 				E5B7F679134704D10024AB35 /* ReservationViewController.xib */,
 				E5E2D7A61386A5F300745EFE /* InvoicesViewController.h */,
 				E5E2D7A71386A5F300745EFE /* InvoicesViewController.m */,
@@ -860,13 +853,6 @@
 				E50A384C12E234B8007C2101 /* NewOrderVC.xib */,
 			);
 			path = Order;
-			sourceTree = "<group>";
-		};
-		E50A386012E234B8007C2101 /* Tables */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tables;
 			sourceTree = "<group>";
 		};
 		E50A386412E234B8007C2101 /* Models */ = {
@@ -947,7 +933,6 @@
 		E50A388D12E234B8007C2101 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				E50A388E12E234B8007C2101 /* Images */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -955,6 +940,13 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5AC715D138950E400DB450E /* Default@2x.png */,
+				E5AC715B138950D600DB450E /* Default.png */,
+				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
+				E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */,
+				E561E2741336445600229B76 /* anna72.png */,
+				E5AC7159138950C500DB450E /* anna-a-114x114.png */,
+				E5AC7157138950B200DB450E /* anna-a-57x57.png */,
 				E5F609A313489C2400D885C6 /* order.png */,
 				E50E7E6813FECD8E007EDB13 /* imgOff.png */,
 				E50E7E6913FECD8E007EDB13 /* imgOn.png */,
@@ -982,7 +974,8 @@
 				E50A389212E234B8007C2101 /* wine-bottle.png */,
 				E50A389312E234B8007C2101 /* wine-glass.png */,
 			);
-			path = Images;
+			name = Images;
+			path = Classes/Resources/Images;
 			sourceTree = "<group>";
 		};
 		E50A38AE12E234B8007C2101 /* Views */ = {
@@ -1444,9 +1437,9 @@
 		E5F609A313489C2400D885B2 /* Reservations */ = {
 			isa = PBXGroup;
 			children = (
-				E5E0DB03136DD94B00B9C0B6 /* ScrollTableViewController.xib */,
-				E5E0DB02136DD94B00B9C0B6 /* ScrollTableViewController.m */,
-				E5E0DB01136DD94B00B9C0B6 /* ScrollTableViewController.h */,
+				E5E0DB03136DD94B00B9C0B6 /* ReservationsViewController.xib */,
+				E5E0DB02136DD94B00B9C0B6 /* ReservationsViewController.m */,
+				E5E0DB01136DD94B00B9C0B6 /* ReservationsViewController.h */,
 			);
 			path = Reservations;
 			sourceTree = "<group>";
@@ -1595,7 +1588,7 @@
 				E500D767135A31C000EA347E /* Settings.bundle in Resources */,
 				E5DB4CA9135F4081005ADD06 /* WorkInProgressViewController.xib in Resources */,
 				E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */,
-				E5E0DB05136DD94B00B9C0B6 /* ScrollTableViewController.xib in Resources */,
+				E5E0DB05136DD94B00B9C0B6 /* ReservationsViewController.xib in Resources */,
 				E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */,
 				E5AC71561389146900DB450E /* TablesViewController.xib in Resources */,
 				E5AC7158138950B700DB450E /* anna-a-57x57.png in Resources */,
@@ -1705,7 +1698,7 @@
 				E561E266133499B100229B76 /* TablePopupViewController.m in Sources */,
 				E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */,
 				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
-				E5B7F67A134704D10024AB35 /* ReservationViewController.m in Sources */,
+				E5B7F67A134704D10024AB35 /* ReservationEditViewController.m in Sources */,
 				E5F6099913487F6300D88587 /* LogViewController.m in Sources */,
 				E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */,
 				E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */,
@@ -1718,7 +1711,7 @@
 				E5DB4CAC135F40BC005ADD06 /* WorkInProgressDataSource.m in Sources */,
 				E5DB4CB1135F473A005ADD06 /* WorkInProgressTableCell.m in Sources */,
 				E5C1BD4613642CDB00B4D92A /* ServiceResult.m in Sources */,
-				E5E0DB04136DD94B00B9C0B6 /* ScrollTableViewController.m in Sources */,
+				E5E0DB04136DD94B00B9C0B6 /* ReservationsViewController.m in Sources */,
 				E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */,
 				E5E2D7A113869D8B00745EFE /* Invoice.m in Sources */,
 				E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */,

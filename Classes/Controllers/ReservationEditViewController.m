@@ -6,10 +6,10 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
-#import "ReservationViewController.h"
+#import "ReservationEditViewController.h"
 #import "Service.h"
 
-@implementation ReservationViewController
+@implementation ReservationEditViewController
 
 @synthesize reservation, languages, datePicker, notesView, nameView, emailView, phoneView, countView, languageView, hostController;
 
@@ -22,10 +22,10 @@
     return self;
 }
 
-+ (ReservationViewController *) initWithReservation: (Reservation *)reservation
++ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation
 {
     NSString *nib = reservation.type == Walkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
-    ReservationViewController *popup = [[ReservationViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]];
+    ReservationEditViewController *popup = [[ReservationEditViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]];
     popup.reservation = reservation;
     return popup;
 }

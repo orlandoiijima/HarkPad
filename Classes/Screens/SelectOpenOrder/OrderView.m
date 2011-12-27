@@ -10,10 +10,11 @@
 #import "OrderView.h"
 #import "Utils.h"
 #import "SelectOpenOrder.h"
+#import "NSDate-Utilities.h"
 
 @implementation OrderView
 
-@synthesize order = _order, dataSource, tableView, label, isSelected = _isSelected, infoLabel;
+@synthesize order = _order, dataSource, tableView, label, isSelected = _isSelected, infoLabel, amountLabel;
 
 - (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate
 {
@@ -21,14 +22,20 @@
     if (self) {
 
         if ([anOrder.lines count] > 0) {
-            self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 38) andOrder: anOrder delegate: delegate];
+            self.label = [OrderTag tagWithFrame:CGRectMake(0, 2, frame.size.width, 45) andOrder: anOrder delegate: delegate];
             [self addSubview:self.label];
-            self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.label.frame.size.height + 2, frame.size.width, frame.size.height - self.label.frame.size.height - 10) style:UITableViewStyleGrouped];
+            self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.label.frame.size.height + 6, frame.size.width, frame.size.height - self.label.frame.size.height - 10 - 25) style:UITableViewStyleGrouped];
             self.tableView.backgroundColor = [UIColor clearColor];
             self.tableView.backgroundView = nil;
             self.tableView.sectionHeaderHeight = 1;
             [self addSubview:self.tableView];
             self.tableView.delegate = self;
+
+            self.amountLabel = [[UILabel alloc] initWithFrame: CGRectMake(self.bounds.size.width - 100, self.bounds.size.height - 25, 87, 20)];
+            [self addSubview:self.amountLabel];
+            self.amountLabel.textAlignment = UITextAlignmentRight;
+            self.amountLabel.backgroundColor = [UIColor clearColor];
+            self.amountLabel.text = [Utils getAmountString:[anOrder getAmount] withCurrency:YES];
         }
         else {
             infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(20, self.bounds.size.height/3, self.bounds.size.width - 40, 40)];
@@ -44,14 +51,14 @@
                 nameField.placeholder = @"Naam";
                 nameField.backgroundColor = [UIColor whiteColor];
                 nameField.borderStyle = UITextBorderStyleBezel;
-                infoLabel.text = NSLocalizedString(@"Nieuwe rekening", nil);
+                infoLabel.text = NSLocalizedString(@"New bill", nil);
             }
             else
             if (anOrder.id == byReservation)
-                infoLabel.text = NSLocalizedString(@"Klik om reservering te kiezen", nil);
+                infoLabel.text = NSLocalizedString(@"Tap to select reservation", nil);
             else
             if (anOrder.id == byEmployee)
-                infoLabel.text = NSLocalizedString(@"Klik om personeelslid te kiezen", nil);
+                infoLabel.text = NSLocalizedString(@"Tap to select coworker", nil);
             infoLabel.textAlignment = UITextAlignmentCenter;
         }
         self.order = anOrder;
@@ -82,18 +89,16 @@
 }
 
 - (void)setIsSelected: (bool)selected {
-//    self.backgroundColor = selected ? [UIColor colorWithRed:1.0 green:1.0 blue:0.8 alpha:1] : [UIColor clearColor];
-//    self.label.backgroundColor = self.backgroundColor;
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
     layer.borderColor = selected ? [[UIColor blueColor] CGColor] :  [[UIColor lightGrayColor] CGColor];
     _isSelected = selected;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)view willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return nil;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)view heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 26;
 }
 

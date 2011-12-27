@@ -9,14 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ReservationDayView.h"
 #import "ReservationDataSource.h"
-#import "ReservationViewController.h"
+#import "../../Controllers/ReservationEditViewController.h"
 #import "CalendarMonthView.h"
 #import "GTMHTTPFetcher.h"
 #import "ServiceResult.h"
 #import "NSDate-Utilities.h"
 #import "PopupHost.h"
+#import "ToggleButton.h"
 
-@interface ScrollTableViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate> {
+@interface ReservationsViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate> {
     ReservationDayView *dayView;
     NSMutableDictionary *dataSources;
     NSDate *originalStartsOn;
@@ -42,13 +43,16 @@
 @property (retain) IBOutlet UIBarButtonItem *buttonWalkin;
 @property (retain) IBOutlet UIBarButtonItem *buttonSearch;
 @property (retain) IBOutlet UIBarButtonItem *buttonPhone;
+@property (retain) IBOutlet ToggleButton *buttonCalendar;
 @property (retain) IBOutlet UISearchBar *searchBar;
 @property (retain) IBOutlet UIToolbar *toolbar;
 @property BOOL isInSearchMode;
+@property BOOL isInCalendarMode;
 @property (retain) NSDate *saveDate;
 
 - (NSString *) dateToKey: (NSDate *)date;
 - (void) gotoDate: (NSDate *)date;
+- (CalendarMonthView *)calendarViewForDate: (NSDate *)date;
 
 - (void) startSearchForText: (NSString *) query;
 - (void) searchReservationsCallback: (NSMutableArray *)reservations;

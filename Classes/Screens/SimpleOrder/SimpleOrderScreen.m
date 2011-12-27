@@ -44,20 +44,24 @@
 
 #pragma mark - View lifecycle
 
+#define HEIGHT_CASHBUTTON 100
+#define HEIGHT_CREDITBUTTON 60
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor blackColor];
 
-    self.title = NSLocalizedString(@"Nieuwe order", nil);
+    self.title = NSLocalizedString(@"New order", nil);
 
     float margin = 5;
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
-    float columnHeight = self.view.bounds.size.height - 2*margin - 200;
+    float columnHeight = self.view.bounds.size.height - 2*margin;
 
     self.productView = [[MenuTreeView alloc] initWithFrame:CGRectMake(margin, margin, columnWidth, columnHeight)];
     [self.view addSubview:self.productView];
+    self.productView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.productView.menuDelegate = self;
     self.productView.leftHeaderWidth = 20;
     self.productView.topHeaderHeight = 20;
@@ -66,18 +70,21 @@
     self.productView.tapStyle = tapNothing;
 
     float x = 2*margin + self.productView.frame.size.width;
-    self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin+20, columnWidth, 80)];
+    float y = margin + 20;
+    self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, columnWidth, 80)];
     [self.view addSubview:self.amountLabel];
+    self.amountLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.amountLabel.alpha = 0;
     self.amountLabel.backgroundColor = [UIColor clearColor];
     self.amountLabel.textColor = [UIColor whiteColor];
     self.amountLabel.font = [UIFont systemFontOfSize:100];
     self.amountLabel.textAlignment = UITextAlignmentCenter;
 
-    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, margin+20, columnWidth, 100)];
+    self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, columnWidth, 100)];
     [self.view addSubview:self.infoLabel];
+    self.infoLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     self.infoLabel.alpha = 0;
-    self.infoLabel.text = NSLocalizedString(@"Tap op product in linkerpanel voor nieuwe bestelling", nil);
+    self.infoLabel.text = NSLocalizedString(@"Tap on product in left panel to start order", nil);
     self.infoLabel.numberOfLines = 0;
     self.infoLabel.backgroundColor = [UIColor clearColor];
     self.infoLabel.textColor = [UIColor whiteColor];
@@ -91,37 +98,44 @@
             60)];
     [self.view addSubview:self.printInvoiceButton];
     self.printInvoiceButton.alpha = 0;
-    [self.printInvoiceButton setTitle: NSLocalizedString(@"Bon afdrukken", nil) forState:UIControlStateNormal];
+    [self.printInvoiceButton setTitle: NSLocalizedString(@"Print bill", nil) forState:UIControlStateNormal];
     self.printInvoiceButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    self.printInvoiceButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [self.printInvoiceButton addTarget:self action:@selector(printPreviousOrder) forControlEvents:UIControlEventTouchDown];
 
+    y += self.amountLabel.bounds.size.height + 20;
     self.orderView = [[UITableView alloc] initWithFrame:CGRectMake(
             x,
-            self.amountLabel.frame.origin.y + self.amountLabel.frame.size.height + 20,
+            y,
             columnWidth,
-            columnHeight - 2*self.amountLabel.frame.size.height - 20) style:UITableViewStyleGrouped];
+            columnHeight - y - HEIGHT_CASHBUTTON - HEIGHT_CREDITBUTTON - 5 - 5) style:UITableViewStyleGrouped];
     self.orderView.backgroundView = nil;
+    self.orderView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.orderView];
 
+    y += self.orderView.bounds.size.height + 5;
     self.cashButton = [[CrystalButton alloc] initWithFrame: CGRectMake(
             x + (columnWidth - 300)/2,
-            self.orderView.frame.origin.y + self.orderView.frame.size.height + 5,
+            y,
             300,
-            100)];
+            HEIGHT_CASHBUTTON)];
     [self.view addSubview:self.cashButton];
+    self.cashButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     self.cashButton.alpha = 0;
-    [self.cashButton setTitle: NSLocalizedString(@"Contant", nil) forState:UIControlStateNormal];
+    [self.cashButton setTitle: NSLocalizedString(@"Cash", nil) forState:UIControlStateNormal];
     self.cashButton.titleLabel.font = [UIFont boldSystemFontOfSize:50];
     [self.cashButton addTarget:self action:@selector(cashOrder) forControlEvents:UIControlEventTouchDown];
 
+    y += self.cashButton.bounds.size.height + 5;
     self.orderButton = [[CrystalButton alloc] initWithFrame:
             CGRectMake(
                     x + (columnWidth - 300)/2,
-                    self.cashButton.frame.origin.y + self.cashButton.frame.size.height + 5,
+                    y,
                     300,
-                    60)];
+                    HEIGHT_CREDITBUTTON)];
     [self.view addSubview:self.orderButton];
-    [self.orderButton setTitle: NSLocalizedString(@"Op rekening", nil) forState:UIControlStateNormal];
+    [self.orderButton setTitle: NSLocalizedString(@"Credit", nil) forState:UIControlStateNormal];
+    self.orderButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     self.orderButton.alpha = 0;
     [self.orderButton addTarget:self action:@selector(selectOrder) forControlEvents:UIControlEventTouchDown];
 
@@ -150,7 +164,7 @@
 
 - (IBAction) selectOrder
 {
-    SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeSelection title: NSLocalizedString(@"Kies openstaande order", nil)];
+    SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeSelection title: NSLocalizedString(@"Select running order", nil)];
     selectOpenOrder.delegate = self;
     [self.navigationController pushViewController:selectOpenOrder animated:YES];
 }
@@ -238,13 +252,10 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
 	return YES;
 }
 

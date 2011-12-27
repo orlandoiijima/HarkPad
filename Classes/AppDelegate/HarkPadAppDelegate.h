@@ -16,7 +16,7 @@
 #import "DashboardViewController.h"
 #import "SalesViewController.h"
 #import "WorkInProgressViewController.h"
-#import "ScrollTableViewController.h"
+#import "../Screens/Reservations/ReservationsViewController.h"
 #import "LogViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "iToast.h"

@@ -30,6 +30,7 @@
 - (NSDate *) lastDateInMonth;
 - (NSDate *)dateFromCellPath: (CellPath *)cellPath;
 - (CalendarDayCell *)cellForDate : (NSDate *)date;
+- (BOOL)isInView: (NSDate *)date;
 
 @property int startYear;
 @property int startMonth;

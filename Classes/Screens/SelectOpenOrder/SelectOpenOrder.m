@@ -13,6 +13,7 @@
 #import "UserListViewController.h"
 #import "ModalAlert.h"
 #import "ReservationListController.h"
+#import "BillViewController.h"
 
 @implementation SelectOpenOrder
 
@@ -54,12 +55,11 @@
     [super viewDidLoad];
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.scrollView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.scrollView];
     
     countColumns = 3;
-
-    [self refreshView];
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.view addGestureRecognizer:tapGesture];
@@ -67,6 +67,12 @@
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
     doubleTapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:doubleTapGesture];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self refreshView];
 }
 
 - (OrderView *)orderViewAtGesture: (UIGestureRecognizer *)gesture
@@ -195,17 +201,17 @@
     
     if (selectedOpenOrderType == typeSelection) {
         Order *order = [Order orderNull];
-        order.name = NSLocalizedString(@"Rekening", nil);
+        order.name = NSLocalizedString(@"Bill", nil);
         order.id = byNothing;
         [self.orders insertObject: order atIndex:0];
 
         Order *orderEmployee = [Order orderNull];
-        orderEmployee.name = NSLocalizedString(@"Personeel", nil);
+        orderEmployee.name = NSLocalizedString(@"Personel", nil);
         orderEmployee.id = byEmployee;
         [self.orders insertObject: orderEmployee atIndex:1];
 
         Order *orderReservation = [Order orderNull];
-        orderReservation.name = NSLocalizedString(@"Reservering", nil);
+        orderReservation.name = NSLocalizedString(@"Reservation", nil);
         orderReservation.id = byReservation;
         [self.orders insertObject: orderReservation atIndex:2];
     }
@@ -213,7 +219,7 @@
     int i = 0;
     int leftMargin = 15;
     int topMargin = 15;
-    int width = (self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
+    int width = (int)(self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
         CGRect frame = CGRectMake(
@@ -222,6 +228,7 @@
                 width,
                 height);
         OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order delegate:self];
+        orderView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
         orderView.backgroundColor = [UIColor clearColor];//self.scrollView.backgroundColor;
         [self.scrollView addSubview:orderView];
         i++;
@@ -244,6 +251,13 @@
     paymentController.order = order;
     paymentController.delegate = self;
     [self.navigationController pushViewController:paymentController animated:YES];
+}
+
+- (void) didTapPrintButtonForOrder: (Order *)order
+{
+    BillViewController *billController = [[BillViewController alloc] init];
+    billController.order = order;
+    [self.navigationController pushViewController: billController animated:YES];
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder:(Order *)order {

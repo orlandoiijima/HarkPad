@@ -27,7 +27,7 @@
     self.countMonths = 1;
     self.columnWidth = self.bounds.size.width / 7;
     self.backgroundColor = [UIColor whiteColor];
-    self.cellPadding = CGSizeMake(-1, -1);
+  //  self.cellPadding = CGSizeMake(-1, -1);
     self.leftHeaderWidth = 0;
     self.topHeaderHeight = 0;
     self.cellColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.05];
@@ -129,6 +129,18 @@
 {
     return [[self firstDateInView] dateByAddingDays:6*_countMonths*7 - 1];
 //    return [[[self lastDateInMonth] startOfWeek] dateByAddingDays:6];
+}
+
+- (BOOL)isInView: (NSDate *)date
+{
+    if([date isEqualToDateIgnoringTime: [self firstDateInMonth]])
+        return YES;
+    if([date isEqualToDateIgnoringTime: [self lastDateInMonth]])
+        return YES;
+    if (([date compare:[self firstDateInMonth]] == NSOrderedDescending) &&
+        ([date compare:[self lastDateInMonth]] == NSOrderedAscending))
+        return YES;
+    return NO;
 }
 
 - (NSDate *) lastDateInMonth

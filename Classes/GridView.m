@@ -311,7 +311,7 @@
 
     if([self.delegate respondsToSelector:@selector(viewForHeader:)]) {
         UIView *headerView = [self.delegate viewForHeader:self];
-        headerView.frame = CGRectMake(left + cellPadding.width, top + cellPadding.height, self.frame.size.width, headerHeight);
+        headerView.frame = CGRectMake(left + cellPadding.width, top + cellPadding.height, 7 * columnWidth, headerHeight);
         [contentView addSubview: headerView];
         top += headerHeight;
     }
@@ -322,7 +322,7 @@
     
     for(; path.row < countRows; path.row++) {
 
-        float rowHeight = 0;
+        int rowHeight = 0;
         left = 0;
         
         for(path.column=0; path.column < countColumns; path.column++) {
@@ -330,9 +330,9 @@
             int countLines = [_dataSource numberOfLinesInGridView: self column:path.column row:path.row];
             
             if(countLines > 0) {
-                float cellHeight = 2 * (cellPadding.height);
-                float lineTop = top + cellPadding.height;
-                float lineLeft = left + cellPadding.width;
+                int cellHeight = 2 * (cellPadding.height);
+                int lineTop = top + cellPadding.height;
+                int lineLeft = left + cellPadding.width;
                 for(path.line = 0; path.line < countLines; path.line++) {
                     if(path.line > 0) {
                         lineTop += spaceBetweenCellLines;

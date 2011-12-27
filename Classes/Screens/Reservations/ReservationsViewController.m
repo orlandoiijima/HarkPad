@@ -6,15 +6,16 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
-#import "ScrollTableViewController.h"
+#import "ReservationsViewController.h"
 #import "iToast.h"
 #import "Service.h"
 #import "CalendarDayCell.h"
 #import "DayReservationsInfo.h"
+#import "ModalAlert.h"
 
-@implementation ScrollTableViewController
+@implementation ReservationsViewController
 
-@synthesize dayView, dataSources, originalStartsOn, popover, segmentShow, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews;
+@synthesize dayView, dataSources, originalStartsOn, popover, segmentShow, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, buttonCalendar, isInCalendarMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,16 +51,22 @@
         buttonPhone.enabled = false;
     }
 
+    [buttonCalendar setImage:[UIImage imageNamed:@"calendar.png"]];
+    [buttonCalendar addTarget:self action:@selector(showCalendar:) forControlEvents:UIControlEventValueChanged];
+
+    isInCalendarMode = YES;
     calendarViews = [[NSMutableArray alloc] init];
-    int margin = 10;
-    int top = 60;
-    int width = (self.view.bounds.size.width - 3*margin) / 2;
-    int height = (self.view.bounds.size.height - 3 * margin - top) / 3;
+    int margin = 15;
+    int top = (int)toolbar.bounds.size.height + margin;
+    int width = (int)(self.view.bounds.size.width - 3*margin) / 2;
+    int height = (int)(self.view.bounds.size.height - 3 * margin - top) / 3;
+    height = ((height - 40) / 6) * 6 + 40;
     int y = top;
     for(int month = 0; month < 3; month++) {
         CalendarMonthView *view = [[CalendarMonthView alloc] initWithFrame:CGRectMake(margin, y, width, height)];
         [self.view addSubview:view];
         view.calendarDelegate = self;
+        view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         view.startMonth = [[[NSDate date] dateByAddingDays:30 * month] month];
         view.startYear = [[[NSDate date] dateByAddingDays:30 * month] year];
         [calendarViews addObject:view];
@@ -70,6 +77,7 @@
 
     CGRect frameDay = CGRectMake(self.view.bounds.size.width/2, top, self.view.bounds.size.width/2, self.view.bounds.size.height - 50);
     self.dayView = [[ReservationDayView alloc] initWithFrame:frameDay delegate:self];
+    self.dayView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:dayView];
 
     self.dataSources = [[NSMutableDictionary alloc] init];
@@ -92,6 +100,16 @@
         [self endSearchMode];
     else
         [self gotoDate: [NSDate date]];
+}
+
+- (CalendarMonthView *)calendarViewForDate: (NSDate *)date
+{
+    for(CalendarMonthView *view in calendarViews) {
+        if ([view isInView:date]) {
+            return view;
+        }
+    }
+    return nil;
 }
 
 - (void) refreshView
@@ -139,6 +157,13 @@
     else {
         dayView.dataSource = dataSource;
     }
+    
+    for(CalendarMonthView *view in calendarViews) {
+        if ([view isInView:date])
+            view.selectedDate = date;
+        else
+            view.selectedDate = nil;
+    }
 }
 
 - (void)calendarView:(CalendarMonthView *)calendarView didTapDate:(NSDate *)date {
@@ -151,7 +176,7 @@
 
 - (void) openEditPopup: (Reservation*)reservation
 {
-    ReservationViewController *popup = [ReservationViewController initWithReservation: reservation];
+    ReservationEditViewController *popup = [ReservationEditViewController initWithReservation: reservation];
     popover = [[UIPopoverController alloc] initWithContentViewController: popup];
     popup.hostController = self;
     popover.delegate = self;
@@ -218,7 +243,7 @@
 
 - (void) closePopup
 {
-    ReservationViewController *popup = (ReservationViewController *) popover.contentViewController;
+    ReservationEditViewController *popup = (ReservationEditViewController *) popover.contentViewController;
     Reservation *reservation = popup.reservation;
     [popover dismissPopoverAnimated:YES];
     NSString *key = [self dateToKey:reservation.startsOn];
@@ -258,6 +283,7 @@
     }
     [self.dayView refreshTotals];
     [self.dayView.table setEditing:NO];
+    [self refreshCalendar];
 }
     
 - (void) cancelPopup
@@ -286,6 +312,23 @@
     Reservation *reservation = [[Reservation alloc] init];
     reservation.type = Walkin;
     [self openEditPopup:reservation];
+}
+
+- (IBAction) showCalendar: (id)sender
+{
+    isInCalendarMode = !isInCalendarMode;
+    [UIView animateWithDuration:0.2f animations: ^{
+        for(CalendarMonthView *view in calendarViews) {
+            if(isInCalendarMode)
+                view.center = CGPointMake(15 + view.bounds.size.width / 2, view.center.y);
+            else
+                view.center = CGPointMake( - view.bounds.size.width / 2, view.center.y);
+        }
+        if(isInCalendarMode)
+            self.dayView.frame = CGRectMake(self.view.bounds.size.width/2, self.dayView.frame.origin.y, self.view.bounds.size.width/2, self.view.bounds.size.height - 50);
+        else
+            self.dayView.frame = CGRectMake(0, self.dayView.frame.origin.y, self.view.bounds.size.width, self.view.bounds.size.height - 50);
+    }];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)bar
@@ -346,8 +389,7 @@
 - (void) refreshCalendarCallback: (ServiceResult *)serviceResult
 {
     if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
+        [ModalAlert error:serviceResult.error];
         return;
     }
 
@@ -382,7 +424,6 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
 	return YES;
 }
 

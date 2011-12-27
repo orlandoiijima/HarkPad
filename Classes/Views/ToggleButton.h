@@ -14,6 +14,8 @@
 @property BOOL ignoreGesture;
 
 + (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame;
+- (void)initButton;
+- (void) setImage: (UIImage *)image;
 
 
 @end

@@ -70,7 +70,7 @@
     [cell.dinnerStatusView.layer insertSublayer:gradientLayer atIndex:0];
 
     cell.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
-    cell.layer.borderWidth = 1;
+    cell.layer.borderWidth = 0.5;
 
     cell.isSelected = NO;
     
@@ -101,6 +101,10 @@
 
 - (void) setIsSelected: (BOOL)isSelected
 {
+    if (_isActive == false) {
+
+    }
+    else
     if (isSelected) {
         self.backgroundColor = [UIColor blueColor];
         self.label.textColor = [UIColor whiteColor];
@@ -143,7 +147,7 @@
             break;
         case statusAvailable:
             view.alpha = 1;
-            view.backgroundColor = [UIColor yellowColor];
+            view.backgroundColor = [UIColor colorWithRed:0.9 green:1.0 blue:0.4 alpha:1];
             break;
     }}];
 }

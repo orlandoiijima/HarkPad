@@ -11,4 +11,6 @@
 + (BOOL) ask: (NSString *) question;
 + (BOOL) confirm:(NSString *) statement;
 + (BOOL) inform:(NSString *) statement;
++ (BOOL) error: (NSString *) statement;
+
 @end

@@ -18,17 +18,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
-        
+
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
         dateLabel.font = [UIFont systemFontOfSize:22];
         dateLabel.textAlignment = UITextAlignmentRight;
+        dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:dateLabel];
 
         dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/2 + 5, 0, frame.size.width/2, 35)];
         dayLabel.font = [UIFont systemFontOfSize:22];
         dayLabel.textColor = [UIColor colorWithWhite: 0.5 alpha: 0.5];
         dayLabel.textAlignment = UITextAlignmentLeft;
+        dayLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:dayLabel];
 
         int spacing = 5;
@@ -45,6 +46,7 @@
             label.font = [UIFont systemFontOfSize:10];
             label.textColor = [UIColor grayColor];
             label.text = slot;
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview: label];
             
             CGRect bounds = [label textRectForBounds:frame limitedToNumberOfLines:1];
@@ -52,6 +54,7 @@
             label.font = [UIFont systemFontOfSize:10];
             label.text = slot;
             [countLabels setValue:label forKey:slot];
+            label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview: label];
             
             x += width + spacing;
@@ -64,6 +67,7 @@
         table.delegate = delegate;
         table.allowsSelectionDuringEditing = YES;
         table.backgroundView = nil;
+        table.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:table];
     }
     return self;

@@ -11,7 +11,7 @@
 #import "GTMHTTPFetcher.h"
 #import "PopupHost.h"
 
-@interface ReservationViewController : UIViewController {
+@interface ReservationEditViewController : UIViewController {
     Reservation *reservation;
     UITextView *notesView;
     UITextField *nameView;
@@ -34,7 +34,7 @@
 @property (retain) IBOutlet UISegmentedControl *languageView;
 @property (retain) UIViewController *hostController;
 @property (retain) NSMutableArray *languages;
-+ (ReservationViewController *) initWithReservation: (Reservation *)reservation;
++ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation;
 
 - (IBAction) save;
 - (IBAction) cancel;

@@ -24,3 +24,16 @@
 "No users found !" = "No users found !";
 "New bill for coworker '%@'" = "New bill for coworker '%@'";
 "New bill for reservation '%@'" = "New bill for reservation '%@'";
+"Reservation" = "Reservation";
+"Personel" = "Personel";
+"Tap to select coworker" = "Tap to select coworker";
+"Tap to select reservation" = "Tap to select reservation";
+"New bill" = "New bill";
+"No name" = "No name";
+"New order" = "New order";
+"Tap on product in left panel to start order" = "Tap on product in left panel to start order";
+"Print bill" = "Print bill";
+"Cash" = "Cash";
+"Credit" = "Credit";
+"Select running order" = "Select running order";
+"walk-in" = "walk-in";

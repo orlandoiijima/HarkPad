@@ -71,5 +71,9 @@
     return	[ModalAlert queryWithTitle:statement message:nil button1: @"OK" button2: nil];
 }
 
++ (BOOL) error: (NSString *) statement
+{
+    return	[ModalAlert queryWithTitle:statement message:nil button1: @"OK" button2: nil];
+}
 @end
 

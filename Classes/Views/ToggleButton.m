@@ -11,14 +11,47 @@
 
 @synthesize isOn, ignoreGesture;
 
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    [self initButton];
+    return self;
+}
+
+- (id)init
+{
+    if ((self = [super init]) != NULL)
+	{
+        [self initButton];
+	}
+    return(self);
+}
+
+- (void)initButton
+{
+    [self removeAllSegments];
+    [self insertSegmentWithTitle: @"" atIndex:0 animated:NO];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    tapGesture.delegate = self;
+    [self addGestureRecognizer:tapGesture];
+    [self addTarget:self action:@selector(action:) forControlEvents:UIControlEventTouchDown];
+    return;
+}
+
+- (void) setImage: (UIImage *)image
+{
+    [self setImage:image forSegmentAtIndex:0];
+}
+
 + (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame    {
     ToggleButton *sw = [[ToggleButton alloc] init];
     sw.frame = frame;
-    [sw insertSegmentWithTitle:title atIndex:0 animated:NO];
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:sw action:@selector(handleTapGesture:)];
-    tapGesture.delegate = sw;
-    [sw addGestureRecognizer:tapGesture];
-    [sw addTarget:sw action:@selector(action:) forControlEvents:UIControlEventTouchDown];
+    [sw setTitle:title forSegmentAtIndex:0];
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:sw action:@selector(handleTapGesture:)];
+//    tapGesture.delegate = sw;
+//    [sw addGestureRecognizer:tapGesture];
+//    [sw addTarget:sw action:@selector(action:) forControlEvents:UIControlEventTouchDown];
     return sw;
 }
 
