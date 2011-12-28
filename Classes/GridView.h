@@ -96,7 +96,7 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 @property CGPoint dragCellLineCenter;
 @property CGPoint dragTouchPoint;
 @property (retain) GridViewCellLine *dragCellLine;
-@property (retain) GridViewCellLine *selectedCellLine;
+@property (retain, nonatomic) GridViewCellLine *selectedCellLine;
 @property DropMode dropMode;
 @property DragMode dragMode;
 @property CellMode cellMode;

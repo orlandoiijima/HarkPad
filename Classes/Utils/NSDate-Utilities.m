@@ -286,6 +286,13 @@
 	return dTime;
 }
 
+- (NSDate *) dateAtStartOfMonth
+{
+	NSDateComponents *components = [CURRENT_CALENDAR components:DATE_COMPONENTS fromDate:self];
+	[components setDay:1];
+	return [CURRENT_CALENDAR dateFromComponents:components];
+}
+
 #pragma mark Retrieving Intervals
 
 - (NSInteger) minutesAfterDate: (NSDate *) aDate

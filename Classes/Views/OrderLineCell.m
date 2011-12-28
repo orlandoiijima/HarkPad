@@ -1,13 +1,7 @@
 
 #import "OrderLineCell.h"
-#import "OrderLine.h"
-#import "OrderLinePropertyValue.h"
-//#import "OrderViewDetailController.h"
-#import "OrderTableView.h"
 #import "Utils.h"
-#import "OrderGridHitInfo.h"
 #import "ToggleButton.h"
-#import "CrystalButton.h"
 
 @implementation OrderLineCell
 
@@ -47,7 +41,7 @@
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
-    cell.selectionStyle = UITableViewCellEditingStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone; // UITableViewCellEditingStyleNone;
     cell.clipsToBounds = YES;
 
     cell.delegate = delegate;
@@ -145,15 +139,12 @@
 
 + (float) getExtraHeightForEditMode: (OrderLine *)line width: (float)width
 {
-    if (line == nil || line.product == nil) 
+    if (line == nil || line.product == nil)
         return 0;
     if (line.product.properties == nil || [line.product.properties count] == 0)
         return 33;
-    float controlHeight = 27;
     float x = 50;
-    float y = 0;
     float margin = 10;
-    float vSpace = 5;
     int countLines = 1;
     for(OrderLineProperty *property in line.product.properties) {
         CGSize size = [property.name sizeWithFont: [UIFont boldSystemFontOfSize:18]];
@@ -182,12 +173,10 @@
 }
 
 - (void) switchChanged: (id)sender {
-//   UIButton *button = (UIButton *)sender;
     for(int i=0; i < [self.propertyViews count]; i++) {
         if([self.propertyViews objectAtIndex:i] == sender) {
             int oldValue = [[orderLine getStringValueForProperty: [orderLine.product.properties objectAtIndex:i]] intValue];
             [orderLine setStringValueForProperty: [orderLine.product.properties objectAtIndex:i] value: oldValue == 0 ? @"1" : @"0"];
-//            button.tintColor = button.tintColor == [UIColor blueColor] ? [UIColor lightGrayColor] : [UIColor blueColor];
             return;
         }        
     }
@@ -205,16 +194,6 @@
     quantity.hidden = line.quantity == 1;
     name.text = line.product.name;
 
-//    if(line.entityState == New)
-//    {
-//        name.font = [UIFont boldSystemFontOfSize:18];
-//        price.font = [UIFont boldSystemFontOfSize:18];
-//    }
-//    else
-//    {
-//        nLineIcon.hidden = YES;
-//    }
-    
     if (showProductProperties) {
         if(line.note.length > 0) {
             note.text = line.note;
@@ -246,12 +225,6 @@
 }
 
 - (void) setIsInEditMode: (BOOL)value {
-//    _isInEditMode = value;
-//    notesView.hidden = !_isInEditMode;
-//    stepperView.hidden = !_isInEditMode;
-//    for(UISwitch *sw in propertyViews) {
-//        sw.hidden = !_isInEditMode;
-//    }
     quantity.hidden = !_isInEditMode && orderLine.quantity == 1;
 }
 

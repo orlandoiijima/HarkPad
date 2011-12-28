@@ -237,11 +237,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     float height = rowHeight == 0 ? 44 : rowHeight;
-    NSIndexPath *indexPathSelected = [tableView indexPathForSelectedRow];
-    if (indexPathSelected != nil)
-        if (indexPath.row == indexPathSelected.row && indexPath.section == indexPathSelected.section) {
-            height += [OrderLineCell getExtraHeightForEditMode: [self orderLineAtIndexPath:indexPath] width:320];
-        }
+    if (isEditable) {
+        NSIndexPath *indexPathSelected = [tableView indexPathForSelectedRow];
+        if (indexPathSelected != nil)
+            if (indexPath.row == indexPathSelected.row && indexPath.section == indexPathSelected.section) {
+                height += [OrderLineCell getExtraHeightForEditMode: [self orderLineAtIndexPath:indexPath] width:320];
+            }
+    }
     return height;
 }
 

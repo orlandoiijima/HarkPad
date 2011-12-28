@@ -4,23 +4,16 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
 #import "ProductMaintenance.h"
-#import "Product.h"
 #import "QRootElement.h"
 #import "QSection.h"
 #import "QEntryElement.h"
 #import "QDecimalElement.h"
 #import "QBooleanElement.h"
 #import "Cache.h"
-#import "QRadioElement.h"
 #import "OrderLineProperty.h"
 #import "Utils.h"
 #import "MaintenanceSplitViewController.h"
-#import "ProductCategory.h"
-#import "QElement.h"
-#import "QuickDialogController.h"
 #import "Service.h"
 
 @implementation ProductMaintenance

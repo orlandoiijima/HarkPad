@@ -24,7 +24,6 @@
 		E533A0CD132D2932005CB4D6 /* NSDate-Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */; };
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
-		E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E538F24813756383007F8438 /* MainWindow-iPhone.xib */; };
 		E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */; };
 		E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC85139FD89000EB7C69 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E55DFCCD139FD89000EB7C69 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC89139FD89000EB7C69 /* IASKAppSettingsViewController.m */; };
@@ -107,7 +106,6 @@
 		E5A7FE4A1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE431482CF610064CAB5 /* InfoPlist.strings */; };
 		E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE441482CF610064CAB5 /* InfoPlist.strings */; };
 		E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE461482CF610064CAB5 /* Localizable.strings */; };
-		E5A7FE4D1482CF610064CAB5 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5A7FE481482CF610064CAB5 /* MainWindow.xib */; };
 		E5AC3D75132256410090F743 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D7013224CDC0090F743 /* PaymentViewController.m */; };
 		E5AC3D76132256470090F743 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */; };
 		E5AC3D79132263870090F743 /* OrderDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5AC3D78132263830090F743 /* OrderDataSource.m */; };
@@ -191,7 +189,6 @@
 		E5E723331311A12C00905959 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380512E21164007C2101 /* Foundation.framework */; };
 		E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
 		E5E723361311A12C00905959 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
-		E5E723371311A12C00905959 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A381312E21164007C2101 /* MainWindow.xib */; };
 		E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A383E12E2193F007C2101 /* iTunesArtwork72.png */; };
 		E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A384C12E234B8007C2101 /* NewOrderVC.xib */; };
 		E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */; };
@@ -249,6 +246,10 @@
 		E5F609A313489C2400D885C1 /* CalendarHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C0 /* CalendarHeaderView.m */; };
 		E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C3 /* DayReservationsInfo.m */; };
 		E5F609A313489C2400D885C7 /* order.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885C6 /* order.png */; };
+		E5F609A313489C2400D885CB /* ReservationsSimple.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885CA /* ReservationsSimple.m */; };
+		E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885CD /* CalendarViewController.m */; };
+		E5F609A313489C2400D885D0 /* rightarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885CF /* rightarrow.png */; };
+		E5F609A313489C2400D885D2 /* leftarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885D1 /* leftarrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -264,7 +265,6 @@
 		E50A380A12E21164007C2101 /* HarkPad-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarkPad-Prefix.pch"; sourceTree = "<group>"; };
 		E50A380C12E21164007C2101 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E50A380E12E21164007C2101 /* HarkPad-main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HarkPad-main.m"; sourceTree = "<group>"; };
-		E50A381412E21164007C2101 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		E50A382612E21165007C2101 /* HarkPadTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HarkPadTests-Info.plist"; sourceTree = "<group>"; };
 		E50A382712E21165007C2101 /* HarkPadTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HarkPadTests-Prefix.pch"; sourceTree = "<group>"; };
 		E50A382812E21165007C2101 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = InfoPlist.strings; path = en.lproj/HarkPadTests/InfoPlist.strings; sourceTree = "<group>"; };
@@ -379,7 +379,6 @@
 		E534F42112F34214006886C6 /* Guest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Guest.m; sourceTree = "<group>"; };
 		E534F42312F46231006886C6 /* SeatInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatInfo.h; sourceTree = "<group>"; };
 		E534F42412F46231006886C6 /* SeatInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatInfo.m; sourceTree = "<group>"; };
-		E538F24813756383007F8438 /* MainWindow-iPhone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow-iPhone.xib"; sourceTree = "<group>"; };
 		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReservationWalkinViewController.xib; sourceTree = "<group>"; };
@@ -534,7 +533,6 @@
 		E5A7FE431482CF610064CAB5 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		E5A7FE451482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		E5A7FE471482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		E5A7FE491482CF610064CAB5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MainWindow.xib; sourceTree = "<group>"; };
 		E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
 		E5AC3D7013224CDC0090F743 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
@@ -670,6 +668,12 @@
 		E5F609A313489C2400D885C3 /* DayReservationsInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayReservationsInfo.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885C5 /* DayReservationsInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayReservationsInfo.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D885C6 /* order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = order.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885C9 /* ReservationsSimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationsSimple.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885CA /* ReservationsSimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationsSimple.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885CC /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885CD /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885CF /* rightarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightarrow.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885D1 /* leftarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftarrow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -724,11 +728,9 @@
 				E52774221482CE5500DEBF8F /* nl.lproj */,
 				E50A380912E21164007C2101 /* HarkPad-Info.plist */,
 				E50A380B12E21164007C2101 /* InfoPlist.strings */,
-				E50A381312E21164007C2101 /* MainWindow.xib */,
 				E50A382612E21165007C2101 /* HarkPadTests-Info.plist */,
 				E50A382812E21165007C2101 /* InfoPlist.strings */,
 				E500D766135A31C000EA347E /* Settings.bundle */,
-				E538F24813756383007F8438 /* MainWindow-iPhone.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -796,6 +798,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885CD /* CalendarViewController.m */,
+				E5F609A313489C2400D885CC /* CalendarViewController.h */,
 				E5F609A313489C2400D885C2 /* CalendarHeaderView.h */,
 				E5F609A313489C2400D885C0 /* CalendarHeaderView.m */,
 				E5F609A313489C2400D885BF /* CalendarDayCell.h */,
@@ -940,6 +944,8 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885D1 /* leftarrow.png */,
+				E5F609A313489C2400D885CF /* rightarrow.png */,
 				E5AC715D138950E400DB450E /* Default@2x.png */,
 				E5AC715B138950D600DB450E /* Default.png */,
 				E5F3D115131009BC00753E36 /* Default-Portrait~ipad.png */,
@@ -1350,7 +1356,6 @@
 				E5A7FE421482CF610064CAB5 /* HarkPadTests */,
 				E5A7FE441482CF610064CAB5 /* InfoPlist.strings */,
 				E5A7FE461482CF610064CAB5 /* Localizable.strings */,
-				E5A7FE481482CF610064CAB5 /* MainWindow.xib */,
 			);
 			path = en.lproj;
 			sourceTree = "<group>";
@@ -1389,6 +1394,7 @@
 				E5F609A313489C2400D885B5 /* Dashboard */,
 				E5F609A313489C2400D885B6 /* Backlog */,
 				E5F609A313489C2400D885B7 /* Tables */,
+				E5F609A313489C2400D885C8 /* ReservationsSimple */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1493,6 +1499,15 @@
 			path = Tables;
 			sourceTree = "<group>";
 		};
+		E5F609A313489C2400D885C8 /* ReservationsSimple */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D885CA /* ReservationsSimple.m */,
+				E5F609A313489C2400D885C9 /* ReservationsSimple.h */,
+			);
+			path = ReservationsSimple;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1548,7 +1563,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5E723361311A12C00905959 /* InfoPlist.strings in Resources */,
-				E5E723371311A12C00905959 /* MainWindow.xib in Resources */,
 				E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */,
 				E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */,
 				E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */,
@@ -1589,7 +1603,6 @@
 				E5DB4CA9135F4081005ADD06 /* WorkInProgressViewController.xib in Resources */,
 				E5DB4CAE135F46FB005ADD06 /* WorkInProgressTableCell.xib in Resources */,
 				E5E0DB05136DD94B00B9C0B6 /* ReservationsViewController.xib in Resources */,
-				E538F24913756383007F8438 /* MainWindow-iPhone.xib in Resources */,
 				E5AC71561389146900DB450E /* TablesViewController.xib in Resources */,
 				E5AC7158138950B700DB450E /* anna-a-57x57.png in Resources */,
 				E5AC715A138950C600DB450E /* anna-a-114x114.png in Resources */,
@@ -1616,8 +1629,9 @@
 				E5A7FE4A1482CF610064CAB5 /* InfoPlist.strings in Resources */,
 				E5A7FE4B1482CF610064CAB5 /* InfoPlist.strings in Resources */,
 				E5A7FE4C1482CF610064CAB5 /* Localizable.strings in Resources */,
-				E5A7FE4D1482CF610064CAB5 /* MainWindow.xib in Resources */,
 				E5F609A313489C2400D885C7 /* order.png in Resources */,
+				E5F609A313489C2400D885D0 /* rightarrow.png in Resources */,
+				E5F609A313489C2400D885D2 /* leftarrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1806,6 +1820,8 @@
 				E5F609A313489C2400D885BE /* CalendarDayCell.m in Sources */,
 				E5F609A313489C2400D885C1 /* CalendarHeaderView.m in Sources */,
 				E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */,
+				E5F609A313489C2400D885CB /* ReservationsSimple.m in Sources */,
+				E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1818,14 +1834,6 @@
 				E50A380C12E21164007C2101 /* InfoPlist.strings */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E50A381312E21164007C2101 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E50A381412E21164007C2101 /* MainWindow.xib */,
-			);
-			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 		E52774231482CE5500DEBF8F /* Localizable.strings */ = {
@@ -1850,14 +1858,6 @@
 				E5A7FE471482CF610064CAB5 /* en */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		E5A7FE481482CF610064CAB5 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E5A7FE491482CF610064CAB5 /* en */,
-			);
-			name = MainWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

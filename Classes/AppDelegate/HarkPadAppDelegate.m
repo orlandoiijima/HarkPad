@@ -7,6 +7,7 @@
 //
 
 #import "HarkPadAppDelegate.h"
+#import "ReservationsSimple.h"
 
 @implementation HarkPadAppDelegate
 
@@ -62,7 +63,9 @@
         return;
     }
 
-    NSDictionary *ipad = [result.jsonData objectForKey:@"ipad"];
+    NSString *deviceKey = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"iphone" : @"ipad";
+
+    NSDictionary *ipad = [result.jsonData objectForKey: deviceKey];
     NSDictionary * screen = [ipad objectForKey:@"screen"];
 
     NSMutableDictionary *controllers = [[NSMutableDictionary alloc] init];
@@ -95,7 +98,17 @@
         }
 
         if ([key isEqualToString:@"reservations"]) {
-            controller = [[ReservationsViewController alloc] init];
+//            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+//            {
+//                ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
+//                controller = [[UINavigationController alloc] initWithRootViewController: reservationsController];
+//            }
+//            else
+//            {
+//                controller = [[ReservationsViewController alloc] init];
+//            }
+            ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
+            controller = [[UINavigationController alloc] initWithRootViewController: reservationsController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Reservations", nil) image:[UIImage imageNamed:@"calendar"] tag:1];
         }
 

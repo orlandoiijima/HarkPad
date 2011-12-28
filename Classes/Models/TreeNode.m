@@ -21,13 +21,13 @@
     node.nodes = [[NSMutableArray alloc] init];
     node.parent = parent;
     NSString *color = [jsonDictionary objectForKey:@"color"];
-    if((NSNull *)color != [NSNull null])
+    if(color != nil)
         node.color = [node getColor:color];
     NSNumber *productId = [jsonDictionary objectForKey:@"productId"];
     if(productId != nil && (NSNull *)productId != [NSNull null])
         node.product = [[[Cache getInstance] menuCard] getProduct:[productId intValue]];
     NSNumber *menuId = [jsonDictionary objectForKey:@"menuId"];
-    if((NSNull *)menuId != [NSNull null])
+    if(menuId != nil)
         node.menu = [[[Cache getInstance] menuCard] getMenu:[menuId intValue]];
     [parent.nodes addObject: node];
     id nodes = [jsonDictionary objectForKey:@"nodes"];

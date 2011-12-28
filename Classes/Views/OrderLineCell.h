@@ -22,7 +22,7 @@
 @property (retain) id<TableCellUpdated> delegate;
 
 @property bool showProductProperties;
-@property BOOL isInEditMode;
+@property (nonatomic) BOOL isInEditMode;
 @property BOOL isEditable;
 @property BOOL showPrice;
 @property int heightInEditMode;

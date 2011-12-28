@@ -82,9 +82,9 @@
     return cellLine;
 }
 
-- (float) gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path
+- (NSUInteger) gridView:(GridView *)gridView heightForLineAtPath:(CellPath *)path
 {
-    return 30.0;
+    return 30;
 }
 
 //

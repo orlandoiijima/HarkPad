@@ -42,11 +42,11 @@
 {
     self.contentSizeForViewInPopover = CGSizeMake(200, 0);
 
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
-    self.view = tableView;
+    self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
 
     [[Service getInstance] getReservations:[NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
 }
+
 
 - (void)getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date {
     NSMutableArray *reservations = serviceResult.data;
@@ -61,8 +61,8 @@
     self.contentSizeForViewInPopover = CGSizeMake(350, 400);
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Reservation *reservation = [self.dataSource.reservations objectAtIndex:indexPath.row];
+- (void)tableView:(UITableView *)view didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Reservation *reservation = [self.dataSource.reservations objectAtIndex: (NSUInteger)indexPath.row];
     if (reservation == nil) return;
     if([self.delegate respondsToSelector:@selector(didSelectItem:)])
         [self.delegate didSelectItem: reservation];

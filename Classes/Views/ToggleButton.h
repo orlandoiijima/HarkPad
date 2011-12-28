@@ -8,14 +8,13 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ToggleButton : UISegmentedControl
+@interface ToggleButton : UIButton
 
 @property BOOL isOn;
-@property BOOL ignoreGesture;
 
 + (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame;
-- (void)initButton;
 - (void) setImage: (UIImage *)image;
+- (void) tap;
 
 
 @end

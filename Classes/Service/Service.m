@@ -29,7 +29,7 @@ static Service *_service;
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-        else
+//        else
             url = URL_DEV;
 	    }
     return self;
@@ -173,7 +173,7 @@ static Service *_service;
     [self getPageCallback:@"transferorder"
             withQuery: [NSString stringWithFormat:@"orderId=%d&tableId=%d", orderId, tableId]
             delegate:self
-            callback:@selector(serviceCallback:finishedWithData:error:)
+            callback:@selector(simpleCallback:finishedWithData:error:)
             userData:invocation];
 	return;    
 }
@@ -413,16 +413,8 @@ static Service *_service;
     [self getPageCallback:@"getdashboardstatistics"
                 withQuery:@""
                  delegate:self
-                 callback:@selector(serviceCallback:finishedWithData:error:)
+                 callback:@selector(simpleCallback:finishedWithData:error:)
                  userData:invocation];
-}
-
-- (void) serviceCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
 }
 
 - (void) getInvoices: (id) delegate callback: (SEL)callback

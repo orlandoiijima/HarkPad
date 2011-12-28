@@ -26,8 +26,8 @@
 @property (retain) CalendarMonthView *calendarView;
 @property (retain) UIView *lunchStatusView;
 @property (retain) UIView *dinnerStatusView;
-@property SlotStatus lunchStatus;
-@property SlotStatus dinnerStatus;
+@property (nonatomic) SlotStatus lunchStatus;
+@property (nonatomic) SlotStatus dinnerStatus;
 
 + (CalendarDayCell *) cellWithDate: (NSDate *)date isActive: (BOOL) isActive calendarView: (CalendarMonthView *)calendarView;
 

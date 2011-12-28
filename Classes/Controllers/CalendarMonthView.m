@@ -7,9 +7,10 @@
 
 #import "CalendarMonthView.h"
 #import "NSDate-Utilities.h"
-#import "Product.h"
 #import "CalendarDayCell.h"
 #import "CalendarHeaderView.h"
+#import "Service.h"
+#import "ModalAlert.h"
 
 
 @implementation CalendarMonthView {
@@ -34,6 +35,11 @@
     self.headerColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
 }
 
+//- (void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    self.columnWidth = self.bounds.size.width / 7;
+//}
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -59,6 +65,13 @@
 
 - (void)setSelectedDate: (NSDate *)date
 {
+    if ([self isInView:date] == false) {
+        self.startYear = [date year];
+        self.startMonth = [date month];
+        [self reloadData];
+        [self refreshReservations];
+    }
+
     _selectedDate = date;
     if (date == nil) {
         self.selectedCellLine = nil;
@@ -166,6 +179,39 @@
         }
     }
     return nil;
+}
+
+- (void)refreshReservations
+{
+    Service *service = [Service getInstance];
+    [service getCountAvailableSeatsPerSlotFromDate: self.firstDateInView toDate:self.lastDateInView delegate:self callback:@selector(refreshCalendarCallback:)];
+}
+
+- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+        return;
+    }
+
+    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
+    for(id item in serviceResult.jsonData) {
+        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
+        [reservations setObject:info forKey:[info.date inJson]];
+    }
+    for(int week = 0; week < 10; week++) {
+        for(int day = 0; day < 7; day++) {
+            CalendarDayCell *cell = (CalendarDayCell *)[self cellAtColumn:day row: week];
+            if (cell != nil) {
+                NSString *key = [cell.date inJson];
+                DayReservationsInfo *info = [reservations objectForKey:key];
+                if (info != nil) {
+                    cell.dinnerStatus = info.dinnerStatus;
+                    cell.lunchStatus = info.lunchStatus;
+                }
+            }
+        }
+    }
 }
 
 @end

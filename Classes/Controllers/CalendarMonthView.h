@@ -31,6 +31,7 @@
 - (NSDate *)dateFromCellPath: (CellPath *)cellPath;
 - (CalendarDayCell *)cellForDate : (NSDate *)date;
 - (BOOL)isInView: (NSDate *)date;
+- (void)refreshReservations;
 
 @property int startYear;
 @property int startMonth;

@@ -66,7 +66,5 @@ typedef enum buttonState {disabled, enabled,highlighted, special} buttonState;
 - (void) placeReservation: (Reservation*)reservation;
 - (void) updateOnOrder;
 - (CGSize) getSizeFromBottomItem: (UIView *)view;
-- (void) makeGlassButtons;
-
 
 @end

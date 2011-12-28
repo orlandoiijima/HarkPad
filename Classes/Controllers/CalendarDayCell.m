@@ -99,13 +99,13 @@
     layer.frame = self.dinnerStatusView.bounds;
 }
 
-- (void) setIsSelected: (BOOL)isSelected
+- (void) setIsSelected: (BOOL)newIsSelected
 {
     if (_isActive == false) {
 
     }
     else
-    if (isSelected) {
+    if (newIsSelected) {
         self.backgroundColor = [UIColor blueColor];
         self.label.textColor = [UIColor whiteColor];
     }
@@ -129,7 +129,6 @@
 
 - (void) setColorForView: (UIView *)view byStatus: (SlotStatus) status
 {
-    CAGradientLayer *layer = [view.layer.sublayers objectAtIndex:0];
     [UIView animateWithDuration:0.6f animations: ^{
     switch(status)
     {

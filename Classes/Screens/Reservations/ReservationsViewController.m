@@ -379,41 +379,42 @@
 
 - (void)refreshCalendar
 {
-    NSDate *fromDate = [[calendarViews objectAtIndex:0] firstDateInView];
-    NSDate *toDate = [[calendarViews objectAtIndex:[calendarViews count]-1] lastDateInView];
-    Service *service = [Service getInstance];
-//    service.url = @"http://pos.restaurantanna.nl";
-    [service getCountAvailableSeatsPerSlotFromDate:fromDate toDate:toDate delegate:self callback:@selector(refreshCalendarCallback:)];
+    for(CalendarMonthView *calendarView in self.calendarViews)
+        [calendarView refreshReservations];
+//    NSDate *fromDate = [[calendarViews objectAtIndex:0] firstDateInView];
+//    NSDate *toDate = [[calendarViews objectAtIndex:[calendarViews count]-1] lastDateInView];
+//    Service *service = [Service getInstance];
+//    [service getCountAvailableSeatsPerSlotFromDate:fromDate toDate:toDate delegate:self callback:@selector(refreshCalendarCallback:)];
 }
 
-- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
-    }
-
-    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
-    for(id item in serviceResult.jsonData) {
-        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
-        [reservations setObject:info forKey:[info.date inJson]];
-    }
-    for(CalendarMonthView *calendarView in self.calendarViews) {
-        for(int week = 0; week < 10; week++) {
-            for(int day = 0; day < 7; day++) {
-                CalendarDayCell *cell = (CalendarDayCell *)[calendarView cellAtColumn:day row: week];
-                if (cell != nil) {
-                    NSString *key = [cell.date inJson];
-                    DayReservationsInfo *info = [reservations objectForKey:key];
-                    if (info != nil) {
-                        cell.dinnerStatus = info.dinnerStatus;
-                        cell.lunchStatus = info.lunchStatus;
-                    }
-                }
-            }
-        }
-    }
-}
+//- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
+//{
+//    if(serviceResult.isSuccess == false) {
+//        [ModalAlert error:serviceResult.error];
+//        return;
+//    }
+//
+//    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
+//    for(id item in serviceResult.jsonData) {
+//        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
+//        [reservations setObject:info forKey:[info.date inJson]];
+//    }
+//    for(CalendarMonthView *calendarView in self.calendarViews) {
+//        for(int week = 0; week < 10; week++) {
+//            for(int day = 0; day < 7; day++) {
+//                CalendarDayCell *cell = (CalendarDayCell *)[calendarView cellAtColumn:day row: week];
+//                if (cell != nil) {
+//                    NSString *key = [cell.date inJson];
+//                    DayReservationsInfo *info = [reservations objectForKey:key];
+//                    if (info != nil) {
+//                        cell.dinnerStatus = info.dinnerStatus;
+//                        cell.lunchStatus = info.lunchStatus;
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
 
 - (void)viewDidUnload
 {

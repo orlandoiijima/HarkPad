@@ -5,13 +5,8 @@
 //
 
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import <CoreGraphics/CoreGraphics.h>
 #import "MaintenanceSplitViewController.h"
 #import "QRootElement.h"
-#import "QuickDialogController.h"
-#import "QElement.h"
 #import "QSection.h"
 
 @implementation MaintenanceSplitViewController

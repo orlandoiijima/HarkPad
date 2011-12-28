@@ -39,26 +39,26 @@
     return (UITableView *)self.view;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)view numberOfRowsInSection:(NSInteger)section {
     return [users count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)view cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [view dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
 
-    User *user = [users objectAtIndex:indexPath.row];
+    User *user = [users objectAtIndex: (NSUInteger)indexPath.row];
     cell.textLabel.text = user.name;
 
     cell.shouldIndentWhileEditing = NO;
     return cell;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)view {
     return 1;
 }
 
@@ -68,8 +68,7 @@
 {
     self.contentSizeForViewInPopover = CGSizeMake(200, 0);
 
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
-    self.view = tableView;
+    self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
 
     [[Service getInstance] getUsers:self callback:@selector(getUsersCallback:)];
 }

@@ -12,7 +12,7 @@
 
 @interface UserListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (retain) UITableView *tableView;
+@property (retain, nonatomic) UITableView *tableView;
 @property (retain) NSMutableArray *users;
 @property (retain) id<SelectItemDelegate> delegate;
 

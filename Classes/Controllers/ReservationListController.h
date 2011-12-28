@@ -12,7 +12,7 @@
 
 @interface ReservationListController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (retain) UITableView *tableView;
+@property (retain, nonatomic) UITableView *tableView;
 @property (retain) ReservationDataSource *dataSource;
 @property (retain) id<SelectItemDelegate> delegate;
 
