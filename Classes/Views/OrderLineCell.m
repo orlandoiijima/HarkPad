@@ -43,7 +43,7 @@
     [super setBackgroundColor:backgroundColor];
 }
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
@@ -61,12 +61,16 @@
     [cell.contentView addSubview:cell.quantity];
     cell.quantity.textAlignment = UITextAlignmentRight;
     cell.quantity.backgroundColor = [UIColor clearColor];
+    if (fontSize != 0)
+        cell.quantity.font = [UIFont systemFontOfSize:fontSize];
     if (isEditable == false)
         cell.quantity.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 
     cell.name = [[UILabel alloc] initWithFrame:CGRectMake(cell.quantity.frame.origin.x + cell.quantity.frame.size.width + 3, 0, 200, height)];
     [cell.contentView addSubview:cell.name];
     cell.name.backgroundColor = [UIColor clearColor];
+    if (fontSize != 0)
+        cell.name.font = [UIFont systemFontOfSize:fontSize];
     cell.name.shadowColor = [UIColor lightGrayColor];
     cell.name.shadowOffset = CGSizeMake(0, 1);
     if (isEditable == false)
@@ -91,6 +95,8 @@
         cell.price.textAlignment = UITextAlignmentRight;
         cell.price.backgroundColor = [UIColor clearColor];
         cell.price.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        if (fontSize != 0)
+            cell.price.font = [UIFont systemFontOfSize:fontSize];
         if (isEditable == false)
             cell.price.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
         right -= cell.price.frame.size.width - 10;

@@ -78,7 +78,7 @@
 
 - (void)setOrder: (Order *)newOrder {
     _order = newOrder;
-    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO];
+    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO fontSize:14];
     self.tableView.dataSource = dataSource;
 }
 

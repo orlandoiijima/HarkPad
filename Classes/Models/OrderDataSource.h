@@ -21,6 +21,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
     bool showFreeProducts;
     bool showProductProperties;
     bool showPrice;
+    float fontSize;
     Order *order;
     OrderLineSortOrder sortOrder;
 }
@@ -36,9 +37,10 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 @property (retain) Order *order;
 @property (retain) InvoicesViewController *invoicesViewController;
 @property float rowHeight;
+@property float fontSize;
 @property OrderLineSortOrder sortOrder;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice;
++ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice fontSize: (float)fontSize;
 
 - (NSString *) groupingKeyForLine: (OrderLine *)line;
 - (NSString *) keyForSection:(int)section;

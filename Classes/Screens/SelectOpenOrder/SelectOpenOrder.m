@@ -14,10 +14,11 @@
 #import "ModalAlert.h"
 #import "ReservationListController.h"
 #import "BillViewController.h"
+#import "iToast.h"
 
 @implementation SelectOpenOrder
 
-@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController, selectedOpenOrderType;
+@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController, selectedOpenOrderType, toast;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,6 +64,7 @@
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.view addGestureRecognizer:tapGesture];
+    tapGesture.delegate = self;
 
     UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
     doubleTapGesture.numberOfTapsRequired = 2;
@@ -100,6 +102,13 @@
     }
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)tapGestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    // test if our control subview is on-screen
+    if ([touch.view isKindOfClass:[UIButton class]]) {
+        return NO; // ignore the touch
+    }
+    return YES; // handle the touch
+}
 
 - (void) handleDoubleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
 {
@@ -184,10 +193,17 @@
 }
 
 - (void) refreshView {
+    toast = [iToast toastActivityWithText: NSLocalizedString(@"Loading orders", nil)];
     [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
 }
 
 - (void) getOpenOrdersCallback: (ServiceResult *)serviceResult {
+
+    toast.hideToast;
+
+    int selectedOrderId = -1;
+    if (self.selectedOrder != nil)
+        selectedOrderId = self.selectedOrder.id;
 
     [self.scrollView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
@@ -232,6 +248,9 @@
         orderView.backgroundColor = [UIColor clearColor];//self.scrollView.backgroundColor;
         [self.scrollView addSubview:orderView];
         i++;
+        
+        if (order.id == selectedOrderId)
+            self.selectedOrder = order;
     }
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, ((i-1)/countColumns + 1) * (height + topMargin));
@@ -247,6 +266,7 @@
 
 - (void) didTapPayButtonForOrder: (Order *)order
 {
+    self.selectedOrder = order;
     PaymentViewController *paymentController = [[PaymentViewController alloc] init];
     paymentController.order = order;
     paymentController.delegate = self;
@@ -255,6 +275,7 @@
 
 - (void) didTapPrintButtonForOrder: (Order *)order
 {
+    self.selectedOrder = order;
     BillViewController *billController = [[BillViewController alloc] init];
     billController.order = order;
     [self.navigationController pushViewController: billController animated:YES];
@@ -262,8 +283,6 @@
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder:(Order *)order {
     [self.navigationController popViewControllerAnimated:YES];
-
-    [self refreshView];
 }
 
 - (void)viewDidUnload

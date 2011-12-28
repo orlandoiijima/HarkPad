@@ -29,7 +29,7 @@ static Service *_service;
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-  //      else
+        else
             url = URL_DEV;
 	    }
     return self;

@@ -25,7 +25,7 @@ static iToastSettings *sharedSettings = nil;
     if (self = [super init]) {
         text = [tex copy];
     }
-    
+
     return self;
 }
 
@@ -62,7 +62,7 @@ static iToastSettings *sharedSettings = nil;
     v.layer.cornerRadius = 5;
     
     if (withActivity) {
-        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, textSize.width, textSize.height)];
+        UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 2, textSize.width, textSize.height)];
         [v addSubview:activityIndicatorView];
         v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height + activityIndicatorView.frame.size.height);
         label.frame = CGRectOffset(label.frame, 0, activityIndicatorView.frame.size.height);
@@ -96,7 +96,7 @@ static iToastSettings *sharedSettings = nil;
     [window addSubview:v];
     
     view = v;
-    
+
     [v addTarget:self action:@selector(hideToast) forControlEvents:UIControlEventTouchDown];
 }
 
@@ -122,8 +122,14 @@ static iToastSettings *sharedSettings = nil;
 
 + (iToast *) makeText:(NSString *) _text{
     iToast *toast = [[iToast alloc] initWithText:_text];
-    
+
     return toast;
+}
+
++ (iToast *) toastActivityWithText: (NSString *) _text {
+    iToast *toast = [[iToast alloc] initWithText:_text];
+    [toast showWithActivityIndicator:YES];
+    return toast;    
 }
 
 

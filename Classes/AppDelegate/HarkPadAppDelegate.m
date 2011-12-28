@@ -42,9 +42,7 @@
 
 - (void) getConfig
 {
-    toast = [iToast makeText:NSLocalizedString(@"Loading configuration", nil)];
-    [toast showWithActivityIndicator:YES];
-
+    toast = [iToast toastActivityWithText: NSLocalizedString(@"Loading configuration", nil)];
     [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 

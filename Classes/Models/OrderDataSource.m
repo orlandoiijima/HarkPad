@@ -15,15 +15,16 @@
 
 @implementation OrderDataSource
 
-@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice
++ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice fontSize: (float)fontSize
 {
     OrderDataSource *source = [[OrderDataSource alloc] init];
     source.totalizeProducts = totalize;
     source.showFreeProducts = showFree;
     source.showProductProperties = showProps;
     source.showPrice = showPrice;
+    source.fontSize = fontSize;
     source.order = order;
     source.grouping = grouping;
     source.isEditable = isEditable;
@@ -223,7 +224,7 @@
 
     OrderLineCell *cell = (OrderLineCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties delegate: self.delegate rowHeight: rowHeight];
+        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties delegate: self.delegate rowHeight: rowHeight fontSize: fontSize];
     }
 //    cell.showProductProperties = self.showProductProperties;
 //    cell.showPrice = self.showPrice;

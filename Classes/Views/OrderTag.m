@@ -44,7 +44,7 @@
         tag.dateLabel = [[UILabel alloc] initWithFrame: CGRectMake(13, frame.size.height - 14, frame.size.width, 10)];
         [tag addSubview: tag.dateLabel];
         tag.dateLabel.backgroundColor = [UIColor clearColor];
-        tag.dateLabel.textColor = [UIColor grayColor];
+        tag.dateLabel.textColor = [UIColor lightGrayColor];
         tag.dateLabel.font = [UIFont systemFontOfSize:11];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setTimeStyle:NSDateFormatterShortStyle];

@@ -27,7 +27,7 @@
 @property BOOL showPrice;
 @property int heightInEditMode;
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight;
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float) fontSize;
 + (float) getExtraHeightForEditMode: (OrderLine *)line width: (float)width;
 
 @end

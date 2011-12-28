@@ -30,7 +30,7 @@
     {
         order = newOrder;
         
-        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES];
+        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES fontSize:0];
     }
 }
 
@@ -59,7 +59,7 @@
 
 - (IBAction) changeGrouping
 {
-    dataSource.grouping = groupingSegment.selectedSegmentIndex;
+    dataSource.grouping = (OrderGrouping) (groupingSegment.selectedSegmentIndex + 1);
     [orderTable reloadData];
 }
 
@@ -91,6 +91,9 @@
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
     amountLabel.text = [Utils getAmountString:[order getAmount] withCurrency:YES];
+
+    orderTable.backgroundView = nil;
+    orderTable.backgroundColor = [UIColor clearColor];
 }
 
 - (void)viewDidUnload
