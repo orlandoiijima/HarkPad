@@ -9,15 +9,18 @@
 
 @implementation ToggleButton 
 
-@synthesize isOn;
-
-- (void) setImage: (UIImage *)image
-{
-    [self setImage:image forState:UIControlStateNormal];
-}
+@synthesize isOn = _isOn;
 
 - (void) initView
 {
+    UIImage *normalImage = [[UIImage imageNamed:@"UISegmentButton.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
+    [self setBackgroundImage:normalImage forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+
+    UIImage *hiliteImage = [[UIImage imageNamed:@"UISegmentButtonHighlighted.png"] stretchableImageWithLeftCapWidth:10 topCapHeight:0];
+    [self setBackgroundImage: hiliteImage forState:UIControlStateSelected];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+
     [self addTarget:self action:@selector(tap) forControlEvents:UIControlEventTouchDown];
 }
 
@@ -38,13 +41,14 @@
 
 - (void) tap
 {
-    isOn = !isOn;
-    if (isOn)
-        self.backgroundColor = [UIColor blueColor];
-    else
-        self.backgroundColor = [UIColor clearColor];
-
+    self.isOn = !self.isOn;
     [self sendActionsForControlEvents:UIControlEventValueChanged];
+}
+
+- (void) setIsOn: (BOOL)on
+{
+    self.selected = on;
+    _isOn = on;
 }
 
 @end
