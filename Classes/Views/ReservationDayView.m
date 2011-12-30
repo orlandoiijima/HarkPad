@@ -12,13 +12,12 @@
 
 @implementation ReservationDayView
 
-@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date, selectedReservation;
+@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date, selectedReservation, infoLabel;
 
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
-
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
         dateLabel.font = [UIFont systemFontOfSize:22];
         dateLabel.textAlignment = UITextAlignmentRight;
@@ -67,8 +66,16 @@
         table.delegate = delegate;
         table.allowsSelectionDuringEditing = YES;
         table.backgroundView = nil;
+        table.backgroundColor = [UIColor clearColor];
         table.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [self addSubview:table];
+
+        infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 2*(frame.size.height/5), frame.size.width, 40)];
+        [self addSubview:infoLabel];
+        infoLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+        infoLabel.textAlignment = UITextAlignmentCenter;
+        infoLabel.textColor = [UIColor lightGrayColor];
+        infoLabel.hidden = YES;
     }
     return self;
 }
@@ -107,7 +114,28 @@
     table.dataSource = aDataSource;
     [self refreshTotals];
 
-    [table reloadData];
+    if ([aDataSource.reservations count] == 0)
+    {
+        [self showInfo:NSLocalizedString(@"No reservations", nil)];
+    }
+    else
+    {
+        [self hideInfo];
+        [table reloadData];
+    }
+}
+
+- (void)showInfo: (NSString *)text
+{
+    infoLabel.text = text;
+    infoLabel.hidden = NO;
+    table.hidden = YES;
+}
+
+- (void)hideInfo
+{
+    infoLabel.hidden = YES;
+    table.hidden = NO;
 }
 
 - (void) setDate:(NSDate *)aDate

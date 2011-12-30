@@ -19,7 +19,7 @@
 #import "../Screens/Reservations/ReservationsViewController.h"
 #import "LogViewController.h"
 #import "IASKAppSettingsViewController.h"
-#import "iToast.h"
+#import "MBProgressHUD.h"
 
 @class TableMapViewController;
 
@@ -30,7 +30,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) iToast *toast;
 
 - (void) getConfig;
 - (void) setupBarControllerCallback: (ServiceResult *)result;

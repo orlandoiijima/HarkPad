@@ -14,11 +14,10 @@
 #import "ModalAlert.h"
 #import "ReservationListController.h"
 #import "BillViewController.h"
-#import "iToast.h"
 
 @implementation SelectOpenOrder
 
-@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController, selectedOpenOrderType, toast;
+@synthesize orders, countColumns, scrollView, selectedOrder = _selectedOrder, delegate, popoverController, selectedOpenOrderType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -193,13 +192,12 @@
 }
 
 - (void) refreshView {
-    toast = [iToast toastActivityWithText: NSLocalizedString(@"Loading orders", nil)];
+    MBProgressHUD *hud = [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
     [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
 }
 
 - (void) getOpenOrdersCallback: (ServiceResult *)serviceResult {
-
-    toast.hideToast;
+    [MBProgressHUD hideHUDForView: self.view animated:YES];
 
     int selectedOrderId = -1;
     if (self.selectedOrder != nil)

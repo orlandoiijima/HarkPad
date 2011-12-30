@@ -13,7 +13,6 @@
 #import "PaymentViewController.h"
 #import "BillViewController.h"
 #import "ModalAlert.h"
-#import "iToast.h"
 #import "TablesViewController.h"
 
 @implementation TableMapViewController
@@ -21,7 +20,6 @@
 @synthesize tableMapView, districtPicker, buttonRefresh, popoverController;
 
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -516,7 +514,7 @@
 
 - (void) startNextCourse:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-    [[iToast makeText:@"Gang doorgevraagd"] show];
+    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Course requested", nil)];
     [self refreshView];
 }
 
@@ -532,15 +530,10 @@
         return;
     BillViewController *billVC = [[BillViewController alloc] init];	
     billVC.order = order;
-//    billVC.tableMapViewController = self;
-//    billVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-//    [self presentModalViewController: billVC animated:YES];
     [self.navigationController pushViewController: billVC animated:YES];
 }
 
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
     return YES;
 }
 

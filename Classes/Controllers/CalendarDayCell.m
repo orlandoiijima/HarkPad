@@ -33,13 +33,9 @@
     cell.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     cell.label.text = [NSString stringWithFormat:@"%d", [date day]];
     cell.label.backgroundColor = [UIColor clearColor];
-    cell.label.textColor = isActive ? [UIColor blackColor] : [UIColor grayColor];
+    cell.label.textColor = isActive ? [UIColor blackColor] : [UIColor lightGrayColor];
     cell.label.textAlignment = UITextAlignmentCenter;
     [cell addSubview:cell.label];
-
-    cell.lunchStatusView = [[UIView alloc] init];
-    cell.lunchStatusView.alpha = 0;
-    [cell addSubview:cell.lunchStatusView];
 
     NSArray *colors = [NSArray arrayWithObjects:
                            (__bridge id)[UIColor colorWithWhite:1.0f alpha:0.9f].CGColor,
@@ -55,19 +51,12 @@
                               [NSNumber numberWithFloat:0.8f],
                               [NSNumber numberWithFloat:1.0f],
                               nil];
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.locations = locations;
-    gradientLayer.colors = colors;
-    [cell.lunchStatusView.layer insertSublayer:gradientLayer atIndex:0];
 
-    cell.dinnerStatusView = [[UIView alloc] init];
-    cell.dinnerStatusView.alpha = 0;
-    [cell addSubview:cell.dinnerStatusView];
+    cell.lunchStatusView = [[UILabel alloc] init];
+    [cell setupStatusView:cell.lunchStatusView colors:colors locations:locations];
 
-    gradientLayer = [CAGradientLayer layer];
-    gradientLayer.locations = locations;
-    gradientLayer.colors = colors;
-    [cell.dinnerStatusView.layer insertSublayer:gradientLayer atIndex:0];
+    cell.dinnerStatusView = [[UILabel alloc] init];
+    [cell setupStatusView:cell.dinnerStatusView colors:colors locations:locations];
 
     cell.layer.borderColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1].CGColor;
     cell.layer.borderWidth = 0.5;
@@ -77,20 +66,35 @@
     return cell;
 }
 
+- (void)setupStatusView: (UILabel *)statusView colors: (NSArray *)colors locations: (NSArray *)locations
+{
+    statusView.textAlignment = UITextAlignmentCenter;
+    statusView.font = [UIFont systemFontOfSize:12];
+    statusView.adjustsFontSizeToFitWidth = YES;
+    statusView.alpha = 0;
+    [self addSubview:statusView];
+
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.locations = locations;
+    gradientLayer.colors = colors;
+    [statusView.layer insertSublayer:gradientLayer atIndex:0];
+
+}
+
 - (void) layoutSubviews
 {
     self.label.frame = CGRectMake(0, 0, self.bounds.size.width, 20);
 
     float topMargin = self.label.frame.origin.y + self.label.frame.size.height;
-    float bottomMargin = 5;
-    float leftMargin = 5;
-    float rightMargin = 5;
-    float betweenMargin = 4;
+    float bottomMargin = 2;
+    float leftMargin = 2;
+    float rightMargin = 2;
+    float betweenMargin = 2;
 
     float itemHeight = self.frame.size.height - topMargin - bottomMargin;
     float itemWidth = (self.frame.size.width - leftMargin - rightMargin - betweenMargin) / 2;
-    self.lunchStatusView.frame = CGRectMake(leftMargin, topMargin, itemWidth, itemHeight);
-    self.dinnerStatusView.frame = CGRectMake(leftMargin + itemWidth + betweenMargin, topMargin, itemWidth, itemHeight);
+    self.lunchStatusView.frame = CGRectIntegral(CGRectMake(leftMargin, topMargin, itemWidth, itemHeight));
+    self.dinnerStatusView.frame = CGRectIntegral(CGRectMake(leftMargin + itemWidth + betweenMargin, topMargin, itemWidth, itemHeight));
 
     CAGradientLayer *layer = [self.dinnerStatusView.layer.sublayers objectAtIndex:0];
     layer.frame = self.dinnerStatusView.bounds;
@@ -115,19 +119,19 @@
     }
 }
 
-- (void) setLunchStatus: (SlotStatus)value
+- (void) setInfo: (DayReservationsInfo *)info
 {
-    _lunchStatus = value;
-    [self setColorForView:self.lunchStatusView byStatus:value];
+    _lunchStatus = info.lunchStatus;
+    self.lunchStatusView.text = info.lunchCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.lunchCount];
+    [self setColorForView:self.lunchStatusView byStatus: _lunchStatus];
+
+    _dinnerStatus = info.dinnerStatus;
+    self.dinnerStatusView.text = info.dinnerCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.dinnerCount];
+    [self setColorForView:self.dinnerStatusView byStatus: _dinnerStatus];
 }
 
-- (void) setDinnerStatus: (SlotStatus)value
-{
-    _dinnerStatus = value;
-    [self setColorForView:self.dinnerStatusView byStatus:value];
-}
 
-- (void) setColorForView: (UIView *)view byStatus: (SlotStatus) status
+- (void) setColorForView: (UILabel *)view byStatus: (SlotStatus) status
 {
     [UIView animateWithDuration:0.6f animations: ^{
     switch(status)
@@ -135,6 +139,7 @@
         case statusFull:
             view.alpha = 1;
             view.backgroundColor = [UIColor redColor];
+            view.textColor = [UIColor whiteColor];
             break;
         case statusNothing:
             view.alpha = 1;
@@ -147,6 +152,7 @@
         case statusAvailable:
             view.alpha = 1;
             view.backgroundColor = [UIColor colorWithRed:0.9 green:1.0 blue:0.4 alpha:1];
+            view.textColor = [UIColor blackColor];
             break;
     }}];
 }

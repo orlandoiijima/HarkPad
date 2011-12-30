@@ -32,6 +32,9 @@
 - (CalendarDayCell *)cellForDate : (NSDate *)date;
 - (BOOL)isInView: (NSDate *)date;
 - (void)refreshReservations;
+- (void)buildForDate: (NSDate *)date;
+
++ (CalendarMonthView *)calendarWithFrame: (CGRect) frame forDate: (NSDate *)date;
 
 @property int startYear;
 @property int startMonth;

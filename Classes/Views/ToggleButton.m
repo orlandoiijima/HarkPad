@@ -13,13 +13,26 @@
 
 - (void) setImage: (UIImage *)image
 {
+    [self setImage:image forState:UIControlStateNormal];
+}
+
+- (void) initView
+{
+    [self addTarget:self action:@selector(tap) forControlEvents:UIControlEventTouchDown];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    [self initView];
+    return self;
 }
 
 + (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame    {
     ToggleButton *sw = [[ToggleButton alloc] init];
     sw.frame = frame;
     [sw setTitle:title forState:UIControlStateNormal];
-    [sw addTarget:sw action:@selector(tap) forControlEvents:UIControlEventTouchDown];
+    [sw initView];
     return sw;
 }
 

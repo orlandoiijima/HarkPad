@@ -12,6 +12,7 @@
 @interface ReservationDayView : UIView {
     UILabel *dateLabel;
     UILabel *dayLabel;
+    UILabel *infoLabel;
     ReservationDataSource *dataSource;
     UITableView *table;
     NSMutableDictionary *countLabels;
@@ -20,6 +21,7 @@
 
 @property (retain) NSMutableDictionary *countLabels;
 @property (retain) UITableView *table;
+@property (retain) UILabel *infoLabel;
 @property (retain) IBOutlet UILabel *dateLabel;
 @property (retain) IBOutlet UILabel *dayLabel;
 @property (retain, nonatomic) ReservationDataSource *dataSource;
@@ -30,5 +32,7 @@
 
 - (void) showHeader;
 - (void) hideHeader;
+- (void)showInfo: (NSString *)text;
+- (void)hideInfo;
 
 @end

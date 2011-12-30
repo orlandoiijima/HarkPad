@@ -47,7 +47,6 @@
 		E55DFCDF139FD89000EB7C69 /* IASKPSTextFieldSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55DFCAC139FD89000EB7C69 /* IASKPSTextFieldSpecifierViewCell.xib */; };
 		E55DFCE0139FD89000EB7C69 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55DFCAD139FD89000EB7C69 /* IASKPSToggleSwitchSpecifierViewCell.xib */; };
 		E55DFCE1139FD89000EB7C69 /* IASKSpecifierValuesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E55DFCAE139FD89000EB7C69 /* IASKSpecifierValuesView.xib */; };
-		E55DFCE2139FD89000EB7C69 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFCB1139FD89000EB7C69 /* iToast.m */; };
 		E55DFCE3139FD89000EB7C69 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFCB4139FD89000EB7C69 /* CDataScanner.m */; };
 		E55DFCE4139FD89000EB7C69 /* CExtensibleJSONDataSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFCB7139FD89000EB7C69 /* CExtensibleJSONDataSerializer.m */; };
 		E55DFCE5139FD89000EB7C69 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFCBA139FD89000EB7C69 /* CDataScanner_Extensions.m */; };
@@ -250,6 +249,12 @@
 		E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885CD /* CalendarViewController.m */; };
 		E5F609A313489C2400D885D0 /* rightarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885CF /* rightarrow.png */; };
 		E5F609A313489C2400D885D2 /* leftarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885D1 /* leftarrow.png */; };
+		E5F609A313489C2400D885D4 /* voicecall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885D3 /* voicecall.png */; };
+		E5F609A313489C2400D885D6 /* calendarsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885D5 /* calendarsmall.png */; };
+		E5F609A313489C2400D885D8 /* phonesmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885D7 /* phonesmall.png */; };
+		E5F609A313489C2400D885DC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885DB /* MBProgressHUD.m */; };
+		E5F609A313489C2400D885DE /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885DD /* 37x-Checkmark.png */; };
+		E5F609A313489C2400D885E0 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885DF /* 20-gear2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -424,8 +429,6 @@
 		E55DFCAC139FD89000EB7C69 /* IASKPSTextFieldSpecifierViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKPSTextFieldSpecifierViewCell.xib; sourceTree = "<group>"; };
 		E55DFCAD139FD89000EB7C69 /* IASKPSToggleSwitchSpecifierViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKPSToggleSwitchSpecifierViewCell.xib; sourceTree = "<group>"; };
 		E55DFCAE139FD89000EB7C69 /* IASKSpecifierValuesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IASKSpecifierValuesView.xib; sourceTree = "<group>"; };
-		E55DFCB0139FD89000EB7C69 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
-		E55DFCB1139FD89000EB7C69 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		E55DFCB3139FD89000EB7C69 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		E55DFCB4139FD89000EB7C69 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		E55DFCB6139FD89000EB7C69 /* CExtensibleJSONDataSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CExtensibleJSONDataSerializer.h; sourceTree = "<group>"; };
@@ -674,6 +677,13 @@
 		E5F609A313489C2400D885CD /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885CF /* rightarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rightarrow.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D885D1 /* leftarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leftarrow.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885D3 /* voicecall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voicecall.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885D5 /* calendarsmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendarsmall.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885D7 /* phonesmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = phonesmall.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885DA /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885DB /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885DD /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37x-Checkmark.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D885DF /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -944,6 +954,11 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885DF /* 20-gear2.png */,
+				E5F609A313489C2400D885DD /* 37x-Checkmark.png */,
+				E5F609A313489C2400D885D7 /* phonesmall.png */,
+				E5F609A313489C2400D885D5 /* calendarsmall.png */,
+				E5F609A313489C2400D885D3 /* voicecall.png */,
 				E5F609A313489C2400D885D1 /* leftarrow.png */,
 				E5F609A313489C2400D885CF /* rightarrow.png */,
 				E5AC715D138950E400DB450E /* Default@2x.png */,
@@ -1099,8 +1114,8 @@
 				E5736FCF13FE63B6007E05C0 /* quickdialog */,
 				E55DFC83139FD89000EB7C69 /* GTMHTTPFetcher */,
 				E55DFC86139FD89000EB7C69 /* InAppSettingsKit */,
-				E55DFCAF139FD89000EB7C69 /* Toaster */,
 				E55DFCB2139FD89000EB7C69 /* TouchJson */,
+				E5F609A313489C2400D885D9 /* MBProgressHUD */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1187,15 +1202,6 @@
 				E55DFCAE139FD89000EB7C69 /* IASKSpecifierValuesView.xib */,
 			);
 			path = Xibs;
-			sourceTree = "<group>";
-		};
-		E55DFCAF139FD89000EB7C69 /* Toaster */ = {
-			isa = PBXGroup;
-			children = (
-				E55DFCB0139FD89000EB7C69 /* iToast.h */,
-				E55DFCB1139FD89000EB7C69 /* iToast.m */,
-			);
-			path = Toaster;
 			sourceTree = "<group>";
 		};
 		E55DFCB2139FD89000EB7C69 /* TouchJson */ = {
@@ -1508,6 +1514,15 @@
 			path = ReservationsSimple;
 			sourceTree = "<group>";
 		};
+		E5F609A313489C2400D885D9 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D885DB /* MBProgressHUD.m */,
+				E5F609A313489C2400D885DA /* MBProgressHUD.h */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1632,6 +1647,11 @@
 				E5F609A313489C2400D885C7 /* order.png in Resources */,
 				E5F609A313489C2400D885D0 /* rightarrow.png in Resources */,
 				E5F609A313489C2400D885D2 /* leftarrow.png in Resources */,
+				E5F609A313489C2400D885D4 /* voicecall.png in Resources */,
+				E5F609A313489C2400D885D6 /* calendarsmall.png in Resources */,
+				E5F609A313489C2400D885D8 /* phonesmall.png in Resources */,
+				E5F609A313489C2400D885DE /* 37x-Checkmark.png in Resources */,
+				E5F609A313489C2400D885E0 /* 20-gear2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1750,7 +1770,6 @@
 				E55DFCD9139FD89000EB7C69 /* IASKSlider.m in Sources */,
 				E55DFCDA139FD89000EB7C69 /* IASKSwitch.m in Sources */,
 				E55DFCDB139FD89000EB7C69 /* IASKTextField.m in Sources */,
-				E55DFCE2139FD89000EB7C69 /* iToast.m in Sources */,
 				E55DFCE3139FD89000EB7C69 /* CDataScanner.m in Sources */,
 				E55DFCE4139FD89000EB7C69 /* CExtensibleJSONDataSerializer.m in Sources */,
 				E55DFCE5139FD89000EB7C69 /* CDataScanner_Extensions.m in Sources */,
@@ -1822,6 +1841,7 @@
 				E5F609A313489C2400D885C4 /* DayReservationsInfo.m in Sources */,
 				E5F609A313489C2400D885CB /* ReservationsSimple.m in Sources */,
 				E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */,
+				E5F609A313489C2400D885DC /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

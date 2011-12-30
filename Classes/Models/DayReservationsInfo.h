@@ -14,12 +14,16 @@ typedef enum {statusNothing, statusAvailable, statusFull, statusClosed} SlotStat
     NSMutableDictionary *_slots;
     SlotStatus lunchStatus;
     SlotStatus dinnerStatus;
+    int countLunch;
+    int countDinner;
 }
 
 @property (retain) NSDate *date;
 @property (retain) NSMutableDictionary *slots;
 @property SlotStatus lunchStatus;
 @property SlotStatus dinnerStatus;
+@property int lunchCount;
+@property int dinnerCount;
 
 + (DayReservationsInfo *)infoFromJsonDictionary: (NSDictionary *)jsonDictionary;
 

@@ -11,7 +11,7 @@
 
 @implementation HarkPadAppDelegate
 
-@synthesize window, toast;
+@synthesize window;
 
 @synthesize tabBarController;
 
@@ -43,13 +43,13 @@
 
 - (void) getConfig
 {
-    toast = [iToast toastActivityWithText: NSLocalizedString(@"Loading configuration", nil)];
+    MBProgressHUD *hud = [MBProgressHUD showProgressAddedTo: tabBarController.view withText: NSLocalizedString(@"Loading configuration", nil)];
     [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 
 - (void) setupBarControllerCallback: (ServiceResult *)result
 {
-    [toast hideToast];
+    [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
 
     Cache *cache = [Cache getInstance];
     cache.config = result.jsonData;
@@ -58,7 +58,7 @@
         [ModalAlert error:result.error];
         IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
         UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-        controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@""] tag:2];
+        controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
         tabBarController.viewControllers = [NSArray arrayWithObject:controller];
         return;
     }
@@ -78,7 +78,7 @@
         }
 
         if ([key isEqualToString:@"dashboard"]) {
-            controller = [[DashboardViewController alloc] init];
+            controller = [[DashboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
         }
 
@@ -98,17 +98,15 @@
         }
 
         if ([key isEqualToString:@"reservations"]) {
-//            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-//            {
-//                ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
-//                controller = [[UINavigationController alloc] initWithRootViewController: reservationsController];
-//            }
-//            else
-//            {
-//                controller = [[ReservationsViewController alloc] init];
-//            }
-            ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
-            controller = [[UINavigationController alloc] initWithRootViewController: reservationsController];
+            if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+            {
+                ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
+                controller = [[UINavigationController alloc] initWithRootViewController: reservationsController];
+            }
+            else
+            {
+                controller = [[ReservationsViewController alloc] init];
+            }
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Reservations", nil) image:[UIImage imageNamed:@"calendar"] tag:1];
         }
 
@@ -120,7 +118,7 @@
         if ([key isEqualToString:@"settings"]) {
             IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@""] tag:2];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
         }
 
         if ([key isEqualToString:@"quickorder"]) {

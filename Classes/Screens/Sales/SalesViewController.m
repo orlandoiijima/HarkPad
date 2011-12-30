@@ -10,8 +10,8 @@
 #import "Service.h"
 #import "ProductTotals.h"
 #import "NSDate-Utilities.h"
-#import "iToast.h"
 #import "Utils.h"
+#import "MBProgressHUD.h"
 
 @implementation SalesViewController
 
@@ -134,7 +134,8 @@
 - (IBAction)printDayReport
 {
     [[Service getInstance] printSalesReport: dateToShow];
-    [[iToast makeText: NSLocalizedString(@"Dagrapport afgedrukt", nil)] show];
+    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Report printed", nil)];
+
 }
 
 - (void) refreshView

@@ -10,8 +10,6 @@
 #import "OrderView.h"
 #import "PaymentViewController.h"
 #import "SelectItemDelegate.h"
-#import "iToast.h"
-
 
 @interface SelectOpenOrder : UIViewController <OrderViewDelegate, PaymentDelegate, SelectItemDelegate> {
     NSMutableArray *orders;
@@ -32,7 +30,6 @@ typedef enum SelectOpenOrderType {typeSelection, typeOverview} SelectOpenOrderTy
 @property (retain) id<SelectItemDelegate> delegate;
 @property (retain) UIPopoverController *popoverController;
 @property SelectOpenOrderType selectedOpenOrderType;
-@property (retain) iToast *toast;
 
 - (OrderView *)viewForOrder: (Order *)order;
 - (OrderView *)orderViewAtGesture: (UIGestureRecognizer *)gesture;

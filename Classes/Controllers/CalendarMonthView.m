@@ -22,9 +22,10 @@
 - (void) initCalendarView {
     self.delegate = self;
     self.dataSource = self;
-    self.startYear = [[NSDate date] year];
-    self.startMonth = [[NSDate date] month];
-    self.selectedDate = [NSDate date];
+    self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    self.startYear = [[NSDate date] year];
+//    self.startMonth = [[NSDate date] month];
+//    self.selectedDate = [NSDate date];
     self.countMonths = 1;
     self.columnWidth = self.bounds.size.width / 7;
     self.backgroundColor = [UIColor whiteColor];
@@ -57,6 +58,21 @@
     return self;
 }
 
++ (CalendarMonthView *)calendarWithFrame: (CGRect) frame forDate: (NSDate *)date
+{
+    CalendarMonthView *view = [[CalendarMonthView alloc] initWithFrame:frame];
+    [view buildForDate: date];
+    return view;
+}
+
+- (void)buildForDate: (NSDate *)date
+{
+    self.startMonth = [date month];
+    self.startYear = [date year];
+    [self reloadData];
+    [self refreshReservations];
+}
+
 - (void)gridView:(GridView *)gridView didTapCellLine:(GridViewCellLine *)cellLine {
     _selectedDate = [self dateFromCellPath:cellLine.path];
     if([self.calendarDelegate respondsToSelector:@selector(calendarView: didTapDate:)])
@@ -65,11 +81,12 @@
 
 - (void)setSelectedDate: (NSDate *)date
 {
-    if ([self isInView:date] == false) {
-        self.startYear = [date year];
-        self.startMonth = [date month];
-        [self reloadData];
-        [self refreshReservations];
+    if (date != nil) {
+        if ([self isInView:date] == false) {
+            self.startYear = [date year];
+            self.startMonth = [date month];
+            [self buildForDate:date];
+        }
     }
 
     _selectedDate = date;
@@ -206,8 +223,7 @@
                 NSString *key = [cell.date inJson];
                 DayReservationsInfo *info = [reservations objectForKey:key];
                 if (info != nil) {
-                    cell.dinnerStatus = info.dinnerStatus;
-                    cell.lunchStatus = info.lunchStatus;
+                    [cell setInfo: info];
                 }
             }
         }

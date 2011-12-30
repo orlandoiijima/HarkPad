@@ -7,15 +7,15 @@
 //
 
 #import "ReservationsViewController.h"
-#import "iToast.h"
 #import "Service.h"
 #import "CalendarDayCell.h"
 #import "DayReservationsInfo.h"
 #import "ModalAlert.h"
+#import "MBProgressHUD.h"
 
 @implementation ReservationsViewController
 
-@synthesize dayView, dataSources, originalStartsOn, popover, segmentShow, buttonAdd, buttonEdit, buttonPhone, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, buttonCalendar, isInCalendarMode;
+@synthesize dayView, dataSources, originalStartsOn, segmentShow, buttonAdd, buttonEdit, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, isInCalendarMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -40,20 +40,6 @@
 {
     [super viewDidLoad];
 
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-    {
-        [toolbar setItems:nil animated:NO];
-        [toolbar setItems: [[NSArray alloc] initWithObjects:buttonPhone, buttonSearch, nil]]; 
-        buttonSearch.width = 130;
-    }
-    else
-    {
-        buttonPhone.enabled = false;
-    }
-
-    [buttonCalendar setImage:[UIImage imageNamed:@"calendar.png"]];
-    [buttonCalendar addTarget:self action:@selector(showCalendar:) forControlEvents:UIControlEventValueChanged];
-
     isInCalendarMode = YES;
     calendarViews = [[NSMutableArray alloc] init];
     int margin = 15;
@@ -63,12 +49,10 @@
     height = ((height - 40) / 6) * 6 + 40;
     int y = top;
     for(int month = 0; month < 3; month++) {
-        CalendarMonthView *view = [[CalendarMonthView alloc] initWithFrame:CGRectMake(margin, y, width, height)];
+        CalendarMonthView *view = [CalendarMonthView calendarWithFrame: CGRectMake(margin, y, width, height) forDate: [[NSDate date] dateByAddingDays:30 * month]];
         [self.view addSubview:view];
         view.calendarDelegate = self;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        view.startMonth = [[[NSDate date] dateByAddingDays:30 * month] month];
-        view.startYear = [[[NSDate date] dateByAddingDays:30 * month] year];
         [calendarViews addObject:view];
         [view reloadData];
         y += height + margin;
@@ -86,7 +70,15 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     tapGesture.numberOfTapsRequired = 2;
     [self.view addGestureRecognizer:tapGesture];
-    
+
+    UISwipeGestureRecognizer *swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeLeft:)];
+    swipeLeftGestureRecognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:swipeLeftGestureRecognizer];
+
+    UISwipeGestureRecognizer *swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRight:)];
+    swipeRightGestureRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:swipeRightGestureRecognizer];
+
     [NSTimer scheduledTimerWithTimeInterval:20.0f
                                      target:self
                                    selector:@selector(refreshView)
@@ -100,6 +92,18 @@
         [self endSearchMode];
     else
         [self gotoDate: [NSDate date]];
+}
+
+- (void)handleSwipeRight:(UITapGestureRecognizer *)swipeGestureRecognizer {
+    if (isInCalendarMode)
+        return;
+    [self toggleShowCalendar];
+}
+
+- (void)handleSwipeLeft:(UITapGestureRecognizer *)swipeGestureRecognizer {
+    if (isInCalendarMode == false)
+        return;
+    [self toggleShowCalendar];
 }
 
 - (CalendarMonthView *)calendarViewForDate: (NSDate *)date
@@ -192,7 +196,7 @@
     ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
     if(serviceResult.id != -1) {
         reservation.id = serviceResult.id;
-        [[iToast makeText:NSLocalizedString(@"Reservation stored", @"Reservation stored")] show];
+        [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Reservation stored", nil)];
     }
     else {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -314,7 +318,7 @@
     [self openEditPopup:reservation];
 }
 
-- (IBAction) showCalendar: (id)sender
+- (void) toggleShowCalendar
 {
     isInCalendarMode = !isInCalendarMode;
     [UIView animateWithDuration:0.2f animations: ^{
@@ -358,8 +362,13 @@
     [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
 }
 
-- (void) searchReservationsCallback: (NSMutableArray *)reservations
+- (void) searchReservationsCallback: (ServiceResult *)serviceResult
 {
+    if(serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+        return;
+    }
+    NSMutableArray *reservations = serviceResult.data;
     if(reservations == nil || [reservations count] == 0)
         searchHeader.text = NSLocalizedString(@"No reservations found", nil);
     else

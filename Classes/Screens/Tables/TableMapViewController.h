@@ -13,6 +13,7 @@
 #import "Reservation.h"
 #import "TableButton.h"
 #import "PaymentViewController.h"
+#import "MBProgressHUD.h"
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate> {
     District *currentDistrict;

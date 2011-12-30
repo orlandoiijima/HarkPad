@@ -16,6 +16,8 @@
 @synthesize slots = _slots;
 @synthesize lunchStatus = _lunchStatus;
 @synthesize dinnerStatus = _dinnerStatus;
+@synthesize dinnerCount = _dinnerCount;
+@synthesize lunchCount = _lunchCount;
 
 
 + (DayReservationsInfo *)infoFromJsonDictionary: (NSDictionary *)jsonDictionary {
@@ -25,6 +27,15 @@
     info.date = [formatter dateFromString: [jsonDictionary objectForKey:@"date"]];
     info.lunchStatus = statusFull;
     info.dinnerStatus = statusFull;
+
+    id countLunch = [jsonDictionary objectForKey:@"countLunch"];
+    if (countLunch != nil)
+        info.lunchCount = [countLunch intValue];
+
+    id countDinner = [jsonDictionary objectForKey:@"countDinner"];
+    if (countDinner != nil)
+        info.dinnerCount = [countDinner intValue];
+
     info.slots = [[NSMutableDictionary alloc] init];
     id slots = [jsonDictionary objectForKey:@"available"];
     for(id slotInfo in slots)
