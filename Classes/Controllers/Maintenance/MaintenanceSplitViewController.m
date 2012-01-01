@@ -52,6 +52,24 @@
     [delegate fillDetailViewWithObject:self.currentItem];
 }
 
+- (id)currentItem {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 0;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
 - (NSIndexPath *)tableView: (UITableView *)tableView willSelectRowAtIndexPath: (NSIndexPath *)indexPath {
     if ([delegate validate] == false)
         return nil;
@@ -66,7 +84,7 @@
     return indexPath;
 }
 
-- (bool)tableView: (UITableView *)tableView canMoveRowAtIndexPath: (NSIndexPath *)indexPath {
+- (BOOL)tableView: (UITableView *)tableView canMoveRowAtIndexPath: (NSIndexPath *)indexPath {
     return YES;
 }
 
@@ -80,6 +98,50 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
+}
+
+- (void)commitChanges {
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (void)fillDetailViewWithObject:(id)object {
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (QRootElement *)setupDetailView {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (void)addItem {
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (id)itemAtIndexPath:(NSIndexPath *)indexPath {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (NSIndexPath *)indexPathForItem:(id)object {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (void)endEdit {
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (bool)validate {
+    return 0;
+    //To change the template use AppCode | Preferences | File Templates.
+
 }
 
 - (void)invalidateRowForItem: (id)object

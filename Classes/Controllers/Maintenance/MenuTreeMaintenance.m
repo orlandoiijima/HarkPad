@@ -64,6 +64,30 @@
     [menuView setNeedsDisplay];
 }
 
+- (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {
+    return 0;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (NSUInteger)numberOfColumnsInGridView:(GridView *)gridView {
+    return 0;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (NSUInteger)numberOfLinesInGridView:(GridView *)gridView column:(NSUInteger)column row:(NSUInteger)row {
+    return 0;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
+- (GridViewCellLine *)gridView:(GridView *)gridView cellLineForPath:(CellPath *)path {
+    return nil;
+    //To change the template use AppCode | Preferences | File Templates.
+
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];

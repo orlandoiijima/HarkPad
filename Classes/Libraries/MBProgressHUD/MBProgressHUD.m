@@ -20,7 +20,7 @@
 - (void)setTransformForCurrentOrientation:(BOOL)animated;
 - (void)cleanUp;
 - (void)deviceOrientationDidChange:(NSNotification*)notification;
-- (void)launchExecution;
+//- (void)launchExecution;
 - (void)hideDelayed:(NSNumber *)animated;
 
 @property (retain) UIView *indicator;
@@ -484,32 +484,32 @@
 	[self hideUsingAnimation:useAnimation];
 }
 
-- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated {
-	
-    methodForExecution = method;
-    targetForExecution = target;
-    objectForExecution = object;
-	
-    // Launch execution in new thread
-	taskInProgress = YES;
-    [NSThread detachNewThreadSelector:@selector(launchExecution) toTarget:self withObject:nil];
-	
-	// Show HUD view
-	[self show:animated];
-}
-
-- (void)launchExecution {
-//    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
-    // Start executing the requested task
-    [targetForExecution performSelector:methodForExecution withObject:objectForExecution];
-	
-    // Task completed, update view in main thread (note: view operations should
-    // be done only in the main thread)
-    [self performSelectorOnMainThread:@selector(cleanUp) withObject:nil waitUntilDone:NO];
-	
-//    [pool release];
-}
+//- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated {
+//
+//    methodForExecution = method;
+//    targetForExecution = target;
+//    objectForExecution = object;
+//
+//    // Launch execution in new thread
+//	taskInProgress = YES;
+//    [NSThread detachNewThreadSelector:@selector(launchExecution) toTarget:self withObject:nil];
+//
+//	// Show HUD view
+//	[self show:animated];
+//}
+//
+//- (void)launchExecution {
+////    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//
+//    // Start executing the requested task
+//    [targetForExecution performSelector:methodForExecution withObject:objectForExecution];
+//
+//    // Task completed, update view in main thread (note: view operations should
+//    // be done only in the main thread)
+//    [self performSelectorOnMainThread:@selector(cleanUp) withObject:nil waitUntilDone:NO];
+//
+////    [pool release];
+//}
 
 - (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void*)context {
     [self done];

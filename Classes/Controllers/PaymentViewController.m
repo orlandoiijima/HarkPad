@@ -55,6 +55,7 @@
     [[Service getInstance] processPayment:type forOrder:order.id];
     if([self.delegate respondsToSelector:@selector(didProcessPaymentType:forOrder:)])
         [self.delegate didProcessPaymentType:type forOrder:order];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) changeGrouping

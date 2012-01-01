@@ -30,7 +30,7 @@
     course.entityState = None;
     course.offset = [[jsonDictionary objectForKey:@"offset"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"requestedOn"];
-    if( (NSNull *) seconds != [NSNull null])
+    if(seconds != nil && (NSNull *) seconds != [NSNull null])
         course.requestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     
     return course;

@@ -93,14 +93,6 @@ static Service *_service;
     }
 }
 
-
-- (MenuCard *) getMenuCard
-{
-	NSURL *testUrl = [self makeEndPoint:@"getmenucard" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [MenuCard menuFromJson: [self getResultFromJson:data]];
-}
-
 - (NSMutableArray *) getMenus
 {
 	NSURL *testUrl = [self makeEndPoint:@"getmenus" withQuery:@""];
@@ -186,7 +178,7 @@ static Service *_service;
     }
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject: tableIds error:&error];
-    [self postPage: @"DockTables" key: @"tables" value: jsonString];
+    [self postPageCallback: @"DockTables" key: @"tables" value: jsonString  delegate: nil callback: nil userData: nil];
 }
 
 - (void) getTablesInfoForDistrict:(int)districtId delegate: (id) delegate callback: (SEL)callback
@@ -300,6 +292,13 @@ static Service *_service;
     [self postPageCallback: @"createreservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
 }
 
+- (void) deleteReservation: (int)reservationId
+{
+    NSURL *testUrl = [self makeEndPoint:@"deletereservation" withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]];
+    [NSData dataWithContentsOfURL: testUrl];
+    return;
+}
+
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
 {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
@@ -347,47 +346,11 @@ static Service *_service;
     [self postPageCallback: @"createproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
 }
 
-- (void) deleteReservation: (int)reservationId
-{
-    NSURL *testUrl = [self makeEndPoint:@"deletereservation" withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]];
-	[NSData dataWithContentsOfURL: testUrl];
-	return;        
-}
-
 - (ServiceResult *) deleteOrderLine: (int)orderLineId
 {
     NSURL *testUrl = [self makeEndPoint:@"deleteorderline" withQuery:[NSString stringWithFormat:@"orderlineId=%d", orderLineId]];
 	NSData *data = [NSData dataWithContentsOfURL: testUrl];
 	return [ServiceResult resultFromData:data error:nil];
-}
-
-- (NSMutableArray *) getCurrentSlots
-{
-	NSURL *testUrl = [self makeEndPoint:@"getCurrentSlots" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *slotsDic = [self getResultFromJson: data];
-    NSMutableArray *slots = [[NSMutableArray alloc] init];
-    for(NSDictionary *slotDic in slotsDic)
-    {
-        Slot *slot = [Slot slotFromJsonDictionary: slotDic]; 
-        [slots addObject:slot];
-    }
-    return slots;
-}
-
-- (void) startNextSlot
-{
-    NSURL *testUrl = [self makeEndPoint:@"startnextslot" withQuery:@""];
-	[NSData dataWithContentsOfURL: testUrl];
-	return;
-}
-
-- (KitchenStatistics *) getKitchenStatistics
-{
-	NSURL *testUrl = [self makeEndPoint:@"getKitchenStatistics" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableDictionary *statsDic = [self getResultFromJson: data];
-    return [KitchenStatistics statsFromJsonDictionary: statsDic];
 }
 
 - (NSMutableArray *) getBacklogStatistics
@@ -454,21 +417,6 @@ static Service *_service;
 	return [ServiceResult resultFromData:data error:nil];
 }
 
-//- (NSMutableArray *) getSalesStatistics: (NSDate *)date
-//{
-//    int dateSeconds = (int) [date timeIntervalSince1970];
-//	NSURL *testUrl = [self makeEndPoint:@"getSales" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
-//	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-//	NSMutableArray *stats = [[NSMutableArray alloc] init];
-//    NSMutableDictionary *statsDic = [self getResultFromJson: data];
-//    for(NSDictionary *statDic in statsDic)
-//    {
-//        ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
-//        [stats addObject:totals];
-//    }
-//    return stats;
-//}
-
 - (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
@@ -517,16 +465,6 @@ static Service *_service;
 	NSDictionary *orderDic = [self getResultFromJson: data];
 	return [Order orderFromJsonDictionary:orderDic];
 }
-
-//- (Order *) getOpenOrderByTable: (int) tableId
-//{
-//    NSURL *testUrl = [self makeEndPoint:@"getopenorderbytable" withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]];
-//
-//	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-//	NSDictionary *orderDic = [self getResultFromJson:data];
-//    if((orderDic == nil) || ([orderDic count] == 0)) return nil;
-//	return [Order orderFromJsonDictionary:orderDic];
-//}
 
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback
 {
@@ -666,15 +604,6 @@ static Service *_service;
     [invocation invoke];
 }
 
-
-- (void) setState: (int) state forOrder: (int) orderId
-{
-    NSURL *testUrl = [self makeEndPoint:@"setorderstate" withQuery:[NSString stringWithFormat:@"orderId=%d&state=%d", orderId, state]];
-    
-	[NSData dataWithContentsOfURL: testUrl];
-	return;
-}
-
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
 {
     NSURL *testUrl = [self makeEndPoint:@"processpayment" withQuery:[NSString stringWithFormat:@"orderId=%d&paymentType=%d", orderId, paymentType]];
@@ -682,7 +611,6 @@ static Service *_service;
 	[NSData dataWithContentsOfURL: testUrl];
 	return;
 }
-
 
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer
 {
@@ -717,15 +645,6 @@ static Service *_service;
                  userData:invocation];
 }
 
-- (void) connectionDidFinishLoading: (NSURLConnection *) connection
-{
-    
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-}
-
 - (NSString *) stringParameterForDate: (NSDate *)date
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -741,18 +660,6 @@ static Service *_service;
     return [NSString stringWithFormat:@"%d", dateSeconds];
 }
     
-- (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value
-{
-    NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];    
-}
-
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
 {
     NSURL *testUrl = [self makeEndPoint:page withQuery:@""];

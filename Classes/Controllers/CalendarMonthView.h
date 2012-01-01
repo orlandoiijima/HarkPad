@@ -39,7 +39,7 @@
 @property int startYear;
 @property int startMonth;
 @property int countMonths;
-@property (retain) NSDate *selectedDate;
+@property (retain, nonatomic) NSDate *selectedDate;
 @property (retain) id<CalendarViewDelegate> calendarDelegate;
 @property (retain) UIColor *cellColor;
 @property (retain) UIColor *headerColor;

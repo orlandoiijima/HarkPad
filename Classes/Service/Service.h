@@ -30,7 +30,6 @@
 + (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (void) getCard;
-- (MenuCard *) getMenuCard;
 - (NSMutableArray *) getMenus;
 - (NSMutableArray *) getLog;
 - (Map *) getMap;
@@ -40,10 +39,7 @@
 - (Order *) getOrder: (int) orderId;
 - (NSMutableArray *) getReservations: (NSDate *)date;
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
-- (NSMutableArray *) getCurrentSlots;
-- (void) startNextSlot;
 - (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
-- (KitchenStatistics *) getKitchenStatistics;
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
 - (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
@@ -52,7 +48,6 @@
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void) printSalesReport: (NSDate *)date;
-//- (Order *) getOpenOrderByTable: (int) tableId;
 - (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (int)districtid delegate: (id) delegate callback: (SEL)callback;
@@ -82,7 +77,6 @@
 
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
-- (void)postPage: (NSString *)page key: (NSString *)key value: (NSString *)value;
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (NSString *)urlEncode: (NSString *)unencodedString;

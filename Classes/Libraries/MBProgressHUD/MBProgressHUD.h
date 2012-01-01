@@ -335,7 +335,7 @@ typedef enum {
  * @param animated If set to YES the HUD will disappear using the current animationType. If set to NO the HUD will not use
  * animations while disappearing.
  */
-- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated;
+//- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated;
 
 
 + (MBProgressHUD *)showProgressAddedTo:(UIView *)view withText: (NSString *)text;

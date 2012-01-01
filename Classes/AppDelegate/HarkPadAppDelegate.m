@@ -37,13 +37,11 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-
-    // Save data if appropriate.
 }
 
 - (void) getConfig
 {
-    MBProgressHUD *hud = [MBProgressHUD showProgressAddedTo: tabBarController.view withText: NSLocalizedString(@"Loading configuration", nil)];
+    [MBProgressHUD showProgressAddedTo: tabBarController.view withText: NSLocalizedString(@"Loading configuration", nil)];
     [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 

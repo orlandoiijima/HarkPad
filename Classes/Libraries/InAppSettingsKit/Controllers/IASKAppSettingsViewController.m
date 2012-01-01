@@ -602,7 +602,8 @@ CGRect IASKCGRectSwap(CGRect rect);
                 initSelector = @selector(init);
             }
             UIViewController * vc = [vcClass alloc];
-            [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
+            //  deleted - warning !!
+//            [vc performSelector:initSelector withObject:[specifier file] withObject:[specifier key]];
 			if ([vc respondsToSelector:@selector(setDelegate:)]) {
 				[vc performSelector:@selector(setDelegate:) withObject:self.delegate];
 			}
@@ -652,14 +653,14 @@ CGRect IASKCGRectSwap(CGRect rect);
 		if ([self.delegate respondsToSelector:@selector(settingsViewController:buttonTappedForKey:)]) {
 			[self.delegate settingsViewController:self buttonTappedForKey:[specifier key]];
 		} else {
-			// legacy code, provided for backward compatibility
-			// the delegate mechanism above is much cleaner and doesn't leak
-			Class buttonClass = [specifier buttonClass];
-			SEL buttonAction = [specifier buttonAction];
-			if ([buttonClass respondsToSelector:buttonAction]) {
-				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
-				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
-			}
+//			// legacy code, provided for backward compatibility
+//			// the delegate mechanism above is much cleaner and doesn't leak
+//			Class buttonClass = [specifier buttonClass];
+//			SEL buttonAction = [specifier buttonAction];
+//			if ([buttonClass respondsToSelector:buttonAction]) {
+//				[buttonClass performSelector:buttonAction withObject:self withObject:[specifier key]];
+//				NSLog(@"InAppSettingsKit Warning: Using IASKButtonSpecifier without implementing the delegate method is deprecated");
+//			}
 		}
     } else if ([[specifier type] isEqualToString:kIASKMailComposeSpecifier]) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

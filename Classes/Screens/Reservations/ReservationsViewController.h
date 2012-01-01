@@ -69,6 +69,4 @@
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 
 - (void)refreshCalendar;
-- (void) refreshCalendarCallback: (ServiceResult *)serviceResult;
-
 @end

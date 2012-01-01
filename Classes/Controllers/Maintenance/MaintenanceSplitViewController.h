@@ -25,7 +25,7 @@
 @optional
 @end
 
-@interface MaintenanceSplitViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface MaintenanceSplitViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MaintenanceViewDelegate>
 {
     MaintenanceDetailsViewController *detailsViewController;
     MaintenanceListViewController *listViewController;
@@ -38,7 +38,7 @@
 @property (retain) MaintenanceListViewController *listViewController;
 @property (nonatomic, assign) id<MaintenanceViewDelegate> delegate;
 @property (nonatomic, assign) id<UITableViewDataSource> dataSource;
-@property (retain) id currentItem;
+@property (retain, nonatomic) id currentItem;
 
 - (void)putValue: (id)value forKey: (NSString *)key;
 - (id)getValueForKey: (NSString *)key;

@@ -20,13 +20,13 @@
     BOOL _isSelected;
 }
 
-@property (retain) Order *order;
+@property (retain, nonatomic) Order *order;
 @property (retain) OrderDataSource *dataSource;
 @property (retain) UITableView *tableView;
 @property (retain) OrderTag *label;
 @property (retain) UILabel *infoLabel;
 @property (retain) UILabel *amountLabel;
-@property BOOL isSelected;
+@property (nonatomic) BOOL isSelected;
 
 - (id)initWithFrame:(CGRect)frame order: (Order *)anOrder delegate: (id<OrderViewDelegate>) delegate;
 

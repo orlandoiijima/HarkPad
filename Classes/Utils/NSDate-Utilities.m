@@ -293,6 +293,17 @@
 	return [CURRENT_CALENDAR dateFromComponents:components];
 }
 
+- (NSDate *) dateAtEndOfMonth
+{
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    [comps setYear: self.year];
+    [comps setMonth:self.month + 1];
+    [comps setDay:1];
+    [comps setHour:12];
+    NSDate *last =  [[NSCalendar currentCalendar] dateFromComponents:comps];
+    return [last dateBySubtractingDays:1];
+}
+
 #pragma mark Retrieving Intervals
 
 - (NSInteger) minutesAfterDate: (NSDate *) aDate

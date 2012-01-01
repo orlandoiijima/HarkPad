@@ -11,7 +11,7 @@
 #import "PaymentViewController.h"
 #import "SelectItemDelegate.h"
 
-@interface SelectOpenOrder : UIViewController <OrderViewDelegate, PaymentDelegate, SelectItemDelegate> {
+@interface SelectOpenOrder : UIViewController <OrderViewDelegate, PaymentDelegate, SelectItemDelegate, UIGestureRecognizerDelegate> {
     NSMutableArray *orders;
     int countColumns;
     UIScrollView *scrollView;
@@ -26,7 +26,7 @@ typedef enum SelectOpenOrderType {typeSelection, typeOverview} SelectOpenOrderTy
 @property (retain) UIScrollView *scrollView;
 @property (retain) NSMutableArray *orders;
 @property int countColumns;
-@property (retain) Order *selectedOrder;
+@property (retain, nonatomic) Order *selectedOrder;
 @property (retain) id<SelectItemDelegate> delegate;
 @property (retain) UIPopoverController *popoverController;
 @property SelectOpenOrderType selectedOpenOrderType;

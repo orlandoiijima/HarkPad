@@ -78,7 +78,7 @@
 
 - (void)setOrder: (Order *)newOrder {
     _order = newOrder;
-    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping:None totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO fontSize:14];
+    dataSource = [OrderDataSource dataSourceForOrder:newOrder grouping: noGrouping totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO fontSize:14];
     self.tableView.dataSource = dataSource;
 }
 
@@ -88,7 +88,7 @@
     _order.name = nameField.text;
 }
 
-- (void)setIsSelected: (bool)selected {
+- (void)setIsSelected: (BOOL)selected {
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
     layer.borderColor = selected ? [[UIColor blueColor] CGColor] :  [[UIColor lightGrayColor] CGColor];
     _isSelected = selected;

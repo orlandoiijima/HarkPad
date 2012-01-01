@@ -210,8 +210,7 @@
     NSDecimalNumber *total = [NSDecimalNumber zero];
     for(OrderLine *line in group)
     {
-        total = [total decimalNumberByAdding:[line.product.price decimalNumberByMultiplyingBy:[NSDecimalNumber numberWithInt: line.quantity]]];
-
+        total = [total decimalNumberByAdding:[line.product.price decimalNumberByMultiplyingBy:[[NSDecimalNumber alloc] initWithInt: line.quantity]]];
     }
     return [NSString stringWithFormat:@"%@ (%@)", key, [Utils getAmountString: total withCurrency:YES]];
 }

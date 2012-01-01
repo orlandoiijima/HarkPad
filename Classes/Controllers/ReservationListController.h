@@ -10,7 +10,7 @@
 
 @protocol SelectItemDelegate;
 
-@interface ReservationListController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ReservationListController : UIViewController <UITableViewDelegate>
 
 @property (retain, nonatomic) UITableView *tableView;
 @property (retain) ReservationDataSource *dataSource;

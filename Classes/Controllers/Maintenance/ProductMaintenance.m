@@ -30,7 +30,7 @@
         [self putValue: [NSNumber numberWithBool: [product hasProperty:productProperty.id]] forKey: key];
     }
     [self putValue: [NSNumber numberWithBool: product.isDeleted] forKey:@"isDeleted"];
-    detailsViewController.tableView.reloadData;
+    [detailsViewController.tableView reloadData];
 }
 
 - (void)addItem
@@ -69,6 +69,7 @@
     if(self) {
         delegate = self;
     }
+    return self;
 }
 
 - (void)viewDidLoad
@@ -138,6 +139,7 @@
     for(int section=0; section < [categories count]; section++)
         if ( ((ProductCategory *)[categories objectAtIndex:section]).id == category.id)
             return section;
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,7 +183,7 @@
     return cell;
 }
 
-- (bool)tableView: (UITableView *)tableView canMoveRowAtIndexPath: (NSIndexPath *)indexPath {
+- (BOOL)tableView: (UITableView *)tableView canMoveRowAtIndexPath: (NSIndexPath *)indexPath {
     Product *product = [self itemAtIndexPath:indexPath];
     return product != nil && product.isDeleted == false;
 }
@@ -199,7 +201,7 @@
 
 - (bool)validate {
     Product *product = [self currentItem];
-    if (product == nil) return;
+    if (product == nil) return YES;
 
     NSLog(@"validate %@ %@", product.key, product.name);
     if([self getValueForKey:@"name"] == @"")
@@ -235,7 +237,6 @@
 }
 
 - (NSIndexPath *) indexPathForItem: (id)object {
-    NSIndexPath *indexPath = [[NSIndexPath alloc] init];
     int countSections = [self numberOfSectionsInTableView:listViewController.tableView];
     for(int section = 0; section < countSections; section++) {
         ProductCategory *category = [self categoryForSection:section];
@@ -262,6 +263,10 @@
                     break;
                 case New:
                     [[Service getInstance] createProduct: product delegate:self callback:@selector(createFetcher:finishedWithData:error:)];
+                    break;
+                case Deleted:
+                    break;
+                case None:
                     break;
             }
         }

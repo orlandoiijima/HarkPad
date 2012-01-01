@@ -193,8 +193,9 @@
 {
     id total = [NSDecimalNumber zero];
     for(OrderLine *line in lines)
-    {        
-        total = [total decimalNumberByAdding:[line.product.price decimalNumberByMultiplyingBy:[NSDecimalNumber numberWithInt: line.quantity]]];
+    {
+        NSDecimalNumber *lineTotal = [line.product.price decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:line.quantity]];
+        total = [total decimalNumberByAdding: lineTotal];
     }
     return total;
 }

@@ -10,10 +10,9 @@
 
 @interface ToggleButton : UIButton
 
-@property BOOL isOn;
+@property (nonatomic) BOOL isOn;
 
 + (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame;
-- (void) setImage: (UIImage *)image;
 - (void) tap;
 
 

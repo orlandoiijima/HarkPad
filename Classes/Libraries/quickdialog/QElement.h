@@ -37,7 +37,7 @@
 @property(nonatomic, retain) QSection *parentSection;
 
 @property(nonatomic, retain) NSString *key;
-@property (assign) bool isDirty;
+@property (assign, nonatomic) bool isDirty;
 
 - (QElement *)initWithKey:(NSString *)key;
 

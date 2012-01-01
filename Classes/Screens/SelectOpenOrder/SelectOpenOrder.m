@@ -192,7 +192,7 @@
 }
 
 - (void) refreshView {
-    MBProgressHUD *hud = [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
+    [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
     [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
 }
 

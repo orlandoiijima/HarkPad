@@ -25,7 +25,7 @@
 
 @synthesize parentSection = _parentSection;
 @synthesize key = _key;
-
+@synthesize isDirty;
 @synthesize onSelected = _onSelected;
 @synthesize controllerAction = _controllerAction;
 
@@ -68,6 +68,10 @@
 }
 
 - (void)putValue:(id)value {
+}
+
+- (id)getValue {
+    return nil;
 }
 
 @end

@@ -48,14 +48,16 @@
     int height = (int)(self.view.bounds.size.height - 3 * margin - top) / 3;
     height = ((height - 40) / 6) * 6 + 40;
     int y = top;
+    NSDate *date = [[NSDate date] dateAtStartOfMonth];
     for(int month = 0; month < 3; month++) {
-        CalendarMonthView *view = [CalendarMonthView calendarWithFrame: CGRectMake(margin, y, width, height) forDate: [[NSDate date] dateByAddingDays:30 * month]];
+        CalendarMonthView *view = [CalendarMonthView calendarWithFrame: CGRectMake(margin, y, width, height) forDate: date];
         [self.view addSubview:view];
         view.calendarDelegate = self;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [calendarViews addObject:view];
         [view reloadData];
         y += height + margin;
+        date = [[date dateAtEndOfMonth] dateByAddingDays:1];
     }
     [self refreshCalendar];
 
@@ -390,40 +392,7 @@
 {
     for(CalendarMonthView *calendarView in self.calendarViews)
         [calendarView refreshReservations];
-//    NSDate *fromDate = [[calendarViews objectAtIndex:0] firstDateInView];
-//    NSDate *toDate = [[calendarViews objectAtIndex:[calendarViews count]-1] lastDateInView];
-//    Service *service = [Service getInstance];
-//    [service getCountAvailableSeatsPerSlotFromDate:fromDate toDate:toDate delegate:self callback:@selector(refreshCalendarCallback:)];
 }
-
-//- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
-//{
-//    if(serviceResult.isSuccess == false) {
-//        [ModalAlert error:serviceResult.error];
-//        return;
-//    }
-//
-//    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
-//    for(id item in serviceResult.jsonData) {
-//        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
-//        [reservations setObject:info forKey:[info.date inJson]];
-//    }
-//    for(CalendarMonthView *calendarView in self.calendarViews) {
-//        for(int week = 0; week < 10; week++) {
-//            for(int day = 0; day < 7; day++) {
-//                CalendarDayCell *cell = (CalendarDayCell *)[calendarView cellAtColumn:day row: week];
-//                if (cell != nil) {
-//                    NSString *key = [cell.date inJson];
-//                    DayReservationsInfo *info = [reservations objectForKey:key];
-//                    if (info != nil) {
-//                        cell.dinnerStatus = info.dinnerStatus;
-//                        cell.lunchStatus = info.lunchStatus;
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
 
 - (void)viewDidUnload
 {
@@ -437,4 +406,4 @@
 	return YES;
 }
 
-	@end
+@end

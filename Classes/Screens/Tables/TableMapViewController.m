@@ -465,14 +465,14 @@
 {
     if(order == nil)
         return;
-    isRefreshTimerDisabled = true;
+//    isRefreshTimerDisabled = true;
     NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
     newOrderVC.order = order;
     [self.navigationController pushViewController: newOrderVC animated:YES];
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
-    isRefreshTimerDisabled = false;
+//    isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
