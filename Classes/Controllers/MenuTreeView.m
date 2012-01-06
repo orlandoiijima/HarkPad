@@ -93,6 +93,7 @@
 {
 }
 
+
 - (void)gridView:(GridView *)gridView didDeleteCellLine:(GridViewCellLine *)cellLine
 {
     int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
@@ -134,7 +135,7 @@
             return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" backgroundColor:[UIColor blueColor] path:path];
     }
     if(offset == [_parentNode.nodes count])
-        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Terug", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
+        return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Back", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
     if(offset == [_parentNode.nodes count] + 1)
         return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
     return nil;

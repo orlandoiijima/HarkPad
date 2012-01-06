@@ -49,6 +49,7 @@ typedef enum
 - (void) gridView: (GridView *) gridView startsDragWithCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView movesDragWithCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView endsDragWithCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView didMoveCellLine: (GridViewCellLine *)cellLine;
 - (bool) gridView: (GridView *) gridView canDeleteCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeleteCellLine: (GridViewCellLine *)cellLine;
 
@@ -111,5 +112,6 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 - (GridViewCellLine *)findCellLineInView: (UIView *)view path: (CellPath *)path;
 - (void) popoutCellLine: (GridViewCellLine *)cellLine;
 - (void) popinCellLine: (GridViewCellLine *)cellLine;
+- (void)moveCellLine:(GridViewCellLine *)cellLine toPath: (CellPath *)path;
 
 @end

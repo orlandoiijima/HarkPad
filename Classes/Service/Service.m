@@ -534,11 +534,11 @@ static Service *_service;
     [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
 }
 
-- (void)quickOrder: (Order *)order paymentType: (int)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
+- (void)quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
     [orderInfo setObject:orderAsDictionary forKey:@"order"];
-    [orderInfo setObject: [NSNumber numberWithInt:paymentType] forKey:@"paymentType"];
+    [orderInfo setObject: [NSNumber numberWithInt:(int)paymentType] forKey:@"paymentType"];
     [orderInfo setObject: [NSNumber numberWithBool:printInvoice] forKey:@"printInvoice"];
 
     NSError *error = nil;

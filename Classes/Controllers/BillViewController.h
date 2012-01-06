@@ -34,7 +34,7 @@
 @property (retain) IBOutlet UIBarButtonItem *backButton; 
 @property (retain) IBOutlet UISegmentedControl *groupingSegment;
 @property (retain) OrderDataSource *dataSource;
-@property (retain) NSArray *printers;
+@property (retain, nonatomic) NSArray *printers;
 
 - (IBAction) goPrint;
 

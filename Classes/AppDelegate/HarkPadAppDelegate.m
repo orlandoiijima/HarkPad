@@ -8,6 +8,8 @@
 
 #import "HarkPadAppDelegate.h"
 #import "ReservationsSimple.h"
+#import "ProductMaintenance.h"
+#import "MenuTreeMaintenance.h"
 
 @implementation HarkPadAppDelegate
 
@@ -130,7 +132,17 @@
             controller = [[UINavigationController alloc] initWithRootViewController: selectOpenOrder];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
-        
+
+        if ([key isEqualToString:@"products"]) {
+            controller = [[ProductMaintenance alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+
+        if ([key isEqualToString:@"menutree"]) {
+            controller = [[MenuTreeMaintenance alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menu", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+
         if (controller != nil) {
             NSDictionary *screenName = [screen objectForKey:key];
             NSString *index = [screenName objectForKey:@"index"];

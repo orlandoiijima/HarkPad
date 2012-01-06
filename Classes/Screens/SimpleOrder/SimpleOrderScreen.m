@@ -146,7 +146,7 @@
 
 - (IBAction) cashOrder
 {
-    [[Service getInstance] quickOrder:_order paymentType:0 printInvoice:NO delegate:self callback:@selector(cashOrderCallback:)];
+    [[Service getInstance] quickOrder:_order paymentType: Cash printInvoice:NO delegate:self callback:@selector(cashOrderCallback:)];
 }
 
 - (void) cashOrderCallback: (ServiceResult *)serviceResult

@@ -51,6 +51,9 @@
     menuView.frame = CGRectMake(self.view.frame.origin.x, 44, self.view.frame.size.width/2, self.view.frame.size.height);
     menuView.leftHeaderWidth = 0;
     menuView.topHeaderHeight = 0;
+    menuView.cellPadding = CGSizeMake(3, 3);
+
+    menuView.dragMode = DragModeMove;
 
     productViewController = [[ProductListViewController alloc] init];
     [self.view addSubview: self.productViewController.view];
@@ -64,29 +67,29 @@
     [menuView setNeedsDisplay];
 }
 
-- (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {
-    return 0;
-    //To change the template use AppCode | Preferences | File Templates.
-
-}
-
-- (NSUInteger)numberOfColumnsInGridView:(GridView *)gridView {
-    return 0;
-    //To change the template use AppCode | Preferences | File Templates.
-
-}
-
-- (NSUInteger)numberOfLinesInGridView:(GridView *)gridView column:(NSUInteger)column row:(NSUInteger)row {
-    return 0;
-    //To change the template use AppCode | Preferences | File Templates.
-
-}
-
-- (GridViewCellLine *)gridView:(GridView *)gridView cellLineForPath:(CellPath *)path {
-    return nil;
-    //To change the template use AppCode | Preferences | File Templates.
-
-}
+//- (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {
+//    return 0;
+//    //To change the template use AppCode | Preferences | File Templates.
+//
+//}
+//
+//- (NSUInteger)numberOfColumnsInGridView:(GridView *)gridView {
+//    return 0;
+//    //To change the template use AppCode | Preferences | File Templates.
+//
+//}
+//
+//- (NSUInteger)numberOfLinesInGridView:(GridView *)gridView column:(NSUInteger)column row:(NSUInteger)row {
+//    return 0;
+//    //To change the template use AppCode | Preferences | File Templates.
+//
+//}
+//
+//- (GridViewCellLine *)gridView:(GridView *)gridView cellLineForPath:(CellPath *)path {
+//    return nil;
+//    //To change the template use AppCode | Preferences | File Templates.
+//
+//}
 
 - (void)viewDidUnload
 {
@@ -100,6 +103,5 @@
     // Return YES for supported orientations
 	return YES;
 }
-
 
 @end

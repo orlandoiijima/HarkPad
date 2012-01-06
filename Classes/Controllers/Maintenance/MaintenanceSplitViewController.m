@@ -52,11 +52,11 @@
     [delegate fillDetailViewWithObject:self.currentItem];
 }
 
-- (id)currentItem {
-    return nil;
-    //To change the template use AppCode | Preferences | File Templates.
-
-}
+//- (id)currentItem {
+//    return nil;
+//    //To change the template use AppCode | Preferences | File Templates.
+//
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 0;

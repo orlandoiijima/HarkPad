@@ -87,13 +87,18 @@
 
 - (GridViewCellLine *) cellLineAtPoint: (CGPoint)point
 {
-    UIView *view = [self hitTest:point withEvent:nil];
-    if(view == nil) return nil;
-    while(view != nil && [view isKindOfClass:[GridViewCellLine class]] == false)
-    {
-        view = view.superview;
+    for(GridViewCellLine *cellLine in contentView.subviews) {
+        if (cellLine != dragCellLine && [cellLine pointInside:[cellLine convertPoint:point fromView:self] withEvent:nil])
+            return cellLine;
     }
-    return (GridViewCellLine *)view;
+    return nil;
+//    UIView *view = [self hitTest:point withEvent:nil];
+//    if(view == nil) return nil;
+//    while(view != nil && [view isKindOfClass:[GridViewCellLine class]] == false)
+//    {
+//        view = view.superview;
+//    }
+//    return (GridViewCellLine *)view;
 }		
 
 - (void) selectCellLine: (GridViewCellLine *)cellLine
@@ -278,11 +283,20 @@
             int yDistance = point.y - dragTouchPoint.y;
             dragCellLine.center = CGPointMake( dragCellLine.center.x + xDistance, dragCellLine.center.y + yDistance);
             dragTouchPoint = point;
+
+            GridViewCellLine *cellLine = [self cellLineAtPoint:point];
+            if (cellLine != nil && cellLine != dragCellLine)
+            {
+                CellPath *path = cellLine.path;
+                [self moveCellLine:cellLine toPath:dragCellLine.path];
+                dragCellLine.path = [CellPath pathForColumn: path.column row: path.row line: path.row];
+            }
             break;
         }
             
         case UIGestureRecognizerStateEnded:
         {
+            [self moveCellLine:dragCellLine toPath:dragCellLine.path];
             dragCellLine = nil;
             break;
         }
@@ -294,6 +308,17 @@
     }
 }
 
+- (void)moveCellLine:(GridViewCellLine *)cellLine toPath: (CellPath *)path
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        cellLine.frame = [self frameForPath:path];
+    }];
+    if (cellLine.path.column == path.column && cellLine.path.row == path.row)
+        return;
+    cellLine.path = [CellPath pathForColumn:path.column row:path.row line:path.row];
+    if([self.delegate respondsToSelector:@selector(gridView:didMoveCellLine:)])
+        [self.delegate gridView:self didMoveCellLine:dragCellLine];
+}
 
 - (void) reloadData
 {
