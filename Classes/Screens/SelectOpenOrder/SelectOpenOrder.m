@@ -277,6 +277,7 @@
     BillViewController *billController = [[BillViewController alloc] init];
     billController.order = order;
     [self.navigationController pushViewController: billController animated:YES];
+    billController.printers = nil;
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder:(Order *)order {

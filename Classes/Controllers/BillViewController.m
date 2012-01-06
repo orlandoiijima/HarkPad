@@ -12,7 +12,7 @@
 
 @implementation BillViewController
 
-@synthesize orderTable, goButton, printerSegment, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel, backButton;
+@synthesize orderTable, goButton, printerSegment, amountLabel, tableLabel, order,dataSource, groupingSegment, nameLabel, backButton, printers = _printers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,7 +51,11 @@
 
 - (IBAction) goPrint
 {
-    NSString *printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
+    NSString *printer = @"";
+    if ([_printers count] == 1)
+        printer = [_printers objectAtIndex:0];
+    else if ([_printers count] > 1)
+        printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
     [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]]; 
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -62,6 +66,24 @@
     [orderTable reloadData];
 }
 
+- (void) setPrinters: (NSArray *)printerNames
+{
+    _printers = printerNames;
+    if (printerNames == nil || [printerNames count] < 2)
+    {
+        [printerSegment removeFromSuperview];
+    }
+    else
+    {
+        int i = 0;
+        [printerSegment removeAllSegments];
+        for(NSString *printerName in printerNames) {
+            [printerSegment insertSegmentWithTitle:printerName atIndex:i animated:NO];
+            i++;
+        }
+        printerSegment.selectedSegmentIndex = 0;
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -94,6 +116,8 @@
 
     orderTable.backgroundView = nil;
     orderTable.backgroundColor = [UIColor clearColor];
+    
+    self.printers = [NSArray arrayWithObjects:@"Voor", @"Achter", nil];
 }
 
 - (void)viewDidUnload

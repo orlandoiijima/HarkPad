@@ -19,6 +19,7 @@
 
 @interface ReservationsViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate> {
     ReservationDayView *dayView;
+    UIScrollView *scrollView;
     NSMutableDictionary *dataSources;
     NSDate *originalStartsOn;
     UIPopoverController *popover;
@@ -31,6 +32,7 @@
     UIBarButtonItem *buttonWalkin;
 }
 
+@property (retain) UIScrollView *scrollView;
 @property (retain) NSMutableArray *calendarViews;
 @property (retain) IBOutlet ReservationDayView *dayView;
 @property (retain) NSMutableDictionary *dataSources;

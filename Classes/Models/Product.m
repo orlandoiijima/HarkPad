@@ -32,6 +32,8 @@
     Product *product = [[Product alloc] init];
     product.key = [jsonDictionary objectForKey:@"key"];
     product.name = [jsonDictionary objectForKey:@"name"];
+    if(product.name == nil)
+        product.name = [NSString stringWithString:product.key];
     product.description = [jsonDictionary objectForKey:@"description"];
     product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
@@ -42,13 +44,14 @@
         product.vat = (Vat) [vat intValue];
     }
     product.id = [[jsonDictionary objectForKey:@"id"] intValue];
-//    product.properties = [[NSMutableArray alloc] init];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
     id props =  [jsonDictionary objectForKey:@"properties"];
-    for(NSDictionary *item in props)
-    {
-        OrderLineProperty *p = [OrderLineProperty propertyFromJsonDictionary:item];
-        [product.properties addObject:p];
+    if (props != nil) {
+        for(NSDictionary *item in props)
+        {
+            OrderLineProperty *p = [OrderLineProperty propertyFromJsonDictionary:item];
+            [product.properties addObject:p];
+        }
     }
     return product;
 }

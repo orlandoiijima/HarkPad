@@ -19,6 +19,7 @@
     UILabel *nameLabel; 
     UILabel *tableLabel; 
     UILabel *amountLabel;
+    NSArray *_printers;
     OrderDataSource *dataSource;
 }
 
@@ -31,13 +32,12 @@
 @property (retain) IBOutlet UILabel *tableLabel; 
 @property (retain) IBOutlet UILabel *amountLabel; 
 @property (retain) IBOutlet UIBarButtonItem *backButton; 
-@property (retain) IBOutlet UISegmentedControl *groupingSegment; 
-
+@property (retain) IBOutlet UISegmentedControl *groupingSegment;
 @property (retain) OrderDataSource *dataSource;
+@property (retain) NSArray *printers;
 
 - (IBAction) goPrint;
 
 - (IBAction) changeGrouping;
 - (void) setupToolbar;
-
 @end

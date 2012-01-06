@@ -15,7 +15,7 @@
 
 @implementation ReservationsViewController
 
-@synthesize dayView, dataSources, originalStartsOn, segmentShow, buttonAdd, buttonEdit, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, isInCalendarMode;
+@synthesize dayView, dataSources, originalStartsOn, segmentShow, buttonAdd, buttonEdit, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, isInCalendarMode, scrollView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -47,11 +47,17 @@
     int width = (int)(self.view.bounds.size.width - 3*margin) / 2;
     int height = (int)(self.view.bounds.size.height - 3 * margin - top) / 3;
     height = ((height - 40) / 6) * 6 + 40;
-    int y = top;
-    NSDate *date = [[NSDate date] dateAtStartOfMonth];
-    for(int month = 0; month < 3; month++) {
-        CalendarMonthView *view = [CalendarMonthView calendarWithFrame: CGRectMake(margin, y, width, height) forDate: date];
-        [self.view addSubview:view];
+
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(margin, top, width, 3 * (height + margin))];
+    [self.view addSubview:self.scrollView];
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width, 6 * (height + margin));
+ //   self.scrollView.pagingEnabled = YES;
+
+    int y = 0;
+    NSDate *date = [[[NSDate date] dateAtStartOfMonth] dateBySubtractingDays:1];
+    for(int month = 0; month < 6; month++) {
+        CalendarMonthView *view = [CalendarMonthView calendarWithFrame: CGRectMake(0, y, width, height) forDate: date];
+        [self.scrollView addSubview:view];
         view.calendarDelegate = self;
         view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [calendarViews addObject:view];
@@ -59,6 +65,7 @@
         y += height + margin;
         date = [[date dateAtEndOfMonth] dateByAddingDays:1];
     }
+    [self.scrollView setContentOffset:CGPointMake(0, height +margin) animated:NO];
     [self refreshCalendar];
 
     CGRect frameDay = CGRectMake(self.view.bounds.size.width/2, top, self.view.bounds.size.width/2, self.view.bounds.size.height - 50);
@@ -187,7 +194,15 @@
     popup.hostController = self;
     popover.delegate = self;
     
-    [popover presentPopoverFromRect:CGRectMake(0,0,10,10) inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];    
+    UIBarButtonItem *button;
+    if (reservation.id != 0)
+        button = buttonEdit;
+    else
+        if (reservation.type == Walkin)
+            button = buttonWalkin;
+    else
+            button = buttonAdd;
+    [popover presentPopoverFromBarButtonItem: button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
@@ -324,12 +339,10 @@
 {
     isInCalendarMode = !isInCalendarMode;
     [UIView animateWithDuration:0.2f animations: ^{
-        for(CalendarMonthView *view in calendarViews) {
-            if(isInCalendarMode)
-                view.center = CGPointMake(15 + view.bounds.size.width / 2, view.center.y);
-            else
-                view.center = CGPointMake( - view.bounds.size.width / 2, view.center.y);
-        }
+        if(isInCalendarMode)
+            self.scrollView.center = CGPointMake(15 + self.scrollView.bounds.size.width / 2, self.scrollView.center.y);
+        else
+            self.scrollView.center = CGPointMake( - self.scrollView.bounds.size.width / 2, self.scrollView.center.y);
         if(isInCalendarMode)
             self.dayView.frame = CGRectMake(self.view.bounds.size.width/2, self.dayView.frame.origin.y, self.view.bounds.size.width/2, self.view.bounds.size.height - 50);
         else
