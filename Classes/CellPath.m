@@ -31,4 +31,14 @@
     return path;
 }
 
++ (CellPath *)pathWithPath: (CellPath *)fromPath
+{
+    return [CellPath pathForColumn: fromPath.column row:fromPath.row line:fromPath.line];    
+}
+
+- (BOOL) isEqualTo: (CellPath *)path
+{
+    if (path == nil) return nil;
+    return self.column == path.column && self.row == path.row;
+}
 @end

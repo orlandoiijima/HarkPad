@@ -19,5 +19,7 @@
 @property int line;
 
 + (CellPath *)pathForColumn: (int)column row : (int)row line: (int) line;
++ (CellPath *)pathWithPath: (CellPath *)fromPath;
+- (BOOL) isEqualTo: (CellPath *)path;
 
 @end

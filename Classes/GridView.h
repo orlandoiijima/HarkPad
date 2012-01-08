@@ -20,6 +20,7 @@ typedef enum
 
 typedef enum
 {
+    DropModeNone,
     DropModeInsertCell,
     DropModeAddLine
 } DropMode;
@@ -47,8 +48,8 @@ typedef enum
 
 @optional
 - (void) gridView: (GridView *) gridView startsDragWithCellLine: (GridViewCellLine *)cellLine;
-- (void) gridView: (GridView *) gridView movesDragWithCellLine: (GridViewCellLine *)cellLine;
-- (void) gridView: (GridView *) gridView endsDragWithCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView movesDragWithCellLine: (GridViewCellLine *)cellLine atPoint: (CGPoint)point;
+- (void) gridView: (GridView *) gridView endsDragWithCellLine: (GridViewCellLine *)cellLine atPoint: (CGPoint)point;
 - (void) gridView: (GridView *) gridView didMoveCellLine: (GridViewCellLine *)cellLine;
 - (bool) gridView: (GridView *) gridView canDeleteCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeleteCellLine: (GridViewCellLine *)cellLine;
@@ -78,6 +79,8 @@ typedef enum
     float leftHeaderWidth;
     float topHeaderHeight;
     DragMode _dragMode;
+    DropMode _dropMode;
+    NSMutableArray *dragSteps;
 }
 
 typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
@@ -102,10 +105,10 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 @property DragMode dragMode;
 @property CellMode cellMode;
 @property TapStyle tapStyle;
+@property (retain) NSMutableArray *dragSteps;
 
 - (void) reloadData;
 - (void) initView;
-//- (GridViewHeaderCell *)findCellInView: (UIView *)view column: (NSUInteger)column row: (NSUInteger) row;
 - (GridViewHeaderCell *)cellAtColumn: (NSUInteger)column row: (NSUInteger) row;
 - (void) selectCellLine: (GridViewCellLine *)cellLine select: (bool) isSelected;
 - (CGRect) frameForPath: (CellPath *)path;
@@ -113,5 +116,11 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 - (void) popoutCellLine: (GridViewCellLine *)cellLine;
 - (void) popinCellLine: (GridViewCellLine *)cellLine;
 - (void)moveCellLine:(GridViewCellLine *)cellLine toPath: (CellPath *)path;
+- (void) storeDragStep: (CellPath *)path;
+- (GridViewCellLine *) cellLineAtPoint: (CGPoint)point;
+- (void) shiftCellsUp: (CellPath *)startPath;
+- (void) shiftCellsDown: (CellPath *)startPath;
+- (void) shiftCells: (CellPath *)startPath delta: (int)delta;
+- (void) swapCellLine: (GridViewCellLine *)from withCellLine: (GridViewCellLine *)cellLine;
 
 @end

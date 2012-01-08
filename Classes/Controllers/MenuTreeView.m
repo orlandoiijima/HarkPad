@@ -24,6 +24,8 @@
 - (void) initTreeView {
     self.delegate = self;
     self.dataSource = self;
+    self.dropMode = DropModeInsertCell;
+
     self.parentNode = rootNode = [[Cache getInstance] tree];
 //    [self reloadData];
 //    [self setNeedsDisplay];
@@ -58,12 +60,17 @@
 }
 
 - (TreeNode *)nodeAtCellLine: (GridViewCellLine *)cellLine {
-    int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
+    return [self nodeAtPath: cellLine.path];
+}
+
+- (TreeNode *)nodeAtPath: (CellPath *)path {
+    int offset = path.row * COUNT_PANEL_COLUMNS + path.column;
 
     if(offset < [_parentNode.nodes count])
         return [_parentNode.nodes objectAtIndex:offset];
     return nil;
 }
+
 
 - (void)gridView:(GridView *)gridView didTapCellLine:(GridViewCellLine *)cellLine
 {
@@ -96,11 +103,7 @@
 
 - (void)gridView:(GridView *)gridView didDeleteCellLine:(GridViewCellLine *)cellLine
 {
-    int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
-
-    if(offset >= [_parentNode.nodes count])
-        return;
-    TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
+    TreeNode *node = [self nodeAtCellLine:cellLine];
     if(node == nil)
         return;
     [node.nodes removeObject:node];
@@ -130,7 +133,6 @@
         TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
         if(node.product != nil)
             return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel: @"" bottomLabel: @"" backgroundColor: node.product.category.color path:path];
-//            return [[GridViewCellLine alloc] initWithTitle: node.product.key middleLabel:node.product.name bottomLabel: [Utils getAmountString: node.product.price withCurrency:YES] backgroundColor: node.product.category.color path:path];
         else
             return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" backgroundColor:[UIColor blueColor] path:path];
     }

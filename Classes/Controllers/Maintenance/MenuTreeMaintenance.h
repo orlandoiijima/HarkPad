@@ -9,19 +9,22 @@
 #import "GridView.h"
 #import "GridViewController.h"
 #import "TreeNode.h"
+#import "ProductTreeView.h"
+#import "MenuTreeView.h"
 
-@class ProductListViewController;
-@class MenuTreeViewController;
-
-@interface MenuTreeMaintenance : UIViewController <GridViewDataSource> {
-//    GridView *menuView;
-    MenuTreeViewController *menuViewController;
-//    UITableView *productView;
-    ProductListViewController *productViewController;
-
+@interface MenuTreeMaintenance : UIViewController <GridViewDataSource, ProductTreeViewDelegate, MenuTreeViewDelegate> {
+    ProductTreeView *productView;
+    MenuTreeView *menuView;
+    Product * insertingProduct;
+    CellPath *insertingStartPath;
 }
 
-@property (retain) MenuTreeViewController *menuViewController;
-@property (retain) ProductListViewController *productViewController;
+@property (retain) ProductTreeView *productView;
+@property (retain) MenuTreeView *menuView;
+@property (retain) Product * insertingProduct;
+@property (retain) CellPath *insertingStartPath;
+
+- (void)productTreeView:(ProductTreeView *)productTreeView dragItem:(id)item atPoint: (CGPoint)point;
+- (void) updateDataSource;
 
 @end

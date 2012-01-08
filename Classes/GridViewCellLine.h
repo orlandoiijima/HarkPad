@@ -27,6 +27,8 @@
 @property (nonatomic) BOOL isSelected;
 @property (nonatomic) BOOL isDropTarget;
 
++ (GridViewCellLine *)cellLineWithCellLine: (GridViewCellLine *)cellLine;
+
 - (id)initWithTitle: (NSString *) title middleLabel: (NSString *)middleLabel bottomLabel: (NSString *)bottomLabel backgroundColor: (UIColor *)backgroundColor path: (CellPath *)path;
 - (void) addDeleteButtonWithTarget: (id)target action: (SEL) action;
 - (void) removeDeleteButton;

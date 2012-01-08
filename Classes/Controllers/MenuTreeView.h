@@ -28,4 +28,7 @@
 @property (retain) TreeNode *rootNode;
 @property (retain) id<MenuTreeViewDelegate> menuDelegate;
 
+- (TreeNode *)nodeAtCellLine: (GridViewCellLine *)cellLine;
+- (TreeNode *)nodeAtPath: (CellPath *)path;
+
 @end

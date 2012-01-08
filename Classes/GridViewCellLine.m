@@ -113,5 +113,11 @@
 }
 */
 
++ (GridViewCellLine *)cellLineWithCellLine: (GridViewCellLine *)cellLine
+{
+    GridViewCellLine *newCellLine = [[GridViewCellLine alloc] initWithTitle:cellLine.textLabel.text middleLabel:@"" bottomLabel:@"" backgroundColor:cellLine.backgroundColor path:cellLine.path];
+    newCellLine.frame = cellLine.frame;
+    return newCellLine;
+}
 
 @end

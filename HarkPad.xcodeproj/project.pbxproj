@@ -254,6 +254,7 @@
 		E5F609A313489C2400D885E0 /* 20-gear2.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885DF /* 20-gear2.png */; };
 		E5F609A313489C2400D885E2 /* UISegmentButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E1 /* UISegmentButton.png */; };
 		E5F609A313489C2400D885E4 /* UISegmentButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E3 /* UISegmentButtonHighlighted.png */; };
+		E5F609A313489C2400D885E7 /* ProductTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E6 /* ProductTreeView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -682,6 +683,8 @@
 		E5F609A313489C2400D885DF /* 20-gear2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "20-gear2.png"; sourceTree = "<group>"; };
 		E5F609A313489C2400D885E1 /* UISegmentButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISegmentButton.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D885E3 /* UISegmentButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISegmentButtonHighlighted.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885E5 /* ProductTreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTreeView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885E6 /* ProductTreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTreeView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -800,6 +803,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885E6 /* ProductTreeView.m */,
+				E5F609A313489C2400D885E5 /* ProductTreeView.h */,
 				E5F609A313489C2400D885CD /* CalendarViewController.m */,
 				E5F609A313489C2400D885CC /* CalendarViewController.h */,
 				E5F609A313489C2400D885C2 /* CalendarHeaderView.h */,
@@ -1838,6 +1843,7 @@
 				E5F609A313489C2400D885CB /* ReservationsSimple.m in Sources */,
 				E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */,
 				E5F609A313489C2400D885DC /* MBProgressHUD.m in Sources */,
+				E5F609A313489C2400D885E7 /* ProductTreeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

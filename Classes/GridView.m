@@ -17,7 +17,7 @@
 @implementation GridView
 
 @synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth, topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine = _selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
-@synthesize tapStyle;
+@synthesize tapStyle, dragSteps;
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -29,7 +29,6 @@
 
 - (void) initView
 {
-
     UIScrollView *topHeader = [[UIScrollView alloc] initWithFrame: CGRectZero];
     topHeader.backgroundColor = [UIColor clearColor];
     topHeader.directionalLockEnabled = YES;
@@ -88,8 +87,9 @@
 - (GridViewCellLine *) cellLineAtPoint: (CGPoint)point
 {
     for(GridViewCellLine *cellLine in contentView.subviews) {
-        if (cellLine != dragCellLine && [cellLine pointInside:[cellLine convertPoint:point fromView:self] withEvent:nil])
-            return cellLine;
+        if ([cellLine isKindOfClass:[GridViewCellLine class]])
+            if (cellLine != dragCellLine && [cellLine pointInside:[cellLine convertPoint:point fromView:self] withEvent:nil])
+                return cellLine;
     }
     return nil;
 //    UIView *view = [self hitTest:point withEvent:nil];
@@ -200,28 +200,41 @@
         return;
     }
 
-    int countColumns = [self.dataSource numberOfColumnsInGridView:self];
-    int countRows = [self.dataSource numberOfRowsInGridView:self];
+    [self shiftCellsUp:_selectedCellLine.path];
 
-    CellPath *path = [[CellPath alloc] init];
+}
+
+- (void) shiftCellsUp: (CellPath *)startPath;
+{
+    [self shiftCells: startPath delta: -1];
+}
+
+- (void) shiftCellsDown: (CellPath *)startPath;
+{
+    [self shiftCells: startPath delta: +1];
+}
+
+
+- (void) shiftCells: (CellPath *)startPath delta: (int)delta
+{
+    int countColumns = [self.dataSource numberOfColumnsInGridView:self];
 
     NSTimeInterval duration = 0.3;
     NSTimeInterval delay = 0;	
     NSTimeInterval delayStep = 0.06;
-    for(path.row = _selectedCellLine.path.row; path.row < countRows; path.row++) {
-        
-        for(path.column = 0; path.column < countColumns; path.column++) {
-
-            if(path.row == _selectedCellLine.path.row && path.column <= _selectedCellLine.path.column)
-                continue;
-            GridViewCellLine *cellLine = [self findCellLineInView:contentView path:path];
-            if(cellLine != nil) {
-                if(cellLine.path.column == 0) {
+    for(GridViewCellLine *cellLine in contentView.subviews) {
+        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
+            continue;
+        if (cellLine.path.row > startPath.row || (cellLine.path.row == startPath.row && cellLine.path.column >= startPath.column)) {
+            if (cellLine != nil) {
+                cellLine.path.column += delta;
+                if (cellLine.path.column == -1) {
                     cellLine.path.column = countColumns - 1;
                     cellLine.path.row--;
                 }
-                else {
-                    cellLine.path.column--;
+                if (cellLine.path.column == countColumns) {
+                    cellLine.path.column = 0;
+                    cellLine.path.row++;
                 }
                 [UIView animateWithDuration: duration
                                       delay:delay
@@ -267,9 +280,17 @@
             if([self.delegate respondsToSelector:@selector(gridView:canDragCellLine:)])
                 if([self.delegate gridView:self canDragCellLine: cellLine] == false)
                     return;
+            if (_dragMode == DragModeCopy) {
+                cellLine = [GridViewCellLine cellLineWithCellLine: cellLine];
+                [self addSubview:cellLine];
+            }
+            if(_dropMode != DropModeNone) {
+                [self storeDragStep:cellLine.path];
+            }
             dragTouchPoint = point;
             dragCellLine = cellLine;
             dragCellLineCenter = dragCellLine.center;
+            [dragCellLine.superview bringSubviewToFront:dragCellLine];
             if([self.delegate respondsToSelector:@selector(gridView:startsDragWithCellLine:)])
                 [self.delegate gridView:self startsDragWithCellLine:dragCellLine];	
             break;
@@ -278,26 +299,37 @@
         case UIGestureRecognizerStateChanged:
         {
             if(dragCellLine == nil) return;
-            
+
             int xDistance = point.x - dragTouchPoint.x;
             int yDistance = point.y - dragTouchPoint.y;
             dragCellLine.center = CGPointMake( dragCellLine.center.x + xDistance, dragCellLine.center.y + yDistance);
             dragTouchPoint = point;
 
             GridViewCellLine *cellLine = [self cellLineAtPoint:point];
+
+            if([self.delegate respondsToSelector:@selector(gridView:movesDragWithCellLine: atPoint:)])
+                [self.delegate gridView:self movesDragWithCellLine:dragCellLine atPoint: point];
+
+            if(_dropMode == DropModeNone) return;
+
             if (cellLine != nil && cellLine != dragCellLine)
             {
-                CellPath *path = cellLine.path;
-                [self moveCellLine:cellLine toPath:dragCellLine.path];
-                dragCellLine.path = [CellPath pathForColumn: path.column row: path.row line: path.row];
+                [self swapCellLine: dragCellLine withCellLine:cellLine];
             }
             break;
         }
             
         case UIGestureRecognizerStateEnded:
         {
-            [self moveCellLine:dragCellLine toPath:dragCellLine.path];
+            if(dragCellLine == nil) return;
+            if([self.delegate respondsToSelector:@selector(gridView:endsDragWithCellLine: atPoint:)])
+                [self.delegate gridView:self endsDragWithCellLine:dragCellLine atPoint: point];
+
+            if(_dropMode != DropModeNone) {
+                [self moveCellLine:dragCellLine toPath:dragCellLine.path];
+            }
             dragCellLine = nil;
+            dragSteps = nil;
             break;
         }
             
@@ -308,14 +340,37 @@
     }
 }
 
+- (void) swapCellLine: (GridViewCellLine *)from withCellLine: (GridViewCellLine *)to
+{
+    [self storeDragStep: to.path];
+    CellPath *path = to.path;
+    [self moveCellLine:to toPath:from.path];
+    from.path = [CellPath pathWithPath:path];
+}
+
+- (void) storeDragStep: (CellPath *)path
+{
+    if (self.dragSteps == nil)
+        self.dragSteps = [[NSMutableArray alloc] init];
+
+    if ([self.dragSteps count] >= 2) {
+        CellPath *previousPath = [self.dragSteps objectAtIndex: [self.dragSteps count] - 2];
+        if ([previousPath isEqualTo:path]) {
+            [self.dragSteps removeLastObject];
+            return;
+        }
+    }
+    [self.dragSteps addObject: [CellPath pathWithPath: path]];
+}
+
 - (void)moveCellLine:(GridViewCellLine *)cellLine toPath: (CellPath *)path
 {
     [UIView animateWithDuration:0.5 animations:^{
         cellLine.frame = [self frameForPath:path];
     }];
-    if (cellLine.path.column == path.column && cellLine.path.row == path.row)
+    if ([cellLine.path isEqualTo:path])
         return;
-    cellLine.path = [CellPath pathForColumn:path.column row:path.row line:path.row];
+    cellLine.path = [CellPath pathWithPath:path];
     if([self.delegate respondsToSelector:@selector(gridView:didMoveCellLine:)])
         [self.delegate gridView:self didMoveCellLine:dragCellLine];
 }
@@ -459,11 +514,5 @@
     float rowHeight = lineHeight + 2 * (cellPadding.height);
     return CGRectMake( path.column * columnWidth + cellPadding.width, path.row * rowHeight + cellPadding.height, columnWidth - 2 * cellPadding.width, lineHeight);
 }
-
-//- (void)drawRect:(CGRect)rect
-//{
-//    // Drawing code
-//}
-
 
 @end
