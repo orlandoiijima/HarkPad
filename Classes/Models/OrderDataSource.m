@@ -15,7 +15,7 @@
 
 @implementation OrderDataSource
 
-@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, invoicesViewController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, hostController, showProductProperties, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize;
 
 + (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice fontSize: (float)fontSize
 {
@@ -114,6 +114,7 @@
     }
     return i;
 }
+
 - (void) tableView:(UITableView *)tableView removeOrderLine:(OrderLine *)line {
     NSIndexPath *indexPath = [self indexPathForLine:line];
     if (indexPath == nil) return;
@@ -124,11 +125,43 @@
         NSString *key = [self groupingKeyForLine:line];
         [groupedLines removeObjectForKey: key];
     }
-    [order removeOrderLine:line];
+
+    NSMutableArray *itemsToDelete = [[NSMutableArray alloc] init];
+    if (totalizeProducts) {
+        NSString *groupKey = [self groupingKeyForLine:line];
+        for(OrderLine *l in order.lines) {
+            if ([[self groupingKeyForLine:l] isEqualToString:groupKey] && l.product.id == line.product.id)
+                [itemsToDelete addObject:l];
+        }
+    }
+    else {
+        [itemsToDelete addObject:line];
+    }
+
+    for(OrderLine *l in itemsToDelete) {
+        if (l.id != 0) {
+            ServiceResult *result = [[Service getInstance] deleteOrderLine: l.id];
+            if(result == nil) return;
+
+            if(result.isSuccess == false) {
+                [ModalAlert inform:NSLocalizedString(result.error, nil)];
+                return;
+            }
+        }
+    }
+    [order.lines removeObjectsInArray:itemsToDelete];
+    
     if ([group count] == 0)
         [tableView deleteSections:[NSIndexSet indexSetWithIndex: indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
     else
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+    
+    if(self.hostController != nil) {
+        if([self.hostController respondsToSelector:@selector(onUpdateOrder:)]) {
+            [hostController onUpdateOrder: self.order];
+        }
+    }
 }
 
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line {
@@ -279,26 +312,7 @@
     if(group == nil) return;
     OrderLine *line = [group objectAtIndex:indexPath.row];
     if(line == nil) return;
-    
-    if (line.id != 0) {
-        ServiceResult *result = [[Service getInstance] deleteOrderLine: line.id];
-        if(result == nil) return;
-    
-        if(result.isSuccess == false) {
-            [ModalAlert inform:NSLocalizedString(result.error, nil)];
-            return;
-        }
-    }
-    [group removeObject:line];
-    // Delete the row from the data source
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    
-    [order removeOrderLine: line];
-    if(self.invoicesViewController != nil) {
-        if([self.invoicesViewController respondsToSelector:@selector(onUpdateOrder:)]) {
-            [invoicesViewController onUpdateOrder: self.order];
-        }
-    }
+    [self tableView:tableView removeOrderLine:line];
 }
 
 @end

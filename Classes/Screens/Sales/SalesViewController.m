@@ -135,16 +135,17 @@
 {
     [[Service getInstance] printSalesReport: dateToShow];
     [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Report printed", nil)];
-
 }
 
 - (void) refreshView
 {
+    [MBProgressHUD showProgressAddedTo:self.view withText:NSLocalizedString(@"Loading...", nil)];
     [[Service getInstance] getSalesStatistics:dateToShow delegate:self callback:@selector(refreshViewCallback:)];
 }
 
 - (void) refreshViewCallback: (ServiceResult *)serviceResult
 {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     if(serviceResult.isSuccess == false) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [view show];

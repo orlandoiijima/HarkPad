@@ -91,6 +91,9 @@
 - (void)setIsSelected: (BOOL)selected {
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
     layer.borderColor = selected ? [[UIColor blueColor] CGColor] :  [[UIColor lightGrayColor] CGColor];
+    layer.colors = selected ?
+            [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:0.7 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.5 alpha:1] CGColor], nil] :
+            [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
     _isSelected = selected;
 }
 

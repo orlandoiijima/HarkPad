@@ -35,7 +35,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 @property bool isEditable;
 @property (retain, nonatomic) id<TableCellUpdated> delegate;
 @property (retain) Order *order;
-@property (retain) InvoicesViewController *invoicesViewController;
+@property (retain) id hostController;
 @property float rowHeight;
 @property float fontSize;
 @property OrderLineSortOrder sortOrder;

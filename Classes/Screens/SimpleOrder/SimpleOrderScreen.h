@@ -22,7 +22,7 @@
 @property (retain) UILabel *amountLabel;
 @property (retain) UILabel *infoLabel;
 @property (retain) Order *order;
-@property (retain) Order *previousOrder;
+@property int previousOrderId;
 @property (retain) UIPopoverController *popoverController;
 @property (retain) OrderDataSource *dataSource;
 

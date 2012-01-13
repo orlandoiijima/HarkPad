@@ -14,7 +14,7 @@
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {ordering, billed, paid} OrderState ;
-typedef enum PaymentType {unPaid, Cash, Pin, CreditCard} PaymentType ;
+typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 
 @interface Order : NSObject {
     EntityState entityState;

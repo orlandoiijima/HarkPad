@@ -286,7 +286,11 @@
     if ([lines indexOfObject: lineToDelete] == NSNotFound) {
         NSLog(@"orderline not found in removeOrderLine");
     }
-        
+
+    for(OrderLine *line in lines) {
+        NSLog(line.product.name);
+    }
+    
     [lines removeObject:lineToDelete];
 
 //    for(int i=0; i < [lines count]; i++) {

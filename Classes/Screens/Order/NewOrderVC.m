@@ -617,7 +617,7 @@
 
 - (void) saveAction
 {
-    [[Service getInstance] updateOrder:order]; 
+    [[Service getInstance] updateOrder:order delegate:nil callback:nil];
 //    [tableMapViewController closeOrderView];
     [self.navigationController popViewControllerAnimated:YES];
 }

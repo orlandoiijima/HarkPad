@@ -38,7 +38,7 @@
     [super viewDidLoad];
     OrderGrouping grouping = [order.courses count] > 0 ? byCourse : byCategory;
     dataSource = [OrderDataSource dataSourceForOrder:order grouping:grouping totalizeProducts:NO showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES fontSize:0];
-    dataSource.invoicesViewController = invoicesViewController;
+    dataSource.hostController = invoicesViewController;
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;
     if(order.state != paid)

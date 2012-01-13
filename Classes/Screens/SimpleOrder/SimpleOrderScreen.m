@@ -23,7 +23,7 @@
 @synthesize productView = _productView;
 @synthesize orderView = _orderView;
 @synthesize order = _order;
-@synthesize previousOrder = _previousOrder;
+@synthesize previousOrderId = _previousOrderId;
 @synthesize dataSource, cashButton, orderButton, amountLabel, popoverController, infoLabel, printInvoiceButton;
 
 - (void)didReceiveMemoryWarning
@@ -54,6 +54,7 @@
     self.view.backgroundColor = [UIColor blackColor];
 
     self.title = NSLocalizedString(@"New order", nil);
+    _previousOrderId = -1;
 
     float margin = 5;
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
@@ -157,7 +158,7 @@
         return;
     }
     _order.id = serviceResult.id;
-    _previousOrder = _order;
+    _previousOrderId = _order.id;
     [self prepareForNewOrder];
     [self setupStartScreen];
 }
@@ -171,8 +172,8 @@
 
 - (void) printPreviousOrder
 {
-    if(_previousOrder == nil) return;
-    [[Service getInstance] printInvoice:_previousOrder.id];
+    if(_previousOrderId == -1) return;
+    [[Service getInstance] printInvoice:_previousOrderId];
 }
 
 - (void)didSelectItem:(id)item {
@@ -183,17 +184,29 @@
             [order addOrderLine:line];
         }
         [self.navigationController popViewControllerAnimated:YES];
-        [[Service getInstance] updateOrder:order];
-        [self prepareForNewOrder];
+        [[Service getInstance] updateOrder:order delegate:self callback:@selector(updateOrderCallback:)];
     }
 }
+
+- (void) updateOrderCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+    _previousOrderId = serviceResult.id;
+    [self prepareForNewOrder];
+    [self setupStartScreen];
+}
+
 
 - (void) prepareForNewOrder {
     _order = [[Order alloc] init];
     self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES showPrice:YES fontSize: 0];
     self.dataSource.delegate = self;
     self.dataSource.sortOrder = sortByCreatedOn;
-    self.dataSource.invoicesViewController = self;
+    self.dataSource.hostController = self;
     self.orderView.dataSource = self.dataSource;
     self.orderView.delegate = self.dataSource;
     [self.orderView reloadData];
@@ -222,7 +235,7 @@
                      orderButton.alpha = 0;
 
                      infoLabel.alpha = 1;
-                     printInvoiceButton.alpha = _previousOrder != nil ? 1 : 0;
+                     printInvoiceButton.alpha = _previousOrderId != -1 ? 1 : 0;
                  }
      ];
     [self.view bringSubviewToFront:printInvoiceButton];

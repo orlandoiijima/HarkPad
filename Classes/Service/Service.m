@@ -528,14 +528,18 @@ static Service *_service;
     [invocation invoke];
 }
 
-- (void) updateOrder: (Order *) order
+- (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
 {
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-//    NSURL *testUrl = [self makeEndPoint:@"updateorder" withQuery:@""];
 
-    [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: nil callback: nil userData: nil];
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation retainArguments];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: self callback: @selector(simpleCallback:finishedWithData:error:) userData: invocation];
 }
 
 - (void)quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
