@@ -133,6 +133,12 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
+        if ([key isEqualToString:@"bills"]) {
+            InvoicesViewController *invoicesViewController = [[InvoicesViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            controller = [[UINavigationController alloc] initWithRootViewController: invoicesViewController];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+
         if ([key isEqualToString:@"products"]) {
             controller = [[ProductMaintenance alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];

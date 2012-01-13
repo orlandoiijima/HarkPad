@@ -8,13 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "Order.h"
+#import "PullToRefreshTableViewController.h"
 
-@interface InvoicesViewController : UITableViewController {
+@interface InvoicesViewController : PullToRefreshTableViewController {
     NSMutableArray *invoices;
+    NSDate *lastUpdate;
 }
 
 @property (retain) NSMutableArray *invoices;
+@property (retain) NSDate *lastUpdate;
 
 - (void) onUpdateOrder: (Order *)order;
+- (void) refresh;
 
 @end

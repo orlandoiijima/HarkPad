@@ -29,7 +29,7 @@ static Service *_service;
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-//        else
+        else
             url = URL_DEV;
 	    }
     return self;
@@ -395,16 +395,20 @@ static Service *_service;
 
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSMutableArray *invoices = [[NSMutableArray alloc] init];
-    NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
-    for(NSDictionary *invoiceDic in invoicesDic)
-    {
-        Invoice *invoice = [Invoice invoiceFromJsonDictionary: invoiceDic];
-        [invoices addObject:invoice];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        NSMutableArray *invoices = [[NSMutableArray alloc] init];
+        NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
+        for(NSDictionary *invoiceDic in invoicesDic)
+        {
+            Invoice *invoice = [Invoice invoiceFromJsonDictionary: invoiceDic];
+            [invoices addObject:invoice];
+        }
+        result.data = invoices;
     }
-    
     NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&invoices atIndex:2];
+    [invocation setArgument:&result atIndex:2];
     [invocation invoke];
 
     return;

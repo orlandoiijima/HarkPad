@@ -51,23 +51,16 @@
                  [NSArray arrayWithObjects:@"countReservations", @"countReservationsNextDay", nil], @"Reserveringen",
                  nil];
     self.labels = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-        @"Eten", @"salesFood",
-        @"Drank", @"salesDrink",
-        @"Nu", @"countGuestsNow",
-        @"Vandaag", @"countGuestsToday",
-        @"Vandaag", @"countReservations",
-        @"Morgen", @"countReservationsNextDay",
+            NSLocalizedString(@"Food", nil), @"salesFood",
+            NSLocalizedString(@"Drink", nil), @"salesDrink",
+            NSLocalizedString(@"Now", nil), @"countGuestsNow",
+            NSLocalizedString(@"Today", nil), @"countGuestsToday",
+            NSLocalizedString(@"Today", nil), @"countReservations",
+            NSLocalizedString(@"Tomorrow", nil), @"countReservationsNextDay",
         nil];
     
     self.lastUpdate = nil;
     [self reloadTableViewDataSource];
-//    [[Service getInstance] getDashboardStatistics:self callback:@selector(didDataReceiveCallback:)];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewDidUnload

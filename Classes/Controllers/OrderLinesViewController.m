@@ -36,7 +36,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCourse totalizeProducts:NO showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES fontSize:0];
+    OrderGrouping grouping = [order.courses count] > 0 ? byCourse : byCategory;
+    dataSource = [OrderDataSource dataSourceForOrder:order grouping:grouping totalizeProducts:NO showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES fontSize:0];
     dataSource.invoicesViewController = invoicesViewController;
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;

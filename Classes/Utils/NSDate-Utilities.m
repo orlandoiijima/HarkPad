@@ -128,6 +128,31 @@
     
 }
 
+-(NSString *)dateDiff {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [df setDateFormat:@"EEE, dd MMM yy HH:mm:ss VVVV"];
+    NSDate *todayDate = [NSDate date];
+    double ti = [self timeIntervalSinceDate:todayDate];
+    ti = ti * -1;
+    if(ti < 1) {
+        return @"never";
+    } else      if (ti < 60) {
+        return [NSString stringWithFormat:NSLocalizedString(@"%d seconds ago", nil), (int)round(ti)];
+    } else if (ti < 3600) {
+        int diff = round(ti / 60);
+        return [NSString stringWithFormat:NSLocalizedString(@"%d minutes ago", nil), diff];
+    } else if (ti < 86400) {
+        int diff = round(ti / 60 / 60);
+        return[NSString stringWithFormat:NSLocalizedString(@"%d hours ago", nil), diff];
+    } else if (ti < 2629743) {
+        int diff = round(ti / 60 / 60 / 24);
+        return[NSString stringWithFormat:NSLocalizedString(@"%d days ago", nil), diff];
+    } else {
+        return @"never";
+    }
+}
+
 - (NSString *) weekdayString
 {
     NSDateFormatter *weekday = [[NSDateFormatter alloc] init];

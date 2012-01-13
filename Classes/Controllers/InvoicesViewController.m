@@ -11,10 +11,12 @@
 #import "Invoice.h"
 #import "Service.h"
 #import "Utils.h"
+#import "MBProgressHUD.h"
+#import "ModalAlert.h"
 
 @implementation InvoicesViewController
 
-@synthesize invoices;
+@synthesize invoices, lastUpdate;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -39,13 +41,24 @@
 {
     [super viewDidLoad];
 
-    [[Service getInstance] getInvoices:self callback:@selector(getInvoicesCallback:)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)];
+    [self refresh];
+
+    self.title = NSLocalizedString(@"Recent bills", nil);
 }
 
-- (void) getInvoicesCallback: (NSMutableArray *)newInvoices;
+- (void) getInvoicesCallback: (ServiceResult *)serviceResult
 {
-    self.invoices = newInvoices;
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+
+    if(serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+        return;
+    }
+
+    [super dataSourceDidFinishLoadingNewData];
+    self.lastUpdate = [NSDate date];
+
+    self.invoices = serviceResult.data;
     [self.tableView reloadData];
 }
 
@@ -57,10 +70,15 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void) reloadTableViewDataSource
+{
+    [self refresh];
+}
+
 - (void) refresh
 {
+    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
     [[Service getInstance] getInvoices:self callback:@selector(getInvoicesCallback:)];
-    [self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -115,12 +133,14 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         [formatter setDateStyle:NSDateFormatterNoStyle];
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.table.name, [formatter stringFromDate:invoice.createdOn]];
+        if (invoice.table != nil)
+            cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.table.name, [formatter stringFromDate:invoice.createdOn]];
+        else
+            cell.textLabel.text = [formatter stringFromDate:invoice.createdOn];
         cell.detailTextLabel.text = [Utils getAmountString:invoice.amount withCurrency:YES];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        if(invoice.paymentType == -1)
+        if(invoice.paymentType == 0)
             cell.textLabel.textColor = [UIColor redColor];
     }
     return cell;

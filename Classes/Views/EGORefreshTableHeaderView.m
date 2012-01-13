@@ -7,14 +7,15 @@
 //
 
 #import "EGORefreshTableHeaderView.h"
+#import "NSDate-Utilities.h"
 #import <QuartzCore/QuartzCore.h>
 
 #define kReleaseToReloadStatus	0
 #define kPullToReloadStatus		1
 #define kLoadingStatus			2
 
-#define TEXT_COLOR [UIColor colorWithRed:0.341 green:0.737 blue:0.537 alpha:1.0]
-#define BORDER_COLOR [UIColor colorWithRed:0.341 green:0.737 blue:0.537 alpha:1.0]
+#define TEXT_COLOR [UIColor blackColor] // colorWithRed:0.341 green:0.737 blue:0.537 alpha:1.0]
+#define BORDER_COLOR [UIColor blackColor] // colorWithRed:0.341 green:0.737 blue:0.537 alpha:1.0]
 
 @implementation EGORefreshTableHeaderView
 
@@ -55,7 +56,7 @@
                       CGRectMake(25.0f, frame.size.height
                                  - 65.0f, 30.0f, 55.0f)];
 		arrowImage.contentMode = UIViewContentModeScaleAspectFit;
-		arrowImage.image = [UIImage imageNamed:@"blueArrow.png"];
+		arrowImage.image = [UIImage imageNamed:@"RefreshArrow.png.png"];
 		[arrowImage layer].transform =
         CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
 		[self addSubview:arrowImage];
@@ -100,19 +101,18 @@
 {
 	if (newDate)
 	{
-        
 		lastUpdatedDate = newDate;
         
-		NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-		[formatter setDateStyle:NSDateFormatterShortStyle];
-		[formatter setTimeStyle:NSDateFormatterShortStyle];
-		lastUpdatedLabel.text = [NSString stringWithFormat:
-                                 @"Laatst bijgewerkt: %@", [formatter stringFromDate:lastUpdatedDate]];
+//		NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+//		[formatter setDateStyle:NSDateFormatterShortStyle];
+//		[formatter setTimeStyle:NSDateFormatterShortStyle];
+//		lastUpdatedLabel.text = [NSString stringWithFormat:
+//                NSLocalizedString(@"Last updated: %@", nil), [lastUpdatedDate dateDiff]];
 	}
 	else
 	{
 		lastUpdatedDate = nil;
-		lastUpdatedLabel.text = NSLocalizedString(@"Laatst bijgewerkt: nooit", nil);
+//		lastUpdatedLabel.text = NSLocalizedString(@"Last updated: never", nil);
 	}
 }
 
@@ -120,17 +120,21 @@
 {
 	switch (status) {
 		case kReleaseToReloadStatus:
-			statusLabel.text = NSLocalizedString(@"Laat los om bij te werken...", nil);
+			statusLabel.text = NSLocalizedString(@"Release to update", nil);
 			break;
 		case kPullToReloadStatus:
-			statusLabel.text = NSLocalizedString(@"Schuif naar beneden om bij te werken...", nil);
+			statusLabel.text = NSLocalizedString(@"Slide down to update...", nil);
+            if (lastUpdatedDate != nil)
+                lastUpdatedLabel.text = [NSString stringWithFormat:
+                          NSLocalizedString(@"Last updated: %@", nil), [lastUpdatedDate dateDiff]];
 			break;
 		case kLoadingStatus:
-			statusLabel.text = NSLocalizedString(@"Bijwerken...", nil);
+			statusLabel.text = NSLocalizedString(@"Update...", nil);
 			break;
 		default:
 			break;
 	}
+    lastUpdatedLabel.hidden = lastUpdatedDate == nil;
 }
 
 - (void)toggleActivityView:(BOOL)isON

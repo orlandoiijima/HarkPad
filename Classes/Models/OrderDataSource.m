@@ -280,20 +280,25 @@
     OrderLine *line = [group objectAtIndex:indexPath.row];
     if(line == nil) return;
     
-    ServiceResult *result = [[Service getInstance] deleteOrderLine: line.id];
-    if(result == nil) return;
+    if (line.id != 0) {
+        ServiceResult *result = [[Service getInstance] deleteOrderLine: line.id];
+        if(result == nil) return;
     
-    if(result.isSuccess == false) {
-        [ModalAlert inform:NSLocalizedString(result.error, nil)];
-        return;
+        if(result.isSuccess == false) {
+            [ModalAlert inform:NSLocalizedString(result.error, nil)];
+            return;
+        }
     }
     [group removeObject:line];
     // Delete the row from the data source
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     
     [order removeOrderLine: line];
-    if(self.invoicesViewController != nil)
-        [invoicesViewController onUpdateOrder: self.order];
+    if(self.invoicesViewController != nil) {
+        if([self.invoicesViewController respondsToSelector:@selector(onUpdateOrder:)]) {
+            [invoicesViewController onUpdateOrder: self.order];
+        }
+    }
 }
 
 @end
