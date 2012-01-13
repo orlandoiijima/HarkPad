@@ -193,6 +193,7 @@
     self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES showPrice:YES fontSize: 0];
     self.dataSource.delegate = self;
     self.dataSource.sortOrder = sortByCreatedOn;
+    self.dataSource.invoicesViewController = self;
     self.orderView.dataSource = self.dataSource;
     self.orderView.delegate = self.dataSource;
     [self.orderView reloadData];
@@ -204,6 +205,11 @@
     if([_order.lines count] == 0) {
         [self setupStartScreen];
     }
+}
+
+- (void) onUpdateOrder: (Order *)o
+{
+    [self onOrderUpdated];
 }
 
 - (void) setupStartScreen
