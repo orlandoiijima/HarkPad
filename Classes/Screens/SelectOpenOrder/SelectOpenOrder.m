@@ -236,19 +236,21 @@
     int width = (int)(self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
-        CGRect frame = CGRectMake(
-                leftMargin + (i % countColumns) * (width + leftMargin),
-                topMargin + (i / countColumns) * (height + topMargin),
-                width,
-                height);
-        OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order delegate:self];
-        orderView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
-        orderView.backgroundColor = [UIColor clearColor];//self.scrollView.backgroundColor;
-        [self.scrollView addSubview:orderView];
-        i++;
-        
-        if (order.id == selectedOrderId)
-            self.selectedOrder = order;
+        if ([order.lines count] > 0 || order.id <= 0) {
+            CGRect frame = CGRectMake(
+                    leftMargin + (i % countColumns) * (width + leftMargin),
+                    topMargin + (i / countColumns) * (height + topMargin),
+                    width,
+                    height);
+            OrderView *orderView = [[OrderView alloc] initWithFrame:frame order:order delegate:self];
+            orderView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
+            orderView.backgroundColor = [UIColor clearColor];//self.scrollView.backgroundColor;
+            [self.scrollView addSubview:orderView];
+            i++;
+
+            if (order.id == selectedOrderId)
+                self.selectedOrder = order;
+        }
     }
     
     self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, ((i-1)/countColumns + 1) * (height + topMargin));
