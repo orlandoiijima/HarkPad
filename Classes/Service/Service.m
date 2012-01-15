@@ -29,7 +29,7 @@ static Service *_service;
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-        else
+//        else
             url = URL_DEV;
 	    }
     return self;
@@ -345,6 +345,48 @@ static Service *_service;
     
     [self postPageCallback: @"createproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
 }
+
+// *********************************
+
+- (void) updateCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *categoryAsDictionary = [category toDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:categoryAsDictionary error:&error];
+    
+    [self postPageCallback: @"updatecategory" key: @"category" value: jsonString delegate:delegate callback:callback userData: category];
+}
+
+- (void) createCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *categoryAsDictionary = [category toDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:categoryAsDictionary error:&error];
+    
+    [self postPageCallback: @"createcategory" key: @"category" value: jsonString delegate:delegate callback:callback userData: category];
+}
+
+// *********************************
+
+- (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *nodeAsDictionary = [node toDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:nodeAsDictionary error:&error];
+
+    [self postPageCallback: @"updatetreenode" key: @"node" value: jsonString delegate:delegate callback:callback userData: node];
+}
+
+- (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
+{
+    NSError *error = nil;
+    NSMutableDictionary *nodeAsDictionary = [node toDictionary];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:nodeAsDictionary error:&error];
+
+    [self postPageCallback: @"createtreenode" key: @"node" value: jsonString delegate:delegate callback:callback userData: node];
+}
+
+// *********************************
 
 - (ServiceResult *) deleteOrderLine: (int)orderLineId
 {

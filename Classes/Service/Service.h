@@ -63,11 +63,18 @@
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 - (void) deleteReservation: (int)reservationId;
-- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback;
 
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+
+- (void) updateCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback;
+- (void) createCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback;
+
+- (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
+- (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
+
 - (ServiceResult *) printInvoice: (int)orderId;
 
 - (void) getUsers: (id) delegate callback: (SEL)callback;

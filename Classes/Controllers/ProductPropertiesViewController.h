@@ -8,34 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import "Product.h"
+#import "ItemPropertiesDelegate.h"
 
-@interface ProductPropertiesViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface ProductPropertiesViewController : UIViewController {
     Product *product;
     UITextField *uiKey;
     UITextField *uiName;
     UITextField *uiPrice;
     UISegmentedControl *uiVat;
-    UIPickerView *uiCategory;
-    UIPopoverController *popoverController;
+    id<ItemPropertiesDelegate> __strong _delegate;
 }
 
 @property (retain) Product *product;
 @property (retain) IBOutlet UITextField *uiKey;
 @property (retain) IBOutlet UITextField *uiName;
-@property (retain) IBOutlet UIPickerView *uiCategory;
 @property (retain) IBOutlet UITextField *uiPrice;
 @property (retain) IBOutlet UISegmentedControl *uiVat;
-@property (retain) UIPopoverController *popoverController;
+@property (nonatomic, retain) id<ItemPropertiesDelegate> delegate;
 
-- (id) initWithProduct: (Product *)newProduct;
+- (id)initWithProduct:(Product *)newProduct delegate: (id<ItemPropertiesDelegate>) newDelegate;
 
 - (IBAction) saveAction;
-
-- (ProductCategory *)categoryByRow:(int)row;
-
-- (int)rowByCategory:(ProductCategory *)searchCategory;
-
-
 - (IBAction) cancelAction;
 - (bool) validate;
 

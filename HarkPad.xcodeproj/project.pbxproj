@@ -94,6 +94,7 @@
 		E573702C13FE63B6007E05C0 /* QuickDialogTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700A13FE63B6007E05C0 /* QuickDialogTableView.m */; };
 		E573702D13FE63B6007E05C0 /* QWebElement.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700D13FE63B6007E05C0 /* QWebElement.m */; };
 		E573702E13FE63B6007E05C0 /* QWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E573700F13FE63B6007E05C0 /* QWebViewController.m */; };
+		E579E87E14C302C700519539 /* MenuTreeMaintenance.xib in Resources */ = {isa = PBXBuildFile; fileRef = E579E87D14C302C700519539 /* MenuTreeMaintenance.xib */; };
 		E57AECA213FE6B6E003B2F75 /* ProductDialogController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57AECA113FE6B6E003B2F75 /* ProductDialogController.m */; };
 		E57BB9121452ADC30003049E /* MaintenanceDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90B1452ADC30003049E /* MaintenanceDetailsViewController.m */; };
 		E57BB9131452ADC30003049E /* MaintenanceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E57BB90D1452ADC30003049E /* MaintenanceListViewController.m */; };
@@ -214,8 +215,6 @@
 		E5F055B013A4D13700720DB5 /* ProductPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F055AE13A4D13700720DB5 /* ProductPropertiesViewController.m */; };
 		E5F055B113A4D13700720DB5 /* ProductPropertiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */; };
 		E5F055E113A632BC00720DB5 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F055E013A632BB00720DB5 /* ProductListViewController.m */; };
-		E5F055E513A6454B00720DB5 /* ProductMaintenanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F055E313A6454500720DB5 /* ProductMaintenanceViewController.m */; };
-		E5F055E613A6454C00720DB5 /* ProductMaintenanceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F055E413A6454700720DB5 /* ProductMaintenanceViewController.xib */; };
 		E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */; };
 		E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2C9951351DA6300FDBE85 /* creditcard.png */; };
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
@@ -256,6 +255,14 @@
 		E5F609A313489C2400D885E4 /* UISegmentButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E3 /* UISegmentButtonHighlighted.png */; };
 		E5F609A313489C2400D885E7 /* ProductTreeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E6 /* ProductTreeView.m */; };
 		E5F609A313489C2400D885E9 /* RefreshArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885E8 /* RefreshArrow.png */; };
+		E5F609A313489C2400D885ED /* CategoryPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885EC /* CategoryPropertiesViewController.m */; };
+		E5F609A313489C2400D885EF /* CategoryPropertiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885EE /* CategoryPropertiesViewController.xib */; };
+		E5F609A313489C2400D885F3 /* HRBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885F2 /* HRBrightnessCursor.m */; };
+		E5F609A313489C2400D885F6 /* HRCgUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885F5 /* HRCgUtil.m */; };
+		E5F609A313489C2400D885F9 /* HRColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885F8 /* HRColorCursor.m */; };
+		E5F609A313489C2400D885FC /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885FB /* HRColorPickerView.m */; };
+		E5F609A313489C2400D885FF /* HRColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885FE /* HRColorPickerViewController.m */; };
+		E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88601 /* HRColorUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -521,6 +528,7 @@
 		E573700D13FE63B6007E05C0 /* QWebElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebElement.m; sourceTree = "<group>"; };
 		E573700E13FE63B6007E05C0 /* QWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWebViewController.h; sourceTree = "<group>"; };
 		E573700F13FE63B6007E05C0 /* QWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWebViewController.m; sourceTree = "<group>"; };
+		E579E87D14C302C700519539 /* MenuTreeMaintenance.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuTreeMaintenance.xib; sourceTree = "<group>"; };
 		E57AECA013FE6B6E003B2F75 /* ProductDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDialogController.h; sourceTree = "<group>"; };
 		E57AECA113FE6B6E003B2F75 /* ProductDialogController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDialogController.m; sourceTree = "<group>"; };
 		E57BB90A1452ADC30003049E /* MaintenanceDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaintenanceDetailsViewController.h; sourceTree = "<group>"; };
@@ -612,9 +620,6 @@
 		E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductPropertiesViewController.xib; sourceTree = "<group>"; };
 		E5F055DF13A632B900720DB5 /* ProductListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
 		E5F055E013A632BB00720DB5 /* ProductListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
-		E5F055E213A6454100720DB5 /* ProductMaintenanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductMaintenanceViewController.h; sourceTree = "<group>"; };
-		E5F055E313A6454500720DB5 /* ProductMaintenanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductMaintenanceViewController.m; sourceTree = "<group>"; };
-		E5F055E413A6454700720DB5 /* ProductMaintenanceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMaintenanceViewController.xib; sourceTree = "<group>"; };
 		E5F0648E130D4F260037816B /* nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nl.png; sourceTree = "<group>"; };
 		E5F06490130D4F7C0037816B /* de.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = de.png; sourceTree = "<group>"; };
 		E5F06492130D4F8A0037816B /* fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fr.png; sourceTree = "<group>"; };
@@ -687,6 +692,22 @@
 		E5F609A313489C2400D885E5 /* ProductTreeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTreeView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D885E6 /* ProductTreeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTreeView.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D885E8 /* RefreshArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RefreshArrow.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D885EA /* ItemPropertiesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemPropertiesDelegate.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885EB /* CategoryPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPropertiesViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885EC /* CategoryPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryPropertiesViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885EE /* CategoryPropertiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryPropertiesViewController.xib; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F1 /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessCursor.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F2 /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessCursor.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F4 /* HRCgUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRCgUtil.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F5 /* HRCgUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRCgUtil.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F7 /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorCursor.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885F8 /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorCursor.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885FA /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885FB /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D885FD /* HRColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D885FE /* HRColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88600 /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorUtil.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88601 /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -776,6 +797,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885EA /* ItemPropertiesDelegate.h */,
 				E5F609A313489C2400D885AC /* TableCellUpdated.h */,
 				E5F609A313489C2400D885A8 /* SelectItemDelegate.h */,
 				E513726313A8DEEF0037C033 /* GridView */,
@@ -851,9 +873,6 @@
 				E5AC71551389146400DB450E /* TablesViewController.xib */,
 				E5F055DF13A632B900720DB5 /* ProductListViewController.h */,
 				E5F055E013A632BB00720DB5 /* ProductListViewController.m */,
-				E5F055E213A6454100720DB5 /* ProductMaintenanceViewController.h */,
-				E5F055E313A6454500720DB5 /* ProductMaintenanceViewController.m */,
-				E5F055E413A6454700720DB5 /* ProductMaintenanceViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1118,6 +1137,7 @@
 				E55DFC86139FD89000EB7C69 /* InAppSettingsKit */,
 				E55DFCB2139FD89000EB7C69 /* TouchJson */,
 				E5F609A313489C2400D885D9 /* MBProgressHUD */,
+				E5F609A313489C2400D885F0 /* ColorPicker */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -1354,6 +1374,7 @@
 				E57BB90F1452ADC30003049E /* MaintenanceSplitViewController.m */,
 				E57BB9101452ADC30003049E /* ProductMaintenance.h */,
 				E57BB9111452ADC30003049E /* ProductMaintenance.m */,
+				E579E87D14C302C700519539 /* MenuTreeMaintenance.xib */,
 			);
 			path = Maintenance;
 			sourceTree = "<group>";
@@ -1379,6 +1400,9 @@
 		E5F055AC13A4D09400720DB5 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D885EE /* CategoryPropertiesViewController.xib */,
+				E5F609A313489C2400D885EC /* CategoryPropertiesViewController.m */,
+				E5F609A313489C2400D885EB /* CategoryPropertiesViewController.h */,
 				E5F055AD13A4D13700720DB5 /* ProductPropertiesViewController.h */,
 				E5F055AE13A4D13700720DB5 /* ProductPropertiesViewController.m */,
 				E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */,
@@ -1525,6 +1549,25 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		E5F609A313489C2400D885F0 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D88601 /* HRColorUtil.m */,
+				E5F609A313489C2400D88600 /* HRColorUtil.h */,
+				E5F609A313489C2400D885FE /* HRColorPickerViewController.m */,
+				E5F609A313489C2400D885FD /* HRColorPickerViewController.h */,
+				E5F609A313489C2400D885FB /* HRColorPickerView.m */,
+				E5F609A313489C2400D885FA /* HRColorPickerView.h */,
+				E5F609A313489C2400D885F8 /* HRColorCursor.m */,
+				E5F609A313489C2400D885F7 /* HRColorCursor.h */,
+				E5F609A313489C2400D885F5 /* HRCgUtil.m */,
+				E5F609A313489C2400D885F4 /* HRCgUtil.h */,
+				E5F609A313489C2400D885F2 /* HRBrightnessCursor.m */,
+				E5F609A313489C2400D885F1 /* HRBrightnessCursor.h */,
+			);
+			path = ColorPicker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1635,7 +1678,6 @@
 				E55DFCE0139FD89000EB7C69 /* IASKPSToggleSwitchSpecifierViewCell.xib in Resources */,
 				E55DFCE1139FD89000EB7C69 /* IASKSpecifierValuesView.xib in Resources */,
 				E5F055B113A4D13700720DB5 /* ProductPropertiesViewController.xib in Resources */,
-				E5F055E613A6454C00720DB5 /* ProductMaintenanceViewController.xib in Resources */,
 				E56231AB13B74AD900EEE977 /* closebox.png in Resources */,
 				E5CDB15113D94BD700A7236D /* clear.png in Resources */,
 				E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */,
@@ -1657,6 +1699,8 @@
 				E5F609A313489C2400D885E2 /* UISegmentButton.png in Resources */,
 				E5F609A313489C2400D885E4 /* UISegmentButtonHighlighted.png in Resources */,
 				E5F609A313489C2400D885E9 /* RefreshArrow.png in Resources */,
+				E579E87E14C302C700519539 /* MenuTreeMaintenance.xib in Resources */,
+				E5F609A313489C2400D885EF /* CategoryPropertiesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1788,7 +1832,6 @@
 				E55DFCED139FD89000EB7C69 /* CSerializedJSONData.m in Sources */,
 				E5F055B013A4D13700720DB5 /* ProductPropertiesViewController.m in Sources */,
 				E5F055E113A632BC00720DB5 /* ProductListViewController.m in Sources */,
-				E5F055E513A6454B00720DB5 /* ProductMaintenanceViewController.m in Sources */,
 				E513726913A8E01D0037C033 /* GridView.m in Sources */,
 				E513727813A8E1630037C033 /* GridViewController.m in Sources */,
 				E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */,
@@ -1848,6 +1891,13 @@
 				E5F609A313489C2400D885CE /* CalendarViewController.m in Sources */,
 				E5F609A313489C2400D885DC /* MBProgressHUD.m in Sources */,
 				E5F609A313489C2400D885E7 /* ProductTreeView.m in Sources */,
+				E5F609A313489C2400D885ED /* CategoryPropertiesViewController.m in Sources */,
+				E5F609A313489C2400D885F3 /* HRBrightnessCursor.m in Sources */,
+				E5F609A313489C2400D885F6 /* HRCgUtil.m in Sources */,
+				E5F609A313489C2400D885F9 /* HRColorCursor.m in Sources */,
+				E5F609A313489C2400D885FC /* HRColorPickerView.m in Sources */,
+				E5F609A313489C2400D885FF /* HRColorPickerViewController.m in Sources */,
+				E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

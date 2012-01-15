@@ -19,6 +19,7 @@
 @property (retain) NSMutableDictionary *data;
 @property (retain) NSDate *lastUpdate;
 @property (retain) NSMutableDictionary *sections;
+@property (retain) NSMutableDictionary *images;
 @property (retain) NSMutableDictionary *labels;
 
 - (void) reloadTableViewDataSource;

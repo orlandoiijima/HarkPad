@@ -96,6 +96,13 @@
     return;
 }
 
+- (void)gridView:(GridView *)gridView didLongPressCellLine:(GridViewCellLine *)cellLine {
+    TreeNode *node = [self nodeAtCellLine:cellLine];
+    if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didLongPressNode:cellLine:)])
+        [self.menuDelegate menuTreeView:self didLongPressNode: node cellLine: cellLine];
+}
+
+
 - (void)gridView:(GridView *)gridView startsDragWithCellLine:(GridViewCellLine *)cellLine
 {
 }

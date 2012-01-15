@@ -64,7 +64,7 @@
 	[refreshHeaderView setStatus:kPullToReloadStatus];
 	[refreshHeaderView toggleActivityView:NO];
 	[UIView commitAnimations];
-    refreshHeaderView.lastUpdatedDate = [NSDate date];  
+    refreshHeaderView.lastUpdatedDate = [NSDate date];
 }
 //
 //#pragma mark Table view methods

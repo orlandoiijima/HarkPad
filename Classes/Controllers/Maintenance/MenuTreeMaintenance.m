@@ -10,10 +10,13 @@
 #import <UIKit/UIKit.h>
 #import "MenuTreeMaintenance.h"
 #import "Cache.h"
+#import "Service.h"
+#import "ProductPropertiesViewController.h"
+#import "CategoryPropertiesViewController.h"
 
 @implementation MenuTreeMaintenance
 
-@synthesize productView, menuView, insertingProduct, insertingStartPath;
+@synthesize productView, menuView, insertingProduct, popoverController, addProductButton, addNodeButton;
 
 #define COUNT_PANEL_COLUMNS 3
 
@@ -41,8 +44,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.menuView = [[MenuTreeView alloc] init];
-    [self.view addSubview: self.menuView];
+//    self.menuView = [[MenuTreeView alloc] init];
+//    [self.view addSubview: self.menuView];
     self.menuView.frame = CGRectMake(self.view.frame.origin.x, 44, self.view.frame.size.width/2, self.view.frame.size.height);
     self.menuView.leftHeaderWidth = 0;
     self.menuView.topHeaderHeight = 0;
@@ -52,8 +55,8 @@
     [self.menuView reloadData];
     [self.menuView setNeedsDisplay];
 
-    self.productView = [[ProductTreeView alloc] init];
-    [self.view addSubview: self.productView];
+//    self.productView = [[ProductTreeView alloc] init];
+//    [self.view addSubview: self.productView];
     self.productView.frame = CGRectMake(
             self.view.frame.origin.x + menuView.frame.size.width,
             44,
@@ -80,12 +83,9 @@
             }
         }
         else {
-            self.insertingStartPath = [CellPath pathWithPath:targetCellLine.path];
             self.insertingProduct = item;
             CellPath *targetPath = [CellPath pathWithPath:targetCellLine.path];
-            [menuView shiftCellsDown:targetCellLine.path];
-            menuView.dragSteps = nil;
-            [menuView storeDragStep:self.insertingStartPath];
+            [menuView shiftDownFrom:targetCellLine.path to: nil];
             productTreeView.dragCellLine.path = targetPath;
             CGRect newFrame = [menuView.contentView convertRect:productTreeView.dragCellLine.frame fromView:productTreeView.contentView];
             [menuView.contentView addSubview: productTreeView.dragCellLine];
@@ -105,32 +105,110 @@
     if ([item isKindOfClass:[Product class]]) {
         CellPath *targetPath = [CellPath pathWithPath:targetCellLine.path];
         [menuView moveCellLine:productTreeView.dragCellLine toPath:targetPath];
-        [self updateDataSource];
+        [self updateDataSourceWithCellLine: productTreeView.dragCellLine];
     }
     if ([item isKindOfClass:[Product class]]) {
 
     }
 }
 
-- (void) updateDataSource
+- (void) updateDataSourceWithCellLine: (GridViewCellLine *)cellLine
 {
-    TreeNode *node = [menuView nodeAtPath: insertingStartPath];
-    if (node != nil) {
+    NSUInteger offset = (NSUInteger) [menuView toOffset:cellLine.path];
+    if (insertingProduct != nil) {
         TreeNode *newNode = [[TreeNode alloc] init];
         newNode.product = insertingProduct;
-        int index = [node.parent.nodes indexOfObject:node];
-        [node.parent.nodes insertObject:newNode atIndex:index];
+        newNode.parent = menuView.parentNode;
+        [newNode.parent.nodes insertObject:newNode atIndex: offset];
+        [[Service getInstance] createTreeNode:newNode delegate:nil callback:nil];
+
+        insertingProduct = nil;
     }
-    for(int i = 1; i < [menuView.dragSteps count]; i++) {
-        CellPath *fromPath = [menuView.dragSteps objectAtIndex:i-1];
-        CellPath *toPath = [menuView.dragSteps objectAtIndex:i];
-        TreeNode *fromNode = [menuView nodeAtPath:fromPath];
-        TreeNode *toNode = [menuView nodeAtPath:toPath];
-        int fromIndex = [node.parent.nodes indexOfObject: fromNode];
-        int toIndex = [node.parent.nodes indexOfObject: toNode];
-        [node.parent.nodes replaceObjectAtIndex:fromIndex withObject:toNode];
-        [node.parent.nodes replaceObjectAtIndex:toIndex withObject:fromNode];
+    else {
+        TreeNode *node = [menuView nodeAtPath: menuView.dragStartPath];
+        if (node == nil) return;
+        [node.parent.nodes removeObjectAtIndex: [menuView toOffset:menuView.dragStartPath]];
+        [node.parent.nodes insertObject:node atIndex:[menuView toOffset:cellLine.path]];
+        [[Service getInstance] updateTreeNode: node delegate:nil callback:nil];
+        
     }
+}
+
+- (void)didSaveItem:(id)item {
+    [self.popoverController dismissPopoverAnimated:YES];
+    self.popoverController = nil;
+    
+    if ([item isKindOfClass:[Product class]]) {
+        Product *product = (Product *)item;
+        if (product == nil) return;
+        if (product.id == 0)
+            [[Service getInstance] createProduct:product delegate:nil callback:nil];
+        else
+            [[Service getInstance] updateProduct:product delegate:nil callback:nil];
+    }
+    if ([item isKindOfClass:[ProductCategory class]]) {
+        ProductCategory *category = (ProductCategory *)item;
+        if (category == nil) return;
+        if (category.id == 0)
+            [[Service getInstance] createCategory:category delegate:nil callback:nil];
+        else
+            [[Service getInstance] updateCategory:category delegate:nil callback:nil];
+    }
+}
+
+- (void)didCancelItem:(id)item {
+    [self.popoverController dismissPopoverAnimated:YES];
+    self.popoverController = nil;
+}
+
+- (IBAction) addNodeItem
+{
+}
+
+- (IBAction) addProductItem
+{
+    if (self.popoverController != nil) return;
+    if (productView.parentCategory == nil) {
+        ProductCategory *category = [[ProductCategory alloc] init];
+        [self presentPopoverWithCategory:category fromRect: addProductButton.frame];
+    }
+    else {
+        Product *product = [[Product alloc] init];
+        product.category = productView.parentCategory;
+        [self presentPopoverWithProduct:product fromRect: addProductButton.frame];
+    }
+}
+
+- (void)productTreeView:(ProductTreeView *)productTreeView didLongPressItem:(id)item cellLine: (GridViewCellLine *)cellLine {
+    if (self.popoverController != nil) return;
+    if (item == nil) return;
+    if ([item isKindOfClass:[Product class]]) {
+        Product *product = (Product *)item;
+        [self presentPopoverWithProduct:product fromRect: [self.view convertRect:cellLine.frame fromView: productTreeView]];
+    }
+    if ([item isKindOfClass:[ProductCategory class]]) {
+        ProductCategory *category = (ProductCategory *)item;
+        [self presentPopoverWithCategory:category fromRect: [self.view convertRect:cellLine.frame fromView: productTreeView]];
+    }
+}
+
+- (void)presentPopoverWithProduct: (Product *)product fromRect: (CGRect)rect
+{
+    ProductPropertiesViewController *controller = [[ProductPropertiesViewController alloc] initWithProduct: product delegate:self];
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+    [self.popoverController presentPopoverFromRect: rect inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)presentPopoverWithCategory: (ProductCategory *)category fromRect: (CGRect)rect
+{
+    CategoryPropertiesViewController *controller = [[CategoryPropertiesViewController alloc] initWithCategory: category delegate:self];
+    self.popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+    [self.popoverController presentPopoverFromRect: rect inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node {
+    if (node == nil) return;
+    if (node.menu != nil || node.product != nil) return;
 }
 
 //- (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {

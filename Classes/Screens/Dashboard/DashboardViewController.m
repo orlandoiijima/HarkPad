@@ -12,7 +12,7 @@
 
 @implementation DashboardViewController
 
-@synthesize data, lastUpdate, labels, sections;
+@synthesize data, lastUpdate, labels, sections, images;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -49,6 +49,11 @@
                  [NSArray arrayWithObjects:@"salesFood", @"salesDrink", nil], @"Omzet",
                  [NSArray arrayWithObjects:@"countGuestsNow", @"countGuestsToday", nil], @"Gasten",
                  [NSArray arrayWithObjects:@"countReservations", @"countReservationsNextDay", nil], @"Reserveringen",
+                 nil];
+    self.images = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                 [UIImage imageNamed:@"creditcard.png"], @"Omzet",
+                 [UIImage imageNamed:@"group.png"], @"Gasten",
+                 [UIImage imageNamed:@"calendar.png"], @"Reserveringen",
                  nil];
     self.labels = [NSMutableDictionary dictionaryWithObjectsAndKeys:
             NSLocalizedString(@"Food", nil), @"salesFood",
@@ -107,6 +112,23 @@
 {
     NSString *sectionKey = [[self.sections allKeys] objectAtIndex:section];
     return [[self.sections objectForKey:sectionKey] count];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection: (NSInteger)section
+{
+    NSString *key = [[self.sections allKeys] objectAtIndex:section];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[self.images objectForKey:key]];
+    imageView.frame = CGRectMake(20, 5, imageView.image.size.width, 20);
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.origin.x + imageView.bounds.size.width + 5, 5, 200, 20)];
+    label.text = key;
+    label.font = [UIFont systemFontOfSize:16];
+    label.textColor = [UIColor colorWithWhite:0.08 alpha:1];
+    label.shadowColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    [view addSubview:imageView];
+    [view addSubview:label];
+    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

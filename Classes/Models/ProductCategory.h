@@ -25,5 +25,6 @@
 @property (retain) NSMutableArray *products;
 
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary;
+- (NSMutableDictionary *)toDictionary;
 
 @end

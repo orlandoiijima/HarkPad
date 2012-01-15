@@ -11,7 +11,7 @@
 
 @implementation TreeNode
 
-@synthesize name, sortOrder, id, color, nodes, parent, product, menu;
+@synthesize name, id, color, nodes, parent, product, menu;
 
 + (TreeNode *) nodeFromJsonDictionary: (NSDictionary *)jsonDictionary parent: (TreeNode *) parent
 {
@@ -37,6 +37,25 @@
     }
     return node;
 }
+
+- (NSMutableDictionary *)toDictionary
+{
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    if (self.id != 0)
+        [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    if (self.parent != nil) {
+        [dic setObject: [NSNumber numberWithInt:self.parent.id] forKey:@"parentId"];
+        [dic setObject: [NSNumber numberWithInt:[self.parent.nodes indexOfObject:self]] forKey:@"sortOrder"];
+    }
+    if ([self.name length] > 0)
+        [dic setObject: self.name forKey:@"name"];
+    if (self.product != nil)
+        [dic setObject: [NSNumber numberWithInt: self.product.id] forKey:@"productId"];
+    if (self.menu != nil)
+        [dic setObject: [NSNumber numberWithInt: self.menu.id] forKey:@"menuId"];
+    return dic;
+}
+
 
 - (UIColor *) getColor: (NSString *)colorString
 {

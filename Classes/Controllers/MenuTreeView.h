@@ -16,6 +16,7 @@
 
 @optional
 - (void) menuTreeView: (MenuTreeView *) menuTreeView didTapProduct: (Product *)product;
+- (void) menuTreeView: (MenuTreeView *) menuTreeView didLongPressNode: (TreeNode *)node cellLine: (GridViewCellLine *)cellLine;
 @end
 
 @interface MenuTreeView : GridView <GridViewDelegate, UIScrollViewDelegate, GridViewDataSource> {

@@ -617,9 +617,18 @@
 
 - (void) saveAction
 {
-    [[Service getInstance] updateOrder:order delegate:nil callback:nil];
+    [[Service getInstance] updateOrder:order delegate: self callback: @selector(updateOrderCallback:)];
 //    [tableMapViewController closeOrderView];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void) updateOrderCallback: (ServiceResult *)serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
 }
 
 - (void) cancelAction

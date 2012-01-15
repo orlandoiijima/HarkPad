@@ -21,5 +21,6 @@
 + (CellPath *)pathForColumn: (int)column row : (int)row line: (int) line;
 + (CellPath *)pathWithPath: (CellPath *)fromPath;
 - (BOOL) isEqualTo: (CellPath *)path;
+- (NSComparisonResult) compare: (CellPath *)path;
 
 @end

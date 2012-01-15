@@ -38,7 +38,22 @@
 
 - (BOOL) isEqualTo: (CellPath *)path
 {
-    if (path == nil) return nil;
-    return self.column == path.column && self.row == path.row;
+    return [self compare:path] == NSOrderedSame;
 }
+
+- (NSComparisonResult) compare: (CellPath *)path
+{
+    if (self.row > path.row)
+        return NSOrderedDescending;
+    if (self.row < path.row)
+        return NSOrderedAscending;
+    if (self.column > path.column)
+        return NSOrderedDescending;
+    else
+        if (self.column == path.column)
+            return NSOrderedSame;
+        else
+            return NSOrderedAscending;
+}
+
 @end

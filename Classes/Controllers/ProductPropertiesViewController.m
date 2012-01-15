@@ -12,7 +12,7 @@
 
 @implementation ProductPropertiesViewController
 
-@synthesize uiKey, uiName, uiPrice, uiCategory, uiVat, product, popoverController;
+@synthesize uiKey, uiName, uiPrice, uiVat, product, delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,10 +22,11 @@
     return self;
 }
 
-- (id)initWithProduct:(Product *)newProduct {
+- (id)initWithProduct:(Product *)newProduct delegate: (id<ItemPropertiesDelegate>) newDelegate {
     self = [super initWithNibName:@"ProductPropertiesViewController" bundle:nil];
 
     self.product = newProduct;
+    self.delegate = newDelegate;
 
     return self;
 }
@@ -52,37 +53,14 @@
     product.name = [Utils trim:uiName.text];
     product.key = [Utils trim:uiKey.text];
     product.price = [Utils getAmountFromString:uiPrice.text];
-    product.category = [self categoryByRow:[uiCategory selectedRowInComponent:0]];
     product.vat = uiVat.selectedSegmentIndex;
-    if (product.id == 0)
-        [[Service getInstance] createProduct:product delegate:nil callback:nil];
-    else
-        [[Service getInstance] updateProduct:product delegate:nil callback:nil];
-    [popoverController dismissPopoverAnimated:YES];
-}
-
-- (ProductCategory *) categoryByRow: (int)row
-{
-    NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
-    if (categories == nil || [categories count] <= row)
-        return nil;
-    return [categories objectAtIndex:row];        
-}
-
-- (int) rowByCategory: (ProductCategory *)searchCategory
-{
-    NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
-    int row = 0;
-    for (ProductCategory * category in categories) {
-        if (category.id == searchCategory.id)
-           return row;
-        row++;
-    }
-    return 0;        
+    if([self.delegate respondsToSelector:@selector(didSaveItem:)])
+        [self.delegate didSaveItem:product];
 }
 
 - (IBAction)cancelAction {
-    [popoverController dismissPopoverAnimated:YES];
+    if([self.delegate respondsToSelector:@selector(didCancelItem:)])
+        [self.delegate didCancelItem:product];
 }
 
 
@@ -102,11 +80,6 @@
     uiName.text = product.name;
     uiPrice.text = [Utils getAmountString:product.price withCurrency:NO];
     uiVat.selectedSegmentIndex = (int)product.vat;
-    [uiCategory selectRow:[self rowByCategory:product.category] inComponent:0 animated:YES];
-    
-    uiCategory.delegate = self;
-    uiCategory.dataSource = self;
-
     self.contentSizeForViewInPopover = self.view.frame.size;
 }
 
@@ -120,20 +93,5 @@
     // Return YES for supported orientations
     return YES;
 }
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    ProductCategory *category = [self categoryByRow:row];
-    if(category == nil) return @"";
-    return category.name;
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [[[[Cache getInstance] menuCard] categories] count];
-}
-
 
 @end
