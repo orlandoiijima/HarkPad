@@ -67,7 +67,7 @@
         self.bottomLabel.frame = CGRectMake(10, 40, self.bounds.size.width - 20, 20);    
     }
     else {
-        self.textLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);    
+        self.textLabel.frame = CGRectMake(5, 0, self.bounds.size.width - 2*5, self.bounds.size.height);
         self.middleLabel.frame = CGRectMake(0, 20, self.bounds.size.width, 20);    
     }
 }

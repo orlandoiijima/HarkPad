@@ -18,7 +18,6 @@
     TreeNode *node = [[TreeNode alloc] init];
     node.id = [[jsonDictionary objectForKey:@"id"] intValue];
     node.name = [jsonDictionary objectForKey:@"name"];
-    node.nodes = [[NSMutableArray alloc] init];
     node.parent = parent;
     NSString *color = [jsonDictionary objectForKey:@"color"];
     if(color != nil)
@@ -36,6 +35,16 @@
         [TreeNode nodeFromJsonDictionary: childDic parent: node]; 
     }
     return node;
+}
+
+- (id)init
+{
+    if ((self = [super init]) != NULL)
+	{
+        self.nodes = [[NSMutableArray alloc] init];
+        self.name = @"";
+	}
+    return(self);
 }
 
 - (NSMutableDictionary *)toDictionary

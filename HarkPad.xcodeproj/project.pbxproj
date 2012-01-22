@@ -164,7 +164,6 @@
 		E5E723181311A12C00905959 /* OrderGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B412E234B8007C2101 /* OrderGridView.m */; };
 		E5E723191311A12C00905959 /* OrderLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B612E234B8007C2101 /* OrderLineCell.m */; };
 		E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B912E234B8007C2101 /* OrderTableCell.m */; };
-		E5E7231B1311A12C00905959 /* OrderTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BB12E234B8007C2101 /* OrderTableView.m */; };
 		E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BD12E234B8007C2101 /* ProductPanelView.m */; };
 		E5E7231D1311A12C00905959 /* Splitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BF12E234B8007C2101 /* Splitter.m */; };
 		E5E7231E1311A12C00905959 /* TableButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38C112E234B8007C2101 /* TableButton.m */; };
@@ -214,7 +213,6 @@
 		E5F0051D139AC64600B2ED57 /* dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F0051C139AC64600B2ED57 /* dashboard.png */; };
 		E5F055B013A4D13700720DB5 /* ProductPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F055AE13A4D13700720DB5 /* ProductPropertiesViewController.m */; };
 		E5F055B113A4D13700720DB5 /* ProductPropertiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */; };
-		E5F055E113A632BC00720DB5 /* ProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F055E013A632BB00720DB5 /* ProductListViewController.m */; };
 		E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */; };
 		E5F2C9961351DA6300FDBE85 /* creditcard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F2C9951351DA6300FDBE85 /* creditcard.png */; };
 		E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638B134CCEC60052CDDC /* Backlog.m */; };
@@ -263,6 +261,8 @@
 		E5F609A313489C2400D885FC /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885FB /* HRColorPickerView.m */; };
 		E5F609A313489C2400D885FF /* HRColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D885FE /* HRColorPickerViewController.m */; };
 		E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88601 /* HRColorUtil.m */; };
+		E5F609A313489C2400D88605 /* NodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88604 /* NodeViewController.m */; };
+		E5F609A313489C2400D88607 /* NodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88606 /* NodeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -342,8 +342,6 @@
 		E50A38B712E234B8007C2101 /* OrderLineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderLineCell.xib; sourceTree = "<group>"; };
 		E50A38B812E234B8007C2101 /* OrderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableCell.h; sourceTree = "<group>"; };
 		E50A38B912E234B8007C2101 /* OrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableCell.m; sourceTree = "<group>"; };
-		E50A38BA12E234B8007C2101 /* OrderTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableView.h; sourceTree = "<group>"; };
-		E50A38BB12E234B8007C2101 /* OrderTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableView.m; sourceTree = "<group>"; };
 		E50A38BC12E234B8007C2101 /* ProductPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPanelView.h; sourceTree = "<group>"; };
 		E50A38BD12E234B8007C2101 /* ProductPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPanelView.m; sourceTree = "<group>"; };
 		E50A38BE12E234B8007C2101 /* Splitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splitter.h; sourceTree = "<group>"; };
@@ -618,8 +616,6 @@
 		E5F055AD13A4D13700720DB5 /* ProductPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPropertiesViewController.h; sourceTree = "<group>"; };
 		E5F055AE13A4D13700720DB5 /* ProductPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPropertiesViewController.m; sourceTree = "<group>"; };
 		E5F055AF13A4D13700720DB5 /* ProductPropertiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductPropertiesViewController.xib; sourceTree = "<group>"; };
-		E5F055DF13A632B900720DB5 /* ProductListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductListViewController.h; sourceTree = "<group>"; };
-		E5F055E013A632BB00720DB5 /* ProductListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductListViewController.m; sourceTree = "<group>"; };
 		E5F0648E130D4F260037816B /* nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nl.png; sourceTree = "<group>"; };
 		E5F06490130D4F7C0037816B /* de.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = de.png; sourceTree = "<group>"; };
 		E5F06492130D4F8A0037816B /* fr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fr.png; sourceTree = "<group>"; };
@@ -708,6 +704,9 @@
 		E5F609A313489C2400D885FE /* HRColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerViewController.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88600 /* HRColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorUtil.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88601 /* HRColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorUtil.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88603 /* NodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88604 /* NodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88606 /* NodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NodeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -871,8 +870,6 @@
 				E5AC71511388E54500DB450E /* TablesViewController.h */,
 				E5AC71521388E54600DB450E /* TablesViewController.m */,
 				E5AC71551389146400DB450E /* TablesViewController.xib */,
-				E5F055DF13A632B900720DB5 /* ProductListViewController.h */,
-				E5F055E013A632BB00720DB5 /* ProductListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1040,8 +1037,6 @@
 				E50A38B712E234B8007C2101 /* OrderLineCell.xib */,
 				E50A38B812E234B8007C2101 /* OrderTableCell.h */,
 				E50A38B912E234B8007C2101 /* OrderTableCell.m */,
-				E50A38BA12E234B8007C2101 /* OrderTableView.h */,
-				E50A38BB12E234B8007C2101 /* OrderTableView.m */,
 				E50A38BC12E234B8007C2101 /* ProductPanelView.h */,
 				E50A38BD12E234B8007C2101 /* ProductPanelView.m */,
 				E50A38BE12E234B8007C2101 /* Splitter.h */,
@@ -1400,6 +1395,9 @@
 		E5F055AC13A4D09400720DB5 /* Dialogs */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D88606 /* NodeViewController.xib */,
+				E5F609A313489C2400D88604 /* NodeViewController.m */,
+				E5F609A313489C2400D88603 /* NodeViewController.h */,
 				E5F609A313489C2400D885EE /* CategoryPropertiesViewController.xib */,
 				E5F609A313489C2400D885EC /* CategoryPropertiesViewController.m */,
 				E5F609A313489C2400D885EB /* CategoryPropertiesViewController.h */,
@@ -1701,6 +1699,7 @@
 				E5F609A313489C2400D885E9 /* RefreshArrow.png in Resources */,
 				E579E87E14C302C700519539 /* MenuTreeMaintenance.xib in Resources */,
 				E5F609A313489C2400D885EF /* CategoryPropertiesViewController.xib in Resources */,
+				E5F609A313489C2400D88607 /* NodeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1752,7 +1751,6 @@
 				E5E723181311A12C00905959 /* OrderGridView.m in Sources */,
 				E5E723191311A12C00905959 /* OrderLineCell.m in Sources */,
 				E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */,
-				E5E7231B1311A12C00905959 /* OrderTableView.m in Sources */,
 				E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */,
 				E5E7231D1311A12C00905959 /* Splitter.m in Sources */,
 				E5E7231E1311A12C00905959 /* TableButton.m in Sources */,
@@ -1831,7 +1829,6 @@
 				E55DFCEC139FD89000EB7C69 /* CJSONSerializer.m in Sources */,
 				E55DFCED139FD89000EB7C69 /* CSerializedJSONData.m in Sources */,
 				E5F055B013A4D13700720DB5 /* ProductPropertiesViewController.m in Sources */,
-				E5F055E113A632BC00720DB5 /* ProductListViewController.m in Sources */,
 				E513726913A8E01D0037C033 /* GridView.m in Sources */,
 				E513727813A8E1630037C033 /* GridViewController.m in Sources */,
 				E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */,
@@ -1898,6 +1895,7 @@
 				E5F609A313489C2400D885FC /* HRColorPickerView.m in Sources */,
 				E5F609A313489C2400D885FF /* HRColorPickerViewController.m in Sources */,
 				E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */,
+				E5F609A313489C2400D88605 /* NodeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

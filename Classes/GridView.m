@@ -407,12 +407,37 @@
         [self.delegate gridView:self didMoveCellLine:dragCellLine];
 }
 
+- (void) removeCurrentCellsWithAnimation
+{
+    for(UIView *view in contentView.subviews) {
+        [UIView animateWithDuration:0.3 animations:^{
+            view.frame = CGRectMake(view.frame.origin.x + view.frame.size.width/2, view.frame.origin.y + view.frame.size.height/2, 0, 0);
+            view.alpha = 0;
+        }
+        completion: ^ (BOOL completed){
+            [view removeFromSuperview];
+        }];
+    }
+}
+
+- (void) addCell: (GridViewCellLine *)cellLine withFrame: (CGRect) frame
+{
+    cellLine.alpha = 0;
+    cellLine.frame = CGRectMake(frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height/2, 0, 0);
+    [contentView addSubview:cellLine];
+    [UIView animateWithDuration:0.2 animations:^{
+        cellLine.frame = frame;
+        cellLine.alpha = 1;
+    }];
+}
+
 - (void) reloadData
 {
 //    [self selectCellLine:selectedCellLine select:NO];
     int countRows = [_dataSource numberOfRowsInGridView:self];
     int countColumns = [_dataSource numberOfColumnsInGridView:self];
-    [contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self removeCurrentCellsWithAnimation];
+//    [contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     float left = 0;
     float heightTotal;
     float top = 0;
@@ -451,12 +476,14 @@
                         cellHeight += spaceBetweenCellLines;
                     }
                     GridViewCellLine *cellLine = [_dataSource gridView:self cellLineForPath:path];
+                    if (cellLine == nil)
+                        break;
                     cellLine.path = [CellPath pathForColumn:path.column row:path.row line:0];
                     int height = [self.delegate gridView:self heightForLineAtPath:path];
-                    cellLine.frame = CGRectMake(lineLeft, lineTop, columnWidth - 2 * (cellPadding.width), height);
+                    CGRect frame = CGRectMake(lineLeft, lineTop, columnWidth - 2 * (cellPadding.width), height);
                     cellHeight += height;
                     if(cellLine != nil) {
-                        [contentView addSubview:cellLine];
+                        [self addCell:cellLine withFrame:frame];
                         if([self.delegate respondsToSelector:@selector(gridView: willDisplayCellLine:)])
                             [self.delegate gridView:self willDisplayCellLine: cellLine];
                     }

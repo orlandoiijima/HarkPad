@@ -13,6 +13,17 @@
 
 @synthesize name, products, sortOrder, color, isFood, id;
 
+- (id)init
+{
+    if ((self = [super init]) != NULL)
+	{
+        self.products = [[NSMutableArray alloc] init];
+        self.color = [UIColor blueColor];
+        self.name = @"";
+	}
+    return(self);
+}
+
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     ProductCategory *category = [[ProductCategory alloc] init];
@@ -45,10 +56,11 @@
         [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     if ([self.name length] > 0)
         [dic setObject: self.name forKey:@"name"];
-    int r = (int) 255 * [[self.color CGColor] red];
-    int g = (int) 255 * [[self.color CGColor] green];
-    int b = (int) 255 * [[self.color CGColor] blue];
-//    [dic setObject: [self.color CGColor] forKey:@"color"];
+    float r,g,b,a;
+    [self.color getRed:&r green:&g blue:&b alpha:&a];
+    NSUInteger y = (int)(255*r) << 24;
+    NSUInteger x = ((long)(255*r) << 24) + ((long)(255*g) << 16) + ((long)(255*b) << 8) + ((long)(255*a));
+    [dic setObject: [NSNumber numberWithUnsignedLong:x] forKey:@"color"];
     return dic;
 }
 

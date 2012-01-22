@@ -31,5 +31,7 @@
 
 - (TreeNode *)nodeAtCellLine: (GridViewCellLine *)cellLine;
 - (TreeNode *)nodeAtPath: (CellPath *)path;
+- (void) updateCellLinesByCategory: (ProductCategory *)productCategory;
+- (void) updateCellLinesByProduct: (Product *)product;
 
 @end

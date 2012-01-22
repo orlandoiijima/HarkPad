@@ -78,20 +78,23 @@
 
     if(offset < [_parentNode.nodes count]) {
         TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
-        if([node.nodes count] > 0) {
-            self.parentNode = node;
+        if(node.menu) {
         }
-        else {
+        else if(node.product) {
             if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didTapProduct:)])
                 [self.menuDelegate menuTreeView:self didTapProduct: node.product];
+        }
+        else {
+            self.parentNode = node;
         }
     }
     else {
         if(offset == [_parentNode.nodes count]) {
             self.parentNode = _parentNode.parent;
         }
-
-        self.parentNode = rootNode;
+        else {
+            self.parentNode = rootNode;
+        }
     }
     return;
 }
@@ -118,9 +121,12 @@
 
 - (NSUInteger)numberOfRowsInGridView:(GridView *)gridView {
     int countButtons = [_parentNode.nodes count];
-    if(rootNode != _parentNode)
-        countButtons += 2;
-    return (countButtons + 1) / COUNT_PANEL_COLUMNS;
+    if(_parentNode.parent != nil) {
+        countButtons++;
+        if(_parentNode.parent.parent != nil)
+            countButtons++;
+    }
+    return floor(countButtons / COUNT_PANEL_COLUMNS) + 1;
 }
 
 - (NSUInteger)numberOfColumnsInGridView:(GridView *)gridView {
@@ -143,9 +149,11 @@
         else
             return [[GridViewCellLine alloc] initWithTitle: node.name middleLabel:@"" bottomLabel:@"" backgroundColor:[UIColor blueColor] path:path];
     }
+    if (_parentNode.parent == nil)
+        return nil;
     if(offset == [_parentNode.nodes count])
         return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Back", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
-    if(offset == [_parentNode.nodes count] + 1)
+    if(offset == [_parentNode.nodes count] + 1 && _parentNode.parent.parent != nil)
         return [[GridViewCellLine alloc] initWithTitle: NSLocalizedString(@"Home", nil) middleLabel:@"" bottomLabel:@""  backgroundColor:[UIColor blueColor] path:path];
     return nil;
 }
@@ -170,6 +178,34 @@
         else {
             cell.backgroundColor = [UIColor blueColor];
             cell.textLabel.textColor = [UIColor whiteColor];
+        }
+    }
+}
+
+- (void) updateCellLinesByCategory: (ProductCategory *)productCategory
+{
+    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
+        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
+            continue;
+        TreeNode *node = [self nodeAtCellLine:cellLine];
+        if (node != nil && node.product != nil) {
+            if (node.product.category.id == productCategory.id) {
+                cellLine.backgroundColor = productCategory.color;
+            }
+        }
+    }
+}
+
+- (void) updateCellLinesByProduct: (Product *)product
+{
+    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
+        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
+            continue;
+        TreeNode *node = [self nodeAtCellLine:cellLine];
+        if (node != nil && node.product != nil) {
+            if (node.product.id == product.id) {
+                cellLine.textLabel.text = product.key;
+            }
         }
     }
 }

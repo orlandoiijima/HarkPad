@@ -30,6 +30,7 @@
 - (void) updateDataSourceWithCellLine: (GridViewCellLine *)cellLine;
 - (void)presentPopoverWithProduct: (Product *)product fromRect: (CGRect)rect;
 - (void)presentPopoverWithCategory: (ProductCategory *)category fromRect: (CGRect)rect;
+- (void)presentPopoverWithNode: (TreeNode *)node fromRect: (CGRect)rect;
 
 - (IBAction) addProductItem;
 - (IBAction) addNodeItem;
