@@ -163,6 +163,11 @@
     return;
 }
 
+- (NSDecimalNumber *) getAmount
+{
+    return [self.product.price decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:self.quantity]];
+}
+
 - (id)copyWithZone: (NSZone *)zone {
     OrderLine *line = [[OrderLine alloc] init];
     line.product = self.product;

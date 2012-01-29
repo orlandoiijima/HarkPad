@@ -5,11 +5,13 @@
 //
 
 
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 #import "ToggleButton.h"
 
 @implementation ToggleButton 
 
-@synthesize isOn = _isOn;
+@synthesize isOn = _isOn, imageView;
 
 - (void) initView
 {
@@ -31,12 +33,42 @@
     return self;
 }
 
-+ (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame    {
-    ToggleButton *sw = [[ToggleButton alloc] init];
-    sw.frame = frame;
-    [sw setTitle:title forState:UIControlStateNormal];
-    [sw initView];
-    return sw;
++ (ToggleButton *)buttonWithTitle: (NSString *)title image: (UIImage *)image frame: (CGRect) frame {
+    ToggleButton *button = [[ToggleButton alloc] init];
+    if (frame.size.width == 0) {
+        CGSize size = [title sizeWithFont: [UIFont boldSystemFontOfSize:18]];
+        if (image != nil)
+            size.width += 18;
+        button.frame = CGRectMake(frame.origin.x, frame.origin.y, size.width + 20, size.height+10);
+    } 
+    else
+        button.frame = frame;
+    [button setTitle:title forState:UIControlStateNormal];
+    [button initView];
+
+    if (image != nil) {
+        button.imageView = [[UIImageView alloc] initWithImage:image];
+        button.imageView.frame = CGRectMake(6, (button.bounds.size.height - 16)/2, 16, 16);
+        [button addSubview: button.imageView];
+        button.titleEdgeInsets = UIEdgeInsetsMake(
+                button.titleEdgeInsets.top,
+                button.titleEdgeInsets.left + 18,
+                button.titleEdgeInsets.bottom,
+                button.titleEdgeInsets.right);
+    }
+    return button;
+}
+
+//- (void)layoutSubviews {
+//    [super layoutSubviews];
+//    if (self.imageView == nil) return;
+//    self.titleLabel.frame = CGRectMake(self.tit, <#(CGFloat)y#>, <#(CGFloat)width#>, <#(CGFloat)height#>), 18, 0);
+//    r = CGRectOffset(r, 18, 0);
+//    button.titleLabel.frame = r;
+//}
+
++ (ToggleButton *)buttonWithTitle: (NSString *)title frame: (CGRect) frame {
+    return [ToggleButton buttonWithTitle:title image:nil frame:frame];
 }
 
 - (void) tap

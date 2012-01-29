@@ -10,6 +10,7 @@
 #import "ReservationsSimple.h"
 #import "ProductMaintenance.h"
 #import "MenuTreeMaintenance.h"
+#import "TestTableViewController.h"
 
 @implementation HarkPadAppDelegate
 
@@ -113,6 +114,11 @@
         if ([key isEqualToString:@"log"]) {
             controller = [[LogViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
+        }
+
+        if ([key isEqualToString:@"testtable"]) {
+            controller = [[TestTableViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Table" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
         if ([key isEqualToString:@"settings"]) {

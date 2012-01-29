@@ -10,7 +10,7 @@
 #import "Service.h"
 
 @implementation Table
-@synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, isDocked, id;
+@synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, isDocked, id, seatsHorizontal, seatsVertical;
 
 
 - (id)init

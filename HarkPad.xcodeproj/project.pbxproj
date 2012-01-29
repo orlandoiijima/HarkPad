@@ -263,6 +263,18 @@
 		E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88601 /* HRColorUtil.m */; };
 		E5F609A313489C2400D88605 /* NodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88604 /* NodeViewController.m */; };
 		E5F609A313489C2400D88607 /* NodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88606 /* NodeViewController.xib */; };
+		E5F609A313489C2400D8860B /* PdfCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8860A /* PdfCreator.m */; };
+		E5F609A313489C2400D8860E /* BillPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8860D /* BillPdf.m */; };
+		E5F609A313489C2400D88611 /* TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88610 /* TableView.m */; };
+		E5F609A313489C2400D88615 /* SeatView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88614 /* SeatView.m */; };
+		E5F609A313489C2400D88618 /* SimpleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88617 /* SimpleTableView.m */; };
+		E5F609A313489C2400D8861B /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861A /* user.png */; };
+		E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861C /* UIImage+Tint.m */; };
+		E5F609A313489C2400D88620 /* errorRedDot.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861F /* errorRedDot.png */; };
+		E5F609A313489C2400D88622 /* warningOrangeDot.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88621 /* warningOrangeDot.png */; };
+		E5F609A313489C2400D88624 /* BlueStar.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88623 /* BlueStar.png */; };
+		E5F609A313489C2400D88627 /* TestTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88626 /* TestTableViewController.m */; };
+		E5F609A313489C2400D88629 /* GuestProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88628 /* GuestProperties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -707,6 +719,27 @@
 		E5F609A313489C2400D88603 /* NodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NodeViewController.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88604 /* NodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NodeViewController.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88606 /* NodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NodeViewController.xib; sourceTree = "<group>"; };
+		E5F609A313489C2400D88608 /* TemplatePrintDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplatePrintDelegate.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8860A /* PdfCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfCreator.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8860C /* PdfCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfCreator.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8860D /* BillPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillPdf.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8860F /* BillPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillPdf.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88610 /* TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88612 /* TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88614 /* SeatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88616 /* SeatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88617 /* SimpleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88619 /* SimpleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8861A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D8861C /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
+		E5F609A313489C2400D8861E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
+		E5F609A313489C2400D8861F /* errorRedDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = errorRedDot.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88621 /* warningOrangeDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warningOrangeDot.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88623 /* BlueStar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueStar.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88625 /* TestTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestTableViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88626 /* TestTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTableViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88628 /* GuestProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestProperties.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8862A /* GuestProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestProperties.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -810,6 +843,7 @@
 				E50A388D12E234B8007C2101 /* Resources */,
 				E50A38AE12E234B8007C2101 /* Views */,
 				E5F609A313489C2400D8858F /* Screens */,
+				E5F609A313489C2400D88609 /* Pdf */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -826,6 +860,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D88626 /* TestTableViewController.m */,
+				E5F609A313489C2400D88625 /* TestTableViewController.h */,
 				E5F609A313489C2400D885E6 /* ProductTreeView.m */,
 				E5F609A313489C2400D885E5 /* ProductTreeView.h */,
 				E5F609A313489C2400D885CD /* CalendarViewController.m */,
@@ -969,6 +1005,10 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D88623 /* BlueStar.png */,
+				E5F609A313489C2400D88621 /* warningOrangeDot.png */,
+				E5F609A313489C2400D8861F /* errorRedDot.png */,
+				E5F609A313489C2400D8861A /* user.png */,
 				E5F609A313489C2400D885E8 /* RefreshArrow.png */,
 				E5F609A313489C2400D885E3 /* UISegmentButtonHighlighted.png */,
 				E5F609A313489C2400D885E1 /* UISegmentButton.png */,
@@ -1056,6 +1096,7 @@
 				E5D7A24013742BE20079F89A /* ReservationDayView.m */,
 				E5DFB9EE1401495900EAD1EC /* AmountView.h */,
 				E5DFB9EF1401495900EAD1EC /* AmountView.m */,
+				E5F609A313489C2400D88613 /* TableView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1063,6 +1104,8 @@
 		E50A390812E236A7007C2101 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D8861E /* UIImage+Tint.h */,
+				E5F609A313489C2400D8861C /* UIImage+Tint.m */,
 				E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */,
 				E533A0CA132D2931005CB4D6 /* NSDate-Utilities.m */,
 				E533A0CB132D2931005CB4D6 /* TimeFormatters.h */,
@@ -1566,6 +1609,33 @@
 			path = ColorPicker;
 			sourceTree = "<group>";
 		};
+		E5F609A313489C2400D88609 /* Pdf */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D8860F /* BillPdf.h */,
+				E5F609A313489C2400D8860D /* BillPdf.m */,
+				E5F609A313489C2400D8860C /* PdfCreator.h */,
+				E5F609A313489C2400D8860A /* PdfCreator.m */,
+				E5F609A313489C2400D88608 /* TemplatePrintDelegate.h */,
+			);
+			path = Pdf;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D88613 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D8862A /* GuestProperties.h */,
+				E5F609A313489C2400D88628 /* GuestProperties.m */,
+				E5F609A313489C2400D88619 /* SimpleTableView.h */,
+				E5F609A313489C2400D88617 /* SimpleTableView.m */,
+				E5F609A313489C2400D88616 /* SeatView.h */,
+				E5F609A313489C2400D88614 /* SeatView.m */,
+				E5F609A313489C2400D88610 /* TableView.m */,
+				E5F609A313489C2400D88612 /* TableView.h */,
+			);
+			path = TableView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1700,6 +1770,10 @@
 				E579E87E14C302C700519539 /* MenuTreeMaintenance.xib in Resources */,
 				E5F609A313489C2400D885EF /* CategoryPropertiesViewController.xib in Resources */,
 				E5F609A313489C2400D88607 /* NodeViewController.xib in Resources */,
+				E5F609A313489C2400D8861B /* user.png in Resources */,
+				E5F609A313489C2400D88620 /* errorRedDot.png in Resources */,
+				E5F609A313489C2400D88622 /* warningOrangeDot.png in Resources */,
+				E5F609A313489C2400D88624 /* BlueStar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1896,6 +1970,14 @@
 				E5F609A313489C2400D885FF /* HRColorPickerViewController.m in Sources */,
 				E5F609A313489C2400D88602 /* HRColorUtil.m in Sources */,
 				E5F609A313489C2400D88605 /* NodeViewController.m in Sources */,
+				E5F609A313489C2400D8860B /* PdfCreator.m in Sources */,
+				E5F609A313489C2400D8860E /* BillPdf.m in Sources */,
+				E5F609A313489C2400D88611 /* TableView.m in Sources */,
+				E5F609A313489C2400D88615 /* SeatView.m in Sources */,
+				E5F609A313489C2400D88618 /* SimpleTableView.m in Sources */,
+				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
+				E5F609A313489C2400D88627 /* TestTableViewController.m in Sources */,
+				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

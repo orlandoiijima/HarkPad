@@ -11,7 +11,7 @@
 
 @implementation Guest
 
-@synthesize id, isMale, seat, lines, entityState;
+@synthesize id, isMale, isHost, seat, lines, entityState, diet;
 
 - (id)init
 {
