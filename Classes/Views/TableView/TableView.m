@@ -28,15 +28,19 @@
         minimumSize = 50;
     CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
     
-    view.tableView = [[SimpleTableView alloc] init];
+
+    GuestProperties *guestPropertiesView = [GuestProperties viewWithGuest: [[Guest alloc] init] frame:CGRectMake(0, 45, 100, 100)];
+    guestPropertiesView.delegate = view;
+
+    view.tableView = [SimpleTableView
+            viewWithFrame: CGRectMake(
+                seatViewSize.width,
+                seatViewSize.height,
+                frame.size.width - 2 * seatViewSize.width,
+                frame.size.height - 2 * seatViewSize.height)
+            content:guestPropertiesView];
     [view addSubview:view.tableView];
-    view.tableView.backgroundColor = [UIColor lightGrayColor];
-    view.tableView.frame = CGRectMake(
-            seatViewSize.width,
-            seatViewSize.height,
-            frame.size.width - 2 * seatViewSize.width,
-            frame.size.height - 2 * seatViewSize.height
-    );
+//    view.tableView.backgroundColor = [UIColor lightGrayColor];
 
     int seatOffset = 0;
     CGFloat extraSpace = (view.frame.size.width - (table.seatsHorizontal+2) * seatViewSize.width) / (table.seatsHorizontal + 1);
@@ -66,22 +70,6 @@
         [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
         seatView.tag = seatOffset++;
     }
-//    for(int i=0; i < [[table.seatsPerSide objectAtIndex:2] intValue]; i++) {
-//        SeatView *seatView = [SeatView viewWithFrame:CGRectMake(frame.size.width - (i+2) * seatViewSize.width, frame.size.height - seatViewSize.height, seatViewSize.width, seatViewSize.height) atSide:2];
-//        [view addSubview:seatView];
-//        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-//        seatView.tag = seatOffset++;
-//    }
-//    for(int i=0; i < [[table.seatsPerSide objectAtIndex:3] intValue]; i++) {
-//        SeatView *seatView = [SeatView viewWithFrame:CGRectMake(0, frame.size.height - (i+2) * seatViewSize.height, seatViewSize.width, seatViewSize.height) atSide:3];
-//        [view addSubview:seatView];
-//        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-//        seatView.tag = seatOffset++;
-//    }
-
-    GuestProperties *guestPropertiesView = [GuestProperties viewWithGuest: [[Guest alloc] init] frame:CGRectMake(0, 0, 100, 100)];
-    guestPropertiesView.delegate = view;
-    view.tableContentView = guestPropertiesView;
 
     return view;
 }

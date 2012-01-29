@@ -70,3 +70,4 @@
 "Male" = "Man";
 "Female" = "Vrouw";
 "Host" = "Gastheer";
+"Service unavailable at %@" = "Service '%@' niet bereikbaar";

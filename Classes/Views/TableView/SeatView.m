@@ -55,7 +55,7 @@
 
 - (void) setIsFemale: (BOOL)isFemale {
     _isFemale = isFemale;
-    _image.image = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: _isFemale ? [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1] : [UIColor blueColor]];
+    _image.image = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: _isFemale ? [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1] : [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
 }
 
 - (void) setHasDiet: (BOOL)newHasDiet {

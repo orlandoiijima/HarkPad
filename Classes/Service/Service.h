@@ -26,6 +26,8 @@
 
 
 @property (retain) NSString *url;
+@property (assign) NSString *host;
+
 + (Service *) getInstance;
 + (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
@@ -89,5 +91,7 @@
 - (NSString *)urlEncode: (NSString *)unencodedString;
 - (NSString *) stringParameterForDate: (NSDate *)date;
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
+
+- (BOOL) checkReachability;
 
 @end

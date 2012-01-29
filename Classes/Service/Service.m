@@ -12,26 +12,29 @@
 #import "ProductTotals.h"
 #import "urls.h"
 #import "User.h"
+#import "Reachability.h"
 
 @implementation Service
 
-@synthesize url;
+@synthesize url, host;
 
 static Service *_service;
 
 - (id)init {
     if ((self = [super init])) {
         [[NSUserDefaults standardUserDefaults] synchronize];	
-	    NSString *env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
+        NSString *env = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
+        if (env == nil)
+            env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
         if([env isEqualToString:@"annatest"])
             url = URL_ANNATEST;
         else if([env isEqualToString:@"anna"])
             url = URL_ANNA;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-//        else
+        else
             url = URL_DEV;
-	    }
+    }
     return self;
 }
 
@@ -49,6 +52,11 @@ static Service *_service;
 + (void) clear {
     _service  = nil;
     [Cache clear];
+}
+
+- (NSString *) host
+{
+    return [[NSURL URLWithString:self.url] host];
 }
 
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query
@@ -743,4 +751,9 @@ static Service *_service;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
 }
 
+- (BOOL) checkReachability {
+    Reachability *reachability = [Reachability reachabilityWithHostname: self.host];
+    return reachability.isReachable && !reachability.isConnectionRequired;
+}
+    
 @end

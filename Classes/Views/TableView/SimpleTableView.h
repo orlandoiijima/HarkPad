@@ -11,4 +11,8 @@
 @interface SimpleTableView : UIButton
 
 @property (retain) UIView *contentView;
+@property (retain) UIToolbar *toolBar;
+
++ (SimpleTableView *)viewWithFrame: (CGRect)frame content: aContentView;
+
 @end

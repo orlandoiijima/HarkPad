@@ -33,5 +33,6 @@
 
 - (void) getConfig;
 - (void) setupBarControllerCallback: (ServiceResult *)result;
+- (BOOL) checkReachability;
 
 @end

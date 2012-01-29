@@ -72,3 +72,4 @@
 "Male" = "Male";
 "Female" = "Female";
 "Host" = "Host";
+"Service unavailable at %@" = "Service unavailable at %@";

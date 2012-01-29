@@ -42,10 +42,23 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
+- (BOOL) checkReachability {
+    return [[Service getInstance] checkReachability];
+}
+
 - (void) getConfig
 {
     [MBProgressHUD showProgressAddedTo: tabBarController.view withText: NSLocalizedString(@"Loading configuration", nil)];
-    [[Service getInstance] getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
+    
+    Service *service = [Service getInstance];
+    if ([service checkReachability] == NO) {
+        [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
+        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Service unavailable at %@", nil), service.host];
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:self cancelButtonTitle: @"OK" otherButtonTitles:nil];
+        [view show];
+        return;
+    }
+    [service getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 
 - (void) setupBarControllerCallback: (ServiceResult *)result
