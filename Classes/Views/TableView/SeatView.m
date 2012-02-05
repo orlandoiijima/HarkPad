@@ -15,10 +15,11 @@
 
 }
 
-@synthesize isFemale = _isFemale, isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image;
+@synthesize isFemale = _isFemale, isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset;
 
 + (SeatView *)viewWithFrame: (CGRect) frame atSide: (int)side{
     SeatView *view = [[SeatView alloc] initWithFrame:frame];
+    view.side = side;
     view.image = [[UIImageView alloc] initWithFrame:CGRectInset(view.bounds, 6, 6)];
     view.image.contentMode = UIViewContentModeScaleAspectFit;
     [view addSubview:view.image];

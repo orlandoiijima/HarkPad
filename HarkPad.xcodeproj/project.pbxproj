@@ -267,7 +267,6 @@
 		E5F609A313489C2400D8860E /* BillPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8860D /* BillPdf.m */; };
 		E5F609A313489C2400D88611 /* TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88610 /* TableView.m */; };
 		E5F609A313489C2400D88615 /* SeatView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88614 /* SeatView.m */; };
-		E5F609A313489C2400D88618 /* SimpleTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88617 /* SimpleTableView.m */; };
 		E5F609A313489C2400D8861B /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861A /* user.png */; };
 		E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861C /* UIImage+Tint.m */; };
 		E5F609A313489C2400D88620 /* errorRedDot.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861F /* errorRedDot.png */; };
@@ -277,6 +276,11 @@
 		E5F609A313489C2400D88629 /* GuestProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88628 /* GuestProperties.m */; };
 		E5F609A313489C2400D8862E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862D /* Reachability.m */; };
 		E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862F /* SystemConfiguration.framework */; };
+		E5F609A313489C2400D88632 /* CourseGuestScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88631 /* CourseGuestScrollView.m */; };
+		E5F609A313489C2400D88637 /* PeerPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88636 /* PeerPickerController.m */; };
+		E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88638 /* GameKit.framework */; };
+		E5F609A313489C2400D8863C /* XTTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8863B /* XTTabBarViewController.m */; };
+		E5F609A313489C2400D8863F /* GuestPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -730,8 +734,6 @@
 		E5F609A313489C2400D88612 /* TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88614 /* SeatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatView.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88616 /* SeatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatView.h; sourceTree = "<group>"; };
-		E5F609A313489C2400D88617 /* SimpleTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableView.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D88619 /* SimpleTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8861A /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D8861C /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
 		E5F609A313489C2400D8861E /* UIImage+Tint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Tint.h"; sourceTree = "<group>"; };
@@ -745,6 +747,15 @@
 		E5F609A313489C2400D8862C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8862D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8862F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E5F609A313489C2400D88631 /* CourseGuestScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGuestScrollView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88633 /* CourseGuestScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseGuestScrollView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88635 /* PeerPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeerPickerController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88636 /* PeerPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeerPickerController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88638 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		E5F609A313489C2400D8863A /* XTTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTabBarViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8863B /* XTTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTTabBarViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8863D /* GuestPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestPropertiesViewController.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestPropertiesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -759,6 +770,7 @@
 				E5E723331311A12C00905959 /* Foundation.framework in Frameworks */,
 				E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */,
 				E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */,
+				E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -805,6 +817,7 @@
 		E50A37FB12E21164007C2101 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D88638 /* GameKit.framework */,
 				E5F609A313489C2400D8862F /* SystemConfiguration.framework */,
 				E59F903B14925179008EA0DA /* Security.framework */,
 				E55DFCEE139FDA5C00EB7C69 /* MessageUI.framework */,
@@ -867,6 +880,8 @@
 		E50A384612E234B8007C2101 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D8863B /* XTTabBarViewController.m */,
+				E5F609A313489C2400D8863A /* XTTabBarViewController.h */,
 				E5F609A313489C2400D88626 /* TestTableViewController.m */,
 				E5F609A313489C2400D88625 /* TestTableViewController.h */,
 				E5F609A313489C2400D885E6 /* ProductTreeView.m */,
@@ -1476,6 +1491,7 @@
 				E5F609A313489C2400D885B6 /* Backlog */,
 				E5F609A313489C2400D885B7 /* Tables */,
 				E5F609A313489C2400D885C8 /* ReservationsSimple */,
+				E5F609A313489C2400D88634 /* Peer */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1632,10 +1648,12 @@
 		E5F609A313489C2400D88613 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */,
+				E5F609A313489C2400D8863D /* GuestPropertiesViewController.h */,
+				E5F609A313489C2400D88633 /* CourseGuestScrollView.h */,
+				E5F609A313489C2400D88631 /* CourseGuestScrollView.m */,
 				E5F609A313489C2400D8862A /* GuestProperties.h */,
 				E5F609A313489C2400D88628 /* GuestProperties.m */,
-				E5F609A313489C2400D88619 /* SimpleTableView.h */,
-				E5F609A313489C2400D88617 /* SimpleTableView.m */,
 				E5F609A313489C2400D88616 /* SeatView.h */,
 				E5F609A313489C2400D88614 /* SeatView.m */,
 				E5F609A313489C2400D88610 /* TableView.m */,
@@ -1651,6 +1669,15 @@
 				E5F609A313489C2400D8862C /* Reachability.h */,
 			);
 			path = Reachability;
+			sourceTree = "<group>";
+		};
+		E5F609A313489C2400D88634 /* Peer */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D88636 /* PeerPickerController.m */,
+				E5F609A313489C2400D88635 /* PeerPickerController.h */,
+			);
+			path = Peer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1991,11 +2018,14 @@
 				E5F609A313489C2400D8860E /* BillPdf.m in Sources */,
 				E5F609A313489C2400D88611 /* TableView.m in Sources */,
 				E5F609A313489C2400D88615 /* SeatView.m in Sources */,
-				E5F609A313489C2400D88618 /* SimpleTableView.m in Sources */,
 				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
 				E5F609A313489C2400D88627 /* TestTableViewController.m in Sources */,
 				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,
 				E5F609A313489C2400D8862E /* Reachability.m in Sources */,
+				E5F609A313489C2400D88632 /* CourseGuestScrollView.m in Sources */,
+				E5F609A313489C2400D88637 /* PeerPickerController.m in Sources */,
+				E5F609A313489C2400D8863C /* XTTabBarViewController.m in Sources */,
+				E5F609A313489C2400D8863F /* GuestPropertiesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

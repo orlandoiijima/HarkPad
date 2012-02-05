@@ -11,7 +11,7 @@
 
 @implementation Course
 
-@synthesize id, offset, requestedOn, lines, entityState;
+@synthesize id, offset, requestedOn, servedOn, lines, entityState;
 
 - (id)init
 {
@@ -32,7 +32,10 @@
     NSNumber *seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil && (NSNull *) seconds != [NSNull null])
         course.requestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    
+    seconds = [jsonDictionary objectForKey:@"servedOn"];
+    if(seconds != nil && (NSNull *) seconds != [NSNull null])
+        course.servedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+
     return course;
 }
 
@@ -42,6 +45,7 @@
     [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt:self.offset] forKey:@"offset"];
     [dic setObject: [NSNumber numberWithInt:[self.requestedOn timeIntervalSince1970]] forKey:@"requestedOn"];
+    [dic setObject: [NSNumber numberWithInt:[self.servedOn timeIntervalSince1970]] forKey:@"servedOn"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
 
     return dic;

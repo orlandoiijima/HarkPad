@@ -6,11 +6,13 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
+#import <GameKit/GameKit.h>
 #import "HarkPadAppDelegate.h"
 #import "ReservationsSimple.h"
 #import "ProductMaintenance.h"
 #import "MenuTreeMaintenance.h"
 #import "TestTableViewController.h"
+#import "PeerPickerController.h"
 
 @implementation HarkPadAppDelegate
 
@@ -89,6 +91,11 @@
             TableMapViewController *tableMapViewController = [[TableMapViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
+        }
+
+        if ([key isEqualToString:@"peer"]) {
+            controller = [[PeerPickerController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Peer", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
         }
 
         if ([key isEqualToString:@"dashboard"]) {

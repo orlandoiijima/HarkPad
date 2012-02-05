@@ -10,17 +10,29 @@
 
 typedef enum CourseState { Served, Requested, RequestedOverdue } CourseState;
 
-@interface CourseProgress : UIView {
+@protocol ProgressDelegate <NSObject>
+- (void)didTapCourse: (NSUInteger)courseOffset;
+@optional
+@end
+
+@interface CourseProgress : UIView <UIGestureRecognizerDelegate> {
     int countCourses;
     int currentCourse;
-    BOOL isCurrentCourseHot; 
+    int selectedCourse;
+    BOOL isCurrentCourseHot;
+    id<ProgressDelegate> __strong delegate;
 }
 
-+ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse;
-- (void) drawArc: (CGContextRef) context inRect: (CGRect) rect startAngle: (float) startAngle endAngle: (float) endAngle strokeColor: (UIColor *) strokeColor strokeWidth: (float) strokeWidth fillColor: (UIColor *)fillColor;
-                                                                                                                                                                                                                                          
++ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse selectedCourse: (int)selectedCourse;
+- (UIBezierPath *) arcPathForCourse: (NSUInteger) course;
+- (void) drawArcForCourse: (NSUInteger)course;
+
 @property int countCourses;
 @property int currentCourse;
+@property int selectedCourse;
 @property CourseState currentCourseState;
+@property (nonatomic, retain) id<ProgressDelegate> delegate;
+@property (retain) UILabel *label;
+
 @end
 				

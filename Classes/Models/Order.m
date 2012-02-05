@@ -14,7 +14,7 @@
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo;
+@synthesize table, courses, guests, createdOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo, currentCourse;
 
 
 - (id)init
@@ -244,12 +244,26 @@
     return nil;
 }
 
-- (Course *) getNextCourse
+- (Course *)getNextCourseToRequest
 {
     for(Course *course in courses)
     {
         if(course.requestedOn == nil)
             return course;
+    }
+    return nil;
+}
+
+- (Course *)getNextCourseToServe
+{
+    for(int c = courses.count - 1; c >= 0; c--)
+    {
+        Course *course = [courses objectAtIndex:c];
+        if (course.servedOn != nil)
+            return nil;
+        if(course.requestedOn != nil)
+            return course;
+    
     }
     return nil;
 }

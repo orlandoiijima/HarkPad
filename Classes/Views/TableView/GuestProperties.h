@@ -17,6 +17,6 @@
 @property (retain) ToggleButton *viewMale;
 @property (retain) ToggleButton *viewFemale;
 
-+ (GuestProperties *)viewWithGuest: (Guest *)guest frame: (CGRect)frame;
++ (GuestProperties *)viewWithGuest: (Guest *)guest frame: (CGRect)frame delegate: (id)delegate;
 
 @end

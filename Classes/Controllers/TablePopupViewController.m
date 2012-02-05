@@ -148,7 +148,7 @@
     Course *nextCourse = nil;
     bool allCoursesDone = false;
     if(order != nil && order.state == ordering) {
-        nextCourse = [order getNextCourse];
+        nextCourse = [order getNextCourseToRequest];
         if(nextCourse != nil) {
             [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
         }

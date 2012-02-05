@@ -73,3 +73,7 @@
 "Female" = "Female";
 "Host" = "Host";
 "Service unavailable at %@" = "Service unavailable at %@";
+"Served" = "Served";
+"Requested" = "Requested";
+"Guests" = "Guests";
+"Courses" = "Courses";

@@ -71,3 +71,7 @@
 "Female" = "Vrouw";
 "Host" = "Gastheer";
 "Service unavailable at %@" = "Service '%@' niet bereikbaar";
+"Served" = "Geserveerd";
+"Requested" = "Opgevraagd";
+"Guests" = "Gasten";
+"Courses" = "Gangen";

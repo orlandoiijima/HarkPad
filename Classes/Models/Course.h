@@ -13,6 +13,7 @@
     int id;
     int offset;
     NSDate *requestedOn;
+    NSDate *servedOn;
     NSMutableArray *lines;
     EntityState entityState;
 }
@@ -27,6 +28,7 @@ NSInteger intSort(id num1, id num2, void *context);
 @property int id;
 @property int offset;
 @property (retain) NSDate *requestedOn;
+@property (retain) NSDate *servedOn;
 @property (retain) NSMutableArray *lines;
 @property EntityState entityState;
 

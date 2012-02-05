@@ -37,5 +37,6 @@ typedef enum SeatOrientation {row, column} SeatOrientation;
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (Table *) initWithBounds:(CGRect)tableBounds name: (NSString *)tableName countSeats: (int) count;
 - (bool) isSeatAlignedWith: (Table *)table;
+- (int) sideForSeat: (int)seatOffset;
 
 @end

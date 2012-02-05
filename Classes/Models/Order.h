@@ -45,7 +45,8 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 - (NSDate *) getFirstOrderDate;
 - (NSDate *) getLastOrderDate;
 - (Course *) getCurrentCourse;
-- (Course *) getNextCourse;
+- (Course *)getNextCourseToRequest;
+- (Course *)getNextCourseToServe;
 
 - (Guest *) getGuestById: (int)guestId;
 - (Course *) getCourseById: (int)courseId;
@@ -67,5 +68,5 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property OrderState state;
 @property (retain) NSString *name;
 @property (retain) User *invoicedTo;
-
+@property (assign) Course *currentCourse;
 @end

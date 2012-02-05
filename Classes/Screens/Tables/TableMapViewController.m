@@ -505,7 +505,7 @@
 
 - (void) startNextCourse: (Order *)order
 {
-    Course *nextCourse = [order getNextCourse];
+    Course *nextCourse = [order getNextCourseToRequest];
     if(nextCourse != nil)
     {
         [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourse:finishedWithData:error:	)];

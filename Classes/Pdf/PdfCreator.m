@@ -90,6 +90,32 @@
             }        
             y += height;
         }
+
+        //  Tablefooter
+        int x = [[table objectForKey:@"x"] intValue];
+        int height = 0;
+        for(NSDictionary *columnDic in columns) {
+            NSString *variable = [columnDic objectForKey:@"footer"];
+            int width = [[columnDic objectForKey:@"width"] intValue];
+            if ([variable length] > 0) {
+                NSString *cell = [self.delegate stringForVariable:variable inRow: countRows];
+
+                CGSize stringSize = [cell sizeWithFont:font
+                                           constrainedToSize:CGSizeMake(width, 100)
+                                               lineBreakMode:UILineBreakModeWordWrap];
+                if (stringSize.height > height)
+                    height = stringSize.height;
+                CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
+
+                UITextAlignment alignment = [[columnDic objectForKey:@"alignment"] intValue];
+                [cell drawInRect:renderingRect
+                              withFont:font
+                         lineBreakMode:UILineBreakModeWordWrap
+                       alignment:alignment];
+            }
+            x += width;
+        }
+
     }
     
     UIGraphicsEndPDFContext();
@@ -115,7 +141,6 @@
         destination = [destination stringByAppendingString:outcome];
         i += endVar.location + 1;
     }
-    return @"";
 }
 
 @end

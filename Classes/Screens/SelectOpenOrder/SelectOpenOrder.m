@@ -14,6 +14,7 @@
 #import "ModalAlert.h"
 #import "ReservationListController.h"
 #import "BillViewController.h"
+#import "BillPdf.h"
 
 @implementation SelectOpenOrder
 
@@ -99,6 +100,9 @@
     if (orderView.order.id == byReservation) {
         [self selectReservation];
     }
+
+    BillPdf *pdf = [BillPdf billByOrder:orderView.order];
+    pdf.create;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)tapGestureRecognizer shouldReceiveTouch:(UITouch *)touch {

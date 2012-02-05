@@ -34,6 +34,7 @@ static Service *_service;
             url = URL_FRASCATI;
         else
             url = URL_DEV;
+        url = URL_DEV_EXT;
     }
     return self;
 }

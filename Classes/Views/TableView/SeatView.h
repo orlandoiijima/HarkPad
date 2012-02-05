@@ -16,6 +16,8 @@
 @property BOOL hasDiet;
 @property BOOL isHost;
 @property BOOL isSelected;
+@property int side;
+@property int offset;
 @property (retain) UIImageView *image;
 @property (retain) UIImageView *imageTopLeft;
 @property (retain) UIImageView *imageTopRight;

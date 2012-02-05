@@ -77,4 +77,14 @@
     }    
 }
 
+- (int) sideForSeat: (int)seatOffset {
+    if (seatOffset < seatsHorizontal)
+        return 0;
+    if (seatOffset < seatsHorizontal + seatsVertical)
+        return 1;
+    if (seatOffset < seatsHorizontal + seatsVertical + seatsHorizontal)
+        return 2;
+    return 3;
+}
+
 @end
