@@ -13,7 +13,9 @@
 #import "User.h"
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
-typedef enum OrderState {ordering, billed, paid} OrderState ;
+typedef enum OrderState {
+    OrderStateOrdering, OrderStateBilled, OrderStatePaid
+} OrderState ;
 typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 
 @interface Order : NSObject {
@@ -23,6 +25,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
     NSMutableArray *lines;
     Reservation *reservation;
     NSDate *createdOn;
+    NSDate *paidOn;
     NSString *name;
     Table *table;
     PaymentType paymentType;
@@ -35,32 +38,27 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 + (Order *) orderForTable: (Table *) table;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (Order *) orderNull;
-- (BOOL) isNullOrder;
 - (NSMutableDictionary *)toDictionary;
 - (NSDecimalNumber *) getAmount;
-- (BOOL) containsProductId:(int)id;
 - (OrderLine *) addLineWithProductId: (int) productId seat: (int) seat course: (int) course;
 - (int) getLastCourse;
 - (int) getLastSeat;
-- (NSDate *) getFirstOrderDate;
-- (NSDate *) getLastOrderDate;
 - (Course *) getCurrentCourse;
 - (Course *)getNextCourseToRequest;
 - (Course *)getNextCourseToServe;
 
-- (Guest *) getGuestById: (int)guestId;
-- (Course *) getCourseById: (int)courseId;
 - (Course *) getCourseByOffset: (int)offset;
 - (Guest *) getGuestBySeat: (int)seat;
 - (BOOL) isCourseAlreadyRequested: (int) courseOffset;
-- (void) removeOrderLine: (OrderLine *)lineToDelete;
 - (void)addOrderLine: (OrderLine *)line;
+- (Course *) addCourse;
 
 @property EntityState entityState;
 @property (retain) NSMutableArray *courses;
 @property (retain) NSMutableArray *guests;
 @property (retain) NSMutableArray *lines;
 @property (retain) NSDate *createdOn;
+@property (retain) NSDate *paidOn;
 @property (retain) Table *table;
 @property PaymentType paymentType;
 @property (retain) Reservation *reservation;
@@ -69,4 +67,5 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property (retain) NSString *name;
 @property (retain) User *invoicedTo;
 @property (assign) Course *currentCourse;
+
 @end

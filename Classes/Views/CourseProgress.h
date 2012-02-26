@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum CourseState { Served, Requested, RequestedOverdue } CourseState;
+typedef enum CourseState {
+    CourseStateNothing, CourseStateServed, CourseStateRequested, CourseStateRequestedOverdue
+} CourseState;
 
 @protocol ProgressDelegate <NSObject>
 - (void)didTapCourse: (NSUInteger)courseOffset;
+- (BOOL)canSelectCourse: (NSUInteger)courseOffset;
+- (void)didSelectCourse: (NSUInteger)courseOffset;
 @optional
 @end
 
@@ -23,7 +27,7 @@ typedef enum CourseState { Served, Requested, RequestedOverdue } CourseState;
     id<ProgressDelegate> __strong delegate;
 }
 
-+ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse selectedCourse: (int)selectedCourse;
++ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse;
 - (UIBezierPath *) arcPathForCourse: (NSUInteger) course;
 - (void) drawArcForCourse: (NSUInteger)course;
 

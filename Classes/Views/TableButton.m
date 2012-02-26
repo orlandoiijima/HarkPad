@@ -148,7 +148,7 @@
     CGRect frame;
      
     frame = CGRectMake(self.frame.size.width - self.widthPerPerson / 2, 0, self.widthPerPerson / 2, self.widthPerPerson / 2);
-    self.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourse:0 selectedCourse:-1];
+    self.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourseOffset:0 currentCourseState: CourseStateNothing selectedCourse:-1];
     [self addSubview:self.progress];
     
     frame = CGRectMake(self.frame.size.width - self.unit, self.frame.size.height - self.unit, self.unit, self.unit);
@@ -196,12 +196,12 @@
         if(orderInfo != nil)
         {
             progress.countCourses = orderInfo.countCourses;
-            progress.currentCourse = orderInfo.currentCourse;
+            progress.currentCourse = orderInfo.currentCourseOffset;
             if(orderInfo.currentCourseServedOn)
-                progress.currentCourseState = Served;
+                progress.currentCourseState = CourseStateServed;
             else
-                progress.currentCourseState = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60 ? RequestedOverdue : Requested;
-            if(orderInfo.state == ordering)
+                progress.currentCourseState = [orderInfo.currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60 ? CourseStateRequestedOverdue : CourseStateRequested;
+            if(orderInfo.state == OrderStateOrdering)
                 gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
             else
                 gradient.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:0.9 green:0.6 blue:0.6 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1] CGColor], nil];
@@ -211,8 +211,8 @@
                 if(symbol != nil)
                 {
                     SeatInfo *seatInfo = [orderInfo getSeatInfo:seat];
-                    if(seatInfo != nil)
-                        [symbol setFood:seatInfo.food drink: seatInfo.drink];
+//                    if(seatInfo != nil)
+//                        [symbol setFood:seatInfo.food drink: seatInfo.drink];
                 }
             }
             if([[orderInfo.language lowercaseString] isEqualToString:@"nl"] == NO)

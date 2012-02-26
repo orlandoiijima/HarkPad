@@ -153,7 +153,7 @@
     TableInfo *tableInfo = [tables objectAtIndex:indexPath.row];
     cell.textLabel.text = tableInfo.table.name;
     if(tableInfo.isEmpty == false) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d gasten", [tableInfo.orderInfo.seats count]];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d gasten", [tableInfo.orderInfo.guests count]];
     }
     else {
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%d stoelen", tableInfo.table.countSeats];

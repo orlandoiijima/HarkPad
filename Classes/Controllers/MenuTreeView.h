@@ -16,6 +16,7 @@
 
 @optional
 - (void) menuTreeView: (MenuTreeView *) menuTreeView didTapProduct: (Product *)product;
+- (void) menuTreeView: (MenuTreeView *) menuTreeView didTapMenu: (Menu *)menu;
 - (void) menuTreeView: (MenuTreeView *) menuTreeView didLongPressNode: (TreeNode *)node cellLine: (GridViewCellLine *)cellLine;
 @end
 
@@ -28,6 +29,7 @@
 @property (retain, nonatomic) TreeNode *parentNode;
 @property (retain) TreeNode *rootNode;
 @property (retain) id<MenuTreeViewDelegate> menuDelegate;
+@property NSUInteger countColumns;
 
 - (TreeNode *)nodeAtCellLine: (GridViewCellLine *)cellLine;
 - (TreeNode *)nodeAtPath: (CellPath *)path;

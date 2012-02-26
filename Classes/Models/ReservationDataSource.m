@@ -13,19 +13,9 @@
 
 @implementation ReservationDataSource
 
-@synthesize groupedReservations, reservations, includePlacedReservations, date, sortedKeys;
+@synthesize groupedReservations, reservations, includePlacedReservations, date, sortedKeys, isEmpty;
 
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced
-{
-    ReservationDataSource *source = [[ReservationDataSource alloc] init];
-    source.date = date;
-    source.reservations = [[Service getInstance] getReservations: date];
-    source.includePlacedReservations = includePlaced;
-    [source createGroupedReservations];
-    return source;
-}
-
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
++ (ReservationDataSource *) dataSourceWithDate: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
     source.date = date;
@@ -78,7 +68,7 @@
         NSMutableArray *insertIndexPaths = [[NSMutableArray alloc] init];
         [insertIndexPaths addObject: [NSIndexPath indexPathForRow:(NSUInteger) row inSection:(NSUInteger) section]];
         [tableView insertRowsAtIndexPaths: insertIndexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-        [tableView endUpdates];	
+        [tableView endUpdates];
     }
 }
 
@@ -199,7 +189,7 @@
     for(NSMutableArray *slotReservations in [groupedReservations allValues])
         if([self numberOfItemsInSlot:slotReservations showAll:includePlacedReservations] > 0)
             count++;
-    return count++;
+    return count;
 }	
 
 - (bool)isEmpty {
@@ -305,7 +295,7 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    if([self isEmpty])
+    if(self.isEmpty)
     {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cellx"];
         cell.textLabel.text = @"Geen reserveringen";
@@ -327,7 +317,7 @@
     cell.status.hidden = true;
     
     if([reservation.startsOn isToday]) {
-        if(reservation.orderState != ordering) {
+        if(reservation.orderState != OrderStateOrdering) {
             if(reservation.paidOn == nil || ([[NSDate date] timeIntervalSinceDate:reservation.paidOn] < 60*10))
                 [UIView animateWithDuration:0.5 delay:0 options: UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat|UIViewAnimationOptionAllowUserInteraction animations:^{
                     cell.count.transform = CGAffineTransformMakeScale(1.20, 1.1);

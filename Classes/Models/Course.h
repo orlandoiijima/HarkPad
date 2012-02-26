@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "EntityState.h"
+#import "CourseProgress.h"
+
+@class Order;
 
 @interface Course : NSObject {
     int id;
@@ -15,10 +18,11 @@
     NSDate *requestedOn;
     NSDate *servedOn;
     NSMutableArray *lines;
+    Course *course;
     EntityState entityState;
 }
 
-+ (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary;
++ (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
 - (NSString *) stringForCourse;
 
@@ -30,6 +34,9 @@ NSInteger intSort(id num1, id num2, void *context);
 @property (retain) NSDate *requestedOn;
 @property (retain) NSDate *servedOn;
 @property (retain) NSMutableArray *lines;
+@property (retain) Order *order;
+@property (retain) Course *nextCourse;
+@property CourseState state;
 @property EntityState entityState;
 
 @end

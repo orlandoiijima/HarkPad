@@ -34,7 +34,7 @@ static Service *_service;
             url = URL_FRASCATI;
         else
             url = URL_DEV;
-        url = URL_DEV_EXT;
+//        url = URL_DEV_EXT;
     }
     return self;
 }
@@ -205,19 +205,24 @@ static Service *_service;
 
 - (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSMutableArray *tablesDic = [self getResultFromJson: data];
-    NSMutableArray *tables = [[NSMutableArray alloc] init];
-    for(NSDictionary *tableDic in tablesDic)
-    {
-        TableInfo *tableInfo = [[TableInfo alloc] init];
-        tableInfo.table = [Table tableFromJsonDictionary: tableDic]; 
-        NSDictionary *orderDic = [tableDic objectForKey:@"order"];
-        if(orderDic != nil)
-            tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic]; 
-        [tables addObject:tableInfo];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        NSMutableArray *tablesDic = [self getResultFromJson: data];
+        NSMutableArray *tables = [[NSMutableArray alloc] init];
+        for(NSDictionary *tableDic in tablesDic)
+        {
+            TableInfo *tableInfo = [[TableInfo alloc] init];
+            tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+            NSDictionary *orderDic = [tableDic objectForKey:@"order"];
+            if(orderDic != nil)
+                tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
+            [tables addObject:tableInfo];
+        }
+        result.data = tables;
     }
     NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&tables atIndex:2];
+    [invocation setArgument:&result atIndex:2];
     [invocation invoke];
 }
 
@@ -229,24 +234,6 @@ static Service *_service;
 
 // *********************************
 
-- (NSMutableArray *) getReservations: (NSDate *)date
-{
-    NSLog(@"Service: getReservations: %@", date);
-    if(date == nil)
-        date = [NSDate date];
-    int dateSeconds = (int) [date timeIntervalSince1970];
-	NSURL *testUrl = [self makeEndPoint:@"getreservations" withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *reservationsDic = [self getResultFromJson: data];
-    NSMutableArray *reservations = [[NSMutableArray alloc] init];
-    for(NSDictionary *reservationDic in reservationsDic)
-    {
-        Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic]; 
-        [reservations addObject:reservation];
-    }
-    return reservations;
-}
-    
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
     NSLog(@"Service: getReservations: %@", date);

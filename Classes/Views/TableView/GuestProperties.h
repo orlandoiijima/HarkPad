@@ -16,6 +16,8 @@
 @property (retain) id<ItemPropertiesDelegate> delegate;
 @property (retain) ToggleButton *viewMale;
 @property (retain) ToggleButton *viewFemale;
+@property (retain) ToggleButton *viewEmpty;
+@property (retain) ToggleButton *isHostView;
 
 + (GuestProperties *)viewWithGuest: (Guest *)guest frame: (CGRect)frame delegate: (id)delegate;
 

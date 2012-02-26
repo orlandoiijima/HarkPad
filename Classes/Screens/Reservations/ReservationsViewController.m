@@ -137,11 +137,12 @@
     NSMutableArray *reservations = serviceResult.data;
     Reservation *selectedReservation = self.dayView.selectedReservation;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
-    ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
+    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
     [dataSources setObject: dataSource forKey:key];
     if([dayView.date isEqualToDateIgnoringTime:date]) {
         dayView.dataSource = dataSource;
+        [self updateCalendarWithReservations: reservations forDate: date];
     }
     if(selectedReservation != nil)
         self.dayView.selectedReservation = selectedReservation;
@@ -304,7 +305,7 @@
     }
     [self.dayView refreshTotals];
     [self.dayView.table setEditing:NO];
-    [self refreshCalendar];
+//    [self refreshCalendar];
 }
     
 - (void) cancelPopup
@@ -389,7 +390,7 @@
     else
         searchHeader.text = NSLocalizedString(@"Reservations found:", nil);
 
-    ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
+    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate: nil includePlacedReservations: YES withReservations:reservations];
     if(self.dayView != nil) {
         self.dayView.dataSource = dataSource;
     }
@@ -405,6 +406,28 @@
 {
     for(CalendarMonthView *calendarView in self.calendarViews)
         [calendarView refreshReservations];
+}
+
+- (void) updateCalendarWithReservations: (NSMutableArray *)reservations forDate: (NSDate *)date
+{
+    for(CalendarMonthView *view in calendarViews) {
+        if ([view isInView:date]) {
+            CalendarDayCell *cell = [view cellForDate:date];
+            if (cell != nil) {
+                DayReservationsInfo *info = [[DayReservationsInfo alloc] init];
+                info.dinnerStatus = cell.dinnerStatus;
+                info.lunchStatus = cell.lunchStatus;
+                for(Reservation *reservation in reservations) {
+                    if (reservation.startsOn.hour > 16)
+                        info.dinnerCount += reservation.countGuests;
+                    else
+                        info.lunchCount += reservation.countGuests;
+                }
+ //               [cell setInfo:info];
+            }
+        }
+    }
+
 }
 
 - (void)viewDidUnload

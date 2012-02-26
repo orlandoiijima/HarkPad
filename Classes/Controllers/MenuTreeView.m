@@ -17,14 +17,13 @@
 
 @implementation MenuTreeView
 
-@synthesize parentNode = _parentNode, rootNode, menuDelegate = _menuDelegate;
-
-#define COUNT_PANEL_COLUMNS 3
+@synthesize parentNode = _parentNode, rootNode, menuDelegate = _menuDelegate, countColumns;
 
 - (void) initTreeView {
     self.delegate = self;
     self.dataSource = self;
     self.dropMode = DropModeInsertCell;
+    self.countColumns = 3;
 
     self.parentNode = rootNode = [[Cache getInstance] tree];
 //    [self reloadData];
@@ -64,7 +63,7 @@
 }
 
 - (TreeNode *)nodeAtPath: (CellPath *)path {
-    int offset = path.row * COUNT_PANEL_COLUMNS + path.column;
+    int offset = path.row * countColumns + path.column;
 
     if(offset < [_parentNode.nodes count])
         return [_parentNode.nodes objectAtIndex:offset];
@@ -74,11 +73,13 @@
 
 - (void)gridView:(GridView *)gridView didTapCellLine:(GridViewCellLine *)cellLine
 {
-    int offset = cellLine.path.row * COUNT_PANEL_COLUMNS + cellLine.path.column;
+    int offset = cellLine.path.row * countColumns + cellLine.path.column;
 
     if(offset < [_parentNode.nodes count]) {
         TreeNode *node = [_parentNode.nodes objectAtIndex:offset];
         if(node.menu) {
+            if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didTapMenu:)])
+                [self.menuDelegate menuTreeView:self didTapMenu: node.menu];
         }
         else if(node.product) {
             if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didTapProduct:)])
@@ -126,11 +127,11 @@
         if(_parentNode.parent.parent != nil)
             countButtons++;
     }
-    return floor(countButtons / COUNT_PANEL_COLUMNS) + 1;
+    return floor(countButtons / countColumns) + 1;
 }
 
 - (NSUInteger)numberOfColumnsInGridView:(GridView *)gridView {
-    return COUNT_PANEL_COLUMNS;
+    return countColumns;
 }
 
 - (NSUInteger)numberOfLinesInGridView:(GridView *)gridView column:(NSUInteger)column row:(NSUInteger)row {
@@ -140,7 +141,7 @@
 - (GridViewCellLine *)gridView:(GridView *)gridView cellLineForPath:(CellPath *)path {
     if(path.row == -1 || path.column == -1) return nil;
 
-    int offset = path.row * COUNT_PANEL_COLUMNS + path.column;
+    int offset = path.row * countColumns + path.column;
     if(offset < [_parentNode.nodes count])
     {
         TreeNode *node = [_parentNode.nodes objectAtIndex:offset];

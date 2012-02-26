@@ -11,13 +11,17 @@
 
 typedef enum SeatOrientation {row, column} SeatOrientation;
 
+typedef enum TableSide {
+    TableSideTop, TableSideRight, TableSideBottom, TableSideLeft
+} TableSide;
+
 @interface Table : NSObject {
     int id;
     NSString *name;
     CGRect bounds;
-    int countSeats;
-    int seatsHorizontal;
-    int seatsVertical;
+    NSUInteger countSeats;
+    NSUInteger seatsHorizontal;
+    NSUInteger seatsVertical;
     SeatOrientation seatOrientation;
     District *district;
     int dockedToTableId;
@@ -26,17 +30,16 @@ typedef enum SeatOrientation {row, column} SeatOrientation;
 @property int id;
 @property (retain) NSString *name;
 @property CGRect bounds;
-@property int countSeats;
+@property NSUInteger countSeats;
 @property SeatOrientation seatOrientation;
 @property (retain) District *district;
 @property int dockedToTableId;
 @property bool isDocked;
-@property int seatsHorizontal;
-@property int seatsVertical;
+@property NSUInteger seatsHorizontal;
+@property NSUInteger seatsVertical;
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
-- (Table *) initWithBounds:(CGRect)tableBounds name: (NSString *)tableName countSeats: (int) count;
 - (bool) isSeatAlignedWith: (Table *)table;
-- (int) sideForSeat: (int)seatOffset;
+- (TableSide) sideForSeat: (int)seatOffset;
 
 @end

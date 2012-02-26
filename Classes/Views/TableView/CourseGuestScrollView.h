@@ -12,12 +12,14 @@
 
 @interface CourseGuestScrollView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate>
 
-@property int selectedCourse;
+@property NSUInteger selectedCourse;
 @property (retain) TableView *tableView;
 @property (retain) CourseProgress *progressView;
 @property (retain) UILabel *dateLabel;
 @property (retain) UIButton *button;
 @property (retain) NSMutableArray *cellLines;
+@property (retain) Order *order;
+
 + (CourseGuestScrollView *)viewWithTableView: (TableView *) tableView;
 
 - (void) swipe: (UITapGestureRecognizer *)swiper;

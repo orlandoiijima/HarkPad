@@ -10,7 +10,7 @@
 #import "Order.h"
 #import "SelectOpenOrder.h"
 
-@interface SimpleOrderScreen : UIViewController <MenuTreeViewDelegate, SelectItemDelegate, TableCellUpdated> {
+@interface SimpleOrderScreen : UIViewController <MenuTreeViewDelegate, SelectItemDelegate, OrderDelegate> {
     Order * _order;
 }
 

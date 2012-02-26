@@ -1,4 +1,4 @@
-				//
+//
 //  Course.m
 //  HarkPad
 //
@@ -8,10 +8,13 @@
 
 #import "Course.h"
 #import "OrderLine.h"
+#import "Order.h"
+#import "CourseProgress.h"
 
 @implementation Course
 
-@synthesize id, offset, requestedOn, servedOn, lines, entityState;
+@synthesize id, offset, requestedOn, servedOn, lines, entityState, order, nextCourse;
+@dynamic state;
 
 - (id)init
 {
@@ -23,7 +26,7 @@
     return(self);
 }
 
-+ (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary
++ (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
     Course *course = [[Course alloc] init];
     course.id = [[jsonDictionary objectForKey:@"id"] intValue];
@@ -35,7 +38,7 @@
     seconds = [jsonDictionary objectForKey:@"servedOn"];
     if(seconds != nil && (NSNull *) seconds != [NSNull null])
         course.servedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-
+    course.order = order;
     return course;
 }
 
@@ -88,6 +91,23 @@
         result = [NSString stringWithFormat:@"%@%@", result, key]; 
     }
     return result;
+}
+
+- (Course *) nextCourse
+{
+    for(Course *course in order.courses) {
+        if (course.offset == self.offset + 1)
+            return course;
+    }
+    return nil;
+}
+
+- (CourseState) state {
+    if (requestedOn == nil)
+        return CourseStateNothing;
+    if(servedOn == nil)
+        return [requestedOn timeIntervalSinceNow] < -15 * 60 ? CourseStateRequestedOverdue : CourseStateRequested;
+    return CourseStateServed;
 }
 
 @end

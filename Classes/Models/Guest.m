@@ -7,11 +7,12 @@
 //
 
 #import "Guest.h"
+#import "Table.h"
 
 
 @implementation Guest
 
-@synthesize id, isMale, isHost, seat, lines, entityState, diet;
+@synthesize id, isMale, isEmpty, isHost, seat, lines, entityState, diet;
 
 - (id)init
 {

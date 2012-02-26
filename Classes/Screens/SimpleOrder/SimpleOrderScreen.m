@@ -203,7 +203,7 @@
 
 - (void) prepareForNewOrder {
     _order = [[Order alloc] init];
-    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES showPrice:YES fontSize: 0];
+    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:noGrouping totalizeProducts:NO showFreeProducts:YES showProductProperties:NO isEditable:YES showPrice:YES showEmptySections:NO fontSize: 0];
     self.dataSource.delegate = self;
     self.dataSource.sortOrder = sortByCreatedOn;
     self.dataSource.hostController = self;

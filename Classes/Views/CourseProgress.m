@@ -15,15 +15,15 @@
 
 @synthesize countCourses, currentCourse, currentCourseState, selectedCourse = _selectedCourse, delegate = _delegate, label;
 
-+ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourse: (int) currentCourse selectedCourse: (int)selectedCourse {
++ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse {
     CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame];
     progress.countCourses = countCourses;
-    progress.currentCourse = currentCourse;
+    progress.currentCourse = currentCourseOffset;
     progress.selectedCourse = selectedCourse;
     progress.backgroundColor = [UIColor clearColor];
 
     progress.label = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width - frame.size.width/4)/2, (frame.size.height - frame.size.height/3)/2, frame.size.width/4, frame.size.height/3)];
-    progress.label.autoresizingMask = -1;
+    progress.label.autoresizingMask = (UIViewAutoresizing) -1;
     progress.label.text = [Utils getCourseChar: selectedCourse];
     progress.label.textAlignment = UITextAlignmentCenter;
     progress.label.backgroundColor = [UIColor clearColor];
@@ -39,16 +39,42 @@
     return progress;
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if([_delegate respondsToSelector:@selector(canSelectCourse:)] == false)
+        return NO;
+    if ([_delegate canSelectCourse: 0] == YES)
+        return YES;
+    return NO;
+}
+
 - (void) tap: (UITapGestureRecognizer *)tapper
 {
-    if([_delegate respondsToSelector:@selector(didTapCourse:)] == false)
-        return;
-    for(int course = 0; course < countCourses; course++) {
+    int tappedCourse = -1;
+    for(NSUInteger course = 0; course < countCourses; course++) {
         UIBezierPath *arcPath = [self arcPathForCourse:course];
         if ([arcPath containsPoint:[tapper locationInView:self]]) {
-            [_delegate didTapCourse: course];
+            tappedCourse = course;
             break;
         }
+    }
+
+    if (tappedCourse == -1)
+        return;
+
+    if([_delegate respondsToSelector:@selector(didTapCourse:)])
+        [_delegate didTapCourse: tappedCourse];
+
+    BOOL canSelect = NO;
+    if([_delegate respondsToSelector:@selector(canSelectCourse:)])
+        if ([_delegate canSelectCourse: tappedCourse] == YES)
+            canSelect = YES;
+
+    if (canSelect) {
+        self.selectedCourse = tappedCourse;
+//        [self setNeedsDisplay];
+
+        if([_delegate respondsToSelector:@selector(didSelectCourse:)])
+            [_delegate didSelectCourse: tappedCourse];
     }
 }
 
@@ -56,7 +82,7 @@
     if(countCourses == 0) return;
     for(int course = countCourses - 1; course >= 0; course--)
     {
-        [self drawArcForCourse: course];
+        [self drawArcForCourse: (NSUInteger)course];
     }
 }
 
@@ -73,13 +99,13 @@
     {
         switch(currentCourseState)
         {
-            case Served:
+            case CourseStateServed:
                 fillColor = [UIColor greenColor];
                 break;
-            case Requested:
+            case CourseStateRequested:
                 fillColor = [UIColor colorWithRed:1 green:0.7 blue:0 alpha:1];
                 break;
-            case RequestedOverdue:
+            case CourseStateRequestedOverdue:
                 fillColor = [UIColor redColor];
                 break;
         }
@@ -122,7 +148,12 @@
 
 - (void)setSelectedCourse: (int) newCourse {
     _selectedCourse = newCourse;
-    label.text = [Utils getCourseChar: newCourse];
+    label.text = newCourse == -1 ? @"" : [Utils getCourseChar: newCourse];
+    [self setNeedsDisplay];
+}
+
+- (void)setCountCourses: (int) count {
+    countCourses = count;
     [self setNeedsDisplay];
 }
 

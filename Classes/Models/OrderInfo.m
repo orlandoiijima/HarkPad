@@ -13,19 +13,33 @@
 
 @implementation OrderInfo
 
-
-@synthesize table, seats, createdOn, state, id, countCourses, currentCourse, language, currentCourseRequestedOn, currentCourseServedOn;
-
+@synthesize table, guests, createdOn, state, id, countCourses, currentCourseOffset, language, currentCourseRequestedOn, currentCourseServedOn;
+@dynamic currentCourseState;
 
 - (id)init
 {
     if ((self = [super init]) != NULL)
 	{
-        self.seats = [[NSMutableDictionary alloc] init];
+        self.guests = [[NSMutableArray alloc] init];
         self.language = @"nl";
-        self.currentCourse = -1;
+        self.currentCourseOffset = -1;
 	}
     return(self);
+}
+
++ (OrderInfo *) infoWithOrder: (Order *)order
+{
+    OrderInfo *orderInfo = [[OrderInfo alloc] init];
+    orderInfo.table = order.table;
+    orderInfo.countCourses = [order.courses count];
+    Course *course = [order getCurrentCourse];
+    if (course != nil) {
+        orderInfo.currentCourseOffset = course.offset;
+        orderInfo.currentCourseRequestedOn = course.requestedOn;
+        orderInfo.currentCourseServedOn = course.servedOn;
+    }
+    orderInfo.guests = order.guests;
+    return orderInfo;
 }
 
 + (OrderInfo *) infoFromJsonDictionary: (NSDictionary *)jsonDictionary
@@ -50,7 +64,7 @@
     
     id currentCourse = [jsonDictionary objectForKey:@"current"];
     if(currentCourse != nil)
-        order.currentCourse = [currentCourse intValue];
+        order.currentCourseOffset = [currentCourse intValue];
     
     seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil)
@@ -60,38 +74,44 @@
     if(seconds != nil)
         order.currentCourseServedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    id seatDictionary = [jsonDictionary objectForKey:@"seats"];
-    for(NSString *seat in [seatDictionary allKeys])
+    id guestsDic =  [jsonDictionary objectForKey:@"guests"];
+    for(NSDictionary *item in guestsDic)
     {
-        if([seat intValue] == -1)
-            continue;
-        NSDictionary *seatInfoDic = [seatDictionary objectForKey:seat];
-        SeatInfo *seatInfo = [SeatInfo seatInfoFromJsonDictionary:seatInfoDic];
-        [order.seats setValue:seatInfo forKey:seat];
+        Guest *guest = [Guest guestFromJsonDictionary:item];
+        [order.guests addObject: guest];
     }
+
     return order;
 }
 
 - (SeatInfo *) getSeatInfo: (int) querySeat
 {
-    for(NSString *seat in [self.seats allKeys])
+//    for(NSString *seat in [self.seats allKeys])
+//    {
+//        if([seat intValue] == querySeat)
+//            return [self.seats objectForKey:seat];
+//    }
+    return nil;
+}
+
+
+- (Guest *) getGuestBySeat: (int)seat
+{
+    for(Guest *guest in guests)
     {
-        if([seat intValue] == querySeat)
-            return [self.seats objectForKey:seat];
+        if(guest.seat == seat)
+            return guest;
     }
     return nil;
 }
 
-- (BOOL) isSeatOccupied: (int) querySeat
-{
-    for(NSString *seat in [self.seats allKeys])
-    {
-        if([seat intValue] == querySeat)
-            return YES;
-    }
-    return NO;
+- (CourseState) currentCourseState {
+    if (currentCourseRequestedOn == nil)
+        return CourseStateNothing;
+    if(currentCourseServedOn == nil)
+        return [currentCourseRequestedOn timeIntervalSinceNow] < -15 * 60 ? CourseStateRequestedOverdue : CourseStateRequested;
+    return CourseStateServed;
 }
-
 
 @end
 

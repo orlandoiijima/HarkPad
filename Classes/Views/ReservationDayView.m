@@ -6,6 +6,7 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "ReservationDayView.h"
 #import "NSDate-Utilities.h"
 
@@ -32,8 +33,8 @@
         [self addSubview:dayLabel];
 
         int spacing = 5;
-        int width = (int) ((frame.size.width - 6 * spacing) / 7);
-        int x = 15;
+        int width = (int) ((frame.size.width) / 7);
+        int x = 0;
         int y = 40;
         int labelHeight = 20;
 
@@ -42,6 +43,7 @@
         for(NSString *slot in labels)
         {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, labelHeight)];
+            label.textAlignment = UITextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:10];
             label.textColor = [UIColor grayColor];
             label.text = slot;
@@ -49,19 +51,20 @@
             [self addSubview: label];
             
             CGRect bounds = [label textRectForBounds:frame limitedToNumberOfLines:1];
-            label = [[UILabel alloc] initWithFrame:CGRectMake(x + bounds.size.width, y, width, labelHeight)];
-            label.font = [UIFont systemFontOfSize:10];
+            label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + label.bounds.size.height, width, labelHeight)];
+            label.textAlignment = UITextAlignmentCenter;
+            label.font = [UIFont systemFontOfSize:16];
             label.text = slot;
             [countLabels setValue:label forKey:slot];
             label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview: label];
             
-            x += width + spacing;
+            x += width;
         }    
     
         self.dataSource = [[ReservationDataSource alloc] init];
 
-        table = [[UITableView alloc] initWithFrame:CGRectMake(0, 60, frame.size.width, frame.size.height - 60) style:UITableViewStyleGrouped];
+        table = [[UITableView alloc] initWithFrame:CGRectMake(0, 90, frame.size.width, frame.size.height - 90) style:UITableViewStyleGrouped];
         table.dataSource = self.dataSource;
         table.delegate = delegate;
         table.allowsSelectionDuringEditing = YES;

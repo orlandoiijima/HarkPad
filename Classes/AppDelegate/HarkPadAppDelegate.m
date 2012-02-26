@@ -11,8 +11,7 @@
 #import "ReservationsSimple.h"
 #import "ProductMaintenance.h"
 #import "MenuTreeMaintenance.h"
-#import "TestTableViewController.h"
-#import "PeerPickerController.h"
+#import "NewOrderViewController.h"
 
 @implementation HarkPadAppDelegate
 
@@ -93,9 +92,9 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
         }
 
-        if ([key isEqualToString:@"peer"]) {
-            controller = [[PeerPickerController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Peer", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
+        if ([key isEqualToString:@"order"]) {
+            controller = [[NewOrderViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Order", nil) image:[UIImage imageNamed:@"food"] tag:1];
         }
 
         if ([key isEqualToString:@"dashboard"]) {
@@ -134,11 +133,6 @@
         if ([key isEqualToString:@"log"]) {
             controller = [[LogViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
-        }
-
-        if ([key isEqualToString:@"testtable"]) {
-            controller = [[TestTableViewController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Table" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
         if ([key isEqualToString:@"settings"]) {

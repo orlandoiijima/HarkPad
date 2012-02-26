@@ -13,11 +13,11 @@
 @interface OrderInfo : NSObject {
     NSDate *createdOn;
     Table *table;
-    NSMutableDictionary *seats;
+    NSMutableArray *guests;
     int id;
     OrderState state;
     int countCourses;
-    int currentCourse;
+    int currentCourseOffset;
     NSDate *currentCourseRequestedOn;
     NSDate *currentCourseServedOn;
     NSString *language;
@@ -27,17 +27,18 @@
 
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
-@property (retain) NSMutableDictionary *seats;
+@property (retain) NSMutableArray *guests;
 @property int id;
 @property OrderState state;
 @property int countCourses;
-@property int currentCourse;
+@property int currentCourseOffset;
+@property CourseState currentCourseState;
 @property (retain) NSDate *currentCourseRequestedOn;
 @property (retain) NSDate *currentCourseServedOn;
 @property (retain) NSString *language;
 
 - (SeatInfo *) getSeatInfo: (int) querySeat;
-
-- (BOOL) isSeatOccupied: (int) seat;
+- (Guest *) getGuestBySeat: (int)seat;
++ (OrderInfo *) infoWithOrder: (Order *)order;
 
 @end

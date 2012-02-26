@@ -4,8 +4,10 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
+@class OrderLine;
 
-@protocol TableCellUpdated <NSObject>
+@protocol OrderDelegate <NSObject>
 @optional
+- (void) didSelectOrderLine: (OrderLine *)line;
 - (void) updatedCell: (UITableViewCell *)cell;
 @end

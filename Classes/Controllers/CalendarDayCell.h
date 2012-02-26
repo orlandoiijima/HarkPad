@@ -12,11 +12,13 @@
 
 
 @interface CalendarDayCell : GridViewCellLine {
-    UIView *lunchStatusView;
-    UIView *dinnerStatusView;
+    UILabel *_lunchStatusView;
+    UILabel *_dinnerStatusView;
     BOOL isActive;
     NSDate *date;
     UILabel *label;
+    SlotStatus _lunchStatus;
+    SlotStatus _dinnerStatus;
 }
 
 

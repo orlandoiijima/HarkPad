@@ -10,23 +10,22 @@
 #import "Table.h"
 #import "ItemPropertiesDelegate.h"
 #import "Order.h"
-#import "XTTabBarViewController.h"
+#import "TablePopupDelegate.h"
+#import "OrderInfo.h"
+#import "TableInfo.h"
 
-
-@protocol TableViewDelegate <NSObject>
-@optional
-- (void) didTapSeat: (int)seatOffset;
-@end
-
-@interface TableView : UIView <ItemPropertiesDelegate>
+@interface TableView : UIView <ItemPropertiesDelegate, UIGestureRecognizerDelegate>
 
 @property (retain) UIView *tableView;
 @property (retain) Table *table;
-@property (retain) Order *order;
-@property (retain) XTTabBarViewController *tabBarController;
-@property (retain) id<TableViewDelegate> delegate;
+@property (retain) OrderInfo *orderInfo;
+@property (retain) id<TablePopupDelegate> delegate;
+@property (retain) UIView *contentTableView;
+@property CGRect tableInnerRect;
+@property (retain) NSMutableArray * selectedGuests;
+@property BOOL isTableSelected;
 
-+ (TableView *) viewWithFrame: (CGRect)frame order: (Order *)order;
++ (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
 - (void)tapSeat: (id)sender;
 - (void) selectSeat: (int) offset;
 - (void)didModifyItem:(id)item;

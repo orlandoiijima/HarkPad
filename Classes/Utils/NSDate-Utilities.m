@@ -125,7 +125,13 @@
         [dateFormatter setDateFormat:@"dd MMM"];
         return [dateFormatter stringFromDate:self];
     }
-    
+}
+
+- (NSString *) shortTime
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return [dateFormatter stringFromDate:self];
 }
 
 -(NSString *)dateDiff {
@@ -145,7 +151,8 @@
     } else if (ti < 86400) {
         int diff = round(ti / 60 / 60);
         return[NSString stringWithFormat:NSLocalizedString(@"%d hours ago", nil), diff];
-    } else if (ti < 2629743) {
+//    } else if (ti < 2629743) {
+    } else if (YES) {
         int diff = round(ti / 60 / 60 / 24);
         return[NSString stringWithFormat:NSLocalizedString(@"%d days ago", nil), diff];
     } else {

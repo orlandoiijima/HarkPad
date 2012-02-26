@@ -122,12 +122,12 @@
 - (void) setInfo: (DayReservationsInfo *)info
 {
     _lunchStatus = info.lunchStatus;
-    self.lunchStatusView.text = info.lunchCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.lunchCount];
-    [self setColorForView:self.lunchStatusView byStatus: _lunchStatus];
+    _lunchStatusView.text = info.lunchCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.lunchCount];
+    [self setColorForView:_lunchStatusView byStatus: _lunchStatus];
 
     _dinnerStatus = info.dinnerStatus;
-    self.dinnerStatusView.text = info.dinnerCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.dinnerCount];
-    [self setColorForView:self.dinnerStatusView byStatus: _dinnerStatus];
+    _dinnerStatusView.text = info.dinnerCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.dinnerCount];
+    [self setColorForView:_dinnerStatusView byStatus: _dinnerStatus];
 }
 
 

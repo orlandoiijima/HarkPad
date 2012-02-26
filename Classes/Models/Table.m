@@ -20,7 +20,7 @@
         self.dockedToTableId = -1;
         self.isDocked = false;
         self.countSeats = 2;
-        self.seatOrientation = 0;
+        self.seatOrientation = row;
 	}
     return(self);
 }
@@ -42,12 +42,17 @@
 
     id countSeats = [jsonDictionary objectForKey:@"capacity"];
     if(countSeats != nil)
-        table.countSeats = [countSeats intValue];
+        table.countSeats = (NSUInteger) [countSeats intValue];
 
     id seatOrientation = [jsonDictionary objectForKey:@"orientation"];
     if(seatOrientation != nil)
-        table.seatOrientation = [seatOrientation intValue];
-    
+        table.seatOrientation = (SeatOrientation)[seatOrientation intValue];
+
+    if (table.seatOrientation == 0)
+        table.seatsHorizontal = table.countSeats / 2;
+    else
+        table.seatsVertical = table.countSeats / 2;
+
     NSNumber *left = [jsonDictionary objectForKey:@"l"];
     NSNumber *top =  [jsonDictionary objectForKey:@"t"];
     NSNumber *width = [jsonDictionary objectForKey:@"w"];
@@ -55,15 +60,6 @@
     table.bounds = CGRectMake([left floatValue], [top floatValue], [width floatValue], [height floatValue]);
     return table;
 }
-
-- (Table *) initWithBounds:(CGRect)tableBounds name: (NSString *)tableName countSeats: (int) count
-{
-    bounds = tableBounds;
-    name = tableName;
-    countSeats = count;
-    return self;
-}
-
 
 - (bool) isSeatAlignedWith: (Table *)table
 {
@@ -77,14 +73,14 @@
     }    
 }
 
-- (int) sideForSeat: (int)seatOffset {
+- (TableSide) sideForSeat: (int)seatOffset {
     if (seatOffset < seatsHorizontal)
-        return 0;
+        return TableSideTop;
     if (seatOffset < seatsHorizontal + seatsVertical)
-        return 1;
+        return TableSideRight;
     if (seatOffset < seatsHorizontal + seatsVertical + seatsHorizontal)
-        return 2;
-    return 3;
+        return TableSideBottom;
+    return TableSideLeft;
 }
 
 @end

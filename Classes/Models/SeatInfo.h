@@ -8,18 +8,23 @@
 
 #import <Foundation/Foundation.h>
 #import "Product.h"
+#import "Guest.h"
 
 @interface SeatInfo : NSObject {
     int guestId;
     BOOL isMale;
-    Product *food;
-    Product *drink;
+    BOOL isHost;
+    Diet diet;
+//    Product *food;
+//    Product *drink;
 }
 
 @property BOOL isMale;
 @property int guestId;
-@property (retain) Product *food;
-@property (retain) Product *drink;
+@property BOOL isHost;
+@property Diet diet;
+//@property (retain) Product *food;
+//@property (retain) Product *drink;
 
 + (SeatInfo *) seatInfoFromJsonDictionary: (NSDictionary *)jsonDictionary;
 

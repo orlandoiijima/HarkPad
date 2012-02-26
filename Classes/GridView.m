@@ -6,6 +6,7 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "GridView.h"
 
 @interface GridView ()
@@ -16,7 +17,7 @@
 
 @implementation GridView
 
-@synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth, topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine = _selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
+@synthesize leftView, topView, contentView, dataSource = _dataSource, delegate = _delegate, leftHeaderWidth = _leftHeaderWidth, topHeaderHeight = _topHeaderHeight, columnWidth, dragCellLine, dragCellLineCenter,  cellPadding, spaceBetweenCellLines, selectedCellLine = _selectedCellLine, dropMode = _dropMode, dragMode = _dragMode, dragTouchPoint, cellMode = _cellMode;
 @synthesize tapStyle, dragStartPath = _dragStartPath;
 
 
@@ -79,6 +80,19 @@
         
     }
     return self;
+}
+
+- (void)setLeftHeaderWidth:(float)aLeftHeaderWidth {
+    _leftHeaderWidth = aLeftHeaderWidth;
+    int countColumns = [_dataSource numberOfColumnsInGridView:self];
+    if (countColumns != 0)
+        columnWidth = (self.bounds.size.width - 2 * _leftHeaderWidth) / countColumns;
+    [self reloadData];
+}
+
+- (void)setTopHeaderHeight:(float)aTopHeaderHeight {
+    _topHeaderHeight = aTopHeaderHeight;
+    [self reloadData];
 }
 
 - (void)setDelegate:(id<UIScrollViewDelegate,GridViewDelegate>)newDelegate
@@ -516,7 +530,7 @@
     top = 0;
     for(int row=0; row < countRows; row++) {
         float rowHeight = [[rowHeights objectAtIndex:row] floatValue];
-        GridViewHeaderCell *cell = [[GridViewHeaderCell alloc] initWithFrame:CGRectMake(0, top, leftHeaderWidth, rowHeight)];
+        GridViewHeaderCell *cell = [[GridViewHeaderCell alloc] initWithFrame:CGRectMake(0, top, _leftHeaderWidth, rowHeight)];
         cell.column = -1;
         cell.row = row;
         [leftView addSubview:cell];
@@ -532,16 +546,16 @@
 
 - (void) setContentHeight: (float) height
 {
-    self.contentView.frame = CGRectMake( leftHeaderWidth, topHeaderHeight, self.contentView.frame.size.width, height);
-    self.leftView.frame = CGRectMake(0, topHeaderHeight, leftHeaderWidth, height);
-    self.leftView.contentSize = CGSizeMake(leftHeaderWidth, height * 2);
+    self.contentView.frame = CGRectMake( _leftHeaderWidth, _topHeaderHeight, self.contentView.frame.size.width, height);
+    self.leftView.frame = CGRectMake(0, _topHeaderHeight, _leftHeaderWidth, height);
+    self.leftView.contentSize = CGSizeMake(_leftHeaderWidth, height * 2);
     self.contentView.contentSize = self.contentView.frame.size;
 }
 
 - (void) setContentWidth: (float) width
 {
-    self.contentView.frame = CGRectMake( leftHeaderWidth, topHeaderHeight, width, self.contentView.frame.size.height);
-    self.topView.frame = CGRectMake( leftHeaderWidth, 0, width, self.contentView.frame.size.height);
+    self.contentView.frame = CGRectMake( _leftHeaderWidth, _topHeaderHeight, width, self.contentView.frame.size.height);
+    self.topView.frame = CGRectMake( _leftHeaderWidth, 0, width, self.contentView.frame.size.height);
     self.topView.contentSize = CGSizeMake(width * 2, self.contentView.frame.size.height);
     self.contentView.contentSize = CGSizeMake(500, 500); // self.contentView.frame.size;
 }

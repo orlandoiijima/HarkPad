@@ -71,4 +71,7 @@
 - (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 
 - (void)refreshCalendar;
+
+- (void) updateCalendarWithReservations: (NSMutableArray *)reservations forDate: (NSDate *)date;
+
 @end

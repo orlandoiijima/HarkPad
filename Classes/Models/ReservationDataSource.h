@@ -21,14 +21,13 @@
 @property bool includePlacedReservations;
 @property (retain) NSDate* date;
 @property (assign,nonatomic) NSArray * sortedKeys;
+@property BOOL isEmpty;
 
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced;
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;
++ (ReservationDataSource *) dataSourceWithDate: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;
 - (Reservation *) getReservation: (NSIndexPath *) indexPath;
 - (NSString *) keyForSection: (int)section;
 - (int) countGuestsForKey: (NSString *)key;
 - (int) countGuests;
-- (bool)isEmpty;
 - (void) logDataSource;
 - (void) createGroupedReservations;
 - (void) tableView: (UITableView *) tableView includeSeated: (bool)showAll;

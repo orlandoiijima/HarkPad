@@ -15,6 +15,14 @@
 
 @synthesize dataSource, tableView, delegate;
 
+- (id)init {
+    if ([super init]) {
+        self.title = NSLocalizedString(@"Reservations", nil);
+        self.tabBarItem.image = [UIImage imageNamed:@"calendar.png"];
+    }
+    return self;
+} 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -42,8 +50,7 @@
 {
     self.contentSizeForViewInPopover = CGSizeMake(200, 0);
 
-    self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
-
+    self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) style:UITableViewStyleGrouped];
     [[Service getInstance] getReservations:[NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
 }
 
@@ -55,10 +62,12 @@
             [self.delegate didSelectItem: [Reservation null]];
         }
     }
-    self.dataSource = [ReservationDataSource dataSource:nil includePlacedReservations:NO withReservations: reservations];
+    self.dataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:NO withReservations: reservations];
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;
     self.contentSizeForViewInPopover = CGSizeMake(350, 400);
+    [self.tableView reloadData];
+    //   self.view.frame = CGRectMake(0, 0, 350, 400);
 }
 
 - (void)tableView:(UITableView *)view didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

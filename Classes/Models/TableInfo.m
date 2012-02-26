@@ -15,7 +15,7 @@
 
 - (bool) isEmpty
 {
-    if(orderInfo == nil || orderInfo.seats == nil || [orderInfo.seats count] == 0)
+    if(orderInfo == nil || orderInfo.guests == nil || [orderInfo.guests count] == 0)
         return true;
     return false;
 }

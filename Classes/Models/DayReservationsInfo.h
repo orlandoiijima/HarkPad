@@ -12,10 +12,10 @@ typedef enum {statusNothing, statusAvailable, statusFull, statusClosed} SlotStat
 @interface DayReservationsInfo : NSObject {
     NSDate *_date;
     NSMutableDictionary *_slots;
-    SlotStatus lunchStatus;
-    SlotStatus dinnerStatus;
-    int countLunch;
-    int countDinner;
+    SlotStatus _lunchStatus;
+    SlotStatus _dinnerStatus;
+    int _lunchCount;
+    int _dinnerCount;
 }
 
 @property (retain) NSDate *date;

@@ -193,7 +193,7 @@
     {
         if(node.menu == nil && node.product == nil)
         {
-            NSString *imageName = [images objectAtIndex:countSegments];
+            NSString *imageName = countSegments < [images count] ? [images objectAtIndex:countSegments] : @"";
             UIImage *image = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:imageName ofType:@"png"]];
             [menuCardSegment insertSegmentWithImage:image atIndex:countSegments animated:NO];
             countSegments++;

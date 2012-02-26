@@ -80,15 +80,15 @@
     return CGSizeMake(self.view.bounds.size.width, bottomView.frame.origin.y + bottomView.frame.size.height + 15);
 }
 
-- (IBAction) getOrder
-{    
-    if(order == nil)
-        [[self tableMapController] newOrderForTable: table];
-    else
-        [[self tableMapController] editOrder:order];
-    [popoverController dismissPopoverAnimated:YES];
-    return;
-}
+//- (IBAction) getOrder
+//{
+//    if(order == nil)
+//        [[self tableMapController] newOrderForTable: table];
+//    else
+//        [[self tableMapController] editOrder:order];
+//    [popoverController dismissPopoverAnimated:YES];
+//    return;
+//}
 
 - (IBAction) startNextCourse
 {
@@ -113,14 +113,14 @@
 
 - (IBAction) makeBill
 {
-    [[self tableMapController ] makeBills:order];
+    [[self tableMapController ] makeBillForOrder:order];
     [popoverController dismissPopoverAnimated:YES];
     return;
 }
 
 - (IBAction) getPayment
 {
-    [[self tableMapController] payOrder:order];
+    [[self tableMapController] getPaymentForOrder:order];
     [popoverController dismissPopoverAnimated:YES];
     return;
 }
@@ -147,7 +147,7 @@
 {
     Course *nextCourse = nil;
     bool allCoursesDone = false;
-    if(order != nil && order.state == ordering) {
+    if(order != nil && order.state == OrderStateOrdering) {
         nextCourse = [order getNextCourseToRequest];
         if(nextCourse != nil) {
             [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
@@ -159,10 +159,10 @@
     }
     
     [self setButton: buttonStartCourse state: nextCourse != nil ? highlighted : disabled];
-    [self setButton: buttonGetPayment state: order.state == billed ? highlighted : disabled];
-    [self setButton: buttonMakeBill state: order.state == billed ? special : disabled];
-    [self setButton: buttonMakeOrder state: order == nil || order.state == ordering ? highlighted : disabled];
-    [self setButton: buttonMakeBill state: order == nil ? disabled : (allCoursesDone ? highlighted : (order.state == billed ? special : enabled))];
+    [self setButton: buttonGetPayment state: order.state == OrderStateBilled ? highlighted : disabled];
+    [self setButton: buttonMakeBill state: order.state == OrderStateBilled ? special : disabled];
+    [self setButton: buttonMakeOrder state: order == nil || order.state == OrderStateOrdering ? highlighted : disabled];
+    [self setButton: buttonMakeBill state: order == nil ? disabled : (allCoursesDone ? highlighted : (order.state == OrderStateBilled ? special : enabled))];
     [self setButton: buttonTransferOrder state: order == nil ? disabled : enabled];
     
 	    if(order.reservation != nil) {
@@ -199,7 +199,7 @@
 - (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
 {
     NSMutableArray *reservations = serviceResult.data;
-    self.reservationDataSource = [ReservationDataSource dataSource:[NSDate date] includePlacedReservations:NO withReservations:reservations];
+    self.reservationDataSource = [ReservationDataSource dataSourceWithDate:[NSDate date] includePlacedReservations:NO withReservations:reservations];
     [tableReservations reloadData];
     [self setOptimalSize];
 }

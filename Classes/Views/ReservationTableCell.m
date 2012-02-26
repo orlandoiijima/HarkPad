@@ -47,7 +47,7 @@
         self.name.textColor = [UIColor blueColor];		
     }
     else {
-        self.name.text = reservation.name;
+        self.name.text = [reservation.name capitalizedString];
     }
     self.email.text = reservation.email;
     self.count.text = [NSString stringWithFormat:@"%d", reservation.countGuests];

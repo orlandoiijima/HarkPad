@@ -1,11 +1,13 @@
-
+#import <CoreGraphics/CoreGraphics.h>
 #import "OrderLineCell.h"
 #import "Utils.h"
 #import "ToggleButton.h"
+#import "SeatView.h"
+#import "SeatGridView.h"
 
 @implementation OrderLineCell
 
-@synthesize isEditable, nLineIcon, orderLine, price, name, note, props, seat, course, quantity, showPrice, showProductProperties, isInEditMode = _isInEditMode, stepperView, notesView, propertyViews, heightInEditMode, delegate;
+@synthesize isEditable, nLineIcon, orderLine, price, name, note, props, seat, course, quantity, showSeat, showPrice, showProductProperties, isInEditMode = _isInEditMode, stepperView, notesView, propertyViews, heightInEditMode, delegate, showStepper;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -21,13 +23,17 @@
     float right = self.contentView.bounds.size.width - 13;
     float height = self.bounds.size.height;
     self.notesView.frame = CGRectMake(50, self.notesView.frame.origin.y, right - 50, self.notesView.frame.size.height);
-    if (self.isEditable) {
+    if (self.showStepper) {
         stepperView.frame = CGRectMake(right-94, stepperView.frame.origin.y, 94, height);
         right -= self.stepperView.frame.size.width + 10;
     }
     if (self.showPrice) {
         self.price.frame = CGRectMake(right - 60, 0, 60, self.price.frame.size.height);
         right -= self.price.frame.size.width;
+    }
+    if (self.showSeat) {
+        self.seat.frame = CGRectMake(right - self.seat.frame.size.width, 0, self.seat.frame.size.width, self.seat.frame.size.height);
+        right -= self.seat.frame.size.width;
     }
     self.name.frame = CGRectMake(self.name.frame.origin.x, self.name.frame.origin.y, right - self.name.frame.origin.x, self.name.frame.size.height);
 }
@@ -37,7 +43,7 @@
     [super setBackgroundColor:backgroundColor];
 }
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
@@ -48,9 +54,15 @@
     cell.isEditable = isEditable;
     cell.showProductProperties = showProperties;
     cell.showPrice = showPrice;
+    cell.showSeat = showSeat;
+    cell.showStepper = showStepper;
     float height = rowHeight == 0 ? 44 : rowHeight;
     float width = cell.contentView.bounds.size.width;
-    
+
+    if (line == nil) {
+        return cell;
+    }
+
     cell.quantity = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, height)];
     [cell.contentView addSubview:cell.quantity];
     cell.quantity.textAlignment = UITextAlignmentRight;
@@ -67,11 +79,9 @@
         cell.name.font = [UIFont systemFontOfSize:fontSize];
     cell.name.shadowColor = [UIColor lightGrayColor];
     cell.name.shadowOffset = CGSizeMake(0, 1);
-    if (isEditable == false)
-        cell.name.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 
     float right = width;
-    if (isEditable) {
+    if (showStepper) {
         cell.stepperView = [[UIStepper alloc] initWithFrame:CGRectMake(right-94, (height-27)/2, 94, height)];
         [cell.contentView addSubview: cell.stepperView];
         cell.stepperView.minimumValue = 0;
@@ -85,7 +95,7 @@
     if (cell.showPrice) {
         cell.price = [[UILabel alloc] initWithFrame:CGRectMake(right-50, 0, 50, height)];
         [cell.contentView addSubview:cell.price];
-        cell.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//        cell.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         cell.price.textAlignment = UITextAlignmentRight;
         cell.price.backgroundColor = [UIColor clearColor];
         cell.price.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -93,10 +103,20 @@
             cell.price.font = [UIFont systemFontOfSize:fontSize];
         if (isEditable == false)
             cell.price.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-        right -= cell.price.frame.size.width - 10;
+        right -= cell.price.frame.size.width - 5;
     }
 
-    cell.orderLine = line;
+    if (cell.showSeat) {
+//        cell.seat = [SeatView viewWithFrame:CGRectMake(right-36, 0, 36, height) offset:line.guest.seat atSide:0 showSeatNumber:YES];
+        cell.seat = [SeatGridView viewWithFrame: CGRectMake(right-36, 0, 36, height) countHorizontal:4 countVertical:0 selectedOffset:6];
+//        [cell.seat initByGuest: line.guest];
+        [cell.contentView addSubview:cell.seat];
+        if (isEditable == false)
+            cell.seat.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        else
+            cell.seat.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        right -= cell.seat.frame.size.width - 5;
+    }
 
     if (isEditable) {
         float x = 50;
@@ -134,6 +154,9 @@
         
         cell.heightInEditMode = y + cell.notesView.bounds.size.height + 5;
     }
+
+    cell.orderLine = line;
+
     return cell;
 }
 
@@ -185,14 +208,28 @@
 - (void) setOrderLine : (OrderLine *) line
 {
     orderLine = line;
-    
+
     propertyViews = [[NSMutableArray alloc] init];
 
-    seat.titleLabel.text = [Utils getSeatChar: line.guest.seat];
+    if (line.guest == nil) {
+        seat.hidden = YES;
+    }
+    else {
+//        seat.titleLabel.text = [Utils getSeatChar: line.guest.seat];
+        seat.hidden = NO;
+    }
+
     course.titleLabel.text = [Utils getCourseChar:line.course.offset];
+
     quantity.text = [NSString stringWithFormat:@"%d", line.quantity];
     quantity.hidden = line.quantity == 1;
-    name.text = line.product.name;
+
+    if (line.product != nil)
+        name.text = line.product.name;
+    else {
+        name.text = @"Click to select course";
+        name.textColor = [UIColor grayColor];
+    }
 
     if (showProductProperties) {
         if(line.note.length > 0) {

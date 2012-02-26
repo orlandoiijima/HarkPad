@@ -6,41 +6,72 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "TableMapViewController.h"
 #import "Service.h"
-#import "TablePopupViewController.h"
-#import "NewOrderVC.h"
-#import "PaymentViewController.h"
 #import "BillViewController.h"
 #import "ModalAlert.h"
 #import "TablesViewController.h"
+#import "NewOrderViewController.h"
+#import "ZoomedTableViewController.h"
 
 @implementation TableMapViewController
 
-@synthesize tableMapView, districtPicker, buttonRefresh, popoverController;
+@synthesize tableMapView, districtPicker, buttonRefresh, popoverController, zoomedTableView, tableViewDashboard, zoomOffset, zoomScale;
 
+- (UIScrollView *)scrollView {
+    return (UIScrollView *)self.view;
+}
+
+- (void)loadView {
+    self.view = [[UIScrollView alloc] init];
+    self.view.userInteractionEnabled = YES;
+    self.scrollView.delegate = self;
+
+    self.tableMapView = [[UIView alloc] init];
+    self.tableMapView.userInteractionEnabled = YES;
+    self.tableMapView.backgroundColor = [UIColor blackColor];
+    self.tableMapView.autoresizingMask =  UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    [self.view addSubview:self.tableMapView];
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.tableMapView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.scrollView.contentSize = self.view.bounds.size;
+    self.scrollView.maximumZoomScale = 100;
+
     [self setupToolbar];
 
-    [NSTimer scheduledTimerWithTimeInterval:10.0f
-                                     target:self
-                                   selector:@selector(refreshView)
-                                   userInfo:nil
-                                    repeats:YES];   
+//    [NSTimer scheduledTimerWithTimeInterval:10.0f
+//                                     target:self
+//                                   selector:@selector(refreshView)
+//                                   userInfo:nil
+//                                    repeats:YES];
     
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [self.tableMapView addGestureRecognizer:tapGesture];
+    tapGesture.delegate = self;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [self.view addGestureRecognizer:panGesture];
-
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    [tableMapView addGestureRecognizer:tapGesture];
-
-    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-    [tableMapView addGestureRecognizer:pinchGesture];
+//
+//    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+//    [tableMapView addGestureRecognizer:pinchGesture];
     
-    [self gotoDistrict];		
+    [self gotoDistrict];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    if ([touch.view isKindOfClass:[UIButton class]])
+        return NO;
+    if (touch.view != self.tableMapView)
+        return NO;
+    return YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -56,6 +87,17 @@
     isVisible = false;
 }
 
+- (void) handleTapGesture: (UITapGestureRecognizer *) tapGestureRecognizer
+{
+    if (self.zoomedTableView != nil)
+        [self unzoom];
+}
+
+- (void)tapDiet
+{
+
+}
+
 - (void) handlePinchGesture: (UIPinchGestureRecognizer *) pinchGestureRecognizer
 {
     if(pinchGestureRecognizer.state != UIGestureRecognizerStateBegan)
@@ -69,22 +111,6 @@
     if(clickButton.table.isDocked == false)
         return;
     [self undockTable: clickButton.table.id]; 
-}
-
-- (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer
-{
-    CGPoint point = [tapGestureRecognizer locationInView:tableMapView];
-    TableButton *clickButton = [self tableButtonAtPoint:point];
-    if(clickButton == nil)
-        return;
-    int seat = [clickButton seatByPoint:[tableMapView convertPoint:point toView:clickButton]];
-    if(seat != -1)
-    {
-        [self TransgenderPopup: clickButton seat: seat];
-    }
-    else
-        [self clickTable:clickButton];
-    
 }
 
 - (void) handlePanGesture: (UIPanGestureRecognizer *)panGestureRecognizer
@@ -142,20 +168,20 @@
     }
 }
 
-- (bool) TransgenderPopup: (TableButton *) button seat: (int)seat
-{
-    SeatInfo *info = [button.orderInfo getSeatInfo:seat];
-    if(info == nil) return false;
-    
-    NSString *message = [NSString stringWithFormat:@"Tafel %@, stoel %d", button.table.name, seat + 1];
-    NSUInteger i = [ModalAlert queryWithTitle: [NSString stringWithFormat:@"Gast is %@", (info.isMale ? @"vrouw" : @"man")] message:message button1: @"Ok" button2: @"Terug"];
-    if(i != 0) return false;
-    info.isMale = !info.isMale;
-    NSString *gender = info.isMale ? @"M" : @"F";
-    [[Service getInstance] setGender: gender forGuest: info.guestId];
-    [button setNeedsDisplay];
-    return true;
-}
+//- (bool) TransgenderPopup: (TableButton *) button seat: (int)seat
+//{
+//    SeatInfo *info = [button.orderInfo getSeatInfo:seat];
+//    if(info == nil) return false;
+//
+//    NSString *message = [NSString stringWithFormat:@"Tafel %@, stoel %d", button.table.name, seat + 1];
+//    NSUInteger i = [ModalAlert queryWithTitle: [NSString stringWithFormat:@"Gast is %@", (info.isMale ? @"vrouw" : @"man")] message:message button1: @"Ok" button2: @"Terug"];
+//    if(i != 0) return false;
+//    info.isMale = !info.isMale;
+//    NSString *gender = info.isMale ? @"M" : @"F";
+//    [[Service getInstance] setGender: gender forGuest: info.guestId];
+//    [button setNeedsDisplay];
+//    return true;
+//}
 
 - (NSMutableArray *) dockTableButton: (TableButton *)dropTableButton toTableButton: (TableButton*) targetTableButton
 {
@@ -337,19 +363,26 @@
     }
 }
 
-- (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo
+- (void) refreshViewWithInfo: (ServiceResult *)serviceResult
 {
-    for(UIView *view in tableMapView.subviews) [view removeFromSuperview];
-    [tableMapView setNeedsDisplay];
+    [self hideActivityIndicator];
+
+    if (serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+        return;
+    }
+
+    for(UIView *view in self.tableMapView.subviews) [view removeFromSuperview];
+    [self.tableMapView setNeedsDisplay];
     CGRect boundingRect = [currentDistrict getRect]	;
-    scaleX = ((float)tableMapView.bounds.size.width - 20) / boundingRect.size.width;
-    if(scaleX * boundingRect.size.height > tableMapView.bounds.size.height)
-        scaleX = ((float)tableMapView.bounds.size.height - 20) / boundingRect.size.height;
+    scaleX = ((float)self.tableMapView.bounds.size.width - 20) / boundingRect.size.width;
+    if(scaleX * boundingRect.size.height > self.tableMapView.bounds.size.height)
+        scaleX = ((float)self.tableMapView.bounds.size.height - 20) / boundingRect.size.height;
    
     Map *map = [[Cache getInstance] map];
     
     NSMutableDictionary *districtTables = [[NSMutableDictionary alloc] init];
-    for(TableInfo *tableInfo in tablesInfo)
+    for(TableInfo *tableInfo in serviceResult.data)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
@@ -359,11 +392,12 @@
             continue;
         }
         if(district.id == currentDistrict.id) {
-            TableButton *button = [TableButton buttonWithTable:tableInfo.table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX];
-            button.userInteractionEnabled = false;
-            [button addTarget:self action:@selector(clickTable:) forControlEvents:UIControlEventTouchDown];
-            button.orderInfo = tableInfo.orderInfo;
-            [tableMapView addSubview:button];
+            TableView *tableView = [self createTable:tableInfo offset: boundingRect.origin scale: CGPointMake(scaleX, scaleX)];
+//            TableButton *button = [TableButton buttonWithTable:tableInfo.table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX];
+//            button.userInteractionEnabled = false;
+//            [button addTarget:self action:@selector(clickTable:) forControlEvents:UIControlEventTouchDown];
+//            button.orderInfo = tableInfo.orderInfo;
+            [self.tableMapView addSubview:tableView];
         }
         if(tableInfo.orderInfo != nil) {
             NSNumber *count = [districtTables objectForKey:district.name];
@@ -382,7 +416,91 @@
         [districtPicker setTitle:title forSegmentAtIndex: i];
         i++;
     }
-    [self hideActivityIndicator];
+}
+
+- (TableView *) createTable: (TableInfo *)tableInfo offset: (CGPoint) offset scale: (CGPoint)scale
+{
+    Table *table = tableInfo.table;
+    CGRect frame = CGRectMake(
+                            (table.bounds.origin.x - offset.x) * scale.x,
+                            (table.bounds.origin.y - offset.y) * scale.x,
+                            table.bounds.size.width * scale.x,
+                            table.bounds.size.height * scale.x);
+    TableView *tableView = [TableView viewWithFrame:frame tableInfo: tableInfo showSeatNumbers:NO];
+    tableView.delegate = self;
+    TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: tableView.tableView.bounds tableName:table.name countCourses: tableInfo.orderInfo.countCourses currentCourseOffset:tableInfo.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState:CourseStateServed delegate:nil];
+    tableView.contentTableView = overlaySimple;
+
+    return tableView;
+}
+
+- (void)didTapTableView:(TableView *)tableView {
+
+    if (self.zoomedTableView != nil) {
+//        [self unzoom];
+        return;
+    }
+
+    self.zoomedTableView = tableView;
+
+    CGFloat width, height;
+    width = self.view.bounds.size.width;
+    height = (tableView.frame.size.height * self.view.bounds.size.width) / tableView.frame.size.width;
+    if (height > self.view.bounds.size.height) {
+        height = self.view.bounds.size.height;
+        width = (tableView.frame.size.width * height) / tableView.frame.size.height;
+    }
+    width *= 0.8;
+    height *= 0.8;
+
+    zoomScale = width / tableView.frame.size.width;
+    zoomOffset = CGPointMake(
+            tableView.frame.origin.x * zoomScale - (self.view.bounds.size.width - width)/2,
+            tableView.frame.origin.y * zoomScale - (self.view.bounds.size.height - height)/2);
+    [UIView animateWithDuration:0.4 animations:^{
+        for(TableView *tableView in tableMapView.subviews) {
+            tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale - zoomOffset.x, tableView.frame.origin.y * zoomScale - zoomOffset.y, tableView.frame.size.width * zoomScale, tableView.frame.size.height * zoomScale);
+        }
+    }
+    completion: ^(BOOL completed) {
+        ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
+        controller.tableView = zoomedTableView;
+        controller.delegate = self;
+        tableView.contentTableView = controller.view;
+    }
+    ];
+
+//    [self.scrollView zoomToRect: CGRectInset(tableView.frame, -50, -50) animated:YES];
+
+}
+
+- (void)unzoom
+{
+    [self clearZoomedView];
+
+    [UIView animateWithDuration:0.4 animations:^{
+        for(TableView *tableView in tableMapView.subviews) {
+            tableView.frame = CGRectMake(
+                    (tableView.frame.origin.x + zoomOffset.x) / zoomScale,
+                    (tableView.frame.origin.y + zoomOffset.y) / zoomScale,
+                    tableView.frame.size.width / zoomScale,
+                    tableView.frame.size.height / zoomScale);
+        }
+    }];
+
+//    [self.scrollView zoomToRect: self.scrollView.bounds animated:YES];
+    return;
+}
+
+- (BOOL)canSelectSeat:(int)seatOffset {
+    if (self.zoomedTableView != nil)
+        return YES;
+    else
+        return NO;
+}
+
+- (BOOL)canSelectTableView:(TableView *)tableView {
+    return NO;
 }
 
 - (void) setupToolbar {
@@ -402,21 +520,23 @@
             [[UIBarButtonItem alloc] initWithCustomView: districtPicker],
             refreshButton,
             nil];
-    }
-    
-- (void) clickTable: (UIControl *) sender
-{
-    TableButton *tableButton = (TableButton *)sender;
-    
-    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table];
-    popoverController = [[UIPopoverController alloc] initWithContentViewController:tablePopup];
-
-    popoverController.delegate = self;
-
-    tablePopup.popoverController = popoverController;
-    
-    [popoverController presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
+
+//- (void) clickTable: (UIControl *) sender
+//{
+//    TableButton *tableButton = (TableButton *)sender;
+//
+////    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table];
+//    TestTableViewController *tablePopup = [TestTableViewController controllerForTable: tableButton.table];
+//    tablePopup.delegate = self;
+//
+//    popoverController = [[UIPopoverController alloc] initWithContentViewController:tablePopup];
+//
+//    popoverController.delegate = self;
+//
+////    tablePopup.popoverController = popoverController;
+//    [popoverController presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//}
 
 - (void) transferOrder: (int)orderId
 {
@@ -450,8 +570,9 @@
     [self refreshView];
 }
     
-- (void)payOrder: (Order *)order
+- (void)getPaymentForOrder: (Order *)order
 {
+    [popoverController dismissPopoverAnimated:YES];
     if(order == nil)
         return;
 
@@ -465,10 +586,9 @@
 {
     if(order == nil)
         return;
-//    isRefreshTimerDisabled = true;
-    NewOrderVC *newOrderVC = [[NewOrderVC alloc] init];
-    newOrderVC.order = order;
-    [self.navigationController pushViewController: newOrderVC animated:YES];
+    NewOrderViewController *controller = [[NewOrderViewController alloc] init];
+    controller.order = order;
+    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
@@ -477,19 +597,6 @@
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
-- (void) closeOrderView
-{
-    isRefreshTimerDisabled = false;
-    [self dismissModalViewControllerAnimated:YES];
-    [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
-}
-
-- (void) newOrderForTable: (Table *) table
-{
-    Order *newOrder = [Order orderForTable:table];
-    if(newOrder == nil) return;
-    [self gotoOrderViewWithOrder:newOrder];
-}
 
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation
 {
@@ -500,6 +607,7 @@
 
 - (void) editOrder: (Order *) order
 {
+    [popoverController dismissPopoverAnimated:YES];
     [self gotoOrderViewWithOrder: order];
 }
 
@@ -524,8 +632,9 @@
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
-- (void) makeBills: (Order*)order
+- (void) makeBillForOrder: (Order*)order
 {
+    [popoverController dismissPopoverAnimated:YES];
     if(order == nil)
         return;
     BillViewController *billVC = [[BillViewController alloc] init];	
@@ -551,7 +660,36 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
+    if (scale == 1) {
+        [self clearZoomedView];
+        return;
+    }
 
+    if (zoomedTableView == nil) return;
+    [self.view setNeedsDisplay];
+    [self setupZoomedView];
+}
 
+- (void) setupZoomedView
+{
+    isRefreshTimerDisabled = YES;
+    zoomedTableView.contentTableView.hidden = YES;
+    CGRect rect = CGRectInset(zoomedTableView.frame, zoomedTableView.tableView.frame.origin.x, zoomedTableView.tableView.frame.origin.y);
+    CGAffineTransform t = CGAffineTransformMakeScale(self.scrollView.zoomScale, self.scrollView.zoomScale);
+    rect = CGRectApplyAffineTransform(rect, t);
+
+    tableViewDashboard = [[TableViewDashboard alloc] initWithFrame:CGRectInset(rect, 10, 10) tableView: zoomedTableView delegate: self];
+    [self.view addSubview: tableViewDashboard];
+}
+
+- (void) clearZoomedView
+{
+    [self.tableViewDashboard removeFromSuperview];
+    zoomedTableView.contentTableView.hidden = NO;
+    zoomedTableView = nil;
+    isRefreshTimerDisabled = NO;
+}
 
 @end
+

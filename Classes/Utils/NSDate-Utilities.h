@@ -71,6 +71,7 @@
 - (NSString *) prettyDateString;
 - (NSString *) inJson;
 - (NSString *)dateDiff;
+- (NSString *) shortTime;
 
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;

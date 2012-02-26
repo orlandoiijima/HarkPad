@@ -57,15 +57,15 @@
 "%d hours ago" = "%d uur geleden";
 "%d days ago" = "%d dagen geleden";
 "Loading..." = "Laden...";
-"Gluten allergy" = "Glutenallergie";
-"Nut allergy" = "Notenallergie";
+"Gluten allergy" = "Gluten";
+"Nut allergy" = "Noten";
 "Halal" = "Halal";
 "Kosher" = "Kosjer";
-"No meat" = "Geen vlees";
-"No fish" = "Geen vis";
+"No meat" = "Vlees";
+"No fish" = "Vis";
 "Montignac" = "Montignac";
-"Lactose intolerance" = "Lactose-intolerantie";
-"Milk allergy" = "Melkallergie";
+"Lactose intolerance" = "Lactose";
+"Milk allergy" = "Melk";
 "Salt free" = "Zoutloos";
 "Male" = "Man";
 "Female" = "Vrouw";
@@ -75,3 +75,4 @@
 "Requested" = "Opgevraagd";
 "Guests" = "Gasten";
 "Courses" = "Gangen";
+"Pay" = "Betalen";

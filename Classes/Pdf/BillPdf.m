@@ -23,7 +23,7 @@
 
 - (NSString *)create
 {
-    _orderDataSource = [OrderDataSource dataSourceForOrder:self.order grouping: noGrouping totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO fontSize:12];
+    _orderDataSource = [OrderDataSource dataSourceForOrder:self.order grouping: noGrouping totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:12];
 
     NSMutableDictionary *template = [[NSMutableDictionary alloc] init];
     NSMutableDictionary *text = [[NSMutableDictionary alloc] init];

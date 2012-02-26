@@ -17,7 +17,7 @@
 {
     WorkInProgress *work = [[WorkInProgress alloc] init];
     id course = [jsonDictionary objectForKey:@"course"];
-    work.course = [Course courseFromJsonDictionary:course];
+    work.course = [Course courseFromJsonDictionary:course order:nil];
     int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
     work.table = [[[Cache getInstance] map] getTable: tableId];
     work.productCount = [[NSMutableArray alloc] init];
