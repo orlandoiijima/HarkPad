@@ -60,7 +60,7 @@
 - (void) setOrder: (Order *)order {
     nameLabel.text = order.reservation.name;
     createdLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@: %@ (%@)", nil), NSLocalizedString(@"Started", nil), [order.createdOn shortTime], [order.createdOn dateDiff]];
-    amountLabel.text = [NSString stringWithFormat: @"%@: %@", NSLocalizedString(@"Amount", nil), [Utils getAmountString:[order getAmount] withCurrency:YES]];
+    amountLabel.text = [NSString stringWithFormat: @"%@: %@", NSLocalizedString(@"Amount", nil), [Utils getAmountString:[order totalAmount] withCurrency:YES]];
 }
 
 @end

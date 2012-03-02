@@ -4,6 +4,7 @@
 #import "ToggleButton.h"
 #import "SeatView.h"
 #import "SeatGridView.h"
+#import "Order.h"
 
 @implementation OrderLineCell
 
@@ -43,7 +44,7 @@
     [super setBackgroundColor:backgroundColor];
 }
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper guests: (NSMutableArray *)guests delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
@@ -106,10 +107,8 @@
         right -= cell.price.frame.size.width - 5;
     }
 
-    if (cell.showSeat) {
-//        cell.seat = [SeatView viewWithFrame:CGRectMake(right-36, 0, 36, height) offset:line.guest.seat atSide:0 showSeatNumber:YES];
-        cell.seat = [SeatGridView viewWithFrame: CGRectMake(right-36, 0, 36, height) countHorizontal:4 countVertical:0 selectedOffset:6];
-//        [cell.seat initByGuest: line.guest];
+    if (cell.showSeat && line.order != nil && line.order.table != nil) {
+        cell.seat = [SeatGridView viewWithFrame: CGRectMake(right-36, 0, 36, height) table:line.order.table guests: guests];
         [cell.contentView addSubview:cell.seat];
         if (isEditable == false)
             cell.seat.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
@@ -227,8 +226,8 @@
     if (line.product != nil)
         name.text = line.product.name;
     else {
-        name.text = @"Click to select course";
-        name.textColor = [UIColor grayColor];
+        name.text = NSLocalizedString(@"Tap to select course", nil);
+        name.textColor = [UIColor lightGrayColor];
     }
 
     if (showProductProperties) {

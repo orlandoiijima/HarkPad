@@ -38,7 +38,6 @@
 - (IBAction)gotoDistrict;
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (void) editOrder: (Order *) order;
-- (void) startNextCourse: (Order *)order;
 - (void) makeBillForOrder: (Order*)order;
 - (void) undockTable: (int)tableId;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;

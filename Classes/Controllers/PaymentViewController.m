@@ -91,7 +91,7 @@
     }
     orderTable.dataSource = dataSource;
     orderTable.delegate = dataSource;
-    amountLabel.text = [Utils getAmountString:[order getAmount] withCurrency:YES];
+    amountLabel.text = [Utils getAmountString:[order totalAmount] withCurrency:YES];
 
     orderTable.backgroundView = nil;
     orderTable.backgroundColor = [UIColor clearColor];

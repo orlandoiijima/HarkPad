@@ -9,23 +9,25 @@
 #import "Order.h"
 #import "TableView.h"
 #import "CourseProgress.h"
+#import "GridViewCellLine.h"
 
 @interface CourseGuestScrollView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate>
 
-@property NSUInteger selectedCourse;
+@property int selectedCourse;
 @property (retain) TableView *tableView;
 @property (retain) CourseProgress *progressView;
-@property (retain) UILabel *dateLabel;
-@property (retain) UIButton *button;
 @property (retain) NSMutableArray *cellLines;
-@property (retain) Order *order;
+@property (retain, nonatomic) Order *order;
 
 + (CourseGuestScrollView *)viewWithTableView: (TableView *) tableView;
 
 - (void) swipe: (UITapGestureRecognizer *)swiper;
-- (void)selectCourse: (NSUInteger) newSelection animate: (BOOL)animate;
-- (void) slideCellsOut;
-- (void) slideCellsIn;
-- (void) removeCells;
+- (void)selectCourse: (int) newSelection animate: (BOOL)animate;
+- (void) slideInCellLine: (GridViewCellLine *)cellLine;
+- (void) slideOutCellLine: (GridViewCellLine *)cellLine;
+- (int)courseFromCellLine: (GridViewCellLine *)cellLine;
+- (int)seatFromCellLine: (GridViewCellLine *)cellLine;
+- (int) tagForSeat: (int)seat course:(int)course;
+- (void) slideCellsInOutOnNewCourse: (int)newCourse;
 
 @end

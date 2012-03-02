@@ -31,7 +31,7 @@
         tag.payButton.titleLabel.font = [UIFont systemFontOfSize:14];
         tag.payButton.tintColor = [UIColor blackColor];
         [tag.payButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [tag.payButton setTitle: [Utils getAmountString: [anOrder getAmount] withCurrency:YES] forState:UIControlStateNormal];
+        [tag.payButton setTitle: [Utils getAmountString: [anOrder totalAmount] withCurrency:YES] forState:UIControlStateNormal];
         [tag.payButton addTarget:tag action: @selector(pay) forControlEvents:UIControlEventTouchDown];
         [tag addSubview: tag.payButton];
 

@@ -116,7 +116,7 @@
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getAmount withCurrency:YES]];
     }
     if ([variable isEqualToString:@"{amountTotal}"])
-        return [NSString stringWithFormat:@"%@", [Utils getAmountString: self.order.getAmount withCurrency:YES]];
+        return [NSString stringWithFormat:@"%@", [Utils getAmountString: self.order.totalAmount withCurrency:YES]];
     return @"";
 }
 

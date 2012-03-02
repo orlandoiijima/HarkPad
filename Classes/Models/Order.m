@@ -15,8 +15,8 @@
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, paidOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo, currentCourse;
-
+@synthesize table, courses, guests, createdOn, paidOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo;
+@dynamic lastCourse, lastSeat, currentCourse, nextCourseToRequest, nextCourseToServe;
 
 - (id)init
 {
@@ -26,7 +26,7 @@
         self.guests = [[NSMutableArray alloc] init];
         self.lines = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
-        self.state = 0;
+        self.state = OrderStateOrdering;
         self.entityState = New;
 	}
     return(self);
@@ -69,7 +69,7 @@
     id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
     {
-        Guest *guest = [Guest guestFromJsonDictionary:item];
+        Guest *guest = [Guest guestFromJsonDictionary:item order:order];
         [order.guests addObject: guest];
     }
 
@@ -99,10 +99,7 @@
     Order *order = [[Order alloc] init];
     order.table = newTable;
     for(int i = 0; i < 2 * (newTable.seatsHorizontal + newTable.seatsVertical); i++) {
-        Guest *guest = [[Guest alloc] init];
-        guest.seat = i;
-        guest.isMale = YES;
-        [order.guests addObject:guest];
+        [order addGuest];
     }
     return order;
 }
@@ -116,6 +113,9 @@
     if (table != nil)
         [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
 
+    if (reservation != nil && reservation.id >= 0)
+        [dic setObject: [NSNumber numberWithInt: reservation.id] forKey:@"reservationId"];
+
     if (invoicedTo != nil)
         [dic setObject: [NSNumber numberWithInt: invoicedTo.id] forKey:@"invoicedToId"];
 
@@ -127,7 +127,8 @@
         [dic setObject:dicCourses forKey:@"courses"];
         for(Course *course in [self courses])
         {
-            [dicCourses addObject: [course toDictionary]];
+            if ([course.lines count] > 0)
+                [dicCourses addObject: [course toDictionary]];
         }
     }
 
@@ -148,27 +149,6 @@
     }
     return dic;
 }
-
-//
-//- (Guest *) getGuestById: (int)guestId
-//{
-//    for(Guest *guest in guests)
-//    {
-//        if(guest.id == guestId)
-//            return guest;
-//    }
-//    return nil;
-//}
-//
-//- (Course *) getCourseById: (int)courseId
-//{
-//    for(Course *course in courses)
-//    {
-//        if(course.id == courseId)
-//            return course;
-//    }
-//    return nil;
-//}
 
 - (Guest *) getGuestBySeat: (int)seat
 {
@@ -198,8 +178,7 @@
     return true;
 }
 
-
-- (NSDecimalNumber *) getAmount
+- (NSDecimalNumber *)totalAmount
 {
     id total = [NSDecimalNumber zero];
     for(OrderLine *line in lines)
@@ -210,40 +189,24 @@
     return total;
 }
 
-- (int) getLastCourse
+- (Course *)lastCourse
 {
     if(courses.count == 0)
-        return -1;
-    Course *course = [courses objectAtIndex:courses.count-1];
-    return course.offset;
+        return nil;
+    return [courses objectAtIndex:courses.count-1];
 }
 
-- (int) getLastSeat
+- (int) lastSeat
 {
     if(guests.count == 0)
         return -1;
     Guest *guest = [guests objectAtIndex:guests.count-1];
     return guest.seat;
 }
-//
-//- (NSDate *) getLastOrderDate
-//{
-//    NSDate *latestDate = createdOn;
-//    for(OrderLine *line in lines)
-//    {
-//        if([line.createdOn compare: latestDate] == NSOrderedDescending)
-//            latestDate = line.createdOn;
-//    }
-//    return latestDate;
-//}
-//
-//- (NSDate *) getFirstOrderDate
-//{
-//    return createdOn;
-//}
 
-- (Course *) getCurrentCourse
+- (Course *)currentCourse
 {
+    if ([courses count] == 0) return nil;
     for(int c = courses.count - 1; c >= 0; c--)
     {
         Course *course = [courses objectAtIndex:c];
@@ -254,7 +217,7 @@
     return nil;
 }
 
-- (Course *)getNextCourseToRequest
+- (Course *)nextCourseToRequest
 {
     for(Course *course in courses)
     {
@@ -264,7 +227,7 @@
     return nil;
 }
 
-- (Course *)getNextCourseToServe
+- (Course *)nextCourseToServe
 {
     for(int c = courses.count - 1; c >= 0; c--)
     {
@@ -278,28 +241,11 @@
     return nil;
 }
 
-//- (void) removeOrderLine: (OrderLine *)lineToDelete
-//{
-//    if (guests != nil)
-//        [guests removeObject:lineToDelete];
-//
-//    if (courses != nil)
-//        [courses removeObject:lineToDelete];
-//
-//
-//    if ([lines indexOfObject: lineToDelete] == NSNotFound) {
-//        NSLog(@"orderline not found in removeOrderLine");
-//    }
-//
-//    [lines removeObject:lineToDelete];
-//
-//}
-
-
 - (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
 {
     OrderLine *line = [[OrderLine alloc] init];
 
+    line.order = self;
     line.entityState = New;
     line.quantity = 1;
 
@@ -333,13 +279,13 @@
 
 - (void)addOrderLine: (OrderLine *)line {
     [self.lines addObject:line];
+    line.order = self;
     if(line.course != nil)
         [line.course.lines addObject:line];
     if (line.guest != nil)
         [line.guest.lines addObject:line];
     return;
 }
-
 
 - (Course *) addCourse
 {
@@ -348,6 +294,16 @@
     course.order = self;
     [self.courses addObject:course];
     return course;
+}
+
+- (Guest *) addGuest
+{
+    Guest *guest = [[Guest alloc] init];
+    guest.seat = [self.guests count];
+    guest.order = self;
+    [self.guests addObject:guest];
+    return guest;
+
 }
 
 @end

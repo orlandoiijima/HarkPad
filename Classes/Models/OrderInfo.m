@@ -32,7 +32,7 @@
     OrderInfo *orderInfo = [[OrderInfo alloc] init];
     orderInfo.table = order.table;
     orderInfo.countCourses = [order.courses count];
-    Course *course = [order getCurrentCourse];
+    Course *course = [order currentCourse];
     if (course != nil) {
         orderInfo.currentCourseOffset = course.offset;
         orderInfo.currentCourseRequestedOn = course.requestedOn;
@@ -77,7 +77,7 @@
     id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
     {
-        Guest *guest = [Guest guestFromJsonDictionary:item];
+        Guest *guest = [Guest guestFromJsonDictionary:item order: nil];
         [order.guests addObject: guest];
     }
 

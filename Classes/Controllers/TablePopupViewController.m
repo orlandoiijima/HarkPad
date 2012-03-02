@@ -90,12 +90,12 @@
 //    return;
 //}
 
-- (IBAction) startNextCourse
-{
-    [self.tableMapController startNextCourse:order];
-    [popoverController dismissPopoverAnimated:YES];
-    return;
-}
+//- (IBAction) startNextCourse
+//{
+//    [self.tableMapController startNextCourse:order];
+//    [popoverController dismissPopoverAnimated:YES];
+//    return;
+//}
 
 - (IBAction) undockTable
 {
@@ -148,7 +148,7 @@
     Course *nextCourse = nil;
     bool allCoursesDone = false;
     if(order != nil && order.state == OrderStateOrdering) {
-        nextCourse = [order getNextCourseToRequest];
+        nextCourse = [order nextCourseToRequest];
         if(nextCourse != nil) {
             [buttonStartCourse setTitle:[NSString stringWithFormat: @"Gang %@: %@", [Utils getCourseChar: nextCourse.offset], [nextCourse stringForCourse]] forState:UIControlStateNormal ];
         }

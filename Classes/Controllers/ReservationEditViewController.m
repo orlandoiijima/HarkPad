@@ -24,7 +24,7 @@
 
 + (ReservationEditViewController *) initWithReservation: (Reservation *)reservation
 {
-    NSString *nib = reservation.type == Walkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
+    NSString *nib = reservation.type == ReservationTypeWalkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
     ReservationEditViewController *popup = [[ReservationEditViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]];
     popup.reservation = reservation;
     return popup;
@@ -65,7 +65,7 @@
     reservation.countGuests = [countView.text intValue];
     reservation.language = [languages objectAtIndex:(NSUInteger) languageView.selectedSegmentIndex];
     
-    if(reservation.type == Walkin) {
+    if(reservation.type == ReservationTypeWalkin) {
     
     }
     else {

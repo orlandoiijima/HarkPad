@@ -20,6 +20,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @interface OrderLine : NSObject <NSCopying> {
     int id;
+    Order *order;
     NSDate *createdOn;
     EntityState entityState;
     Guest *guest;
@@ -33,6 +34,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 }
 
 @property int id;
+@property (retain) Order *order;
 @property (retain) NSDate *createdOn;
 @property (nonatomic) EntityState entityState;
 @property (retain) Guest *guest;

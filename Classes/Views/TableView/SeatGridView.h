@@ -6,15 +6,18 @@
 
 
 #import <Foundation/Foundation.h>
-
+#import "Table.h"
+#import "Guest.h"
 
 @interface SeatGridView : UIView
 
 @property int countHorizontal;
 @property int countVertical;
-@property int selectedOffset;
+@property (retain) NSMutableArray *guests;
 
-+ (SeatGridView *)viewWithFrame: (CGRect) frame countHorizontal: (int) countHorizontal countVertical: (int)countVertical selectedOffset: (int) selectedOffset;
-- (void) drawStrokedRect: (CGRect)rect filled: (BOOL) isFilled;
++ (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests;
+
+- (void) drawStrokedRect: (CGRect)rect fillColor: (UIColor *) fillColor;
+- (UIColor *) fillColorForSeat: (int)seat;
 
 @end

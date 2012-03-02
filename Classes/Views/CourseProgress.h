@@ -30,6 +30,7 @@ typedef enum CourseState {
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse;
 - (UIBezierPath *) arcPathForCourse: (NSUInteger) course;
 - (void) drawArcForCourse: (NSUInteger)course;
+- (int) courseAtPoint: (CGPoint) point;
 
 @property int countCourses;
 @property int currentCourse;

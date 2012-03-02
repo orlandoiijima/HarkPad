@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "EntityState.h"
 
+@class Order;
+
 enum {
     DietNone                = 0,
     DietGlutenAllergy       = 1 << 0,
@@ -40,16 +42,18 @@ typedef NSUInteger Diet;
     NSMutableArray *lines;
 }
 
-+ (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary;
++ (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
 
 @property int id;
 @property int seat;
-@property BOOL isMale;
+@property (nonatomic) BOOL isMale;
 @property BOOL isEmpty;
-@property BOOL isHost;
-@property Diet diet;
+@property (nonatomic) BOOL isHost;
+@property (nonatomic) Diet diet;
+@property Order *order;
 @property (retain) NSMutableArray *lines;
-@property EntityState entityState;
+@property (nonatomic) EntityState entityState;
+@property Guest *nextGuest;
 
 @end

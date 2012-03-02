@@ -39,19 +39,15 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (Order *) orderNull;
 - (NSMutableDictionary *)toDictionary;
-- (NSDecimalNumber *) getAmount;
+- (NSDecimalNumber *)totalAmount;
 - (OrderLine *) addLineWithProductId: (int) productId seat: (int) seat course: (int) course;
-- (int) getLastCourse;
-- (int) getLastSeat;
-- (Course *) getCurrentCourse;
-- (Course *)getNextCourseToRequest;
-- (Course *)getNextCourseToServe;
 
 - (Course *) getCourseByOffset: (int)offset;
 - (Guest *) getGuestBySeat: (int)seat;
 - (BOOL) isCourseAlreadyRequested: (int) courseOffset;
 - (void)addOrderLine: (OrderLine *)line;
 - (Course *) addCourse;
+- (Guest *) addGuest;
 
 @property EntityState entityState;
 @property (retain) NSMutableArray *courses;
@@ -67,5 +63,8 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property (retain) NSString *name;
 @property (retain) User *invoicedTo;
 @property (assign) Course *currentCourse;
-
+@property (retain) Course *lastCourse;
+@property (retain) Course *nextCourseToRequest;
+@property (retain) Course *nextCourseToServe;
+@property int lastSeat;
 @end

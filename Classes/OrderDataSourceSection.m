@@ -12,7 +12,7 @@
 
 }
 
-@synthesize isCollapsed, isSelected, lines;
+@synthesize isCollapsed, isSelected, lines, subTitle;
 
 - (id)init
 {
@@ -21,6 +21,7 @@
         self.lines = [[NSMutableArray alloc] init];
         self.isSelected = NO;
         self.isCollapsed = NO;
+        self.subTitle = @"";
 	}
     return(self);
 }

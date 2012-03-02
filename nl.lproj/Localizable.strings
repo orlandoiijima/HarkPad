@@ -76,3 +76,10 @@
 "Guests" = "Gasten";
 "Courses" = "Gangen";
 "Pay" = "Betalen";
+"General" = "Algemeen";
+"Tap to select course" = "Tap om gang te selecteren";
+"Served at %@" = "%@ geserveerd";
+"Requested at %@" = "%@ opgevraagd";
+"Request" = "Opvragen";
+"Order" = "Order";
+"Select reservation or 'walk-in':" = "Selecteer reservering of 'walk-in':";

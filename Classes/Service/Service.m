@@ -16,7 +16,8 @@
 
 @implementation Service
 
-@synthesize url, host;
+@synthesize url;
+@dynamic host;
 
 static Service *_service;
 
@@ -34,7 +35,7 @@ static Service *_service;
             url = URL_FRASCATI;
         else
             url = URL_DEV;
-//        url = URL_DEV_EXT;
+        url = URL_DEV_EXT;
     }
     return self;
 }

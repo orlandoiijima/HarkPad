@@ -51,14 +51,10 @@ typedef enum buttonState {disabled, enabled,highlighted, special} buttonState;
 
 @property (retain) ReservationDataSource *reservationDataSource;
 
-+ (TablePopupViewController *) menuForTable: (Table *) table;
-
 - (TableMapViewController *) tableMapController;
 - (void) setOptimalSize;
 - (void) setButton: (UIButton*) button state: (buttonState)state;
 
-- (IBAction) getOrder;
-- (IBAction) startNextCourse;
 - (IBAction) makeBill;
 - (IBAction) getPayment;
 - (IBAction) undockTable;

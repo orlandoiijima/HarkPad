@@ -41,7 +41,7 @@
     UIRectFill(rect);
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     Order *order = [topController order];
-    int countRows = topController.orientation == CourseColumns ? [order getLastSeat] + 2 : [order getLastCourse] + 2;
+    int countRows = topController.orientation == CourseColumns ? order.lastSeat + 2 : order.lastCourse.offset + 2;
     for(int column = firstColumn; column < firstColumn + countVisibleColumns; column++)
     {
         for(int row = firstRow; row < countRows; row++)
@@ -144,8 +144,8 @@
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     
-    int countCourses = [topController.order getLastCourse] + 2;
-    int countSeats = [topController.order getLastSeat] + 2;
+    int countCourses = topController.order.lastCourse.offset + 2;
+    int countSeats = topController.order.lastSeat + 2;
 
     int countColumns = topController.orientation == SeatColumns ? countSeats : countCourses;
     int countRows = topController.orientation == CourseColumns ? countSeats : countCourses;
@@ -266,7 +266,7 @@
 {
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     OrderGridHitInfo *hitInfo = [[OrderGridHitInfo alloc] init];
-    int countRows = [topController.order getLastSeat] + 2;
+    int countRows = topController.order.lastSeat + 2;
     for(hitInfo.cell.column = -1; hitInfo.cell.column < firstColumn + countVisibleColumns; hitInfo.cell.column++)
     {
         CGRect frame = [self getRect: hitInfo.cell.column row:0];
@@ -354,7 +354,7 @@
     NewOrderVC *topController = [(NewOrderView*)[[self superview] superview] controller];
     int maxLines = 1;
     
-    int countColumns = topController.orientation == SeatColumns ? [topController.order getLastSeat] + 2 : [topController.order getLastCourse] + 2;
+    int countColumns = topController.orientation == SeatColumns ? topController.order.lastSeat + 2 : topController.order.lastCourse.offset + 2;
 
     for(int column = firstColumn; column < countColumns; column++)
     {

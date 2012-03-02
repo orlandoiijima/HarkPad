@@ -214,7 +214,7 @@
 }
 
 - (void) onOrderUpdated {
-    amountLabel.text = [Utils getAmountString: [_order getAmount] withCurrency:NO];
+    amountLabel.text = [Utils getAmountString: [_order totalAmount] withCurrency:NO];
     if([_order.lines count] == 0) {
         [self setupStartScreen];
     }

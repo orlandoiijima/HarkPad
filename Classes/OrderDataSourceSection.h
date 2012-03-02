@@ -17,5 +17,5 @@
 @property BOOL isSelected;
 @property BOOL isCollapsed;
 @property (retain) NSMutableArray *lines;
-
+@property (retain) NSString *subTitle;
 @end

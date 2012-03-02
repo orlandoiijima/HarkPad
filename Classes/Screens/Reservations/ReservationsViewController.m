@@ -199,7 +199,7 @@
     if (reservation.id != 0)
         button = buttonEdit;
     else
-        if (reservation.type == Walkin)
+        if (reservation.type == ReservationTypeWalkin)
             button = buttonWalkin;
     else
             button = buttonAdd;
@@ -332,7 +332,7 @@
 - (IBAction) addWalkin
 {
     Reservation *reservation = [[Reservation alloc] init];
-    reservation.type = Walkin;
+    reservation.type = ReservationTypeWalkin;
     [self openEditPopup:reservation];
 }
 

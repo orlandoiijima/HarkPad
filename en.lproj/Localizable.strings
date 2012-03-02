@@ -78,3 +78,10 @@
 "Guests" = "Guests";
 "Courses" = "Courses";
 "Pay" = "Pay";
+"General" = "General";
+"Tap to select course" = "Click to select course";
+"Served at %@" = "Served at %@";
+"Requested at %@" = "Requested at %@";
+"Request" = "Request";
+"Order" = "Order";
+"Select reservation or 'walk-in':" = "Select reservation or 'walk-in':";

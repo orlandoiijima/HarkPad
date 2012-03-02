@@ -13,7 +13,8 @@
 
 @implementation ReservationDataSource
 
-@synthesize groupedReservations, reservations, includePlacedReservations, date, sortedKeys, isEmpty;
+@synthesize groupedReservations, reservations, includePlacedReservations, date, sortedKeys;
+@dynamic isEmpty;
 
 + (ReservationDataSource *) dataSourceWithDate: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
 {
@@ -192,7 +193,7 @@
     return count;
 }	
 
-- (bool)isEmpty {
+- (BOOL)isEmpty {
     for(NSMutableArray *slotReservations in [groupedReservations allValues])
         if([self numberOfItemsInSlot:slotReservations showAll:includePlacedReservations] > 0)
             return false;

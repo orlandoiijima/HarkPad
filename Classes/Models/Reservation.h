@@ -10,7 +10,9 @@
 #import "Table.h"
 #import "Cache.h"
 
-typedef enum ReservationType {Online = 0, Phone, Walkin} ReservationType;
+typedef enum ReservationType {
+    ReservationTypeOnline = 0, ReservationTypePhone, ReservationTypeWalkin
+} ReservationType;
 
 @interface Reservation : NSObject{
     int id;

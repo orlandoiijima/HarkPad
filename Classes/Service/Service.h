@@ -39,7 +39,6 @@
 - (void) undockTable: (int)tableId;
 - (void) dockTables: (NSMutableArray*)tables;
 - (Order *) getOrder: (int) orderId;
-- (NSMutableArray *) getReservations: (NSDate *)date;
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 - (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;

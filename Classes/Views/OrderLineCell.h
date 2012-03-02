@@ -3,6 +3,7 @@
 #import "OrderLine.h"
 #import "OrderDelegate.h"
 #import "SeatView.h"
+#import "SeatGridView.h"
 
 @interface OrderLineCell : UITableViewCell
 {
@@ -14,7 +15,7 @@
 @property (retain) IBOutlet UILabel *price;
 @property (retain) IBOutlet UILabel *props;
 @property (retain) IBOutlet UIButton *course;
-@property (retain) IBOutlet SeatView *seat;
+@property (retain) IBOutlet SeatGridView *seat;
 @property (retain) IBOutlet UILabel *quantity;
 @property (retain) IBOutlet UIImageView *nLineIcon;
 @property (retain) UITextField * notesView;
@@ -30,7 +31,8 @@
 @property BOOL showSeat;
 @property int heightInEditMode;
 
-+ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float) fontSize;
++ (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper guests: (NSMutableArray *)guests delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize;
+
 + (float) getExtraHeightForEditMode: (OrderLine *)line width: (float)width;
 
 @end

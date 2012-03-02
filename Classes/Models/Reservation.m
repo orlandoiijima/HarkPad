@@ -25,7 +25,7 @@
         self.name = @"";
         self.phone = @"";
         self.email = @"";
-        self.type = Phone;
+        self.type = ReservationTypePhone;
         self.orderId = -1;
 	}
     return(self);

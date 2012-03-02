@@ -41,7 +41,7 @@
 
 - (void) setReservation: (Reservation*)reservation
 {
-    if(reservation.type == Walkin) {
+    if(reservation.type == ReservationTypeWalkin) {
         self.name.text = NSLocalizedString(@"walk-in", nil);
         self.name.font = [UIFont italicSystemFontOfSize: self.name.font.pointSize];
         self.name.textColor = [UIColor blueColor];		

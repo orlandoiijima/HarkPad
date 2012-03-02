@@ -59,9 +59,9 @@
     tapGesture.delegate = self;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     [self.view addGestureRecognizer:panGesture];
-//
-//    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
-//    [tableMapView addGestureRecognizer:pinchGesture];
+
+    UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
+    [tableMapView addGestureRecognizer:pinchGesture];
     
     [self gotoDistrict];
 }
@@ -91,11 +91,6 @@
 {
     if (self.zoomedTableView != nil)
         [self unzoom];
-}
-
-- (void)tapDiet
-{
-
 }
 
 - (void) handlePinchGesture: (UIPinchGestureRecognizer *) pinchGestureRecognizer
@@ -393,10 +388,6 @@
         }
         if(district.id == currentDistrict.id) {
             TableView *tableView = [self createTable:tableInfo offset: boundingRect.origin scale: CGPointMake(scaleX, scaleX)];
-//            TableButton *button = [TableButton buttonWithTable:tableInfo.table offset:boundingRect.origin scaleX:scaleX scaleY:scaleX];
-//            button.userInteractionEnabled = false;
-//            [button addTarget:self action:@selector(clickTable:) forControlEvents:UIControlEventTouchDown];
-//            button.orderInfo = tableInfo.orderInfo;
             [self.tableMapView addSubview:tableView];
         }
         if(tableInfo.orderInfo != nil) {
@@ -428,7 +419,7 @@
                             table.bounds.size.height * scale.x);
     TableView *tableView = [TableView viewWithFrame:frame tableInfo: tableInfo showSeatNumbers:NO];
     tableView.delegate = self;
-    TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: tableView.tableView.bounds tableName:table.name countCourses: tableInfo.orderInfo.countCourses currentCourseOffset:tableInfo.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState:CourseStateServed delegate:nil];
+    TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: tableView.tableView.bounds tableName:table.name countCourses: tableInfo.orderInfo.countCourses currentCourseOffset:tableInfo.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState: tableInfo.orderInfo.currentCourseState delegate:nil];
     tableView.contentTableView = overlaySimple;
 
     return tableView;
@@ -437,7 +428,6 @@
 - (void)didTapTableView:(TableView *)tableView {
 
     if (self.zoomedTableView != nil) {
-//        [self unzoom];
         return;
     }
 
@@ -522,22 +512,6 @@
             nil];
 }
 
-//- (void) clickTable: (UIControl *) sender
-//{
-//    TableButton *tableButton = (TableButton *)sender;
-//
-////    TablePopupViewController *tablePopup = [TablePopupViewController menuForTable: tableButton.table];
-//    TestTableViewController *tablePopup = [TestTableViewController controllerForTable: tableButton.table];
-//    tablePopup.delegate = self;
-//
-//    popoverController = [[UIPopoverController alloc] initWithContentViewController:tablePopup];
-//
-//    popoverController.delegate = self;
-//
-////    tablePopup.popoverController = popoverController;
-//    [popoverController presentPopoverFromRect:tableButton.frame inView: self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-//}
-
 - (void) transferOrder: (int)orderId
 {
     TablesViewController *tablesController = [[TablesViewController alloc] init];
@@ -580,6 +554,7 @@
     paymentController.order = order;
     paymentController.delegate = self;
     [self.navigationController pushViewController:paymentController animated:YES];
+    self.zoomedTableView = nil;
 }
 
 - (void)gotoOrderViewWithOrder: (Order *)order
@@ -589,12 +564,14 @@
     NewOrderViewController *controller = [[NewOrderViewController alloc] init];
     controller.order = order;
     [self.navigationController pushViewController: controller animated:YES];
+    self.zoomedTableView = nil;
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
 //    isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
+    self.zoomedTableView = nil;
 }
 
 
@@ -611,9 +588,9 @@
     [self gotoOrderViewWithOrder: order];
 }
 
-- (void) startNextCourse: (Order *)order
+- (void) startNextCourseForOrder: (Order *)order
 {
-    Course *nextCourse = [order getNextCourseToRequest];
+    Course *nextCourse = [order nextCourseToRequest];
     if(nextCourse != nil)
     {
         [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourse:finishedWithData:error:	)];

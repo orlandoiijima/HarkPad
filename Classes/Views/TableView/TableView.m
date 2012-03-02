@@ -103,7 +103,7 @@
     CALayer *layer = [tableView.layer.sublayers objectAtIndex:0];
     if (selected) {
         self.selectedGuests = nil;
-        layer.borderColor = [[UIColor blueColor] CGColor];
+        layer.borderColor = [[UIColor whiteColor] CGColor];
     }
     else {
         layer.borderColor = [[UIColor grayColor] CGColor];

@@ -165,7 +165,7 @@
     {
         if(invoice.orderId == order.id)
         {
-            invoice.amount = [order getAmount];
+            invoice.amount = [order totalAmount];
             [self.tableView reloadData];
             return;
         }

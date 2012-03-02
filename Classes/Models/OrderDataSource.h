@@ -63,4 +63,6 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 - (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (OrderDataSourceSection *)group;
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line;
 - (void) tableView:(UITableView *)tableView removeOrderLine:(OrderLine *)line;
+- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSString *)aKey;
+
 @end

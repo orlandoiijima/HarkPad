@@ -35,7 +35,7 @@
             [self addSubview:self.amountLabel];
             self.amountLabel.textAlignment = UITextAlignmentRight;
             self.amountLabel.backgroundColor = [UIColor clearColor];
-            self.amountLabel.text = [Utils getAmountString:[anOrder getAmount] withCurrency:YES];
+            self.amountLabel.text = [Utils getAmountString:[anOrder totalAmount] withCurrency:YES];
         }
         else {
             infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(20, self.bounds.size.height/3, self.bounds.size.width - 40, 40)];

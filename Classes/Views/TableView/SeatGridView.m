@@ -8,23 +8,35 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "SeatGridView.h"
 #import "Table.h"
+#import "Guest.h"
 
 
-@implementation SeatGridView {
+@implementation SeatGridView
 
-}
+@synthesize countHorizontal, countVertical, guests;
 
-@synthesize countHorizontal, countVertical, selectedOffset;
-
-+ (SeatGridView *)viewWithFrame: (CGRect) frame countHorizontal: (int) countHorizontal countVertical: (int)countVertical selectedOffset: (int) selectedOffset {
++ (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests {
     SeatGridView *view = [[SeatGridView alloc] initWithFrame:frame];
-    view.countHorizontal = countHorizontal;
-    view.countVertical = countVertical;
-    view.selectedOffset = selectedOffset;
+    view.countHorizontal = table.seatsHorizontal;
+    view.countVertical = table.seatsVertical;
+    view.guests = guests;
+//    if (guest == nil) {
+//        view.seatOffset = -1;
+//        view.fillColor = [UIColor blackColor];
+//    }
+//    else {
+//        view.seatOffset = guest.seat;
+//        view.fillColor = (guest.isMale ? [UIColor  colorWithRed:135/255.0 green: 206/255.0 blue: 206/250.0 alpha:1] :
+//                [UIColor colorWithRed:1 green:182/255.0 blue:193/255.0 alpha:1]);
+//    }
     view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
+- (void) setGuests: (NSMutableArray *)newGuests {
+    guests = newGuests;
+    [self setNeedsDisplay];
+}
 
 - (void)drawRect:(CGRect)rect {
 
@@ -49,8 +61,8 @@
     if (countVertical > 0)
         x += dx;
     for (int i =0; i < countHorizontal; i++) {
-        [self drawStrokedRect:CGRectMake(x + i*dx, y, dx, dy) filled: i == selectedOffset];
-        [self drawStrokedRect:CGRectMake(x + i*dx, y + dy *countVertical + dy, dx, dy) filled: 2*countHorizontal + countVertical - i - 1 == selectedOffset];
+        [self drawStrokedRect:CGRectMake(x + i*dx, y, dx, dy) fillColor: [self fillColorForSeat:i]];
+        [self drawStrokedRect:CGRectMake(x + i*dx, y + dy *countVertical + dy, dx, dy) fillColor: [self fillColorForSeat:2*countHorizontal + countVertical - i - 1]];
     }
 
     x = (self.bounds.size.width - dx*width)/2;
@@ -58,17 +70,29 @@
     if (countHorizontal > 0)
         y += dy;
     for (int i =0; i < countVertical; i++) {
-        [self drawStrokedRect:CGRectMake(x, y + i*dy, dx, dy) filled: countHorizontal + i == selectedOffset];
-        [self drawStrokedRect:CGRectMake(x + dx * countHorizontal + dx, y + i*dy, dx, dy) filled: 2*countHorizontal + 2*countVertical - i - 1 == selectedOffset];
+        [self drawStrokedRect:CGRectMake(x, y + i*dy, dx, dy) fillColor: [self fillColorForSeat:countHorizontal + i]];
+        [self drawStrokedRect:CGRectMake(x + dx * countHorizontal + dx, y + i*dy, dx, dy) fillColor: [self fillColorForSeat:2*countHorizontal + 2*countVertical - i - 1]];
     }
 }
 
-- (void) drawStrokedRect: (CGRect)rect filled: (BOOL) isFilled
+- (UIColor *) fillColorForSeat: (int)seat
+{
+    for(Guest *guest in guests) {
+        if (guest.seat == seat) {
+            return (guest.isMale ?
+                [UIColor colorWithRed:135/255.0 green: 206/255.0 blue: 206/250.0 alpha:1] :
+                [UIColor colorWithRed:1 green:182/255.0 blue:193/255.0 alpha:1]);
+
+        }
+    }
+    return [UIColor whiteColor];
+}
+
+- (void) drawStrokedRect: (CGRect)rect fillColor: (UIColor *) fillColor
 {
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
     path.lineWidth = 1;
     [path stroke];
-    UIColor *fillColor = isFilled ? [UIColor blackColor] : [UIColor whiteColor];
     [fillColor setFill];
     [path fill];
 }

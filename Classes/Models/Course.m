@@ -13,8 +13,8 @@
 
 @implementation Course
 
-@synthesize id, offset, requestedOn, servedOn, lines, entityState, order, nextCourse;
-@dynamic state;
+@synthesize id, offset, requestedOn, servedOn, lines, entityState, order;
+@dynamic state, nextCourse;
 
 - (id)init
 {
@@ -52,16 +52,6 @@
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
 
     return dic;
-}
-
-- (bool) hasQueuedItems
-{
-    for(OrderLine *line in lines)
-    {
-        if(line.product.isQueued)
-            return true;
-    }
-    return false;
 }
 
 - (NSString *) stringForCourse

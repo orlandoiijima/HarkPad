@@ -1,4 +1,4 @@
-	//
+//
 //  InvoiceDataSource.m
 //  HarkPad
 //
@@ -13,6 +13,7 @@
 #import "Service.h"
 #import "ModalAlert.h"
 #import "Utils.h"
+#import "NSDate-Utilities.h"
 
 @implementation OrderDataSource
 
@@ -54,6 +55,12 @@
             case byCourse:
                 for (Course *course in order.courses) {
                     OrderDataSourceSection *group = [[OrderDataSourceSection alloc] init];
+                    group.isCollapsed = course.servedOn != nil;
+                    if (course.servedOn != nil)
+                        group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Served at %@", nil), [course.servedOn dateDiff]];
+                    else
+                    if (course.requestedOn != nil)
+                        group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Requested at %@", nil), [course.requestedOn dateDiff]];
                     [groupedLines setObject:group forKey: [self keyForCourse: course]];
                     OrderLine *line = [[OrderLine alloc] init];
                     line.course = course;
@@ -107,6 +114,7 @@
                 if (tableView != nil) {
                     NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: [self sectionForKey:key]];
                     [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
                 }
                 return;
             }
@@ -115,11 +123,14 @@
         line = [line copyWithZone:nil];
     }
 
+    BOOL isDummyReplacement = NO;
     if (showEmptySections) {
         if ([group.lines count] == 1) {
             OrderLine *singleLine = [group.lines objectAtIndex:0];
-            if (singleLine.product == nil)
+            if (singleLine.product == nil) {
                 [group.lines removeObjectAtIndex:0];
+                isDummyReplacement = YES;
+            }
         }
     }
 
@@ -130,7 +141,7 @@
         int section = [self sectionForKey:key];
          NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
         [tableView beginUpdates];
-        if ([group.lines count] == 1 && showEmptySections && line.product != nil) {
+        if (isDummyReplacement) {
             [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
         }
         else {
@@ -140,7 +151,22 @@
             [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
         }
         [tableView endUpdates];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
     }
+}
+
+- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSString *)aKey {
+    NSMutableArray *guests = [[NSMutableArray alloc] init];
+    if (product != nil) {
+        for (OrderLine *line in order.lines) {
+            if (line.guest != nil && line.product.id == product.id) {
+                NSString *key = [self groupingKeyForLine:line];
+                if ([aKey isEqualToString:key])
+                    [guests addObject:line.guest];
+            }
+        }
+    }
+    return guests;
 }
 
 - (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (OrderDataSourceSection *)group {
@@ -224,20 +250,27 @@
     for(NSUInteger row = 0; row < [group.lines count]; row++) {
         [itemsToDelete addObject: [NSIndexPath indexPathForRow: row inSection: section]];
     }
-    [tableView deleteRowsAtIndexPaths:itemsToDelete withRowAnimation:UITableViewRowAnimationTop];
+    [tableView deleteRowsAtIndexPaths:itemsToDelete withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void) tableView:(UITableView *)tableView expandSection: (NSUInteger)section
+- (void) tableView:(UITableView *)tableView expandSection: (NSUInteger)sectionToExpand collapseAllOthers:(BOOL)collapseOthers
 {
-    OrderDataSourceSection *group = [self groupForSection:section];
+    OrderDataSourceSection *group = [self groupForSection:sectionToExpand];
     if (group == nil) return;
     if (group.isCollapsed == NO) return;
     group.isCollapsed = NO;
     NSMutableArray *itemsToInsert = [[NSMutableArray alloc] init];
     for(NSUInteger row = 0; row < [group.lines count]; row++) {
-        [itemsToInsert addObject: [NSIndexPath indexPathForRow: row inSection: section]];
+        [itemsToInsert addObject: [NSIndexPath indexPathForRow: row inSection: sectionToExpand]];
     }
-    [tableView insertRowsAtIndexPaths:itemsToInsert withRowAnimation:UITableViewRowAnimationTop];
+    [tableView insertRowsAtIndexPaths:itemsToInsert withRowAnimation:UITableViewRowAnimationAutomatic];
+
+    if (collapseOthers) {
+        for (int section = 0; section < [tableView numberOfSections]; section++) {
+            if (section != sectionToExpand)
+                [self tableView:tableView collapseSection:section];
+        }
+    }
 }
 
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line {
@@ -273,14 +306,14 @@
 
 - (NSString *) keyForCourse: (Course *)course {
     if (course == nil)
-        return @"Course";
+        return NSLocalizedString(@"General", nil);
     return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Course", nil), [Utils getCourseChar: course.offset]];
 }
 
 - (NSString *) keyForGuest: (Guest *)guest {
     if (guest == nil)
-        return @"Stoel";
-    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Stoel", nil), [Utils getSeatChar: guest.seat]];
+        return NSLocalizedString(@"Table", nil);
+    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Seat", nil), [Utils getSeatChar: guest.seat]];
 }
 
 - (NSString *) keyForSection:(int) section
@@ -358,7 +391,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0;
+    return -10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -366,7 +399,20 @@
     if (collapsableHeaders == false)
         return nil;
     CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
-    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: self  tableView: tableView];
+    NSString *headerKey = [self keyForSection:section];
+    NSMutableArray *guestsWithFood = [[NSMutableArray alloc] init];
+    for (OrderLine *line in self.order.lines) {
+        if (YES) {
+            if (line.guest != nil) {
+                NSString *key = [self groupingKeyForLine:line];
+                if ([headerKey isEqualToString:key]) {
+                    [guestsWithFood addObject:line.guest];
+                }
+            }
+        }
+    }
+
+    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: self  tableView: tableView guests: guestsWithFood];
     return viewHeader;
 }
 
@@ -378,7 +424,12 @@
 
     OrderLineCell *cell = (OrderLineCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties showSeat:showSeat showStepper: showStepper delegate: self.delegate rowHeight: rowHeight fontSize: fontSize];
+        NSMutableArray *guests;
+        if (totalizeProducts)
+            guests = [self getGuestsForProduct: line.product andKey: [self keyForSection:indexPath.section]];
+        else
+            guests = line.guest == nil ? nil : [NSMutableArray arrayWithObject:line.guest];
+        cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties showSeat:showSeat showStepper: showStepper guests: guests delegate: self.delegate rowHeight: rowHeight fontSize: fontSize];
     }
 
     cell.isInEditMode = cell.isSelected;

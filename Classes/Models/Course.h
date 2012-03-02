@@ -18,7 +18,7 @@
     NSDate *requestedOn;
     NSDate *servedOn;
     NSMutableArray *lines;
-    Course *course;
+    Order *order;
     EntityState entityState;
 }
 
@@ -27,7 +27,6 @@
 - (NSString *) stringForCourse;
 
 NSInteger intSort(id num1, id num2, void *context);
-- (bool) hasQueuedItems;
 
 @property int id;
 @property int offset;

@@ -40,11 +40,23 @@
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    int tappedCourse = [self courseAtPoint:[touch locationInView:self]];
+    if (tappedCourse == -1) return NO;
     if([_delegate respondsToSelector:@selector(canSelectCourse:)] == false)
         return NO;
-    if ([_delegate canSelectCourse: 0] == YES)
+    if ([_delegate canSelectCourse: tappedCourse] == YES)
         return YES;
     return NO;
+}
+
+- (int) courseAtPoint: (CGPoint) point{
+    for(NSUInteger course = 0; course < countCourses; course++) {
+        UIBezierPath *arcPath = [self arcPathForCourse:course];
+        if ([arcPath containsPoint:point]) {
+            return course;
+        }
+    }
+    return -1;
 }
 
 - (void) tap: (UITapGestureRecognizer *)tapper
@@ -90,7 +102,7 @@
 - (void) drawArcForCourse: (NSUInteger)course 
 {
     UIColor *fillColor;
-    if(course > currentCourse)
+    if(course > currentCourse || currentCourse == -1)
         fillColor = [UIColor whiteColor];
     else
     if(course < currentCourse)
@@ -107,6 +119,9 @@
                 break;
             case CourseStateRequestedOverdue:
                 fillColor = [UIColor redColor];
+                break;
+            case CourseStateNothing:
+                fillColor = [UIColor whiteColor];
                 break;
         }
     }
