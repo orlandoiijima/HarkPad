@@ -137,7 +137,7 @@
     NSMutableArray *reservations = serviceResult.data;
     Reservation *selectedReservation = self.dayView.selectedReservation;
     bool includeSeated = segmentShow.selectedSegmentIndex == 1;
-    ReservationDataSource *dataSource = [ReservationDataSource dataSource:date includePlacedReservations: includeSeated withReservations:reservations];
+    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
     NSString *key = [self dateToKey: dataSource.date];
     [dataSources setObject: dataSource forKey:key];
     if([dayView.date isEqualToDateIgnoringTime:date]) {
@@ -389,7 +389,7 @@
     else
         searchHeader.text = NSLocalizedString(@"Reservations found:", nil);
 
-    ReservationDataSource *dataSource = [ReservationDataSource dataSource: nil includePlacedReservations: YES withReservations:reservations];
+    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate: nil includePlacedReservations: YES withReservations:reservations];
     if(self.dayView != nil) {
         self.dayView.dataSource = dataSource;
     }

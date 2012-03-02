@@ -27,9 +27,11 @@ static Service *_service;
             url = URL_ANNATEST;
         else if([env isEqualToString:@"anna"])
             url = URL_ANNA;
+        else if([env isEqualToString:@"club"])
+            url = URL_CLUB;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-//        else
+        else
             url = URL_DEV;
 	    }
     return self;

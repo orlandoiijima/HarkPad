@@ -25,7 +25,7 @@
     return source;
 }
 
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
++ (ReservationDataSource *) dataSourceWithDate: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations
 {
     ReservationDataSource *source = [[ReservationDataSource alloc] init];
     source.date = date;

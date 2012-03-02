@@ -14,9 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E50A382112E21165007C2101"
-               BuildableName = "HarkPadTests.octest"
                BlueprintName = "HarkPadTests"
-               ReferencedContainer = "container:HarkPad.xcodeproj">
+               ReferencedContainer = "container:HarkPad">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,6 +49,13 @@
       buildConfiguration = "Debug">
       <AdditionalOptions>
       </AdditionalOptions>
+      <BuildableProductRunnable>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintName = "HarkPadTests"
+            ReferencedContainer = "container:HarkPad">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       displayScaleIsEnabled = "NO"

@@ -23,7 +23,7 @@
 @property (assign,nonatomic) NSArray * sortedKeys;
 
 + (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced;
-+ (ReservationDataSource *) dataSource: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;
++ (ReservationDataSource *) dataSourceWithDate: (NSDate *)date includePlacedReservations: (bool) includePlaced withReservations: (NSMutableArray *)reservations;
 - (Reservation *) getReservation: (NSIndexPath *) indexPath;
 - (NSString *) keyForSection: (int)section;
 - (int) countGuestsForKey: (NSString *)key;

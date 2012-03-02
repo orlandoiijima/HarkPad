@@ -55,7 +55,7 @@
             [self.delegate didSelectItem: [Reservation null]];
         }
     }
-    self.dataSource = [ReservationDataSource dataSource:nil includePlacedReservations:NO withReservations: reservations];
+    self.dataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:NO withReservations: reservations];
     self.tableView.dataSource = dataSource;
     self.tableView.delegate = self;
     self.contentSizeForViewInPopover = CGSizeMake(350, 400);

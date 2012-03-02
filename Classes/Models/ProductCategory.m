@@ -45,9 +45,9 @@
         [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     if ([self.name length] > 0)
         [dic setObject: self.name forKey:@"name"];
-    int r = (int) 255 * [[self.color CGColor] red];
-    int g = (int) 255 * [[self.color CGColor] green];
-    int b = (int) 255 * [[self.color CGColor] blue];
+//    int r = (int) 255 * [[self.color CGColor] red];
+//    int g = (int) 255 * [[self.color CGColor] green];
+//    int b = (int) 255 * [[self.color CGColor] blue];
 //    [dic setObject: [self.color CGColor] forKey:@"color"];
     return dic;
 }
