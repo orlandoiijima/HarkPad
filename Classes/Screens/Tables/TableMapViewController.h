@@ -17,14 +17,14 @@
 #import "TablePopupDelegate.h"
 #import "TableView.h"
 #import "TableOverlaySimple.h"
-#import "TableViewDashboard.h"
+#import "TableOverlayDashboard.h"
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     District *currentDistrict;
-    TableButton *dragTableButton;
+    TableView *dragTableView;
     bool isVisible;
     UISegmentedControl *districtPicker;
-    UIView *tableMapView;
+    UIView *currentDistrictView;
     BOOL isRefreshTimerDisabled;
     UIBarButtonItem *buttonEdit;
     UIBarButtonItem *buttonRefresh;
@@ -42,8 +42,8 @@
 - (void) undockTable: (int)tableId;
 - (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)getPaymentForOrder: (Order *)order;
-- (TableButton *) tableButtonAtPoint: (CGPoint) point;
-- (NSMutableArray *) dockTableButton: (TableButton *)outerMostTableButton toTableButton: (TableButton*) masterTableButton;
+- (TableView *) tableViewAtPoint: (CGPoint) point;
+- (NSMutableArray *) dockTableView: (TableView *)outerMostTableView toTableView: (TableView *)masterTableView;
 - (void) transferOrder: (int)orderId;
 - (void) transferOrder: (int)orderId toTable: (int)tableId;
 - (TableButton *) buttonForOrder: (int)orderId;
@@ -51,16 +51,16 @@
 - (void)hideActivityIndicator;
 - (void) setupToolbar;
 - (TableView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
-- (void) setupZoomedView;
-- (void) clearZoomedView;
 - (void)unzoom;
 
 @property (retain) UISegmentedControl *districtPicker;
-@property (retain) UIView *tableMapView;
+@property (retain) UIView *currentDistrictView;
 @property (retain) UIBarButtonItem *buttonRefresh;
 @property (retain) UIPopoverController *popoverController;
 @property (retain) TableView *zoomedTableView;
-@property (retain) TableViewDashboard *tableViewDashboard;
+@property (retain) TableOverlayDashboard *tableViewDashboard;
+@property (retain) NSMutableArray *pages;
+@property int currentDistrictOffset;
 @property CGFloat zoomScale;
 @property CGPoint zoomOffset;
 @end

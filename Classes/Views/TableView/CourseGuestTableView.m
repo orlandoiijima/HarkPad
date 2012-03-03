@@ -6,22 +6,22 @@
 
 
 #import <CoreGraphics/CoreGraphics.h>
-#import "CourseGuestScrollView.h"
+#import "CourseGuestTableView.h"
 #import "GridViewCellLine.h"
 #import "NSDate-Utilities.h"
 #import "CrystalButton.h"
 
 
-@implementation CourseGuestScrollView {
+@implementation CourseGuestTableView {
 
 }
 
 @synthesize tableView, progressView, cellLines, order;
 @dynamic selectedCourse;
 
-+ (CourseGuestScrollView *)viewWithTableView: (TableView *) tableView
++ (CourseGuestTableView *)viewWithTableView: (TableView *) tableView
 {
-    CourseGuestScrollView *view = [[CourseGuestScrollView alloc] initWithFrame:CGRectMake(0, 0, tableView.tableView.bounds.size.width, tableView.tableView.bounds.size.height)];
+    CourseGuestTableView *view = [[CourseGuestTableView alloc] initWithFrame:CGRectMake(0, 0, tableView.tableView.bounds.size.width, tableView.tableView.bounds.size.height)];
     view.clipsToBounds = YES;
     view.tableView = tableView;
 

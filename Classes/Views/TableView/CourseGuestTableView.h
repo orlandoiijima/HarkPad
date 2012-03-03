@@ -11,7 +11,7 @@
 #import "CourseProgress.h"
 #import "GridViewCellLine.h"
 
-@interface CourseGuestScrollView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate>
+@interface CourseGuestTableView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate>
 
 @property int selectedCourse;
 @property (retain) TableView *tableView;
@@ -19,7 +19,7 @@
 @property (retain) NSMutableArray *cellLines;
 @property (retain, nonatomic) Order *order;
 
-+ (CourseGuestScrollView *)viewWithTableView: (TableView *) tableView;
++ (CourseGuestTableView *)viewWithTableView: (TableView *) tableView;
 
 - (void) swipe: (UITapGestureRecognizer *)swiper;
 - (void)selectCourse: (int) newSelection animate: (BOOL)animate;

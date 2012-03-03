@@ -272,12 +272,12 @@
 		E5F609A313489C2400D88629 /* GuestProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88628 /* GuestProperties.m */; };
 		E5F609A313489C2400D8862E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862D /* Reachability.m */; };
 		E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862F /* SystemConfiguration.framework */; };
-		E5F609A313489C2400D88632 /* CourseGuestScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88631 /* CourseGuestScrollView.m */; };
+		E5F609A313489C2400D88632 /* CourseGuestTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88631 /* CourseGuestTableView.m */; };
 		E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88638 /* GameKit.framework */; };
 		E5F609A313489C2400D8863F /* GuestPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */; };
 		E5F609A313489C2400D88648 /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88647 /* lightbulb.png */; };
 		E5F609A313489C2400D8864B /* TableActionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864A /* TableActionsView.m */; };
-		E5F609A313489C2400D8864D /* TableInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864C /* TableInfoView.m */; };
+		E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864C /* TableOverlayInfo.m */; };
 		E5F609A313489C2400D88651 /* NewOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88650 /* NewOrderViewController.m */; };
 		E5F609A313489C2400D88653 /* OrderDataSourceSection.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88652 /* OrderDataSourceSection.m */; };
 		E5F609A313489C2400D88656 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88655 /* user.png */; };
@@ -285,7 +285,7 @@
 		E5F609A313489C2400D8865A /* expanded.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88659 /* expanded.png */; };
 		E5F609A313489C2400D8865D /* CollapseTableViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8865C /* CollapseTableViewHeader.m */; };
 		E5F609A313489C2400D88660 /* TableOverlaySimple.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8865F /* TableOverlaySimple.m */; };
-		E5F609A313489C2400D88663 /* TableViewDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88662 /* TableViewDashboard.m */; };
+		E5F609A313489C2400D88663 /* TableOverlayDashboard.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88662 /* TableOverlayDashboard.m */; };
 		E5F609A313489C2400D88666 /* TableViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88665 /* TableViewContainer.m */; };
 		E5F609A313489C2400D88669 /* ZoomedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88668 /* ZoomedTableViewController.m */; };
 		E5F609A313489C2400D8866C /* SelectReservationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8866B /* SelectReservationView.m */; };
@@ -751,8 +751,8 @@
 		E5F609A313489C2400D8862C /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8862D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8862F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		E5F609A313489C2400D88631 /* CourseGuestScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGuestScrollView.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D88633 /* CourseGuestScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseGuestScrollView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88631 /* CourseGuestTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseGuestTableView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88633 /* CourseGuestTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseGuestTableView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88638 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		E5F609A313489C2400D8863D /* GuestPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestPropertiesViewController.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestPropertiesViewController.m; sourceTree = "<group>"; };
@@ -760,8 +760,8 @@
 		E5F609A313489C2400D88647 /* lightbulb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightbulb.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D88649 /* TableActionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableActionsView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8864A /* TableActionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableActionsView.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D8864C /* TableInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableInfoView.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D8864E /* TableInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableInfoView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8864C /* TableOverlayInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOverlayInfo.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8864E /* TableOverlayInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOverlayInfo.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8864F /* NewOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrderViewController.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88650 /* NewOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrderViewController.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88652 /* OrderDataSourceSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDataSourceSection.m; sourceTree = "<group>"; };
@@ -773,8 +773,8 @@
 		E5F609A313489C2400D8865C /* CollapseTableViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollapseTableViewHeader.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8865E /* TableOverlaySimple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOverlaySimple.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8865F /* TableOverlaySimple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOverlaySimple.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D88661 /* TableViewDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewDashboard.h; sourceTree = "<group>"; };
-		E5F609A313489C2400D88662 /* TableViewDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDashboard.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88661 /* TableOverlayDashboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOverlayDashboard.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88662 /* TableOverlayDashboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOverlayDashboard.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88664 /* TableViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewContainer.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88665 /* TableViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewContainer.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88667 /* ZoomedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZoomedTableViewController.h; sourceTree = "<group>"; };
@@ -1686,18 +1686,18 @@
 				E5F609A313489C2400D88667 /* ZoomedTableViewController.h */,
 				E5F609A313489C2400D88665 /* TableViewContainer.m */,
 				E5F609A313489C2400D88664 /* TableViewContainer.h */,
-				E5F609A313489C2400D88662 /* TableViewDashboard.m */,
-				E5F609A313489C2400D88661 /* TableViewDashboard.h */,
+				E5F609A313489C2400D88662 /* TableOverlayDashboard.m */,
+				E5F609A313489C2400D88661 /* TableOverlayDashboard.h */,
 				E5F609A313489C2400D8865F /* TableOverlaySimple.m */,
 				E5F609A313489C2400D8865E /* TableOverlaySimple.h */,
-				E5F609A313489C2400D8864E /* TableInfoView.h */,
-				E5F609A313489C2400D8864C /* TableInfoView.m */,
+				E5F609A313489C2400D8864E /* TableOverlayInfo.h */,
+				E5F609A313489C2400D8864C /* TableOverlayInfo.m */,
 				E5F609A313489C2400D8864A /* TableActionsView.m */,
 				E5F609A313489C2400D88649 /* TableActionsView.h */,
 				E5F609A313489C2400D8863E /* GuestPropertiesViewController.m */,
 				E5F609A313489C2400D8863D /* GuestPropertiesViewController.h */,
-				E5F609A313489C2400D88633 /* CourseGuestScrollView.h */,
-				E5F609A313489C2400D88631 /* CourseGuestScrollView.m */,
+				E5F609A313489C2400D88633 /* CourseGuestTableView.h */,
+				E5F609A313489C2400D88631 /* CourseGuestTableView.m */,
 				E5F609A313489C2400D8862A /* GuestProperties.h */,
 				E5F609A313489C2400D88628 /* GuestProperties.m */,
 				E5F609A313489C2400D88616 /* SeatView.h */,
@@ -2059,15 +2059,15 @@
 				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
 				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,
 				E5F609A313489C2400D8862E /* Reachability.m in Sources */,
-				E5F609A313489C2400D88632 /* CourseGuestScrollView.m in Sources */,
+				E5F609A313489C2400D88632 /* CourseGuestTableView.m in Sources */,
 				E5F609A313489C2400D8863F /* GuestPropertiesViewController.m in Sources */,
 				E5F609A313489C2400D8864B /* TableActionsView.m in Sources */,
-				E5F609A313489C2400D8864D /* TableInfoView.m in Sources */,
+				E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */,
 				E5F609A313489C2400D88651 /* NewOrderViewController.m in Sources */,
 				E5F609A313489C2400D88653 /* OrderDataSourceSection.m in Sources */,
 				E5F609A313489C2400D8865D /* CollapseTableViewHeader.m in Sources */,
 				E5F609A313489C2400D88660 /* TableOverlaySimple.m in Sources */,
-				E5F609A313489C2400D88663 /* TableViewDashboard.m in Sources */,
+				E5F609A313489C2400D88663 /* TableOverlayDashboard.m in Sources */,
 				E5F609A313489C2400D88666 /* TableViewContainer.m in Sources */,
 				E5F609A313489C2400D88669 /* ZoomedTableViewController.m in Sources */,
 				E5F609A313489C2400D8866C /* SelectReservationView.m in Sources */,

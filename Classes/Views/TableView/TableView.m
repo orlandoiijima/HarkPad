@@ -16,7 +16,7 @@
 
 }
 
-@synthesize table, tableView, delegate = _delegate, orderInfo, tableInnerRect, isTableSelected = _isTableSelected, contentTableView = _contentTableView;
+@synthesize table, tableView, delegate = _delegate, orderInfo, tableInnerRect, isTableSelected = _isTableSelected, contentTableView = _contentTableView, isDragging;
 @dynamic selectedGuests;
 
 + (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL) showSeatNumbers
@@ -57,7 +57,7 @@
         [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
         [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
     }
-    
+
     CGFloat height = (tableRect.size.height) / table.seatsVertical;
     for(int i=0; i < table.seatsVertical; i++) {
         SeatView *seatView = [SeatView viewWithFrame: CGRectMake(tableRect.origin.x + tableRect.size.width, tableRect.origin.y + i * height, seatViewSize.width, height) offset:i + table.seatsHorizontal atSide:TableSideRight showSeatNumber: showSeatNumbers];
@@ -107,6 +107,19 @@
     }
     else {
         layer.borderColor = [[UIColor grayColor] CGColor];
+    }
+}
+
+- (void) setIsDragging: (BOOL)dragging {
+
+    isDragging = dragging;
+    CALayer *layer = [tableView.layer.sublayers objectAtIndex:0];
+    if ([[orderInfo guests] count] > 0) {
+        layer.backgroundColor = isDragging ? [[UIColor clearColor] CGColor] : [[UIColor underPageBackgroundColor] CGColor];
+        layer.borderColor = isDragging ? [[UIColor clearColor] CGColor] : [[UIColor grayColor] CGColor];
+    }
+    else {
+
     }
 }
 

@@ -11,7 +11,7 @@
 
 @implementation SeatInfo
 
-@synthesize isMale, diet, guestId;
+@synthesize isMale, diet, guestId, isHost;
 
 + (SeatInfo *) seatInfoFromJsonDictionary: (NSDictionary *)jsonDictionary
 {

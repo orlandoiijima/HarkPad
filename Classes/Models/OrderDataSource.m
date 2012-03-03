@@ -411,8 +411,8 @@
             }
         }
     }
-
-    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: self  tableView: tableView guests: guestsWithFood];
+    OrderDataSourceSection *sectionInfo = [self groupForSection:section];
+    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: self  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false];
     return viewHeader;
 }
 

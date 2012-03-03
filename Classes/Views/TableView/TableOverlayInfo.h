@@ -10,7 +10,7 @@
 #import "Order.h"
 #import "Utils.h"
 
-@interface TableInfoView : UIView
+@interface TableOverlayInfo : UIView
 
 @property (retain) Order *order;
 @property (retain) UILabel *nameLabel;

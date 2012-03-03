@@ -24,6 +24,7 @@
 @property CGRect tableInnerRect;
 @property (retain) NSMutableArray * selectedGuests;
 @property BOOL isTableSelected;
+@property BOOL isDragging;
 
 + (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
 - (void)tapSeat: (id)sender;

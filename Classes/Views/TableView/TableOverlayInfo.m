@@ -4,11 +4,11 @@
 // To change the template use AppCode | Preferences | File Templates.
 //
 
-#import "TableInfoView.h"
+#import "TableOverlayInfo.h"
 #import "NSDate-Utilities.h"
 
 
-@implementation TableInfoView
+@implementation TableOverlayInfo
 
 @synthesize createdLabel, nameLabel, amountLabel;
 @dynamic order;

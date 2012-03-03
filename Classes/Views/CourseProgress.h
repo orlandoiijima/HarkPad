@@ -34,7 +34,7 @@ typedef enum CourseState {
 
 @property int countCourses;
 @property int currentCourse;
-@property int selectedCourse;
+@property (nonatomic) int selectedCourse;
 @property CourseState currentCourseState;
 @property (nonatomic, retain) id<ProgressDelegate> delegate;
 @property (retain) UILabel *label;
