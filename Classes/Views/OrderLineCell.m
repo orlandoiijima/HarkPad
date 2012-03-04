@@ -1,4 +1,5 @@
 #import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/QuartzCore.h>
 #import "OrderLineCell.h"
 #import "Utils.h"
 #import "ToggleButton.h"
@@ -145,6 +146,7 @@
         }
         x = 50;   
         cell.notesView = [[UITextField alloc] initWithFrame:CGRectMake(x, y, width - 8, controlHeight)];
+        cell.notesView.text = line.note;
         [cell.notesView addTarget: cell action:@selector(noteTextUpdated) forControlEvents:UIControlEventEditingChanged];
         cell.notesView.placeholder = NSLocalizedString(@"Notitie", nil);
         cell.notesView.backgroundColor = [UIColor whiteColor];

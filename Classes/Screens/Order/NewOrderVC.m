@@ -351,7 +351,7 @@
         {
             NSUInteger answer = [ModalAlert confirm:NSLocalizedString(@"Are you sure you want to remove the line ?", nil)];
             if(answer == 1)
-                dragNode.orderLine.entityState = Deleted;
+                dragNode.orderLine.entityState = EntityStateDeleted;
             [dragNode removeFromSuperview];
             dragNode = nil;
         }
@@ -383,7 +383,7 @@
         }
         else
         {
-            dragNode.orderLine.entityState = Deleted;
+            dragNode.orderLine.entityState = EntityStateDeleted;
             [order addLineWithProductId:dragNode.orderLine.product.id seat:seat course: course];
         }
         [dragNode removeFromSuperview];
@@ -418,7 +418,7 @@
     if(course == nil) return lines;
     
     for(OrderLine *line in course.lines)
-        if(line.guest.seat == seatOffset && [self matchesFilter:line] && line.entityState != Deleted)
+        if(line.guest.seat == seatOffset && [self matchesFilter:line] && line.entityState != EntityStateDeleted)
             [lines addObject:line];
     return lines;
 }
@@ -446,8 +446,8 @@
 {
     if(orderLine == nil)
         return NO;
-    if(orderLine.entityState == Deleted) return false;
-    if(showExisting == false && orderLine.entityState != New) return false;
+    if(orderLine.entityState == EntityStateDeleted) return false;
+    if(showExisting == false && orderLine.entityState != EntityStateNew) return false;
     if(showType == FoodAndDrink) return true;
     if(showType == Food && orderLine.product.category.isFood) return true;
     if(showType == Drink && orderLine.product.category.isFood == false) return true;
@@ -528,7 +528,7 @@
         if(course.offset >= firstCourseToMove)
         {
             course.offset += delta;
-            course.entityState = Modified;
+            course.entityState = EntityStateModified;
         }
     }
     [orderGridView redraw];
@@ -541,7 +541,7 @@
         if(guest.seat >= firstSeatToMove)
         {
             guest.seat += delta;
-            guest.entityState = Modified;
+            guest.entityState = EntityStateModified;
         }
     }
     [orderGridView redraw];

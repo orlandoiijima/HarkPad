@@ -31,6 +31,7 @@
 {
     OrderInfo *orderInfo = [[OrderInfo alloc] init];
     orderInfo.table = order.table;
+    orderInfo.state = order.state;
     orderInfo.countCourses = [order.courses count];
     Course *course = [order currentCourse];
     if (course != nil) {

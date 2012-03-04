@@ -11,6 +11,7 @@
 #import "Cache.h"
 #import "Reservation.h"
 #import "User.h"
+#import "DTO.h"
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {
@@ -18,8 +19,8 @@ typedef enum OrderState {
 } OrderState ;
 typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 
-@interface Order : NSObject {
-    EntityState entityState;
+@interface Order : DTO {
+//    EntityState entityState;
     NSMutableArray *courses;
     NSMutableArray *guests;
     NSMutableArray *lines;
@@ -29,7 +30,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
     NSString *name;
     Table *table;
     PaymentType paymentType;
-    int id;
+//    int id;
     OrderState state;
     User *invoicedTo;
 }
@@ -49,7 +50,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 - (Course *) addCourse;
 - (Guest *) addGuest;
 
-@property EntityState entityState;
+//@property EntityState entityState;
 @property (retain) NSMutableArray *courses;
 @property (retain) NSMutableArray *guests;
 @property (retain) NSMutableArray *lines;
@@ -58,7 +59,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property (retain) Table *table;
 @property PaymentType paymentType;
 @property (retain) Reservation *reservation;
-@property int id;
+//@property int id;
 @property OrderState state;
 @property (retain) NSString *name;
 @property (retain) User *invoicedTo;

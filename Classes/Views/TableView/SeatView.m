@@ -38,7 +38,7 @@
     view.imageTopLeft.frame = CGRectMake(2, 5, 18, 18);
     [view addSubview:view.imageTopLeft];
 
-    view.imageTopRight = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"errorRedDot.png"]];
+    view.imageTopRight = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"reddotbig.png"]];
     view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 5, 16, 16);
     [view addSubview:view.imageTopRight];
 
@@ -108,9 +108,9 @@
 - (void) setIsFemale: (BOOL)isFemale {
     _isFemale = isFemale;
     if (_isEmpty)
-        _image.image = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+        _image.image = [[UIImage imageNamed:@"userbig.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
     else
-        _image.image = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: _isFemale ? [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1] : [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
+        _image.image = [[UIImage imageNamed:@"userbig.png"] imageTintedWithColor: _isFemale ? [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1] : [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
 }
 
 - (void) setHasDiet: (BOOL)newHasDiet {

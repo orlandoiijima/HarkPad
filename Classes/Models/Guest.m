@@ -13,7 +13,7 @@
 
 @implementation Guest
 
-@synthesize id, isMale, isEmpty, isHost, seat, lines, entityState, diet, order;
+@synthesize isMale, isEmpty, isHost, seat, lines, diet, order;
 @dynamic nextGuest;
 
 - (id)init
@@ -22,15 +22,14 @@
 	{
         lines = [[NSMutableArray alloc] init];
         isMale = YES;
-        entityState = New;
+        entityState = EntityStateNew;
 	}
     return(self);
 }
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    Guest *guest = [[Guest alloc] init];
-    guest.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    Guest *guest = [[Guest alloc] initWithJson:jsonDictionary];
     guest.order = order;
     guest.seat = [[jsonDictionary objectForKey:@"seat"] intValue];
     id val = [jsonDictionary objectForKey:@"diet"];
@@ -42,14 +41,15 @@
     id isHost = [jsonDictionary objectForKey:@"isHost"];
     if (isHost != nil)
         guest.isHost = (BOOL) [isHost intValue];
-    guest.entityState = None;
+
+    guest.entityState = EntityStateNone;
+
     return guest;
 }
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"seat"];
     if (isMale == NO)
         [dic setObject: @"F" forKey:@"gender"];
@@ -57,29 +57,22 @@
         [dic setObject: [NSNumber numberWithInt:self.diet] forKey:@"diet"];
     if (isHost)
         [dic setObject: [NSNumber numberWithBool:isHost] forKey:@"isHost"];
-    [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     return dic;
 }
 
 - (void) setDiet: (Diet) aDiet {
     diet = aDiet;
-    self.entityState = Modified;
+    self.entityState = EntityStateModified;
 }
 
 - (void)setIsHost:(BOOL)anIsHost {
     isHost = anIsHost;
-    self.entityState = Modified;
+    self.entityState = EntityStateModified;
 }
 
 - (void)setIsMale:(BOOL)anIsMale {
     isMale = anIsMale;
-    self.entityState = Modified;
-}
-
-- (void) setEntityState:(EntityState)newState
-{
-    if(entityState == None || newState == Deleted || newState == None)
-        entityState = newState;
+    self.entityState = EntityStateModified;
 }
 
 - (Guest *) nextGuest {

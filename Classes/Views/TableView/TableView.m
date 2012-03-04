@@ -28,9 +28,15 @@
     view.table = tableInfo.table;
     view.orderInfo = tableInfo.orderInfo;
     Table *table = view.table;
-    CGFloat minimumSize = frame.size.width / (table.seatsHorizontal+2) < frame.size.height / (table.seatsVertical+2) ? frame.size.width / (table.seatsHorizontal+2) : frame.size.height / (table.seatsVertical+2);
+    int verticalUnits = table.seatsVertical + (table.seatsHorizontal > 0 ? 2 : 0);
+    int horizontalUnits = table.seatsHorizontal + (table.seatsVertical > 0 ? 2 : 0);
+    CGFloat minimumSize = frame.size.width / horizontalUnits < frame.size.height / verticalUnits ? frame.size.width / horizontalUnits : frame.size.height / verticalUnits;
     if (minimumSize > 50)
         minimumSize = 50;
+    if (table.seatsVertical)
+        minimumSize = MIN(frame.size.width/4, minimumSize);
+    if (table.seatsHorizontal)
+        minimumSize = MIN(frame.size.height/4, minimumSize);
     CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
 
     CGRect tableRect = CGRectMake(0, 0, frame.size.width, frame.size.height);
@@ -128,8 +134,8 @@
     SeatView *seatView = [self seatViewAtOffset:seat];
     if (seatView == nil) return CGRectZero;
     CGRect frame = CGRectOffset(seatView.frame, -tableView.frame.origin.x, -tableView.frame.origin.y);
-    CGFloat maxWidth = 120;
-    CGFloat maxHeight = 44;
+    CGFloat maxWidth = 100;
+    CGFloat maxHeight = 30;
     switch(seatView.side) {
         case TableSideTop:
             frame = CGRectMake(frame.origin.x, frame.origin.y + frame.size.height + 5, frame.size.width, MIN(frame.size.height, maxHeight));

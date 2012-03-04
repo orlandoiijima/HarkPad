@@ -7,7 +7,7 @@
 //
 
 #import "SlotDataSource.h"
-#import "OrderLine.h"
+#import "Order.h"
 #import "SlotTable.h"
 
 @implementation SlotDataSource

@@ -9,19 +9,20 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "CourseProgress.h"
 #import "Utils.h"
+#import "Order.h"
 
 
 @implementation CourseProgress
 
-@synthesize countCourses, currentCourse, currentCourseState, selectedCourse = _selectedCourse, delegate = _delegate, label;
+@synthesize countCourses, currentCourse, currentCourseState, selectedCourse = _selectedCourse, delegate = _delegate, label, orderState;
 
-+ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse {
++ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse orderState: (OrderState) orderState {
     CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame];
     progress.countCourses = countCourses;
     progress.currentCourse = currentCourseOffset;
     progress.selectedCourse = selectedCourse;
     progress.backgroundColor = [UIColor clearColor];
-
+    progress.orderState = orderState;
     progress.label = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width - frame.size.width/4)/2, (frame.size.height - frame.size.height/3)/2, frame.size.width/4, frame.size.height/3)];
     progress.label.autoresizingMask = (UIViewAutoresizing) -1;
     progress.label.text = [Utils getCourseChar: selectedCourse];
@@ -96,10 +97,12 @@
     {
         [self drawArcForCourse: (NSUInteger)course];
     }
+
+    if (orderState == OrderStateBilled || orderState == OrderStatePaid)
+        [self fillInnerCircle];
 }
 
-
-- (void) drawArcForCourse: (NSUInteger)course 
+- (void) drawArcForCourse: (NSUInteger)course
 {
     UIColor *fillColor;
     if(course > currentCourse || currentCourse == -1)
@@ -158,7 +161,35 @@
 
     [path closePath];
 
+
     return path;
+}
+
+- (void) fillInnerCircle
+{
+    float radius = self.bounds.size.height/2 * 0.4;
+    CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle: 2* M_PI clockwise:YES];
+    [path closePath];
+
+    [[UIColor redColor] setFill];
+    [path fill];
+
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+
+   	CGFloat col1[] =
+   	{
+       1.0, 0, 0, 1.0,
+       1.0, 0.5, 0.5, 1.0
+   	};
+
+    CGGradientRef bggradient = CGGradientCreateWithColorComponents(rgb, col1, NULL, sizeof(col1)/(sizeof(col1[0])*4));
+
+    CGContextAddPath(context, [path CGPath]);
+    CGContextClip(context);
+ 	CGContextDrawRadialGradient(context, bggradient, center, radius/4, center, radius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 }
 
 - (void)setSelectedCourse: (int) newCourse {

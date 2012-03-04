@@ -148,7 +148,7 @@
     CGRect frame;
      
     frame = CGRectMake(self.frame.size.width - self.widthPerPerson / 2, 0, self.widthPerPerson / 2, self.widthPerPerson / 2);
-    self.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourseOffset:0 currentCourseState: CourseStateNothing selectedCourse:-1];
+    self.progress = [CourseProgress progressWithFrame:frame countCourses:0 currentCourseOffset:0 currentCourseState: CourseStateNothing selectedCourse:-1 orderState:OrderStateOrdering];
     [self addSubview:self.progress];
     
     frame = CGRectMake(self.frame.size.width - self.unit, self.frame.size.height - self.unit, self.unit, self.unit);

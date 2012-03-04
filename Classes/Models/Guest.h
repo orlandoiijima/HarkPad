@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "EntityState.h"
+#import "DTO.h"
 
 @class Order;
 
@@ -31,21 +32,18 @@ enum {
 typedef NSUInteger Diet;
 
 
-@interface Guest : NSObject {
-    int id;
+@interface Guest : DTO {
     int seat;
     BOOL isMale;
     BOOL isEmpty;
     BOOL isHost;
     Diet diet;
-    EntityState entityState;
     NSMutableArray *lines;
 }
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
 
-@property int id;
 @property int seat;
 @property (nonatomic) BOOL isMale;
 @property BOOL isEmpty;
@@ -53,7 +51,6 @@ typedef NSUInteger Diet;
 @property (nonatomic) Diet diet;
 @property Order *order;
 @property (retain) NSMutableArray *lines;
-@property (nonatomic) EntityState entityState;
 @property Guest *nextGuest;
 
 @end

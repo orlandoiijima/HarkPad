@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Order.h"
 
-typedef enum CourseState {
-    CourseStateNothing, CourseStateServed, CourseStateRequested, CourseStateRequestedOverdue
-} CourseState;
 
 @protocol ProgressDelegate <NSObject>
 - (void)didTapCourse: (NSUInteger)courseOffset;
@@ -23,21 +21,22 @@ typedef enum CourseState {
     int countCourses;
     int currentCourse;
     int selectedCourse;
-    BOOL isCurrentCourseHot;
     id<ProgressDelegate> __strong delegate;
 }
 
-+ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse;
++ (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse orderState:(OrderState)orderState;
 - (UIBezierPath *) arcPathForCourse: (NSUInteger) course;
 - (void) drawArcForCourse: (NSUInteger)course;
 - (int) courseAtPoint: (CGPoint) point;
+- (void) fillInnerCircle;
 
-@property int countCourses;
+@property (nonatomic) int countCourses;
 @property int currentCourse;
 @property (nonatomic) int selectedCourse;
 @property CourseState currentCourseState;
 @property (nonatomic, retain) id<ProgressDelegate> delegate;
 @property (retain) UILabel *label;
+@property OrderState orderState;
 
 @end
 				

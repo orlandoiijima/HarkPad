@@ -8,18 +8,20 @@
 
 #import <Foundation/Foundation.h>
 #import "EntityState.h"
-#import "CourseProgress.h"
+#import "DTO.h"
 
 @class Order;
 
-@interface Course : NSObject {
-    int id;
+typedef enum CourseState {
+    CourseStateNothing, CourseStateServed, CourseStateRequested, CourseStateRequestedOverdue
+} CourseState;
+
+@interface Course : DTO {
     int offset;
     NSDate *requestedOn;
     NSDate *servedOn;
     NSMutableArray *lines;
     Order *order;
-    EntityState entityState;
 }
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
@@ -28,7 +30,6 @@
 
 NSInteger intSort(id num1, id num2, void *context);
 
-@property int id;
 @property int offset;
 @property (retain) NSDate *requestedOn;
 @property (retain) NSDate *servedOn;
@@ -36,6 +37,5 @@ NSInteger intSort(id num1, id num2, void *context);
 @property (retain) Order *order;
 @property (retain) Course *nextCourse;
 @property CourseState state;
-@property EntityState entityState;
 
 @end

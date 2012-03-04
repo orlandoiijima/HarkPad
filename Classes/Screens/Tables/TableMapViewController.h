@@ -22,6 +22,7 @@
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     District *currentDistrict;
     TableView *dragTableView;
+    TableView *targetTableView;
     bool isVisible;
     UISegmentedControl *districtPicker;
     UIView *currentDistrictView;
@@ -44,9 +45,9 @@
 - (void)getPaymentForOrder: (Order *)order;
 - (TableView *) tableViewAtPoint: (CGPoint) point;
 - (NSMutableArray *) dockTableView: (TableView *)outerMostTableView toTableView: (TableView *)masterTableView;
-- (void) transferOrder: (int)orderId;
+//- (void) transferOrder: (int)orderId;
 - (void) transferOrder: (int)orderId toTable: (int)tableId;
-- (TableButton *) buttonForOrder: (int)orderId;
+//- (TableButton *) buttonForOrder: (int)orderId;
 - (void) showActivityIndicator;
 - (void)hideActivityIndicator;
 - (void) setupToolbar;

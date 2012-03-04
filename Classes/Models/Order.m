@@ -15,7 +15,7 @@
 
 @implementation Order
 
-@synthesize table, courses, guests, createdOn, paidOn, state, entityState, reservation, id, lines, name, paymentType, invoicedTo;
+@synthesize table, courses, guests, createdOn, paidOn, state, reservation, lines, name, paymentType, invoicedTo;
 @dynamic lastCourse, lastSeat, currentCourse, nextCourseToRequest, nextCourseToServe;
 
 - (id)init
@@ -27,7 +27,7 @@
         self.lines = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
         self.state = OrderStateOrdering;
-        self.entityState = New;
+        self.entityState = EntityStateNew;
 	}
     return(self);
 }
@@ -48,9 +48,9 @@
 {
     Cache *cache = [Cache getInstance];
 
-    Order *order = [[Order alloc] init];
-    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    order.entityState = None;
+    Order *order = [[Order alloc] initWithJson:jsonDictionary];
+//    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
+//    order.entityState = EntityStateNone;
     order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
@@ -91,6 +91,8 @@
     {
         order.reservation = [Reservation reservationFromJsonDictionary: reservationDic];
     }
+
+        order.entityState = EntityStateNone;
     return order;
 }
 
@@ -106,9 +108,7 @@
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: [NSNumber numberWithInt: [self id]] forKey:@"id"];
-    [dic setObject: [NSNumber numberWithInt: [self entityState]] forKey:@"entityState"];
+    NSMutableDictionary *dic = [super toDictionary];
 
     if (table != nil)
         [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"tableId"];
@@ -122,30 +122,40 @@
     if (name != nil)
         [dic setObject:name forKey:@"name"];
 
-    if ([courses count] > 0) {
-        NSMutableArray *dicCourses = [[NSMutableArray alloc] init];
-        [dic setObject:dicCourses forKey:@"courses"];
-        for(Course *course in [self courses])
-        {
-            if ([course.lines count] > 0)
-                [dicCourses addObject: [course toDictionary]];
+    NSMutableArray *dicCourses = nil;
+    for(Course *course in [self courses])
+    {
+        if ([course.lines count] > 0 && course.entityState != EntityStateNone) {
+            if (courses == nil) {
+                dicCourses = [[NSMutableArray alloc] init];
+                [dic setObject:dicCourses forKey:@"courses"];
+            }
+            [dicCourses addObject: [course toDictionary]];
         }
     }
 
-    if ([guests count] > 0) {
-        NSMutableArray *dicGuests = [[NSMutableArray alloc] init];
-        [dic setObject:dicGuests forKey:@"guests"];
-        for(Guest *guest in [self guests])
-        {
+    NSMutableArray *dicGuests = nil;
+    for(Guest *guest in [self guests])
+    {
+        if (guest.entityState != EntityStateNone) {
+            if (dicGuests == nil) {
+                dicGuests = [[NSMutableArray alloc] init];
+                [dic setObject:dicGuests forKey:@"guests"];
+            }
             [dicGuests addObject: [guest toDictionary]];
         }
     }
 
-    NSMutableArray *dicLines = [[NSMutableArray alloc] init];
-    [dic setObject:dicLines forKey:@"lines"];
+    NSMutableArray *dicLines = nil;
     for(OrderLine *line in lines)
     {
-        [dicLines addObject: [line toDictionary]];
+        if (line.entityState != EntityStateNone) {
+            if (dicLines == nil) {
+                dicLines = [[NSMutableArray alloc] init];
+                [dic setObject:dicLines forKey:@"lines"];
+            }
+            [dicLines addObject: [line toDictionary]];
+        }
     }
     return dic;
 }
@@ -246,7 +256,7 @@
     OrderLine *line = [[OrderLine alloc] init];
 
     line.order = self;
-    line.entityState = New;
+    line.entityState = EntityStateNew;
     line.quantity = 1;
 
     if (productId >= 0)

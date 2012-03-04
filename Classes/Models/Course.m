@@ -13,7 +13,7 @@
 
 @implementation Course
 
-@synthesize id, offset, requestedOn, servedOn, lines, entityState, order;
+@synthesize offset, requestedOn, servedOn, lines, order;
 @dynamic state, nextCourse;
 
 - (id)init
@@ -21,16 +21,14 @@
     if ((self = [super init]) != NULL)
 	{
         self.lines = [[NSMutableArray alloc] init];
-        entityState = New;
+        entityState = EntityStateNew;
 	}
     return(self);
 }
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    Course *course = [[Course alloc] init];
-    course.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    course.entityState = None;
+    Course *course = [[Course alloc] initWithJson:jsonDictionary];
     course.offset = [[jsonDictionary objectForKey:@"offset"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil && (NSNull *) seconds != [NSNull null])
@@ -39,17 +37,16 @@
     if(seconds != nil && (NSNull *) seconds != [NSNull null])
         course.servedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     course.order = order;
+    course.entityState = EntityStateNone;
     return course;
 }
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: [NSNumber numberWithInt:self.offset] forKey:@"offset"];
     [dic setObject: [NSNumber numberWithInt:[self.requestedOn timeIntervalSince1970]] forKey:@"requestedOn"];
     [dic setObject: [NSNumber numberWithInt:[self.servedOn timeIntervalSince1970]] forKey:@"servedOn"];
-    [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
 
     return dic;
 }

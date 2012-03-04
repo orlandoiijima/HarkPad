@@ -220,7 +220,7 @@
         
     [self drawRoundedRect:c rect:frame radiusTop:first ? 8:0 radiusBottom:last ? 8:0 color:bgrColor];
     [textColor set];
-    UIFont *font = orderLine.entityState == New ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
+    UIFont *font = orderLine.entityState == EntityStateNew ? [UIFont boldSystemFontOfSize:17] : [UIFont systemFontOfSize:17];
     CGSize size = [orderLine.product.key sizeWithFont:font forWidth:frame.size.width lineBreakMode:UILineBreakModeClip];
     CGPoint point = CGPointMake(frame.origin.x + (frame.size.width - size.width)/2, frame.origin.y + (frame.size.height - size.height)/2);
     if((orderLine.propertyValues!= nil && orderLine.propertyValues.count > 0) || orderLine.note.length > 0)

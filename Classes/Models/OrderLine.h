@@ -18,11 +18,9 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @class Order;
 
-@interface OrderLine : NSObject <NSCopying> {
-    int id;
+@interface OrderLine : DTO <NSCopying> {
     Order *order;
     NSDate *createdOn;
-    EntityState entityState;
     Guest *guest;
     int quantity;
     Course *course;
@@ -33,14 +31,12 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
     NSMutableArray *propertyValues;
 }
 
-@property int id;
 @property (retain) Order *order;
 @property (retain) NSDate *createdOn;
-@property (nonatomic) EntityState entityState;
 @property (retain) Guest *guest;
 @property int quantity;
 @property (retain) Course *course;
-@property (retain) NSString *note;
+@property (nonatomic,retain) NSString *note;
 @property (retain) Product *product;
 @property int sortOrder;
 @property State state;

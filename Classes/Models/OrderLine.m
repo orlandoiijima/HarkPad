@@ -15,13 +15,11 @@
 
 @implementation OrderLine
 
-@synthesize id, order, quantity, product, sortOrder, guest, note, course, entityState, propertyValues, state, createdOn;
+@synthesize order, quantity, product, sortOrder, guest, note, course, propertyValues, state, createdOn;
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    OrderLine *orderLine = [[OrderLine alloc] init];
-//    orderLine.entityState = None;
-    orderLine.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    OrderLine *orderLine = [[OrderLine alloc] initWithJson:jsonDictionary];
     orderLine.order = order;
     int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
@@ -38,7 +36,7 @@
     
     val = [jsonDictionary objectForKey:@"state"];
     if((NSNull *)val != [NSNull null])
-        orderLine.state = [val intValue];
+        orderLine.state = (State)[val intValue];
     
     val = [jsonDictionary objectForKey:@"note"];
     if((NSNull *)val != [NSNull null])
@@ -72,14 +70,9 @@
         OrderLinePropertyValue *propertyValue = [OrderLinePropertyValue valueFromJsonDictionary: propertyValueDic]; 
         [orderLine.propertyValues addObject:propertyValue];
     }
-    
-    return orderLine;
-}
 
-- (void) setEntityState:(EntityState)newState
-{
-    if(entityState == None || newState == Deleted)
-        entityState = newState;
+    orderLine.entityState = EntityStateNone;
+    return orderLine;
 }
 
 - (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests
@@ -115,8 +108,7 @@
 
 - (NSDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+    NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"productId"];
     [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"sortOrder"];
     [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"quantity"];
@@ -124,7 +116,6 @@
         [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"seat"];
     if (course != nil)
         [dic setObject: [NSNumber numberWithInt:course.offset] forKey:@"course"];
-    [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     if(note != nil)
         [dic setObject: note forKey:@"note"];
 
@@ -168,8 +159,17 @@
         [propertyValues addObject:propertyValue];
     }
     propertyValue.value = value;
-    
+
+    self.entityState = EntityStateModified;
+
     return;
+}
+
+- (void)setNote:(NSString *)aNote {
+    if ([aNote isEqualToString: note] == NO) {
+        self.entityState = EntityStateModified;
+        note = aNote;
+    }
 }
 
 - (NSDecimalNumber *) getAmount

@@ -12,6 +12,7 @@
 #import "ProductMaintenance.h"
 #import "MenuTreeMaintenance.h"
 #import "NewOrderViewController.h"
+#import "TableMapViewController.h"
 
 @implementation HarkPadAppDelegate
 

@@ -18,9 +18,9 @@
         self.path = [CellPath pathForColumn:aPath.column row:aPath.row line:aPath.line];
 
         self.layer.cornerRadius = 3;
-        self.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.layer.shadowColor = [UIColor grayColor].CGColor;
         self.layer.shadowOpacity = 1.0;
-        self.layer.shadowRadius = 2.0;
+        self.layer.shadowRadius = 3.0;
         self.layer.shadowOffset = CGSizeMake(0, 2);
 
         self.autoresizesSubviews = YES;

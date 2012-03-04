@@ -44,7 +44,7 @@
         return;
 
     Product *product = [[Product alloc] init];
-    product.entityState = New;
+    product.entityState = EntityStateNew;
     product.name = NSLocalizedString(@"Nieuw", nil);
     product.key = NSLocalizedString(@"Nieuw", nil);
 
@@ -176,7 +176,7 @@
 
     cell.textLabel.alpha = product.isDeleted ? 0.3 : 1;
 
-    cell.textLabel.textColor = product.entityState == New || product.entityState == Modified ? [UIColor blueColor] : [UIColor blackColor];
+    cell.textLabel.textColor = product.entityState == EntityStateNew || product.entityState == EntityStateModified ? [UIColor blueColor] : [UIColor blackColor];
 
     cell.showsReorderControl = product.isDeleted == NO;
     cell.shouldIndentWhileEditing = NO;
@@ -195,8 +195,8 @@
     [product.category.products removeObject:product];
     [category.products insertObject:product atIndex:destinationIndexPath.row];
     product.category = category;
-    if (product.entityState != New)
-        product.entityState = Modified;
+    if (product.entityState != EntityStateNew)
+        product.entityState = EntityStateModified;
 }
 
 - (bool)validate {
@@ -232,7 +232,7 @@
     product.isDeleted = [[self getValueForKey:@"isDeleted"] boolValue];
 
     if ([self isDirty])
-        product.entityState = Modified;
+        product.entityState = EntityStateModified;
     return;
 }
 
@@ -258,15 +258,15 @@
         for(Product *product in category.products)
         {
             switch(product.entityState) {
-                case Modified:
+                case EntityStateModified:
                     [[Service getInstance] updateProduct: product delegate:self callback:@selector(updateFetcher:finishedWithData:error:)];
                     break;
-                case New:
+                case EntityStateNew:
                     [[Service getInstance] createProduct: product delegate:self callback:@selector(createFetcher:finishedWithData:error:)];
                     break;
-                case Deleted:
+                case EntityStateDeleted:
                     break;
-                case None:
+                case EntityStateNone:
                     break;
             }
         }
@@ -281,7 +281,7 @@
     ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
     if(serviceResult.id != -1) {
         product.id = serviceResult.id;
-        product.entityState = None;
+        product.entityState = EntityStateNone;
         [self invalidateRowForItem:product];
     }
     else {
@@ -295,7 +295,7 @@
 {
     Product *product = (Product *)fetcher.userData;
     if(product == nil) return;
-    product.entityState = None;
+    product.entityState = EntityStateNone;
     [self invalidateRowForItem:product];
 }
 

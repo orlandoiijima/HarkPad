@@ -60,7 +60,7 @@
                 }
             }
         }
-        orderLine.entityState = Modified;
+        orderLine.entityState = EntityStateModified;
         [popoverContainer dismissPopoverAnimated:YES];
         [(NewOrderVC *)controller refreshSelectedCell];
     }

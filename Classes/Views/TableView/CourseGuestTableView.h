@@ -11,7 +11,9 @@
 #import "CourseProgress.h"
 #import "GridViewCellLine.h"
 
-@interface CourseGuestTableView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate>
+@interface CourseGuestTableView : UIView  <UIGestureRecognizerDelegate, ProgressDelegate> {
+    CourseProgress *progressView;
+}
 
 @property int selectedCourse;
 @property (retain) TableView *tableView;
