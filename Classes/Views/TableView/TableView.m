@@ -40,7 +40,6 @@
     CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
 
     CGRect tableRect = CGRectMake(0, 0, frame.size.width, frame.size.height);
-  //  tableRect = CGRectInset(tableRect, 5, 5);
     if (table.seatsVertical > 0)
         tableRect = CGRectInset(tableRect, seatViewSize.width, 0);
     if (table.seatsHorizontal > 0)
@@ -87,8 +86,51 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if([self.delegate respondsToSelector:@selector(didTapTableView:)])
         return YES;
+    if([self.delegate respondsToSelector:@selector(didSelectTableView:)])
+        return YES;
     return NO;
 }
+
+//- (void)layoutSubviews {
+//    int verticalUnits = table.seatsVertical + (table.seatsHorizontal > 0 ? 2 : 0);
+//    int horizontalUnits = table.seatsHorizontal + (table.seatsVertical > 0 ? 2 : 0);
+//    CGFloat minimumSize = self.bounds.size.width / horizontalUnits < self.bounds.size.height / verticalUnits ? self.bounds.size.width / horizontalUnits : self.bounds.size.height / verticalUnits;
+////    if (minimumSize > 50)
+////        minimumSize = 50;
+//    if (table.seatsVertical)
+//        minimumSize = MIN(self.bounds.size.width/4, minimumSize);
+//    if (table.seatsHorizontal)
+//        minimumSize = MIN(self.bounds.size.height/4, minimumSize);
+//    CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
+//
+//    CGRect tableRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+//  //  tableRect = CGRectInset(tableRect, 5, 5);
+//    if (table.seatsVertical > 0)
+//        tableRect = CGRectInset(tableRect, seatViewSize.width, 0);
+//    if (table.seatsHorizontal > 0)
+//        tableRect = CGRectInset(tableRect, 0, seatViewSize.width);
+//
+//    self.tableView.frame = tableRect;
+//
+//    CGFloat x = tableRect.origin.x;
+//    CGFloat width = tableRect.size.width / table.seatsHorizontal;
+//    for(int i=0; i < table.seatsHorizontal; i++) {
+//        SeatView *seatView = [self seatViewAtOffset:i];
+//        seatView.frame = CGRectMake(x + i * width, tableRect.origin.y - seatViewSize.height, width, seatViewSize.height);
+//
+//        seatView = [self seatViewAtOffset:i + table.seatsHorizontal + table.seatsVertical];
+//        seatView.frame = CGRectMake(tableRect.origin.x + tableRect.size.width - (i+1)*width, tableRect.origin.y + tableRect.size.height, width, seatViewSize.height);
+//    }
+//
+//    CGFloat height = (tableRect.size.height) / table.seatsVertical;
+//    for(int i=0; i < table.seatsVertical; i++) {
+//        SeatView *seatView = [self seatViewAtOffset:i + table.seatsHorizontal];
+//        seatView.frame = CGRectMake(tableRect.origin.x + tableRect.size.width, tableRect.origin.y + i * height, seatViewSize.width, height);
+//
+//        seatView = [self seatViewAtOffset:i + table.seatsHorizontal + table.seatsVertical + table.seatsHorizontal];
+//        seatView.frame = CGRectMake(tableRect.origin.x - seatViewSize.width, tableRect.origin.y + tableRect.size.height - (i+1) * height, seatViewSize.width, height);
+//    }
+//}
 
 - (void) tapper: (UITapGestureRecognizer *)gestureRecognizer
 {
@@ -99,33 +141,26 @@
     if([self.delegate respondsToSelector:@selector(canSelectTableView:)])
         if ([self.delegate canSelectTableView:self] == false)
             canSelect = NO;
-    if (canSelect)
+    if (canSelect) {
         self.isTableSelected = YES;
+        if([self.delegate respondsToSelector:@selector(didSelectTableView:)])
+            [self.delegate didSelectTableView:self];
+    }
 }
 
 - (void)setIsTableSelected: (BOOL)selected
 {
     _isTableSelected = selected;
-    CALayer *layer = [tableView.layer.sublayers objectAtIndex:0];
-    if (selected) {
+    tableView.isSelected = selected;
+    if (selected)
         self.selectedGuests = nil;
-        layer.borderColor = [[UIColor whiteColor] CGColor];
-    }
-    else {
-        layer.borderColor = [[UIColor grayColor] CGColor];
-    }
 }
 
 - (void) setIsDragging: (BOOL)dragging {
 
     isDragging = dragging;
-    CALayer *layer = [tableView.layer.sublayers objectAtIndex:0];
     if ([[orderInfo guests] count] > 0) {
-        layer.backgroundColor = isDragging ? [[UIColor clearColor] CGColor] : [[UIColor underPageBackgroundColor] CGColor];
-        layer.borderColor = isDragging ? [[UIColor clearColor] CGColor] : [[UIColor grayColor] CGColor];
-    }
-    else {
-
+        tableView.isTransparent = isDragging;
     }
 }
 
@@ -194,6 +229,8 @@
     if (canSelect) {
         [self selectSeat:seatView.offset];
         self.isTableSelected = NO;
+        if([self.delegate respondsToSelector:@selector(didSelectSeat:)])
+            [self.delegate didSelectSeat: seatView.offset];
     }
 }
 

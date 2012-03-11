@@ -13,18 +13,19 @@
 #import "TablePopupDelegate.h"
 #import "OrderInfo.h"
 #import "TableInfo.h"
+#import "TableViewContainer.h"
 
 @interface TableView : UIView <ItemPropertiesDelegate, UIGestureRecognizerDelegate>
 
-@property (retain) UIView *tableView;
+@property (retain) TableViewContainer *tableView;
 @property (retain) Table *table;
 @property (retain) OrderInfo *orderInfo;
 @property (retain) id<TablePopupDelegate> delegate;
-@property (retain) UIView *contentTableView;
-@property CGRect tableInnerRect;
+@property (nonatomic,retain) UIView *contentTableView;
+@property (nonatomic) CGRect tableInnerRect;
 @property (retain) NSMutableArray * selectedGuests;
-@property BOOL isTableSelected;
-@property BOOL isDragging;
+@property (nonatomic) BOOL isTableSelected;
+@property (nonatomic) BOOL isDragging;
 
 + (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
 - (void)tapSeat: (id)sender;

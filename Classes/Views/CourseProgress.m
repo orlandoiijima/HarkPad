@@ -15,6 +15,7 @@
 @implementation CourseProgress
 
 @synthesize countCourses, currentCourse, currentCourseState, selectedCourse = _selectedCourse, delegate = _delegate, label, orderState;
+@dynamic radius, innerRadius;
 
 + (CourseProgress *) progressWithFrame: (CGRect) frame countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset currentCourseState: (CourseState) currentCourseState selectedCourse: (int)selectedCourse orderState: (OrderState) orderState {
     CourseProgress *progress = [[CourseProgress alloc] initWithFrame:frame];
@@ -38,6 +39,16 @@
     [progress addGestureRecognizer:tapper];
 
     return progress;
+}
+
+- (CGFloat) innerRadius
+{
+    return self.radius / 2;
+}
+
+- (CGFloat) radius
+{
+    return self.bounds.size.height/2 * 0.8;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -135,7 +146,7 @@
     [strokeColor setStroke];
     [fillColor setFill];
 
-    path.lineWidth = 2; //course == selectedCourse ?  : 0;
+    path.lineWidth = 1; //course == selectedCourse ?  : 0;
 
     [path fill];
     [path stroke];
@@ -148,16 +159,13 @@
 
     UIBezierPath *path = [UIBezierPath bezierPath];
 
-    float radius = self.bounds.size.height/2 * 0.8;
-    float radiusInner = radius/2;
     CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
+    CGFloat thisRadius = self.radius;
     if(course == _selectedCourse) {
-//        center.x += radius/8 * cosf(startAngle + (endAngle - startAngle)/2) ;
-//        center.y += radius/8 * sinf(startAngle + (endAngle - startAngle)/2) ;
-        radius *= 1.1;
+        thisRadius *= 1.1;
     }
-    [path addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:1];
-    [path addArcWithCenter:center radius:radiusInner startAngle:endAngle endAngle:startAngle clockwise:0];
+    [path addArcWithCenter:center radius: thisRadius startAngle:startAngle endAngle:endAngle clockwise:1];
+    [path addArcWithCenter:center radius: self.innerRadius startAngle:endAngle endAngle:startAngle clockwise:0];
 
     [path closePath];
 
@@ -167,29 +175,35 @@
 
 - (void) fillInnerCircle
 {
-    float radius = self.bounds.size.height/2 * 0.4;
-    CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle: 2* M_PI clockwise:YES];
-    [path closePath];
-
+    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(self.bounds, (self.bounds.size.width - 2*self.innerRadius)/2, (self.bounds.size.width - 2*self.innerRadius)/2)];
     [[UIColor redColor] setFill];
+    [[UIColor whiteColor] setStroke];
+    path.lineWidth = 3;
+    [path stroke];
     [path fill];
-
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-
-   	CGFloat col1[] =
-   	{
-       1.0, 0, 0, 1.0,
-       1.0, 0.5, 0.5, 1.0
-   	};
-
-    CGGradientRef bggradient = CGGradientCreateWithColorComponents(rgb, col1, NULL, sizeof(col1)/(sizeof(col1[0])*4));
-
-    CGContextAddPath(context, [path CGPath]);
-    CGContextClip(context);
- 	CGContextDrawRadialGradient(context, bggradient, center, radius/4, center, radius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+//    float radius = self.bounds.size.height/2 * 0.4;
+//    CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
+//    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle: 2* M_PI clockwise:YES];
+//    [path closePath];
+//
+//    [[UIColor redColor] setFill];
+//    [path fill];
+//
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//
+//    CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
+//
+//   	CGFloat col1[] =
+//   	{
+//       1.0, 0, 0, 1.0,
+//       1.0, 0.5, 0.5, 1.0
+//   	};
+//
+//    CGGradientRef bggradient = CGGradientCreateWithColorComponents(rgb, col1, NULL, sizeof(col1)/(sizeof(col1[0])*4));
+//
+//    CGContextAddPath(context, [path CGPath]);
+//    CGContextClip(context);
+// 	CGContextDrawRadialGradient(context, bggradient, center, radius/4, center, radius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 }
 
 - (void)setSelectedCourse: (int) newCourse {

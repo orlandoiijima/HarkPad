@@ -93,8 +93,8 @@ typedef enum TapStyle {tapNothing, tapPopout, tapPopoutPopin} TapStyle;
 @property (nonatomic, retain) id<GridViewDataSource> dataSource;
 @property (nonatomic, retain) id<UIScrollViewDelegate, GridViewDelegate> delegate;
 
-@property float leftHeaderWidth;
-@property float topHeaderHeight;
+@property (nonatomic) float leftHeaderWidth;
+@property (nonatomic) float topHeaderHeight;
 @property float spaceBetweenCellLines;
 @property CGSize cellPadding;
 @property int columnWidth;

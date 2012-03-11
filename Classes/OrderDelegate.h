@@ -9,5 +9,10 @@
 @protocol OrderDelegate <NSObject>
 @optional
 - (void) didSelectOrderLine: (OrderLine *)line;
+- (BOOL) canEditOrderLine: (OrderLine *)line;
+- (void) didMoveOrderLine: (OrderLine *)line toOrderLine: (OrderLine *)toLine toIndexPath: (NSIndexPath *)destinationIndexPath;
 - (void) updatedCell: (UITableViewCell *)cell;
+- (void) didSelectSection: (NSUInteger)section;
+- (void) didExpandSection: (NSUInteger)section collapseAllOthers: (BOOL)collapseOthers;
+- (void) didCollapseSection: (NSUInteger)section;
 @end

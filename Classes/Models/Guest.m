@@ -47,6 +47,14 @@
     return guest;
 }
 
++ (NSString *) dietName: (int)offset {
+    NSString *keyForName = [NSString stringWithFormat:@"Diet%d", offset];
+    NSString *name =  NSLocalizedString(keyForName, nil);
+    if ([name isEqualToString:keyForName])
+        return @"";
+    return name;
+}
+
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
@@ -84,6 +92,10 @@
         }
     }
     return nextGuest;
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@ %d", NSLocalizedString(@"Seat", nil), seat+1];
 }
 
 @end

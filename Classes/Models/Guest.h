@@ -15,19 +15,19 @@
 enum {
     DietNone                = 0,
     DietGlutenAllergy       = 1 << 0,
-    DietLactoseIntolerance  = 1 << 0,
-    DietMilkAllergy         = 1 << 0,
-    DietNutAllergy          = 1 << 0,
-    DietHalal           = 1 << 0,
-    DietKosher          = 1 << 0,
-    DietNoMeat          = 1 << 0,
-    DietNoFish          = 1 << 0,
-    DietLowCalories     = 1 << 0,
-    DietLowCarb         = 1 << 0,
-    DietLowSugar        = 1 << 0,
-    DietLowSalt         = 1 << 0,
-    DietLowFat          = 1 << 0,
-    DietMontignac       = 1 << 0,
+    DietLactoseIntolerance  = 1 << 1,
+    DietMilkAllergy         = 1 << 2,
+    DietNutAllergy          = 1 << 3,
+    DietHalal           = 1 << 4,
+    DietKosher          = 1 << 5,
+    DietNoMeat          = 1 << 6,
+    DietNoFish          = 1 << 7,
+    DietLowCalories     = 1 << 8,
+    DietLowCarb         = 1 << 9,
+    DietLowSugar        = 1 << 10,
+    DietLowSalt         = 1 << 11,
+    DietLowFat          = 1 << 12,
+    DietMontignac       = 1 << 13,
 };
 typedef NSUInteger Diet;
 
@@ -43,6 +43,7 @@ typedef NSUInteger Diet;
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
++ (NSString *) dietName: (int)offset;
 
 @property int seat;
 @property (nonatomic) BOOL isMale;

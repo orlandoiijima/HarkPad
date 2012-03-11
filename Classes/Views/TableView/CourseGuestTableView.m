@@ -79,7 +79,6 @@
             frame = CGRectOffset( frame, 0,  self.frame.size.height - tableView.tableView.bounds.size.height);
         for (int c = [order.courses count] - 1; c >= 0; c--) {
             course = [order.courses objectAtIndex:c];
-            CGFloat angle;
             for(OrderLine *line in course.lines) {
                 if (line.guest != nil && line.guest.id == guest.id && line.product.category.isFood) {
                     GridViewCellLine *cellLine = [[GridViewCellLine alloc] initWithTitle:line.product.key middleLabel:nil bottomLabel:nil backgroundColor:line.product.category.color path:nil];
@@ -96,77 +95,6 @@
 
     self.progressView.selectedCourse = 0;
 }
-
-//- (void) layoutSubviews {
-//
-//    Course *nextCourseToRequest = [order nextCourseToRequest];
-//    Course *nextCourseToServe = [order nextCourseToServe];
-//
-//    Course *course = [order getCourseByOffset: self.selectedCourse];
-//    Course *nextCourse = course.nextCourse;
-//
-//    CGRect seatRect = [tableView rectInTableForSeat: 0];
-//    CGRect courseInfoRect = CGRectInset([tableView tableInnerRect], 10, 10);
-//
-//    CGFloat y = courseInfoRect.origin.y;
-//    CGFloat height = tableView.tableView.bounds.size.height - 3*seatRect.size.height - 20;
-//    if (nextCourseToRequest == course || nextCourseToServe == course)
-//        height -= 50;
-//
-//    NSDate *date = nil;
-//    NSString *caption = nil;
-//    if (course.servedOn != nil && [course.servedOn isToday]) {
-//        date = course.servedOn;
-//        caption = NSLocalizedString(@"Served", nil);
-//    }
-//    else
-//    if (course.requestedOn != nil && [course.requestedOn isToday]) {
-//        date = course.requestedOn;
-//        caption = NSLocalizedString(@"Requested", nil);
-//    }
-//
-//    y += height + 5;
-//    if (date != nil) {
-//        dateLabel.text = [NSString stringWithFormat:@"%@: %@", caption, [date dateDiff]];
-//        y += dateLabel.bounds.size.height + 5;
-//        dateLabel.alpha = 1;
-//    }
-//    else
-//        dateLabel.alpha = 0;
-//
-//    button.alpha = 0;
-//    if (nextCourseToRequest == course) {
-//        [button setTitle:NSLocalizedString(@"Request course", nil) forState:UIControlStateNormal];
-//        button.alpha = 1;
-//    }
-//    else if (nextCourseToServe == course) {
-//        [button setTitle:NSLocalizedString(@"Serve course", nil) forState:UIControlStateNormal];
-//        button.alpha = 1;
-//    }
-//
-//    if (courseInfoRect.size.width > courseInfoRect.size.height) {
-//        CGFloat x = courseInfoRect.origin.x;
-//        progressView.frame = CGRectMake(x, courseInfoRect.origin.y, courseInfoRect.size.height, courseInfoRect.size.height);
-//        x += progressView.frame.size.width + 20;
-//        if (button == nil) {
-//            if (date != nil) {
-//                dateLabel.frame = CGRectMake(x, courseInfoRect.origin.y, courseInfoRect.size.width - (progressView.frame.size.width + 20), courseInfoRect.size.height);
-//            }
-//        }
-//        else {
-//            if (date != nil) {
-//                dateLabel.frame = CGRectMake(x, courseInfoRect.origin.y, courseInfoRect.size.width - (progressView.frame.size.width + 20), 20);
-//                button.frame = CGRectMake(x, courseInfoRect.origin.y + 20, courseInfoRect.size.width - (progressView.frame.size.width + 20), 44);
-//            }
-//            else {
-//                button.frame = CGRectMake(x, courseInfoRect.origin.y, courseInfoRect.size.width - (progressView.frame.size.width + 20), 44);
-//            }
-//        }
-//    }
-//    else {
-//        progressView.frame = CGRectMake(courseInfoRect.origin.x, courseInfoRect.origin.y, courseInfoRect.size.width, courseInfoRect.size.width);
-//    }
-//}
 
 - (int)seatFromCellLine: (GridViewCellLine *)cellLine
 {

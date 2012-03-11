@@ -9,12 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "ProductCategory.h"
 #import "EntityState.h"
+#import "Guest.h"
 
 @class OrderLineProperty;
 
 typedef enum Vat {Low=0, High=1} Vat;
 
-@interface Product : NSObject {
+@interface Product : DTO <NSCopying> {
     NSString *name;
     NSString *key;
     ProductCategory *category;
@@ -23,10 +24,9 @@ typedef enum Vat {Low=0, High=1} Vat;
     int sortOrder;
     bool isQueued;
     bool isDeleted;
-    int id;
+    Diet diet;
     NSMutableArray *properties;
     Vat vat;
-    EntityState entityState;
 }
 
 
@@ -39,9 +39,8 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property Vat vat;
 @property bool isQueued;
 @property bool isDeleted;
-@property EntityState entityState;
-@property int id;
 @property (retain) NSMutableArray *properties;
+@property (nonatomic) Diet diet;
 
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
 - (NSMutableDictionary *)toDictionary;

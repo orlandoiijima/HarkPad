@@ -21,11 +21,11 @@
 
 + (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side showSeatNumber: (BOOL)showSeatNumber;
 
-@property BOOL isEmpty;
-@property BOOL isFemale;
-@property BOOL hasDiet;
-@property BOOL isHost;
-@property BOOL isSelected;
+@property (nonatomic) BOOL isEmpty;
+@property (nonatomic) BOOL isFemale;
+@property (nonatomic) BOOL hasDiet;
+@property (nonatomic) BOOL isHost;
+@property (nonatomic) BOOL isSelected;
 @property TableSide side;
 @property int offset;
 @property (retain) UIImageView *image;

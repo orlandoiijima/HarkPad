@@ -32,7 +32,6 @@
         dayLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:dayLabel];
 
-        int spacing = 5;
         int width = (int) ((frame.size.width) / 7);
         int x = 0;
         int y = 40;
@@ -50,7 +49,6 @@
             label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
             [self addSubview: label];
             
-            CGRect bounds = [label textRectForBounds:frame limitedToNumberOfLines:1];
             label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + label.bounds.size.height, width, labelHeight)];
             label.textAlignment = UITextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:16];

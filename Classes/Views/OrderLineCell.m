@@ -49,7 +49,7 @@
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
-    cell.selectionStyle = UITableViewCellSelectionStyleNone; // UITableViewCellEditingStyleNone;
+    cell.selectionStyle = UITableViewCellEditingStyleNone;
     cell.clipsToBounds = YES;
 
     cell.delegate = delegate;
@@ -119,6 +119,7 @@
     }
 
     if (isEditable) {
+        cell.showsReorderControl = YES;
         float x = 50;
         float y = rowHeight;
         float margin = 10;
@@ -229,7 +230,7 @@
         name.text = line.product.name;
     else {
         name.text = NSLocalizedString(@"Tap to select course", nil);
-        name.textColor = [UIColor lightGrayColor];
+        name.textColor = [UIColor colorWithWhite:0.3 alpha:1];
     }
 
     if (showProductProperties) {

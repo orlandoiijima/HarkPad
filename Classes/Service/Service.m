@@ -35,7 +35,6 @@ static Service *_service;
             url = URL_FRASCATI;
         else
             url = URL_DEV;
-        url = URL_DEV_EXT;
     }
     return self;
 }
@@ -237,7 +236,6 @@ static Service *_service;
 
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
 {
-    NSLog(@"Service: getReservations: %@", date);
     int dateSeconds = (int) [date timeIntervalSince1970];
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];

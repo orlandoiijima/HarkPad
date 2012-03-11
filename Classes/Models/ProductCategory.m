@@ -58,7 +58,6 @@
         [dic setObject: self.name forKey:@"name"];
     float r,g,b,a;
     [self.color getRed:&r green:&g blue:&b alpha:&a];
-    NSUInteger y = (int)(255*r) << 24;
     NSUInteger x = ((long)(255*r) << 24) + ((long)(255*g) << 16) + ((long)(255*b) << 8) + ((long)(255*a));
     [dic setObject: [NSNumber numberWithUnsignedLong:x] forKey:@"color"];
     return dic;

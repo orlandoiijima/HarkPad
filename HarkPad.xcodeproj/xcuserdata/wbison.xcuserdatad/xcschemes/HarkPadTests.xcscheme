@@ -15,7 +15,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E50A382112E21165007C2101"
                BlueprintName = "HarkPadTests"
-               ReferencedContainer = "container:HarkPad">
+               ReferencedContainer = "container:HarkPad"
+               BuildableName = "HarkPadTests">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -53,7 +54,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintName = "HarkPadTests"
-            ReferencedContainer = "container:HarkPad">
+            ReferencedContainer = "container:HarkPad"
+            BuildableName = "HarkPadTests">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>

@@ -20,15 +20,6 @@
     view.countHorizontal = table.seatsHorizontal;
     view.countVertical = table.seatsVertical;
     view.guests = guests;
-//    if (guest == nil) {
-//        view.seatOffset = -1;
-//        view.fillColor = [UIColor blackColor];
-//    }
-//    else {
-//        view.seatOffset = guest.seat;
-//        view.fillColor = (guest.isMale ? [UIColor  colorWithRed:135/255.0 green: 206/255.0 blue: 206/250.0 alpha:1] :
-//                [UIColor colorWithRed:1 green:182/255.0 blue:193/255.0 alpha:1]);
-//    }
     view.backgroundColor = [UIColor clearColor];
     return view;
 }

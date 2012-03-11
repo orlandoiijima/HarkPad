@@ -12,7 +12,7 @@
 
 }
 
-@synthesize isCollapsed, isSelected, lines, subTitle;
+@synthesize isCollapsed, isSelected, lines, subTitle, title;
 
 - (id)init
 {
@@ -22,6 +22,7 @@
         self.isSelected = NO;
         self.isCollapsed = NO;
         self.subTitle = @"";
+        self.title = @"";
 	}
     return(self);
 }

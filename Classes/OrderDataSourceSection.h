@@ -12,10 +12,12 @@
     BOOL isSelected;
     BOOL isCollapsed;
     NSMutableArray *lines;
+    NSString *title;
 }
 
 @property BOOL isSelected;
 @property BOOL isCollapsed;
 @property (retain) NSMutableArray *lines;
 @property (retain) NSString *subTitle;
+@property (retain) NSString *title;
 @end

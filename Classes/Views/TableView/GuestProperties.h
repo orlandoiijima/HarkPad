@@ -12,7 +12,7 @@
 
 @interface GuestProperties : UIView
 
-@property (retain) Guest *guest;
+@property (retain, nonatomic) Guest *guest;
 @property (retain) id<ItemPropertiesDelegate> delegate;
 @property (retain) ToggleButton *viewMale;
 @property (retain) ToggleButton *viewFemale;

@@ -14,7 +14,7 @@
     int id;
 }
 
-@property EntityState entityState;
+@property (nonatomic) EntityState entityState;
 @property int id;
 
 - (id)initWithJson:(NSDictionary *)jsonDictionary;

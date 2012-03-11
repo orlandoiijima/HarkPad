@@ -46,25 +46,25 @@
     [view.isHostView addTarget:delegate action:@selector(tapHost:) forControlEvents:UIControlEventTouchDown];
     [view addSubview: view.isHostView];
 
-    NSArray *diets = [NSArray arrayWithObjects:
-        NSLocalizedString(@"Gluten allergy", nil),
-        NSLocalizedString(@"Nut allergy", nil),
-        NSLocalizedString(@"Lactose intolerance", nil),
-        NSLocalizedString(@"Milk allergy", nil),
-        NSLocalizedString(@"Halal", nil),
-        NSLocalizedString(@"Kosher", nil),
-        NSLocalizedString(@"Montignac", nil),
-        NSLocalizedString(@"No meat", nil),
-        NSLocalizedString(@"No fish", nil),
-        NSLocalizedString(@"Salt free", nil),
-        nil];
-    int i = 0;
-    for(NSString *diet in diets) {
-        ToggleButton *toggle = [ToggleButton buttonWithTitle:NSLocalizedString([diets objectAtIndex:i], nil) image: [UIImage imageNamed:@"errorRedDot.png"] frame:CGRectZero];
+//    NSArray *diets = [NSArray arrayWithObjects:
+//        NSLocalizedString(@"Gluten allergy", nil),
+//        NSLocalizedString(@"Nut allergy", nil),
+//        NSLocalizedString(@"Lactose intolerance", nil),
+//        NSLocalizedString(@"Milk allergy", nil),
+//        NSLocalizedString(@"Halal", nil),
+//        NSLocalizedString(@"Kosher", nil),
+//        NSLocalizedString(@"Montignac", nil),
+//        NSLocalizedString(@"No meat", nil),
+//        NSLocalizedString(@"No fish", nil),
+//        NSLocalizedString(@"Salt free", nil),
+//        nil];
+    for(int i=0; i < 32; i++) {
+        NSString *diet = [Guest dietName:i];
+        if ([diet length] == 0) break;
+        ToggleButton *toggle = [ToggleButton buttonWithTitle:diet image: [UIImage imageNamed:@"errorRedDot.png"] frame:CGRectZero];
         [toggle addTarget:delegate action:@selector(tapDiet:) forControlEvents:UIControlEventTouchDown];
         [view addSubview:toggle];
         toggle.tag = 1 << i;
-        i++;
     }
 
     return view;
@@ -79,7 +79,7 @@
 
 - (void) setGuest: (Guest *)guest {
     for(int i=0; i < 20; i++) {
-        ToggleButton *toggle = [self viewWithTag:1 << i];
+        ToggleButton *toggle = (ToggleButton *)[self viewWithTag:1 << i];
         if (toggle != nil)
             toggle.isOn = guest != nil && guest.diet & (1 << i);
     }
@@ -92,7 +92,7 @@
 - (void) layoutSubviews {
     CGFloat x = 15,y = 95;
     int firstAtLine = 0;
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < 20; i++) {
         ToggleButton *toggle = (ToggleButton *) [self viewWithTag: 1 << i];
         if (toggle == nil) break;
         if (x + toggle.bounds.size.width + 10 > self.bounds.size.width) {

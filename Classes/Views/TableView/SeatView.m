@@ -39,7 +39,7 @@
     [view addSubview:view.imageTopLeft];
 
     view.imageTopRight = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"reddotbig.png"]];
-    view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 5, 16, 16);
+    view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 5, 18, 18);
     [view addSubview:view.imageTopRight];
 
     if (showSeatNumber) {
@@ -100,13 +100,13 @@
     }
 }
 
-- (void) setIsEmpty: (BOOL)isEmpty {
-    _isEmpty = isEmpty;
+- (void) setIsEmpty: (BOOL)empty {
+    _isEmpty = empty;
     [self setIsFemale:_isFemale];
 }
 
-- (void) setIsFemale: (BOOL)isFemale {
-    _isFemale = isFemale;
+- (void) setIsFemale: (BOOL)female {
+    _isFemale = female;
     if (_isEmpty)
         _image.image = [[UIImage imageNamed:@"userbig.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
     else

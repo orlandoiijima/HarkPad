@@ -44,7 +44,6 @@
             log = [log stringByAppendingString:[NSString stringWithFormat:@" %d", reservation.countGuests]];
         }
     }
-    NSLog(@"%@", log);
 }
 
 - (void) addReservation: (Reservation*) reservation fromTableView: (UITableView *)tableView

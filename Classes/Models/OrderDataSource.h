@@ -16,7 +16,7 @@
 
 typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} OrderLineSortOrder;
 
-@interface OrderDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, TableViewHeaderDelegate>{
+@interface OrderDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>{
     NSMutableDictionary *groupedLines;
     OrderGrouping grouping;
     bool totalizeProducts;
@@ -52,17 +52,20 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 
 + (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize;
 
-- (NSString *) keyForCourse: (Course *)course;
-- (NSString *) keyForGuest: (Guest *)guest;
-- (NSString *) groupingKeyForLine: (OrderLine *)line;
-- (NSString *) keyForSection:(int)section;
-- (int) sectionForKey:(NSString *) key;
+- (NSNumber *) keyForCourse: (Course *)course;
+- (NSNumber *) keyForGuest: (Guest *)guest;
+- (NSNumber *) keyForOrderLine: (OrderLine *)line;
+- (NSNumber *) keyForSection:(int)section;
+- (int) sectionForKey:(NSNumber *) key;
 - (OrderDataSourceSection *) groupForSection:(int) section;
 - (OrderLine *) orderLineAtIndexPath: (NSIndexPath *)indexPath;
 - (void) tableView:(UITableView *)tableView addLine: (OrderLine *)line;
 - (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (OrderDataSourceSection *)group;
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line;
 - (void) tableView:(UITableView *)tableView removeOrderLine:(OrderLine *)line;
-- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSString *)aKey;
+- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSNumber *)aKey;
+- (void) tableView:(UITableView *)tableView collapseSection: (NSUInteger)section;
+- (void) tableView:(UITableView *)tableView expandSection: (NSUInteger)sectionToExpand collapseAllOthers:(BOOL)collapseOthers;
+- (void) tableView:(UITableView *)tableView addSection: (int) section;
 
 @end

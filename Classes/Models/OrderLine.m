@@ -172,6 +172,24 @@
     }
 }
 
+- (void)setCourse:(Course *)aCourse {
+    if (course == nil && aCourse == nil)
+        return;
+    if (course.id == aCourse.id)
+        return;
+    self.entityState = EntityStateModified;
+    course = aCourse;
+}
+
+- (void)setGuest:(Guest *)aGuest {
+    if (guest == nil && aGuest == nil)
+        return;
+    if (guest.id == aGuest.id)
+        return;
+    self.entityState = EntityStateModified;
+    guest = aGuest;
+}
+
 - (NSDecimalNumber *) getAmount
 {
     return [self.product.price decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:self.quantity]];
@@ -190,5 +208,6 @@
     line.id = self.id;
     return line;
 }
+
 
 @end

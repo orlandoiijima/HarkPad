@@ -13,7 +13,7 @@
 
 @implementation Product
 
-@synthesize category, price, name, key, description, sortOrder, properties, isQueued, isDeleted, id, entityState;
+@synthesize category, price, name, key, description, sortOrder, properties, isQueued, isDeleted, diet;
 @synthesize vat;
 
 
@@ -29,7 +29,7 @@
 
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Product *product = [[Product alloc] init];
+    Product *product = [[Product alloc] initWithJson:jsonDictionary];
     product.key = [jsonDictionary objectForKey:@"key"];
     product.name = [jsonDictionary objectForKey:@"name"];
     if(product.name == nil)
@@ -43,8 +43,11 @@
     {
         product.vat = (Vat) [vat intValue];
     }
-    product.id = [[jsonDictionary objectForKey:@"id"] intValue];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
+    id val = [jsonDictionary objectForKey:@"diet"];
+    if (val != nil)
+        product.diet = [val intValue];
+
     id props =  [jsonDictionary objectForKey:@"properties"];
     if (props != nil) {
         for(NSDictionary *item in props)
@@ -98,4 +101,25 @@
     }
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    Product *product = [[Product allocWithZone:zone] init];
+    product.id = self.id;
+    product.key = [self.key copy];
+    product.name = [self.name copy];
+    product.category = self.category;
+    product.entityState = self.entityState;
+    product.price = self.price;
+    product.properties = self.properties;
+    return product;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([object isKindOfClass:[Product class]] == NO)
+        return NO;
+    Product *other = (Product *)object;
+    return self.id == other.id;
+}
+- (NSUInteger)hash {
+    return id;
+}
 @end

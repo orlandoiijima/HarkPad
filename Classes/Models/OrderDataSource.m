@@ -14,6 +14,7 @@
 #import "ModalAlert.h"
 #import "Utils.h"
 #import "NSDate-Utilities.h"
+#import "OrderGridHitInfo.h"
 
 @implementation OrderDataSource
 
@@ -49,12 +50,12 @@
     if (showEmptySections) {
         OrderDataSourceSection *group = [[OrderDataSourceSection alloc] init];
         [groupedLines setObject:group forKey: [self keyForCourse:nil]];
-        OrderLine *line = [[OrderLine alloc] init];
-        [group.lines addObject: line];
         switch(grouping) {
             case byCourse:
+                group.title = NSLocalizedString(@"General", nil);
                 for (Course *course in order.courses) {
-                    OrderDataSourceSection *group = [[OrderDataSourceSection alloc] init];
+                    group = [[OrderDataSourceSection alloc] init];
+                    group.title = course.description;
                     group.isCollapsed = course.servedOn != nil;
                     if (course.servedOn != nil)
                         group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Served at %@", nil), [course.servedOn dateDiff]];
@@ -62,19 +63,15 @@
                     if (course.requestedOn != nil)
                         group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Requested at %@", nil), [course.requestedOn dateDiff]];
                     [groupedLines setObject:group forKey: [self keyForCourse: course]];
-                    OrderLine *line = [[OrderLine alloc] init];
-                    line.course = course;
-                    [group.lines addObject: line];
                 }
                 break;
             case bySeat:
+                group.title = NSLocalizedString(@"Table", nil);
                 [groupedLines setObject:group forKey: [self keyForGuest:nil]];
                 for (Guest *guest in order.guests) {
-                    OrderDataSourceSection *group = [[OrderDataSourceSection alloc] init];
+                    group = [[OrderDataSourceSection alloc] init];
+                    group.title = guest.description;
                     [groupedLines setObject:group forKey: [self keyForGuest: guest]];
-                    OrderLine *line = [[OrderLine alloc] init];
-                    line.guest = guest;
-                    [group.lines addObject: line];
                 }
                 break;
             case noGrouping:
@@ -95,7 +92,7 @@
 - (void) tableView:(UITableView *)tableView addLine: (OrderLine *)line {
     if([line.product.price isEqualToNumber: [NSDecimalNumber zero]] && showFreeProducts == false)
         return;
-    NSString *key = [self groupingKeyForLine:line];
+    NSNumber *key = [self keyForOrderLine:line];
 
     OrderDataSourceSection *group = [groupedLines objectForKey:key];
     if(group == nil)
@@ -123,45 +120,58 @@
         line = [line copyWithZone:nil];
     }
 
-    BOOL isDummyReplacement = NO;
-    if (showEmptySections) {
-        if ([group.lines count] == 1) {
-            OrderLine *singleLine = [group.lines objectAtIndex:0];
-            if (singleLine.product == nil) {
-                [group.lines removeObjectAtIndex:0];
-                isDummyReplacement = YES;
-            }
-        }
-    }
-
     int row = [self insertionPointForLine:line inGroup:group];
     [group.lines insertObject:line atIndex:row];
     
     if (tableView != nil) {
         int section = [self sectionForKey:key];
-         NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
-        [tableView beginUpdates];
-        if (isDummyReplacement) {
-            [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-        }
-        else {
-            if ([group.lines count] == 1) {
-                [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
-            }
+        OrderDataSourceSection *group = [self groupForSection: section];
+        if (group.isCollapsed == NO) {
+             NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
+            [tableView beginUpdates];
+//            if ([group.lines count] == 1) {
+//                [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
+//            }
             [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
+            [tableView endUpdates];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
         }
-        [tableView endUpdates];
-        [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
     }
 }
 
-- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSString *)aKey {
+- (void) tableView:(UITableView *)tableView addSection: (int) section {
+    switch(grouping) {
+        case bySeat:
+            break;
+        case byCourse:
+            {
+            Course *course = [order.courses objectAtIndex:section-1];
+            OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
+            group.title = course.description;
+            [groupedLines setObject:group forKey: [self keyForCourse: course]];
+            break;
+            }
+        case noGrouping:
+        case byCategory:
+            NSLog(@"");
+            break;
+    }
+
+    if (tableView != nil) {
+        [tableView beginUpdates];
+        [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
+        [tableView endUpdates];
+    }
+}
+
+
+- (NSMutableArray *)getGuestsForProduct: (Product *)product andKey: (NSNumber *)aKey {
     NSMutableArray *guests = [[NSMutableArray alloc] init];
     if (product != nil) {
         for (OrderLine *line in order.lines) {
             if (line.guest != nil && line.product.id == product.id) {
-                NSString *key = [self groupingKeyForLine:line];
-                if ([aKey isEqualToString:key])
+                NSNumber *key = [self keyForOrderLine:line];
+                if ([aKey isEqualToNumber:key])
                     [guests addObject:line.guest];
             }
         }
@@ -198,15 +208,15 @@
     if (group == nil) return;
     [group.lines removeObject:line];
     if ([group.lines count] == 0) {
-        NSString *key = [self groupingKeyForLine:line];
+        NSNumber *key = [self keyForOrderLine:line];
         [groupedLines removeObjectForKey: key];
     }
 
     NSMutableArray *itemsToDelete = [[NSMutableArray alloc] init];
     if (totalizeProducts) {
-        NSString *groupKey = [self groupingKeyForLine:line];
+        NSNumber *groupKey = [self keyForOrderLine:line];
         for(OrderLine *l in order.lines) {
-            if ([[self groupingKeyForLine:l] isEqualToString:groupKey] && l.product.id == line.product.id)
+            if ([[self keyForOrderLine:l] isEqualToNumber:groupKey] && l.product.id == line.product.id)
                 [itemsToDelete addObject:l];
         }
     }
@@ -275,7 +285,7 @@
 
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line {
     if (line == nil) return nil;
-    NSString *key = [self groupingKeyForLine:line];
+    NSNumber *key = [self keyForOrderLine:line];
     OrderDataSourceSection *group = [groupedLines objectForKey:key];
     if (group == nil || key == nil)
         return nil;
@@ -288,41 +298,41 @@
     return nil;
 }
 
-- (NSString *) groupingKeyForLine: (OrderLine *)line
+- (NSNumber *) keyForOrderLine: (OrderLine *)line
 {
     switch(grouping)
     {
         case noGrouping:
-            return @"";
+            return [NSNumber numberWithInt:1];
         case byCategory:
-            return [NSString stringWithFormat:@"%d.%@", line.product.category.sortOrder, line.product.category.name];
+            return [NSNumber numberWithInt: (line.product.category.sortOrder << 16) + line.product.category.id];
         case bySeat:
             return [self keyForGuest: line.guest];
         case byCourse:
             return [self keyForCourse: line.course];
     }
-    return @"";
+    return [NSNumber numberWithInt:1];
 }
 
-- (NSString *) keyForCourse: (Course *)course {
+- (NSNumber *) keyForCourse: (Course *)course {
     if (course == nil)
-        return NSLocalizedString(@"General", nil);
-    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Course", nil), [Utils getCourseChar: course.offset]];
+        return [NSNumber numberWithInt:-1];
+    return [NSNumber numberWithInt:course.offset];
 }
 
-- (NSString *) keyForGuest: (Guest *)guest {
+- (NSNumber *) keyForGuest: (Guest *)guest {
     if (guest == nil)
-        return NSLocalizedString(@"Table", nil);
-    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Seat", nil), [Utils getSeatChar: guest.seat]];
+        return [NSNumber numberWithInt:-1];
+    return [NSNumber numberWithInt: guest.seat];
 }
 
-- (NSString *) keyForSection:(int) section
+- (NSNumber *) keyForSection:(int) section
 {
     NSArray* sortedKeys = [[groupedLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
     return [sortedKeys objectAtIndex:section];
 }
 
-- (int) sectionForKey:(NSString *) key
+- (int) sectionForKey:(NSNumber *) key
 {
     NSArray* sortedKeys = [[groupedLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
     return [sortedKeys indexOfObject:key];
@@ -330,7 +340,7 @@
 
 - (OrderDataSourceSection *) groupForSection:(int) section
 {
-    NSString *key = [self keyForSection:section];
+    NSNumber *key = [self keyForSection:section];
     return [groupedLines objectForKey:key];
 }
 
@@ -364,17 +374,15 @@
     if (group.isCollapsed)
         return 0;
     int numberOfLines = [group.lines count];
-    if (numberOfLines == 0 && showEmptySections)
-        return 1;
     return numberOfLines;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if(grouping == noGrouping) return nil;
-    NSString *key = [self keyForSection:section];
-    NSString *title = [NSString stringWithString:key];
+    NSNumber *key = [self keyForSection:section];
+    OrderDataSourceSection *group = [groupedLines objectForKey:key];
+    NSString *title = group.title;
     if (showPrice) {
-        OrderDataSourceSection *group = [groupedLines objectForKey:key];
         NSDecimalNumber *total = [NSDecimalNumber zero];
         for(OrderLine *line in group.lines)
         {
@@ -387,7 +395,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 50;
+    return 40;
 }
 
 
@@ -400,20 +408,20 @@
     if (collapsableHeaders == false)
         return nil;
     CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
-    NSString *headerKey = [self keyForSection:section];
+    NSNumber *headerKey = [self keyForSection:section];
     NSMutableArray *guestsWithFood = [[NSMutableArray alloc] init];
     for (OrderLine *line in self.order.lines) {
         if (YES) {
             if (line.guest != nil) {
-                NSString *key = [self groupingKeyForLine:line];
-                if ([headerKey isEqualToString:key]) {
+                NSNumber *key = [self keyForOrderLine:line];
+                if ([headerKey isEqualToNumber:key]) {
                     [guestsWithFood addObject:line.guest];
                 }
             }
         }
     }
     OrderDataSourceSection *sectionInfo = [self groupForSection:section];
-    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: self  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false];
+    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: _delegate  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false isSelected: sectionInfo.isSelected];
     return viewHeader;
 }
 
@@ -441,11 +449,18 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     float height = rowHeight == 0 ? 44 : rowHeight;
     if (isEditable) {
-        NSIndexPath *indexPathSelected = [tableView indexPathForSelectedRow];
-        if (indexPathSelected != nil)
-            if (indexPath.row == indexPathSelected.row && indexPath.section == indexPathSelected.section) {
-                height += [OrderLineCell getExtraHeightForEditMode: [self orderLineAtIndexPath:indexPath] width:320];
-            }
+        BOOL canEdit = YES;
+        OrderLine *orderLine = [self orderLineAtIndexPath:indexPath];
+        if ([_delegate respondsToSelector:@selector(canEditOrderLine:)])
+            if ([_delegate canEditOrderLine:orderLine] == NO)
+                canEdit = NO;
+        if (canEdit) {
+            NSIndexPath *indexPathSelected = [tableView indexPathForSelectedRow];
+            if (indexPathSelected != nil)
+                if (indexPath.row == indexPathSelected.row && indexPath.section == indexPathSelected.section) {
+                    height += [OrderLineCell getExtraHeightForEditMode: orderLine width:320];
+                }
+        }
     }
     return height;
 }
@@ -492,4 +507,77 @@
     [self tableView:tableView removeOrderLine:line];
 }
 
+- (CollapseTableViewHeader *) tableView: (UITableView *)tableView headerViewForSection:(NSInteger)section {
+    for(UIView *view in tableView.subviews) {
+        if ([view isKindOfClass:[CollapseTableViewHeader class]]) {
+            CollapseTableViewHeader *viewHeader = (CollapseTableViewHeader *) view;
+            if (viewHeader.section == section)
+                return viewHeader;
+        }
+    }
+    return nil;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    if ([self tableView:tableView canEditRowAtIndexPath: proposedDestinationIndexPath] == NO) {
+        return sourceIndexPath;
+    }
+    return proposedDestinationIndexPath;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    if ([self tableView:tableView canEditRowAtIndexPath:destinationIndexPath] == NO) {
+        return;
+    }
+
+    OrderLine *line = [self orderLineAtIndexPath: sourceIndexPath];
+    if (line == nil)
+        return;
+    OrderLine *targetLine = [self orderLineAtIndexPath: destinationIndexPath];
+    if (targetLine == nil)
+        return;
+
+    OrderDataSourceSection *sourceSectionInfo = [self groupForSection:sourceIndexPath.section];
+    [sourceSectionInfo.lines removeObject:line];
+    OrderDataSourceSection *targetSectionInfo = [self groupForSection: destinationIndexPath.section];
+    [targetSectionInfo.lines insertObject:line atIndex:destinationIndexPath.row];
+
+    if (line.course.id == targetLine.course.id) {
+        [line.guest.lines removeObject: line];
+        [targetLine.guest.lines addObject:line];
+        line.guest = targetLine.guest;
+    }
+    else {
+        [line.course.lines removeObject:line];
+        [targetLine.course.lines addObject:line];
+        line.course = targetLine.course;
+    }
+
+    [tableView reloadSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:NO];
+    [tableView reloadSections:[NSIndexSet indexSetWithIndex:destinationIndexPath.section] withRowAnimation:NO];
+
+    if ([_delegate respondsToSelector:@selector(didMoveOrderLine:toOrderLine:toIndexPath:)])
+        return [_delegate didMoveOrderLine: line toOrderLine: targetLine  toIndexPath: destinationIndexPath];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    OrderLine *line = [self orderLineAtIndexPath:indexPath];
+    if (line == nil)
+        return NO;
+    if ([_delegate respondsToSelector:@selector(canEditOrderLine:)])
+        return [_delegate canEditOrderLine: line];
+    return NO;
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
 @end

@@ -23,7 +23,6 @@
 
 + (CourseGuestTableView *)viewWithTableView: (TableView *) tableView;
 
-- (void) swipe: (UITapGestureRecognizer *)swiper;
 - (void)selectCourse: (int) newSelection animate: (BOOL)animate;
 - (void) slideInCellLine: (GridViewCellLine *)cellLine;
 - (void) slideOutCellLine: (GridViewCellLine *)cellLine;

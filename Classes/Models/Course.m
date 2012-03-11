@@ -97,4 +97,10 @@
     return CourseStateServed;
 }
 
+- (NSString *)description {
+    NSArray *chars = [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
+    NSString *name = offset >= [chars count] ? @"X" : [chars objectAtIndex:offset];
+    return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Course", nil), name];
+}
+
 @end

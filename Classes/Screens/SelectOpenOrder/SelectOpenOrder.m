@@ -102,7 +102,7 @@
     }
 
     BillPdf *pdf = [BillPdf billByOrder:orderView.order];
-    pdf.create;
+    [pdf create];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)tapGestureRecognizer shouldReceiveTouch:(UITouch *)touch {

@@ -33,9 +33,9 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 @property (retain) Order *order;
 @property (retain) NSDate *createdOn;
-@property (retain) Guest *guest;
+@property (retain, nonatomic) Guest *guest;
 @property int quantity;
-@property (retain) Course *course;
+@property (retain, nonatomic) Course *course;
 @property (nonatomic,retain) NSString *note;
 @property (retain) Product *product;
 @property int sortOrder;

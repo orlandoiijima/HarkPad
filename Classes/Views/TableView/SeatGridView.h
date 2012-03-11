@@ -13,7 +13,7 @@
 
 @property int countHorizontal;
 @property int countVertical;
-@property (retain) NSMutableArray *guests;
+@property (retain, nonatomic) NSMutableArray *guests;
 
 + (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests;
 

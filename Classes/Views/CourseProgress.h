@@ -37,6 +37,7 @@
 @property (nonatomic, retain) id<ProgressDelegate> delegate;
 @property (retain) UILabel *label;
 @property OrderState orderState;
-
+@property CGFloat radius;
+@property CGFloat innerRadius;
 @end
 				

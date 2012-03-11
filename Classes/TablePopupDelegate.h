@@ -16,8 +16,10 @@
 - (void) getPaymentForOrder: (Order *) order;
 - (void) startNextCourseForOrder: (Order *) order;
 - (void) didTapSeat: (int)seatOffset;
+- (void) didSelectSeat: (int)seatOffset;
 - (BOOL) canSelectSeat: (int)seatOffset;
 - (void) didTapTableView: (TableView *)tableView;
 - (BOOL) canSelectTableView: (TableView *)tableView;
+- (void) didSelectTableView: (TableView *)tableView;
 @end
 
