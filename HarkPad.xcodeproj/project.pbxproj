@@ -25,6 +25,7 @@
 		E533A0CE132D2932005CB4D6 /* TimeFormatters.m in Sources */ = {isa = PBXBuildFile; fileRef = E533A0CC132D2931005CB4D6 /* TimeFormatters.m */; };
 		E533A0D1132D44C8005CB4D6 /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = E533A0D0132D44C8005CB4D6 /* refresh.png */; };
 		E547A3D513EDA6DC00E4AC1F /* ReservationWalkinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */; };
+		E55413AF1513D29900DDE051 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E55413AE1513D29900DDE051 /* libz.dylib */; };
 		E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC85139FD89000EB7C69 /* GTMHTTPFetcher.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E55DFCCD139FD89000EB7C69 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC89139FD89000EB7C69 /* IASKAppSettingsViewController.m */; };
 		E55DFCCE139FD89000EB7C69 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E55DFC8B139FD89000EB7C69 /* IASKAppSettingsWebViewController.m */; };
@@ -293,6 +294,9 @@
 		E5F609A313489C2400D88680 /* TableOverlayHud.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8867F /* TableOverlayHud.m */; };
 		E5F609A313489C2400D88687 /* circle-east.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88686 /* circle-east.png */; };
 		E5F609A313489C2400D88689 /* circle-south.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88688 /* circle-south.png */; };
+		E5F609A313489C2400D8868C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868B /* libTestFlight.a */; };
+		E5F609A313489C2400D8868E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868D /* README.txt */; };
+		E5F609A313489C2400D88690 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868F /* release_notes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -417,6 +421,7 @@
 		E53A10D013BE5BEB00F42E17 /* urls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = urls.h; sourceTree = "<group>"; };
 		E542E59212E2405700BD434C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReservationWalkinViewController.xib; sourceTree = "<group>"; };
+		E55413AE1513D29900DDE051 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E5557D2C12EC56C500CA547D /* ProductSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductSymbol.h; sourceTree = "<group>"; };
 		E5557D2D12EC56C500CA547D /* ProductSymbol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductSymbol.m; sourceTree = "<group>"; };
 		E555BD3513081DC10097EB0A /* Reservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reservation.h; sourceTree = "<group>"; };
@@ -788,6 +793,10 @@
 		E5F609A313489C2400D88681 /* TableOverlayHud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOverlayHud.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88686 /* circle-east.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-east.png"; sourceTree = "<group>"; };
 		E5F609A313489C2400D88688 /* circle-south.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle-south.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D8868B /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		E5F609A313489C2400D8868D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		E5F609A313489C2400D8868F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
+		E5F609A313489C2400D88691 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -795,6 +804,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E55413AF1513D29900DDE051 /* libz.dylib in Frameworks */,
 				E59F903E14925179008EA0DA /* Security.framework in Frameworks */,
 				E55DFCEF139FDA5C00EB7C69 /* MessageUI.framework in Frameworks */,
 				E5E723311311A12C00905959 /* QuartzCore.framework in Frameworks */,
@@ -803,6 +813,7 @@
 				E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */,
 				E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */,
 				E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */,
+				E5F609A313489C2400D8868C /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,6 +823,7 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E55413AE1513D29900DDE051 /* libz.dylib */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
 				E50A37FA12E21164007C2101 /* Resources */,
@@ -897,6 +909,7 @@
 				E50A38AE12E234B8007C2101 /* Views */,
 				E5F609A313489C2400D8858F /* Screens */,
 				E5F609A313489C2400D88609 /* Pdf */,
+				E5F609A313489C2400D8868A /* TestFlightSDK0.8.3 */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1724,6 +1737,17 @@
 			path = Tables;
 			sourceTree = "<group>";
 		};
+		E5F609A313489C2400D8868A /* TestFlightSDK0.8.3 */ = {
+			isa = PBXGroup;
+			children = (
+				E5F609A313489C2400D88691 /* TestFlight.h */,
+				E5F609A313489C2400D8868F /* release_notes.txt */,
+				E5F609A313489C2400D8868D /* README.txt */,
+				E5F609A313489C2400D8868B /* libTestFlight.a */,
+			);
+			path = TestFlightSDK0.8.3;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1867,6 +1891,8 @@
 				E5F609A313489C2400D8867A /* reddotbig2.png in Resources */,
 				E5F609A313489C2400D88687 /* circle-east.png in Resources */,
 				E5F609A313489C2400D88689 /* circle-south.png in Resources */,
+				E5F609A313489C2400D8868E /* README.txt in Resources */,
+				E5F609A313489C2400D88690 /* release_notes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2181,6 +2207,7 @@
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "HarkPad-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"${PROJECT_DIR}/Classes/TestFlightSDK0.8.3/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -2200,6 +2227,7 @@
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "HarkPad-Info.plist";
+				LIBRARY_SEARCH_PATHS = "\"${PROJECT_DIR}/Classes/TestFlightSDK0.8.3/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

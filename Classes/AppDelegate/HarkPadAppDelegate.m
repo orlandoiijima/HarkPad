@@ -13,6 +13,7 @@
 #import "MenuTreeMaintenance.h"
 #import "NewOrderViewController.h"
 #import "TableMapViewController.h"
+#import "TestFlight.h"
 
 @implementation HarkPadAppDelegate
 
@@ -24,6 +25,8 @@
     CGRect  rect = [[UIScreen mainScreen] bounds];
     window = [[UIWindow alloc] initWithFrame:rect];
     [window makeKeyAndVisible];
+
+    [TestFlight takeOff:@"64c7394c3f8507999809cd493b267759_NjkxNDQyMDEyLTAzLTA4IDA3OjU2OjI4LjI4MDQwOQ"];
 
     tabBarController = [[UITabBarController alloc] init];
     [window addSubview:tabBarController.view];
