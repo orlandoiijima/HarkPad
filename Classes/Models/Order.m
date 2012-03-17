@@ -126,7 +126,7 @@
     for(Course *course in [self courses])
     {
         if ([course.lines count] > 0 && course.entityState != EntityStateNone) {
-            if (courses == nil) {
+            if (dicCourses == nil) {
                 dicCourses = [[NSMutableArray alloc] init];
                 [dic setObject:dicCourses forKey:@"courses"];
             }
