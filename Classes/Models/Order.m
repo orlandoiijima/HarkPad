@@ -16,7 +16,7 @@
 @implementation Order
 
 @synthesize table, courses, guests, createdOn, paidOn, state, reservation, lines, name, paymentType, invoicedTo;
-@dynamic lastCourse, lastSeat, currentCourse, nextCourseToRequest, nextCourseToServe;
+@dynamic firstGuest, lastCourse, lastSeat, currentCourse, nextCourseToRequest, nextCourseToServe;
 
 - (id)init
 {
@@ -212,6 +212,13 @@
         return -1;
     Guest *guest = [guests objectAtIndex:guests.count-1];
     return guest.seat;
+}
+
+- (Guest *) firstGuest
+{
+    if(guests.count == 0)
+        return nil;
+    return [guests objectAtIndex:0];
 }
 
 - (Course *)currentCourse

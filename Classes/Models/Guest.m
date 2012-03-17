@@ -14,7 +14,7 @@
 @implementation Guest
 
 @synthesize isMale, isEmpty, isHost, seat, lines, diet, order;
-@dynamic nextGuest;
+@dynamic nextGuest, isLast;
 
 - (id)init
 {
@@ -92,6 +92,14 @@
         }
     }
     return nextGuest;
+}
+
+- (BOOL) isLast {
+    int last = -1;
+    for (Guest *guest in self.order.guests) {
+        last = MAX(last, guest.seat);
+    }
+    return (self.seat == last);
 }
 
 - (NSString *)description {

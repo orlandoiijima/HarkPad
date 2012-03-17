@@ -68,4 +68,5 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property (retain) Course *nextCourseToRequest;
 @property (retain) Course *nextCourseToServe;
 @property int lastSeat;
+@property (retain) Guest *firstGuest;
 @end

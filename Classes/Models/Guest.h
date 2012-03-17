@@ -53,5 +53,5 @@ typedef NSUInteger Diet;
 @property Order *order;
 @property (retain) NSMutableArray *lines;
 @property Guest *nextGuest;
-
+@property BOOL isLast;
 @end
