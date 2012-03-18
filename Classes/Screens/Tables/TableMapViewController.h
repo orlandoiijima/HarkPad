@@ -48,6 +48,7 @@
 - (void) setupToolbar;
 - (TableView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
 - (void)unzoom;
+- (void) revertDrag;
 
 @property (retain) UIView *currentDistrictView;
 @property (retain) UIBarButtonItem *buttonRefresh;

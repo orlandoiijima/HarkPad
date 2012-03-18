@@ -224,7 +224,6 @@
 
         case UIGestureRecognizerStateEnded:
         {
-            isRefreshTimerDisabled = NO;
             if(dragTableView == nil) return;
             CGPoint point = [panGestureRecognizer locationInView: self.currentDistrictView];
             if(dragTableView.table.seatOrientation == row)
@@ -235,11 +234,7 @@
             targetTableView = [self tableViewAtPoint: point];
             if(targetTableView == nil)
             {
-                District *district = [[[Cache getInstance] map] getDistrict: dragTableView.table.id];
-                self.currentDistrictOffset = [self offsetOfDistrict:district];
-                [UIView animateWithDuration:0.3 animations:^{
-                    dragTableView.center = dragTableOriginalCenter;
-                }];
+                [self revertDrag];
             }
             else
             {
@@ -250,6 +245,7 @@
                     [self dockTableView:dragTableView toTableView: targetTableView];
                 }
              }
+            isRefreshTimerDisabled = NO;
             break;
         }
 
@@ -260,14 +256,26 @@
     }
 }
 
+- (void) revertDrag
+{
+    District *district = [[[Cache getInstance] map] getDistrict: dragTableView.table.id];
+    self.currentDistrictOffset = [self offsetOfDistrict:district];
+    [UIView animateWithDuration:0.3 animations:^{
+        dragTableView.center = dragTableOriginalCenter;
+    }];
+}
+
 - (void) moveOrderFromTableView: (TableView *) from toTableView: (TableView *) to;
 {
     Service *service = [Service getInstance];
     [service transferOrder: from.orderInfo.id toTable: to.table.id delegate: self callback: @selector(transferOrderCallback:)];
 }
 
-- (void) transferOrderCallback: (ServiceResult *) result
+- (void) transferOrderCallback: (ServiceResult *) serviceResult
 {
+    if (serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+    }
     [self refreshView];
 }
 
@@ -698,33 +706,7 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
-
-//- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-//    if (scale == 1) {
-//        [self clearZoomedView];
-//        return;
-//    }
-//
-//    if (zoomedTableView == nil) return;
-//    [self.view setNeedsDisplay];
-//    [self setupZoomedView];
-//}
-//
-//- (void) setupZoomedView
-//{
-//    isRefreshTimerDisabled = YES;
-//    zoomedTableView.contentTableView.hidden = YES;
-//    CGRect rect = CGRectInset(zoomedTableView.frame, zoomedTableView.tableView.frame.origin.x, zoomedTableView.tableView.frame.origin.y);
-//    CGAffineTransform t = CGAffineTransformMakeScale(self.scrollView.zoomScale, self.scrollView.zoomScale);
-//    rect = CGRectApplyAffineTransform(rect, t);
-//
-//    tableViewDashboard = [[TableViewDashboard alloc] initWithFrame:CGRectInset(rect, 10, 10) tableView: zoomedTableView delegate: self];
-//    [self.view addSubview: tableViewDashboard];
-//}
-
 
 @end
 
