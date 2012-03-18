@@ -98,6 +98,7 @@
     if(group == nil)
     {
         group = [[OrderDataSourceSection alloc] init];
+        group.title = [self stringForOrderLine:line];
         [groupedLines setObject:group forKey:key];
     }
 
@@ -129,9 +130,6 @@
         if (group.isCollapsed == NO) {
              NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
             [tableView beginUpdates];
-//            if ([group.lines count] == 1) {
-//                [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationTop];
-//            }
             [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
             [tableView endUpdates];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
@@ -142,7 +140,13 @@
 - (void) tableView:(UITableView *)tableView addSection: (int) section {
     switch(grouping) {
         case bySeat:
+            {
+            Guest *guest = [order.guests objectAtIndex:section-1];
+            OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
+            group.title = guest.description;
+            [groupedLines setObject:group forKey: [self keyForGuest: guest]];
             break;
+            }
         case byCourse:
             {
             Course *course = [order.courses objectAtIndex:section-1];
@@ -151,9 +155,11 @@
             [groupedLines setObject:group forKey: [self keyForCourse: course]];
             break;
             }
-        case noGrouping:
         case byCategory:
-            NSLog(@"");
+            {
+            break;
+            }
+        case noGrouping:
             break;
     }
 
@@ -312,6 +318,22 @@
             return [self keyForCourse: line.course];
     }
     return [NSNumber numberWithInt:1];
+}
+
+- (NSString *) stringForOrderLine: (OrderLine *)line
+{
+    switch(grouping)
+    {
+        case noGrouping:
+            return @"";
+        case byCategory:
+            return line.product.category.name;
+        case bySeat:
+            return line.guest.description;
+        case byCourse:
+            return line.course.description;
+    }
+    return @"";
 }
 
 - (NSNumber *) keyForCourse: (Course *)course {
