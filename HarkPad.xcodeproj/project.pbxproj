@@ -297,6 +297,10 @@
 		E5F609A313489C2400D8868C /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868B /* libTestFlight.a */; };
 		E5F609A313489C2400D8868E /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868D /* README.txt */; };
 		E5F609A313489C2400D88690 /* release_notes.txt in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8868F /* release_notes.txt */; };
+		E5F609A313489C2400D88693 /* man_slim_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88692 /* man_slim_114.png */; };
+		E5F609A313489C2400D88695 /* woman_slim_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88694 /* woman_slim_114.png */; };
+		E5F609A313489C2400D88697 /* user_woman_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88696 /* user_woman_114.png */; };
+		E5F609A313489C2400D88699 /* user_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88698 /* user_114.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -797,6 +801,10 @@
 		E5F609A313489C2400D8868D /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		E5F609A313489C2400D8868F /* release_notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.txt; sourceTree = "<group>"; };
 		E5F609A313489C2400D88691 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88692 /* man_slim_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man_slim_114.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88694 /* woman_slim_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman_slim_114.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88696 /* user_woman_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_woman_114.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D88698 /* user_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_114.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1067,6 +1075,10 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D88698 /* user_114.png */,
+				E5F609A313489C2400D88696 /* user_woman_114.png */,
+				E5F609A313489C2400D88694 /* woman_slim_114.png */,
+				E5F609A313489C2400D88692 /* man_slim_114.png */,
 				E5F609A313489C2400D88688 /* circle-south.png */,
 				E5F609A313489C2400D88686 /* circle-east.png */,
 				E5F609A313489C2400D88679 /* reddotbig2.png */,
@@ -1893,6 +1905,10 @@
 				E5F609A313489C2400D88689 /* circle-south.png in Resources */,
 				E5F609A313489C2400D8868E /* README.txt in Resources */,
 				E5F609A313489C2400D88690 /* release_notes.txt in Resources */,
+				E5F609A313489C2400D88693 /* man_slim_114.png in Resources */,
+				E5F609A313489C2400D88695 /* woman_slim_114.png in Resources */,
+				E5F609A313489C2400D88697 /* user_woman_114.png in Resources */,
+				E5F609A313489C2400D88699 /* user_114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

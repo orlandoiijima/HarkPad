@@ -108,9 +108,13 @@
 - (void) setIsFemale: (BOOL)female {
     _isFemale = female;
     if (_isEmpty)
-        _image.image = [[UIImage imageNamed:@"userbig.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
-    else
-        _image.image = [[UIImage imageNamed:@"userbig.png"] imageTintedWithColor: _isFemale ? [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1] : [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
+        _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+    else {
+        if (_isFemale)
+            _image.image = [[UIImage imageNamed:@"user_woman_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1]];
+        else
+            _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
+    }
 }
 
 - (void) setHasDiet: (BOOL)newHasDiet {
