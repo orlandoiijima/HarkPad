@@ -107,7 +107,7 @@
         nameLabel.text = @"";
     }
     else {
-        tableLabel.text = [NSString stringWithFormat:@"Tafel %@", order.table.name];
+        tableLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), order.table.name];
         nameLabel.text = order.reservation == nil ? order.name : order.reservation.name;
     }
     orderTable.dataSource = dataSource;
