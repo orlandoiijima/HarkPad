@@ -13,6 +13,7 @@
 #import "OrderDelegate.h"
 #import "OrderDataSourceSection.h"
 #import "CollapseTableViewHeader.h"
+#import "OrderLineCell.h"
 
 typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} OrderLineSortOrder;
 

@@ -548,6 +548,11 @@
     if ([self tableView:tableView canEditRowAtIndexPath: proposedDestinationIndexPath] == NO) {
         return sourceIndexPath;
     }
+    OrderLine *targetLine = [self orderLineAtIndexPath: proposedDestinationIndexPath];
+    if (targetLine == nil)
+        return;
+    OrderLineCell *dragCell = [tableView cellForRowAtIndexPath:sourceIndexPath];
+    dragCell.seat.guests = [NSMutableArray arrayWithObject:targetLine.guest];
     return proposedDestinationIndexPath;
 }
 
