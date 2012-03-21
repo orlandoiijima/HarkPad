@@ -550,8 +550,8 @@
     }
     OrderLine *targetLine = [self orderLineAtIndexPath: proposedDestinationIndexPath];
     if (targetLine == nil)
-        return;
-    OrderLineCell *dragCell = [tableView cellForRowAtIndexPath:sourceIndexPath];
+        return sourceIndexPath;
+    OrderLineCell *dragCell = (OrderLineCell *) [tableView cellForRowAtIndexPath:sourceIndexPath];
     dragCell.seat.guests = [NSMutableArray arrayWithObject:targetLine.guest];
     return proposedDestinationIndexPath;
 }
@@ -592,7 +592,7 @@
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewCellEditingStyleNone;
+    return UITableViewCellEditingStyleDelete;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
