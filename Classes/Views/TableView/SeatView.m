@@ -15,9 +15,9 @@
 
 }
 
-@synthesize isFemale = _isFemale, isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset, isEmpty = _isEmpty, labelSeat;
+@synthesize isFemale = _isFemale, isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset, isEmpty = _isEmpty, labelOverlay, overlayText;
 
-+ (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side showSeatNumber: (BOOL)showSeatNumber {
++ (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side {
     SeatView *view = [[SeatView alloc] initWithFrame:frame];
     view.autoresizingMask = (UIViewAutoresizing)-1;
     view.side = side;
@@ -42,16 +42,13 @@
     view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 5, 18, 18);
     [view addSubview:view.imageTopRight];
 
-    if (showSeatNumber) {
-        view.labelSeat = [[UILabel alloc] initWithFrame:CGRectInset(view.image.frame, 5, 5)];
-        [view addSubview:view.labelSeat];
-        view.labelSeat.backgroundColor = [UIColor clearColor];
-        view.labelSeat.shadowColor = [UIColor whiteColor];
-        view.labelSeat.shadowOffset = CGSizeMake(1, 1);
-        view.labelSeat.textAlignment = UITextAlignmentCenter;
-        view.labelSeat.font = [UIFont systemFontOfSize:18];
-        view.labelSeat.text = [NSString stringWithFormat:@"%d", offset + 1];
-    }
+    view.labelOverlay = [[UILabel alloc] initWithFrame:CGRectMake(0, view.image.frame.origin.y + 5, frame.size.width, view.image.frame.size.height / 2)];
+    [view addSubview:view.labelOverlay];
+    view.labelOverlay.backgroundColor = [UIColor clearColor];
+    view.labelOverlay.shadowColor = [UIColor whiteColor];
+    view.labelOverlay.shadowOffset = CGSizeMake(1, 1);
+    view.labelOverlay.textAlignment = UITextAlignmentCenter;
+    view.labelOverlay.font = [UIFont systemFontOfSize:18];
 
     view.alpha = 1.0;
 
@@ -100,6 +97,11 @@
     }
 }
 
+- (void)setOverlayText:(NSString *)anOverlayText {
+    overlayText = anOverlayText;
+    labelOverlay.text = anOverlayText;
+}
+
 - (void) setIsEmpty: (BOOL)empty {
     _isEmpty = empty;
     [self setIsFemale:_isFemale];
@@ -129,14 +131,21 @@
 
 - (void)setIsSelected:(BOOL)anIsSelected {
     _isSelected = anIsSelected;
-    CALayer *layer = [self.layer.sublayers objectAtIndex:0];
     if (_isSelected) {
-        layer.borderColor = [[UIColor whiteColor] CGColor];
-        layer.backgroundColor = [[UIColor clearColor] CGColor];
+        [UIView animateWithDuration:0.4 animations: ^
+        {
+            _image.transform = CGAffineTransformMakeRotation(-0.1);
+        } completion: nil];
+        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
+        {
+            _image.transform = CGAffineTransformMakeRotation(0.1);
+        } completion: nil];
+        labelOverlay.hidden = NO;
     }
     else {
-        layer.borderColor = [[UIColor clearColor] CGColor];
-        layer.backgroundColor = [[UIColor clearColor] CGColor];
+        [_image.layer removeAllAnimations];
+        _image.transform = CGAffineTransformIdentity;
+        labelOverlay.hidden = YES;
     }
 }
 

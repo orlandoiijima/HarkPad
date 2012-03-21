@@ -33,5 +33,6 @@
 - (void)didModifyItem:(id)item;
 - (SeatView *)seatViewAtOffset: (NSUInteger)offset;
 - (CGRect) rectInTableForSeat: (NSUInteger)seat;
+- (void) setOverlayText: (NSString *) text forSeat: (int)offset;
 
 @end

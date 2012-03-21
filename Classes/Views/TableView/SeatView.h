@@ -19,7 +19,7 @@
     int offset;
 }
 
-+ (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side showSeatNumber: (BOOL)showSeatNumber;
++ (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side;
 
 @property (nonatomic) BOOL isEmpty;
 @property (nonatomic) BOOL isFemale;
@@ -31,7 +31,8 @@
 @property (retain) UIImageView *image;
 @property (retain) UIImageView *imageTopLeft;
 @property (retain) UIImageView *imageTopRight;
-@property (retain) UILabel *labelSeat;
+@property (retain) UILabel *labelOverlay;
+@property (retain, nonatomic) NSString *overlayText;
 - (void) initByGuest: (Guest *)guest;
 
 @end

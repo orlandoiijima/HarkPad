@@ -103,4 +103,9 @@
     return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Course", nil), name];
 }
 
+- (NSString *)descriptionShort {
+    NSArray *chars = [NSArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",nil];
+    return offset >= [chars count] ? @"X" : [chars objectAtIndex:offset];
+}
+
 @end

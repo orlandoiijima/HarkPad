@@ -27,6 +27,7 @@ typedef enum CourseState {
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
 - (NSString *) stringForCourse;
+- (NSString *)descriptionShort;
 
 NSInteger intSort(id num1, id num2, void *context);
 

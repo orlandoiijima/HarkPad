@@ -33,5 +33,6 @@
 - (void) selectNextCourse;
 - (CollapseTableViewHeader *) headerViewForSection:(NSInteger)section;
 - (int) courseOffsetFromSection: (int) section;
+- (void)updateSeatOverlay;
 
 @end

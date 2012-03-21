@@ -194,13 +194,15 @@
 - (void)didSelectCourse:(NSUInteger)courseOffset {
     Course *course = [_order getCourseByOffset:courseOffset];
     if (course == nil) return;
-    [self selectOrderLineForGuest: self.selectedGuest course:course];
+//    [self selectOrderLineForGuest: self.selectedGuest course:course];
+    [self updateSeatOverlay];
 }
 
 - (void)didSelectSeat:(int)seatOffset {
     Guest *guest = [_order getGuestBySeat:seatOffset];
     if (guest == nil) return;
-    [self selectOrderLineForGuest: guest course: self.selectedCourse];
+//    [self selectOrderLineForGuest: guest course: self.selectedCourse];
+    [self updateSeatOverlay];
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
 }
 
@@ -239,6 +241,13 @@
         if (headerView != nil)
             headerView.isSelected = sectionInfo.isSelected;
     }
+    [self updateSeatOverlay];
+}
+
+- (void)updateSeatOverlay
+{
+    NSString *overlay = [self.selectedCourse descriptionShort];
+    [_tableView setOverlayText:overlay  forSeat: self.selectedSeat];
 }
 
 - (Course *) selectedCourse
@@ -266,7 +275,7 @@
 - (void)setSelectedSeat: (int)seat
 {
     [_tableView selectSeat:seat];
-    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    [self didSelectSeat:seat];
 }
 
 - (int) selectedSeat
