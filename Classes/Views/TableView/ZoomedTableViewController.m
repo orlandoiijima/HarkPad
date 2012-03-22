@@ -52,10 +52,10 @@
 
 - (void)didChangeToPageView:(UIView *)view {
     if ([view isKindOfClass:[GuestProperties class]]) {
-        [tableView selectSeat:0];
+        self.selectedSeat = 0;
     }
     else {
-        [tableView selectSeat:-1];
+        self.selectedSeat = -1;
     }
 }
 
