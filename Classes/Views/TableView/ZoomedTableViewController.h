@@ -17,7 +17,7 @@
 #import "GuestProperties.h"
 #import "SelectItemDelegate.h"
 
-@interface ZoomedTableViewController : UIViewController <SelectItemDelegate>
+@interface ZoomedTableViewController : UIViewController <SelectItemDelegate, TablePopupDelegate>
 
 @property (retain) Order *order;
 @property (retain) Guest *selectedGuest;

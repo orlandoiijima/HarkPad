@@ -30,5 +30,6 @@
 
 - (id)initWithFrame:(CGRect)frame tableView: (TableView *)tableView delegate: (id<TablePopupDelegate>) delegate;
 - (void) scrollToView: (UIView *)view;
+- (UIView *)viewOnPage: (int)pageControl;
 
 @end

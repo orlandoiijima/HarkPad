@@ -21,5 +21,6 @@
 - (void) didTapTableView: (TableView *)tableView;
 - (BOOL) canSelectTableView: (TableView *)tableView;
 - (void) didSelectTableView: (TableView *)tableView;
+- (void) didChangeToPageView: (UIView *)view;
 @end
 

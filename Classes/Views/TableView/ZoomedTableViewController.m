@@ -50,6 +50,15 @@
 
 }
 
+- (void)didChangeToPageView:(UIView *)view {
+    if ([view isKindOfClass:[GuestProperties class]]) {
+        [tableView selectSeat:0];
+    }
+    else {
+        [tableView selectSeat:-1];
+    }
+}
+
 -(void) getOpenOrderByTableCallback: (Order *)tableOrder
 {
     order = tableOrder;
@@ -61,7 +70,6 @@
         }
     }
     [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
-    self.selectedSeat = 0;
     self.tableViewDashboard.actionsView.order = order;
     self.tableViewDashboard.infoView.order = order;
     self.tableViewDashboard.courseInfo.order = order;

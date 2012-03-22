@@ -132,10 +132,7 @@
 - (void)setIsSelected:(BOOL)anIsSelected {
     _isSelected = anIsSelected;
     if (_isSelected) {
-        [UIView animateWithDuration:0.4 animations: ^
-        {
-            _image.transform = CGAffineTransformMakeRotation(-0.1);
-        } completion: nil];
+        _image.transform = CGAffineTransformMakeRotation(-0.1);
         [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
             _image.transform = CGAffineTransformMakeRotation(0.1);
