@@ -47,6 +47,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 - (Guest *) getGuestBySeat: (int)seat;
 - (BOOL) isCourseAlreadyRequested: (int) courseOffset;
 - (void)addOrderLine: (OrderLine *)line;
+- (void)removeOrderLine: (OrderLine *)line;
 - (Course *) addCourse;
 - (Guest *) addGuest;
 

@@ -304,6 +304,18 @@
     return;
 }
 
+- (void)removeOrderLine: (OrderLine *)line {
+    if([self.lines containsObject:line] == NO) {
+        NSLog(@"Line not found in order");
+        return;
+    }
+    if (line.guest != nil)
+        [line.guest.lines removeObject:line];
+    if (line.course != nil)
+        [line.course.lines removeObject:line];
+    [lines removeObject:line];
+}
+
 - (Course *) addCourse
 {
     Course *course = [[Course alloc] init];

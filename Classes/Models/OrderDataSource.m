@@ -231,7 +231,7 @@
     }
 
     for(OrderLine *l in itemsToDelete) {
-        if (l.id != 0) {
+        if (l.id != -1) {
             ServiceResult *result = [[Service getInstance] deleteOrderLine: l.id];
             if(result == nil) return;
 
@@ -241,7 +241,9 @@
             }
         }
     }
-    [order.lines removeObjectsInArray:itemsToDelete];
+    for (OrderLine *line in itemsToDelete) {
+        [order removeOrderLine:line];
+    }
     
     if ([group.lines count] == 0)
         [tableView deleteSections:[NSIndexSet indexSetWithIndex: indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
