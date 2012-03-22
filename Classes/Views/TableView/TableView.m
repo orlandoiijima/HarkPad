@@ -291,8 +291,11 @@
     for(UIView *view in self.subviews) {
         if ([view isKindOfClass:[SeatView class]]) {
             SeatView *seatView = (SeatView *) view;
-            if (seatView.isSelected)
-                [seats addObject:[orderInfo getGuestBySeat:seatView.offset]];
+            if (seatView.isSelected) {
+                Guest *guest = [orderInfo getGuestBySeat:seatView.offset];
+                if (guest != nil)
+                    [seats addObject:guest];
+            }
         }
     }
     return seats;
