@@ -175,35 +175,13 @@
 
 - (void) fillInnerCircle
 {
-    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(self.bounds, (self.bounds.size.width - 2*self.innerRadius)/2, (self.bounds.size.width - 2*self.innerRadius)/2)];
+    CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius: self.innerRadius startAngle:0 endAngle: 2*M_PI clockwise:0];
     [[UIColor redColor] setFill];
     [[UIColor whiteColor] setStroke];
     path.lineWidth = 3;
     [path stroke];
     [path fill];
-//    float radius = self.bounds.size.height/2 * 0.4;
-//    CGPoint center = CGPointMake(self.bounds.size.width/2.0f, self.bounds.size.height/2.0f);
-//    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:center radius:radius startAngle:0 endAngle: 2* M_PI clockwise:YES];
-//    [path closePath];
-//
-//    [[UIColor redColor] setFill];
-//    [path fill];
-//
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//
-//    CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
-//
-//   	CGFloat col1[] =
-//   	{
-//       1.0, 0, 0, 1.0,
-//       1.0, 0.5, 0.5, 1.0
-//   	};
-//
-//    CGGradientRef bggradient = CGGradientCreateWithColorComponents(rgb, col1, NULL, sizeof(col1)/(sizeof(col1[0])*4));
-//
-//    CGContextAddPath(context, [path CGPath]);
-//    CGContextClip(context);
-// 	CGContextDrawRadialGradient(context, bggradient, center, radius/4, center, radius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 }
 
 - (void)setSelectedCourse: (int) newCourse {
