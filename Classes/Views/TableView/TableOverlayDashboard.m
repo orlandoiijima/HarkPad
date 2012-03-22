@@ -13,6 +13,8 @@
 
 @synthesize pageControl, reservationsTableView, scrollTableView, delegate, order, guestProperties, courseInfo, actionsView, infoView;
 
+#define PAGECONTROL_HEIGHT 50
+
 - (id)initWithFrame:(CGRect)frame tableView: (TableView *)tableView delegate: (id<TablePopupDelegate>) aDelegate
 {
     self = [super initWithFrame:frame];
@@ -20,13 +22,13 @@
 
         self.delegate = aDelegate;
 
-        pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height - 30, frame.size.width, 30)];
+        pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, frame.size.height - PAGECONTROL_HEIGHT, frame.size.width, PAGECONTROL_HEIGHT)];
         pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
         pageControl.numberOfPages = 0;
         [pageControl addTarget:self action:@selector(pagerAction) forControlEvents:UIControlEventValueChanged];
         [self addSubview: pageControl];
 
-        scrollTableView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 0, frame.size.width, frame.size.height - 30)];
+        scrollTableView = [[UIScrollView alloc] initWithFrame: CGRectMake(0, 0, frame.size.width, frame.size.height - PAGECONTROL_HEIGHT)];
         scrollTableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         scrollTableView.delegate = self;
         scrollTableView.pagingEnabled = YES;
