@@ -305,11 +305,11 @@
         self.selectedCourseOffset = -1;
 
     if (line.guest != nil) {
-        [_tableView selectSeat:line.guest.seat];
+        self.selectedSeat = line.guest.seat;
         _tableView.isTableSelected = NO;
     }
     else {
-        [_tableView selectSeat:-1];
+        self.selectedSeat = -1;
         _tableView.isTableSelected = YES;
     }
 }
