@@ -11,8 +11,7 @@
 
 @interface SeatGridView : UIView
 
-@property int countHorizontal;
-@property int countVertical;
+@property (retain) NSArray *countSeats;
 @property (retain, nonatomic) NSMutableArray *guests;
 
 + (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests;
