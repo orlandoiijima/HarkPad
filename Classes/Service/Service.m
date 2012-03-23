@@ -84,18 +84,22 @@ static Service *_service;
     return result;
 }
 
+- (id)getFromUrlWithCommand:(NSString *)command query: (NSString *) query {
+    NSURL *urlToGet = [self makeEndPoint:command withQuery:query];
+    NSError *error;
+   	NSData *data = [NSData dataWithContentsOfURL: urlToGet options:0 error: &error];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+   	return result.jsonData;
+}
+
 - (NSMutableArray *) getLog
 {
-	NSURL *testUrl = [self makeEndPoint:@"getlog" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [self getResultFromJson:data];
+	return (NSMutableArray *)[self getFromUrlWithCommand:@"getlog" query:@""];
 }
 
 - (void) getCard
 {
-	NSURL *testUrl = [self makeEndPoint:@"getcard" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	NSMutableDictionary *resultDic = [self getResultFromJson:data];
+	NSMutableDictionary *resultDic = [self getFromUrlWithCommand:@"getcard" query:@""];
     Cache *cache = [Cache getInstance];
     cache.menuCard = [MenuCard menuFromJson: [resultDic objectForKey:@"categories"]];
     cache.menuCard.menus = [Menu menuFromJson: [resultDic objectForKey:@"menus"]];
@@ -108,9 +112,8 @@ static Service *_service;
 
 - (NSMutableArray *) getMenus
 {
-	NSURL *testUrl = [self makeEndPoint:@"getmenus" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [Menu menuFromJson:[self getResultFromJson: data]];
+    id data = [self getFromUrlWithCommand:@"getmenus" query:@""];
+	return [Menu menuFromJson:data];
 }
 
 - (TreeNode *) getTree
@@ -126,9 +129,8 @@ static Service *_service;
 
 - (Map *) getMap
 {
-	NSURL *testUrl = [self makeEndPoint:@"getmap" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	return [Map mapFromJson:[self getResultFromJson: data]];    
+    id data = [self getFromUrlWithCommand:@"getmap" query:@""];
+	return [Map mapFromJson: data];
 }
 
 - (void) getUsers: (id) delegate callback: (SEL)callback

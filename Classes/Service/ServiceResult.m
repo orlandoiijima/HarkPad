@@ -31,7 +31,7 @@
         return serviceResult;
     }
     if((NSNull *)data == [NSNull null] || [data length] == 0) {
-        serviceResult.error = NSLocalizedString(@"Geen data ontvangen van service", nil);
+        serviceResult.error = NSLocalizedString(@"No data received from server", nil);
     }
     else {
         NSError *error = nil;
@@ -50,6 +50,9 @@
             if(error != nil) {
                 serviceResult.error = [dic objectForKey:@"error"];
             }
+        }
+        else {
+            serviceResult.error = [error localizedDescription];
         }
     }
     return serviceResult;
