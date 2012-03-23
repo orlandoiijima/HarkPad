@@ -10,17 +10,16 @@
 #import "Service.h"
 
 @implementation Table
-@synthesize name, bounds, district, countSeats, seatOrientation, dockedToTableId, isDocked, id, seatsHorizontal, seatsVertical;
-
+@synthesize name, bounds, district, dockedToTableId, isDocked, id, countSeatsPerSide;
+@dynamic maxCountSeatsHorizontal, maxCountSeatsVertical, countSeatsTotal;
 
 - (id)init
 {
     if ((self = [super init]) != NULL)
 	{
+        self.countSeatsPerSide = [NSArray arrayWithObjects: [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], nil];
         self.dockedToTableId = -1;
         self.isDocked = false;
-        self.countSeats = 2;
-        self.seatOrientation = row;
 	}
     return(self);
 }
@@ -40,18 +39,7 @@
     if(isDocked != nil)
         table.isDocked = (BOOL)[isDocked intValue];
 
-    id countSeats = [jsonDictionary objectForKey:@"capacity"];
-    if(countSeats != nil)
-        table.countSeats = (NSUInteger) [countSeats intValue];
-
-    id seatOrientation = [jsonDictionary objectForKey:@"orientation"];
-    if(seatOrientation != nil)
-        table.seatOrientation = (SeatOrientation)[seatOrientation intValue];
-
-    if (table.seatOrientation == 0)
-        table.seatsHorizontal = table.countSeats / 2;
-    else
-        table.seatsVertical = table.countSeats / 2;
+    table.countSeatsPerSide = [jsonDictionary objectForKey:@"countSeats"];
 
     NSNumber *left = [jsonDictionary objectForKey:@"l"];
     NSNumber *top =  [jsonDictionary objectForKey:@"t"];
@@ -63,7 +51,7 @@
 
 - (bool) isSeatAlignedWith: (Table *)table
 {
-    if(table.seatOrientation == row)
+    if([[table.countSeatsPerSide objectAtIndex:0] intValue] > 0)
     {
         return table.bounds.origin.y == bounds.origin.y;
     }
@@ -74,13 +62,26 @@
 }
 
 - (TableSide) sideForSeat: (int)seatOffset {
-    if (seatOffset < seatsHorizontal)
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue])
         return TableSideTop;
-    if (seatOffset < seatsHorizontal + seatsVertical)
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue])
         return TableSideRight;
-    if (seatOffset < seatsHorizontal + seatsVertical + seatsHorizontal)
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue])
         return TableSideBottom;
     return TableSideLeft;
+}
+
+- (int)countSeatsTotal {
+    return [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue] + [[countSeatsPerSide objectAtIndex:3] intValue];
+}
+
+- (int) maxCountSeatsHorizontal
+{
+    return MAX([[countSeatsPerSide objectAtIndex:0] intValue], [[countSeatsPerSide objectAtIndex:2] intValue]);
+}
+- (int) maxCountSeatsVertical
+{
+    return MAX([[countSeatsPerSide objectAtIndex:1] intValue], [[countSeatsPerSide objectAtIndex:3] intValue]);
 }
 
 @end

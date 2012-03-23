@@ -51,6 +51,9 @@
 - (District *) currentDistrict
 {
     int offset = [self currentDistrictOffset];
+    NSMutableArray *districts = [[[Cache getInstance] map] districts];
+    if (districts == nil || offset >= [districts count])
+        return nil;
     return [[[[Cache getInstance] map] districts] objectAtIndex: offset];
 }
 
@@ -185,7 +188,7 @@
             [popoverController dismissPopoverAnimated:YES];
             CGPoint point = [panGestureRecognizer locationInView: self.currentDistrictView];
             if ([[dragTableView.orderInfo guests] count] == 0)
-                if(dragTableView.table.seatOrientation == row)
+                if(dragTableView.table.maxCountSeatsHorizontal > 0)
                     point.y = dragPosition.y;
                 else
                     point.x = dragPosition.x;
@@ -226,7 +229,7 @@
         {
             if(dragTableView == nil) return;
             CGPoint point = [panGestureRecognizer locationInView: self.currentDistrictView];
-            if(dragTableView.table.seatOrientation == row)
+            if(dragTableView.table.maxCountSeatsHorizontal > 0)
                 point.y = dragPosition.y;
             else
                 point.x = dragPosition.x;
@@ -287,7 +290,7 @@
         return tables;
 
     TableView *masterTableView, *outerMostTableView;
-    if(target.table.seatOrientation == row)
+    if(target.table.maxCountSeatsHorizontal > 0)
     {
         if(target.table.bounds.origin.x > dropTableView.table.bounds.origin.x)
         {
@@ -319,14 +322,14 @@
     NSMutableArray *tableViews = [[NSMutableArray alloc] init];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableView.table.bounds);
     CGRect saveBounds = masterTable.bounds;
-    int saveCountSeats = masterTable.countSeats;
+    NSMutableArray *saveCountSeats = [NSMutableArray arrayWithArray: masterTable.countSeatsPerSide];
     for(TableView *tableView in self.currentDistrictView.subviews) {
         Table* table = tableView.table;
         if(masterTable.id != table.id) {
             if([masterTable isSeatAlignedWith:table]) {
                 if(CGRectContainsRect(outerBounds, table.bounds)) {
                     [tableViews addObject:tableView];
-                    if(table.seatOrientation == row)
+                    if(table.maxCountSeatsHorizontal > 0)
                     {
                         masterTable.bounds = CGRectMake(masterTable.bounds.origin.x,
                                                         masterTable.bounds.origin.y,
@@ -341,7 +344,10 @@
                                                         masterTable.bounds.size.height + table.bounds.size.height);
 
                     }
-                    masterTable.countSeats += table.countSeats;
+                    for (int side = 0; side < 4; side++) {
+                        int count = [[masterTable.countSeatsPerSide objectAtIndex:side] intValue] + [[table.countSeatsPerSide objectAtIndex:side] intValue];
+                        [masterTable.countSeatsPerSide replaceObjectAtIndex:side withObject:[NSNumber numberWithInt:count]];
+                    }
                     [tableView removeFromSuperview];
                 }
             }
@@ -382,7 +388,7 @@
             dragTableView.center = dragTableOriginalCenter;
 
             masterTable.bounds = saveBounds;
-            masterTable.countSeats = saveCountSeats;
+            masterTable.countSeatsPerSide = saveCountSeats;
 //            [UIView animateWithDuration:1.0  animations:^{
 //                [masterTableView setupByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
 //            }];

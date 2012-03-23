@@ -100,7 +100,7 @@
 {
     Order *order = [[Order alloc] init];
     order.table = newTable;
-    for(int i = 0; i < 2 * (newTable.seatsHorizontal + newTable.seatsVertical); i++) {
+    for(int i = 0; i < [[newTable.countSeatsPerSide objectAtIndex:0] intValue] + [[newTable.countSeatsPerSide objectAtIndex:1] intValue] + [[newTable.countSeatsPerSide objectAtIndex:2] intValue] + [[newTable.countSeatsPerSide objectAtIndex:3] intValue]; i++) {
         [order addGuest];
     }
     return order;

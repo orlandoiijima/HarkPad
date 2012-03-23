@@ -28,52 +28,70 @@
     view.table = tableInfo.table;
     view.orderInfo = tableInfo.orderInfo;
     Table *table = view.table;
-    int verticalUnits = table.seatsVertical + (table.seatsHorizontal > 0 ? 2 : 0);
-    int horizontalUnits = table.seatsHorizontal + (table.seatsVertical > 0 ? 2 : 0);
+    int verticalUnits = table.maxCountSeatsVertical;
+    if ([table.countSeatsPerSide objectAtIndex:0] > 0)
+        verticalUnits++;
+    if ([table.countSeatsPerSide objectAtIndex:2] > 0)
+        verticalUnits++;
+    int horizontalUnits = table.maxCountSeatsHorizontal;
+    if ([table.countSeatsPerSide objectAtIndex:1] > 0)
+        horizontalUnits++;
+    if ([table.countSeatsPerSide objectAtIndex:3] > 0)
+        horizontalUnits++;
     CGFloat minimumSize = frame.size.width / horizontalUnits < frame.size.height / verticalUnits ? frame.size.width / horizontalUnits : frame.size.height / verticalUnits;
     if (minimumSize > 50)
         minimumSize = 50;
-    if (table.seatsVertical)
+    if (table.maxCountSeatsVertical)
         minimumSize = MIN(frame.size.width/4, minimumSize);
-    if (table.seatsHorizontal)
+    if (table.maxCountSeatsHorizontal)
         minimumSize = MIN(frame.size.height/4, minimumSize);
     CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
 
     CGRect tableRect = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    if (table.seatsVertical > 0)
+    if (table.maxCountSeatsVertical > 0)
         tableRect = CGRectInset(tableRect, seatViewSize.width, 0);
-    if (table.seatsHorizontal > 0)
+    if (table.maxCountSeatsHorizontal > 0)
         tableRect = CGRectInset(tableRect, 0, seatViewSize.width);
 
     view.tableView = [[TableViewContainer alloc] initWithFrame:tableRect];
     view.tableView.autoresizingMask = (UIViewAutoresizing) -1;
     [view addSubview:view.tableView];
 
-    CGFloat x = tableRect.origin.x;
-    CGFloat width = tableRect.size.width / table.seatsHorizontal;
-    for(int i=0; i < table.seatsHorizontal; i++) {
-        SeatView *seatView = [SeatView viewWithFrame:CGRectMake(x + i * width, tableRect.origin.y - seatViewSize.height, width, seatViewSize.height) offset:i atSide:TableSideTop];
-        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-        [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat:seatView.offset]];
-        [view addSubview:seatView];
-
-        seatView = [SeatView viewWithFrame:CGRectMake(tableRect.origin.x + tableRect.size.width - (i+1)*width, tableRect.origin.y + tableRect.size.height, width, seatViewSize.height) offset:i + table.seatsHorizontal + table.seatsVertical atSide:TableSideBottom];
-        [view addSubview:seatView];
-        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-        [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
+    if (table.maxCountSeatsHorizontal > 0) {
+        CGFloat x = tableRect.origin.x;
+        CGFloat width = tableRect.size.width / table.maxCountSeatsHorizontal;
+        int seat = 0;
+        for(int i=0; i < [[table.countSeatsPerSide objectAtIndex:0] intValue]; i++) {
+            SeatView *seatView = [SeatView viewWithFrame:CGRectMake(x + i * width, tableRect.origin.y - seatViewSize.height, width, seatViewSize.height) offset:seat+i atSide:TableSideTop];
+            [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
+            [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat:seatView.offset]];
+            [view addSubview:seatView];
+        }
+        seat = [[table.countSeatsPerSide objectAtIndex:0] intValue] + [[table.countSeatsPerSide objectAtIndex:1] intValue];
+        for(int i=0; i < [[table.countSeatsPerSide objectAtIndex:2] intValue]; i++) {
+            SeatView *seatView = [SeatView viewWithFrame:CGRectMake(tableRect.origin.x + tableRect.size.width - (i+1)*width, tableRect.origin.y + tableRect.size.height, width, seatViewSize.height) offset:i + seat atSide:TableSideBottom];
+            [view addSubview:seatView];
+            [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
+            [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
+        }
     }
 
-    CGFloat height = (tableRect.size.height) / table.seatsVertical;
-    for(int i=0; i < table.seatsVertical; i++) {
-        SeatView *seatView = [SeatView viewWithFrame: CGRectMake(tableRect.origin.x + tableRect.size.width, tableRect.origin.y + i * height, seatViewSize.width, height) offset:i + table.seatsHorizontal atSide:TableSideRight];
-        [view addSubview:seatView];
-        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-        [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
-
-        seatView = [SeatView viewWithFrame:CGRectMake(tableRect.origin.x - seatViewSize.width, tableRect.origin.y + tableRect.size.height - (i+1) * height, seatViewSize.width, height) offset:i + table.seatsHorizontal + table.seatsVertical + table.seatsHorizontal atSide:TableSideLeft];
-        [view addSubview:seatView];
-        [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
-        [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
+    if (table.maxCountSeatsVertical > 0) {
+        CGFloat height = (tableRect.size.height) / table.maxCountSeatsVertical;
+        int seat = [[table.countSeatsPerSide objectAtIndex:0] intValue];
+        for(int i=0; i < [[table.countSeatsPerSide objectAtIndex:1] intValue]; i++) {
+            SeatView *seatView = [SeatView viewWithFrame: CGRectMake(tableRect.origin.x + tableRect.size.width, tableRect.origin.y + i * height, seatViewSize.width, height) offset:i + seat atSide:TableSideRight];
+            [view addSubview:seatView];
+            [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
+            [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
+        }
+        seat = [[table.countSeatsPerSide objectAtIndex:0] intValue] + [[table.countSeatsPerSide objectAtIndex:1] intValue] + [[table.countSeatsPerSide objectAtIndex:2] intValue];
+        for(int i=0; i < [[table.countSeatsPerSide objectAtIndex:3] intValue]; i++) {
+            SeatView *seatView = [SeatView viewWithFrame:CGRectMake(tableRect.origin.x - seatViewSize.width, tableRect.origin.y + tableRect.size.height - (i+1) * height, seatViewSize.width, height) offset:i + seat atSide:TableSideLeft];
+            [view addSubview:seatView];
+            [seatView addTarget:view action:@selector(tapSeat:) forControlEvents:UIControlEventTouchDown];
+            [seatView initByGuest: [tableInfo.orderInfo getGuestBySeat: seatView.offset]];
+        }
     }
 
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc] initWithTarget:view action:@selector(tapper:)];
@@ -198,7 +216,7 @@
 
 - (CGFloat) requiredVerticalMargin
 {
-    if(table.seatsHorizontal == 0)
+    if(table.maxCountSeatsHorizontal == 0)
         return 0;
     CGRect rect = [self rectInTableForSeat:0];
     return rect.size.height;
@@ -206,9 +224,9 @@
 
 - (CGFloat) requiredHorizontalMargin
 {
-    if(table.seatsVertical == 0)
+    if(table.maxCountSeatsVertical == 0)
         return 0;
-    CGRect rect = [self rectInTableForSeat: table.seatsHorizontal];
+    CGRect rect = [self rectInTableForSeat: table.maxCountSeatsHorizontal];
     return rect.size.width;
 }
 

@@ -83,7 +83,7 @@
     walkinReservation.type = ReservationTypeWalkin;
     walkinReservation.id = -1;
     walkinReservation.startsOn = [NSDate date];
-    walkinReservation.countGuests = order.table.countSeats;
+    walkinReservation.countGuests = order.table.countSeatsTotal;
     walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
     [reservations addObject:walkinReservation];
     if (order.reservation != nil) {
