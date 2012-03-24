@@ -44,17 +44,20 @@
     return [[[[Cache getInstance] map] districts] indexOfObject: district];
 }
 
+- (District *)districtAtOffset: (int)offset {
+    NSMutableArray *districts = [[[Cache getInstance] map] districts];
+    if (districts == nil || offset >= [districts count])
+        return nil;
+    return [[[[Cache getInstance] map] districts] objectAtIndex: offset];
+}
+
 - (void) setCurrentDistrict: (District *) newDistrict {
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width, 0) animated:NO];
 }
 
 - (District *) currentDistrict
 {
-    int offset = [self currentDistrictOffset];
-    NSMutableArray *districts = [[[Cache getInstance] map] districts];
-    if (districts == nil || offset >= [districts count])
-        return nil;
-    return [[[[Cache getInstance] map] districts] objectAtIndex: offset];
+    return [self districtAtOffset: [self currentDistrictOffset]];
 }
 
 - (int) currentDistrictOffset {
@@ -74,7 +77,12 @@
 }
 
 - (UIView *)currentDistrictView {
-    int offset = self.currentDistrictOffset;
+    return [self viewForDistrictOffset: self.currentDistrictOffset];
+}
+
+- (UIView *)viewForDistrictOffset: (int)offset {
+    if(offset >= [self.pages count])
+        return nil;
     return [self.pages objectAtIndex: offset];
 }
 
@@ -97,11 +105,7 @@
 
     [self setupToolbar];
 
-    [NSTimer scheduledTimerWithTimeInterval:10.0f
-                                     target:self
-                                   selector:@selector(refreshView)
-                                   userInfo:nil
-                                    repeats:YES];
+    [self setupAllDistricts];
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.view addGestureRecognizer:tapGesture];
@@ -487,29 +491,61 @@
         return;
     }
 
-    int countGuests = 0;
+    [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
+}
 
-    [self.currentDistrictView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+- (void) refreshAllViewWithInfo: (ServiceResult *)serviceResult
+{
+    [self hideActivityIndicator];
 
-    CGRect boundingRect = [self boundingRectForDistrict: self.currentDistrictOffset tableInfo:serviceResult.data];
-    scaleX = ((float)self.currentDistrictView.bounds.size.width - 20) / boundingRect.size.width;
-    if(scaleX * boundingRect.size.height > self.currentDistrictView.bounds.size.height)
-        scaleX = ((float)self.currentDistrictView.bounds.size.height - 20) / boundingRect.size.height;
+    if (serviceResult.isSuccess == false) {
+        [ModalAlert error:serviceResult.error];
+        return;
+    }
+
+    for (int districtOffset = 0; districtOffset < [self.pages count]; districtOffset++) {
+        [self refreshDistrict: districtOffset withData:serviceResult];
+    }
+
+    [NSTimer scheduledTimerWithTimeInterval:10.0f
+                                     target:self
+                                   selector:@selector(refreshView)
+                                   userInfo:nil
+                                    repeats:YES];
+
+}
+
+- (void) refreshDistrict: (int) districtOffset withData: (ServiceResult *)serviceResult
+{
+    UIView *districtView = [self viewForDistrictOffset:districtOffset];
+    if(districtView == nil)
+        return;
+    District *district = [self districtAtOffset:districtOffset];
+    if (district == nil)
+        return;
+    [districtView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+
+    CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo:serviceResult.data];
+    scaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;
+    if(scaleX * boundingRect.size.height > districtView.bounds.size.height)
+        scaleX = ((float)districtView.bounds.size.height - 20) / boundingRect.size.height;
 
     for(TableInfo *tableInfo in serviceResult.data)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
-        TableView *tableView = [self createTable:tableInfo offset: boundingRect.origin scale: CGPointMake(scaleX, scaleX)];
-        [self.currentDistrictView addSubview:tableView];
-        if(tableInfo.orderInfo != nil) {
-            countGuests += [tableInfo.orderInfo.guests count];
+        if (tableInfo.table.district.id == district.id) {
+            TableView *tableView = [self createTable:tableInfo offset: boundingRect.origin scale: CGPointMake(scaleX, scaleX)];
+            [districtView addSubview:tableView];
         }
     }
-
- //   self.title = [NSString stringWithFormat:@"District %@ (%d gasten)", self.currentDistrict.name, countGuests];
-
 }
+
+- (void) setupAllDistricts
+{
+    [[Service getInstance] getTablesInfoForDistrict: -1 delegate: self callback:@selector(refreshAllViewWithInfo:)];
+}
+
 
 - (TableView *) createTable: (TableInfo *)tableInfo offset: (CGPoint) offset scale: (CGPoint)scale
 {
