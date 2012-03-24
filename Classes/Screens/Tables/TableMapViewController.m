@@ -16,22 +16,13 @@
 
 @implementation TableMapViewController
 
-@synthesize buttonRefresh, popoverController, zoomedTableView, tableViewDashboard, zoomOffset, zoomScale, pages;
+@synthesize buttonRefresh, zoomedTableView, zoomOffset, zoomScale, pages, scrollView, pageControl;
 @dynamic currentDistrictView, currentDistrictOffset, currentDistrict;
 
-- (UIScrollView *)scrollView {
-    return (UIScrollView *)self.view;
-}
-
-- (void)loadView {
-    self.view = [[UIScrollView alloc] init];
-    self.view.userInteractionEnabled = YES;
-    self.scrollView.delegate = self;
-    self.scrollView.pagingEnabled = YES;
-    self.scrollView.directionalLockEnabled = YES;
-}
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    pageControl.currentPage = page;
     [self refreshView];
 }
 
@@ -86,19 +77,44 @@
     return [self.pages objectAtIndex: offset];
 }
 
+- (void)loadView {
+    self.view = [[UIView alloc] init];
+    self.view.frame = [UIScreen mainScreen].applicationFrame;
+    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+    [self.view addSubview:self.pageControl];
+    self.pageControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    self.pageControl.backgroundColor = [UIColor blackColor];
+    [self.pageControl addTarget:self action:@selector(pagerAction) forControlEvents:UIControlEventValueChanged];
+
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.pageControl.frame.size.height)];
+    [self.view addSubview:self.scrollView];
+    self.scrollView.autoresizingMask = (UIViewAutoresizing)-1;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.view.frame = [UIScreen mainScreen].applicationFrame;
+    NSMutableArray *const districts = [[[Cache getInstance] map] districts];
+
+//    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
+//    [self.view addSubview:self.pageControl];
+//    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.pageControl.frame.size.height)];
+//    [self.view addSubview:self.scrollView];
+    self.view.userInteractionEnabled = YES;
+    self.pageControl.numberOfPages = [districts count];
+    self.scrollView.delegate = self;
+    self.scrollView.pagingEnabled = YES;
+    self.scrollView.directionalLockEnabled = YES;
+    self.scrollView.backgroundColor = [UIColor blackColor];
     self.pages = [[NSMutableArray alloc] init];
 
-    CGRect pageRect = self.view.bounds;
-    for (District *district in [[[Cache getInstance] map] districts]) {
+    CGRect pageRect = self.scrollView.bounds;
+    for (District *district in districts) {
         UIView *districtView = [[UIView alloc] initWithFrame:pageRect];
         [pages addObject:districtView];
-        [self.view addSubview: districtView];
-        districtView.backgroundColor = [UIColor blackColor];
+        [self.scrollView addSubview: districtView];
         districtView.autoresizingMask =  UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        districtView.backgroundColor = [UIColor clearColor];
         pageRect = CGRectOffset(pageRect, pageRect.size.width, 0);
     }
     self.scrollView.contentSize = CGSizeMake([pages count] * pageRect.size.width, pageRect.size.height);
@@ -108,15 +124,15 @@
     [self setupAllDistricts];
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    [self.view addGestureRecognizer:tapGesture];
+    [self.scrollView addGestureRecognizer:tapGesture];
     tapGesture.delegate = self;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     panGesture.delegate = self;
-    [self.view addGestureRecognizer:panGesture];
+    [self.scrollView addGestureRecognizer:panGesture];
 
     UIPinchGestureRecognizer *pinchGesture = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchGesture:)];
     pinchGesture.delegate = self;
-    [self.view addGestureRecognizer:pinchGesture];
+    [self.scrollView addGestureRecognizer:pinchGesture];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
@@ -131,6 +147,11 @@
         if (zoomedTableView != nil)
             return YES;
     return NO;
+}
+
+- (void)pagerAction
+{
+    [self.scrollView setContentOffset: CGPointMake( pageControl.currentPage * scrollView.bounds.size.width, scrollView.contentOffset.y) animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -429,7 +450,7 @@
     return nil;
 }
 
-- (IBAction) refreshView
+- (void) refreshView
 {
     if(isRefreshTimerDisabled) return;
     if(isVisible == false)
@@ -574,10 +595,10 @@
     self.zoomedTableView = tableView;
 
     CGFloat width, height;
-    width = self.view.bounds.size.width;
-    height = (tableView.frame.size.height * self.view.bounds.size.width) / tableView.frame.size.width;
-    if (height > self.view.bounds.size.height) {
-        height = self.view.bounds.size.height;
+    width = self.scrollView.bounds.size.width;
+    height = (tableView.frame.size.height * self.scrollView.bounds.size.width) / tableView.frame.size.width;
+    if (height > self.scrollView.bounds.size.height) {
+        height = self.scrollView.bounds.size.height;
         width = (tableView.frame.size.width * height) / tableView.frame.size.height;
     }
     width *= 0.8;
@@ -589,8 +610,8 @@
 
     zoomScale = CGPointMake( width / tableView.frame.size.width, height / tableView.frame.size.height);
     zoomOffset = CGPointMake(
-            tableView.frame.origin.x * zoomScale.x - (self.view.bounds.size.width - width)/2,
-            tableView.frame.origin.y * zoomScale.y - (self.view.bounds.size.height - height)/2);
+            tableView.frame.origin.x * zoomScale.x - (self.scrollView.bounds.size.width - width)/2,
+            tableView.frame.origin.y * zoomScale.y - (self.scrollView.bounds.size.height - height)/2);
     [UIView animateWithDuration:0.4 animations:^{
         for(TableView *tableView in self.currentDistrictView.subviews) {
             tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);

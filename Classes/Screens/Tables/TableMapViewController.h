@@ -22,9 +22,10 @@
     TableView *dragTableView;
     TableView *targetTableView;
     bool isVisible;
+    UIScrollView *scrollView;
+    UIPageControl *pageControl;
     UIView *currentDistrictView;
     BOOL isRefreshTimerDisabled;
-    UIBarButtonItem *buttonEdit;
     UIBarButtonItem *buttonRefresh;
     CGPoint dragPosition;
     CGPoint dragTableOriginalCenter;
@@ -32,7 +33,7 @@
     float scaleX;
 }
 
-- (IBAction) refreshView;
+- (void) refreshView;
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (void) editOrder: (Order *) order;
 - (void) makeBillForOrder: (Order*)order;
@@ -51,11 +52,11 @@
 - (void) revertDrag;
 - (UIView *)viewForDistrictOffset: (int)offset;
 
+@property (retain) UIScrollView *scrollView;
+@property (retain) UIPageControl *pageControl;
 @property (retain) UIView *currentDistrictView;
 @property (retain) UIBarButtonItem *buttonRefresh;
-@property (retain) UIPopoverController *popoverController;
 @property (retain) TableView *zoomedTableView;
-@property (retain) TableOverlayDashboard *tableViewDashboard;
 @property (retain) NSMutableArray *pages;
 @property int currentDistrictOffset;
 @property District *currentDistrict;
