@@ -30,7 +30,8 @@
     CGPoint dragPosition;
     CGPoint dragTableOriginalCenter;
     UIPopoverController *popoverController;
-    float scaleX;
+    float mapScaleX;
+    CGPoint mapOffset;
 }
 
 - (void) refreshView;
@@ -38,10 +39,9 @@
 - (void) editOrder: (Order *) order;
 - (void) makeBillForOrder: (Order*)order;
 - (void) undockTable: (int)tableId;
-- (void) startTable: (Table *)table fromReservation: (Reservation *)reservation;
 - (void)getPaymentForOrder: (Order *)order;
 - (TableView *) tableViewAtPoint: (CGPoint) point;
-- (NSMutableArray *) dockTableView: (TableView *)outerMostTableView toTableView: (TableView *)masterTableView;
+- (void) dockTableView: (TableView *)outerMostTableView toTableView: (TableView *)masterTableView;
 - (void) moveOrderFromTableView: (TableView *) from toTableView: (TableView *) to;
 
 - (void) showActivityIndicator;
@@ -49,6 +49,7 @@
 - (void) setupToolbar;
 - (TableView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
 - (void)unzoom;
+- (void) zoomToTable:(TableView *)tableView;
 - (void) revertDrag;
 - (UIView *)viewForDistrictOffset: (int)offset;
 
@@ -62,4 +63,5 @@
 @property District *currentDistrict;
 @property CGPoint zoomScale;
 @property CGPoint zoomOffset;
+@property NSString *caption;
 @end

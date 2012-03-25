@@ -13,69 +13,20 @@
 #import "ModalAlert.h"
 #import "NewOrderViewController.h"
 #import "ZoomedTableViewController.h"
+#import "ToolbarTitleView.h"
 
 @implementation TableMapViewController
 
 @synthesize buttonRefresh, zoomedTableView, zoomOffset, zoomScale, pages, scrollView, pageControl;
-@dynamic currentDistrictView, currentDistrictOffset, currentDistrict;
+@dynamic currentDistrictView, currentDistrictOffset, currentDistrict, caption;
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    pageControl.currentPage = page;
+    [self setCurrentDistrictOffset:page];
     [self refreshView];
 }
 
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    return self.currentDistrictView;
-}
-
-- (int) offsetOfDistrict: (District *)district {
-    return [[[[Cache getInstance] map] districts] indexOfObject: district];
-}
-
-- (District *)districtAtOffset: (int)offset {
-    NSMutableArray *districts = [[[Cache getInstance] map] districts];
-    if (districts == nil || offset >= [districts count])
-        return nil;
-    return [[[[Cache getInstance] map] districts] objectAtIndex: offset];
-}
-
-- (void) setCurrentDistrict: (District *) newDistrict {
-    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width, 0) animated:NO];
-}
-
-- (District *) currentDistrict
-{
-    return [self districtAtOffset: [self currentDistrictOffset]];
-}
-
-- (int) currentDistrictOffset {
-    return (int)(self.scrollView.contentOffset.x / self.view.bounds.size.width);
-}
-
-- (void) setCurrentDistrictOffset: (int)offset {
-    if (offset < 0)
-        return;
-    CGFloat offsetX = self.view.bounds.size.width * offset;
-    if (offsetX > self.scrollView.contentSize.width)
-        return;
-    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-    District *district = [[[[Cache getInstance] map] districts] objectAtIndex:offset];
-    self.title = district.name;
-    return;
-}
-
-- (UIView *)currentDistrictView {
-    return [self viewForDistrictOffset: self.currentDistrictOffset];
-}
-
-- (UIView *)viewForDistrictOffset: (int)offset {
-    if(offset >= [self.pages count])
-        return nil;
-    return [self.pages objectAtIndex: offset];
-}
 
 - (void)loadView {
     self.view = [[UIView alloc] init];
@@ -96,10 +47,6 @@
 
     NSMutableArray *const districts = [[[Cache getInstance] map] districts];
 
-//    self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44)];
-//    [self.view addSubview:self.pageControl];
-//    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.pageControl.frame.size.height)];
-//    [self.view addSubview:self.scrollView];
     self.view.userInteractionEnabled = YES;
     self.pageControl.numberOfPages = [districts count];
     self.scrollView.delegate = self;
@@ -122,6 +69,7 @@
     [self setupToolbar];
 
     [self setupAllDistricts];
+    self.currentDistrictOffset = 0;
 
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.scrollView addGestureRecognizer:tapGesture];
@@ -151,20 +99,7 @@
 
 - (void)pagerAction
 {
-    [self.scrollView setContentOffset: CGPointMake( pageControl.currentPage * scrollView.bounds.size.width, scrollView.contentOffset.y) animated:YES];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    isVisible = true;
-    [self refreshView];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    isVisible = false;
+    [self setCurrentDistrictOffset:pageControl.currentPage];
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *) tapGestureRecognizer
@@ -307,12 +242,10 @@
     [self refreshView];
 }
 
-- (NSMutableArray *) dockTableView: (TableView *)dropTableView toTableView: (TableView *)target
+- (void) dockTableView: (TableView *)dropTableView toTableView: (TableView *)target
 {
-    NSMutableArray *tables = [[NSMutableArray alloc] init];
-
     if([dropTableView.table isSeatAlignedWith: target.table] == false)
-        return tables;
+        return;
 
     TableView *masterTableView, *outerMostTableView;
     if(target.table.maxCountSeatsHorizontal > 0)
@@ -347,7 +280,8 @@
     NSMutableArray *tableViews = [[NSMutableArray alloc] init];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableView.table.bounds);
     CGRect saveBounds = masterTable.bounds;
-    NSMutableArray *saveCountSeats = [NSMutableArray arrayWithArray: masterTable.countSeatsPerSide];
+    NSArray *saveCountSeats = [NSArray arrayWithArray: masterTable.countSeatsPerSide];
+    NSMutableArray *countSeats = [NSMutableArray arrayWithArray:masterTable.countSeatsPerSide];
     for(TableView *tableView in self.currentDistrictView.subviews) {
         Table* table = tableView.table;
         if(masterTable.id != table.id) {
@@ -370,9 +304,10 @@
 
                     }
                     for (int side = 0; side < 4; side++) {
-                        int count = [[masterTable.countSeatsPerSide objectAtIndex:side] intValue] + [[table.countSeatsPerSide objectAtIndex:side] intValue];
-                        [masterTable.countSeatsPerSide replaceObjectAtIndex:side withObject:[NSNumber numberWithInt:count]];
+                        int count = [[countSeats objectAtIndex:side] intValue] + [[table.countSeatsPerSide objectAtIndex:side] intValue];
+                        [countSeats replaceObjectAtIndex:side withObject:[NSNumber numberWithInt:count]];
                     }
+                    masterTable.countSeatsPerSide = [NSArray arrayWithArray:countSeats];
                     [tableView removeFromSuperview];
                 }
             }
@@ -391,7 +326,7 @@
             NSUInteger i = 1;
             for(; i < [tableViews count] - 1; i++) {
                 TableView *tableButton = [tableViews objectAtIndex:i];
-                message = [NSString stringWithFormat:@"%@, %@,", message, tableButton.table.name];
+                message = [NSString stringWithFormat:@"%@, %@", message, tableButton.table.name];
             }
             message = [NSString stringWithFormat:@"%@ en %@", message, ((TableView *)[tableViews objectAtIndex:i]).table.name];
         }
@@ -399,41 +334,44 @@
 
         isRefreshTimerDisabled = YES;
 
-        [masterTableView setNeedsDisplay];
-//        [UIView animateWithDuration:1.0  animations:^{
-//            [masterTableView setupByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
-//        }];
+        masterTableView.hidden = YES;
+
+        TableInfo *tableInfo = [[TableInfo alloc] init];
+        tableInfo.table = masterTable;
+        TableView *newTableView = [self createTable:tableInfo offset:mapOffset scale:CGPointMake(mapScaleX, mapScaleX)];
+        [self.currentDistrictView addSubview:newTableView];
 
         bool continueDock = [ModalAlert confirm:message];
         if(continueDock == NO)
         {
+            [newTableView removeFromSuperview];
+
             for(TableView *tableView in tableViews) {
+                tableView.isTableSelected = NO;
                 [self.currentDistrictView addSubview:tableView];
             }
             dragTableView.center = dragTableOriginalCenter;
 
             masterTable.bounds = saveBounds;
             masterTable.countSeatsPerSide = saveCountSeats;
-//            [UIView animateWithDuration:1.0  animations:^{
-//                [masterTableView setupByTable: masterTable offset: boundingRect.origin scaleX:scaleX];
-//            }];
+            masterTableView.hidden = NO;
             [masterTableView setNeedsDisplay];
         }
         else
         {
+            NSMutableArray *tables = [[NSMutableArray alloc] init];
             [tables addObject: masterTable];
             for(TableView *tableView in tableViews) {
                 Table* table = tableView.table;
                 [tables addObject:table];
             }
 
-            [masterTableView setNeedsDisplay];
-//            [masterTableView rePosition: masterTable offset: boundingRect.origin scaleX: scaleX];
+            [masterTableView removeFromSuperview];
             [[Service getInstance] dockTables:tables];
         }
         isRefreshTimerDisabled = NO;
     }
-    return tables;
+    return;
 }
 
 - (TableView *) tableViewAtPoint: (CGPoint) point
@@ -547,16 +485,16 @@
     [districtView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo:serviceResult.data];
-    scaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;
-    if(scaleX * boundingRect.size.height > districtView.bounds.size.height)
-        scaleX = ((float)districtView.bounds.size.height - 20) / boundingRect.size.height;
-
+    mapScaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;
+    if(mapScaleX * boundingRect.size.height > districtView.bounds.size.height)
+        mapScaleX = ((float)districtView.bounds.size.height - 20) / boundingRect.size.height;
+    mapOffset = boundingRect.origin;
     for(TableInfo *tableInfo in serviceResult.data)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
         if (tableInfo.table.district.id == district.id) {
-            TableView *tableView = [self createTable:tableInfo offset: boundingRect.origin scale: CGPointMake(scaleX, scaleX)];
+            TableView *tableView = [self createTable:tableInfo offset: mapOffset scale: CGPointMake(mapScaleX, mapScaleX)];
             [districtView addSubview:tableView];
         }
     }
@@ -585,10 +523,16 @@
 }
 
 - (void)didTapTableView:(TableView *)tableView {
+    [self zoomToTable:tableView];
+}
+
+- (void) zoomToTable:(TableView *)tableView {
 
     if (self.zoomedTableView != nil) {
         return;
     }
+
+    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"Table", nil), tableView.table.name];
 
     isRefreshTimerDisabled = YES;
 
@@ -624,9 +568,6 @@
         tableView.contentTableView = controller.view;
     }
     ];
-
-//    [self.scrollView zoomToRect: CGRectInset(tableView.frame, -50, -50) animated:YES];
-
 }
 
 - (void)unzoom
@@ -636,6 +577,8 @@
     zoomedTableView.selectedGuests = nil;
 
     zoomedTableView.contentTableView.hidden = YES;
+
+    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
 
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -656,8 +599,6 @@
             isRefreshTimerDisabled = NO;
         }
     ];
-
-//    [self.scrollView zoomToRect: self.scrollView.bounds animated:YES];
     return;
 }
 
@@ -678,6 +619,11 @@
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:
             refreshButton,
             nil];
+    self.navigationItem.titleView = [[ToolbarTitleView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 44)];
+}
+
+- (void) setCaption: (NSString *)aCaption {
+    ((UILabel *)self.navigationItem.titleView).text = aCaption;
 }
 
 - (void)getPaymentForOrder: (Order *)order
@@ -690,7 +636,6 @@
     paymentController.order = order;
     paymentController.delegate = self;
     [self.navigationController pushViewController:paymentController animated:YES];
-//    self.zoomedTableView = nil;
 }
 
 - (void)gotoOrderViewWithOrder: (Order *)order
@@ -700,23 +645,13 @@
     NewOrderViewController *controller = [[NewOrderViewController alloc] init];
     controller.order = order;
     [self.navigationController pushViewController: controller animated:YES];
-//    self.zoomedTableView = nil;
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
-//    isRefreshTimerDisabled = false;
     [self dismissModalViewControllerAnimated:YES];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
-//    self.zoomedTableView = nil;
 }
 
-
-- (void) startTable: (Table *)table fromReservation: (Reservation *)reservation
-{
-    Service *service = [Service getInstance];
-    [service startTable:table.id fromReservation: reservation.id];
-    [self refreshView];
-}
 
 - (void) editOrder: (Order *) order
 {
@@ -769,6 +704,67 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    isVisible = true;
+    [self refreshView];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    isVisible = false;
+}
+
+
+- (int) offsetOfDistrict: (District *)district {
+    return [[[[Cache getInstance] map] districts] indexOfObject: district];
+}
+
+- (District *)districtAtOffset: (int)offset {
+    NSMutableArray *districts = [[[Cache getInstance] map] districts];
+    if (districts == nil || offset >= [districts count])
+        return nil;
+    return [[[[Cache getInstance] map] districts] objectAtIndex: offset];
+}
+
+- (void) setCurrentDistrict: (District *) newDistrict {
+    self.currentDistrictOffset = [self offsetOfDistrict:newDistrict];
+}
+
+- (District *) currentDistrict
+{
+    return [self districtAtOffset: [self currentDistrictOffset]];
+}
+
+- (int) currentDistrictOffset {
+    return (int)(self.scrollView.contentOffset.x / self.view.bounds.size.width);
+}
+
+- (void) setCurrentDistrictOffset: (int)offset {
+    if (offset < 0)
+        return;
+    CGFloat offsetX = self.view.bounds.size.width * offset;
+    if (offsetX > self.scrollView.contentSize.width)
+        return;
+    self.pageControl.currentPage = offset;
+    [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
+    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
+    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
+    return;
+}
+
+- (UIView *)currentDistrictView {
+    return [self viewForDistrictOffset: self.currentDistrictOffset];
+}
+
+- (UIView *)viewForDistrictOffset: (int)offset {
+    if(offset >= [self.pages count])
+        return nil;
+    return [self.pages objectAtIndex: offset];
 }
 
 @end

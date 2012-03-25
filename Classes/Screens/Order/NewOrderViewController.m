@@ -11,6 +11,7 @@
 #import "MenuItem.h"
 #import "Service.h"
 #import "CrystalButton.h"
+#import "ToolbarTitleView.h"
 
 @implementation NewOrderViewController
 
@@ -57,13 +58,16 @@
     tableInfo.table = _order.table;
     tableInfo.orderInfo = [OrderInfo infoWithOrder:_order];
 
+    ToolbarTitleView *titleView = [[ToolbarTitleView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 44)];
+    titleView.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), _order.table.name];
+    self.navigationItem.titleView = titleView;
+
     _tableView = [TableView viewWithFrame:CGRectMake(
             MARGIN,
             MARGIN,
             self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
             (self.view.bounds.size.height - 3* MARGIN) / 4) tableInfo: tableInfo showSeatNumbers: NO];
     [self.view addSubview:_tableView];
-//    _tableOverlaySimple = [[TableOverlaySimple alloc] initWithFrame:_tableView.tableView.bounds tableName: tableInfo.table.name countCourses: [_order.courses count] currentCourseOffset: _order.currentCourse == nil ? -1:_order.currentCourse.offset selectedCourse:-1 currentCourseState: _order.currentCourse == nil ? CourseStateNothing : _order.currentCourse.state delegate:self];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
     _tableView.delegate = self;

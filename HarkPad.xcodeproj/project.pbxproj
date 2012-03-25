@@ -301,6 +301,7 @@
 		E5F609A313489C2400D88695 /* woman_slim_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88694 /* woman_slim_114.png */; };
 		E5F609A313489C2400D88697 /* user_woman_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88696 /* user_woman_114.png */; };
 		E5F609A313489C2400D88699 /* user_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88698 /* user_114.png */; };
+		E5F609A313489C2400D8869B /* ToolbarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8869A /* ToolbarTitleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -805,6 +806,8 @@
 		E5F609A313489C2400D88694 /* woman_slim_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = woman_slim_114.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D88696 /* user_woman_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_woman_114.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D88698 /* user_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_114.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D8869A /* ToolbarTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarTitleView.m; path = Views/ToolbarTitleView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D8869C /* ToolbarTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarTitleView.h; path = Views/ToolbarTitleView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -901,6 +904,8 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D8869C /* ToolbarTitleView.h */,
+				E5F609A313489C2400D8869A /* ToolbarTitleView.m */,
 				E5F609A313489C2400D88643 /* TablePopupDelegate.h */,
 				E5F609A313489C2400D885EA /* ItemPropertiesDelegate.h */,
 				E5F609A313489C2400D885AC /* OrderDelegate.h */,
@@ -2124,6 +2129,7 @@
 				E5F609A313489C2400D88672 /* TableMapViewController.m in Sources */,
 				E5F609A313489C2400D8867C /* DTO.m in Sources */,
 				E5F609A313489C2400D88680 /* TableOverlayHud.m in Sources */,
+				E5F609A313489C2400D8869B /* ToolbarTitleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,7 +19,7 @@ typedef enum TableSide {
     int id;
     NSString *name;
     CGRect bounds;
-    NSMutableArray *countSeatsPerSide;
+    NSArray *countSeatsPerSide;
     District *district;
     int dockedToTableId;
 }
@@ -27,7 +27,7 @@ typedef enum TableSide {
 @property int id;
 @property (retain) NSString *name;
 @property CGRect bounds;
-@property (retain) NSMutableArray *countSeatsPerSide;
+@property (retain) NSArray *countSeatsPerSide;
 @property (retain) District *district;
 @property int dockedToTableId;
 @property int maxCountSeatsHorizontal;
