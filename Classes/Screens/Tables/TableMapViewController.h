@@ -64,4 +64,5 @@
 @property CGPoint zoomScale;
 @property CGPoint zoomOffset;
 @property NSString *caption;
+@property (retain) NSDate *switchedDistrictWhileDragging;
 @end

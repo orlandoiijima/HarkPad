@@ -17,7 +17,7 @@
 
 @implementation TableMapViewController
 
-@synthesize buttonRefresh, zoomedTableView, zoomOffset, zoomScale, pages, scrollView, pageControl;
+@synthesize buttonRefresh, zoomedTableView, zoomOffset, zoomScale, pages, scrollView, pageControl, switchedDistrictWhileDragging;
 @dynamic currentDistrictView, currentDistrictOffset, currentDistrict, caption;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
@@ -173,10 +173,14 @@
                     }
                 }
 
-                if (nextDistrict != self.currentDistrictOffset) {
-                    self.currentDistrictOffset = nextDistrict;
-                    [dragTableView removeFromSuperview];
-                    [[self.pages objectAtIndex:nextDistrict] addSubview:dragTableView];
+                NSTimeInterval intervalSinceLastSwitch = - [switchedDistrictWhileDragging timeIntervalSinceNow];
+                if (switchedDistrictWhileDragging == nil || intervalSinceLastSwitch > 1) {
+                    if (nextDistrict != self.currentDistrictOffset) {
+                        self.currentDistrictOffset = nextDistrict;
+                        [dragTableView removeFromSuperview];
+                        [[self.pages objectAtIndex:nextDistrict] addSubview:dragTableView];
+                        switchedDistrictWhileDragging = [NSDate date];
+                    }
                 }
             }
 
@@ -752,8 +756,7 @@
         return;
     self.pageControl.currentPage = offset;
     [self.scrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
-    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
-    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
+    self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [[self districtAtOffset:offset] name]];
     return;
 }
 
