@@ -12,6 +12,7 @@
 #import "Service.h"
 #import "CrystalButton.h"
 #import "ToolbarTitleView.h"
+#import "TestFlight.h"
 
 @implementation NewOrderViewController
 
@@ -41,6 +42,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [TestFlight passCheckpoint: [[self class] description]];
 
     if ([_order.courses count] == 0 || [_order.lastCourse.lines count] > 0) {
         [_order addCourse];
