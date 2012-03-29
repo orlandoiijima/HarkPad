@@ -31,6 +31,8 @@ static Service *_service;
             url = URL_CLUB;
         else if([env isEqualToString:@"frascati"])
             url = URL_FRASCATI;
+        else if([env isEqualToString:@"cafe5"])
+            url = URL_CAFE5;
         else
             url = URL_DEV;
 	    }
