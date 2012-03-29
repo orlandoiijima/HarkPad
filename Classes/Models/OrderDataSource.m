@@ -353,6 +353,8 @@
 - (NSNumber *) keyForSection:(int) section
 {
     NSArray* sortedKeys = [[groupedLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    if (section >= [sortedKeys count])
+        return nil;
     return [sortedKeys objectAtIndex:section];
 }
 
