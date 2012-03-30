@@ -6,7 +6,9 @@
 
 
 #import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/QuartzCore.h>
 #import "TableOverlayHud.h"
+#import "UIImage+Tint.h"
 
 
 @implementation TableOverlayHud {
@@ -19,38 +21,43 @@
 
     UIFont *font = [UIFont systemFontOfSize:14];
 
-    infoText = [NSString stringWithFormat:@"Gast %d: ", guest.seat + 1];
-    if (guest.diet) {
-        NSString *diet = @"";
-        for (int i = 0; i < 32; i++) {
-            if (guest.diet & (1 << i)) {
-                NSString *dietName = [Guest dietName:i];
-                if ([dietName length] == 0) break;
-                diet = [diet stringByAppendingString:dietName];
+    CGFloat y = 10;
+    if (guest.diet != 0) {
+        infoText = [NSString stringWithFormat:@"Diet: "];
+        if (guest.diet) {
+            NSString *diet = @"";
+            for (int i = 0; i < 32; i++) {
+                if (guest.diet & (1 << i)) {
+                    NSString *dietName = [Guest dietName:i];
+                    if ([dietName length] == 0) break;
+                    diet = [diet stringByAppendingString:dietName];
+                }
             }
+            infoText = [infoText stringByAppendingString: diet];
         }
-        infoText = [infoText stringByAppendingString: diet];
-    }
-    else {
-        infoText = [infoText stringByAppendingString:@"-"];
-    }
-    CGSize textSize = [infoText sizeWithFont: font constrainedToSize:CGSizeMake(self.bounds.size.width  - 20, 100)];
-    CGRect sectionFrame = CGRectMake(10,10, self.bounds.size.width - 20, textSize.height);
-    UILabel *label = [[UILabel alloc] init];
-    label.font = [UIFont systemFontOfSize:14];
-    label.frame = sectionFrame;
-    [self addSubview:label];
-    label.backgroundColor = [UIColor clearColor];
-    label.numberOfLines = 0;
-    label.text = infoText;
+        else {
+            infoText = [infoText stringByAppendingString:@"-"];
+        }
+        CGSize textSize = [infoText sizeWithFont: font constrainedToSize:CGSizeMake(self.bounds.size.width  - 20, 100)];
+        CGRect sectionFrame = CGRectMake(10, y, self.bounds.size.width - 20, textSize.height);
+        UILabel *label = [[UILabel alloc] init];
+        label.textAlignment = UITextAlignmentCenter;
+        label.font = [UIFont systemFontOfSize:14];
+        label.frame = sectionFrame;
+        [self addSubview:label];
+        label.backgroundColor = [UIColor clearColor];
+        label.numberOfLines = 0;
+        label.text = infoText;
 
-    sectionFrame = CGRectOffset(sectionFrame, 0, 20);
+        y += 25;
+        }
 
     NSMutableArray *products = [self getOrderedProductsForLines:guest.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines:guest.lines forGuest:guest];
 
-    int height = 10 + [self createSectionWithProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
-    sectionFrame  = CGRectOffset(sectionFrame, 0, height);
+    CGRect sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
+    [self createSectionWithProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
+    sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
     [self createSectionWithProducts: products counts: productCounts isFood:YES withFrame: sectionFrame];
 }
 
@@ -85,25 +92,42 @@
 }
 
 - (int) createSectionWithProducts: (NSMutableArray *) products counts: (NSMutableDictionary *) productCounts isFood: (BOOL) isFood withFrame: (CGRect) rect {
+    UIView *view = [[UIView alloc] initWithFrame:rect];
+    view.layer.shadowColor = [[UIColor blackColor] CGColor];
+    view.layer.shadowOffset = CGSizeMake(5, 5);
+    view.layer.shadowOpacity = 0.4;
+    view.layer.borderColor = [[UIColor grayColor] CGColor];
+    view.layer.borderWidth = 1;
+    view.layer.cornerRadius = 4;
+    view.backgroundColor = [UIColor whiteColor];
+    [self addSubview:view ];
+
     NSString *text = @"";
     for (Product *product in products) {
         if (product.category.isFood != isFood) continue;
         int quantity = [[productCounts objectForKey:product] intValue];
         text = [self appendProduct:product quantity:quantity toString: text];
     }
-    if ([text length] == 0) return 0;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, 16, 16)];
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y - 12, rect.size.width - 20, 20)];
     [self addSubview:imageView];
+    imageView.contentMode = UIViewContentModeCenter;
     imageView.image = [UIImage imageNamed: isFood ? @"fork-and-knife.png" : @"wine-glass.png"];
 
     UILabel *label = [[UILabel alloc] init];
     label.font = [UIFont systemFontOfSize:14];
-    CGSize textSize = [text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width  - 20, 100)];
-    label.frame = CGRectMake(rect.origin.x + 20, rect.origin.y, rect.size.width - 20, textSize.height);
-    [self addSubview:label];
+    if ([text length] == 0) {
+        label.text = NSLocalizedString(isFood ? @"No food" : @"No drink", nil);
+        label.textColor = [UIColor lightGrayColor];
+    }
+    else
+        label.text = text;
+    CGSize textSize = [label.text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width  - 20, 1000)];
+    label.frame = CGRectMake(10, 10, view.frame.size.width - 20, textSize.height);
+    [view addSubview:label];
     label.backgroundColor = [UIColor clearColor];
     label.numberOfLines = 0;
-    label.text = text;
+    label.textAlignment = UITextAlignmentCenter;
 
     return MAX(textSize.height, imageView.image.size.height);
 }
@@ -123,35 +147,40 @@
 - (void) showForOrder: (Order *) order {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-    CGRect sectionFrame = CGRectMake(10,10, self.bounds.size.width - 20, self.bounds.size.height);
 
-    if (order.reservation) {
+    CGFloat y = 20;
+
+    CGRect sectionFrame = CGRectMake(10, y, self.bounds.size.width - 20, self.bounds.size.height);
+    if (order.reservation && [order.reservation.name length] > 0) {
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:16];
-        label.frame = sectionFrame;
+        CGSize textSize = [order.reservation.name sizeWithFont: label.font constrainedToSize:CGSizeMake(self.bounds.size.width  - 20, 1000)];
+        label.frame = CGRectMake(10, y, self.bounds.size.width-20, textSize.height);
         label.textAlignment = UITextAlignmentCenter;
         [self addSubview:label];
         label.backgroundColor = [UIColor clearColor];
         label.text = order.reservation.name;
-        sectionFrame = CGRectOffset(sectionFrame, 0, 30);
+        y += textSize.height + 5;
 
         if ([order.reservation.notes length] > 0) {
             UILabel *label = [[UILabel alloc] init];
             label.font = [UIFont systemFontOfSize:14];
-            label.frame = sectionFrame;
+            CGSize textSize = [order.reservation.notes sizeWithFont: label.font constrainedToSize:CGSizeMake(self.bounds.size.width  - 20, 1000)];
+            label.frame = CGRectMake(10, y, self.bounds.size.width-20, textSize.height);
             [self addSubview:label];
             label.backgroundColor = [UIColor clearColor];
-            label.text = order.reservation.name;
+            label.text = order.reservation.notes;
 
-            sectionFrame = CGRectOffset(sectionFrame, 0, 20);
+            y += textSize.height + 5;
         }
     }
 
     NSMutableArray *products = [self getOrderedProductsForLines: order.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines: order.lines forGuest:nil];
 
-    int height = 10 + [self createSectionWithProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
-    sectionFrame  = CGRectOffset(sectionFrame, 0, height);
+    sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
+    [self createSectionWithProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
+    sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
     [self createSectionWithProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
 
 }
