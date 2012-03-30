@@ -27,7 +27,6 @@
     [self refreshView];
 }
 
-
 - (void)loadView {
     self.view = [[UIView alloc] init];
     self.view.frame = [UIScreen mainScreen].applicationFrame;
@@ -42,8 +41,8 @@
     self.scrollView.autoresizingMask = (UIViewAutoresizing)-1;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 
     NSMutableArray *const districts = [[[Cache getInstance] map] districts];
 
@@ -60,7 +59,7 @@
         UIView *districtView = [[UIView alloc] initWithFrame:pageRect];
         [pages addObject:districtView];
         [self.scrollView addSubview: districtView];
-        districtView.autoresizingMask =  UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        districtView.autoresizingMask = (UIViewAutoresizing)-1;
         districtView.backgroundColor = [UIColor clearColor];
         pageRect = CGRectOffset(pageRect, pageRect.size.width, 0);
     }
@@ -695,9 +694,16 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+ //   scrollView.contentSize = CGSizeMake(scrollView.contentSize.height, scrollView.contentSize.width);
     return YES;
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    scrollView.contentSize = CGSizeMake(scrollView.contentSize.height, scrollView.contentSize.width);
+}
 
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.

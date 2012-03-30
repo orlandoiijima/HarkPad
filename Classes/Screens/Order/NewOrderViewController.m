@@ -39,9 +39,8 @@
 
 #define MARGIN 25
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [TestFlight passCheckpoint: [[self class] description]];
 
     if ([_order.courses count] == 0 || [_order.lastCourse.lines count] > 0) {
@@ -68,7 +67,7 @@
             MARGIN,
             MARGIN,
             self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
-            (self.view.bounds.size.height - 3* MARGIN) / 4) tableInfo: tableInfo showSeatNumbers: NO];
+            MAX(220, (self.view.bounds.size.height - 3* MARGIN) / 4)) tableInfo: tableInfo showSeatNumbers: NO];
     [self.view addSubview:_tableView];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;

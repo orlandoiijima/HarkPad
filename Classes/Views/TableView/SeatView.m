@@ -134,18 +134,14 @@
     if (_isSelected) {
         int dx = self.side == TableSideTop || self.side == TableSideBottom ? 5 : 0;
         int dy = self.side == TableSideTop || self.side == TableSideBottom ? 0 : 5;
-//        _image.transform = CGAffineTransformMakeRotation(-0.1);
         self.transform = CGAffineTransformMakeTranslation(dx, dy);
         [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
-//            _image.transform = CGAffineTransformMakeRotation(0.1);
             self.transform = CGAffineTransformMakeTranslation(-dx, -dy);
         } completion: nil];
         labelOverlay.hidden = NO;
     }
     else {
-//        [_image.layer removeAllAnimations];
-//        _image.transform = CGAffineTransformIdentity;
         [self.layer removeAllAnimations];
         self.transform = CGAffineTransformIdentity;
         labelOverlay.hidden = YES;

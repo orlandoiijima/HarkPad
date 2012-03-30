@@ -26,7 +26,17 @@
 }
 
 - (void) setIsSelected: (BOOL) isSelected {
-    self.layer.borderColor = isSelected ? [[UIColor whiteColor] CGColor] : [[UIColor grayColor] CGColor];
+//    self.layer.borderColor = isSelected ? [[UIColor whiteColor] CGColor] : [[UIColor grayColor] CGColor];
+    if (isSelected) {
+        [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
+        {
+            self.transform = CGAffineTransformMakeTranslation(0, 4);
+        } completion: nil];
+    }
+    else {
+        [self.layer removeAllAnimations];
+        self.transform = CGAffineTransformIdentity;
+    }
 }
 
 - (void) setIsTransparent: (BOOL)isTransparent {

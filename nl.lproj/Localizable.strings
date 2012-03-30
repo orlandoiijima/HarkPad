@@ -88,3 +88,5 @@
 "Order" = "Order";
 "Select reservation or 'walk-in':" = "Selecteer reservering of 'walk-in':";
 "No data received from server" = "Geen gegevens ontvangen van server";
+"No drink" = "No drink";
+"No food" = "No food";
