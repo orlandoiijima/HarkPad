@@ -213,10 +213,10 @@
     OrderDataSourceSection *group = [self groupForSection:indexPath.section];
     if (group == nil) return;
     [group.lines removeObject:line];
-    if ([group.lines count] == 0) {
-        NSNumber *key = [self keyForOrderLine:line];
-        [groupedLines removeObjectForKey: key];
-    }
+//    if ([group.lines count] == 0) {
+//        NSNumber *key = [self keyForOrderLine:line];
+//        [groupedLines removeObjectForKey: key];
+//    }
 
     NSMutableArray *itemsToDelete = [[NSMutableArray alloc] init];
     if (totalizeProducts) {
@@ -245,10 +245,7 @@
         [order removeOrderLine:line];
     }
     
-    if ([group.lines count] == 0)
-        [tableView deleteSections:[NSIndexSet indexSetWithIndex: indexPath.section] withRowAnimation:UITableViewRowAnimationTop];
-    else
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
     
     if(self.hostController != nil) {
