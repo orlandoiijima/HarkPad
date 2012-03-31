@@ -51,6 +51,8 @@
 
         y += 25;
         }
+    else
+        y += 10;
 
     NSMutableArray *products = [self getOrderedProductsForLines:guest.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines:guest.lines forGuest:guest];
@@ -109,7 +111,7 @@
         text = [self appendProduct:product quantity:quantity toString: text];
     }
 
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y - 12, rect.size.width - 20, 20)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y - 12, rect.size.width, 20)];
     [self addSubview:imageView];
     imageView.contentMode = UIViewContentModeCenter;
     imageView.image = [UIImage imageNamed: isFood ? @"fork-and-knife.png" : @"wine-glass.png"];
@@ -147,8 +149,7 @@
 - (void) showForOrder: (Order *) order {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-
-    CGFloat y = 20;
+    CGFloat y = 10;
 
     CGRect sectionFrame = CGRectMake(10, y, self.bounds.size.width - 20, self.bounds.size.height);
     if (order.reservation && [order.reservation.name length] > 0) {
@@ -174,6 +175,8 @@
             y += textSize.height + 5;
         }
     }
+    else
+        y += 10;
 
     NSMutableArray *products = [self getOrderedProductsForLines: order.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines: order.lines forGuest:nil];

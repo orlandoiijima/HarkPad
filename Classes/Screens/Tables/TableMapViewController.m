@@ -39,10 +39,7 @@
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - self.pageControl.frame.size.height)];
     [self.view addSubview:self.scrollView];
     self.scrollView.autoresizingMask = (UIViewAutoresizing)-1;
-}
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 
     NSMutableArray *const districts = [[[Cache getInstance] map] districts];
 
@@ -81,6 +78,16 @@
     pinchGesture.delegate = self;
     [self.scrollView addGestureRecognizer:pinchGesture];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    self.scrollView.contentSize = CGSizeMake([pages count] * self.scrollView.bounds.size.width, self.scrollView.bounds.size.height);
+
+    if (zoomedTableView != nil)
+        [self unzoom];
+}
+
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
