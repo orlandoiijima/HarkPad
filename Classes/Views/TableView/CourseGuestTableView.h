@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Order.h"
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #import "CourseProgress.h"
 #import "GridViewCellLine.h"
 
@@ -16,12 +16,12 @@
 }
 
 @property int selectedCourse;
-@property (retain) TableView *tableView;
+@property (retain) TableWithSeatsView *tableView;
 @property (retain) CourseProgress *progressView;
 @property (retain) NSMutableArray *cellLines;
 @property (retain, nonatomic) Order *order;
 
-+ (CourseGuestTableView *)viewWithTableView: (TableView *) tableView;
++ (CourseGuestTableView *)viewWithTableView: (TableWithSeatsView *) tableView;
 
 - (void)selectCourse: (int) newSelection animate: (BOOL)animate;
 - (void) slideInCellLine: (GridViewCellLine *)cellLine;

@@ -14,13 +14,13 @@
 #import "PaymentViewController.h"
 #import "MBProgressHUD.h"
 #import "TablePopupDelegate.h"
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #import "TableOverlaySimple.h"
 #import "TableOverlayDashboard.h"
 
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
-    TableView *dragTableView;
-    TableView *targetTableView;
+    TableWithSeatsView *dragTableView;
+    TableWithSeatsView *targetTableView;
     bool isVisible;
     UIScrollView *scrollView;
     UIPageControl *pageControl;
@@ -40,16 +40,16 @@
 - (void) makeBillForOrder: (Order*)order;
 - (void) undockTable: (int)tableId;
 - (void)getPaymentForOrder: (Order *)order;
-- (TableView *) tableViewAtPoint: (CGPoint) point;
-- (void) dockTableView: (TableView *)outerMostTableView toTableView: (TableView *)masterTableView;
-- (void) moveOrderFromTableView: (TableView *) from toTableView: (TableView *) to;
+- (TableWithSeatsView *) tableViewAtPoint: (CGPoint) point;
+- (void) dockTableView: (TableWithSeatsView *)outerMostTableView toTableView: (TableWithSeatsView *)masterTableView;
+- (void) moveOrderFromTableView: (TableWithSeatsView *) from toTableView: (TableWithSeatsView *) to;
 
 - (void) showActivityIndicator;
 - (void)hideActivityIndicator;
 - (void) setupToolbar;
-- (TableView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
+- (TableWithSeatsView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
 - (void)unzoom;
-- (void) zoomToTable:(TableView *)tableView;
+- (void) zoomToTable:(TableWithSeatsView *)tableView;
 - (void) revertDrag;
 - (UIView *)viewForDistrictOffset: (int)offset;
 
@@ -57,7 +57,7 @@
 @property (retain) UIPageControl *pageControl;
 @property (retain) UIView *currentDistrictView;
 @property (retain) UIBarButtonItem *buttonRefresh;
-@property (retain) TableView *zoomedTableView;
+@property (retain) TableWithSeatsView *zoomedTableView;
 @property (retain) NSMutableArray *pages;
 @property int currentDistrictOffset;
 @property District *currentDistrict;

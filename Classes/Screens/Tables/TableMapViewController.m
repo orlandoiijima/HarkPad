@@ -121,7 +121,7 @@
     if(pinchGestureRecognizer.scale < 1)
         return;
     CGPoint point = [pinchGestureRecognizer locationInView: self.currentDistrictView];
-    TableView *clickView = [self tableViewAtPoint:point];
+    TableWithSeatsView *clickView = [self tableViewAtPoint:point];
     if(clickView == nil)
         return;
     if(clickView.table.isDocked == false)
@@ -158,7 +158,7 @@
                     point.y = dragPosition.y;
                 else
                     point.x = dragPosition.x;
-            TableView *newTarget = [self tableViewAtPoint: point];
+            TableWithSeatsView *newTarget = [self tableViewAtPoint: point];
             if (newTarget != targetTableView && newTarget != dragTableView) {
                 if (targetTableView != nil)
                     targetTableView.isTableSelected = NO;
@@ -238,7 +238,7 @@
     }];
 }
 
-- (void) moveOrderFromTableView: (TableView *) from toTableView: (TableView *) to;
+- (void) moveOrderFromTableView: (TableWithSeatsView *) from toTableView: (TableWithSeatsView *) to;
 {
     Service *service = [Service getInstance];
     [service transferOrder: from.orderInfo.id toTable: to.table.id delegate: self callback: @selector(transferOrderCallback:)];
@@ -252,12 +252,12 @@
     [self refreshView];
 }
 
-- (void) dockTableView: (TableView *)dropTableView toTableView: (TableView *)target
+- (void) dockTableView: (TableWithSeatsView *)dropTableView toTableView: (TableWithSeatsView *)target
 {
     if([dropTableView.table isSeatAlignedWith: target.table] == false)
         return;
 
-    TableView *masterTableView, *outerMostTableView;
+    TableWithSeatsView *masterTableView, *outerMostTableView;
     if(target.table.maxCountSeatsHorizontal > 0)
     {
         if(target.table.bounds.origin.x > dropTableView.table.bounds.origin.x)
@@ -292,7 +292,7 @@
     CGRect saveBounds = masterTable.bounds;
     NSArray *saveCountSeats = [NSArray arrayWithArray: masterTable.countSeatsPerSide];
     NSMutableArray *countSeats = [NSMutableArray arrayWithArray:masterTable.countSeatsPerSide];
-    for(TableView *tableView in self.currentDistrictView.subviews) {
+    for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
         Table* table = tableView.table;
         if(masterTable.id != table.id) {
             if([masterTable isSeatAlignedWith:table]) {
@@ -328,17 +328,17 @@
     {
         NSString *message;
         if([tableViews count] == 1)
-            message = [NSString stringWithFormat:@"Tafel %@", ((TableView*)[tableViews objectAtIndex:0]).table.name];
+            message = [NSString stringWithFormat:@"Tafel %@", ((TableWithSeatsView *)[tableViews objectAtIndex:0]).table.name];
         else if([tableViews count] == 2)
-            message = [NSString stringWithFormat:@"Tafels %@ en %@", ((TableView*)[tableViews objectAtIndex:0]).table.name, ((TableView*)[tableViews objectAtIndex:1]).table.name];
+            message = [NSString stringWithFormat:@"Tafels %@ en %@", ((TableWithSeatsView *)[tableViews objectAtIndex:0]).table.name, ((TableWithSeatsView *)[tableViews objectAtIndex:1]).table.name];
         else {
-            message = [NSString stringWithFormat:@"Tafels %@", ((TableView*)[tableViews objectAtIndex:0]).table.name];
+            message = [NSString stringWithFormat:@"Tafels %@", ((TableWithSeatsView *)[tableViews objectAtIndex:0]).table.name];
             NSUInteger i = 1;
             for(; i < [tableViews count] - 1; i++) {
-                TableView *tableButton = [tableViews objectAtIndex:i];
+                TableWithSeatsView *tableButton = [tableViews objectAtIndex:i];
                 message = [NSString stringWithFormat:@"%@, %@", message, tableButton.table.name];
             }
-            message = [NSString stringWithFormat:@"%@ en %@", message, ((TableView *)[tableViews objectAtIndex:i]).table.name];
+            message = [NSString stringWithFormat:@"%@ en %@", message, ((TableWithSeatsView *)[tableViews objectAtIndex:i]).table.name];
         }
         message = [NSString stringWithFormat:@"%@ aanschuiven bij %@ ?", message, masterTable.name];
 
@@ -348,7 +348,7 @@
 
         TableInfo *tableInfo = [[TableInfo alloc] init];
         tableInfo.table = masterTable;
-        TableView *newTableView = [self createTable:tableInfo offset:mapOffset scale:CGPointMake(mapScaleX, mapScaleX)];
+        TableWithSeatsView *newTableView = [self createTable:tableInfo offset:mapOffset scale:CGPointMake(mapScaleX, mapScaleX)];
         [self.currentDistrictView addSubview:newTableView];
 
         bool continueDock = [ModalAlert confirm:message];
@@ -356,7 +356,7 @@
         {
             [newTableView removeFromSuperview];
 
-            for(TableView *tableView in tableViews) {
+            for(TableWithSeatsView *tableView in tableViews) {
                 tableView.isTableSelected = NO;
                 [self.currentDistrictView addSubview:tableView];
             }
@@ -371,7 +371,7 @@
         {
             NSMutableArray *tables = [[NSMutableArray alloc] init];
             [tables addObject: masterTable];
-            for(TableView *tableView in tableViews) {
+            for(TableWithSeatsView *tableView in tableViews) {
                 Table* table = tableView.table;
                 [tables addObject:table];
             }
@@ -384,7 +384,7 @@
     return;
 }
 
-- (TableView *) tableViewAtPoint: (CGPoint) point
+- (TableWithSeatsView *) tableViewAtPoint: (CGPoint) point
 {
     for(UIView *view in self.currentDistrictView.subviews)
     {
@@ -392,7 +392,7 @@
         CGPoint p = [self.currentDistrictView convertPoint:point toView:view];
         if([view pointInside:p withEvent:nil])
         {
-            return (TableView*)view;
+            return (TableWithSeatsView *)view;
         }
     }
     return nil;
@@ -504,7 +504,7 @@
         if(tableInfo.table.dockedToTableId != -1)
             continue;
         if (tableInfo.table.district.id == district.id) {
-            TableView *tableView = [self createTable:tableInfo offset: mapOffset scale: CGPointMake(mapScaleX, mapScaleX)];
+            TableWithSeatsView *tableView = [self createTable:tableInfo offset: mapOffset scale: CGPointMake(mapScaleX, mapScaleX)];
             [districtView addSubview:tableView];
         }
     }
@@ -516,7 +516,7 @@
 }
 
 
-- (TableView *) createTable: (TableInfo *)tableInfo offset: (CGPoint) offset scale: (CGPoint)scale
+- (TableWithSeatsView *) createTable: (TableInfo *)tableInfo offset: (CGPoint) offset scale: (CGPoint)scale
 {
     Table *table = tableInfo.table;
     CGRect frame = CGRectMake(
@@ -524,7 +524,7 @@
                             (table.bounds.origin.y - offset.y) * scale.x,
                             table.bounds.size.width * scale.x,
                             table.bounds.size.height * scale.x);
-    TableView *tableView = [TableView viewWithFrame:frame tableInfo: tableInfo showSeatNumbers:NO];
+    TableWithSeatsView *tableView = [TableWithSeatsView viewWithFrame:frame tableInfo: tableInfo showSeatNumbers:NO];
     tableView.delegate = self;
     TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: tableView.tableView.bounds tableName:table.name countCourses: tableInfo.orderInfo.countCourses currentCourseOffset:tableInfo.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState: tableInfo.orderInfo.currentCourseState orderState: tableInfo.orderInfo.state delegate:nil];
     tableView.contentTableView = overlaySimple;
@@ -532,11 +532,11 @@
     return tableView;
 }
 
-- (void)didTapTableView:(TableView *)tableView {
+- (void)didTapTableView:(TableWithSeatsView *)tableView {
     [self zoomToTable:tableView];
 }
 
-- (void) zoomToTable:(TableView *)tableView {
+- (void) zoomToTable:(TableWithSeatsView *)tableView {
 
     if (self.zoomedTableView != nil) {
         return;
@@ -567,7 +567,7 @@
             tableView.frame.origin.x * zoomScale.x - (self.scrollView.bounds.size.width - width)/2,
             tableView.frame.origin.y * zoomScale.y - (self.scrollView.bounds.size.height - height)/2);
     [UIView animateWithDuration:0.4 animations:^{
-        for(TableView *tableView in self.currentDistrictView.subviews) {
+        for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
             tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
         }
     }
@@ -576,6 +576,7 @@
         controller.tableView = zoomedTableView;
         controller.delegate = self;
         tableView.contentTableView = controller.view;
+        zoomedTableView.isCloseButtonVisible = YES;
     }
     ];
 }
@@ -584,15 +585,15 @@
 {
     if (zoomedTableView == nil) return;
 
+    zoomedTableView.isCloseButtonVisible = NO;
     zoomedTableView.selectedGuests = nil;
-
     zoomedTableView.contentTableView.hidden = YES;
 
     self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
 
     [UIView animateWithDuration:0.4
                      animations:^{
-            for(TableView *tableView in self.currentDistrictView.subviews) {
+            for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake(
                         (tableView.frame.origin.x + zoomOffset.x) / zoomScale.x,
                         (tableView.frame.origin.y + zoomOffset.y) / zoomScale.y,
@@ -619,7 +620,7 @@
         return NO;
 }
 
-- (BOOL)canSelectTableView:(TableView *)tableView {
+- (BOOL)canSelectTableView:(TableWithSeatsView *)tableView {
     return NO;
 }
 

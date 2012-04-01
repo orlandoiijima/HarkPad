@@ -6,7 +6,7 @@
 
 #import "Order.h"
 
-@class TableView;
+@class TableWithSeatsView;
 
 
 @protocol TablePopupDelegate <NSObject>
@@ -18,9 +18,10 @@
 - (void) didTapSeat: (int)seatOffset;
 - (void) didSelectSeat: (int)seatOffset;
 - (BOOL) canSelectSeat: (int)seatOffset;
-- (void) didTapTableView: (TableView *)tableView;
-- (BOOL) canSelectTableView: (TableView *)tableView;
-- (void) didSelectTableView: (TableView *)tableView;
+- (void) didTapTableView: (TableWithSeatsView *)tableView;
+- (BOOL) canSelectTableView: (TableWithSeatsView *)tableView;
+- (void) didSelectTableView: (TableWithSeatsView *)tableView;
 - (void) didChangeToPageView: (UIView *)view;
+- (void) didTapCloseButton;
 @end
 

@@ -7,24 +7,25 @@
 
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #import "GuestPropertiesViewController.h"
 #import "TableInfo.h"
 #import "TableViewContainer.h"
 
-@implementation TableView {
+@implementation TableWithSeatsView {
 
 }
 
 @synthesize table, tableView, delegate = _delegate, orderInfo, tableInnerRect, isTableSelected = _isTableSelected, contentTableView = _contentTableView, isDragging;
-@dynamic selectedGuests;
+@dynamic selectedGuests, isCloseButtonVisible;
+@synthesize closeButton;
 
-+ (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL) showSeatNumbers
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL) showSeatNumbers
 {
-    TableView *view = [[TableView alloc] init];
+    TableWithSeatsView *view = [[TableWithSeatsView alloc] init];
     view.autoresizingMask = (UIViewAutoresizing)-1;
     view.frame = frame;
-    view.clipsToBounds = YES;
+    view.clipsToBounds = NO;
     view.table = tableInfo.table;
     view.orderInfo = tableInfo.orderInfo;
     Table *table = view.table;
@@ -94,11 +95,27 @@
         }
     }
 
+    view.closeButton = [[UIButton alloc] init];
+    [view addSubview: view.closeButton];
+    [view.closeButton addTarget:self action:@selector(tapCloseButton) forControlEvents:UIControlEventTouchUpInside];
+    [view.closeButton setImage:[UIImage imageNamed:@"closebox.png"] forState:UIControlStateNormal];
+    view.closeButton.hidden = NO;
+
     UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc] initWithTarget:view action:@selector(tapper:)];
     tapper.delegate = view;
     [view.tableView addGestureRecognizer:tapper];
 
     return view;
+}
+
+- (BOOL) setIsCloseButtonVisible: (BOOL)vis {
+    closeButton.frame = CGRectMake(tableView.frame.origin.x + tableView.frame.size.width + 15 - 30, tableView.frame.origin.y - 15, 30, 29);
+    closeButton.hidden = !vis;
+}
+
+- (void)tapCloseButton {
+    if([self.delegate respondsToSelector:@selector(didTapCloseButton)])
+        [self.delegate didTapCloseButton];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {

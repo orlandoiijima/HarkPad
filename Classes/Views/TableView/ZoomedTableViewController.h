@@ -9,7 +9,7 @@
 
 #import "Order.h"
 #import "Guest.h"
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #import "ReservationDataSource.h"
 #import "TableOverlayDashboard.h"
 #import "Service.h"
@@ -22,7 +22,7 @@
 @property (retain) Order *order;
 @property (retain) Guest *selectedGuest;
 @property (nonatomic) int selectedSeat;
-@property (retain) TableView *tableView;
+@property (retain) TableWithSeatsView *tableView;
 @property (retain) ReservationDataSource *reservationDataSource;
 @property (retain, nonatomic) TableOverlayDashboard *tableViewDashboard;
 @property (retain) id<TablePopupDelegate> delegate;

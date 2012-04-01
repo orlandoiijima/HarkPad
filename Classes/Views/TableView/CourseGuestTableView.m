@@ -19,7 +19,7 @@
 @synthesize tableView, progressView, cellLines, order;
 @dynamic selectedCourse;
 
-+ (CourseGuestTableView *)viewWithTableView: (TableView *) tableView
++ (CourseGuestTableView *)viewWithTableView: (TableWithSeatsView *) tableView
 {
     CourseGuestTableView *view = [[CourseGuestTableView alloc] initWithFrame:CGRectMake(0, 0, tableView.tableView.bounds.size.width, tableView.tableView.bounds.size.height)];
     view.clipsToBounds = NO;

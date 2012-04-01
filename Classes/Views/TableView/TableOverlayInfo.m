@@ -32,7 +32,7 @@
         if ([anOrder.reservation.name length] > 0)
             [captionValueLabels addObject:[NSArray arrayWithObjects:anOrder.reservation.name,NSLocalizedString(@"Reservation", nil), nil]];
         if ([anOrder.reservation.notes length] > 0)
-            [captionValueLabels addObject: [NSArray arrayWithObjects:anOrder.reservation.name, NSLocalizedString(@"Notes", nil), nil]];
+            [captionValueLabels addObject: [NSArray arrayWithObjects:anOrder.reservation.notes, NSLocalizedString(@"Notes", nil), nil]];
     }
     if (anOrder.createdOn != nil) {
         NSString *val = [anOrder.createdOn dateDiff];
@@ -66,23 +66,27 @@
         NSString *value = [strings objectAtIndex:0];
         UILabel *captionLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:captionLabel];
+        captionLabel.numberOfLines = 0;
+        captionLabel.lineBreakMode = UILineBreakModeWordWrap;
         captionLabel.font = [UIFont systemFontOfSize:14];
         captionLabel.backgroundColor = [UIColor clearColor];
         captionLabel.textColor = [UIColor colorWithWhite:0.9 alpha:1];
         captionLabel.textAlignment = UITextAlignmentCenter;
         captionLabel.text = caption;
-        CGSize size = [caption sizeWithFont:captionLabel.font forWidth:scrollView.bounds.size.width lineBreakMode:UILineBreakModeWordWrap];
+        CGSize size = [caption sizeWithFont:captionLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
         captionLabel.frame = CGRectMake(0, y, scrollView.bounds.size.width, size.height);
-        y += size.height + 4;
+        y += size.height + 1;
         
         UILabel *valueLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:valueLabel];
+        valueLabel.numberOfLines = 0;
+        valueLabel.lineBreakMode = UILineBreakModeWordWrap;
         valueLabel.font = [UIFont systemFontOfSize:17];
         valueLabel.backgroundColor = [UIColor clearColor];
-        valueLabel.textColor = [UIColor blackColor];
+        valueLabel.textColor = [UIColor colorWithWhite:0.0 alpha:1];
         valueLabel.textAlignment = UITextAlignmentCenter;
         valueLabel.text = value;
-        size = [value sizeWithFont:valueLabel.font forWidth:scrollView.bounds.size.width lineBreakMode:UILineBreakModeWordWrap];
+        size = [value sizeWithFont:valueLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
         valueLabel.frame = CGRectMake(0, y, scrollView.bounds.size.width, size.height);
         y += size.height + 7;
     }

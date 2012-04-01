@@ -7,7 +7,7 @@
 //
 
 #import "ProductPanelView.h"
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #import "MenuTreeView.h"
 #import "OrderDataSource.h"
 #import "TableOverlaySimple.h"
@@ -18,7 +18,7 @@
 }
 
 @property (retain) MenuTreeView *productPanelView;
-@property (retain) TableView *tableView;
+@property (retain) TableWithSeatsView *tableView;
 @property (retain) TableOverlayHud *tableOverlayHud;
 @property (retain) UITableView *orderView;
 @property (retain) Order *order;

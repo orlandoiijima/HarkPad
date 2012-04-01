@@ -258,7 +258,7 @@
 		E5F609A313489C2400D88607 /* NodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88606 /* NodeViewController.xib */; };
 		E5F609A313489C2400D8860B /* PdfCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8860A /* PdfCreator.m */; };
 		E5F609A313489C2400D8860E /* BillPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8860D /* BillPdf.m */; };
-		E5F609A313489C2400D88611 /* TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88610 /* TableView.m */; };
+		E5F609A313489C2400D88611 /* TableWithSeatsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88610 /* TableWithSeatsView.m */; };
 		E5F609A313489C2400D88615 /* SeatView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88614 /* SeatView.m */; };
 		E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861C /* UIImage+Tint.m */; };
 		E5F609A313489C2400D88620 /* errorRedDot.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8861F /* errorRedDot.png */; };
@@ -744,8 +744,8 @@
 		E5F609A313489C2400D8860C /* PdfCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfCreator.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8860D /* BillPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillPdf.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8860F /* BillPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BillPdf.h; sourceTree = "<group>"; };
-		E5F609A313489C2400D88610 /* TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableView.m; sourceTree = "<group>"; };
-		E5F609A313489C2400D88612 /* TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88610 /* TableWithSeatsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableWithSeatsView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D88612 /* TableWithSeatsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableWithSeatsView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D88614 /* SeatView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatView.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D88616 /* SeatView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8861C /* UIImage+Tint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Tint.m"; sourceTree = "<group>"; };
@@ -1742,8 +1742,8 @@
 				E5F609A313489C2400D88628 /* GuestProperties.m */,
 				E5F609A313489C2400D88616 /* SeatView.h */,
 				E5F609A313489C2400D88614 /* SeatView.m */,
-				E5F609A313489C2400D88610 /* TableView.m */,
-				E5F609A313489C2400D88612 /* TableView.h */,
+				E5F609A313489C2400D88610 /* TableWithSeatsView.m */,
+				E5F609A313489C2400D88612 /* TableWithSeatsView.h */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -2124,7 +2124,7 @@
 				E5F609A313489C2400D88605 /* NodeViewController.m in Sources */,
 				E5F609A313489C2400D8860B /* PdfCreator.m in Sources */,
 				E5F609A313489C2400D8860E /* BillPdf.m in Sources */,
-				E5F609A313489C2400D88611 /* TableView.m in Sources */,
+				E5F609A313489C2400D88611 /* TableWithSeatsView.m in Sources */,
 				E5F609A313489C2400D88615 /* SeatView.m in Sources */,
 				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
 				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,

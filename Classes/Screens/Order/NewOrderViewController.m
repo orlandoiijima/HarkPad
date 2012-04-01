@@ -63,7 +63,7 @@
     titleView.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), _order.table.name];
     self.navigationItem.titleView = titleView;
 
-    _tableView = [TableView viewWithFrame:CGRectMake(
+    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(
             MARGIN,
             MARGIN,
             self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
@@ -134,7 +134,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (BOOL)canSelectTableView:(TableView *)tableView {
+- (BOOL)canSelectTableView:(TableWithSeatsView *)tableView {
     return YES;
 }
 
@@ -211,7 +211,7 @@
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
 }
 
-- (void)didSelectTableView:(TableView *)tableView {
+- (void)didSelectTableView:(TableWithSeatsView *)tableView {
     [self.tableOverlayHud showForOrder: self.order];
 }
 

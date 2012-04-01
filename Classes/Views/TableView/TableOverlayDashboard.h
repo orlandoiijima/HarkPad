@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TableView.h"
+#import "TableWithSeatsView.h"
 #include "CourseGuestTableView.h"
 #include "ReservationDataSource.h"
 #include "GuestProperties.h"
@@ -28,7 +28,7 @@
 @property (retain) id<TablePopupDelegate> delegate;
 @property (retain) Order *order;
 
-- (id)initWithFrame:(CGRect)frame tableView: (TableView *)tableView delegate: (id<TablePopupDelegate>) delegate;
+- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView delegate: (id<TablePopupDelegate>) delegate;
 - (void) scrollToView: (UIView *)view;
 - (UIView *)viewOnPage: (int)pageControl;
 

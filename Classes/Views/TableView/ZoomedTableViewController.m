@@ -61,6 +61,11 @@
     }
 }
 
+- (void)didTapCloseButton {
+    if([self.delegate respondsToSelector:@selector(didTapCloseButton)])
+        [self.delegate didTapCloseButton];
+}
+
 -(void) getOpenOrderByTableCallback: (Order *)tableOrder
 {
     order = tableOrder;
@@ -177,7 +182,7 @@
     return YES;
 }
 
-- (BOOL) canSelectTableView: (TableView *)tableView {
+- (BOOL) canSelectTableView: (TableWithSeatsView *)tableView {
     return NO;
 }
 

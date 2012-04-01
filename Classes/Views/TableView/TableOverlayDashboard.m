@@ -15,7 +15,7 @@
 
 #define PAGECONTROL_HEIGHT 50
 
-- (id)initWithFrame:(CGRect)frame tableView: (TableView *)tableView delegate: (id<TablePopupDelegate>) aDelegate
+- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView delegate: (id<TablePopupDelegate>) aDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {

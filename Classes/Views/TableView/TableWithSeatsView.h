@@ -15,9 +15,10 @@
 #import "TableInfo.h"
 #import "TableViewContainer.h"
 
-@interface TableView : UIView <ItemPropertiesDelegate, UIGestureRecognizerDelegate>
+@interface TableWithSeatsView : UIView <ItemPropertiesDelegate, UIGestureRecognizerDelegate>
 
 @property (retain) TableViewContainer *tableView;
+@property (retain) UIButton *closeButton;
 @property (retain) Table *table;
 @property (retain) OrderInfo *orderInfo;
 @property (retain) id<TablePopupDelegate> delegate;
@@ -26,8 +27,9 @@
 @property (retain) NSMutableArray * selectedGuests;
 @property (nonatomic) BOOL isTableSelected;
 @property (nonatomic) BOOL isDragging;
+@property (nonatomic) BOOL isCloseButtonVisible;
 
-+ (TableView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
 - (void)tapSeat: (id)sender;
 - (void) selectSeat: (int) offset;
 - (void)didModifyItem:(id)item;
