@@ -302,6 +302,10 @@
 		E5F609A313489C2400D88697 /* user_woman_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88696 /* user_woman_114.png */; };
 		E5F609A313489C2400D88699 /* user_114.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88698 /* user_114.png */; };
 		E5F609A313489C2400D8869B /* ToolbarTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8869A /* ToolbarTitleView.m */; };
+		E5F609A313489C2400D8869E /* food@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8869D /* food@2x.png */; };
+		E5F609A313489C2400D886A0 /* action@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8869F /* action@2x.png */; };
+		E5F609A313489C2400D886A2 /* order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A1 /* order@2x.png */; };
+		E5F609A313489C2400D886A4 /* creditcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A3 /* creditcard@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -808,6 +812,10 @@
 		E5F609A313489C2400D88698 /* user_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_114.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D8869A /* ToolbarTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ToolbarTitleView.m; path = Views/ToolbarTitleView.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8869C /* ToolbarTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToolbarTitleView.h; path = Views/ToolbarTitleView.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D8869D /* food@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "food@2x.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D8869F /* action@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action@2x.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886A1 /* order@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "order@2x.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886A3 /* creditcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "creditcard@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1080,6 +1088,10 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886A3 /* creditcard@2x.png */,
+				E5F609A313489C2400D886A1 /* order@2x.png */,
+				E5F609A313489C2400D8869F /* action@2x.png */,
+				E5F609A313489C2400D8869D /* food@2x.png */,
 				E5F609A313489C2400D88698 /* user_114.png */,
 				E5F609A313489C2400D88696 /* user_woman_114.png */,
 				E5F609A313489C2400D88694 /* woman_slim_114.png */,
@@ -1914,6 +1926,10 @@
 				E5F609A313489C2400D88695 /* woman_slim_114.png in Resources */,
 				E5F609A313489C2400D88697 /* user_woman_114.png in Resources */,
 				E5F609A313489C2400D88699 /* user_114.png in Resources */,
+				E5F609A313489C2400D8869E /* food@2x.png in Resources */,
+				E5F609A313489C2400D886A0 /* action@2x.png in Resources */,
+				E5F609A313489C2400D886A2 /* order@2x.png in Resources */,
+				E5F609A313489C2400D886A4 /* creditcard@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

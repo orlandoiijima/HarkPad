@@ -227,7 +227,7 @@
     for(int c = courses.count - 1; c >= 0; c--)
     {
         Course *course = [courses objectAtIndex:c];
-        if(course.requestedOn != nil)
+        if(course.servedOn != nil)
             return course;
     
     }
@@ -246,14 +246,10 @@
 
 - (Course *)nextCourseToServe
 {
-    for(int c = courses.count - 1; c >= 0; c--)
+    for(Course *course in courses)
     {
-        Course *course = [courses objectAtIndex:c];
-        if (course.servedOn != nil)
-            return nil;
-        if(course.requestedOn != nil)
+        if (course.servedOn == nil)
             return course;
-    
     }
     return nil;
 }

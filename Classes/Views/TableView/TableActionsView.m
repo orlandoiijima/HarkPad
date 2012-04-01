@@ -42,16 +42,16 @@
         }
 
         CGRect rect = CGRectMake(x, y, size, size);
-        self.buttonEditOrder = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"food.png"] title:NSLocalizedString(@"Order", nil) delegate: delegate action: @selector(editOrder)];
+        self.buttonEditOrder = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"food@2x.png"] title:NSLocalizedString(@"Order", nil) delegate: delegate action: @selector(editOrder)];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonRequestNextCourse = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"action.png"] title:NSLocalizedString(@"Request", nil) delegate: delegate action: @selector(startNextCourse)];
+        self.buttonRequestNextCourse = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"action@2x.png"] title:NSLocalizedString(@"Request", nil) delegate: delegate action: @selector(startNextCourse)];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonBill = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"order.png"] title:NSLocalizedString(@"Bill", nil) delegate: delegate action: @selector(makeBillForOrder)];
+        self.buttonBill = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"order@2x.png"] title:NSLocalizedString(@"Bill", nil) delegate: delegate action: @selector(makeBillForOrder)];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonPay = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"creditcard.png"] title:NSLocalizedString(@"Pay", nil) delegate: delegate action: @selector(getPaymentForOrder)];
+        self.buttonPay = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"creditcard@2x.png"] title:NSLocalizedString(@"Pay", nil) delegate: delegate action: @selector(getPaymentForOrder)];
     }
     return self;
 }

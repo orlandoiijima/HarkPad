@@ -13,9 +13,7 @@
 @interface TableOverlayInfo : UIView
 
 @property (retain) Order *order;
-@property (retain) UILabel *nameLabel;
-@property (retain) UILabel *createdLabel;
-@property (retain) UILabel *amountLabel;
+@property (retain) UIScrollView *scrollView;
 
 - (id)initWithFrame: (CGRect) frame order: (Order *)order;
 
