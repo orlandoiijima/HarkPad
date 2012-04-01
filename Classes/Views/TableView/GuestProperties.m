@@ -46,18 +46,6 @@
     [view.isHostView addTarget:delegate action:@selector(tapHost:) forControlEvents:UIControlEventTouchDown];
     [view addSubview: view.isHostView];
 
-//    NSArray *diets = [NSArray arrayWithObjects:
-//        NSLocalizedString(@"Gluten allergy", nil),
-//        NSLocalizedString(@"Nut allergy", nil),
-//        NSLocalizedString(@"Lactose intolerance", nil),
-//        NSLocalizedString(@"Milk allergy", nil),
-//        NSLocalizedString(@"Halal", nil),
-//        NSLocalizedString(@"Kosher", nil),
-//        NSLocalizedString(@"Montignac", nil),
-//        NSLocalizedString(@"No meat", nil),
-//        NSLocalizedString(@"No fish", nil),
-//        NSLocalizedString(@"Salt free", nil),
-//        nil];
     for(int i=0; i < 32; i++) {
         NSString *diet = [Guest dietName:i];
         if ([diet length] == 0) break;
@@ -87,6 +75,11 @@
     viewFemale.isOn = guest != nil && !guest.isMale;
     viewEmpty.isOn = guest == nil || guest.isEmpty;
     isHostView.isOn = guest != nil && guest.isHost;
+
+    if ([guest.lines count] > 0)
+        viewEmpty.enabled = NO;
+    else
+        viewEmpty.enabled = YES;
 }
 
 - (void) layoutSubviews {
