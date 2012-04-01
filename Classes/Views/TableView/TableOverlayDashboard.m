@@ -86,6 +86,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    if (pageControl.currentPage == page)
+        return;
     pageControl.currentPage = page;
     if([self.delegate respondsToSelector:@selector(didChangeToPageView:)])
         [self.delegate didChangeToPageView: [self viewOnPage:pageControl.currentPage]];
@@ -104,7 +106,11 @@
 
 - (UIView *)viewOnPage: (int)pageControl {
     CGPoint point = CGPointMake( self.pageControl.currentPage * scrollTableView.bounds.size.width, scrollTableView.contentOffset.y);
-    return [scrollTableView hitTest:point withEvent: nil];
+    for(UIView *view in scrollTableView.subviews) {
+        if (CGRectContainsPoint(view.frame, point))
+            return view;
+    }
+    return nil;
 }
 
 @end

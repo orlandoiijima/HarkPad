@@ -109,46 +109,6 @@
     return NO;
 }
 
-//- (void)layoutSubviews {
-//    int verticalUnits = table.seatsVertical + (table.seatsHorizontal > 0 ? 2 : 0);
-//    int horizontalUnits = table.seatsHorizontal + (table.seatsVertical > 0 ? 2 : 0);
-//    CGFloat minimumSize = self.bounds.size.width / horizontalUnits < self.bounds.size.height / verticalUnits ? self.bounds.size.width / horizontalUnits : self.bounds.size.height / verticalUnits;
-////    if (minimumSize > 50)
-////        minimumSize = 50;
-//    if (table.seatsVertical)
-//        minimumSize = MIN(self.bounds.size.width/4, minimumSize);
-//    if (table.seatsHorizontal)
-//        minimumSize = MIN(self.bounds.size.height/4, minimumSize);
-//    CGSize seatViewSize = CGSizeMake(minimumSize, minimumSize);
-//
-//    CGRect tableRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
-//  //  tableRect = CGRectInset(tableRect, 5, 5);
-//    if (table.seatsVertical > 0)
-//        tableRect = CGRectInset(tableRect, seatViewSize.width, 0);
-//    if (table.seatsHorizontal > 0)
-//        tableRect = CGRectInset(tableRect, 0, seatViewSize.width);
-//
-//    self.tableView.frame = tableRect;
-//
-//    CGFloat x = tableRect.origin.x;
-//    CGFloat width = tableRect.size.width / table.seatsHorizontal;
-//    for(int i=0; i < table.seatsHorizontal; i++) {
-//        SeatView *seatView = [self seatViewAtOffset:i];
-//        seatView.frame = CGRectMake(x + i * width, tableRect.origin.y - seatViewSize.height, width, seatViewSize.height);
-//
-//        seatView = [self seatViewAtOffset:i + table.seatsHorizontal + table.seatsVertical];
-//        seatView.frame = CGRectMake(tableRect.origin.x + tableRect.size.width - (i+1)*width, tableRect.origin.y + tableRect.size.height, width, seatViewSize.height);
-//    }
-//
-//    CGFloat height = (tableRect.size.height) / table.seatsVertical;
-//    for(int i=0; i < table.seatsVertical; i++) {
-//        SeatView *seatView = [self seatViewAtOffset:i + table.seatsHorizontal];
-//        seatView.frame = CGRectMake(tableRect.origin.x + tableRect.size.width, tableRect.origin.y + i * height, seatViewSize.width, height);
-//
-//        seatView = [self seatViewAtOffset:i + table.seatsHorizontal + table.seatsVertical + table.seatsHorizontal];
-//        seatView.frame = CGRectMake(tableRect.origin.x - seatViewSize.width, tableRect.origin.y + tableRect.size.height - (i+1) * height, seatViewSize.width, height);
-//    }
-//}
 
 - (void) tapper: (UITapGestureRecognizer *)gestureRecognizer
 {

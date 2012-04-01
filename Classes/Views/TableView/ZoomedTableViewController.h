@@ -26,6 +26,7 @@
 @property (retain) ReservationDataSource *reservationDataSource;
 @property (retain, nonatomic) TableOverlayDashboard *tableViewDashboard;
 @property (retain) id<TablePopupDelegate> delegate;
+@property int saveSelectedSeat;
 
 - (void) refreshSeatView;
 

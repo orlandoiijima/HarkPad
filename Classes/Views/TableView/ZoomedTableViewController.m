@@ -15,7 +15,7 @@
 
 @implementation ZoomedTableViewController
 
-@synthesize tableView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat;
+@synthesize tableView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat, saveSelectedSeat = _saveSelectedSeat;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -52,9 +52,11 @@
 
 - (void)didChangeToPageView:(UIView *)view {
     if ([view isKindOfClass:[GuestProperties class]]) {
-        self.selectedSeat = 0;
+        self.selectedSeat = self.saveSelectedSeat;
     }
-    else {
+    else
+    if (self.selectedSeat != -1) {
+        self.saveSelectedSeat = self.selectedSeat;
         self.selectedSeat = -1;
     }
 }
@@ -167,7 +169,7 @@
 }
 
 - (void)didTapSeat: (int)offset {
-    self.selectedSeat = offset;
+    self.selectedSeat = self.saveSelectedSeat = offset;
     [self.tableViewDashboard scrollToView: self.tableViewDashboard.guestProperties];
 }
 
