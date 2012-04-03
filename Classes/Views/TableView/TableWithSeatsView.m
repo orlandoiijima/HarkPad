@@ -97,7 +97,7 @@
 
     view.closeButton = [[UIButton alloc] init];
     [view addSubview: view.closeButton];
-    [view.closeButton addTarget:self action:@selector(tapCloseButton) forControlEvents:UIControlEventTouchUpInside];
+    [view.closeButton addTarget:view action:@selector(tapCloseButton) forControlEvents:UIControlEventTouchUpInside];
     [view.closeButton setImage:[UIImage imageNamed:@"closebox.png"] forState:UIControlStateNormal];
     view.closeButton.hidden = NO;
 

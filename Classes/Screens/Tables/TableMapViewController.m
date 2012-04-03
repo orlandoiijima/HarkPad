@@ -114,6 +114,10 @@
         [self unzoom];
 }
 
+- (void)didTapCloseButton {
+    [self unzoom];
+}
+
 - (void) handlePinchGesture: (UIPinchGestureRecognizer *) pinchGestureRecognizer
 {
     if(pinchGestureRecognizer.state != UIGestureRecognizerStateBegan)
