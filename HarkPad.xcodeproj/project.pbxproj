@@ -1817,7 +1817,7 @@
 		E50A37F312E21163007C2101 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "The Attic";
 			};
 			buildConfigurationList = E50A37F612E21163007C2101 /* Build configuration list for PBXProject "HarkPad" */;

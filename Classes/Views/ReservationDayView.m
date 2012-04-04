@@ -13,24 +13,34 @@
 
 @implementation ReservationDayView
 
-@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date, selectedReservation, infoLabel;
+@synthesize table, dayLabel, dateLabel, countLabels, dataSource, date, selectedReservation, infoLabel, searchCaptionLabel = searchCaptionLabel, headerView;
 
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 90)];
+        self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self addSubview:self.headerView];
+
+        self.searchCaptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 90)];
+        self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [self addSubview: self.searchCaptionLabel];
+        self.searchCaptionLabel.hidden = YES;
+        self.searchCaptionLabel.textAlignment = UITextAlignmentCenter;
+
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
         dateLabel.font = [UIFont systemFontOfSize:22];
         dateLabel.textAlignment = UITextAlignmentRight;
         dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self addSubview:dateLabel];
+        [self.headerView addSubview:dateLabel];
 
         dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/2 + 5, 0, frame.size.width/2, 35)];
         dayLabel.font = [UIFont systemFontOfSize:22];
         dayLabel.textColor = [UIColor colorWithWhite: 0.5 alpha: 0.5];
         dayLabel.textAlignment = UITextAlignmentLeft;
         dayLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [self addSubview:dayLabel];
+        [self.headerView addSubview:dayLabel];
 
         int width = (int) ((frame.size.width) / 7);
         int x = 0;
@@ -47,7 +57,7 @@
             label.textColor = [UIColor grayColor];
             label.text = slot;
             label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-            [self addSubview: label];
+            [self.headerView addSubview: label];
             
             label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + label.bounds.size.height, width, labelHeight)];
             label.textAlignment = UITextAlignmentCenter;
@@ -55,7 +65,7 @@
             label.text = slot;
             [countLabels setValue:label forKey:slot];
             label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-            [self addSubview: label];
+            [self.headerView addSubview: label];
             
             x += width;
         }    
@@ -81,14 +91,31 @@
     return self;
 }
 
-- (void) hideHeader
-{
-    table.frame = CGRectMake(0, 0, table.frame.size.width, self.frame.size.height);
+//- (void) hideHeader
+//{
+//    table.frame = CGRectMake(0, 0, table.frame.size.width, self.frame.size.height);
+//}
+//
+//- (void) showHeader
+//{
+//    table.frame = CGRectMake(0, 60, table.frame.size.width, self.frame.size.height - 60);
+//}
+
+- (void) startSearchModeWithQuery: (NSString *)query {
+    self.headerView.hidden = YES;
+    self.searchCaptionLabel.hidden = NO;
+    self.searchCaptionLabel.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Searching for", nil), query];
+
 }
 
-- (void) showHeader
-{
-    table.frame = CGRectMake(0, 60, table.frame.size.width, self.frame.size.height - 60);
+- (void) setSearchCaptionLabelText: (NSString *)text {
+    self.searchCaptionLabel.text = text;
+}
+
+- (void) endSearchMode {
+    self.headerView.hidden = NO;
+    self.searchCaptionLabel.hidden = YES;
+//    table.frame = CGRectMake(0, 60, table.frame.size.width, self.frame.size.height - 60);
 }
 
 - (Reservation *) selectedReservation

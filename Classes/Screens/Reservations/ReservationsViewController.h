@@ -37,12 +37,12 @@
 @property (retain) IBOutlet ReservationDayView *dayView;
 @property (retain) NSMutableDictionary *dataSources;
 @property (retain) NSDate *originalStartsOn;
-@property (retain) IBOutlet UILabel *searchHeader;
 @property (retain) IBOutlet UISegmentedControl *segmentShow;
 @property (retain) IBOutlet UIBarButtonItem *buttonEdit;
 @property (retain) IBOutlet UIBarButtonItem *buttonAdd;
 @property (retain) IBOutlet UIBarButtonItem *buttonWalkin;
 @property (retain) IBOutlet UIBarButtonItem *buttonSearch;
+@property (retain) IBOutlet UIBarButtonItem *buttonPrevious;
 @property (retain) IBOutlet UISearchBar *searchBar;
 @property (retain) IBOutlet UIToolbar *toolbar;
 @property BOOL isInSearchMode;

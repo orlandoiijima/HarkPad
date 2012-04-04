@@ -21,6 +21,8 @@
 
 @property (retain) NSMutableDictionary *countLabels;
 @property (retain) UITableView *table;
+@property (retain) UIView *headerView;
+@property (retain) UILabel *searchCaptionLabel;
 @property (retain) UILabel *infoLabel;
 @property (retain) IBOutlet UILabel *dateLabel;
 @property (retain) IBOutlet UILabel *dayLabel;
@@ -30,9 +32,13 @@
 - (void) refreshTotals;
 - (id)initWithFrame:(CGRect)frame delegate: (id) delegate;
 
-- (void) showHeader;
-- (void) hideHeader;
+//- (void) showHeader;
+//- (void) hideHeader;
 - (void)showInfo: (NSString *)text;
 - (void)hideInfo;
+
+- (void) endSearchMode;
+- (void) startSearchModeWithQuery: (NSString *)query;
+- (void) setSearchCaptionLabelText: (NSString *)text;
 
 @end

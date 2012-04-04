@@ -76,6 +76,12 @@
         return;
     }
     NSMutableArray *reservations = serviceResult.data;
+    if ([reservations count] == 0) {
+        self.headerLabel.text = NSLocalizedString(@"No reservations found", <#comment#>);
+        self.reservationsTableView.hidden = YES;
+        self.orderTableView.hidden = YES;
+        self.headerLabel.textAlignment = UITextAlignmentCenter;
+    }
     self.reservationDataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:YES withReservations:reservations];
     self.reservationsTableView.dataSource = self.reservationDataSource;
     [self.reservationsTableView reloadData];

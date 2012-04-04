@@ -16,7 +16,7 @@
 
 @implementation ReservationsViewController
 
-@synthesize dayView, dataSources, originalStartsOn, segmentShow, buttonAdd, buttonEdit, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, searchHeader, calendarViews, isInCalendarMode, scrollView;
+@synthesize dayView, dataSources, originalStartsOn, segmentShow, buttonAdd, buttonEdit, toolbar, buttonWalkin, isInSearchMode, searchBar, saveDate, buttonSearch, calendarViews, isInCalendarMode, scrollView, buttonPrevious;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -362,8 +362,7 @@
 {
     searchBar.text = @"";
     isInSearchMode = NO;
-    searchHeader.hidden = YES;
-    [dayView showHeader];
+    [dayView endSearchMode];
     NSString *key = [self dateToKey: saveDate];
     self.dayView.dataSource = [dataSources objectForKey:key];
 }
@@ -371,12 +370,10 @@
 - (void) startSearchForText: (NSString *) query
 {
     isInSearchMode = YES;
-    searchHeader.hidden = NO;
-    
-    [dayView hideHeader];
+
+    [dayView startSearchModeWithQuery:query];
     saveDate = dayView.date;
-    searchHeader.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Searching for", nil), query];
-    [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];    
+    [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];
 }
 
 - (void) searchReservationsCallback: (ServiceResult *)serviceResult
@@ -386,10 +383,7 @@
         return;
     }
     NSMutableArray *reservations = serviceResult.data;
-    if(reservations == nil || [reservations count] == 0)
-        searchHeader.text = NSLocalizedString(@"No reservations found", nil);
-    else
-        searchHeader.text = NSLocalizedString(@"Reservations found:", nil);
+    [dayView setSearchCaptionLabelText: [NSString stringWithFormat: NSLocalizedString(@"Reservations found with '%@':", nil), searchBar.text]];
 
     ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate: nil includePlacedReservations: YES withReservations:reservations];
     if(self.dayView != nil) {
@@ -401,16 +395,19 @@
 {
     if([self.dayView.table isEditing])
         [self edit];
-    else
-    {
-        Reservation *reservation = [self.dayView selectedReservation];
-        PreviousReservationsViewController *controller = [PreviousReservationsViewController controllerWithReservationId:1309] ; // reservation.id];
-        popover = [[UIPopoverController alloc] initWithContentViewController:controller];
-        popover.delegate = self;
-        [popover setPopoverContentSize:CGSizeMake(600, 400)];
-        CGRect rect = [self.view convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView: tableView];
-        [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    }
+}
+
+- (IBAction) showPreviousReservations
+{
+    Reservation *reservation = [self.dayView selectedReservation];
+    if (reservation == nil)
+        return;
+    PreviousReservationsViewController *controller = [PreviousReservationsViewController controllerWithReservationId: reservation.id];
+    popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    popover.delegate = self;
+    [popover setPopoverContentSize:CGSizeMake(600, 400)];
+    CGRect rect = [self.dayView.table rectForRowAtIndexPath:[self.dayView.table indexPathForSelectedRow]];
+    [popover presentPopoverFromRect:rect inView:self.dayView.table permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
 - (void)refreshCalendar
