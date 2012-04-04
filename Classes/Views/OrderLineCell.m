@@ -76,6 +76,8 @@
 
     cell.name = [[UILabel alloc] initWithFrame:CGRectMake(cell.quantity.frame.origin.x + cell.quantity.frame.size.width + 3, 0, 200, height)];
     [cell.contentView addSubview:cell.name];
+    if (isEditable == false)
+        cell.name.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
     cell.name.backgroundColor = [UIColor clearColor];
     if (fontSize != 0)
         cell.name.font = [UIFont systemFontOfSize:fontSize];

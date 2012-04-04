@@ -67,6 +67,7 @@
 - (void) deleteReservation: (int)reservationId;
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback;
+- (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback;
 
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;

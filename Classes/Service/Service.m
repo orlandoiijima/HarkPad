@@ -315,6 +315,20 @@ static Service *_service;
                  userData:invocation];
 }
 
+- (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation retainArguments];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"getpreviousreservations"
+                withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]
+                 delegate: self
+                 callback:@selector(getReservationsCallback:finishedWithData:error:)
+                 userData:invocation];
+}
+
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback
 {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];

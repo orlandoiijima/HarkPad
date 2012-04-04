@@ -108,7 +108,7 @@
     return view;
 }
 
-- (BOOL) setIsCloseButtonVisible: (BOOL)vis {
+- (void) setIsCloseButtonVisible: (BOOL)vis {
     closeButton.frame = CGRectMake(tableView.frame.origin.x + tableView.frame.size.width + 15 - 30, tableView.frame.origin.y - 15, 30, 29);
     closeButton.hidden = !vis;
 }

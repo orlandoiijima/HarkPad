@@ -12,6 +12,7 @@
 #import "DayReservationsInfo.h"
 #import "ModalAlert.h"
 #import "MBProgressHUD.h"
+#import "PreviousReservationsViewController.h"
 
 @implementation ReservationsViewController
 
@@ -400,6 +401,16 @@
 {
     if([self.dayView.table isEditing])
         [self edit];
+    else
+    {
+        Reservation *reservation = [self.dayView selectedReservation];
+        PreviousReservationsViewController *controller = [PreviousReservationsViewController controllerWithReservationId:1309] ; // reservation.id];
+        popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+        popover.delegate = self;
+        [popover setPopoverContentSize:CGSizeMake(600, 400)];
+        CGRect rect = [self.view convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView: tableView];
+        [popover presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
 }
 
 - (void)refreshCalendar

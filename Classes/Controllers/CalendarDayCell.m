@@ -150,6 +150,7 @@
             view.backgroundColor = [UIColor whiteColor];
             break;
         case statusAvailable:
+
             view.alpha = 1;
             view.backgroundColor = [UIColor colorWithRed:0.9 green:1.0 blue:0.4 alpha:1];
             view.textColor = [UIColor blackColor];
