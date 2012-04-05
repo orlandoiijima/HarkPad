@@ -12,7 +12,7 @@
 
 }
 
-@synthesize isCollapsed, isSelected, lines, subTitle, title, object;
+@synthesize isCollapsed, isSelected, lines, subTitle, title;
 
 - (id)init
 {

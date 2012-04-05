@@ -63,7 +63,6 @@
                     else
                     if (course.requestedOn != nil)
                         group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Requested at %@", nil), [course.requestedOn dateDiff]];
-                    group.object = course;
                     [groupedLines setObject:group forKey: [self keyForCourse: course]];
                 }
                 break;
@@ -73,7 +72,6 @@
                 for (Guest *guest in order.guests) {
                     group = [[OrderDataSourceSection alloc] init];
                     group.title = guest.description;
-                    group.object = guest;
                     [groupedLines setObject:group forKey: [self keyForGuest: guest]];
                 }
                 break;
@@ -103,25 +101,6 @@
         group = [[OrderDataSourceSection alloc] init];
         group.title = [self stringForOrderLine:line];
         [groupedLines setObject:group forKey:key];
-        switch(grouping) {
-            case bySeat:
-                {
-                group.object = line.guest;
-                break;
-                }
-            case byCourse:
-                {
-                group.object = line.course;
-                break;
-                }
-            case byCategory:
-                {
-                group.object = line.product.category;
-                break;
-                }
-            case noGrouping:
-                break;
-        }
     }
 
     if(totalizeProducts) {
@@ -166,7 +145,6 @@
             Guest *guest = [order.guests objectAtIndex:section-1];
             OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
             group.title = guest.description;
-            group.object = guest;
             [groupedLines setObject:group forKey: [self keyForGuest: guest]];
             break;
             }
@@ -175,7 +153,6 @@
             Course *course = [order.courses objectAtIndex:section-1];
             OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
             group.title = course.description;
-            group.object = course;
             [groupedLines setObject:group forKey: [self keyForCourse: course]];
             break;
             }
@@ -371,6 +348,20 @@
     return [NSNumber numberWithInt: guest.seat];
 }
 
+- (Guest *) guestForKey:(NSNumber *)key {
+    int seat = [key intValue];
+    if (seat == -1)
+        return nil;
+    return [order getGuestBySeat:seat];
+}
+
+- (Course *) courseForKey:(NSNumber *)key {
+    int offset = [key intValue];
+    if (offset == -1)
+        return nil;
+    return [order getCourseByOffset:offset];
+}
+
 - (NSNumber *) keyForSection:(int) section
 {
     NSArray* sortedKeys = [[groupedLines allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -455,7 +446,7 @@
     OrderDataSourceSection *sectionInfo = [self groupForSection:section];
     CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
     if (grouping == bySeat) {
-        Guest *guest = (Guest *)sectionInfo.object;
+        Guest *guest = [self guestForKey:[self keyForSection: section]];
         return [SeatHeaderView viewWithFrame: CGRectMake(0,0,tableView.bounds.size.width,height) forGuest: guest table: order.table showAmount:showPrice];
     }
     if (collapsableHeaders == false)

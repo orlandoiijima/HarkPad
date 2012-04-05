@@ -25,13 +25,13 @@
     view.autoresizingMask = (UIViewAutoresizing)-1;
 
     if (guest == nil) {
-        UILabel *label = [[UILabel alloc] initWithFrame: view.bounds];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, view.bounds.size.width-40, view.bounds.size.height)];
         label.autoresizingMask = (UIViewAutoresizing)-1;
         label.text = NSLocalizedString(@"Table", nil);
         [view addSubview:label];
     }
     else {
-        CGFloat x = 0;
+        CGFloat x = 40;
         SeatView *seatView = [SeatView viewWithFrame:CGRectMake(x, 0, 40, frame.size.height) offset:guest.seat atSide:TableSideTop];
         [seatView initByGuest:guest];
         [view addSubview:seatView];
