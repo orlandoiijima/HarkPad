@@ -44,6 +44,8 @@ typedef NSUInteger Diet;
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 - (NSMutableDictionary *)toDictionary;
 + (NSString *) dietName: (int)offset;
+- (NSString *)dietString;
+- (NSDecimalNumber *)totalAmount;
 
 @property int seat;
 @property (nonatomic) BOOL isMale;

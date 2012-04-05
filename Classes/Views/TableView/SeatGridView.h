@@ -13,6 +13,7 @@
 
 @property (retain) NSArray *countSeats;
 @property (retain, nonatomic) NSMutableArray *guests;
+@property UITextAlignment alignment;
 
 + (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests;
 

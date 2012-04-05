@@ -19,6 +19,7 @@
 
 + (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side {
     SeatView *view = [[SeatView alloc] initWithFrame:frame];
+    view.clipsToBounds = YES;
     view.autoresizingMask = (UIViewAutoresizing)-1;
     view.side = side;
     view.offset = offset;

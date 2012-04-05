@@ -15,6 +15,7 @@
 #import "Utils.h"
 #import "NSDate-Utilities.h"
 #import "OrderGridHitInfo.h"
+#import "SeatHeaderView.h"
 
 @implementation OrderDataSource
 
@@ -62,6 +63,7 @@
                     else
                     if (course.requestedOn != nil)
                         group.subTitle = [NSString stringWithFormat:NSLocalizedString(@"Requested at %@", nil), [course.requestedOn dateDiff]];
+                    group.object = course;
                     [groupedLines setObject:group forKey: [self keyForCourse: course]];
                 }
                 break;
@@ -71,6 +73,7 @@
                 for (Guest *guest in order.guests) {
                     group = [[OrderDataSourceSection alloc] init];
                     group.title = guest.description;
+                    group.object = guest;
                     [groupedLines setObject:group forKey: [self keyForGuest: guest]];
                 }
                 break;
@@ -100,6 +103,25 @@
         group = [[OrderDataSourceSection alloc] init];
         group.title = [self stringForOrderLine:line];
         [groupedLines setObject:group forKey:key];
+        switch(grouping) {
+            case bySeat:
+                {
+                group.object = line.guest;
+                break;
+                }
+            case byCourse:
+                {
+                group.object = line.course;
+                break;
+                }
+            case byCategory:
+                {
+                group.object = line.product.category;
+                break;
+                }
+            case noGrouping:
+                break;
+        }
     }
 
     if(totalizeProducts) {
@@ -144,6 +166,7 @@
             Guest *guest = [order.guests objectAtIndex:section-1];
             OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
             group.title = guest.description;
+            group.object = guest;
             [groupedLines setObject:group forKey: [self keyForGuest: guest]];
             break;
             }
@@ -152,6 +175,7 @@
             Course *course = [order.courses objectAtIndex:section-1];
             OrderDataSourceSection * group = [[OrderDataSourceSection alloc] init];
             group.title = course.description;
+            group.object = course;
             [groupedLines setObject:group forKey: [self keyForCourse: course]];
             break;
             }
@@ -428,9 +452,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if(grouping == noGrouping) return nil;
+    OrderDataSourceSection *sectionInfo = [self groupForSection:section];
+    CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
+    if (grouping == bySeat) {
+        Guest *guest = (Guest *)sectionInfo.object;
+        return [SeatHeaderView viewWithFrame: CGRectMake(0,0,tableView.bounds.size.width,height) forGuest: guest table: order.table showAmount:showPrice];
+    }
     if (collapsableHeaders == false)
         return nil;
-    CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
     NSNumber *headerKey = [self keyForSection:section];
     NSMutableArray *guestsWithFood = [[NSMutableArray alloc] init];
     for (OrderLine *line in self.order.lines) {
@@ -443,7 +472,6 @@
             }
         }
     }
-    OrderDataSourceSection *sectionInfo = [self groupForSection:section];
     CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: _delegate  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false isSelected: sectionInfo.isSelected];
     return viewHeader;
 }

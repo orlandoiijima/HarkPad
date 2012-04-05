@@ -307,6 +307,7 @@
 		E5F609A313489C2400D886A2 /* order@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A1 /* order@2x.png */; };
 		E5F609A313489C2400D886A4 /* creditcard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A3 /* creditcard@2x.png */; };
 		E5F609A313489C2400D886A8 /* PreviousReservationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A7 /* PreviousReservationsViewController.m */; };
+		E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886AC /* SeatHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -819,6 +820,8 @@
 		E5F609A313489C2400D886A3 /* creditcard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "creditcard@2x.png"; sourceTree = "<group>"; };
 		E5F609A313489C2400D886A6 /* PreviousReservationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviousReservationsViewController.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D886A7 /* PreviousReservationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviousReservationsViewController.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D886AC /* SeatHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatHeaderView.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D886AE /* SeatHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatHeaderView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1163,6 +1166,8 @@
 		E50A38AE12E234B8007C2101 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886AE /* SeatHeaderView.h */,
+				E5F609A313489C2400D886AC /* SeatHeaderView.m */,
 				E5F609A313489C2400D8865C /* CollapseTableViewHeader.m */,
 				E5F609A313489C2400D8865B /* CollapseTableViewHeader.h */,
 				E5F609A313489C2400D885AF /* ToggleButton.h */,
@@ -2160,6 +2165,7 @@
 				E5F609A313489C2400D88680 /* TableOverlayHud.m in Sources */,
 				E5F609A313489C2400D8869B /* ToolbarTitleView.m in Sources */,
 				E5F609A313489C2400D886A8 /* PreviousReservationsViewController.m in Sources */,
+				E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -102,6 +102,32 @@
     return (self.seat == last);
 }
 
+- (NSDecimalNumber *)totalAmount
+{
+    id total = [NSDecimalNumber zero];
+    for(OrderLine *line in lines)
+    {
+        NSDecimalNumber *lineTotal = [line.product.price decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:line.quantity]];
+        total = [total decimalNumberByAdding: lineTotal];
+    }
+    return total;
+}
+
+
+- (NSString *)dietString {
+    NSString *text = @"";
+    for (int i = 0; i < 32; i++) {
+        if (diet & (1 << i)) {
+            NSString *dietName = [Guest dietName:i];
+            if ([dietName length] == 0) break;
+            if ([text length] > 0)
+                text = [text stringByAppendingString:@", "];
+            text = [text stringByAppendingString:dietName];
+        }
+    }
+    return [text lowercaseString];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@ %d", NSLocalizedString(@"Seat", nil), seat+1];
 }

@@ -13,10 +13,11 @@
 
 @implementation SeatGridView
 
-@synthesize countSeats, guests;
+@synthesize countSeats, guests, alignment;
 
 + (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests {
     SeatGridView *view = [[SeatGridView alloc] initWithFrame:frame];
+    view.alignment = UITextAlignmentCenter;
     view.countSeats = table.countSeatsPerSide;
     view.guests = guests;
     view.backgroundColor = [UIColor clearColor];
@@ -48,7 +49,19 @@
     CGFloat dy = dx;
     CGFloat x,y;
 
-    x = (self.bounds.size.width - dx*width)/2 + 0.5;
+    switch (alignment) {
+        case UITextAlignmentLeft:
+            x = 0.5;
+        break;
+
+        case UITextAlignmentCenter:
+            x = (self.bounds.size.width - dx*width)/2 + 0.5;
+        break;
+
+        case UITextAlignmentRight:
+            x = self.bounds.size.width - dx*width - 0.5;
+        break;
+    }
     y = (self.bounds.size.height - dy*height)/2 + 0.5;
     if ([[countSeats objectAtIndex:3] intValue] > 0)
         x += dx;
