@@ -18,6 +18,8 @@
 #import "TableOverlaySimple.h"
 #import "TableOverlayDashboard.h"
 
+@class ZoomedTableViewController;
+
 @interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     TableWithSeatsView *dragTableView;
     TableWithSeatsView *targetTableView;
@@ -65,4 +67,5 @@
 @property CGPoint zoomOffset;
 @property NSString *caption;
 @property (retain) NSDate *switchedDistrictWhileDragging;
+@property(nonatomic, strong) ZoomedTableViewController *zoomedTableController;
 @end

@@ -28,7 +28,7 @@
 @property (retain) id<TablePopupDelegate> delegate;
 @property (retain) Order *order;
 
-- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView delegate: (id<TablePopupDelegate>) delegate;
+- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView order:(Order *)anOrder delegate: (id<TablePopupDelegate>) aDelegate;
 - (void) scrollToView: (UIView *)view;
 - (UIView *)viewOnPage: (int)pageControl;
 

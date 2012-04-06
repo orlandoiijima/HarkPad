@@ -19,6 +19,8 @@
 
 @synthesize buttonRefresh, zoomedTableView, zoomOffset, zoomScale, pages, scrollView, pageControl, switchedDistrictWhileDragging;
 @dynamic currentDistrictView, currentDistrictOffset, currentDistrict, caption;
+@synthesize zoomedTableController = _zoomedTableController;
+
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
     CGFloat pageWidth = scrollView.frame.size.width;
@@ -570,18 +572,16 @@
     zoomOffset = CGPointMake(
             tableView.frame.origin.x * zoomScale.x - (self.scrollView.bounds.size.width - width)/2,
             tableView.frame.origin.y * zoomScale.y - (self.scrollView.bounds.size.height - height)/2);
-    [UIView animateWithDuration:0.4 animations:^{
-        for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
-            tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
+    self.zoomedTableController = [ZoomedTableViewController controllerWithTableView:zoomedTableView delegate:self];
+    [UIView animateWithDuration: 0.3 animations:^{
+            for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
+                tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
+            }
         }
-    }
-    completion: ^(BOOL completed) {
-        ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
-        controller.tableView = zoomedTableView;
-        controller.delegate = self;
-        tableView.contentTableView = controller.view;
-        zoomedTableView.isCloseButtonVisible = YES;
-    }
+        completion: ^(BOOL completed) {
+            zoomedTableView.contentTableView.hidden = NO;
+            zoomedTableView.isCloseButtonVisible = YES;
+        }
     ];
 }
 
@@ -595,8 +595,11 @@
 
     self.caption = [NSString stringWithFormat: @"%@ %@", NSLocalizedString(@"District", nil), [self.currentDistrict name]];
 
-    [UIView animateWithDuration:0.4
-                     animations:^{
+    TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: zoomedTableView.tableView.bounds tableName: zoomedTableView.table.name countCourses: zoomedTableView.orderInfo.countCourses currentCourseOffset: zoomedTableView.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState: zoomedTableView.orderInfo.currentCourseState orderState:zoomedTableView.orderInfo.state delegate:nil];
+    zoomedTableView.contentTableView = overlaySimple;
+    zoomedTableView.delegate = self;
+
+    [UIView animateWithDuration:0.4 animations:^{
             for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake(
                         (tableView.frame.origin.x + zoomOffset.x) / zoomScale.x,
@@ -606,10 +609,6 @@
             }
         }
         completion: ^(BOOL completed){
-            TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: zoomedTableView.tableView.bounds tableName: zoomedTableView.table.name countCourses: zoomedTableView.orderInfo.countCourses currentCourseOffset: zoomedTableView.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState: zoomedTableView.orderInfo.currentCourseState orderState:zoomedTableView.orderInfo.state delegate:nil];
-            zoomedTableView.contentTableView = overlaySimple;
-            zoomedTableView.delegate = self;
-
             zoomedTableView = nil;
             isRefreshTimerDisabled = NO;
         }

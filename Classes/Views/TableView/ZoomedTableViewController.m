@@ -15,7 +15,15 @@
 
 @implementation ZoomedTableViewController
 
-@synthesize tableView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat, saveSelectedSeat = _saveSelectedSeat;
+@synthesize tableWithSeatsView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat, saveSelectedSeat = _saveSelectedSeat;
+
++ (ZoomedTableViewController *) controllerWithTableView:(TableWithSeatsView *) tableWithSeatsView delegate:(id)delegate {
+    ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
+    controller.delegate = delegate;
+    controller.tableWithSeatsView = tableWithSeatsView;
+    [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.id delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
+    return controller;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,8 +36,9 @@
 
 - (void)loadView
 {
-    // If you create your views manually, you MUST override this method and use it to create your views.
-    // If you use Interface Builder to create your views, then you must NOT override this method.
+    self.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView order:order delegate: self];
+    self.view.hidden = YES;
+    tableWithSeatsView.contentTableView = self.view;
 }
 
 - (TableOverlayDashboard *)tableViewDashboard
@@ -40,14 +49,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-
-    [[Service getInstance] getOpenOrderByTable: tableView.table.id delegate:self callback:@selector(getOpenOrderByTableCallback:)];
-
-    self.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableView.tableView.bounds, 0, 0) tableView: tableView delegate: self];
-    tableView.delegate = self;
-    [tableView.tableView addSubview:self.view];
-
+    tableWithSeatsView.delegate = self;
 }
 
 - (void)didChangeToPageView:(UIView *)view {
@@ -66,13 +68,19 @@
         [self.delegate didTapCloseButton];
 }
 
--(void) getOpenOrderByTableCallback: (Order *)tableOrder
+-(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
 {
-    order = tableOrder;
-    if(tableOrder == nil) {
-        order = [Order orderForTable:tableView.table];
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+
+    order = serviceResult.data;
+    if(order == nil) {
+        order = [Order orderForTable:tableWithSeatsView.table];
         for(Guest *guest in order.guests) {
-            SeatView *seatView = [tableView seatViewAtOffset:guest.seat];
+            SeatView *seatView = [tableWithSeatsView seatViewAtOffset:guest.seat];
             [seatView initByGuest: guest];
         }
     }
@@ -190,7 +198,7 @@
 {
     _selectedSeat = seat;
     self.selectedGuest = [order getGuestBySeat:seat];
-    [self.tableView selectSeat:seat];
+    [self.tableWithSeatsView selectSeat:seat];
     self.tableViewDashboard.guestProperties.guest = _selectedGuest;
 }
 
@@ -202,7 +210,7 @@
 
 - (void) refreshSeatView
 {
-    SeatView *seatView = [tableView seatViewAtOffset: _selectedSeat];
+    SeatView *seatView = [tableWithSeatsView seatViewAtOffset: _selectedSeat];
     [seatView initByGuest: _selectedGuest];
 }
 

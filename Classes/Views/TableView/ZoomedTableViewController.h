@@ -22,12 +22,14 @@
 @property (retain) Order *order;
 @property (retain) Guest *selectedGuest;
 @property (nonatomic) int selectedSeat;
-@property (retain) TableWithSeatsView *tableView;
+@property (retain) TableWithSeatsView *tableWithSeatsView;
 @property (retain) ReservationDataSource *reservationDataSource;
 @property (retain, nonatomic) TableOverlayDashboard *tableViewDashboard;
 @property (retain) id<TablePopupDelegate> delegate;
 @property int saveSelectedSeat;
 
 - (void) refreshSeatView;
++ (ZoomedTableViewController *) controllerWithTableView:(TableWithSeatsView *) tableWithSeatsView delegate:(id)delegate;
+-(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult;
 
 @end

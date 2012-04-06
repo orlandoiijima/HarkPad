@@ -543,13 +543,16 @@ static Service *_service;
 
 - (void) getOpenOrderByTableCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
-	NSDictionary *orderDic = [self getResultFromJson:data];
-    Order *order = nil;
-    if(orderDic != nil && [orderDic count] > 0) {
-        order = [Order orderFromJsonDictionary:orderDic];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        NSDictionary *orderDic = [self getResultFromJson:data];
+           if(orderDic != nil && [orderDic count] > 0) {
+               result.data = [Order orderFromJsonDictionary:orderDic];
+           }
     }
     NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&order atIndex:2];
+    [invocation setArgument:&result atIndex:2];
     [invocation invoke];
 }
 

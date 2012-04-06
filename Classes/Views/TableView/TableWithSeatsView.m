@@ -315,18 +315,25 @@
 }
 
 - (void) setContentTableView: (UIView *)contentView {
-    [UIView transitionFromView:_contentTableView
-                        toView:contentView
-                      duration:1
-                       options:UIViewAnimationOptionTransitionCrossDissolve
-                    completion:^(BOOL completion)
-                    {
-                        [self.tableView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-                        [self.tableView addSubview: contentView];
-                        _contentTableView = contentView;
-                        [self setNeedsDisplay];
+    [self.tableView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.tableView addSubview: contentView];
+    _contentTableView = contentView;
+    [self setNeedsDisplay];
 
-                    }];
+//    [UIView transitionFromView:_contentTableView
+//                        toView:contentView
+//                      duration:1
+//                       options:UIViewAnimationOptionTransitionCrossDissolve
+//                    completion:^(BOOL completion)
+//                    {
+//                        [self.tableView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//                        [self.tableView addSubview: contentView];
+//                        _contentTableView = contentView;
+//                        [self setNeedsDisplay];
+//
+//                    }];
 }
-
+- (UIView *)contentTableView {
+    return _contentTableView;
+}
 @end
