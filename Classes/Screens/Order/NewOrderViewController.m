@@ -203,6 +203,12 @@
     [self updateSeatOverlay];
 }
 
+- (BOOL)canSelectSeat:(int)seatOffset {
+    Guest *guest = [_order getGuestBySeat:seatOffset];
+    if (guest == nil || guest.isEmpty) return NO;
+    return YES;
+}
+
 - (void)didSelectSeat:(int)seatOffset {
     Guest *guest = [_order getGuestBySeat:seatOffset];
     if (guest == nil) return;
