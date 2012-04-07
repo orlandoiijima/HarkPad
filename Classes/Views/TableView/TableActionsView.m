@@ -80,7 +80,10 @@
                 [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to update existing order", nil)];
                 buttonBill.enabled = YES;
                 [buttonBill setCommandDescription: [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Total amount: ", nil), [Utils getAmountString: [order totalAmount] withCurrency:YES]]];
+
                 buttonPay.enabled = NO;
+                [buttonPay setCommandDescription: NSLocalizedString(@"Bill has not been printed yet", nil)];
+
                 if (order.nextCourseToRequest != nil) {
                     buttonRequestNextCourse.enabled = YES;
                     [buttonRequestNextCourse setCommandDescription: [NSString stringWithFormat:@"%@: %@", order.nextCourseToRequest.description, order.nextCourseToRequest.stringForCourse]];
@@ -92,11 +95,20 @@
             break;
 
         case OrderStateBilled:
+            [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to update existing order", nil)];
             buttonBill.enabled = YES;
             [buttonBill setCommandDescription: NSLocalizedString(@"Tap to reprint bill", nil)];
+
             buttonPay.enabled = YES;
             [buttonPay setCommandDescription: [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Total amount: ", nil), [Utils getAmountString: [order totalAmount] withCurrency:YES]]];
-            buttonRequestNextCourse.enabled = NO;
+
+            if (order.nextCourseToRequest != nil) {
+                buttonRequestNextCourse.enabled = YES;
+            }
+            else {
+                buttonRequestNextCourse.enabled = NO;
+                [buttonPay setCommandDescription: NSLocalizedString(@"No course to request", nil)];
+            }
             break;
 
         case OrderStatePaid:

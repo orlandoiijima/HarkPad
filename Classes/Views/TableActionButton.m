@@ -32,7 +32,7 @@
 
     button.labelDescription = [[UILabel alloc] init];
     button.labelDescription.text = description;
-    button.labelDescription.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    button.labelDescription.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.1 alpha:1];
     button.labelDescription.font = [UIFont systemFontOfSize:14];
     button.labelDescription.backgroundColor = [UIColor clearColor];
     button.labelDescription.numberOfLines = 0;
@@ -47,7 +47,7 @@
         CGFloat y = frame.origin.y;
         if ([caption length] > 0) {
             button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-            y += 25;
+            y += 30;
         }
         button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
     }
@@ -57,7 +57,7 @@
         if ([caption length] > 0) {
             button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
             button.labelCommand.textAlignment = UITextAlignmentCenter;
-            y += 25;
+            y += 30;
         }
         button.labelDescription.textAlignment = UITextAlignmentCenter;
         button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
@@ -92,7 +92,7 @@
 
 - (void) setCommandDescription:(NSString *)text {
     self.labelDescription.text = text;
-    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.frame.size.width, 500) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.labelDescription.frame.size.width, 500) lineBreakMode:UILineBreakModeWordWrap];
     self.labelDescription.frame = CGRectMake(self.labelDescription.frame.origin.x, self.labelDescription.frame.origin.y, self.labelDescription.frame.size.width, size.height);
 }
 
