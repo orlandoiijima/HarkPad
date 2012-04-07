@@ -9,6 +9,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import "TableActionsView.h"
+#import "TableActionButton.h"
+#import "Utils.h"
 
 @implementation TableActionsView
 
@@ -22,79 +24,44 @@
     self = [super initWithFrame:frame];
     if (self) {
 
-        CGFloat size, dx, dy, x, y;
+        CGFloat dx, dy, x, y;
         CGFloat space = 10;
+        CGSize size;
         if (frame.size.width > frame.size.height) {
-            size = MIN( (frame.size.width - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS, 100);
-            space = (frame.size.width - COUNT_BUTTONS * size) / (COUNT_BUTTONS+1);
-            dx = size + space;
+            size = CGSizeMake((frame.size.width - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS, frame.size.height - 2*space);
+            space = (frame.size.width - COUNT_BUTTONS * size.width) / (COUNT_BUTTONS+1);
+            dx = size.width + space;
             dy = 0;
             x = space;
-            y = (frame.size.height - size) / 2;
+            y = (frame.size.height - size.height) / 2;
         }
         else {
-            size = MIN( (frame.size.height - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS, 100);
-            space = (frame.size.height - COUNT_BUTTONS * size) / (COUNT_BUTTONS+1);
+            size = CGSizeMake(frame.size.width - 2*space, (frame.size.height - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS);
+            space = (frame.size.height - COUNT_BUTTONS * size.height) / (COUNT_BUTTONS+1);
             dx = 0;
-            dy = size + space;
-            x = (frame.size.width - size) / 2;
+            dy = size.height + space;
+            x = (frame.size.width - size.width) / 2;
             y = space;
         }
 
-        CGRect rect = CGRectMake(x, y, size, size);
-        self.buttonEditOrder = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"food@2x.png"] title:NSLocalizedString(@"Order", nil) delegate: delegate action: @selector(editOrder)];
+        CGRect rect = CGRectMake(x, y, size.width, size.height);
+        CGSize imageSize = CGSizeMake(60, 60);
+        self.buttonEditOrder = [TableActionButton buttonWithFrame:rect imageName:@"food@2x" imageSize: imageSize caption:NSLocalizedString(@"Order", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(editOrder)];
+        [self addSubview:self.buttonEditOrder];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonRequestNextCourse = [self createButtonWithFrame: rect UIImage: [UIImage imageNamed:@"action@2x.png"] title:NSLocalizedString(@"Request", nil) delegate: delegate action: @selector(startNextCourse)];
+        self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:rect imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(startNextCourse)];
+        [self addSubview:self.buttonRequestNextCourse];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonBill = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"order@2x.png"] title:NSLocalizedString(@"Bill", nil) delegate: delegate action: @selector(makeBillForOrder)];
+        self.buttonBill = [TableActionButton buttonWithFrame:rect imageName:@"order@2x" imageSize: imageSize caption:NSLocalizedString(@"Bill", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(makeBillForOrder)];
+        [self addSubview:self.buttonBill];
 
         rect = CGRectOffset(rect, dx, dy);
-        self.buttonPay = [self createButtonWithFrame:rect UIImage: [UIImage imageNamed:@"creditcard@2x.png"] title:NSLocalizedString(@"Pay", nil) delegate: delegate action: @selector(getPaymentForOrder)];
+        self.buttonPay = [TableActionButton buttonWithFrame:rect imageName:@"creditcard@2x" imageSize: imageSize caption:NSLocalizedString(@"Pay", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(getPaymentForOrder)];
+        [self addSubview:self.buttonPay];
     }
     return self;
-}
-
-- (UIButton *) createButtonWithFrame: (CGRect)frame UIImage: (UIImage *)image title: (NSString *) title delegate:(id<NSObject>) delegate action: (SEL)action {
-    UIButton *button = [[UIButton alloc] initWithFrame:frame];
-    button.autoresizingMask = (UIViewAutoresizing)-1;
-    [button addTarget:delegate action:action forControlEvents:UIControlEventTouchDown];
-
-    button.titleLabel.font = [UIFont systemFontOfSize:12];
-    [button setTitle: title forState: UIControlStateNormal];
-    [button setImage: image forState:UIControlStateNormal];
-
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
-
-    CGFloat spacing = 8.0;
-    CGSize imageSize = image.size;
-    CGSize titleSize = button.titleLabel.frame.size;
-
-    button.titleEdgeInsets = UIEdgeInsetsMake(
-      0.0, - imageSize.width, - (imageSize.height + spacing), 0.0);
-
-    titleSize = button.titleLabel.frame.size;
-
-    // raise the image and push it right to center it
-    button.imageEdgeInsets = UIEdgeInsetsMake(
-      - (titleSize.height + spacing), 0.0, 0.0, - titleSize.width);
-
-    CALayer *layer = [CALayer layer];
-    layer.cornerRadius = 8;
-    layer.frame = button.bounds;
-    layer.borderColor = [[UIColor blackColor] CGColor];
-    layer.borderWidth = 1;
-    layer.shadowOffset = CGSizeMake(5, 5);
-    layer.shadowColor = [[UIColor blackColor] CGColor];
-    layer.shadowOpacity = 0.4;
-    layer.backgroundColor = [[UIColor whiteColor] CGColor];
-    [button.layer insertSublayer:layer atIndex:0];
-
-    [self addSubview:button];
-
-    return button;
 }
 
 - (void)setOrder: (Order *)order
@@ -104,21 +71,34 @@
     switch (order.state) {
         case OrderStateOrdering:
             if (order.entityState == EntityStateNew) {
+                [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to start new order", nil)];
                 buttonBill.enabled = NO;
                 buttonPay.enabled = NO;
                 buttonRequestNextCourse.enabled = NO;
             }
             else {
+                [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to update existing order", nil)];
                 buttonBill.enabled = YES;
+                [buttonBill setCommandDescription: [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Total amount: ", nil), [Utils getAmountString: [order totalAmount] withCurrency:YES]]];
                 buttonPay.enabled = NO;
-                buttonRequestNextCourse.enabled = order.nextCourseToRequest != nil;
+                if (order.nextCourseToRequest != nil) {
+                    buttonRequestNextCourse.enabled = YES;
+                    [buttonRequestNextCourse setCommandDescription: [NSString stringWithFormat:@"%@: %@", order.nextCourseToRequest.description, order.nextCourseToRequest.stringForCourse]];
+                }
+                else {
+                    buttonRequestNextCourse.enabled = NO;
+                }
             }
             break;
+
         case OrderStateBilled:
             buttonBill.enabled = YES;
+            [buttonBill setCommandDescription: NSLocalizedString(@"Tap to reprint bill", nil)];
             buttonPay.enabled = YES;
+            [buttonPay setCommandDescription: [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Total amount: ", nil), [Utils getAmountString: [order totalAmount] withCurrency:YES]]];
             buttonRequestNextCourse.enabled = NO;
             break;
+
         case OrderStatePaid:
             buttonBill.enabled = NO;
             buttonPay.enabled = NO;

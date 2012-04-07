@@ -11,15 +11,16 @@
 #import "CrystalButton.h"
 #import "OrderInfo.h"
 
+@class TableActionButton;
+
 @interface TableActionsView : UIView
 
 @property (retain) Order *order;
-@property (retain) UIButton *buttonEditOrder;
-@property (retain) UIButton *buttonPay;
-@property (retain) UIButton *buttonBill;
-@property (retain) UIButton *buttonRequestNextCourse;
+@property (retain) TableActionButton *buttonEditOrder;
+@property (retain) TableActionButton *buttonPay;
+@property (retain) TableActionButton *buttonBill;
+@property (retain) TableActionButton *buttonRequestNextCourse;
 
 - (id)initWithFrame:(CGRect)frame orderInfo: (OrderInfo *)orderInfo delegate:(id<NSObject>) delegate;
-- (UIButton *) createButtonWithFrame: (CGRect)frame UIImage: (UIImage *)image title: (NSString *) title delegate:(id<NSObject>) delegate action: (SEL)action;
 
 @end

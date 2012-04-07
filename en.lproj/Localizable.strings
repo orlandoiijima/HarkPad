@@ -100,3 +100,7 @@
 "Previous reservations:" = "Previous reservations:";
 "Reservations found with '%@':" = "Reservations found with '%@':";
 "Diet" = "Diet";
+"Tap to reprint bill" = "Tap to reprint bill";
+"Tap to update existing order" = "Tap to update existing order";
+"Tap to start new order" = "Tap to start new order";
+"Total amount: " = "Total amount: ";

@@ -98,3 +98,7 @@
 "Previous reservations:" = "Eerdere reserveringen:";
 "Reservations found with '%@':" = "Reserveringen met '%@':";
 "Diet" = "Dieet";
+"Tap to reprint bill" = "Tap om rekening opnieuw af te drukken";
+"Tap to update existing order" = "Tap om lopende rekening bij te werken";
+"Tap to start new order" = "Tap om nieuwe rekening te starten";
+"Total amount: " = "Totaal bedrag: ";
