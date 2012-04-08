@@ -14,6 +14,7 @@
 #import "GridViewController.h"
 #import "GridView.h"
 #import "TreeNode.h"
+#import "Service.h"
 
 @implementation MenuTreeView
 
@@ -106,6 +107,11 @@
         [self.menuDelegate menuTreeView:self didLongPressNode: node cellLine: cellLine];
 }
 
+- (void)gridView:(GridView *)gridView didEndLongPressCellLine:(GridViewCellLine *)cellLine {
+    TreeNode *node = [self nodeAtCellLine:cellLine];
+    if([self.menuDelegate respondsToSelector:@selector(menuTreeView: didEndLongPressNode:cellLine:)])
+        [self.menuDelegate menuTreeView:self didEndLongPressNode: node cellLine: cellLine];
+}
 
 - (void)gridView:(GridView *)gridView startsDragWithCellLine:(GridViewCellLine *)cellLine
 {

@@ -10,13 +10,15 @@
 #import "TableOverlayHud.h"
 #import "UIImage+Tint.h"
 #import "NSString+Utilities.h"
+#import "Utils.h"
+#import "MenuItem.h"
 
 
 @implementation TableOverlayHud {
 
 }
 
-@synthesize drinkLabel, foodLabel, headerLabel,subHeaderLabel,drinkImage,foodImage;
+@synthesize drinkLabel, foodLabel, headerLabel,subHeaderLabel, drinkImage,foodImage;
 
 - (id)initWithFrame: (CGRect)frame {
     self = [super initWithFrame:frame];
@@ -26,7 +28,7 @@
     headerLabel = [[UILabel alloc] init];
     headerLabel.textAlignment = UITextAlignmentCenter;
     headerLabel.shadowColor = [UIColor lightGrayColor];
-    headerLabel.font = font;
+    headerLabel.font = [UIFont systemFontOfSize:14];
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.numberOfLines = 0;
     [self addSubview:headerLabel];
@@ -68,7 +70,6 @@
     layer.borderColor = [[UIColor grayColor] CGColor];
     layer.borderWidth = 1;
     layer.cornerRadius = 4;
-    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
     layer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.1], [NSNumber numberWithFloat:1.0], nil];
     layer.backgroundColor = [[UIColor whiteColor] CGColor];
     [self.layer insertSublayer:layer atIndex:0];
@@ -103,16 +104,17 @@
 
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
     layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 20);
+    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
 
     NSMutableArray *products = [self getOrderedProductsForLines:guest.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines:guest.lines forGuest:guest];
 
     CGRect sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
-    drinkImage.frame = CGRectMake(sectionFrame.origin.x, sectionFrame.origin.y - 12, 40, 20);
+    drinkImage.frame = CGRectMake(sectionFrame.origin.x+10, sectionFrame.origin.y - 12, 40, 20);
     [self setupLabel: drinkLabel withProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
 
     sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
-    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 40, sectionFrame.origin.y - 12, 40, 20);
+    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 12, 40, 20);
     [self setupLabel: foodLabel withProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
 }
 
@@ -162,6 +164,7 @@
         label.text = text;
         label.textColor = [UIColor blackColor];
     }
+    label.textAlignment = isFood ? UITextAlignmentRight : UITextAlignmentLeft;
     CGSize textSize = [label.text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width  - 20, 1000)];
     label.frame = CGRectMake(rect.origin.x+10, rect.origin.y+10, rect.size.width - 20, textSize.height);
     return;
@@ -208,17 +211,65 @@
 
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
     layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 20);
+    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
 
     NSMutableArray *products = [self getOrderedProductsForLines: order.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines: order.lines forGuest:nil];
 
     sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
-    drinkImage.frame = CGRectMake(sectionFrame.origin.x, sectionFrame.origin.y - 12, 40, 20);
+    drinkImage.frame = CGRectMake(sectionFrame.origin.x+10, sectionFrame.origin.y - 12, 40, 20);
     [self setupLabel: drinkLabel withProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
 
     sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
-    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 40, sectionFrame.origin.y - 12, 40, 20);
+    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 12, 40, 20);
     [self setupLabel: foodLabel withProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
+}
+
+-(void)showForNode:(TreeNode *)treeNode {
+    if (treeNode.product == nil && treeNode.menu == nil)
+        return;
+
+    CGFloat y = 20;
+
+    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
+    layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 20);
+    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:0.7 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.6 alpha:1] CGColor], nil];
+
+    y += 5;
+
+    if (treeNode.product) {
+        headerLabel.text = treeNode.product.name;
+        drinkLabel.text = treeNode.product.description;
+        foodLabel.text = [Utils getAmountString: treeNode.product.price withCurrency:YES];
+    }
+    else {
+        headerLabel.text = treeNode.menu.name;
+        drinkLabel.text = @"";
+        for(MenuItem *item in treeNode.menu.items) {
+            if ([drinkLabel.text length] > 0)
+                drinkLabel.text = [drinkLabel.text stringByAppendingString:@", "];
+            drinkLabel.text = [drinkLabel.text stringByAppendingString: item.product.name];
+        }
+        foodLabel.text = [Utils getAmountString: treeNode.menu.price withCurrency:YES];
+    }
+    CGSize textSize = [headerLabel.text sizeWithFont: headerLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, 100)];
+    headerLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+    y += textSize.height + 5;
+
+    if ([headerLabel.text isEqualToString:drinkLabel.text] == NO) {
+        CGSize textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
+        drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+        drinkLabel.textAlignment = UITextAlignmentCenter;
+        y += textSize.height + 5;
+    }
+    else
+        drinkLabel.text = @"";
+
+    foodLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+    foodLabel.textAlignment = UITextAlignmentCenter;
+
+    drinkImage.frame = CGRectInfinite;
+    foodImage.frame = CGRectInfinite;
 }
 
 @end

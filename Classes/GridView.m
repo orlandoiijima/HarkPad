@@ -312,8 +312,15 @@
     CGPoint point = [tapGestureRecognizer locationInView:self];
     GridViewCellLine *tappedCellLine = [self cellLineAtPoint:point];
     if (tappedCellLine == nil) return;
-    if([self.delegate respondsToSelector:@selector(gridView:didLongPressCellLine:)])
-        [self.delegate gridView:self didLongPressCellLine:tappedCellLine];
+    if (tapGestureRecognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if([self.delegate respondsToSelector:@selector(gridView:didEndLongPressCellLine:)])
+            [self.delegate gridView:self didEndLongPressCellLine:nil];
+    }
+    else {
+        if([self.delegate respondsToSelector:@selector(gridView:didLongPressCellLine:)])
+            [self.delegate gridView:self didLongPressCellLine:tappedCellLine];
+    }
 }
 
 - (void) handleTapGesture: (UITapGestureRecognizer *)tapGestureRecognizer

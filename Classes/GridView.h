@@ -61,6 +61,7 @@ typedef enum
 - (void) gridView: (GridView *) gridView didSelectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didTapCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didLongPressCellLine: (GridViewCellLine *)cellLine;
+- (void) gridView: (GridView *) gridView didEndLongPressCellLine: (GridViewCellLine *)cellLine;
 
 - (GridViewCellLine *) gridView: (GridView *) gridView willDeselectCellLine: (GridViewCellLine *)cellLine;
 - (void) gridView: (GridView *) gridView didDeselectCellLine: (GridViewCellLine *)cellLine;

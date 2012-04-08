@@ -147,6 +147,19 @@
     }
 }
 
+- (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
+    [self.tableOverlayHud showForNode:node];
+}
+
+- (void)menuTreeView:(MenuTreeView *)menuTreeView didEndLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
+    if (self.tableView.isTableSelected) {
+        [self.tableOverlayHud showForOrder:_order];
+    }
+    else {
+        [self.tableOverlayHud showForGuest:self.selectedGuest];
+    }
+}
+
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
     for(Guest *guest in [_tableView selectedGuests]) {
         OrderLine *line = [_order addLineWithProductId:product.id seat:guest.seat course: self.selectedCourseOffset];
