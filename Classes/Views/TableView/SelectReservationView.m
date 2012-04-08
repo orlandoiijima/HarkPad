@@ -24,7 +24,8 @@
 
         self.delegate = delegate;
 
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 3, frame.size.width, 20)];
+        self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, frame.size.width, 20)];
+        self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.label.text = NSLocalizedString(@"Select reservation or 'walk-in':", nil);
         self.label.textAlignment = UITextAlignmentCenter;
         self.label.shadowColor = [UIColor whiteColor];
@@ -34,12 +35,14 @@
         self.tableView = [[UITableView alloc]
                 initWithFrame:CGRectMake(0, self.label.frame.origin.y + self.label.frame.size.height, frame.size.width, frame.size.height - (self.label.frame.origin.y + self.label.frame.size.height))
                         style:UITableViewStyleGrouped];
+        self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.tableView.backgroundView = nil;
         self.tableView.backgroundColor = [UIColor clearColor];
         self.tableView.delegate = self;
         [self addSubview:self.tableView];
 
         self.emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        self.emptyLabel.autoresizingMask = -1;
         self.emptyLabel.text = NSLocalizedString(@"No reservations", nil);
         self.emptyLabel.textAlignment = UITextAlignmentCenter;
         self.emptyLabel.shadowColor = [UIColor whiteColor];

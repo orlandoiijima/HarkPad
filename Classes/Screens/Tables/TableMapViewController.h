@@ -46,8 +46,6 @@
 - (void) dockTableView: (TableWithSeatsView *)outerMostTableView toTableView: (TableWithSeatsView *)masterTableView;
 - (void) moveOrderFromTableView: (TableWithSeatsView *) from toTableView: (TableWithSeatsView *) to;
 
-- (void) showActivityIndicator;
-- (void)hideActivityIndicator;
 - (void) setupToolbar;
 - (TableWithSeatsView *) createTable: (TableInfo *)table offset: (CGPoint) offset scale: (CGPoint)scale;
 - (void)unzoom;

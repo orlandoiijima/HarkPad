@@ -47,21 +47,52 @@
         CGRect rect = CGRectMake(x, y, size.width, size.height);
         CGSize imageSize = CGSizeMake(60, 60);
         self.buttonEditOrder = [TableActionButton buttonWithFrame:rect imageName:@"food@2x" imageSize: imageSize caption:NSLocalizedString(@"Order", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(editOrder)];
+        self.buttonEditOrder.autoresizingMask = -1;
         [self addSubview:self.buttonEditOrder];
 
         rect = CGRectOffset(rect, dx, dy);
         self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:rect imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(startNextCourse)];
+        self.buttonRequestNextCourse.autoresizingMask = -1;
         [self addSubview:self.buttonRequestNextCourse];
 
         rect = CGRectOffset(rect, dx, dy);
         self.buttonBill = [TableActionButton buttonWithFrame:rect imageName:@"order@2x" imageSize: imageSize caption:NSLocalizedString(@"Bill", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(makeBillForOrder)];
+        self.buttonBill.autoresizingMask = -1;
         [self addSubview:self.buttonBill];
 
         rect = CGRectOffset(rect, dx, dy);
         self.buttonPay = [TableActionButton buttonWithFrame:rect imageName:@"creditcard@2x" imageSize: imageSize caption:NSLocalizedString(@"Pay", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(getPaymentForOrder)];
+        self.buttonPay.autoresizingMask = -1;
         [self addSubview:self.buttonPay];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    CGFloat dx, dy, x, y;
+    CGFloat space = 10;
+    CGSize size;
+    if (self.frame.size.width > self.frame.size.height) {
+        size = CGSizeMake((self.frame.size.width - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS, self.frame.size.height - 2*space);
+        space = (self.frame.size.width - COUNT_BUTTONS * size.width) / (COUNT_BUTTONS+1);
+        dx = size.width + space;
+        dy = 0;
+        x = space;
+        y = (self.frame.size.height - size.height) / 2;
+    }
+    else {
+        size = CGSizeMake(self.frame.size.width - 2*space, (self.frame.size.height - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS);
+        space = (self.frame.size.height - COUNT_BUTTONS * size.height) / (COUNT_BUTTONS+1);
+        dx = 0;
+        dy = size.height + space;
+        x = (self.frame.size.width - size.width) / 2;
+        y = space;
+    }
+
+    self.buttonEditOrder.frame = CGRectMake(x, y, size.width, size.height);
+    self.buttonRequestNextCourse.frame = CGRectOffset(self.buttonEditOrder.frame, dx, dy);
+    self.buttonBill.frame = CGRectOffset(self.buttonRequestNextCourse.frame, dx, dy);
+    self.buttonPay.frame = CGRectOffset(self.buttonBill.frame, dx, dy);
 }
 
 - (void)setOrder: (Order *)order

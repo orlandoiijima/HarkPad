@@ -21,6 +21,7 @@
     ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
     controller.delegate = delegate;
     controller.tableWithSeatsView = tableWithSeatsView;
+    controller.view.hidden = NO;
     [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.id delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
     return controller;
 }
@@ -37,8 +38,8 @@
 - (void)loadView
 {
     self.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView order:order delegate: self];
-    self.view.hidden = YES;
     tableWithSeatsView.contentTableView = self.view;
+    NSLog(@"view created");
 }
 
 - (TableOverlayDashboard *)tableViewDashboard
@@ -70,6 +71,7 @@
 
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
 {
+    NSLog(@"order callback");
     if(serviceResult.isSuccess == false) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [view show];

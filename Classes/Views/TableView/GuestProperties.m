@@ -41,7 +41,7 @@
     [view.viewEmpty addTarget:delegate action:@selector(tapGender:) forControlEvents:UIControlEventTouchDown];
     [view addSubview:view.viewEmpty];
 
-    view.isHostView  = [ToggleButton buttonWithTitle:NSLocalizedString(@"Host", nil) image:[UIImage imageNamed:@"BlueStar.png"] frame:CGRectMake(15, 55, 0, 0)];
+    view.isHostView  = [ToggleButton buttonWithTitle:NSLocalizedString(@"Host", nil) image:[UIImage imageNamed:@"BlueStar.png"] frame:CGRectMake(15, CGRectGetMaxY(view.viewEmpty.frame) + 15, 0, 0)];
     view.isHostView.isOn = guest.isHost;
     [view.isHostView addTarget:delegate action:@selector(tapHost:) forControlEvents:UIControlEventTouchDown];
     [view addSubview: view.isHostView];
@@ -56,13 +56,6 @@
     }
 
     return view;
-}
-
-- (void)setFrame:(CGRect)aFrame {
-    [super setFrame:aFrame];
-    CALayer *layer = [self.layer.sublayers objectAtIndex:0];
-    if (layer == nil) return;
-    layer.frame = self.bounds;
 }
 
 - (void) setGuest: (Guest *)guest {
@@ -83,7 +76,7 @@
 }
 
 - (void) layoutSubviews {
-    CGFloat x = 15,y = 95;
+    CGFloat x = 15,y = CGRectGetMaxY(self.isHostView.frame) + 15;
     int firstAtLine = 0;
     for(int i = 0; i < 20; i++) {
         ToggleButton *toggle = (ToggleButton *) [self viewWithTag: 1 << i];

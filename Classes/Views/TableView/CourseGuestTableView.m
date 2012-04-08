@@ -31,7 +31,7 @@
     else
         courseInfoRect = CGRectMake( (view.frame.size.width - courseInfoRect.size.width * 0.9) / 2, (view.frame.size.height - courseInfoRect.size.width * 0.9) / 2, courseInfoRect.size.width * 0.9, courseInfoRect.size.width * 0.9);
     view.progressView = [CourseProgress progressWithFrame:courseInfoRect countCourses: tableView.orderInfo.countCourses currentCourseOffset: tableView.orderInfo.currentCourseOffset currentCourseState: tableView.orderInfo.currentCourseState selectedCourse: tableView.orderInfo.countCourses-1 orderState: (OrderState) tableView.orderInfo.state];
-    view.progressView.autoresizingMask = (UIViewAutoresizing)-1;
+    view.progressView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     view.progressView.delegate = view;
     [view addSubview:view.progressView];
 
@@ -60,17 +60,22 @@
     for (Guest *guest in order.guests) {
         TableSide side = [order.table sideForSeat: guest.seat];
         int dx = 5, dy = 0;
+        UIViewAutoresizing resizing;
         switch(side) {
             case TableSideTop:
+                resizing = UIViewAutoresizingFlexibleLeftMargin;
                 dx = 5; dy = 0;
                 break;
             case TableSideRight:
+                resizing = UIViewAutoresizingFlexibleLeftMargin |UIViewAutoresizingFlexibleTopMargin;
                 dx = 0; dy = 5;
                 break;
             case TableSideBottom:
+                resizing = UIViewAutoresizingFlexibleLeftMargin |UIViewAutoresizingFlexibleTopMargin;
                 dx = 5; dy = 0;
                 break;
             case TableSideLeft:
+                resizing = UIViewAutoresizingFlexibleRightMargin |UIViewAutoresizingFlexibleTopMargin;
                 dx = 0; dy = 5;
                 break;
         }
@@ -82,6 +87,7 @@
             for(OrderLine *line in course.lines) {
                 if (line.guest != nil && line.guest.id == guest.id && line.product.category.isFood) {
                     GridViewCellLine *cellLine = [[GridViewCellLine alloc] initWithTitle:line.product.key middleLabel:nil bottomLabel:nil backgroundColor:line.product.category.color path:nil];
+                    cellLine.autoresizingMask = resizing;
                     cellLine.textLabel.font = [UIFont systemFontOfSize:14];
                     cellLine.tag = [self tagForSeat: line.guest.seat course: line.course.offset];
 

@@ -66,6 +66,7 @@
 
     [self setupToolbar];
 
+    isVisible = YES;
     [self setupAllDistricts];
     self.currentDistrictOffset = 0;
 
@@ -409,29 +410,9 @@
     if(isRefreshTimerDisabled) return;
     if(isVisible == false)
         return;
-    [self showActivityIndicator];
     if (self.currentDistrict == nil) return;
+    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
     [[Service getInstance] getTablesInfoForDistrict: self.currentDistrict.id delegate: self callback:@selector(refreshViewWithInfo:)];
-}
-
-- (void) showActivityIndicator
-{
-    CGPoint point = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [indicator startAnimating];
-    indicator.frame = CGRectMake(point.x, point.y, indicator.frame.size.width, indicator.frame.size.height);
-    indicator.tag = 666;
-    [self.view addSubview:indicator];
-}
-
-- (void)hideActivityIndicator
-{
-    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *) [self.view viewWithTag:666];
-    if(indicator != nil)
-    {
-        [indicator removeFromSuperview];
-    }
 }
 
 - (CGRect)boundingRectForDistrict: (int)district tableInfo: (NSMutableArray *)info
@@ -459,7 +440,7 @@
 
 - (void) refreshViewWithInfo: (ServiceResult *)serviceResult
 {
-    [self hideActivityIndicator];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     if (serviceResult.isSuccess == false) {
         [ModalAlert error:serviceResult.error];
@@ -471,7 +452,7 @@
 
 - (void) refreshAllViewWithInfo: (ServiceResult *)serviceResult
 {
-    [self hideActivityIndicator];
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     if (serviceResult.isSuccess == false) {
         [ModalAlert error:serviceResult.error];
@@ -482,7 +463,7 @@
         [self refreshDistrict: districtOffset withData:serviceResult];
     }
 
-    [NSTimer scheduledTimerWithTimeInterval:10.0f
+    [NSTimer scheduledTimerWithTimeInterval:20.0f
                                      target:self
                                    selector:@selector(refreshView)
                                    userInfo:nil
@@ -518,6 +499,7 @@
 
 - (void) setupAllDistricts
 {
+    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
     [[Service getInstance] getTablesInfoForDistrict: -1 delegate: self callback:@selector(refreshAllViewWithInfo:)];
 }
 
@@ -566,20 +548,18 @@
 
     height = MAX(height, 500);
 
-    tableView.contentTableView.hidden = YES;
-
     zoomScale = CGPointMake( width / tableView.frame.size.width, height / tableView.frame.size.height);
     zoomOffset = CGPointMake(
             tableView.frame.origin.x * zoomScale.x - (self.scrollView.bounds.size.width - width)/2,
             tableView.frame.origin.y * zoomScale.y - (self.scrollView.bounds.size.height - height)/2);
     self.zoomedTableController = [ZoomedTableViewController controllerWithTableView:zoomedTableView delegate:self];
     [UIView animateWithDuration: 0.3 animations:^{
+        NSLog(@"start ani");
             for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
             }
         }
         completion: ^(BOOL completed) {
-            zoomedTableView.contentTableView.hidden = NO;
             zoomedTableView.isCloseButtonVisible = YES;
         }
     ];
@@ -730,6 +710,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (isVisible)
+        return;
     isVisible = true;
     [self refreshView];
 }

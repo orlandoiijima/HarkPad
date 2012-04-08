@@ -16,10 +16,12 @@
 @synthesize imageCommand = _imageCommand;
 @synthesize labelCommand = _labelCommand;
 @synthesize labelDescription = _labelDescription;
+@synthesize imageSize = _imageSize;
 
 
 + (TableActionButton *) buttonWithFrame: (CGRect) frame imageName: (NSString *)imageName  imageSize:(CGSize)imageSize caption:(NSString *)caption description: (NSString *) description delegate:(id<NSObject>) delegate action: (SEL)action {
     TableActionButton *button = [[TableActionButton alloc] initWithFrame:frame];
+    button.imageSize = imageSize;
     button.imageCommand = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
     button.imageCommand.contentMode = UIViewContentModeCenter;
     [button addSubview: button.imageCommand];
@@ -40,29 +42,29 @@
     button.labelDescription.textAlignment = UITextAlignmentLeft;
     [button addSubview: button.labelDescription];
 
-    frame = CGRectInset(button.bounds, 10, 10);
-    if (frame.size.width > frame.size.height) {
-        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, imageSize.width, imageSize.height);
-        frame = CGRectMake(frame.origin.x + imageSize.width + 10, frame.origin.y, frame.size.width - imageSize.width - 10, frame.size.height);
-        CGFloat y = frame.origin.y;
-        if ([caption length] > 0) {
-            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-            y += 30;
-        }
-        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
-    }
-    else {
-        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, imageSize.height);
-        CGFloat y = imageSize.height + 10;
-        if ([caption length] > 0) {
-            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-            button.labelCommand.textAlignment = UITextAlignmentCenter;
-            y += 30;
-        }
-        button.labelDescription.textAlignment = UITextAlignmentCenter;
-        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
-    }
-    [button setCommandDescription:description];
+//    frame = CGRectInset(button.bounds, 10, 10);
+//    if (frame.size.width > frame.size.height) {
+//        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, imageSize.width, imageSize.height);
+//        frame = CGRectMake(frame.origin.x + imageSize.width + 10, frame.origin.y, frame.size.width - imageSize.width - 10, frame.size.height);
+//        CGFloat y = frame.origin.y;
+//        if ([caption length] > 0) {
+//            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
+//            y += 30;
+//        }
+//        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
+//    }
+//    else {
+//        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, imageSize.height);
+//        CGFloat y = imageSize.height + 10;
+//        if ([caption length] > 0) {
+//            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
+//            button.labelCommand.textAlignment = UITextAlignmentCenter;
+//            y += 30;
+//        }
+//        button.labelDescription.textAlignment = UITextAlignmentCenter;
+//        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
+//    }
+//    [button setCommandDescription:description];
 
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
 
@@ -81,6 +83,38 @@
     [button.layer insertSublayer: layer atIndex:0];
 
     return button;
+}
+
+- (void)layoutSubviews {
+    CGRect frame = CGRectInset(self.bounds, 10, 10);
+    if (frame.size.width > frame.size.height) {
+        self.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, self.imageSize.width, self.imageSize.height);
+        frame = CGRectMake(frame.origin.x + self.imageSize.width + 10, frame.origin.y, frame.size.width - self.imageSize.width - 10, frame.size.height);
+        CGFloat y = frame.origin.y;
+        if ([self.labelCommand.text length] > 0) {
+            self.labelCommand.textAlignment = UITextAlignmentLeft;
+            self.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
+            y += 30;
+        }
+        self.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
+        self.labelDescription.textAlignment = UITextAlignmentLeft;
+
+    }
+    else {
+        self.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, self.imageSize.height);
+        CGFloat y = self.imageSize.height + 10;
+        if ([self.labelCommand.text length] > 0) {
+            self.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
+            self.labelCommand.textAlignment = UITextAlignmentCenter;
+            y += 30;
+        }
+        self.labelDescription.textAlignment = UITextAlignmentCenter;
+        self.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
+    }
+    [self setCommandDescription:self.labelDescription.text];
+
+    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
+    layer.frame = self.bounds;
 }
 
 - (void)setEnabled:(BOOL)anEnabled {

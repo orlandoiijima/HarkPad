@@ -19,6 +19,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectInset(self.bounds, 10, 10)];
+        self.scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         [self addSubview:self.scrollView];
     }
     return self;
@@ -58,6 +59,12 @@
     [self addCaptionValueLabels:captionValueLabels];
 }
 
+- (void)setFrame:(CGRect)aFrame {
+    [super setFrame:aFrame];
+    self.scrollView.frame = CGRectInset(self.bounds, 10, 10);
+    self.scrollView.contentSize = CGSizeMake(scrollView.frame.size.width, self.scrollView.contentSize.height);
+}
+
 - (void)addCaptionValueLabels: (NSMutableArray *)captionValueLabels
 {
     CGFloat y = 0;
@@ -66,6 +73,7 @@
         NSString *value = [strings objectAtIndex:0];
         UILabel *captionLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:captionLabel];
+        captionLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         captionLabel.numberOfLines = 0;
         captionLabel.lineBreakMode = UILineBreakModeWordWrap;
         captionLabel.font = [UIFont systemFontOfSize:14];
@@ -79,6 +87,7 @@
         
         UILabel *valueLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:valueLabel];
+        valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
         valueLabel.numberOfLines = 0;
         valueLabel.lineBreakMode = UILineBreakModeWordWrap;
         valueLabel.font = [UIFont systemFontOfSize:17];
