@@ -11,9 +11,15 @@
 
 @interface TableOverlayHud : UIView
 
+@property (retain) UILabel *headerLabel;
+@property (retain) UILabel *subHeaderLabel;
+@property (retain) UILabel *drinkLabel;
+@property (retain) UILabel *foodLabel;
+@property (retain) UIImageView *drinkImage;
+@property (retain) UIImageView *foodImage;
+
 - (void)showForGuest: (Guest *) guest;
 - (void) showForOrder: (Order *) order;
-- (int) createSectionWithProducts: (NSMutableArray *) products counts: (NSMutableDictionary *) productCounts isFood: (BOOL) isFood withFrame: (CGRect) rect;
-
+- (void) setupLabel: (UILabel *)label withProducts: (NSMutableArray *) products counts: (NSMutableDictionary *) productCounts isFood: (BOOL) isFood withFrame: (CGRect) rect;
 
 @end

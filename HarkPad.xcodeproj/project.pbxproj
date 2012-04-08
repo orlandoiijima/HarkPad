@@ -309,6 +309,7 @@
 		E5F609A313489C2400D886A8 /* PreviousReservationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886A7 /* PreviousReservationsViewController.m */; };
 		E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886AC /* SeatHeaderView.m */; };
 		E5F609A313489C2400D886B0 /* TableActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886AF /* TableActionButton.m */; };
+		E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886B5 /* NSString+Utilities.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -825,6 +826,8 @@
 		E5F609A313489C2400D886AE /* SeatHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatHeaderView.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D886AF /* TableActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableActionButton.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D886B1 /* TableActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableActionButton.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D886B5 /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886B7 /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1216,6 +1219,8 @@
 		E50A390812E236A7007C2101 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886B7 /* NSString+Utilities.h */,
+				E5F609A313489C2400D886B5 /* NSString+Utilities.m */,
 				E5F609A313489C2400D8861E /* UIImage+Tint.h */,
 				E5F609A313489C2400D8861C /* UIImage+Tint.m */,
 				E533A0C9132D2931005CB4D6 /* NSDate-Utilities.h */,
@@ -2172,6 +2177,7 @@
 				E5F609A313489C2400D886A8 /* PreviousReservationsViewController.m in Sources */,
 				E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */,
 				E5F609A313489C2400D886B0 /* TableActionButton.m in Sources */,
+				E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

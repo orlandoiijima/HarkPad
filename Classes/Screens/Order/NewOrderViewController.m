@@ -67,7 +67,7 @@
             MARGIN,
             MARGIN,
             self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
-            MAX(220, (self.view.bounds.size.height - 3* MARGIN) / 4)) tableInfo: tableInfo showSeatNumbers: NO];
+            MAX(230, (self.view.bounds.size.height - 3* MARGIN) / 4)) tableInfo: tableInfo showSeatNumbers: NO];
     [self.view addSubview:_tableView];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
