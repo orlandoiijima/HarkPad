@@ -109,12 +109,12 @@
     NSMutableArray *products = [self getOrderedProductsForLines:guest.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines:guest.lines forGuest:guest];
 
-    CGRect sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
-    drinkImage.frame = CGRectMake(sectionFrame.origin.x+10, sectionFrame.origin.y - 12, 40, 20);
+    CGRect sectionFrame = CGRectMake(30, y+10, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
+    drinkImage.frame = CGRectMake(sectionFrame.origin.x, sectionFrame.origin.y - 22, 40, 20);
     [self setupLabel: drinkLabel withProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
 
-    sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
-    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 12, 40, 20);
+    sectionFrame = CGRectMake(CGRectGetMaxX(sectionFrame), y+10, sectionFrame.size.width, sectionFrame.size.height);
+    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 22, 40, 20);
     [self setupLabel: foodLabel withProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
 }
 
@@ -165,8 +165,8 @@
         label.textColor = [UIColor blackColor];
     }
     label.textAlignment = isFood ? UITextAlignmentRight : UITextAlignmentLeft;
-    CGSize textSize = [label.text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width  - 20, 1000)];
-    label.frame = CGRectMake(rect.origin.x+10, rect.origin.y+10, rect.size.width - 20, textSize.height);
+    CGSize textSize = [label.text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width, 1000)];
+    label.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, textSize.height);
     return;
 }
 
@@ -195,8 +195,8 @@
 
         if ([order.reservation.notes length] > 0) {
             NSString *notes = [NSString stringWithFormat:@"'%@'", order.reservation.notes];
-            CGSize textSize = [notes sizeWithFont: subHeaderLabel.font constrainedToSize:CGSizeMake(self.bounds.size.width  - 100, 1000)];
-            subHeaderLabel.frame = CGRectMake(50, y, self.bounds.size.width-100, textSize.height);
+            textSize = [notes sizeWithFont: subHeaderLabel.font constrainedToSize:CGSizeMake(self.bounds.size.width  - 100, 1000)];
+            subHeaderLabel.frame = CGRectMake(60, y, self.bounds.size.width-120, textSize.height);
             subHeaderLabel.text = notes;
             y += textSize.height;
         }
@@ -216,12 +216,12 @@
     NSMutableArray *products = [self getOrderedProductsForLines: order.lines];
     NSMutableDictionary *productCounts = [self getCountsForProductsInLines: order.lines forGuest:nil];
 
-    sectionFrame = CGRectMake(20, y, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
-    drinkImage.frame = CGRectMake(sectionFrame.origin.x+10, sectionFrame.origin.y - 12, 40, 20);
+    sectionFrame = CGRectMake(30, y+10, (self.bounds.size.width - 60) / 2, self.bounds.size.height - y - 20);
+    drinkImage.frame = CGRectMake(sectionFrame.origin.x, sectionFrame.origin.y - 22, 40, 20);
     [self setupLabel: drinkLabel withProducts: products counts:productCounts isFood:NO withFrame: sectionFrame];
 
-    sectionFrame = CGRectMake(sectionFrame.origin.x + sectionFrame.size.width + 20, y, sectionFrame.size.width, sectionFrame.size.height);
-    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 12, 40, 20);
+    sectionFrame = CGRectMake(CGRectGetMaxX(sectionFrame), y+10, sectionFrame.size.width, sectionFrame.size.height);
+    foodImage.frame = CGRectMake(CGRectGetMaxX(layer.frame) - 50, sectionFrame.origin.y - 22, 40, 20);
     [self setupLabel: foodLabel withProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
 }
 
@@ -229,10 +229,10 @@
     if (treeNode.product == nil && treeNode.menu == nil)
         return;
 
-    CGFloat y = 20;
+    CGFloat y = 15;
 
     CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
-    layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 20);
+    layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 15);
     layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:0.7 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.6 alpha:1] CGColor], nil];
 
     y += 5;
@@ -254,13 +254,13 @@
     }
     CGSize textSize = [headerLabel.text sizeWithFont: headerLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, 100)];
     headerLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
-    y += textSize.height + 5;
+    y += textSize.height + 2;
 
-    if ([headerLabel.text isEqualToString:drinkLabel.text] == NO) {
-        CGSize textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
+    if ([headerLabel.text isEqualToString:drinkLabel.text] == NO && [drinkLabel.text length] > 0) {
+        textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
         drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
         drinkLabel.textAlignment = UITextAlignmentCenter;
-        y += textSize.height + 5;
+        y += textSize.height + 2;
     }
     else
         drinkLabel.text = @"";

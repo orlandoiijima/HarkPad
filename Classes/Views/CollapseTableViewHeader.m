@@ -31,7 +31,7 @@
         tapper.numberOfTapsRequired = 2;
         [self addGestureRecognizer:tapper];
 
-        self.backgroundColor = [UIColor blackColor];
+        self.backgroundColor = [UIColor clearColor];
         [self addTarget:self action:@selector(headerClick:event:) forControlEvents:UIControlEventTouchDown];
 
         expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -40,11 +40,11 @@
         [expandButton setImage:image forState:UIControlStateNormal];
         [expandButton setImage:image forState:UIControlStateHighlighted];
         [expandButton addTarget:self action:@selector(expandClick) forControlEvents:UIControlEventTouchDown];
-        expandButton.frame = CGRectMake(0, 0, 40, frame.size.height);
+        expandButton.frame = CGRectMake(0, 0, 35, frame.size.height);
         if (expanded)
             [self setExpandedImage:YES animate:NO];
 
-        label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, frame.size.width/2, frame.size.height)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(35, 0, frame.size.width/2, frame.size.height)];
         label.text = [tableView.dataSource tableView:tableView titleForHeaderInSection:section];
         label.textColor = [UIColor whiteColor];
         label.backgroundColor = [UIColor clearColor];

@@ -34,5 +34,5 @@
 - (CollapseTableViewHeader *) headerViewForSection:(NSInteger)section;
 - (int) courseOffsetFromSection: (int) section;
 - (void)updateSeatOverlay;
-
+- (void) addPanelWithView:(UIView *)view frame:(CGRect) frame margin:(int) margin padding:(int) padding backgroundColor: (UIColor *)color;
 @end

@@ -23,7 +23,7 @@
     view.autoresizingMask = (UIViewAutoresizing)-1;
     view.side = side;
     view.offset = offset;
-    CGFloat imageSize = MIN(frame.size.height, frame.size.width) - 8;
+    CGFloat imageSize = MIN(frame.size.height, frame.size.width);
     view.image = [[UIImageView alloc] initWithFrame:CGRectMake(
             (frame.size.width - imageSize) / 2,
             (frame.size.height - imageSize) / 2,
@@ -36,11 +36,11 @@
     [view addSubview:view.image];
 
     view.imageTopLeft = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"BlueStar.png"]];
-    view.imageTopLeft.frame = CGRectMake(2, 5, 18, 18);
+    view.imageTopLeft.frame = CGRectMake(2, 1, 18, 18);
     [view addSubview:view.imageTopLeft];
 
     view.imageTopRight = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"reddotbig.png"]];
-    view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 5, 18, 18);
+    view.imageTopRight.frame = CGRectMake(frame.size.width - 16 - 2, 1, 18, 18);
     [view addSubview:view.imageTopRight];
 
     view.labelOverlay = [[UILabel alloc] initWithFrame:CGRectMake(0, view.image.frame.origin.y + 5, frame.size.width, view.image.frame.size.height / 2)];
@@ -53,16 +53,16 @@
 
     view.alpha = 1.0;
 
-    CALayer *layer = [CALayer layer];
-    layer.cornerRadius = 6;
-    layer.frame = CGRectInset(view.image.frame, -5, -5);
-    layer.borderColor = [[UIColor clearColor] CGColor];
-    layer.borderWidth = 3;
-    layer.backgroundColor = [[UIColor clearColor] CGColor];
-    layer.shadowOpacity = 0.5;
-    layer.shadowOffset = CGSizeMake(3, 3);
-    layer.shadowColor = [[UIColor orangeColor] CGColor];
-    [view.layer insertSublayer:layer atIndex:0];
+//    CALayer *layer = [CALayer layer];
+//    layer.cornerRadius = 6;
+//    layer.frame = CGRectInset(view.image.frame, -5, -5);
+//    layer.borderColor = [[UIColor clearColor] CGColor];
+//    layer.borderWidth = 3;
+//    layer.backgroundColor = [[UIColor clearColor] CGColor];
+//    layer.shadowOpacity = 0.5;
+//    layer.shadowOffset = CGSizeMake(3, 3);
+//    layer.shadowColor = [[UIColor orangeColor] CGColor];
+//    [view.layer insertSublayer:layer atIndex:0];
 
     view.isEmpty = YES;
     view.isFemale = NO;
@@ -71,17 +71,18 @@
 
     return view;
 }
-
-- (void)setFrame:(CGRect)aFrame {
-    [super setFrame:aFrame];
-    CALayer *layer = [self.layer.sublayers objectAtIndex:0];
-    if (layer == nil) return;
-    layer.frame = CGRectInset(self.image.frame, -8, -8);
-}
+//
+//- (void)setFrame:(CGRect)aFrame {
+//    [super setFrame:aFrame];
+//    CALayer *layer = [self.layer.sublayers objectAtIndex:0];
+//    if (layer == nil) return;
+//    layer.frame = CGRectInset(self.image.frame, -8, -8);
+//}
 
 - (void)layoutSubviews {
-    self.imageTopLeft.frame = CGRectMake(self.image.frame.origin.x, 9, self.image.frame.size.width/4, self.image.frame.size.width/4);
-    self.imageTopRight.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width - self.image.frame.size.width/4 - 2, 9, self.image.frame.size.width/4, self.image.frame.size.width/4);
+    self.imageTopLeft.frame = CGRectMake(self.image.frame.origin.x, 2, self.image.frame.size.width/4, self.image.frame.size.width/4);
+    self.imageTopRight.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width - self.image.frame.size.width/4 - 2, 2, self.image.frame.size.width/4, self.image.frame.size.width/4);
+    self.labelOverlay.frame = CGRectMake(0, self.image.frame.origin.y + 5, self.frame.size.width, self.image.frame.size.height / 2);
 }
 
 - (void) initByGuest: (Guest *)guest {

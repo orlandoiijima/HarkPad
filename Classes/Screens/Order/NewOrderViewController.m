@@ -63,48 +63,47 @@
     titleView.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), _order.table.name];
     self.navigationItem.titleView = titleView;
 
-    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(
-            MARGIN,
-            MARGIN,
-            self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
-            MAX(230, (self.view.bounds.size.height - 3* MARGIN) / 4)) tableInfo: tableInfo showSeatNumbers: NO];
-    [self.view addSubview:_tableView];
+    CGRect rect = CGRectInset(self.view.bounds, 5, 5);
+    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo showSeatNumbers: NO];
+    [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(250, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
     _tableView.delegate = self;
-    _tableView.autoresizingMask = 0;
+    _tableView.autoresizingMask = -1;
 
-    _productPanelView = [[MenuTreeView alloc] initWithFrame:CGRectMake(
-            MARGIN,
-            MARGIN + _tableView.frame.origin.y + _tableView.frame.size.height,
-            self.view.bounds.size.width - 3* MARGIN - orderViewWidth,
-            self.view.bounds.size.height - MARGIN - (MARGIN + _tableView.frame.origin.y + _tableView.frame.size.height))];
+    _productPanelView = [[MenuTreeView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     _productPanelView.countColumns = 4;
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.topHeaderHeight = 0;
-    [self.view addSubview:_productPanelView];
+    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(250, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(250, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    _productPanelView.leftHeaderWidth = 0;
     _productPanelView.menuDelegate = self;
 
-    _orderView = [[UITableView alloc] initWithFrame:CGRectMake(
-            _tableView.frame.origin.x + _tableView.frame.size.width + MARGIN,
-            MARGIN,
-            orderViewWidth,
-            self.view.bounds.size.height - 3* MARGIN - buttonSize) style:UITableViewStyleGrouped];
-    [self.view addSubview:_orderView];
+    _orderView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _orderView.backgroundView = nil;
     _orderView.dataSource = self.dataSource;
     _orderView.delegate = self.dataSource;
+    [self addPanelWithView:_orderView frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y, orderViewWidth, rect.size.height - buttonSize) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
 
-    CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectMake(_orderView.frame.origin.x + (_orderView.frame.size.width - buttonSize*2)/2, _orderView.frame.origin.y + _orderView.frame.size.height + MARGIN, buttonSize*2, buttonSize)];
+    CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectZero];
     [saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchDown];
 
-    [self.view addSubview:saveButton];
+    [self addPanelWithView: saveButton frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y + rect.size.height - buttonSize, orderViewWidth, buttonSize) margin:5 padding:10 backgroundColor:[UIColor clearColor]];
 
     [self setupToolbar];
 
     self.selectedCourseOffset = 0;
     self.selectedSeat = 0;
+}
+
+- (void) addPanelWithView:(UIView *)view frame:(CGRect) frame margin:(int) margin padding:(int) padding backgroundColor: (UIColor *)color{
+    UIView *panel = [[UIView alloc] initWithFrame:CGRectInset(frame, margin, margin)];
+    panel.backgroundColor = color;
+    [self.view addSubview:panel];
+
+    [panel addSubview:view];
+    view.frame = CGRectInset(panel.bounds, padding, padding);
 }
 
 - (void) setupToolbar {
