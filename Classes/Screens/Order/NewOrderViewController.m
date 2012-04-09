@@ -89,13 +89,13 @@
             _tableView.frame.origin.x + _tableView.frame.size.width + MARGIN,
             MARGIN,
             orderViewWidth,
-            self.view.bounds.size.height - 3* MARGIN - buttonSize - 80) style:UITableViewStyleGrouped];
+            self.view.bounds.size.height - 3* MARGIN - buttonSize) style:UITableViewStyleGrouped];
     [self.view addSubview:_orderView];
     _orderView.backgroundView = nil;
     _orderView.dataSource = self.dataSource;
     _orderView.delegate = self.dataSource;
 
-    CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectMake(_orderView.frame.origin.x + (_orderView.frame.size.width - buttonSize)/2, _orderView.frame.origin.y + _orderView.frame.size.height + MARGIN, buttonSize, buttonSize)];
+    CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectMake(_orderView.frame.origin.x + (_orderView.frame.size.width - buttonSize*2)/2, _orderView.frame.origin.y + _orderView.frame.size.height + MARGIN, buttonSize*2, buttonSize)];
     [saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchDown];
 

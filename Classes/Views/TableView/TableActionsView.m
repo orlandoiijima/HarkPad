@@ -24,45 +24,21 @@
     self = [super initWithFrame:frame];
     if (self) {
 
-        CGFloat dx, dy, x, y;
-        CGFloat space = 10;
-        CGSize size;
-        if (frame.size.width > frame.size.height) {
-            size = CGSizeMake((frame.size.width - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS, frame.size.height - 2*space);
-            space = (frame.size.width - COUNT_BUTTONS * size.width) / (COUNT_BUTTONS+1);
-            dx = size.width + space;
-            dy = 0;
-            x = space;
-            y = (frame.size.height - size.height) / 2;
-        }
-        else {
-            size = CGSizeMake(frame.size.width - 2*space, (frame.size.height - (COUNT_BUTTONS + 1)*space) / COUNT_BUTTONS);
-            space = (frame.size.height - COUNT_BUTTONS * size.height) / (COUNT_BUTTONS+1);
-            dx = 0;
-            dy = size.height + space;
-            x = (frame.size.width - size.width) / 2;
-            y = space;
-        }
-
-        CGRect rect = CGRectMake(x, y, size.width, size.height);
         CGSize imageSize = CGSizeMake(60, 60);
-        self.buttonEditOrder = [TableActionButton buttonWithFrame:rect imageName:@"food@2x" imageSize: imageSize caption:NSLocalizedString(@"Order", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(editOrder)];
-        self.buttonEditOrder.autoresizingMask = -1;
+        self.buttonEditOrder = [TableActionButton buttonWithFrame:CGRectZero imageName:@"food@2x" imageSize: imageSize caption:NSLocalizedString(@"Order", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(editOrder)];
+        self.buttonEditOrder.autoresizingMask = (UIViewAutoresizing) -1;
         [self addSubview:self.buttonEditOrder];
 
-        rect = CGRectOffset(rect, dx, dy);
-        self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:rect imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(startNextCourse)];
-        self.buttonRequestNextCourse.autoresizingMask = -1;
+        self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:CGRectZero imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(startNextCourse)];
+        self.buttonRequestNextCourse.autoresizingMask = (UIViewAutoresizing)-1;
         [self addSubview:self.buttonRequestNextCourse];
 
-        rect = CGRectOffset(rect, dx, dy);
-        self.buttonBill = [TableActionButton buttonWithFrame:rect imageName:@"order@2x" imageSize: imageSize caption:NSLocalizedString(@"Bill", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(makeBillForOrder)];
-        self.buttonBill.autoresizingMask = -1;
+        self.buttonBill = [TableActionButton buttonWithFrame:CGRectZero imageName:@"order@2x" imageSize: imageSize caption:NSLocalizedString(@"Bill", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(makeBillForOrder)];
+        self.buttonBill.autoresizingMask = (UIViewAutoresizing)-1;
         [self addSubview:self.buttonBill];
 
-        rect = CGRectOffset(rect, dx, dy);
-        self.buttonPay = [TableActionButton buttonWithFrame:rect imageName:@"creditcard@2x" imageSize: imageSize caption:NSLocalizedString(@"Pay", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(getPaymentForOrder)];
-        self.buttonPay.autoresizingMask = -1;
+        self.buttonPay = [TableActionButton buttonWithFrame:CGRectZero imageName:@"creditcard@2x" imageSize: imageSize caption:NSLocalizedString(@"Pay", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(getPaymentForOrder)];
+        self.buttonPay.autoresizingMask = (UIViewAutoresizing)-1;
         [self addSubview:self.buttonPay];
     }
     return self;
