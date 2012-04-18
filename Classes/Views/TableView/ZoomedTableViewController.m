@@ -89,7 +89,6 @@
     [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
     self.tableViewDashboard.actionsView.order = order;
     self.tableViewDashboard.infoView.order = order;
-    self.tableViewDashboard.courseInfo.order = order;
 }
 
 - (void)getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date {

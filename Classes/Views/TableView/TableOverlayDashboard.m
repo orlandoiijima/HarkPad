@@ -11,7 +11,7 @@
 
 @implementation TableOverlayDashboard
 
-@synthesize pageControl, reservationsTableView, scrollTableView, delegate, order, guestProperties, courseInfo, actionsView, infoView;
+@synthesize pageControl, reservationsTableView, scrollTableView, delegate, order, guestProperties, actionsView, infoView;
 
 #define PAGECONTROL_HEIGHT 50
 
@@ -51,16 +51,6 @@
         guestProperties.autoresizingMask = -1;
         pageControl.numberOfPages++;
         rectPage = CGRectOffset(rectPage, frame.size.width, 0);
-
-        if (tableView.orderInfo != nil) {
-            courseInfo = [CourseGuestTableView viewWithTableView: tableView];
-            courseInfo.order = order;
-            courseInfo.frame = rectPage;
-            [scrollTableView addSubview: courseInfo];
-            pageControl.numberOfPages++;
-            courseInfo.autoresizingMask = -1;
-            rectPage = CGRectOffset(rectPage, frame.size.width, 0);
-        }
 
         reservationsTableView = [[SelectReservationView alloc] initWithFrame:rectPage delegate:delegate];
         [scrollTableView addSubview: reservationsTableView];

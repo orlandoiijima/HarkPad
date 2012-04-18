@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TableWithSeatsView.h"
-#include "CourseGuestTableView.h"
 #include "ReservationDataSource.h"
 #include "GuestProperties.h"
 
@@ -24,7 +23,6 @@
 @property (retain) TableOverlayInfo *infoView;
 @property (retain) UIScrollView *scrollTableView;
 @property (retain) GuestProperties *guestProperties;
-@property (retain) CourseGuestTableView *courseInfo;
 @property (retain) id<TablePopupDelegate> delegate;
 @property (retain) Order *order;
 
