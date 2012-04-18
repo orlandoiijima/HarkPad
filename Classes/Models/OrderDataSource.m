@@ -560,56 +560,56 @@
     return nil;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
-}
-
-- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-    if ([self tableView:tableView canEditRowAtIndexPath: proposedDestinationIndexPath] == NO) {
-        return sourceIndexPath;
-    }
-    OrderLine *targetLine = [self orderLineAtIndexPath: proposedDestinationIndexPath];
-    if (targetLine == nil)
-        return sourceIndexPath;
-    OrderLineCell *dragCell = (OrderLineCell *) [tableView cellForRowAtIndexPath:sourceIndexPath];
-    dragCell.seat.guests = [NSMutableArray arrayWithObject:targetLine.guest];
-    return proposedDestinationIndexPath;
-}
-
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    if ([self tableView:tableView canEditRowAtIndexPath:destinationIndexPath] == NO) {
-        return;
-    }
-
-    OrderLine *line = [self orderLineAtIndexPath: sourceIndexPath];
-    if (line == nil)
-        return;
-    OrderLine *targetLine = [self orderLineAtIndexPath: destinationIndexPath];
-    if (targetLine == nil)
-        return;
-
-    OrderDataSourceSection *sourceSectionInfo = [self groupForSection:sourceIndexPath.section];
-    [sourceSectionInfo.lines removeObject:line];
-    OrderDataSourceSection *targetSectionInfo = [self groupForSection: destinationIndexPath.section];
-    [targetSectionInfo.lines insertObject:line atIndex:destinationIndexPath.row];
-
-    if (line.course.id == targetLine.course.id) {
-        [line.guest.lines removeObject: line];
-        [targetLine.guest.lines addObject:line];
-        line.guest = targetLine.guest;
-    }
-    else {
-        [line.course.lines removeObject:line];
-        [targetLine.course.lines addObject:line];
-        line.course = targetLine.course;
-    }
-
-    [tableView reloadSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:NO];
-    [tableView reloadSections:[NSIndexSet indexSetWithIndex:destinationIndexPath.section] withRowAnimation:NO];
-
-    if ([_delegate respondsToSelector:@selector(didMoveOrderLine:toOrderLine:toIndexPath:)])
-        return [_delegate didMoveOrderLine: line toOrderLine: targetLine  toIndexPath: destinationIndexPath];
-}
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
+//}
+//
+//- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+//    if ([self tableView:tableView canEditRowAtIndexPath: proposedDestinationIndexPath] == NO) {
+//        return sourceIndexPath;
+//    }
+//    OrderLine *targetLine = [self orderLineAtIndexPath: proposedDestinationIndexPath];
+//    if (targetLine == nil)
+//        return sourceIndexPath;
+//    OrderLineCell *dragCell = (OrderLineCell *) [tableView cellForRowAtIndexPath:sourceIndexPath];
+//    dragCell.seat.guests = [NSMutableArray arrayWithObject:targetLine.guest];
+//    return proposedDestinationIndexPath;
+//}
+//
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+//    if ([self tableView:tableView canEditRowAtIndexPath:destinationIndexPath] == NO) {
+//        return;
+//    }
+//
+//    OrderLine *line = [self orderLineAtIndexPath: sourceIndexPath];
+//    if (line == nil)
+//        return;
+//    OrderLine *targetLine = [self orderLineAtIndexPath: destinationIndexPath];
+//    if (targetLine == nil)
+//        return;
+//
+//    OrderDataSourceSection *sourceSectionInfo = [self groupForSection:sourceIndexPath.section];
+//    [sourceSectionInfo.lines removeObject:line];
+//    OrderDataSourceSection *targetSectionInfo = [self groupForSection: destinationIndexPath.section];
+//    [targetSectionInfo.lines insertObject:line atIndex:destinationIndexPath.row];
+//
+//    if (line.course.id == targetLine.course.id) {
+//        [line.guest.lines removeObject: line];
+//        [targetLine.guest.lines addObject:line];
+//        line.guest = targetLine.guest;
+//    }
+//    else {
+//        [line.course.lines removeObject:line];
+//        [targetLine.course.lines addObject:line];
+//        line.course = targetLine.course;
+//    }
+//
+//    [tableView reloadSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:NO];
+//    [tableView reloadSections:[NSIndexSet indexSetWithIndex:destinationIndexPath.section] withRowAnimation:NO];
+//
+//    if ([_delegate respondsToSelector:@selector(didMoveOrderLine:toOrderLine:toIndexPath:)])
+//        return [_delegate didMoveOrderLine: line toOrderLine: targetLine  toIndexPath: destinationIndexPath];
+//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
