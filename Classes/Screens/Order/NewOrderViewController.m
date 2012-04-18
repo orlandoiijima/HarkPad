@@ -83,6 +83,7 @@
     _orderView.backgroundView = nil;
     _orderView.dataSource = self.dataSource;
     _orderView.delegate = self.dataSource;
+    [_orderView setEditing:YES];
     [self addPanelWithView:_orderView frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y, orderViewWidth, rect.size.height - buttonSize) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
 
     CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectZero];
@@ -107,25 +108,25 @@
 }
 
 - (void) setupToolbar {
-    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle: @"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode:)];
-
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-            editButton,
-            nil];
+//    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle: @"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode:)];
+//
+//    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
+//            editButton,
+//            nil];
 }
 
-- (void)toggleEditMode: (id)sender {
-    UIBarButtonItem *buttonItem = (UIBarButtonItem *)sender;
-    if (_orderView.editing) {
-        buttonItem.title = NSLocalizedString(@"Edit", nil);
-        buttonItem.style = UIBarButtonItemStylePlain;
-    }
-    else {
-        buttonItem.title = NSLocalizedString(@"Done", nil);
-        buttonItem.style = UIBarButtonItemStyleDone;
-    }
-    [_orderView setEditing:_orderView.editing == NO animated:YES];
-}
+//- (void)toggleEditMode: (id)sender {
+//    UIBarButtonItem *buttonItem = (UIBarButtonItem *)sender;
+//    if (_orderView.editing) {
+//        buttonItem.title = NSLocalizedString(@"Edit", nil);
+//        buttonItem.style = UIBarButtonItemStylePlain;
+//    }
+//    else {
+//        buttonItem.title = NSLocalizedString(@"Done", nil);
+//        buttonItem.style = UIBarButtonItemStyleDone;
+//    }
+//    [_orderView setEditing:_orderView.editing == NO animated:YES];
+//}
 
 - (void) save {
     [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
