@@ -108,11 +108,16 @@
 }
 
 - (void) setupToolbar {
-//    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithTitle: @"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(toggleEditMode:)];
-//
-//    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-//            editButton,
-//            nil];
+    UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
+
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
+            feedbackButton,
+            nil];
+}
+
+- (void) getFeedback
+{
+    [TestFlight openFeedbackView];
 }
 
 //- (void)toggleEditMode: (id)sender {
