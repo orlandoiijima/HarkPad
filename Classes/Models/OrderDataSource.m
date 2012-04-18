@@ -95,12 +95,14 @@
         return;
     NSNumber *key = [self keyForOrderLine:line];
 
+    bool isNewSection = NO;
     OrderDataSourceSection *group = [groupedLines objectForKey:key];
     if(group == nil)
     {
         group = [[OrderDataSourceSection alloc] init];
         group.title = [self stringForOrderLine:line];
         [groupedLines setObject:group forKey:key];
+        isNewSection = YES;
     }
 
     if(totalizeProducts) {
@@ -131,6 +133,8 @@
         if (group.isCollapsed == NO) {
              NSIndexPath *indexPath = [NSIndexPath indexPathForRow: row inSection: section];
             [tableView beginUpdates];
+            if (isNewSection)
+                [tableView insertSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
             [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
             [tableView endUpdates];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
