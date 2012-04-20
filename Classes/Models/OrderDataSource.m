@@ -631,4 +631,43 @@
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
+
+- (void)tableView:(UITableView *)tableView totalizeProducts:(BOOL)totalize {
+    OrderDataSource *oldDataSource = [[OrderDataSource alloc] init];
+    oldDataSource.groupedLines = [NSMutableDictionary dictionaryWithDictionary:self.groupedLines];
+    totalizeProducts = !totalizeProducts;
+    self.grouping = self.grouping;
+    NSMutableArray *indexPathsInsert = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsDelete = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsRefresh = [[NSMutableArray alloc] init];
+    if (totalizeProducts) {
+        for (int section = 0; section < [tableView numberOfSections]; section++) {
+            OrderDataSourceSection *group = [oldDataSource groupForSection: section];
+            for (int row = 0; row < [group.lines count]; row++) {
+                OrderLine *line1 = [group.lines objectAtIndex:row];
+                for (int j = 0; j < row; j++) {
+                    OrderLine *line2 = [group.lines objectAtIndex:j];
+                    if (line1.product.id == line2.product.id) {
+                        if (totalizeProducts) {
+                            [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                            [group.lines removeObjectAtIndex:row];
+                            [indexPathsRefresh addObject:[NSIndexPath indexPathForRow:j inSection:section]];
+                            row--;
+                        }
+                       else {
+                            [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                            [indexPathsRefresh addObject:[NSIndexPath indexPathForRow:j inSection:section]];
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        [tableView beginUpdates];
+        [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
+        [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
+        [tableView reloadRowsAtIndexPaths:indexPathsRefresh withRowAnimation:UITableViewRowAnimationMiddle];
+        [tableView endUpdates];
+    }
+}
 @end

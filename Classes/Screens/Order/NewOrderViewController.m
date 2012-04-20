@@ -109,10 +109,17 @@
 
 - (void) setupToolbar {
     UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
+    UIBarButtonItem * groupButton = [[UIBarButtonItem alloc] initWithTitle: @"Group" style:UIBarButtonItemStylePlain target:self action:@selector(totalizeProducts)];
 
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
+    groupButton,
             feedbackButton,
             nil];
+}
+
+- (void) totalizeProducts
+{
+    [self.dataSource tableView:_orderView totalizeProducts:YES];
 }
 
 - (void) getFeedback
