@@ -61,14 +61,27 @@
     }    
 }
 
-- (TableSide) sideForSeat: (int)seatOffset {
-    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue])
-        return TableSideTop;
-    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue])
-        return TableSideRight;
-    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue])
-        return TableSideBottom;
-    return TableSideLeft;
+//- (TableSide) sideForSeat: (int)seatOffset {
+//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue])
+//        return TableSideTop;
+//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue])
+//        return TableSideRight;
+//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue])
+//        return TableSideBottom;
+//    return TableSideLeft;
+//}
+
+- (int) firstSeatAtSide: (TableSide) tableSide {
+    switch (tableSide) {
+        case TableSideTop:
+            return 0;
+        case TableSideRight:
+            return [[countSeatsPerSide objectAtIndex:0] intValue];
+        case TableSideBottom:
+            return [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue];
+        case TableSideLeft:
+            return [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue];
+    }
 }
 
 - (int)countSeatsTotal {

@@ -127,19 +127,6 @@
     [TestFlight openFeedbackView];
 }
 
-//- (void)toggleEditMode: (id)sender {
-//    UIBarButtonItem *buttonItem = (UIBarButtonItem *)sender;
-//    if (_orderView.editing) {
-//        buttonItem.title = NSLocalizedString(@"Edit", nil);
-//        buttonItem.style = UIBarButtonItemStylePlain;
-//    }
-//    else {
-//        buttonItem.title = NSLocalizedString(@"Done", nil);
-//        buttonItem.style = UIBarButtonItemStyleDone;
-//    }
-//    [_orderView setEditing:_orderView.editing == NO animated:YES];
-//}
-
 - (void) save {
     [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
 

@@ -23,6 +23,9 @@
 @property (retain) Guest *selectedGuest;
 @property (nonatomic) int selectedSeat;
 @property (retain) TableWithSeatsView *tableWithSeatsView;
+@property (retain) SeatView *dragSeatView;
+@property (nonatomic) CGPoint dragPosition;
+@property (nonatomic) CGRect dragOriginalFrame;
 @property (retain) ReservationDataSource *reservationDataSource;
 @property (retain, nonatomic) TableOverlayDashboard *tableViewDashboard;
 @property (retain) id<TablePopupDelegate> delegate;
@@ -31,5 +34,6 @@
 - (void) refreshSeatView;
 + (ZoomedTableViewController *) controllerWithTableView:(TableWithSeatsView *) tableWithSeatsView delegate:(id)delegate;
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult;
+- (void) endZoom;
 
 @end

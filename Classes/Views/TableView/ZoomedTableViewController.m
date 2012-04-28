@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "ZoomedTableViewController.h"
 #import "SelectReservationView.h"
+#import "ModalAlert.h"
 
 @interface ZoomedTableViewController ()
 
@@ -15,7 +17,7 @@
 
 @implementation ZoomedTableViewController
 
-@synthesize tableWithSeatsView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat, saveSelectedSeat = _saveSelectedSeat;
+@synthesize tableWithSeatsView, order, reservationDataSource, selectedGuest = _selectedGuest, tableViewDashboard, delegate, selectedSeat = _selectedSeat, saveSelectedSeat = _saveSelectedSeat,  dragSeatView, dragPosition, dragOriginalFrame;
 
 + (ZoomedTableViewController *) controllerWithTableView:(TableWithSeatsView *) tableWithSeatsView delegate:(id)delegate {
     ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
@@ -23,7 +25,144 @@
     controller.tableWithSeatsView = tableWithSeatsView;
     controller.view.hidden = NO;
     [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.id delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
+
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:controller action:@selector(handlePanGesture:)];
+    [tableWithSeatsView addGestureRecognizer:recognizer];
     return controller;
+}
+
+- (void) handlePanGesture: (UIPanGestureRecognizer *)panGestureRecognizer
+{
+    CGPoint point = [panGestureRecognizer locationInView: tableWithSeatsView];
+    switch(panGestureRecognizer.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            UIView *view = [tableWithSeatsView hitTest:point withEvent:0];
+            if ([view isKindOfClass:[SeatView class]])
+            {
+                dragSeatView = view;
+                [dragSeatView.superview bringSubviewToFront:dragSeatView];
+                dragPosition = point;
+                dragOriginalFrame = view.frame;
+            }
+            break;
+        }
+
+        case UIGestureRecognizerStateChanged:
+        {
+            if (dragSeatView == nil) return;
+            dragSeatView.center = CGPointMake(dragSeatView.center.x + point.x - dragPosition.x, dragSeatView.center.y + point.y - dragPosition.y);
+            dragPosition = point;
+            SeatView *targetSeatView = [tableWithSeatsView seatViewAtPoint: point exclude: dragSeatView];
+            if (targetSeatView != nil) {
+            }
+            else {
+            }
+            break;
+        }
+
+        case UIGestureRecognizerStateEnded:
+        {
+            int beforeSeat = NSNotFound;
+            TableSide tableSide = NSNotFound;
+            SeatView *targetSeatView = [tableWithSeatsView seatViewAtPoint: point exclude: dragSeatView];
+            if (targetSeatView == nil) {
+                tableSide = [tableWithSeatsView tableSideSeatSectionAtPoint:point];
+                if (tableSide != NSNotFound) {
+                    beforeSeat = [tableWithSeatsView.table firstSeatAtSide:tableSide];
+                }
+            }
+            else {
+                beforeSeat = targetSeatView.offset;
+                tableSide = targetSeatView.side;
+                switch (targetSeatView.side) {
+                    case TableSideTop:
+                        if (dragSeatView.center.x > targetSeatView.center.x)
+                            beforeSeat++;
+                        break;
+                    case TableSideRight:
+                        if (dragSeatView.center.y > targetSeatView.center.y)
+                            beforeSeat++;
+                        break;
+                    case TableSideBottom:
+                        if (dragSeatView.center.x < targetSeatView.center.x)
+                            beforeSeat++;
+                        break;
+                    case TableSideLeft:
+                        if (dragSeatView.center.y < targetSeatView.center.y)
+                            beforeSeat++;
+                        break;
+                }
+            }
+            if (beforeSeat != NSNotFound) {
+                if (dragSeatView == tableWithSeatsView.spareSeatView)
+                    [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
+                else
+                    [[Service getInstance] moveSeat: dragSeatView.offset atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+            }
+            else {
+                if (dragSeatView == tableWithSeatsView.spareSeatView) {
+                    [self revertDrag];
+                }
+                else {
+                    bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
+                    if(continueDelete) {
+                        [[Service getInstance] deleteSeat: dragSeatView.offset fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
+                    }
+                    else
+                        [self revertDrag];
+                }
+            }
+            break;
+        }
+
+        case UIGestureRecognizerStatePossible:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+            break;
+    }
+}
+
+- (void) insertSeatCallback:(ServiceResult *) serviceResult {
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+
+        [self revertDrag];
+        return;
+    }
+}
+
+- (void) deleteSeatCallback:(ServiceResult *) serviceResult {
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+
+        [self revertDrag];
+        return;
+    }
+}
+
+- (void) moveSeatCallback:(ServiceResult *) serviceResult {
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+
+        [self revertDrag];
+        return;
+    }
+}
+
+- (void) revertDrag {
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         dragSeatView.frame = dragOriginalFrame;
+                     }
+                    completion:^(BOOL x){
+                        dragSeatView = nil;
+            }
+    ];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -39,7 +178,8 @@
 {
     self.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView order:order delegate: self];
     tableWithSeatsView.contentTableView = self.view;
-    NSLog(@"view created");
+    tableWithSeatsView.spareSeatView.center = CGPointMake(tableWithSeatsView.center.x, tableWithSeatsView.center.y + 100);
+    tableWithSeatsView.spareSeatView.hidden = NO;
 }
 
 - (TableOverlayDashboard *)tableViewDashboard
@@ -65,13 +205,18 @@
 }
 
 - (void)didTapCloseButton {
+    [self endZoom];
+}
+
+- (void) endZoom {
+    [[Service getInstance] updateOrder: order delegate: nil callback:nil];
+
     if([self.delegate respondsToSelector:@selector(didTapCloseButton)])
         [self.delegate didTapCloseButton];
 }
 
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
 {
-    NSLog(@"order callback");
     if(serviceResult.isSuccess == false) {
         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [view show];

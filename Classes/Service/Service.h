@@ -42,6 +42,10 @@
 - (Order *) getOrder: (int) orderId;
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 - (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) insertSeatAtTable: (int) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
+- (void) deleteSeat: (int) seat fromTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) moveSeat:(int)seat atTable: (int) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
+
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
 - (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;

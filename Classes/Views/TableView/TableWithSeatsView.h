@@ -23,18 +23,19 @@
 @property (retain) OrderInfo *orderInfo;
 @property (retain) id<TablePopupDelegate> delegate;
 @property (nonatomic,retain) UIView *contentTableView;
-@property (nonatomic) CGRect tableInnerRect;
 @property (retain) NSMutableArray * selectedGuests;
 @property (nonatomic) BOOL isTableSelected;
 @property (nonatomic) BOOL isDragging;
 @property (nonatomic) BOOL isCloseButtonVisible;
+@property (retain) SeatView *spareSeatView;
 
 + (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
 - (void)tapSeat: (id)sender;
 - (void) selectSeat: (int) offset;
 - (void)didModifyItem:(id)item;
 - (SeatView *)seatViewAtOffset: (NSUInteger)offset;
-- (CGRect) rectInTableForSeat: (NSUInteger)seat;
+- (SeatView *)seatViewAtPoint: (CGPoint) point exclude:(SeatView *)seatViewToExclude;
 - (void) setOverlayText: (NSString *) text forSeat: (int)offset;
+- (TableSide) tableSideSeatSectionAtPoint: (CGPoint) point;
 
 @end

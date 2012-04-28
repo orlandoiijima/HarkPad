@@ -114,7 +114,7 @@
 - (void) handleTapGesture: (UITapGestureRecognizer *) tapGestureRecognizer
 {
     if (self.zoomedTableView != nil)
-        [self unzoom];
+        [self.zoomedTableController endZoom];
 }
 
 - (void)didTapCloseButton {
@@ -554,7 +554,6 @@
             tableView.frame.origin.y * zoomScale.y - (self.scrollView.bounds.size.height - height)/2);
     self.zoomedTableController = [ZoomedTableViewController controllerWithTableView:zoomedTableView delegate:self];
     [UIView animateWithDuration: 0.3 animations:^{
-        NSLog(@"start ani");
             for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
             }

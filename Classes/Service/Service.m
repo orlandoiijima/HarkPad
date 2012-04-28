@@ -185,6 +185,47 @@ static Service *_service;
 	return;    
 }
 
+- (void) insertSeatAtTable: (int) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"insertSeat"
+            withQuery: [NSString stringWithFormat:@"tableId=%d&tableSide=%d&beforeSeat=%d", tableId, side, seat]
+            delegate:self
+            callback:@selector(simpleCallback:finishedWithData:error:)
+            userData:invocation];
+	return;
+}
+
+- (void) moveSeat:(int)seat atTable: (int) tableId beforeSeat: (int) beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback
+{
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"moveSeat"
+            withQuery: [NSString stringWithFormat:@"seat=%d&tableId=%d&tableSide=%d&beforeSeat=%d", seat, tableId, side, beforeSeat]
+            delegate:self
+            callback:@selector(simpleCallback:finishedWithData:error:)
+            userData:invocation];
+	return;
+}
+
+- (void)deleteSeat:(int)seat fromTable:(int)tableId delegate:(id)delegate callback:(SEL)callback {
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+    [self getPageCallback:@"deleteSeat"
+            withQuery: [NSString stringWithFormat:@"tableId=%d&seat=%d", tableId, seat]
+            delegate:self
+            callback:@selector(simpleCallback:finishedWithData:error:)
+            userData:invocation];
+	return;
+}
+
 - (void) dockTables: (NSMutableArray*)tables
 {
     NSMutableArray *tableIds = [[NSMutableArray alloc] init];
@@ -595,11 +636,14 @@ static Service *_service;
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
 
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation retainArguments];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
+    NSInvocation *invocation = nil;
+    if (delegate != nil && callback != nil) {
+        NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+        invocation = [NSInvocation invocationWithMethodSignature:sig];
+        [invocation retainArguments];
+        [invocation setTarget:delegate];
+        [invocation setSelector:callback];
+    }
     [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: self callback: @selector(simpleCallback:finishedWithData:error:) userData: invocation];
 }
 
@@ -625,9 +669,11 @@ static Service *_service;
 {
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
 
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
+    if(fetcher.userData != nil) {
+        NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+        [invocation setArgument:&result atIndex:2];
+        [invocation invoke];
+    }
 }
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback

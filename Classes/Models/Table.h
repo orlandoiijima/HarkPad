@@ -37,6 +37,6 @@ typedef enum TableSide {
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (bool) isSeatAlignedWith: (Table *)table;
-- (TableSide) sideForSeat: (int)seatOffset;
-
+//- (TableSide) sideForSeat: (int)seatOffset;
+- (int) firstSeatAtSide: (TableSide) tableSide;
 @end
