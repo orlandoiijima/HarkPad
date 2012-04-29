@@ -309,6 +309,10 @@
 		E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886AC /* SeatHeaderView.m */; };
 		E5F609A313489C2400D886B0 /* TableActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886AF /* TableActionButton.m */; };
 		E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886B5 /* NSString+Utilities.m */; };
+		E5F609A313489C2400D886B9 /* info@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886B8 /* info@2x.png */; };
+		E5F609A313489C2400D886BB /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BA /* info.png */; };
+		E5F609A313489C2400D886BD /* usersmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BC /* usersmall.png */; };
+		E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BE /* UIImage+TBKMasking.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -825,6 +829,11 @@
 		E5F609A313489C2400D886B1 /* TableActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableActionButton.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D886B5 /* NSString+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utilities.m"; sourceTree = "<group>"; };
 		E5F609A313489C2400D886B7 /* NSString+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utilities.h"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886B8 /* info@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info@2x.png"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886BA /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D886BC /* usersmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = usersmall.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D886BE /* UIImage+TBKMasking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TBKMasking.m"; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C0 /* UIImage+TBKMasking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBKMasking.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1097,6 +1106,9 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886BC /* usersmall.png */,
+				E5F609A313489C2400D886BA /* info.png */,
+				E5F609A313489C2400D886B8 /* info@2x.png */,
 				E5F609A313489C2400D886A3 /* creditcard@2x.png */,
 				E5F609A313489C2400D886A1 /* order@2x.png */,
 				E5F609A313489C2400D8869F /* action@2x.png */,
@@ -1216,6 +1228,8 @@
 		E50A390812E236A7007C2101 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886C0 /* UIImage+TBKMasking.h */,
+				E5F609A313489C2400D886BE /* UIImage+TBKMasking.m */,
 				E5F609A313489C2400D886B7 /* NSString+Utilities.h */,
 				E5F609A313489C2400D886B5 /* NSString+Utilities.m */,
 				E5F609A313489C2400D8861E /* UIImage+Tint.h */,
@@ -1953,6 +1967,9 @@
 				E5F609A313489C2400D886A0 /* action@2x.png in Resources */,
 				E5F609A313489C2400D886A2 /* order@2x.png in Resources */,
 				E5F609A313489C2400D886A4 /* creditcard@2x.png in Resources */,
+				E5F609A313489C2400D886B9 /* info@2x.png in Resources */,
+				E5F609A313489C2400D886BB /* info.png in Resources */,
+				E5F609A313489C2400D886BD /* usersmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2172,6 +2189,7 @@
 				E5F609A313489C2400D886AD /* SeatHeaderView.m in Sources */,
 				E5F609A313489C2400D886B0 /* TableActionButton.m in Sources */,
 				E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */,
+				E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

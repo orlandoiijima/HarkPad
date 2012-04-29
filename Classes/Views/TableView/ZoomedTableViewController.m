@@ -329,7 +329,7 @@
 
 - (void)didTapSeat: (int)offset {
     self.selectedSeat = self.saveSelectedSeat = offset;
-    [self.tableViewDashboard scrollToView: self.tableViewDashboard.guestProperties];
+    [self.tableViewDashboard gotoView: self.tableViewDashboard.guestProperties];
 }
 
 - (BOOL) canSelectSeat: (int)offset {

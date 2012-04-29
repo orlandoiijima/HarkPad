@@ -17,17 +17,19 @@
 
 @interface TableOverlayDashboard : UIView <UIScrollViewDelegate>
 
-@property (retain) UIPageControl *pageControl;
+@property (retain) UIView *pageControl;
 @property (retain) SelectReservationView *reservationsTableView;
 @property (retain) TableActionsView *actionsView;
 @property (retain) TableOverlayInfo *infoView;
-@property (retain) UIScrollView *scrollTableView;
+@property (retain) UIView *contentView;
+@property (retain) UIView *currentView;
 @property (retain) GuestProperties *guestProperties;
 @property (retain) id<TablePopupDelegate> delegate;
 @property (retain) Order *order;
+@property (retain) NSMutableArray *buttonViews;
 
 - (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView order:(Order *)anOrder delegate: (id<TablePopupDelegate>) aDelegate;
-- (void) scrollToView: (UIView *)view;
-- (UIView *)viewOnPage: (int)pageControl;
+- (UIButton *)createBarButtonWithFrame: (CGRect) frame image:(UIImage *)image tag: (int)tag;
+-(void) gotoView: (UIView *)view;
 
 @end

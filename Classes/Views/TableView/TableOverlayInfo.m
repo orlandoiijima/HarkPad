@@ -78,7 +78,7 @@
         captionLabel.lineBreakMode = UILineBreakModeWordWrap;
         captionLabel.font = [UIFont systemFontOfSize:14];
         captionLabel.backgroundColor = [UIColor clearColor];
-        captionLabel.textColor = [UIColor colorWithWhite:0.9 alpha:1];
+        captionLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
         captionLabel.textAlignment = UITextAlignmentCenter;
         captionLabel.text = caption;
         CGSize size = [caption sizeWithFont:captionLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
