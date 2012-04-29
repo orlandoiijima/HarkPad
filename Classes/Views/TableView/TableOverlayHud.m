@@ -254,18 +254,21 @@
     }
     CGSize textSize = [headerLabel.text sizeWithFont: headerLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, 100)];
     headerLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+    headerLabel.textColor = [UIColor blackColor];
     y += textSize.height + 2;
 
     if ([headerLabel.text isEqualToString:drinkLabel.text] == NO && [drinkLabel.text length] > 0) {
         textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
         drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
         drinkLabel.textAlignment = UITextAlignmentCenter;
+        drinkLabel.textColor = [UIColor blackColor];
         y += textSize.height + 2;
     }
     else
         drinkLabel.text = @"";
 
     foodLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+    foodLabel.textColor = [UIColor blackColor];
     foodLabel.textAlignment = UITextAlignmentCenter;
 
     drinkImage.frame = CGRectInfinite;
