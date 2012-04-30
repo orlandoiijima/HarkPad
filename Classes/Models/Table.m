@@ -17,7 +17,7 @@
 {
     if ((self = [super init]) != NULL)
 	{
-        self.countSeatsPerSide = [NSArray arrayWithObjects: [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], nil];
+        self.countSeatsPerSide = [NSMutableArray arrayWithObjects: [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], [NSNumber numberWithInt:1], [NSNumber numberWithInt:0], nil];
         self.dockedToTableId = -1;
         self.isDocked = false;
 	}
@@ -39,7 +39,7 @@
     if(isDocked != nil)
         table.isDocked = (BOOL)[isDocked intValue];
 
-    table.countSeatsPerSide = [jsonDictionary objectForKey:@"countSeats"];
+    table.countSeatsPerSide = [NSMutableArray arrayWithArray: [jsonDictionary objectForKey:@"countSeats"]];
 
     NSNumber *left = [jsonDictionary objectForKey:@"l"];
     NSNumber *top =  [jsonDictionary objectForKey:@"t"];
@@ -61,15 +61,15 @@
     }    
 }
 
-//- (TableSide) sideForSeat: (int)seatOffset {
-//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue])
-//        return TableSideTop;
-//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue])
-//        return TableSideRight;
-//    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue])
-//        return TableSideBottom;
-//    return TableSideLeft;
-//}
+- (TableSide) sideForSeat: (int)seatOffset {
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue])
+        return TableSideTop;
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue]  + [[countSeatsPerSide objectAtIndex:1] intValue])
+        return TableSideRight;
+    if (seatOffset < [[countSeatsPerSide objectAtIndex:0] intValue] + [[countSeatsPerSide objectAtIndex:1] intValue] + [[countSeatsPerSide objectAtIndex:2] intValue])
+        return TableSideBottom;
+    return TableSideLeft;
+}
 
 - (int) firstSeatAtSide: (TableSide) tableSide {
     switch (tableSide) {

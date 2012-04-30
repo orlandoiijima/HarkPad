@@ -65,6 +65,7 @@
         case UIGestureRecognizerStateEnded:
         {
             int beforeSeat = NSNotFound;
+            int seatToMove = dragSeatView.offset;
             TableSide tableSide = NSNotFound;
             SeatView *targetSeatView = [tableWithSeatsView seatViewAtPoint: point exclude: dragSeatView];
             if (targetSeatView == nil) {
@@ -96,10 +97,13 @@
                 }
             }
             if (beforeSeat != NSNotFound) {
-                if (dragSeatView == tableWithSeatsView.spareSeatView)
+                if (dragSeatView == tableWithSeatsView.spareSeatView) {
                     [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
-                else
-                    [[Service getInstance] moveSeat: dragSeatView.offset atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                }
+                else {
+                    [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
+                    [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                }
             }
             else {
                 if (dragSeatView == tableWithSeatsView.spareSeatView) {
@@ -108,7 +112,8 @@
                 else {
                     bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
                     if(continueDelete) {
-                        [[Service getInstance] deleteSeat: dragSeatView.offset fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
+                        [tableWithSeatsView removeSeat: seatToMove];
+                        [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
                     }
                     else
                         [self revertDrag];

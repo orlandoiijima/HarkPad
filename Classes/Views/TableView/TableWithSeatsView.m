@@ -102,7 +102,7 @@
         }
     }
 
-    view.spareSeatView = [SeatView viewWithFrame:CGRectMake(0, 0, seatViewSize.width, seatViewSize.height) offset:0 atSide:TableSideBottom];
+    view.spareSeatView = [SeatView viewWithFrame:CGRectMake(0, 0, seatViewSize.width, seatViewSize.height) offset:-1 atSide:TableSideBottom];
     view.spareSeatView.hidden = YES;
     [view addSubview: view.spareSeatView];
 
@@ -360,4 +360,133 @@
 - (UIView *)contentTableView {
     return _contentTableView;
 }
+
+- (void) removeSeat:(int) seat {
+    SeatView *seatToRemove = [self seatViewAtOffset:seat];
+    if (seatToRemove == nil) return;
+    TableSide tableSide = [table sideForSeat:seat];
+    int numberOfSeatsAtSide = [[table.countSeatsPerSide objectAtIndex:tableSide] intValue];
+    if (numberOfSeatsAtSide == 0) return;
+
+    [self offsetSeats:-1 startingAt:seat+1];
+
+    numberOfSeatsAtSide--;
+    [table.countSeatsPerSide replaceObjectAtIndex:tableSide withObject:[NSNumber numberWithInt:numberOfSeatsAtSide]];
+
+    seatToRemove.offset = -1;
+
+    if (numberOfSeatsAtSide == 0) {
+        switch (tableSide) {
+            case TableSideTop:
+                tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y - seatToRemove.frame.size.height, tableView.frame.size.width, tableView.frame.size.height + seatToRemove.frame.size.height);
+                break;
+            case TableSideRight:
+                tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width + seatToRemove.frame.size.width, tableView.frame.size.height);
+                break;
+            case TableSideBottom:
+                tableView.frame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.frame.size.height + seatToRemove.frame.size.height);
+                break;
+            case TableSideLeft:
+                tableView.frame = CGRectMake(tableView.frame.origin.x - seatToRemove.frame.size.width, tableView.frame.origin.y, tableView.frame.size.width + seatToRemove.frame.size.width, tableView.frame.size.height);
+                break;
+        }
+    }
+    else {
+        [self rearrangeSeatViewsAtSide: tableSide];
+    }
+}
+
+- (void) offsetSeats:(int) delta startingAt:(int)startSeat {
+    for(UIView *view in self.subviews) {
+        if ([view isKindOfClass:[SeatView class]]) {
+            SeatView *seatView = (SeatView *) view;
+            if (seatView.offset >= startSeat)
+                seatView.offset += delta;
+        }
+    }
+    for(Guest *guest in orderInfo.guests) {
+        if (guest.seat >= startSeat) {
+            guest.seat += delta;
+        }
+    }
+
+}
+
+- (void) moveSeat: (int) seatToMove toSeat:(int) toSeat atSide:(TableSide)toSide {
+    SeatView *seatViewToMove = [self seatViewAtOffset:seatToMove];
+    if (seatViewToMove == nil) return;
+
+    [self offsetSeats: -1 startingAt: seatToMove+1];
+    if (seatToMove < toSeat)
+        [self offsetSeats: +1 startingAt: toSeat - 1];
+    else
+        [self offsetSeats: +1 startingAt: toSeat];
+
+    seatViewToMove.offset = toSeat - 1;
+
+    [UIView animateWithDuration:1 animations:^{
+        if (seatViewToMove.side == toSide) {
+            [self rearrangeSeatViewsAtSide:toSide];
+        }
+        else {
+            int numberOfSeats = [[table.countSeatsPerSide objectAtIndex: seatViewToMove.side] intValue];
+            [table.countSeatsPerSide replaceObjectAtIndex: seatViewToMove.side withObject:[NSNumber numberWithInt:numberOfSeats - 1]];
+            [self rearrangeSeatViewsAtSide: seatViewToMove.side];
+
+            numberOfSeats = [[table.countSeatsPerSide objectAtIndex:toSide] intValue];
+            [table.countSeatsPerSide replaceObjectAtIndex:toSide withObject:[NSNumber numberWithInt:numberOfSeats+1]];
+            [self rearrangeSeatViewsAtSide:toSide];
+        }
+    }];
+}
+
+-(void) rearrangeSeatViewsAtSide:(TableSide) tableSide {
+    int firstSeat = [table firstSeatAtSide:tableSide];
+    SeatView *firstSeatView = [self seatViewAtOffset:firstSeat];
+    int numberOfSeats = [[table.countSeatsPerSide objectAtIndex:tableSide] intValue];
+    float width, height;
+    float dx, dy;
+    float x, y;
+    switch (tableSide) {
+        case TableSideTop:
+            width = tableView.frame.size.width / numberOfSeats;
+            height = firstSeatView.frame.size.height;
+            x = CGRectGetMinX(tableView.frame);
+            y = CGRectGetMinY(tableView.frame) - firstSeatView.frame.size.height;
+            dx = width;
+            dy = 0;
+            break;
+        case TableSideRight:
+            height = tableView.frame.size.height / numberOfSeats;
+            width = firstSeatView.frame.size.width;
+            x = CGRectGetMaxX(tableView.frame);
+            y = CGRectGetMinY(tableView.frame);
+            dx = 0;
+            dy = height;
+            break;
+        case TableSideBottom:
+            width = tableView.frame.size.width / numberOfSeats;
+            height = firstSeatView.frame.size.height;
+            x = CGRectGetMaxX(tableView.frame) - firstSeatView.frame.size.width;
+            y = CGRectGetMaxY(tableView.frame);
+            dx = -width;
+            dy = 0;
+            break;
+        case TableSideLeft:
+            height = tableView.frame.size.height / numberOfSeats;
+            width = firstSeatView.frame.size.width;
+            x = CGRectGetMinX(tableView.frame) - firstSeatView.frame.size.width;;
+            y = CGRectGetMaxY(tableView.frame) - firstSeatView.frame.size.height;
+            dx = 0;
+            dy = -height;
+            break;
+    }
+    CGRect seatFrame = CGRectMake(x, y, width, height);
+    for (int seat=firstSeat; seat < firstSeat + numberOfSeats; seat++) {
+        SeatView *seatView = [self seatViewAtOffset: seat];
+        seatView.frame = seatFrame;
+        seatFrame = CGRectOffset(seatFrame, dx, dy);
+    }
+}
+
 @end

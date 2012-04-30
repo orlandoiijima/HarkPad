@@ -19,7 +19,7 @@ typedef enum TableSide {
     int id;
     NSString *name;
     CGRect bounds;
-    NSArray *countSeatsPerSide;
+    NSMutableArray *countSeatsPerSide;
     District *district;
     int dockedToTableId;
 }
@@ -27,7 +27,7 @@ typedef enum TableSide {
 @property int id;
 @property (retain) NSString *name;
 @property CGRect bounds;
-@property (retain) NSArray *countSeatsPerSide;
+@property (retain) NSMutableArray *countSeatsPerSide;
 @property (retain) District *district;
 @property int dockedToTableId;
 @property int maxCountSeatsHorizontal;
@@ -37,6 +37,6 @@ typedef enum TableSide {
 
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (bool) isSeatAlignedWith: (Table *)table;
-//- (TableSide) sideForSeat: (int)seatOffset;
+- (TableSide) sideForSeat: (int)seatOffset;
 - (int) firstSeatAtSide: (TableSide) tableSide;
 @end
