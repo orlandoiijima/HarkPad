@@ -103,6 +103,7 @@
         if(guest.seat == seat)
             return guest;
     }
+    NSLog(@"No guest at seat %d", seat);
     return nil;
 }
 

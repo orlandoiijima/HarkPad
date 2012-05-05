@@ -39,5 +39,4 @@
 - (TableSide) tableSideSeatSectionAtPoint: (CGPoint) point;
 - (void) moveSeat: (int) seatToMove toSeat:(int) toSeat atSide:(TableSide)toSide;
 - (void) removeSeat:(int) seat;
--(void) rearrangeSeatViewsAtSide:(TableSide) tableSide;
 @end
