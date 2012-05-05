@@ -449,7 +449,7 @@
         seatViewToMove.side = toSide;
     }
 
-    [UIView animateWithDuration: 5 animations:^{
+    [UIView animateWithDuration: 3 animations:^{
         [self layoutSubviews];
     }];
 }

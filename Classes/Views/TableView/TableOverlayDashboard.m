@@ -11,7 +11,7 @@
 
 @implementation TableOverlayDashboard
 
-@synthesize pageControl, reservationsTableView, contentView, delegate, order, guestProperties, actionsView, infoView, currentView, buttonViews;
+@synthesize pageControl, reservationsTableView, contentView, delegate, order, guestProperties, actionsView, infoView, buttonViews;
 
 #define PAGECONTROL_HEIGHT 50
 
@@ -43,7 +43,6 @@
         buttonViews = [[NSMutableArray alloc] init];
 
         actionsView = [[TableActionsView alloc] initWithFrame:rectPage orderInfo:tableView.orderInfo delegate:delegate];
-        currentView = actionsView;
         actionsView.order = order;
         [contentView addSubview: actionsView];
         actionsView.autoresizingMask = -1;
@@ -110,6 +109,7 @@
 -(void) gotoViewForButton: (UIButton *)button {
     UIView *currentView = [[contentView subviews] objectAtIndex:0];
     UIView *newView = [buttonViews objectAtIndex:button.tag];
+    if (currentView == newView) return;
     for(UIButton *button in [pageControl subviews])
     {
         button.selected = NO;

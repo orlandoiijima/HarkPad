@@ -24,6 +24,7 @@
     controller.delegate = delegate;
     controller.tableWithSeatsView = tableWithSeatsView;
     controller.view.hidden = NO;
+    [tableWithSeatsView.superview bringSubviewToFront:tableWithSeatsView];
     [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.id delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
 
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:controller action:@selector(handlePanGesture:)];
