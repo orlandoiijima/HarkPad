@@ -22,6 +22,7 @@
 
 - (id)initWithFrame: (CGRect)frame {
     self = [super initWithFrame:frame];
+    self.autoresizingMask = (UIViewAutoresizing) -1;
 
     UIFont *font = [UIFont systemFontOfSize:13];
 

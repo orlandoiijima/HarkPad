@@ -69,7 +69,7 @@
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
     _tableView.delegate = self;
-    _tableView.autoresizingMask = -1;
+    _tableView.autoresizingMask = (UIViewAutoresizing) -1;
 
     _productPanelView = [[MenuTreeView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
     _productPanelView.countColumns = 4;
@@ -94,6 +94,9 @@
 
     [self setupToolbar];
 
+}
+
+- (void)viewDidAppear:(BOOL)animated {
     self.selectedCourseOffset = 0;
     self.selectedSeat = 0;
 }
