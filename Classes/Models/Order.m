@@ -86,7 +86,7 @@
         order.reservation = [Reservation reservationFromJsonDictionary: reservationDic];
     }
 
-        order.entityState = EntityStateNone;
+    order.entityState = EntityStateNone;
     return order;
 }
 

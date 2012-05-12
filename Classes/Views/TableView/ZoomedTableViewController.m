@@ -24,7 +24,7 @@
     controller.delegate = delegate;
     controller.tableWithSeatsView = tableWithSeatsView;
 
-    controller.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView delegate: delegate];
+    controller.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView delegate: controller];
     tableWithSeatsView.contentTableView = controller.view;
     tableWithSeatsView.delegate = controller;
     [tableWithSeatsView.superview bringSubviewToFront:tableWithSeatsView];
@@ -252,24 +252,6 @@
     self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
 }
 
-//- (void)editOrder {
-//    if (self.delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(editOrder:)])
-//        [self.delegate editOrder:order];
-//}
-//
-//- (void)makeBillForOrder {
-//    if (self.delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(makeBillForOrder:)])
-//        [self.delegate makeBillForOrder: order];
-//}
-//
-//- (void)getPaymentForOrder {
-//    if (self.delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(getPaymentForOrder:)])
-//        [self.delegate getPaymentForOrder: order];
-//}
-//
 - (void)updateOrder {
     if (self.delegate == nil) return;
     if([self.delegate respondsToSelector:@selector(updateOrder:)])
@@ -307,8 +289,12 @@
     propView.viewMale.isOn = seatView == propView.viewMale;
     propView.viewFemale.isOn = seatView == propView.viewFemale;
     propView.viewEmpty.isOn = seatView == propView.viewEmpty;
-    _selectedGuest.isMale = propView.viewMale.isOn;
-    _selectedGuest.isEmpty = propView.viewEmpty.isOn;
+    if (propView.viewMale.isOn)
+        _selectedGuest.guestType = guestMale;
+    else if (propView.viewFemale.isOn)
+        _selectedGuest.guestType = guestFemale;
+    else
+        _selectedGuest.guestType = guestEmpty;
 
     [self refreshSeatView];
 
@@ -343,9 +329,38 @@
 - (void)setSelectedSeat: (int)seat
 {
     _selectedSeat = seat;
+    Guest *guest = [order getGuestBySeat:seat];
+    if(guest == nil) {
+        guest = [order addGuest];
+        guest.seat = seat;
+        guest.guestType = guestEmpty;
+    }
     self.selectedGuest = [order getGuestBySeat:seat];
     [self.tableWithSeatsView selectSeat:seat];
     self.tableViewDashboard.guestProperties.guest = _selectedGuest;
+}
+
+- (void) makeBillForOrder: (Order *) o {
+    [self.delegate makeBillForOrder:o];
+}
+- (void) getPaymentForOrder: (Order *) o {
+    [self.delegate getPaymentForOrder:o];
+}
+
+- (void) startNextCourseForOrder: (Order *) o {
+    [self.delegate startNextCourseForOrder:o];
+}
+
+- (void) editOrder:(Order *)o {
+    [self.delegate editOrder:o];
+}
+
+- (void) updateOrder:(Order *)o {
+    [self.delegate updateOrder:o];
+}
+
+- (void) closePopup {
+    [self.delegate closePopup];
 }
 
 //- (void)didSelectItem:(id)item {

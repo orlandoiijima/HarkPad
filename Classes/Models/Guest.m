@@ -12,7 +12,7 @@
 
 @implementation Guest
 
-@synthesize isMale, isEmpty, isHost, seat, lines, diet, order;
+@synthesize guestType, isHost, seat, lines, diet, order;
 @dynamic nextGuest, isLast;
 
 - (id)init
@@ -20,7 +20,7 @@
     if ((self = [super init]) != NULL)
 	{
         lines = [[NSMutableArray alloc] init];
-        isMale = YES;
+        guestType = guestMale;
         entityState = EntityStateNew;
 	}
     return(self);
@@ -36,7 +36,7 @@
         guest.diet = [val intValue];
     val = [jsonDictionary objectForKey:@"gender"];
     if (val != nil && [val isEqualToString:@"M"] == NO)
-        guest.isMale = NO;
+        guest.guestType = guestFemale;
     id isHost = [jsonDictionary objectForKey:@"isHost"];
     if (isHost != nil)
         guest.isHost = (BOOL) [isHost intValue];
@@ -58,7 +58,7 @@
 {
     NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"seat"];
-    if (isMale == NO)
+    if (guestType == guestFemale)
         [dic setObject: @"F" forKey:@"gender"];
     if (diet != 0)
         [dic setObject: [NSNumber numberWithInt:self.diet] forKey:@"diet"];
@@ -77,8 +77,8 @@
     self.entityState = EntityStateModified;
 }
 
-- (void)setIsMale:(BOOL)anIsMale {
-    isMale = anIsMale;
+- (void)setGuestType:(GuestType)aGuestType {
+    guestType = aGuestType;
     self.entityState = EntityStateModified;
 }
 

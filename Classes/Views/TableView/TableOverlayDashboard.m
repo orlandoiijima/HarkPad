@@ -65,7 +65,6 @@
         [pageControl addSubview:button];
         x += buttonWidth;
 
-
         if (tableView.orderInfo != nil) {
             infoView = [[TableOverlayInfo alloc] initWithFrame:rectPage order:nil];
             infoView.autoresizingMask = (UIViewAutoresizing) -1;

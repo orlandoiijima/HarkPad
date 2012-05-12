@@ -31,7 +31,7 @@
 @property (retain) SeatView *spareSeatView;
 @property (nonatomic) CGSize seatViewSize;
 
-+ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL)showSeatNumbers;
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo;
 - (void)tapSeat: (id)sender;
 - (void) selectSeat: (int) offset;
 - (void)didModifyItem:(id)item;

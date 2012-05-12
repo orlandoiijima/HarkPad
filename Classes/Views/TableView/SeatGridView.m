@@ -89,7 +89,7 @@
 {
     for(Guest *guest in guests) {
         if (guest.seat == seat) {
-            return (guest.isMale ?
+            return (guest.guestType == guestMale ?
                 [UIColor colorWithRed:135/255.0 green: 206/255.0 blue: 206/250.0 alpha:1] :
                 [UIColor colorWithRed:1 green:182/255.0 blue:193/255.0 alpha:1]);
 

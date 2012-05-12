@@ -15,7 +15,7 @@
 @dynamic selectedGuests, isCloseButtonVisible, isSpareSeatViewVisible, seatViewSize;
 @synthesize closeButton;
 
-+ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo showSeatNumbers: (BOOL) showSeatNumbers
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo
 {
     TableWithSeatsView *view = [[TableWithSeatsView alloc] init];
     view.autoresizingMask = (UIViewAutoresizing)-1;
@@ -213,8 +213,8 @@
 
 - (void)tapSeat: (id)sender {
     SeatView *seatView = (SeatView *)sender;
-//    if([self.delegate respondsToSelector:@selector(didTapSeat:)])
-//        [self.delegate didTapSeat: seatView.offset];
+    if([self.delegate respondsToSelector:@selector(didTapSeat:)])
+        [self.delegate didTapSeat: seatView.offset];
 
     BOOL canSelect = YES;
     if([self.delegate respondsToSelector:@selector(canSelectSeat:)])
@@ -358,7 +358,7 @@
 - (void) selectSeat: (int) offset
 {
     for(UIView *view in self.subviews) {
-        if ([view isKindOfClass:[SeatView class]]) {
+        if ([view isKindOfClass:[SeatView class]] && view != spareSeatView) {
             SeatView *seatView = (SeatView *) view;
             seatView.isSelected = seatView.offset == offset;
         }

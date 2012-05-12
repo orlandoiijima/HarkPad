@@ -31,11 +31,14 @@ enum {
 };
 typedef NSUInteger Diet;
 
+typedef enum GuestType {
+    guestMale, guestFemale, guestEmpty, guestSpare
+} GuestType ;
+
 
 @interface Guest : DTO {
     int seat;
-    BOOL isMale;
-    BOOL isEmpty;
+    GuestType guestType;
     BOOL isHost;
     Diet diet;
     NSMutableArray *lines;
@@ -48,8 +51,7 @@ typedef NSUInteger Diet;
 - (NSDecimalNumber *)totalAmount;
 
 @property int seat;
-@property (nonatomic) BOOL isMale;
-@property BOOL isEmpty;
+@property (nonatomic) GuestType guestType;
 @property (nonatomic) BOOL isHost;
 @property (nonatomic) Diet diet;
 @property Order *order;

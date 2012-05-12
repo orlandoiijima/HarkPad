@@ -64,7 +64,7 @@
     self.navigationItem.titleView = titleView;
 
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
-    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo showSeatNumbers: NO];
+    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo];
     [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(250, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
@@ -217,7 +217,7 @@
 
 - (BOOL)canSelectSeat:(int)seatOffset {
     Guest *guest = [_order getGuestBySeat:seatOffset];
-    if (guest == nil || guest.isEmpty) return NO;
+    if (guest == nil || guest.guestType == guestEmpty) return NO;
     return YES;
 }
 

@@ -25,19 +25,19 @@
     
     UIImage *maleImage = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: [UIColor blueColor]];
     view.viewMale = [ToggleButton buttonWithTitle:NSLocalizedString(@"Male", nil) image: maleImage frame:CGRectMake(15, 15, 0, 0)];
-    view.viewMale.isOn = guest.isMale;
+    view.viewMale.isOn = guest.guestType == guestMale;
     [view.viewMale addTarget:delegate action:@selector(tapGender:) forControlEvents:UIControlEventTouchDown];
     [view addSubview:view.viewMale];
 
     UIImage *femaleImage = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1]];
     view.viewFemale = [ToggleButton buttonWithTitle:NSLocalizedString(@"Female", nil) image: femaleImage frame:CGRectMake(15 + view.viewMale.bounds.size.width + 10, 15, 0, 0)];
-    view.viewFemale.isOn = guest.isMale == NO;
+    view.viewFemale.isOn = guest.guestType == guestFemale;
     [view.viewFemale addTarget:delegate action:@selector(tapGender:) forControlEvents:UIControlEventTouchDown];
     [view addSubview:view.viewFemale];
 
     UIImage *emptyImage = [[UIImage imageNamed:@"user.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
     view.viewEmpty = [ToggleButton buttonWithTitle:NSLocalizedString(@"Empty", nil) image: emptyImage frame:CGRectMake(view.viewFemale.frame.origin.x + view.viewFemale.bounds.size.width + 10, 15, 0, 0)];
-    view.viewEmpty.isOn = guest == nil;
+    view.viewEmpty.isOn = guest == nil || guest.guestType == guestEmpty;
     [view.viewEmpty addTarget:delegate action:@selector(tapGender:) forControlEvents:UIControlEventTouchDown];
     [view addSubview:view.viewEmpty];
 
@@ -64,9 +64,9 @@
         if (toggle != nil)
             toggle.isOn = guest != nil && guest.diet & (1 << i);
     }
-    viewMale.isOn = guest != nil && guest.isMale;
-    viewFemale.isOn = guest != nil && !guest.isMale;
-    viewEmpty.isOn = guest == nil || guest.isEmpty;
+    viewMale.isOn = guest != nil && guest.guestType == guestMale;
+    viewFemale.isOn = guest != nil && guest.guestType == guestFemale;
+    viewEmpty.isOn = guest == nil || guest.guestType == guestEmpty;
     isHostView.isOn = guest != nil && guest.isHost;
 
     if ([guest.lines count] > 0)
