@@ -99,6 +99,7 @@
                 }
                 else {
                     buttonRequestNextCourse.enabled = NO;
+                    [buttonRequestNextCourse setCommandDescription:NSLocalizedString(@"No course to request", <#comment#>)];
                 }
             }
             break;
