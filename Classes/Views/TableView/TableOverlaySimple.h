@@ -12,9 +12,7 @@
 @interface TableOverlaySimple : UIView
 
 @property (retain) CourseProgress *courseProgressView;
-@property int selectedCourseOffset;
-@property int countCourses;
 
-- (id)initWithFrame:(CGRect)frame tableName: (NSString *)name countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset selectedCourse: (int)selectedCourse currentCourseState: (CourseState) currentCourseState orderState:(OrderState)orderState delegate: (id<NSObject>) delegate;
+- (id)initWithFrame:(CGRect)frame tableName: (NSString *)name countCourses: (int)countCourses currentCourseOffset: (int)currentCourseOffset selectedCourse: (int)selectedCourse currentCourseState: (CourseState) currentCourseState orderState:(OrderState)orderState;
 
 @end
