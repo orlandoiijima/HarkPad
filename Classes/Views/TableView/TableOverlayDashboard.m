@@ -11,17 +11,16 @@
 
 @implementation TableOverlayDashboard
 
-@synthesize pageControl, reservationsTableView, contentView, delegate, order, guestProperties, actionsView, infoView, buttonViews;
+@synthesize pageControl, reservationsTableView, contentView, delegate, guestProperties, actionsView, infoView, buttonViews, order = _order;
 
 #define PAGECONTROL_HEIGHT 50
 
-- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView order:(Order *)anOrder delegate: (id<TablePopupDelegate>) aDelegate
+- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView delegate: (id<TableCommandsDelegate>) aDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.autoresizingMask = -1;
+        self.autoresizingMask = (UIViewAutoresizing) -1;
         self.delegate = aDelegate;
-        self.order = anOrder;
 
         pageControl = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - PAGECONTROL_HEIGHT, frame.size.width, PAGECONTROL_HEIGHT)];
         pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
@@ -42,10 +41,9 @@
 
         buttonViews = [[NSMutableArray alloc] init];
 
-        actionsView = [[TableActionsView alloc] initWithFrame:rectPage orderInfo:tableView.orderInfo delegate:delegate];
-        actionsView.order = order;
+        actionsView = [[TableActionsView alloc] initWithFrame:rectPage delegate:delegate];
         [contentView addSubview: actionsView];
-        actionsView.autoresizingMask = -1;
+        actionsView.autoresizingMask = (UIViewAutoresizing) -1;
         [buttonViews addObject: actionsView];
 
         UIButton *button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"action.png"] tag:tag++];
@@ -54,14 +52,14 @@
         button.selected = true;
 
         guestProperties = [GuestProperties viewWithGuest:nil frame:rectPage delegate:delegate];
-        guestProperties.autoresizingMask = -1;
+        guestProperties.autoresizingMask = (UIViewAutoresizing) -1;
         [buttonViews addObject: guestProperties];
         button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"usersmall.png"] tag:tag++];
         [pageControl addSubview:button];
         x += buttonWidth;
 
-        reservationsTableView = [[SelectReservationView alloc] initWithFrame:rectPage delegate:delegate];
-        reservationsTableView.autoresizingMask = -1;
+        reservationsTableView = [[SelectReservationView alloc] initWithFrame:rectPage delegate:self];
+        reservationsTableView.autoresizingMask = (UIViewAutoresizing) -1;
         [buttonViews addObject: reservationsTableView];
         button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"calendar.png"] tag:tag++];
         [pageControl addSubview:button];
@@ -69,8 +67,8 @@
 
 
         if (tableView.orderInfo != nil) {
-            infoView = [[TableOverlayInfo alloc] initWithFrame:rectPage order:order];
-            infoView.autoresizingMask = -1;
+            infoView = [[TableOverlayInfo alloc] initWithFrame:rectPage order:nil];
+            infoView.autoresizingMask = (UIViewAutoresizing) -1;
             [buttonViews addObject: infoView];
             button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"info.png"] tag:tag];
             [pageControl addSubview:button];
@@ -79,10 +77,18 @@
     return self;
 }
 
+- (void)setOrder:(Order *)anOrder {
+    if(actionsView != nil)
+        actionsView.order = anOrder;
+    if(infoView != nil)
+        infoView.order = anOrder;
+    _order = anOrder;
+}
+
 - (UIButton *)createBarButtonWithFrame: (CGRect) frame image:(UIImage *)image tag: (int)tag
 {
     UIButton *button = [[UIButton alloc] initWithFrame:frame];
-    button.autoresizingMask = -1;
+    button.autoresizingMask = (UIViewAutoresizing) -1;
     [pageControl addSubview:button];
     [button setImage: [image tabBarImage] forState:UIControlStateNormal];
     [button setImage: [image selectedTabBarImage] forState:UIControlStateSelected];
@@ -95,6 +101,7 @@
     [super layoutSubviews];
     reservationsTableView.frame = contentView.bounds;
     guestProperties.frame = contentView.bounds;
+    actionsView.frame = contentView.bounds;
     if (infoView != nil)
         infoView.frame = contentView.bounds;
 }
@@ -103,16 +110,16 @@
     NSUInteger i = [buttonViews indexOfObject:view];
     if(i == NSNotFound)
         return;
-    [self gotoViewForButton: [pageControl viewWithTag:i]];
+    [self gotoViewForButton: (UIButton *)[pageControl viewWithTag:i]];
 }
 
 -(void) gotoViewForButton: (UIButton *)button {
     UIView *currentView = [[contentView subviews] objectAtIndex:0];
     UIView *newView = [buttonViews objectAtIndex:button.tag];
     if (currentView == newView) return;
-    for(UIButton *button in [pageControl subviews])
+    for(UIButton *b in [pageControl subviews])
     {
-        button.selected = NO;
+        b.selected = NO;
     }
     button.selected = YES;
     [UIView transitionFromView:currentView
@@ -123,6 +130,13 @@
         [currentView removeFromSuperview];
         [contentView addSubview:newView];
     }];
+}
+
+- (void)didSelectItem:(id)item {
+    Reservation *reservation = (Reservation *)item;
+    if(item == nil) return;
+    if(_order == nil) return;
+    _order.reservation = reservation;
 }
 
 @end

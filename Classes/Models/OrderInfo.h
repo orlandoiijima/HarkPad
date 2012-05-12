@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Order.h"
 #import "SeatInfo.h"
+#import "OrderProxyDelegate.h"
 
-@interface OrderInfo : NSObject {
+@interface OrderInfo : NSObject <OrderProxyDelegate> {
     NSDate *createdOn;
     Table *table;
     NSMutableArray *guests;
@@ -37,7 +38,6 @@
 @property (retain) NSDate *currentCourseServedOn;
 @property (retain) NSString *language;
 
-- (SeatInfo *) getSeatInfo: (int) querySeat;
 - (Guest *) getGuestBySeat: (int)seat;
 + (OrderInfo *) infoWithOrder: (Order *)order;
 

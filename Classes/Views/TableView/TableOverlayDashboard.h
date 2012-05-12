@@ -14,21 +14,21 @@
 #import "TableActionsView.h"
 #import "SelectReservationView.h"
 #import "TableOverlayInfo.h"
+#import "SelectItemDelegate.h"
 
-@interface TableOverlayDashboard : UIView <UIScrollViewDelegate>
+@interface TableOverlayDashboard : UIView <UIScrollViewDelegate, SelectItemDelegate>
 
 @property (retain) UIView *pageControl;
 @property (retain) SelectReservationView *reservationsTableView;
 @property (retain) TableActionsView *actionsView;
 @property (retain) TableOverlayInfo *infoView;
 @property (retain) UIView *contentView;
-@property (retain) UIView *currentView;
+@property (retain, nonatomic) Order *order;
 @property (retain) GuestProperties *guestProperties;
-@property (retain) id<TablePopupDelegate> delegate;
-@property (retain) Order *order;
+@property (retain) id<TableCommandsDelegate> delegate;
 @property (retain) NSMutableArray *buttonViews;
 
-- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView order:(Order *)anOrder delegate: (id<TablePopupDelegate>) aDelegate;
+- (id)initWithFrame:(CGRect)frame tableView: (TableWithSeatsView *)tableView delegate: (id<TableCommandsDelegate>) aDelegate;
 - (UIButton *)createBarButtonWithFrame: (CGRect) frame image:(UIImage *)image tag: (int)tag;
 -(void) gotoView: (UIView *)view;
 

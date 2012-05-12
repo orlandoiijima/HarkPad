@@ -15,12 +15,13 @@
 
 @interface TableActionsView : UIView
 
-@property (retain) Order *order;
+@property (retain, nonatomic) Order *order;
 @property (retain) TableActionButton *buttonEditOrder;
 @property (retain) TableActionButton *buttonPay;
 @property (retain) TableActionButton *buttonBill;
 @property (retain) TableActionButton *buttonRequestNextCourse;
+@property (retain) id<TableCommandsDelegate> delegate;
 
-- (id)initWithFrame:(CGRect)frame orderInfo: (OrderInfo *)orderInfo delegate:(id<NSObject>) delegate;
+- (id)initWithFrame:(CGRect)frame delegate:(id<TableCommandsDelegate>) delegate;
 
 @end

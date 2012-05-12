@@ -82,7 +82,7 @@
 }
 
 - (NSUInteger)countOfRows {
-    return [_orderDataSource tableView:nil numberOfRowsInSection:0];
+    return (NSUInteger) [_orderDataSource tableView:nil numberOfRowsInSection:0];
 }
 
 - (NSString *)stringForVariable:(NSString *)variable {

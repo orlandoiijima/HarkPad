@@ -20,7 +20,7 @@
 
 @class ZoomedTableViewController;
 
-@interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
+@interface TableMapViewController : UIViewController <UIPopoverControllerDelegate, PaymentDelegate, TableCommandsDelegate, TablePopupDelegate, UIScrollViewDelegate, UIGestureRecognizerDelegate> {
     TableWithSeatsView *dragTableView;
     TableWithSeatsView *targetTableView;
     bool isVisible;
@@ -39,6 +39,7 @@
 - (void) refreshView;
 - (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (void) editOrder: (Order *) order;
+- (void) updateOrder: (Order *) order;
 - (void) makeBillForOrder: (Order*)order;
 - (void) undockTable: (int)tableId;
 - (void)getPaymentForOrder: (Order *)order;

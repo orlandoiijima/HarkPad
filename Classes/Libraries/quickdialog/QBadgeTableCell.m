@@ -13,7 +13,6 @@
 //
 
 #import "QBadgeTableCell.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface QBadgeTableCell ()
 @end

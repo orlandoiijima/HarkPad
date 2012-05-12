@@ -6,7 +6,7 @@
 
 
 @protocol ItemPropertiesDelegate <NSObject>
-@required
+@optional
 - (void) didSaveItem: (id)item;
 - (void) didCancelItem: (id)item;
 - (void) didModifyItem: (id)item;

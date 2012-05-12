@@ -45,8 +45,8 @@
 
     Product *product = [[Product alloc] init];
     product.entityState = EntityStateNew;
-    product.name = NSLocalizedString(@"Nieuw", nil);
-    product.key = NSLocalizedString(@"Nieuw", nil);
+    product.name = NSLocalizedString(@"New", nil);
+    product.key = NSLocalizedString(@"New", nil);
 
     product.category = currentCategory;
     [product.category.products insertObject:product atIndex:0];
@@ -83,7 +83,7 @@
     QSection *section = [[QSection alloc] init];
     [form addSection: section];
     
-    QEntryElement *name = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Naam", nil) Value:@"Name" Placeholder:NSLocalizedString(@"Bon, rekening", nil)];
+    QEntryElement *name = [[QEntryElement alloc] initWithTitle:NSLocalizedString(@"Name", nil) Value:@"Name" Placeholder:NSLocalizedString(@"Bon, rekening", nil)];
     name.key = @"name";
     [section addElement:name];
 
@@ -91,7 +91,7 @@
     key.key = @"key";
     [section addElement:key];
 
-    QDecimalElement *price = [[QDecimalElement alloc] initWithTitle:NSLocalizedString(@"Prijs", nil) value:0.0];
+    QDecimalElement *price = [[QDecimalElement alloc] initWithTitle:NSLocalizedString(@"Price", nil) value:0.0];
     price.fractionDigits = 2;
     price.key = @"price";
     [section addElement:price];

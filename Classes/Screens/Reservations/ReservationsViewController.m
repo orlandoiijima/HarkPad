@@ -9,7 +9,6 @@
 #import "ReservationsViewController.h"
 #import "Service.h"
 #import "CalendarDayCell.h"
-#import "DayReservationsInfo.h"
 #import "ModalAlert.h"
 #import "MBProgressHUD.h"
 #import "PreviousReservationsViewController.h"

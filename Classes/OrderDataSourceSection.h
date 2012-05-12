@@ -20,5 +20,4 @@
 @property (retain) NSMutableArray *lines;
 @property (retain) NSString *subTitle;
 @property (retain) NSString *title;
-@property (retain) id object;
 @end

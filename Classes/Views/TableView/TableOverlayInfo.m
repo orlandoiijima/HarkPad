@@ -43,7 +43,7 @@
         NSString *val = anOrder.currentCourse.stringForCourse;
         [captionValueLabels addObject: [NSArray arrayWithObjects:val, NSLocalizedString(@"Current course", nil), nil]];
         if (anOrder.currentCourse.servedOn != nil) {
-            NSString *val = [anOrder.currentCourse.servedOn dateDiff];
+            val = [anOrder.currentCourse.servedOn dateDiff];
             [captionValueLabels addObject: [NSArray arrayWithObjects:val, NSLocalizedString(@"Served", nil), nil]];
         }
     }
@@ -51,7 +51,7 @@
         NSString *val = anOrder.nextCourseToServe.stringForCourse;
         [captionValueLabels addObject: [NSArray arrayWithObjects:val, NSLocalizedString(@"Next course", nil), nil]];
         if (anOrder.nextCourseToServe.requestedOn != nil) {
-            NSString *val = [anOrder.nextCourseToServe.requestedOn dateDiff];
+            val = [anOrder.nextCourseToServe.requestedOn dateDiff];
             [captionValueLabels addObject: [NSArray arrayWithObjects:val, NSLocalizedString(@"Requested", nil), nil]];
         }
     }
@@ -73,7 +73,7 @@
         NSString *value = [strings objectAtIndex:0];
         UILabel *captionLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:captionLabel];
-        captionLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        captionLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         captionLabel.numberOfLines = 0;
         captionLabel.lineBreakMode = UILineBreakModeWordWrap;
         captionLabel.font = [UIFont systemFontOfSize:14];
@@ -87,7 +87,7 @@
         
         UILabel *valueLabel = [[UILabel alloc] init];
         [self.scrollView addSubview:valueLabel];
-        valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         valueLabel.numberOfLines = 0;
         valueLabel.lineBreakMode = UILineBreakModeWordWrap;
         valueLabel.font = [UIFont systemFontOfSize:17];

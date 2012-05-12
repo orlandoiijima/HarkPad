@@ -14,6 +14,7 @@
 
 @synthesize id, entityState;
 
+
 - (id)init
 {
     if ((self = [super init]) != NULL)

@@ -15,6 +15,7 @@
 #import "QRadioElement.h"
 #import "QDecimalElement.h"
 #import "Cache.h"
+#import "Service.h"
 
 @implementation ProductDialogController
 

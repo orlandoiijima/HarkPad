@@ -106,7 +106,7 @@
     return self;
 }
 
-- (NSDictionary *)toDictionary
+- (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"productId"];

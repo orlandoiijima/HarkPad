@@ -13,7 +13,7 @@
 #import "TableOverlaySimple.h"
 #import "TableOverlayHud.h"
 
-@interface NewOrderViewController : UIViewController <MenuTreeViewDelegate, UITableViewDelegate, OrderDelegate, TablePopupDelegate, ProgressDelegate> {
+@interface NewOrderViewController : UIViewController <MenuTreeViewDelegate, UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate> {
     Course *selectedCourse;
 }
 

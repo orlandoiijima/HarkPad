@@ -17,7 +17,7 @@
 #import "GuestProperties.h"
 #import "SelectItemDelegate.h"
 
-@interface ZoomedTableViewController : UIViewController <SelectItemDelegate, TablePopupDelegate>
+@interface ZoomedTableViewController : UIViewController <TablePopupDelegate>
 
 @property (retain) Order *order;
 @property (retain) Guest *selectedGuest;
@@ -28,7 +28,7 @@
 @property (nonatomic) CGRect dragOriginalFrame;
 @property (retain) ReservationDataSource *reservationDataSource;
 @property (retain, nonatomic) TableOverlayDashboard *tableViewDashboard;
-@property (retain) id<TablePopupDelegate> delegate;
+@property (retain) id<TableCommandsDelegate> delegate;
 @property int saveSelectedSeat;
 
 - (void) refreshSeatView;

@@ -23,7 +23,10 @@
     ZoomedTableViewController *controller = [[ZoomedTableViewController alloc] init];
     controller.delegate = delegate;
     controller.tableWithSeatsView = tableWithSeatsView;
-    controller.view.hidden = NO;
+
+    controller.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView delegate: delegate];
+    tableWithSeatsView.contentTableView = controller.view;
+    tableWithSeatsView.delegate = controller;
     [tableWithSeatsView.superview bringSubviewToFront:tableWithSeatsView];
     [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.id delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
 
@@ -42,7 +45,7 @@
             UIView *view = [tableWithSeatsView hitTest:point withEvent:0];
             if ([view isKindOfClass:[SeatView class]])
             {
-                dragSeatView = view;
+                dragSeatView = (SeatView *)view;
                 [dragSeatView.superview bringSubviewToFront:dragSeatView];
                 dragPosition = point;
                 dragOriginalFrame = view.frame;
@@ -55,55 +58,54 @@
             if (dragSeatView == nil) return;
             dragSeatView.center = CGPointMake(dragSeatView.center.x + point.x - dragPosition.x, dragSeatView.center.y + point.y - dragPosition.y);
             dragPosition = point;
-            SeatView *targetSeatView = [tableWithSeatsView seatViewAtPoint: point exclude: dragSeatView];
-            if (targetSeatView != nil) {
-            }
-            else {
-            }
             break;
         }
 
         case UIGestureRecognizerStateEnded:
         {
-            int beforeSeat = NSNotFound;
+            int beforeSeat = [tableWithSeatsView seatAtPoint:point];
             int seatToMove = dragSeatView.offset;
             TableSide tableSide = NSNotFound;
-            SeatView *targetSeatView = [tableWithSeatsView seatViewAtPoint: point exclude: dragSeatView];
-            if (targetSeatView == nil) {
+            if (beforeSeat == NSNotFound) {
                 tableSide = [tableWithSeatsView tableSideSeatSectionAtPoint:point];
                 if (tableSide != NSNotFound) {
                     beforeSeat = [tableWithSeatsView.table firstSeatAtSide:tableSide];
                 }
             }
             else {
-                beforeSeat = targetSeatView.offset;
-                tableSide = targetSeatView.side;
-                switch (targetSeatView.side) {
+                CGRect seatFrame = [tableWithSeatsView frameForSeat:beforeSeat];
+                tableSide = [tableWithSeatsView.table sideForSeat:beforeSeat];
+                switch (tableSide) {
                     case TableSideTop:
-                        if (dragSeatView.center.x > targetSeatView.center.x)
+                        if (dragSeatView.center.x > CGRectGetMidX(seatFrame))
                             beforeSeat++;
                         break;
                     case TableSideRight:
-                        if (dragSeatView.center.y > targetSeatView.center.y)
+                        if (dragSeatView.center.y > CGRectGetMidY(seatFrame))
                             beforeSeat++;
                         break;
                     case TableSideBottom:
-                        if (dragSeatView.center.x < targetSeatView.center.x)
+                        if (dragSeatView.center.x < CGRectGetMidX(seatFrame))
                             beforeSeat++;
                         break;
                     case TableSideLeft:
-                        if (dragSeatView.center.y < targetSeatView.center.y)
+                        if (dragSeatView.center.y < CGRectGetMidY(seatFrame))
                             beforeSeat++;
                         break;
                 }
             }
             if (beforeSeat != NSNotFound) {
                 if (dragSeatView == tableWithSeatsView.spareSeatView) {
+                    [tableWithSeatsView insertSeatBeforeSeat:beforeSeat atSide:tableSide];
                     [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
                 }
                 else {
-                    [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
-                    [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                    if(dragSeatView.side == tableSide && (dragSeatView.offset == beforeSeat || dragSeatView.offset + 1 == beforeSeat))
+                        [self revertDrag];
+                    else {
+                        [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
+                        [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                    }
                 }
             }
             else {
@@ -180,45 +182,31 @@
     return self;
 }
 
-- (void)loadView
-{
-    self.view = [[TableOverlayDashboard alloc] initWithFrame:CGRectInset(tableWithSeatsView.tableView.bounds, 0, 0) tableView:tableWithSeatsView order:order delegate: self];
-    tableWithSeatsView.contentTableView = self.view;
-    tableWithSeatsView.spareSeatView.center = CGPointMake(tableWithSeatsView.center.x, tableWithSeatsView.center.y + 100);
-    tableWithSeatsView.spareSeatView.hidden = NO;
-}
-
 - (TableOverlayDashboard *)tableViewDashboard
 {
     return (TableOverlayDashboard *)self.view;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    tableWithSeatsView.delegate = self;
-}
-
-- (void)didChangeToPageView:(UIView *)view {
-    if ([view isKindOfClass:[GuestProperties class]]) {
-        self.selectedSeat = self.saveSelectedSeat;
-    }
-    else
-    if (self.selectedSeat != -1) {
-        self.saveSelectedSeat = self.selectedSeat;
-        self.selectedSeat = -1;
-    }
-}
+//- (void)didChangeToPageView:(UIView *)view {
+//    if ([view isKindOfClass:[GuestProperties class]]) {
+//        self.selectedSeat = self.saveSelectedSeat;
+//    }
+//    else
+//    if (self.selectedSeat != -1) {
+//        self.saveSelectedSeat = self.selectedSeat;
+//        self.selectedSeat = -1;
+//    }
+//}
 
 - (void)didTapCloseButton {
+    [self updateOrder];
     [self endZoom];
 }
 
 - (void) endZoom {
-    [[Service getInstance] updateOrder: order delegate: nil callback:nil];
-
-    if([self.delegate respondsToSelector:@selector(didTapCloseButton)])
-        [self.delegate didTapCloseButton];
+//    if([self.delegate respondsToSelector:@selector(didTapCloseButton)])
+//    [self.delegate updateOrder:order];
+    [self.delegate closePopup];
 }
 
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
@@ -238,8 +226,8 @@
         }
     }
     [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
-    self.tableViewDashboard.actionsView.order = order;
-    self.tableViewDashboard.infoView.order = order;
+    self.tableViewDashboard.order = order;
+    self.tableWithSeatsView.orderInfo = order;
 }
 
 - (void)getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date {
@@ -264,29 +252,35 @@
     self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
 }
 
-- (void)editOrder {
+//- (void)editOrder {
+//    if (self.delegate == nil) return;
+//    if([self.delegate respondsToSelector:@selector(editOrder:)])
+//        [self.delegate editOrder:order];
+//}
+//
+//- (void)makeBillForOrder {
+//    if (self.delegate == nil) return;
+//    if([self.delegate respondsToSelector:@selector(makeBillForOrder:)])
+//        [self.delegate makeBillForOrder: order];
+//}
+//
+//- (void)getPaymentForOrder {
+//    if (self.delegate == nil) return;
+//    if([self.delegate respondsToSelector:@selector(getPaymentForOrder:)])
+//        [self.delegate getPaymentForOrder: order];
+//}
+//
+- (void)updateOrder {
     if (self.delegate == nil) return;
-    if([self.delegate respondsToSelector:@selector(editOrder:)])
-        [self.delegate editOrder:order];
+    if([self.delegate respondsToSelector:@selector(updateOrder:)])
+        [self.delegate updateOrder: order];
 }
-
-- (void)makeBillForOrder {
-    if (self.delegate == nil) return;
-    if([self.delegate respondsToSelector:@selector(makeBillForOrder:)])
-        [self.delegate makeBillForOrder: order];
-}
-
-- (void)getPaymentForOrder {
-    if (self.delegate == nil) return;
-    if([self.delegate respondsToSelector:@selector(getPaymentForOrder:)])
-        [self.delegate getPaymentForOrder: order];
-}
-
-- (void)startNextCourse {
-    if (self.delegate == nil) return;
-    if([self.delegate respondsToSelector:@selector(startNextCourseForOrder:)])
-        [self.delegate startNextCourseForOrder: order];
-}
+//
+//- (void)startNextCourse {
+//    if (self.delegate == nil) return;
+//    if([self.delegate respondsToSelector:@selector(startNextCourseForOrder:)])
+//        [self.delegate startNextCourseForOrder: order];
+//}
 
 - (void) tapDiet:(id) sender
 {
@@ -354,22 +348,16 @@
     self.tableViewDashboard.guestProperties.guest = _selectedGuest;
 }
 
-- (void)didSelectItem:(id)item {
-    Reservation *reservation = (Reservation *)item;
-    if (reservation == nil) return;
-    order.reservation = reservation;
-}
+//- (void)didSelectItem:(id)item {
+//    Reservation *reservation = (Reservation *)item;
+//    if (reservation == nil) return;
+//    order.reservation = reservation;
+//}
 
 - (void) refreshSeatView
 {
     SeatView *seatView = [tableWithSeatsView seatViewAtOffset: _selectedSeat];
     [seatView initByGuest: _selectedGuest];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

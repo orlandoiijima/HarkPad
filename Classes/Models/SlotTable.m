@@ -8,7 +8,6 @@
 
 #import "SlotTable.h"
 #import "OrderLine.h"
-#import "Table.h"
 #import "Cache.h"
 
 @implementation SlotTable

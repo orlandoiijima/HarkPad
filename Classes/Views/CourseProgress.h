@@ -11,10 +11,10 @@
 
 
 @protocol ProgressDelegate <NSObject>
+@optional
 - (void)didTapCourse: (NSUInteger)courseOffset;
 - (BOOL)canSelectCourse: (NSUInteger)courseOffset;
 - (void)didSelectCourse: (NSUInteger)courseOffset;
-@optional
 @end
 
 @interface CourseProgress : UIView <UIGestureRecognizerDelegate> {

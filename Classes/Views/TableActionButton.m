@@ -126,7 +126,7 @@
 
 - (void) setCommandDescription:(NSString *)text {
     self.labelDescription.text = text;
-    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.labelDescription.frame.size.width, 500) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.labelDescription.frame.size.width, self.frame.size.height - self.labelDescription.frame.origin.y - 10) lineBreakMode:UILineBreakModeWordWrap];
     self.labelDescription.frame = CGRectMake(self.labelDescription.frame.origin.x, self.labelDescription.frame.origin.y, self.labelDescription.frame.size.width, size.height);
 }
 

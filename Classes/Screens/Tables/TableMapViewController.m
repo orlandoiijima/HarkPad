@@ -70,9 +70,6 @@
     [self setupAllDistricts];
     self.currentDistrictOffset = 0;
 
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    [self.scrollView addGestureRecognizer:tapGesture];
-    tapGesture.delegate = self;
     UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     panGesture.delegate = self;
     [self.scrollView addGestureRecognizer:panGesture];
@@ -111,13 +108,7 @@
     [self setCurrentDistrictOffset:pageControl.currentPage];
 }
 
-- (void) handleTapGesture: (UITapGestureRecognizer *) tapGestureRecognizer
-{
-    if (self.zoomedTableView != nil)
-        [self.zoomedTableController endZoom];
-}
-
-- (void)didTapCloseButton {
+- (void) closePopup {
     [self unzoom];
 }
 
@@ -297,7 +288,7 @@
     NSMutableArray *tableViews = [[NSMutableArray alloc] init];
     CGRect outerBounds = CGRectUnion(masterTable.bounds, outerMostTableView.table.bounds);
     CGRect saveBounds = masterTable.bounds;
-    NSArray *saveCountSeats = [NSArray arrayWithArray: masterTable.countSeatsPerSide];
+    NSMutableArray *saveCountSeats = [NSMutableArray arrayWithArray: masterTable.countSeatsPerSide];
     NSMutableArray *countSeats = [NSMutableArray arrayWithArray:masterTable.countSeatsPerSide];
     for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
         Table* table = tableView.table;
@@ -324,7 +315,7 @@
                         int count = [[countSeats objectAtIndex:side] intValue] + [[table.countSeatsPerSide objectAtIndex:side] intValue];
                         [countSeats replaceObjectAtIndex:side withObject:[NSNumber numberWithInt:count]];
                     }
-                    masterTable.countSeatsPerSide = [NSArray arrayWithArray:countSeats];
+                    masterTable.countSeatsPerSide = [NSMutableArray arrayWithArray:countSeats];
                     [tableView removeFromSuperview];
                 }
             }
@@ -556,10 +547,13 @@
     [UIView animateWithDuration: 0.3 animations:^{
             for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
+                if (tableView != zoomedTableView)
+                    tableView.alpha = 0.5;
             }
         }
         completion: ^(BOOL completed) {
             zoomedTableView.isCloseButtonVisible = YES;
+            zoomedTableView.isSpareSeatViewVisible = YES;
         }
     ];
 }
@@ -569,6 +563,7 @@
     if (zoomedTableView == nil) return;
 
     zoomedTableView.isCloseButtonVisible = NO;
+    zoomedTableView.isSpareSeatViewVisible = NO;
     zoomedTableView.selectedGuests = nil;
     zoomedTableView.contentTableView.hidden = YES;
 
@@ -585,6 +580,7 @@
                         (tableView.frame.origin.y + zoomOffset.y) / zoomScale.y,
                         tableView.frame.size.width / zoomScale.x,
                         tableView.frame.size.height / zoomScale.y);
+                tableView.alpha = 1;
             }
         }
         completion: ^(BOOL completed){
@@ -681,6 +677,20 @@
     BillViewController *billVC = [[BillViewController alloc] init];
     billVC.order = order;
     [self.navigationController pushViewController: billVC animated:YES];
+}
+
+-(void) updateOrder:(Order *)order
+{
+    [[Service getInstance] updateOrder: order delegate: self callback:@selector(updateOrderCallback:)];
+}
+
+-(void) updateOrderCallback: (ServiceResult *) serviceResult
+{
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

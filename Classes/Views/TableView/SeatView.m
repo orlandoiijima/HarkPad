@@ -96,7 +96,7 @@
 - (void) setIsFemale: (BOOL)female {
     _isFemale = female;
     if (_isEmpty)
-        _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+        _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
     else {
         if (_isFemale)
             _image.image = [[UIImage imageNamed:@"user_woman_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1]];

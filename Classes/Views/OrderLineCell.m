@@ -1,10 +1,6 @@
-#import <CoreGraphics/CoreGraphics.h>
-#import <QuartzCore/QuartzCore.h>
 #import "OrderLineCell.h"
 #import "Utils.h"
 #import "ToggleButton.h"
-#import "SeatView.h"
-#import "SeatGridView.h"
 #import "Order.h"
 
 @implementation OrderLineCell

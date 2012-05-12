@@ -44,7 +44,7 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 
-- (NSDictionary *)toDictionary;
+- (NSMutableDictionary *)toDictionary;
 - (NSString *) getStringValueForProperty: (OrderLineProperty *) property;
 - (OrderLinePropertyValue *) getValueForProperty: (OrderLineProperty *) property;
 - (void) setStringValueForProperty : (OrderLineProperty *) property value: (NSString *) value;

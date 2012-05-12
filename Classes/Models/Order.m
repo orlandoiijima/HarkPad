@@ -6,12 +6,7 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "Order.h"
-#import "Guest.h"
-#import "Course.h"
-#import "OrderLine.h"
-#import "OrderGridHitInfo.h"
 
 @implementation Order
 
@@ -49,8 +44,7 @@
     Cache *cache = [Cache getInstance];
 
     Order *order = [[Order alloc] initWithJson:jsonDictionary];
-//    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
-//    order.entityState = EntityStateNone;
+
     order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
@@ -100,7 +94,7 @@
 {
     Order *order = [[Order alloc] init];
     order.table = newTable;
-    for(int i = 0; i < [[newTable.countSeatsPerSide objectAtIndex:0] intValue] + [[newTable.countSeatsPerSide objectAtIndex:1] intValue] + [[newTable.countSeatsPerSide objectAtIndex:2] intValue] + [[newTable.countSeatsPerSide objectAtIndex:3] intValue]; i++) {
+    for(int i = 0; i < [newTable countSeatsTotal]; i++) {
         [order addGuest];
     }
     return order;
@@ -328,7 +322,48 @@
     guest.order = self;
     [self.guests addObject:guest];
     return guest;
-
 }
+
+- (int)countCourses {
+    return [courses count];
+}
+
+- (void)setCountCourses:(int)aCountCourses {}
+- (void)setCurrentCourseOffset:(int)aCurrentCourseOffset {}
+- (void)setCurrentCourseState:(CourseState)aCurrentCourseState {}
+- (void)setCurrentCourseRequestedOn:(NSDate *)aCurrentCourseRequestedOn {}
+- (void)setCurrentCourseServedOn:(NSDate *)aCurrentCourseServedOn {}
+//- (void)setId:(int)anId {}
+- (void)setLanguage:(NSString *)aLanguage {}
+
+- (int)currentCourseOffset {
+    Course *current = [self currentCourse];
+    if(current == nil)
+        return -1;
+    return current.offset;
+}
+
+- (CourseState)currentCourseState {
+    Course *current = [self currentCourse];
+    if(current == nil)
+        return -1;
+    return current.state;
+}
+
+- (NSDate *)currentCourseRequestedOn {
+    return nil;
+}
+
+- (NSDate *)currentCourseServedOn {
+    return nil;
+}
+
+- (NSString *)language {
+    if (reservation != nil)
+        return reservation.language;
+    return @"nl";
+}
+
+
 
 @end

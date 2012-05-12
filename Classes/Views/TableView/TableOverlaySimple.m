@@ -31,7 +31,7 @@
 
         progressRect = CGRectMake( (frame.size.width - progressSize)/2, (frame.size.height - progressSize)/2, progressSize, progressSize);
         courseProgressView = [CourseProgress progressWithFrame: progressRect countCourses:countCourses currentCourseOffset:currentCourseOffset currentCourseState:currentCourseState selectedCourse:selectedCourse orderState:(OrderState)orderState];
-        courseProgressView.delegate = delegate;
+        courseProgressView.delegate = (id <ProgressDelegate>) delegate;
         [self addSubview:courseProgressView];
         courseProgressView.autoresizingMask = (UIViewAutoresizing)-1;
         courseProgressView.currentCourseState = currentCourseState;

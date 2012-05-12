@@ -5,10 +5,7 @@
 //
 
 
-#import <CoreGraphics/CoreGraphics.h>
 #import "SeatGridView.h"
-#import "Table.h"
-#import "Guest.h"
 
 
 @implementation SeatGridView

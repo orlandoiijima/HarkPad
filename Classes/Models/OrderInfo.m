@@ -85,17 +85,6 @@
     return order;
 }
 
-- (SeatInfo *) getSeatInfo: (int) querySeat
-{
-//    for(NSString *seat in [self.seats allKeys])
-//    {
-//        if([seat intValue] == querySeat)
-//            return [self.seats objectForKey:seat];
-//    }
-    return nil;
-}
-
-
 - (Guest *) getGuestBySeat: (int)seat
 {
     for(Guest *guest in guests)
@@ -104,6 +93,10 @@
             return guest;
     }
     NSLog(@"No guest at seat %d", seat);
+    return nil;
+}
+
+- (Guest *)addGuest {
     return nil;
 }
 
