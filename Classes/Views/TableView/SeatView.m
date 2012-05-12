@@ -15,7 +15,7 @@
 
 }
 
-@synthesize isFemale = _isFemale, isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset, isEmpty = _isEmpty, labelOverlay, overlayText;
+@synthesize isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset, seatType = _seatEmpty, labelOverlay, overlayText;
 
 + (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side {
     SeatView *view = [[SeatView alloc] initWithFrame:frame];
@@ -53,8 +53,7 @@
 
     view.alpha = 1.0;
 
-    view.isEmpty = YES;
-    view.isFemale = NO;
+    view.seatType = offset == -1 ? seatSpare : seatEmpty;
     view.isHost = NO;
     view.hasDiet = NO;
 
@@ -73,11 +72,10 @@
     if(guest == nil || guest.isEmpty) {
         self.hasDiet = NO;
         self.isHost = NO;
-        self.isEmpty = YES;
+        self.seatType = seatEmpty;
     }
     else {
-        self.isEmpty = NO;
-        self.isFemale = guest.isMale == false;
+        self.seatType =  guest.seat == -1 ? seatSpare : (guest.isMale ? seatMale : seatFemale);
         self.hasDiet = guest.diet != 0;
         self.isHost = guest.isHost;
     }
@@ -88,20 +86,21 @@
     labelOverlay.text = anOverlayText;
 }
 
-- (void) setIsEmpty: (BOOL)empty {
-    _isEmpty = empty;
-    [self setIsFemale:_isFemale];
-}
-
-- (void) setIsFemale: (BOOL)female {
-    _isFemale = female;
-    if (_isEmpty)
-        _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
-    else {
-        if (_isFemale)
-            _image.image = [[UIImage imageNamed:@"user_woman_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1]];
-        else
+- (void)setSeatType:(SeatType)aSeatType {
+    _seatEmpty = aSeatType;
+    switch (aSeatType) {
+        case seatEmpty:
+            _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1]];
+            break;
+        case seatMale:
             _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.4 green:0.7 blue:1.0 alpha:1]];
+            break;
+        case seatFemale:
+            _image.image = [[UIImage imageNamed:@"user_woman_114.png"] imageTintedWithColor: [UIColor colorWithRed:1.0 green:105/255.0 blue:180/255.0 alpha:1]];
+            break;
+        case seatSpare:
+            _image.image = [[UIImage imageNamed:@"user_114.png"] imageTintedWithColor: [UIColor colorWithRed:0.4 green:1 blue:0.7 alpha:1]];
+            break;
     }
 }
 

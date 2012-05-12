@@ -49,6 +49,7 @@
 
     view.spareSeatView = [SeatView viewWithFrame:CGRectMake(0, 0, view.seatViewSize.width, view.seatViewSize.height) offset:-1 atSide:TableSideBottom];
     view.spareSeatView.hidden = YES;
+    view.spareSeatView.overlayText = @"+";
     [view addSubview: view.spareSeatView];
 
     view.closeButton = [[UIButton alloc] init];

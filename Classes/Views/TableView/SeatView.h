@@ -9,8 +9,10 @@
 #import "Guest.h"
 #import "Table.h"
 
+typedef enum SeatType {seatMale, seatFemale, seatEmpty, seatSpare} SeatType ;
+
 @interface SeatView : UIButton {
-    BOOL isEmpty;
+    SeatType seatType;
     BOOL isFemale;
     BOOL hasDiet;
     BOOL isHost;
@@ -21,8 +23,7 @@
 
 + (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side;
 
-@property (nonatomic) BOOL isEmpty;
-@property (nonatomic) BOOL isFemale;
+@property (nonatomic) SeatType seatType;
 @property (nonatomic) BOOL hasDiet;
 @property (nonatomic) BOOL isHost;
 @property (nonatomic) BOOL isSelected;
