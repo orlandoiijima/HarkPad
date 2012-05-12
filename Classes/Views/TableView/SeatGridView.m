@@ -32,8 +32,8 @@
     UIColor *strokeColor = [UIColor blackColor];
     [strokeColor setStroke];
 
-    int maxCountSeatsHorizontal = MAX([[countSeats objectAtIndex:0] intValue], [[countSeats objectAtIndex:2] intValue]);
-    int maxCountSeatsVertical = MAX([[countSeats objectAtIndex:1] intValue], [[countSeats objectAtIndex:3] intValue]);
+    int maxCountSeatsHorizontal = MAX([[countSeats objectAtIndex: TableSideTop] intValue], [[countSeats objectAtIndex: TableSideBottom] intValue]);
+    int maxCountSeatsVertical = MAX([[countSeats objectAtIndex: TableSideRight] intValue], [[countSeats objectAtIndex: TableSideLeft] intValue]);
     CGFloat width = maxCountSeatsHorizontal;
     CGFloat height = maxCountSeatsVertical;
     if (maxCountSeatsVertical > 0)
@@ -60,28 +60,28 @@
         break;
     }
     y = (self.bounds.size.height - dy*height)/2 + 0.5;
-    if ([[countSeats objectAtIndex:3] intValue] > 0)
+    if ([[countSeats objectAtIndex: TableSideLeft] intValue] > 0)
         x += dx;
     int seat = 0;
-    for (int i =0; i < [[countSeats objectAtIndex:0] intValue]; i++) {
+    for (int i =0; i < [[countSeats objectAtIndex: TableSideTop] intValue]; i++) {
         [self drawStrokedRect:CGRectMake(x + i*dx, y, dx, dy) fillColor: [self fillColorForSeat: seat+i]];
     }
-    seat = [[countSeats objectAtIndex:0] intValue] + [[countSeats objectAtIndex:1] intValue] + [[countSeats objectAtIndex:2] intValue];
-    for (int i =0; i < [[countSeats objectAtIndex:2] intValue]; i++) {
+    seat = [[countSeats objectAtIndex:TableSideTop] intValue] + [[countSeats objectAtIndex: TableSideRight] intValue] + [[countSeats objectAtIndex: TableSideBottom] intValue];
+    for (int i =0; i < [[countSeats objectAtIndex: TableSideBottom] intValue]; i++) {
         [self drawStrokedRect:CGRectMake(x + i*dx, y + dy *maxCountSeatsVertical + dy, dx, dy) fillColor: [self fillColorForSeat: seat - i - 1]];
     }
 
     x = (self.bounds.size.width - dx*width)/2 + 0.5;
     y = (self.bounds.size.height - dy*height)/2 + 0.5;
-    if ([[countSeats objectAtIndex:0] intValue] > 0)
+    if ([[countSeats objectAtIndex: TableSideTop] intValue] > 0)
         y += dy;
-    seat = [[countSeats objectAtIndex:1] intValue];
-    for (int i =0; i < [[countSeats objectAtIndex:1] intValue]; i++) {
-        [self drawStrokedRect:CGRectMake(x, y + i*dy, dx, dy) fillColor: [self fillColorForSeat: seat + i]];
+    seat = [[countSeats objectAtIndex: TableSideTop] intValue];
+    for (int i =0; i < [[countSeats objectAtIndex: TableSideRight] intValue]; i++) {
+        [self drawStrokedRect:CGRectMake(x + dx * maxCountSeatsHorizontal + dx, y + i*dy, dx, dy) fillColor: [self fillColorForSeat: seat + i]];
     }
-    seat = [[countSeats objectAtIndex:0] intValue] + [[countSeats objectAtIndex:1] intValue] + [[countSeats objectAtIndex:2] intValue] + [[countSeats objectAtIndex:3] intValue];
-    for (int i =0; i < [[countSeats objectAtIndex:3] intValue]; i++) {
-        [self drawStrokedRect:CGRectMake(x + dx * maxCountSeatsHorizontal + dx, y + i*dy, dx, dy) fillColor: [self fillColorForSeat: seat - i - 1]];
+    seat = [[countSeats objectAtIndex: TableSideTop] intValue] + [[countSeats objectAtIndex: TableSideRight] intValue] + [[countSeats objectAtIndex: TableSideBottom] intValue] + [[countSeats objectAtIndex: TableSideLeft] intValue];
+    for (int i =0; i < [[countSeats objectAtIndex: TableSideLeft] intValue]; i++) {
+        [self drawStrokedRect:CGRectMake(x, y + i*dy, dx, dy) fillColor: [self fillColorForSeat: seat - i - 1]];
     }
 }
 
