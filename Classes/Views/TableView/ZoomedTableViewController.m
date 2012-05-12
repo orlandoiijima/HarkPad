@@ -225,6 +225,9 @@
             [seatView initByGuest: guest];
         }
     }
+    else {
+        order.table = tableWithSeatsView.table;
+    }
     [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
     self.tableViewDashboard.order = order;
     self.tableWithSeatsView.orderInfo = order;
