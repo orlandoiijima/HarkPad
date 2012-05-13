@@ -98,7 +98,9 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     self.selectedCourseOffset = 0;
-    self.selectedSeat = 0;
+    Guest *guest = [_order firstGuest];
+    if(guest != nil)
+        self.selectedSeat = guest.seat;
 }
 
 - (void) addPanelWithView:(UIView *)view frame:(CGRect) frame margin:(int) margin padding:(int) padding backgroundColor: (UIColor *)color{
