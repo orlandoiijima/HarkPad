@@ -17,12 +17,12 @@
 @synthesize dataSource = _dataSource, label, tableView, emptyLabel, delegate;
 @dynamic selectedReservation;
 
-- (id)initWithFrame:(CGRect)frame delegate: (id<SelectItemDelegate>) delegate
+- (id)initWithFrame:(CGRect)frame delegate: (id<SelectItemDelegate>) aDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {
 
-        self.delegate = delegate;
+        self.delegate = aDelegate;
 
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, frame.size.width, 20)];
         self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -42,7 +42,7 @@
         [self addSubview:self.tableView];
 
         self.emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        self.emptyLabel.autoresizingMask = -1;
+        self.emptyLabel.autoresizingMask = (UIViewAutoresizing) -1;
         self.emptyLabel.text = NSLocalizedString(@"No reservations", nil);
         self.emptyLabel.textAlignment = UITextAlignmentCenter;
         self.emptyLabel.shadowColor = [UIColor whiteColor];

@@ -43,6 +43,6 @@
 - (void) insertSeatBeforeSeat: (int) toSeat atSide:(TableSide)toSide;
 -(int) seatAtPoint:(CGPoint) point;
 -(CGRect) frameForSeat:(int) seatToFind;
-- (SeatView *) addNewSeatViewAtOffset:(int) seat atSide:(TableSide)side withGuest:(Guest *)guest;
+- (SeatView *) addNewSeatViewAtSide:(TableSide)side withGuest:(Guest *)guest;
 
 @end

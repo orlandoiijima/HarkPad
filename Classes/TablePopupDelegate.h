@@ -23,6 +23,8 @@
 
 
 @protocol TableCommandsDelegate <NSObject>
+@optional
+- (void) didChangeToPageView: (UIView *)view;
 @required
 - (void) makeBillForOrder: (Order *) order;
 - (void) getPaymentForOrder: (Order *) order;
@@ -31,6 +33,5 @@
 - (void) editOrder:(Order *)order;
 - (void) updateOrder:(Order *)order;
 - (void) closePopup;
-- (void) didChangeToPageView: (UIView *)view;
 @end
 

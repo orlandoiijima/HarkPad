@@ -42,7 +42,7 @@
     int seat = 0;
     for (TableSide side = 0; side <= TableSideLeft; side++) {
         for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
-            [view addNewSeatViewAtOffset:seat atSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
+            [view addNewSeatViewAtSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
             seat++;
         }
     }
@@ -65,8 +65,9 @@
     return view;
 }
 
-- (SeatView *) addNewSeatViewAtOffset:(int) seat atSide:(TableSide)side withGuest:(Guest *)guest {
-    SeatView *seatView = [SeatView viewWithFrame:CGRectZero offset:seat atSide:side];
+- (SeatView *) addNewSeatViewAtSide:(TableSide)side withGuest:(Guest *)guest {
+    if(guest == nil) return nil;
+    SeatView *seatView = [SeatView viewWithFrame:CGRectZero offset:guest.seat atSide:side];
     [seatView addTarget: self action:@selector(tapSeat:) forControlEvents:UIControlEventTouchUpInside];
     [seatView initByGuest: guest];
     [self addSubview:seatView];
@@ -456,6 +457,8 @@
 }
 
 - (void) moveSeat: (int) seatToMove toSeat:(int) toSeat atSide:(TableSide)toSide {
+    Guest *guestToMove = [orderInfo getGuestBySeat:seatToMove];
+    if (guestToMove == nil) return;
     SeatView *seatViewToMove = [self seatViewAtOffset:seatToMove];
     if (seatViewToMove == nil) return;
 
@@ -464,6 +467,7 @@
         toSeat--;
     [self offsetSeats: +1 startingAt: toSeat];
     seatViewToMove.offset = toSeat;
+    guestToMove.seat = toSeat;
 
     if (seatViewToMove.side != toSide) {
         int numberOfSeatsOldSide = [[table.countSeatsPerSide objectAtIndex: seatViewToMove.side] intValue] - 1;
@@ -489,7 +493,8 @@
     [table.countSeatsPerSide replaceObjectAtIndex:toSide withObject:[NSNumber numberWithInt: numberOfSeatsNewSide]];
 
     Guest *newGuest = [orderInfo addGuest];
-    [self addNewSeatViewAtOffset:toSeat atSide:toSide withGuest: newGuest];
+    newGuest.seat = toSeat;
+    [self addNewSeatViewAtSide:toSide withGuest: newGuest];
 
     [UIView animateWithDuration: 0.3 animations:^{
         [self layoutSubviews];
