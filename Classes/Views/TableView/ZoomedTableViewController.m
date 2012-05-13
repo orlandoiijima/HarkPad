@@ -187,16 +187,16 @@
     return (TableOverlayDashboard *)self.view;
 }
 
-//- (void)didChangeToPageView:(UIView *)view {
-//    if ([view isKindOfClass:[GuestProperties class]]) {
-//        self.selectedSeat = self.saveSelectedSeat;
-//    }
-//    else
-//    if (self.selectedSeat != -1) {
-//        self.saveSelectedSeat = self.selectedSeat;
-//        self.selectedSeat = -1;
-//    }
-//}
+- (void)didChangeToPageView:(UIView *)view {
+    if ([view isKindOfClass:[GuestProperties class]]) {
+        self.selectedSeat = self.saveSelectedSeat;
+    }
+    else
+    if (self.selectedSeat != -1) {
+        self.saveSelectedSeat = self.selectedSeat;
+        self.selectedSeat = -1;
+    }
+}
 
 - (void)didTapCloseButton {
     [self updateOrder];

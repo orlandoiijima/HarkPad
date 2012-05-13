@@ -11,7 +11,6 @@
 @protocol TablePopupDelegate <NSObject>
 @required
 //- (void) didSelectReservationForOrder: (Order *) order;
-//- (void) didChangeToPageView: (UIView *)view;
 @optional
 - (void) didTapSeat: (int)seatOffset;
 - (void) didSelectSeat: (int)seatOffset;
@@ -32,5 +31,6 @@
 - (void) editOrder:(Order *)order;
 - (void) updateOrder:(Order *)order;
 - (void) closePopup;
+- (void) didChangeToPageView: (UIView *)view;
 @end
 

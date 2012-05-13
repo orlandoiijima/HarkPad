@@ -65,7 +65,7 @@
 
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
     _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo];
-    [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(250, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
     _tableView.delegate = self;
@@ -75,7 +75,7 @@
     _productPanelView.countColumns = 4;
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.topHeaderHeight = 0;
-    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(250, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(250, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.menuDelegate = self;
 

@@ -128,6 +128,7 @@
                     completion:^(BOOL x) {
         [currentView removeFromSuperview];
         [contentView addSubview:newView];
+        [delegate didChangeToPageView:newView];
     }];
 }
 
