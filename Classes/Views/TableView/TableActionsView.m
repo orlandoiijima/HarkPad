@@ -28,7 +28,7 @@
         self.buttonEditOrder.autoresizingMask = (UIViewAutoresizing) -1;
         [self addSubview:self.buttonEditOrder];
 
-        self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:CGRectZero imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:delegate action:@selector(startNextCourse)];
+        self.buttonRequestNextCourse = [TableActionButton buttonWithFrame:CGRectZero imageName:@"action@2x" imageSize: imageSize caption:NSLocalizedString(@"Request", nil) description:NSLocalizedString(@"", nil) delegate:self action:@selector(startNextCourse)];
         self.buttonRequestNextCourse.autoresizingMask = (UIViewAutoresizing)-1;
         [self addSubview:self.buttonRequestNextCourse];
 

@@ -678,10 +678,21 @@ static Service *_service;
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback
 {
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
     [self getPageCallback:@"startcourse"
                 withQuery: [NSString stringWithFormat:@"courseId=%d", courseId]
-                 delegate:delegate
-                 callback:callback userData:nil];
+                 delegate:self
+                 callback:@selector(simpleCallback:finishedWithData:error:)
+                 userData:invocation];
+//
+//    [self getPageCallback:@"startcourse"
+//                withQuery: [NSString stringWithFormat:@"courseId=%d", courseId]
+//                 delegate:delegate
+//                 callback:@selector(simpleCallback:finishedWithData:error:)
+//                 callback:callback userData:nil];
 	return;
 }
 

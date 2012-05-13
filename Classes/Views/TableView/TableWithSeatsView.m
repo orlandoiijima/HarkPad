@@ -42,7 +42,7 @@
     int seat = 0;
     for (TableSide side = 0; side <= TableSideLeft; side++) {
         for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
-            [view addNewSeatViewAtSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
+            [view addNewSeatViewAtOffset:seat atSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
             seat++;
         }
     }
@@ -65,9 +65,8 @@
     return view;
 }
 
-- (SeatView *) addNewSeatViewAtSide:(TableSide)side withGuest:(Guest *)guest {
-    if(guest == nil) return nil;
-    SeatView *seatView = [SeatView viewWithFrame:CGRectZero offset:guest.seat atSide:side];
+- (SeatView *) addNewSeatViewAtOffset:(int) seat atSide:(TableSide)side withGuest:(Guest *)guest {
+    SeatView *seatView = [SeatView viewWithFrame:CGRectZero offset:seat atSide:side];
     [seatView addTarget: self action:@selector(tapSeat:) forControlEvents:UIControlEventTouchUpInside];
     [seatView initByGuest: guest];
     [self addSubview:seatView];
@@ -493,8 +492,7 @@
     [table.countSeatsPerSide replaceObjectAtIndex:toSide withObject:[NSNumber numberWithInt: numberOfSeatsNewSide]];
 
     Guest *newGuest = [orderInfo addGuest];
-    newGuest.seat = toSeat;
-    [self addNewSeatViewAtSide:toSide withGuest: newGuest];
+    [self addNewSeatViewAtOffset:toSeat atSide:toSide withGuest: newGuest];
 
     [UIView animateWithDuration: 0.3 animations:^{
         [self layoutSubviews];

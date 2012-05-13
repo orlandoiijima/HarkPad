@@ -651,15 +651,21 @@
 - (void) startNextCourseForOrder: (Order *)order
 {
     Course *nextCourse = [order nextCourseToRequest];
-    if(nextCourse != nil)
-    {
-        [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourse:finishedWithData:error:	)];
-    }
+    if(nextCourse == nil) return;
+
+    [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourseCallback:)];
 }
 
-- (void) startNextCourse:(id)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+- (void) startNextCourseCallback:(ServiceResult *)serviceResult
 {
+    if(serviceResult.isSuccess == false) {
+        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [view show];
+        return;
+    }
+
     [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Course requested", nil)];
+    [self unzoom];
     [self refreshView];
 }
 
