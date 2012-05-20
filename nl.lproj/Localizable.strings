@@ -109,3 +109,4 @@
 "Properties" = "Properties";
 "Delete seat ?" = "Stoel weghalen ?";
 "Cannot delete active seat with orderlines" = "Stoel kan niet verwijderd worden want er zijn orderregels op geboekt";
+"Empty" = "Leeg";
