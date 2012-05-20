@@ -63,8 +63,16 @@
 - (void)layoutSubviews {
     CGFloat imageSize = MIN(self.frame.size.height, self.frame.size.width);
     self.image.frame = CGRectMake( (self.frame.size.width - imageSize) / 2, (self.frame.size.height - imageSize) / 2, imageSize, imageSize);
-    self.imageTopLeft.frame = CGRectMake(self.image.frame.origin.x, 2, self.image.frame.size.width/4, self.image.frame.size.width/4);
-    self.imageTopRight.frame = CGRectMake(self.image.frame.origin.x + self.image.frame.size.width - self.image.frame.size.width/4 - 2, 2, self.image.frame.size.width/4, self.image.frame.size.width/4);
+    self.imageTopLeft.frame = CGRectMake(
+            self.image.frame.origin.x,
+            self.image.frame.origin.y,
+            self.image.frame.size.width/4,
+            self.image.frame.size.width/4);
+    self.imageTopRight.frame = CGRectMake(
+            self.image.frame.origin.x + self.image.frame.size.width - self.image.frame.size.width/4 - 2,
+            self.image.frame.origin.y,
+            self.image.frame.size.width/4,
+            self.image.frame.size.width/4);
     self.labelOverlay.frame = CGRectMake(0, self.image.frame.origin.y + 5, self.frame.size.width, self.image.frame.size.height / 2);
 }
 
