@@ -29,7 +29,7 @@
 @property int selectedSeat;
 
 - (void) selectOrderLineForGuest: (Guest *)guest course: (Course *)course;
-- (void) selectNextGuest;
+- (bool) selectNextGuest;
 - (void) selectNextCourse;
 - (CollapseTableViewHeader *) headerViewForSection:(NSInteger)section;
 - (int) courseOffsetFromSection: (int) section;

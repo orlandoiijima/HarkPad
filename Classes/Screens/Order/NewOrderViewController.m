@@ -209,7 +209,8 @@
             [self.dataSource tableView:self.orderView addLine:line];
         }
     }
-    [self selectNextGuest];
+    if ([self selectNextGuest] == NO)
+        [self.tableOverlayHud showForGuest:[self selectedGuest]];
 }
 
 - (BOOL)canSelectCourse:(NSUInteger)courseOffset {
@@ -315,10 +316,11 @@
     return guest == nil ? -1 : guest.seat;
 }
 
-- (void) selectNextGuest {
-    if(self.selectedGuest == nil) return;
-    if (self.selectedGuest.nextGuest == nil) return;
+- (bool) selectNextGuest {
+    if(self.selectedGuest == nil) return NO;
+    if (self.selectedGuest.nextGuest == nil) return NO;
     self.selectedSeat = self.selectedGuest.nextGuest.seat;
+    return YES;
 }
 
 - (void) selectNextCourse {
