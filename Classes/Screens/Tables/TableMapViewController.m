@@ -548,7 +548,7 @@
             for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
                 tableView.frame = CGRectMake( tableView.frame.origin.x * zoomScale.x - zoomOffset.x, tableView.frame.origin.y * zoomScale.y - zoomOffset.y, tableView.frame.size.width * zoomScale.x, tableView.frame.size.height * zoomScale.y);
                 if (tableView != zoomedTableView)
-                    tableView.alpha = 0.5;
+                    tableView.alpha = 0.2;
             }
         }
         completion: ^(BOOL completed) {
