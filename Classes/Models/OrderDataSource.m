@@ -87,6 +87,7 @@
         [self tableView:nil addLine:line];
     }
 
+    [self logDataSource];
     return;
 }
 
@@ -138,6 +139,17 @@
             [tableView insertRowsAtIndexPaths: [NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationTop];
             [tableView endUpdates];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    }
+}
+
+-(void) logDataSource {
+    for (int section = 0; section < [groupedLines count]; section++) {
+        OrderDataSourceSection *group = [self groupForSection: section];
+        NSLog(@"section %d", section);
+        for (int row = 0; row < [group.lines count]; row++) {
+            OrderLine *line1 = [group.lines objectAtIndex:row];
+            NSLog(@"row %d: %d x %@", row, line1.quantity, line1.product.name);
         }
     }
 }
@@ -564,56 +576,6 @@
     return nil;
 }
 
-//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [self tableView:tableView canEditRowAtIndexPath:indexPath];
-//}
-//
-//- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
-//    if ([self tableView:tableView canEditRowAtIndexPath: proposedDestinationIndexPath] == NO) {
-//        return sourceIndexPath;
-//    }
-//    OrderLine *targetLine = [self orderLineAtIndexPath: proposedDestinationIndexPath];
-//    if (targetLine == nil)
-//        return sourceIndexPath;
-//    OrderLineCell *dragCell = (OrderLineCell *) [tableView cellForRowAtIndexPath:sourceIndexPath];
-//    dragCell.seat.guests = [NSMutableArray arrayWithObject:targetLine.guest];
-//    return proposedDestinationIndexPath;
-//}
-//
-//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-//    if ([self tableView:tableView canEditRowAtIndexPath:destinationIndexPath] == NO) {
-//        return;
-//    }
-//
-//    OrderLine *line = [self orderLineAtIndexPath: sourceIndexPath];
-//    if (line == nil)
-//        return;
-//    OrderLine *targetLine = [self orderLineAtIndexPath: destinationIndexPath];
-//    if (targetLine == nil)
-//        return;
-//
-//    OrderDataSourceSection *sourceSectionInfo = [self groupForSection:sourceIndexPath.section];
-//    [sourceSectionInfo.lines removeObject:line];
-//    OrderDataSourceSection *targetSectionInfo = [self groupForSection: destinationIndexPath.section];
-//    [targetSectionInfo.lines insertObject:line atIndex:destinationIndexPath.row];
-//
-//    if (line.course.id == targetLine.course.id) {
-//        [line.guest.lines removeObject: line];
-//        [targetLine.guest.lines addObject:line];
-//        line.guest = targetLine.guest;
-//    }
-//    else {
-//        [line.course.lines removeObject:line];
-//        [targetLine.course.lines addObject:line];
-//        line.course = targetLine.course;
-//    }
-//
-//    [tableView reloadSections:[NSIndexSet indexSetWithIndex:sourceIndexPath.section] withRowAnimation:NO];
-//    [tableView reloadSections:[NSIndexSet indexSetWithIndex:destinationIndexPath.section] withRowAnimation:NO];
-//
-//    if ([_delegate respondsToSelector:@selector(didMoveOrderLine:toOrderLine:toIndexPath:)])
-//        return [_delegate didMoveOrderLine: line toOrderLine: targetLine  toIndexPath: destinationIndexPath];
-//}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
@@ -633,41 +595,46 @@
 }
 
 - (void)tableView:(UITableView *)tableView totalizeProducts:(BOOL)totalize {
-    OrderDataSource *oldDataSource = [[OrderDataSource alloc] init];
-    oldDataSource.groupedLines = [NSMutableDictionary dictionaryWithDictionary:self.groupedLines];
     totalizeProducts = !totalizeProducts;
-    self.grouping = self.grouping;
+    if (totalizeProducts == false)
+        self.grouping = self.grouping;
     NSMutableArray *indexPathsInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsDelete = [[NSMutableArray alloc] init];
-    NSMutableArray *indexPathsRefresh = [[NSMutableArray alloc] init];
-    if (totalizeProducts) {
-        for (int section = 0; section < [tableView numberOfSections]; section++) {
-            OrderDataSourceSection *group = [oldDataSource groupForSection: section];
-            for (int row = 0; row < [group.lines count]; row++) {
-                OrderLine *line1 = [group.lines objectAtIndex:row];
-                for (int j = 0; j < row; j++) {
-                    OrderLine *line2 = [group.lines objectAtIndex:j];
-                    if (line1.product.id == line2.product.id) {
-                        if (totalizeProducts) {
-                            [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
-                            [group.lines removeObjectAtIndex:row];
-                            [indexPathsRefresh addObject:[NSIndexPath indexPathForRow:j inSection:section]];
-                            row--;
-                        }
-                       else {
-                            [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
-                            [indexPathsRefresh addObject:[NSIndexPath indexPathForRow:j inSection:section]];
-                        }
-                        break;
+    for (int section = 0; section < [tableView numberOfSections]; section++) {
+        OrderDataSourceSection *group = [self groupForSection: section];
+        for (int row = 0; row < [group.lines count]; row++) {
+            OrderLine *line1 = [group.lines objectAtIndex:row];
+            for (int j = 0; j < row; j++) {
+                OrderLine *line2 = [group.lines objectAtIndex:j];
+                if (line1.product.id == line2.product.id) {
+                    if (totalizeProducts) {
+                        [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                        [group.lines removeObjectAtIndex:row];
+                        row--;
                     }
+                   else {
+                        [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                    }
+                    break;
                 }
             }
         }
-        [tableView beginUpdates];
-        [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
-        [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
-        [tableView reloadRowsAtIndexPaths:indexPathsRefresh withRowAnimation:UITableViewRowAnimationMiddle];
-        [tableView endUpdates];
+    }
+    if (totalizeProducts)
+        self.grouping = self.grouping;
+
+    [tableView beginUpdates];
+    [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
+    [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
+    [tableView endUpdates];
+
+    if (totalizeProducts) {
+        for (int section = 0; section < [tableView numberOfSections]; section++) {
+            OrderDataSourceSection *group = [self groupForSection: section];
+            for (int row = 0; row < [group.lines count]; row++) {
+                [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
+            }
+        }
     }
 }
 @end

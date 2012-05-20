@@ -114,7 +114,7 @@
 
 - (void) setupToolbar {
     UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
-    UIBarButtonItem * groupButton = [[UIBarButtonItem alloc] initWithTitle: @"Group" style:UIBarButtonItemStylePlain target:self action:@selector(totalizeProducts)];
+    UIBarButtonItem * groupButton = [[UIBarButtonItem alloc] initWithTitle: @"Group" style:UIBarButtonItemStylePlain target:self action:@selector(totalizeProducts:)];
 
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
     groupButton,
@@ -122,9 +122,12 @@
             nil];
 }
 
-- (void) totalizeProducts
+- (void) totalizeProducts:(id)sender
 {
-    [self.dataSource tableView:_orderView totalizeProducts:YES];
+    bool totalize = !self.dataSource.totalizeProducts;
+    [self.dataSource tableView:_orderView totalizeProducts: totalize];
+    UIBarButtonItem *buttonItem = (UIBarButtonItem *) sender;
+    buttonItem.style = totalize ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
 }
 
 - (void) getFeedback
