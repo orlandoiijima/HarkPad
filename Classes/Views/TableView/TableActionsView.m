@@ -82,8 +82,13 @@
             if (order.entityState == EntityStateNew) {
                 [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to start new order", nil)];
                 buttonBill.enabled = NO;
+                [buttonBill setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
+
                 buttonPay.enabled = NO;
+                [buttonPay setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
+
                 buttonRequestNextCourse.enabled = NO;
+                [buttonRequestNextCourse setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
             }
             else {
                 [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to update existing order", nil)];
@@ -123,8 +128,13 @@
 
         case OrderStatePaid:
             buttonBill.enabled = NO;
+            [buttonBill setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
+
             buttonPay.enabled = NO;
+            [buttonPay setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
+
             buttonRequestNextCourse.enabled = NO;
+            [buttonRequestNextCourse setCommandDescription: NSLocalizedString(@"Table not yet opened", nil)];
             break;
     }
 }

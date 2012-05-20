@@ -112,3 +112,4 @@
 "Delete seat ?" = "Delete seat ?";
 "Cannot delete active seat with orderlines" = "Cannot delete active seat with orderlines";
 "Empty" = "Empty";
+"Table not yet opened" = "Table not yet opened";

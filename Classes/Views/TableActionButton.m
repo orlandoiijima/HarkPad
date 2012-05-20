@@ -9,15 +9,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TableActionButton.h"
 
-
 @implementation TableActionButton {
-
 }
 @synthesize imageCommand = _imageCommand;
 @synthesize labelCommand = _labelCommand;
 @synthesize labelDescription = _labelDescription;
 @synthesize imageSize = _imageSize;
-
 
 + (TableActionButton *) buttonWithFrame: (CGRect) frame imageName: (NSString *)imageName  imageSize:(CGSize)imageSize caption:(NSString *)caption description: (NSString *) description delegate:(id<NSObject>) delegate action: (SEL)action {
     TableActionButton *button = [[TableActionButton alloc] initWithFrame:frame];
@@ -34,37 +31,13 @@
 
     button.labelDescription = [[UILabel alloc] init];
     button.labelDescription.text = description;
-    button.labelDescription.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.1 alpha:1];
-    button.labelDescription.font = [UIFont systemFontOfSize:14];
+    button.labelDescription.textColor = [UIColor colorWithRed:0.3 green:0.3 blue:0.3 alpha:1];
+    button.labelDescription.font = [UIFont fontWithName:@"Helvetica-Oblique" size:14];
     button.labelDescription.backgroundColor = [UIColor clearColor];
     button.labelDescription.numberOfLines = 0;
     button.labelDescription.lineBreakMode = UILineBreakModeWordWrap;
     button.labelDescription.textAlignment = UITextAlignmentLeft;
     [button addSubview: button.labelDescription];
-
-//    frame = CGRectInset(button.bounds, 10, 10);
-//    if (frame.size.width > frame.size.height) {
-//        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, imageSize.width, imageSize.height);
-//        frame = CGRectMake(frame.origin.x + imageSize.width + 10, frame.origin.y, frame.size.width - imageSize.width - 10, frame.size.height);
-//        CGFloat y = frame.origin.y;
-//        if ([caption length] > 0) {
-//            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-//            y += 30;
-//        }
-//        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
-//    }
-//    else {
-//        button.imageCommand.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, imageSize.height);
-//        CGFloat y = imageSize.height + 10;
-//        if ([caption length] > 0) {
-//            button.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-//            button.labelCommand.textAlignment = UITextAlignmentCenter;
-//            y += 30;
-//        }
-//        button.labelDescription.textAlignment = UITextAlignmentCenter;
-//        button.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
-//    }
-//    [button setCommandDescription:description];
 
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];
 
@@ -119,9 +92,9 @@
 
 - (void)setEnabled:(BOOL)anEnabled {
     [super setEnabled:anEnabled];
-    self.imageCommand.alpha = anEnabled ? 1 : 0.4;
-    self.labelCommand.alpha = anEnabled ? 1 : 0.4;
-    self.labelDescription.alpha = anEnabled ? 1 : 0.4;
+    self.imageCommand.alpha = anEnabled ? 1 : 0.3;
+    self.labelCommand.alpha = anEnabled ? 1 : 0.3;
+    self.labelDescription.alpha = anEnabled ? 1 : 0.3;
 }
 
 - (void) setCommandDescription:(NSString *)text {
