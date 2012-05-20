@@ -37,7 +37,7 @@
 "walk-in" = "walk-in";
 "Loading orders" = "Laden rekeningen";
 "No reservations" = "Geen reserveringen";
-"Course requested" = "Gang doorgevraagd";
+"Course requested" = "Gang uitgevraagd";
 "Report printed" = "Rapport afgedrukt";
 "Back" = "Terug";
 "Home" = "Home";
@@ -76,15 +76,15 @@
 "Host" = "Gastheer";
 "Service unavailable at %@" = "Service '%@' niet bereikbaar";
 "Served" = "Geserveerd";
-"Requested" = "Opgevraagd";
+"Requested" = "Uitgevraagd";
 "Guests" = "Gasten";
 "Courses" = "Gangen";
 "Pay" = "Betalen";
 "General" = "Algemeen";
 "Tap to select course" = "Tap om gang te selecteren";
 "Served at %@" = "%@ geserveerd";
-"Requested at %@" = "%@ opgevraagd";
-"Request" = "Opvragen";
+"Requested at %@" = "%@ uitgevraagd";
+"Request" = "Uitvragen";
 "Order" = "Order";
 "Select reservation or 'walk-in':" = "Selecteer reservering of 'walk-in':";
 "No data received from server" = "Geen gegevens ontvangen van server";
@@ -103,7 +103,7 @@
 "Tap to start new order" = "Tap om nieuwe rekening te starten";
 "Total amount: " = "Totaal bedrag: ";
 "Bill has not been printed yet" = "Rekening is nog niet afgedrukt";
-"No course to request" = "Geen volgende gang om op te vragen";
+"No course to request" = "Geen volgende gang om uit te vragen";
 "Save" = "Opslaan";
 "District" = "Wijk";
 "Properties" = "Properties";
