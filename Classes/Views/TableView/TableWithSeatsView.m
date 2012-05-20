@@ -433,10 +433,11 @@
     numberOfSeatsAtSide--;
     [table.countSeatsPerSide replaceObjectAtIndex:tableSide withObject:[NSNumber numberWithInt:numberOfSeatsAtSide]];
 
-    seatToRemove.offset = -1;
-
     [seatToRemove removeFromSuperview];
-    [self layoutSubviews];
+
+    [UIView animateWithDuration: 0.3 animations:^{
+        [self layoutSubviews];
+    }];
 }
 
 - (void) offsetSeats:(int) delta startingAt:(int)startSeat {
