@@ -109,3 +109,5 @@
 "Save" = "Save";
 "District" = "District";
 "Properties" = "Properties";
+"Delete seat ?" = "Delete seat ?";
+"Cannot delete active seat with orderlines" = "Cannot delete active seat with orderlines";

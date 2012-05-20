@@ -94,34 +94,38 @@
                         break;
                 }
             }
+            bool doRevert = true;
             if (beforeSeat != NSNotFound) {
                 if (dragSeatView == tableWithSeatsView.spareSeatView) {
                     [tableWithSeatsView insertSeatBeforeSeat:beforeSeat atSide:tableSide];
                     [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
+                    doRevert = false;
                 }
                 else {
-                    if(dragSeatView.side == tableSide && (dragSeatView.offset == beforeSeat || dragSeatView.offset + 1 == beforeSeat))
-                        [self revertDrag];
-                    else {
+                    if(dragSeatView.side != tableSide || (dragSeatView.offset != beforeSeat && dragSeatView.offset + 1 != beforeSeat)) {
                         [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
                         [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                        doRevert = false;
                     }
                 }
             }
             else {
-                if (dragSeatView == tableWithSeatsView.spareSeatView) {
-                    [self revertDrag];
-                }
-                else {
-                    bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
-                    if(continueDelete) {
-                        [tableWithSeatsView removeSeat: seatToMove];
-                        [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
+                if (dragSeatView != tableWithSeatsView.spareSeatView) {
+                    if([self canDeleteSeat: seatToMove]) {
+                        bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
+                        if(continueDelete) {
+                            [tableWithSeatsView removeSeat: seatToMove];
+                            [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
+                            doRevert = false;
+                        }
                     }
-                    else
-                        [self revertDrag];
+                    else {
+                        [ModalAlert confirm:NSLocalizedString(@"Cannot delete active seat with orderlines", <#comment#>)];
+                    }
                 }
             }
+            if (doRevert)
+                [self revertDrag];
             break;
         }
 
@@ -130,6 +134,16 @@
         case UIGestureRecognizerStateCancelled:
             break;
     }
+}
+
+- (bool) canDeleteSeat: (int)seat
+{
+    Guest *guest = [order getGuestBySeat:seat];
+    if(guest == nil)
+        return NO;
+    if ([guest.lines count] > 0)
+        return NO;
+    return YES;
 }
 
 - (void) insertSeatCallback:(ServiceResult *) serviceResult {

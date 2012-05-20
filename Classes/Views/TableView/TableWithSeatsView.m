@@ -492,6 +492,7 @@
     [table.countSeatsPerSide replaceObjectAtIndex:toSide withObject:[NSNumber numberWithInt: numberOfSeatsNewSide]];
 
     Guest *newGuest = [orderInfo addGuest];
+    newGuest.seat = toSeat;
     [self addNewSeatViewAtOffset:toSeat atSide:toSide withGuest: newGuest];
 
     [UIView animateWithDuration: 0.3 animations:^{
