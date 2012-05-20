@@ -484,6 +484,7 @@
 }
 
 - (void) insertSeatBeforeSeat: (int) toSeat atSide:(TableSide)toSide {
+    CGRect newSeatFrame = spareSeatView.frame;
     spareSeatView.frame = CGRectMake(- self.frame.origin.x, - self.frame.origin.y, self.seatViewSize.width, self.seatViewSize.height);
 
     [self offsetSeats: +1 startingAt: toSeat];
@@ -493,7 +494,8 @@
 
     Guest *newGuest = [orderInfo addGuest];
     newGuest.seat = toSeat;
-    [self addNewSeatViewAtOffset:toSeat atSide:toSide withGuest: newGuest];
+    SeatView *seatView = [self addNewSeatViewAtOffset:toSeat atSide:toSide withGuest: newGuest];
+    seatView.frame = newSeatFrame;
 
     [UIView animateWithDuration: 0.3 animations:^{
         [self layoutSubviews];
