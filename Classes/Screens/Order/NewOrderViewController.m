@@ -18,6 +18,8 @@
 
 @synthesize productPanelView = _productPanelView, orderView = _orderView, tableView = _tableView, order = _order, dataSource, tableOverlayHud = _tableOverlayHud;
 @dynamic selectedCourse, selectedCourseOffset, selectedGuest, selectedSeat;
+@synthesize autoAdvance = _autoAdvance;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,7 +61,7 @@
     tableInfo.table = _order.table;
     tableInfo.orderInfo = [OrderInfo infoWithOrder:_order];
 
-    ToolbarTitleView *titleView = [[ToolbarTitleView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width-100, 44)];
+    ToolbarTitleView *titleView = [[ToolbarTitleView alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
     titleView.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), _order.table.name];
     self.navigationItem.titleView = titleView;
 
@@ -113,13 +115,12 @@
 }
 
 - (void) setupToolbar {
-    UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
+//    UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
     UIBarButtonItem * groupButton = [[UIBarButtonItem alloc] initWithTitle: @"Group" style:UIBarButtonItemStylePlain target:self action:@selector(totalizeProducts:)];
+    UIBarButtonItem * autoAdvanceButton = [[UIBarButtonItem alloc] initWithTitle: @"Advance" style:UIBarButtonItemStylePlain target:self action:@selector(autoAdvance:)];
 
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
-    groupButton,
-            feedbackButton,
-            nil];
+    groupButton, autoAdvanceButton, nil];
 }
 
 - (void) totalizeProducts:(id)sender
@@ -128,6 +129,13 @@
     [self.dataSource tableView:_orderView totalizeProducts: totalize];
     UIBarButtonItem *buttonItem = (UIBarButtonItem *) sender;
     buttonItem.style = totalize ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
+}
+
+- (void) autoAdvance:(id)sender
+{
+    self.autoAdvance = !self.autoAdvance;
+    UIBarButtonItem *buttonItem = (UIBarButtonItem *) sender;
+    buttonItem.style = self.autoAdvance ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
 }
 
 - (void) getFeedback
@@ -186,18 +194,21 @@
         }
     }
 
-    if (self.selectedGuest != nil) {
-        if (self.selectedGuest.isLast) {
-            if(nextCourse != nil) {
-                //
-                self.selectedCourse = nextCourse;
-                self.selectedGuest = _order.firstGuest;
+    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    if (self.autoAdvance) {
+        if (self.selectedGuest != nil) {
+            if (self.selectedGuest.isLast) {
+                if(nextCourse != nil) {
+                    //
+                    self.selectedCourse = nextCourse;
+                    self.selectedGuest = _order.firstGuest;
+                }
             }
-        }
-        else {
-            Guest *nextGuest =  self.selectedGuest.nextGuest;
-            if (nextGuest != nil)
-                self.selectedGuest = nextGuest;
+            else {
+                Guest *nextGuest =  self.selectedGuest.nextGuest;
+                if (nextGuest != nil)
+                    self.selectedGuest = nextGuest;
+            }
         }
     }
 }
@@ -209,8 +220,8 @@
             [self.dataSource tableView:self.orderView addLine:line];
         }
     }
-    if ([self selectNextGuest] == NO)
-        [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    [self selectNextGuest];
 }
 
 - (BOOL)canSelectCourse:(NSUInteger)courseOffset {
@@ -220,7 +231,6 @@
 - (void)didSelectCourse:(NSUInteger)courseOffset {
     Course *course = [_order getCourseByOffset:courseOffset];
     if (course == nil) return;
-//    [self selectOrderLineForGuest: self.selectedGuest course:course];
     [self updateSeatOverlay];
 }
 
@@ -233,7 +243,6 @@
 - (void)didSelectSeat:(int)seatOffset {
     Guest *guest = [_order getGuestBySeat:seatOffset];
     if (guest == nil) return;
-//    [self selectOrderLineForGuest: guest course: self.selectedCourse];
     [self updateSeatOverlay];
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
 }

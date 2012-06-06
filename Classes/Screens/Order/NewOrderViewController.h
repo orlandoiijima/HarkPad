@@ -28,6 +28,8 @@
 @property int selectedCourseOffset;
 @property int selectedSeat;
 
+@property(nonatomic, assign) BOOL autoAdvance;
+
 - (void) selectOrderLineForGuest: (Guest *)guest course: (Course *)course;
 - (bool) selectNextGuest;
 - (void) selectNextCourse;
