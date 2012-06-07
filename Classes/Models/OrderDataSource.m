@@ -595,7 +595,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView totalizeProducts:(BOOL)totalize {
+    int selectedSection = -1;
+    for (int section = 0; section < [tableView numberOfSections]; section++) {
+        OrderDataSourceSection *group = [self groupForSection: section];
+        if (group.isSelected)
+            selectedSection = section;
+    }
+
     totalizeProducts = !totalizeProducts;
+
     if (totalizeProducts == false)
         self.grouping = self.grouping;
     NSMutableArray *indexPathsInsert = [[NSMutableArray alloc] init];
@@ -622,6 +630,11 @@
     }
     if (totalizeProducts)
         self.grouping = self.grouping;
+
+    if (selectedSection != -1) {
+        OrderDataSourceSection *group = [self groupForSection: selectedSection];
+        group.isSelected = YES;
+    }
 
     [tableView beginUpdates];
     [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];

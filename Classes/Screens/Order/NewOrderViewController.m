@@ -263,6 +263,7 @@
             return [self courseOffsetFromSection:section];
         }
     }
+    NSLog(@"No course selected, returning -1");
     return -1;
 }
 
