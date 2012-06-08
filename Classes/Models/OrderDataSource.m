@@ -6,15 +6,11 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
-#import <CoreGraphics/CoreGraphics.h>
 #import "OrderDataSource.h"
-#import "Order.h"
-#import "OrderLineCell.h"
 #import "Service.h"
 #import "ModalAlert.h"
 #import "Utils.h"
 #import "NSDate-Utilities.h"
-#import "OrderGridHitInfo.h"
 #import "SeatHeaderView.h"
 
 @implementation OrderDataSource
@@ -617,8 +613,6 @@
                 if (line1.product.id == line2.product.id) {
                     if (totalizeProducts) {
                         [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
-                        [group.lines removeObjectAtIndex:row];
-                        row--;
                     }
                    else {
                         [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
@@ -641,12 +635,10 @@
     [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
     [tableView endUpdates];
 
-    if (totalizeProducts) {
-        for (int section = 0; section < [tableView numberOfSections]; section++) {
-            OrderDataSourceSection *group = [self groupForSection: section];
-            for (int row = 0; row < [group.lines count]; row++) {
-                [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
-            }
+    for (int section = 0; section < [tableView numberOfSections]; section++) {
+        OrderDataSourceSection *group = [self groupForSection: section];
+        for (int row = 0; row < [group.lines count]; row++) {
+            [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
         }
     }
 }
