@@ -31,7 +31,7 @@
         tapper.numberOfTapsRequired = 2;
         [self addGestureRecognizer:tapper];
 
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor blackColor];
         [self addTarget:self action:@selector(headerClick:event:) forControlEvents:UIControlEventTouchDown];
 
         expandButton = [UIButton buttonWithType:UIButtonTypeCustom];
