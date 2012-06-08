@@ -15,7 +15,7 @@
 
 @implementation OrderDataSource
 
-@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, hostController, showProductProperties, showSeat, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize, collapsableHeaders, showEmptySections, showStepper;
+@synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, showProductProperties, showSeat, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize, collapsableHeaders, showEmptySections, showStepper;
 
 + (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize
 {
@@ -260,12 +260,9 @@
     
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
-    
-    if(self.hostController != nil) {
-        if([self.hostController respondsToSelector:@selector(onUpdateOrder:)]) {
-            [hostController onUpdateOrder: self.order];
-        }
-    }
+    if ([_delegate respondsToSelector:@selector(didUpdateOrder:)])
+        return [_delegate didUpdateOrder: self.order];
+
 }
 
 - (void) tableView:(UITableView *)tableView collapseSection: (NSUInteger)section

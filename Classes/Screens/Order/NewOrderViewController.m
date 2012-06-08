@@ -267,6 +267,10 @@
     return -1;
 }
 
+- (void)didUpdateOrder:(Order *)order {
+    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+}
+
 - (int) courseOffsetFromSection: (int) section {
     return section - 1;
 }

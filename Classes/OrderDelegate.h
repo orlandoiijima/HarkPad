@@ -5,6 +5,7 @@
 //
 
 @class OrderLine;
+@class Order;
 
 @protocol OrderDelegate <NSObject>
 @optional
@@ -15,4 +16,5 @@
 - (void) didSelectSection: (NSUInteger)section;
 - (void) didExpandSection: (NSUInteger)section collapseAllOthers: (BOOL)collapseOthers;
 - (void) didCollapseSection: (NSUInteger)section;
+- (void) didUpdateOrder: (Order *)order;
 @end

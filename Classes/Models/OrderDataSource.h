@@ -46,7 +46,6 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 @property bool collapsableHeaders;
 @property (retain, nonatomic) id<OrderDelegate> delegate;
 @property (retain) Order *order;
-@property (retain) id hostController;
 @property float rowHeight;
 @property float fontSize;
 @property OrderLineSortOrder sortOrder;
