@@ -69,4 +69,6 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 - (void) tableView:(UITableView *)tableView addSection: (int) section;
 - (void)tableView:(UITableView *)tableView totalizeProducts: (BOOL)totalize;
 -(void) logDataSource;
+- (void) highlightRowsInTableView:(UITableView *)tableView forSeat:(int)seat;
+
 @end

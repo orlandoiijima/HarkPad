@@ -6,6 +6,7 @@
 //  Copyright 2011 The Attic. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "OrderDataSource.h"
 #import "Service.h"
 #import "ModalAlert.h"
@@ -491,7 +492,6 @@
             guests = line.guest == nil ? nil : [NSMutableArray arrayWithObject:line.guest];
         cell = [OrderLineCell cellWithOrderLine:line isEditable: self.isEditable showPrice:showPrice showProperties: showProductProperties showSeat:showSeat showStepper: showStepper guests: guests delegate: self.delegate rowHeight: rowHeight fontSize: fontSize];
     }
-
     cell.isInEditMode = cell.isSelected;
     
     return cell;
@@ -639,4 +639,22 @@
         }
     }
 }
+
+- (void) highlightRowsInTableView:(UITableView *)tableView forSeat:(int)seat {
+    for (int section = 0; section < [tableView numberOfSections]; section++) {
+        for (int row = 0; row < [tableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath *const indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            OrderLine *line = [self orderLineAtIndexPath:indexPath];
+            OrderLineCell *cell = (OrderLineCell *) [tableView cellForRowAtIndexPath:indexPath];
+            if (line.guest != nil && line.guest.seat == seat) {
+                cell.isBlinking = YES;
+            }
+            else {
+                cell.isBlinking = NO;
+            }
+        }
+    }
+}
+
+
 @end

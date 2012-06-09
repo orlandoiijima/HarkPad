@@ -31,6 +31,8 @@
 @property BOOL showSeat;
 @property int heightInEditMode;
 
+@property(nonatomic, assign) BOOL isBlinking;
+
 + (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper guests: (NSMutableArray *)guests delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize;
 
 + (float) getExtraHeightForEditMode: (OrderLine *)line width: (float)width;

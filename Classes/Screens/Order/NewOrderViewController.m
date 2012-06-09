@@ -175,14 +175,18 @@
     }
 }
 
+- (void)addProduct:(Product *)product forSeat:(int)seat course: (int)course {
+    OrderLine *line = [_order addLineWithProductId:product.id seat:seat course: course];
+    [self.dataSource tableView:self.orderView addLine:line];
+    [self.dataSource highlightRowsInTableView:_orderView forSeat:seat];
+}
+
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
     for(Guest *guest in [_tableView selectedGuests]) {
-        OrderLine *line = [_order addLineWithProductId:product.id seat:guest.seat course: self.selectedCourseOffset];
-        [self.dataSource tableView:self.orderView addLine:line];
+        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
     }
     if (_tableView.isTableSelected) {
-        OrderLine *line = [_order addLineWithProductId:product.id seat: -1 course: self.selectedCourseOffset];
-        [self.dataSource tableView:self.orderView addLine:line];
+        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
     }
 
     Course *nextCourse = nil;
@@ -216,8 +220,7 @@
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didTapMenu:(Menu *)menu {
     for(Guest *guest in [_tableView selectedGuests]) {
         for(MenuItem *menuItem in menu.items) {
-            OrderLine *line = [_order addLineWithProductId: menuItem.product.id seat:guest.seat course: menuItem.course];
-            [self.dataSource tableView:self.orderView addLine:line];
+            [self addProduct: menuItem.product forSeat: guest.seat course: menuItem.course];
         }
     }
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
@@ -245,10 +248,12 @@
     if (guest == nil) return;
     [self updateSeatOverlay];
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    [dataSource highlightRowsInTableView: _orderView forSeat:guest.seat];
 }
 
 - (void)didSelectTableView:(TableWithSeatsView *)tableView {
     [self.tableOverlayHud showForOrder: self.order];
+    [dataSource highlightRowsInTableView: _orderView forSeat: -1];
 }
 
 - (void)didSelectSection:(NSUInteger)section {
@@ -403,11 +408,13 @@
 - (void) didCollapseSection: (NSUInteger)section
 {
     [dataSource tableView:_orderView collapseSection:section];
+    [dataSource highlightRowsInTableView:_orderView forSeat:self.selectedSeat];
 }
 
 - (void) didExpandSection: (NSUInteger)sectionToExpand collapseAllOthers:(BOOL)collapseOthers
 {
     [dataSource tableView:_orderView expandSection:sectionToExpand collapseAllOthers:collapseOthers];
+    [dataSource highlightRowsInTableView:_orderView forSeat:self.selectedSeat];
 }
 
 - (BOOL)canEditOrderLine:(OrderLine *)line {

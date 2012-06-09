@@ -1,3 +1,4 @@
+#import <QuartzCore/QuartzCore.h>
 #import "OrderLineCell.h"
 #import "Utils.h"
 #import "ToggleButton.h"
@@ -6,6 +7,8 @@
 @implementation OrderLineCell
 
 @synthesize isEditable, nLineIcon, orderLine, price, name, note, props, seat, course, quantity, showSeat, showPrice, showProductProperties, isInEditMode = _isInEditMode, stepperView, notesView, propertyViews, heightInEditMode, delegate, showStepper;
+@synthesize isBlinking = _isBlinking;
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -39,6 +42,20 @@
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     [super setBackgroundColor:backgroundColor];
+}
+
+-(void)setIsBlinking:(BOOL)blinking {
+    _isBlinking = blinking;
+    if (blinking) {
+        [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
+        {
+            self.alpha = 0.7;
+        } completion: nil];
+    }
+    else {
+        [self.layer removeAllAnimations];
+        self.alpha = 1;
+    }
 }
 
 + (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper guests: (NSMutableArray *)guests delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize
