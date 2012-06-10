@@ -247,8 +247,12 @@
     quantity.text = [NSString stringWithFormat:@"%d", line.quantity];
     quantity.hidden = line.quantity == 1;
 
-    if (line.product != nil)
+    if (line.product != nil) {
         name.text = line.product.name;
+        if ([line.propertyValues count] > 0 || line.note != nil) {
+            name.text = [name.text stringByAppendingString:@" *"];
+        }
+    }
     else {
         name.text = NSLocalizedString(@"Tap to select course", nil);
         name.textColor = [UIColor colorWithWhite:0.3 alpha:1];
