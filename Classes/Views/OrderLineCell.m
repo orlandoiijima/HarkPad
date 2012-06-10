@@ -49,12 +49,12 @@
     if (blinking) {
         [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
-            self.alpha = 0.7;
+            self.name.transform = CGAffineTransformMakeTranslation(-10, 0);
         } completion: nil];
     }
     else {
-        [self.layer removeAllAnimations];
-        self.alpha = 1;
+        [self.name.layer removeAllAnimations];
+        self.name.transform = CGAffineTransformIdentity;
     }
 }
 

@@ -125,20 +125,18 @@
 - (void)setIsSelected:(BOOL)anIsSelected {
     _isSelected = anIsSelected;
     if (_isSelected) {
-//        int dx = self.side == TableSideTop || self.side == TableSideBottom ? 5 : 0;
-//        int dy = self.side == TableSideTop || self.side == TableSideBottom ? 0 : 5;
-//        self.transform = CGAffineTransformMakeTranslation(dx, dy);
+        int dx = self.side == TableSideTop || self.side == TableSideBottom ? 5 : 0;
+        int dy = self.side == TableSideTop || self.side == TableSideBottom ? 0 : 5;
+        self.transform = CGAffineTransformMakeTranslation(dx, dy);
         [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
-//            self.transform = CGAffineTransformMakeTranslation(-dx, -dy);
-              self.alpha = 0.6;
+            self.transform = CGAffineTransformMakeTranslation(-dx, -dy);
         } completion: nil];
         labelOverlay.hidden = NO;
     }
     else {
         [self.layer removeAllAnimations];
-//        self.transform = CGAffineTransformIdentity;
-        self.alpha = 1;
+        self.transform = CGAffineTransformIdentity;
         labelOverlay.hidden = YES;
     }
 }
