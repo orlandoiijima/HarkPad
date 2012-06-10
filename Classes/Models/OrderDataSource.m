@@ -598,6 +598,7 @@
 
     NSMutableArray *indexPathsInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsDelete = [[NSMutableArray alloc] init];
+    NSMutableArray *indexPathsReload = [[NSMutableArray alloc] init];
     for (int section = 0; section < [tableView numberOfSections]; section++) {
         OrderDataSourceSection *group = [self groupForSection: section];
         if (group.isCollapsed == NO) {
@@ -614,6 +615,9 @@
                             [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
                             NSLog(@"insert s:%d r:%d", section, row);
                         }
+                        NSIndexPath *reload = [NSIndexPath indexPathForRow:j inSection:section];
+                        if ([indexPathsReload containsObject:reload] == false)
+                            [indexPathsReload addObject: reload];
                         break;
                     }
                 }
@@ -626,16 +630,16 @@
     [self logDataSource];
 
     [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationMiddle];
+    [tableView reloadRowsAtIndexPaths: indexPathsReload withRowAnimation:UITableViewRowAnimationFade];
+    [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
     [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
     [tableView endUpdates];
 
-    for (int section = 0; section < [tableView numberOfSections]; section++) {
-        OrderDataSourceSection *group = [self groupForSection: section];
-        for (int row = 0; row < [tableView numberOfRowsInSection:section]; row++) {
-            [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
-        }
-    }
+//    for (int section = 0; section < [tableView numberOfSections]; section++) {
+//        for (int row = 0; row < [tableView numberOfRowsInSection:section]; row++) {
+//            [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
+//        }
+//    }
 }
 
 - (void) regroupOnTotalize {
