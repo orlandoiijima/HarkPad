@@ -24,7 +24,7 @@
     self = [super initWithFrame:frame];
     self.autoresizingMask = (UIViewAutoresizing) -1;
 
-    UIFont *font = [UIFont systemFontOfSize:13];
+    UIFont *font = [UIFont systemFontOfSize:14];
 
     headerLabel = [[UILabel alloc] init];
     headerLabel.textAlignment = UITextAlignmentCenter;
