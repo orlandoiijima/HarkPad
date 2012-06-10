@@ -42,6 +42,7 @@
 - (void) setGrouping: (OrderGrouping) newGrouping
 {
     if (order == nil) return;
+
     grouping = 	newGrouping;
     self.groupedLines = [[NSMutableDictionary alloc] init];
 
@@ -84,7 +85,6 @@
         [self tableView:nil addLine:line];
     }
 
-    [self logDataSource];
     return;
 }
 
@@ -146,7 +146,7 @@
         NSLog(@"section %d", section);
         for (int row = 0; row < [group.lines count]; row++) {
             OrderLine *line1 = [group.lines objectAtIndex:row];
-            NSLog(@"row %d: %d x %@", row, line1.quantity, line1.product.name);
+            NSLog(@"  row %d: %d x %@", row, line1.quantity, line1.product.name);
         }
     }
 }
@@ -400,7 +400,7 @@
         if (indexPath.row == 0 && showEmptySections) {
             return nil;
         }
-        NSLog(@"Error");
+        NSLog(@"No orderline at indexpath %d %d", indexPath.section, indexPath.row);
         return nil;
     }
     return [group.lines objectAtIndex:indexPath.row];
@@ -589,55 +589,63 @@
 }
 
 - (void)tableView:(UITableView *)tableView totalizeProducts:(BOOL)totalize {
-    int selectedSection = -1;
-    for (int section = 0; section < [tableView numberOfSections]; section++) {
-        OrderDataSourceSection *group = [self groupForSection: section];
-        if (group.isSelected)
-            selectedSection = section;
-    }
+    [self logDataSource];
 
     totalizeProducts = !totalizeProducts;
 
     if (totalizeProducts == false)
-        self.grouping = self.grouping;
+        [self regroupOnTotalize];
+
     NSMutableArray *indexPathsInsert = [[NSMutableArray alloc] init];
     NSMutableArray *indexPathsDelete = [[NSMutableArray alloc] init];
     for (int section = 0; section < [tableView numberOfSections]; section++) {
         OrderDataSourceSection *group = [self groupForSection: section];
-        for (int row = 0; row < [group.lines count]; row++) {
-            OrderLine *line1 = [group.lines objectAtIndex:row];
-            for (int j = 0; j < row; j++) {
-                OrderLine *line2 = [group.lines objectAtIndex:j];
-                if (line1.product.id == line2.product.id) {
-                    if (totalizeProducts) {
-                        [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+        if (group.isCollapsed == NO) {
+            for (int row = 0; row < [group.lines count]; row++) {
+                OrderLine *line1 = [group.lines objectAtIndex:row];
+                for (int j = 0; j < row; j++) {
+                    OrderLine *line2 = [group.lines objectAtIndex:j];
+                    if (line1.product.id == line2.product.id) {
+                        if (totalizeProducts) {
+                            [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                            NSLog(@"delete s:%d r:%d", section, row);
+                        }
+                       else {
+                            [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+                            NSLog(@"insert s:%d r:%d", section, row);
+                        }
+                        break;
                     }
-                   else {
-                        [indexPathsInsert addObject:[NSIndexPath indexPathForRow:row inSection:section]];
-                    }
-                    break;
                 }
             }
         }
     }
     if (totalizeProducts)
-        self.grouping = self.grouping;
+        [self regroupOnTotalize];
 
-    if (selectedSection != -1) {
-        OrderDataSourceSection *group = [self groupForSection: selectedSection];
-        group.isSelected = YES;
-    }
+    [self logDataSource];
 
     [tableView beginUpdates];
-    [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
+    [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationMiddle];
     [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
     [tableView endUpdates];
 
     for (int section = 0; section < [tableView numberOfSections]; section++) {
         OrderDataSourceSection *group = [self groupForSection: section];
-        for (int row = 0; row < [group.lines count]; row++) {
+        for (int row = 0; row < [tableView numberOfRowsInSection:section]; row++) {
             [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
         }
+    }
+}
+
+- (void) regroupOnTotalize {
+    for (int section = 0; section < [[groupedLines allKeys] count]; section++) {
+        OrderDataSourceSection *group = [self groupForSection: section];
+        [group.lines removeAllObjects];
+    }
+    for(OrderLine *line in order.lines)
+    {
+        [self tableView:nil addLine:line];
     }
 }
 

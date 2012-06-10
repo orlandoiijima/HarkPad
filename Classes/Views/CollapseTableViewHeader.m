@@ -84,7 +84,7 @@
 - (void)setFrame:(CGRect)aFrame {
     [super setFrame:aFrame];
     CALayer *layer = [self.layer.sublayers objectAtIndex:0];
-    int countRows = [_tableView numberOfRowsInSection:self.section];
+    int countRows = [_tableView.dataSource tableView:_tableView numberOfRowsInSection:self.section];
     if (countRows == INT32_MAX)
         return;
     float sectionHeight = self.frame.size.height;
