@@ -30,14 +30,12 @@
     if (isSelected) {
         [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
-            self.alpha = 0.7;
-//            self.transform = CGAffineTransformMakeTranslation(0, 4);
+            self.transform = CGAffineTransformMakeTranslation(0, 4);
         } completion: nil];
     }
     else {
-        self.alpha = 1;
         [self.layer removeAllAnimations];
-//        self.transform = CGAffineTransformIdentity;
+        self.transform = CGAffineTransformIdentity;
     }
 }
 
