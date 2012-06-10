@@ -576,6 +576,8 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (totalizeProducts)
+        return NO;
     OrderLine *line = [self orderLineAtIndexPath:indexPath];
     if (line == nil)
         return NO;

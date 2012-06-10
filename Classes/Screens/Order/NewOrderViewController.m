@@ -88,6 +88,7 @@
     _orderView.backgroundColor = panelColor;
     _orderView.dataSource = self.dataSource;
     _orderView.delegate = self.dataSource;
+    _orderView.allowsSelectionDuringEditing = YES;
     [_orderView setEditing:YES];
     [self addPanelWithView:_orderView frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y, orderViewWidth, rect.size.height - buttonSize) margin:5 padding:10 backgroundColor: panelColor];
 
@@ -423,6 +424,8 @@
 
 - (BOOL)canEditOrderLine:(OrderLine *)line {
     if (line == nil)
+        return NO;
+    if (self.dataSource.totalizeProducts)
         return NO;
     if (line.course == nil)
         return YES;
