@@ -130,6 +130,7 @@
 {
     bool totalize = !self.dataSource.totalizeProducts;
     [self.dataSource tableView:_orderView totalizeProducts: totalize];
+    [self.dataSource highlightRowsInTableView:_orderView forSeat: self.selectedSeat];
     UIBarButtonItem *buttonItem = (UIBarButtonItem *) sender;
     buttonItem.style = totalize ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
 }

@@ -634,7 +634,6 @@
     [tableView deleteRowsAtIndexPaths: indexPathsDelete withRowAnimation:UITableViewRowAnimationTop];
     [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
     [tableView endUpdates];
-
 }
 
 - (void) regroupOnTotalize {

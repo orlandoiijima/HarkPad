@@ -50,11 +50,17 @@
         [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
             self.name.transform = CGAffineTransformMakeTranslation(-10, 0);
+            self.quantity.transform = CGAffineTransformMakeTranslation(-10, 0);
+            self.seat.transform = CGAffineTransformMakeTranslation(-10, 0);
         } completion: nil];
     }
     else {
         [self.name.layer removeAllAnimations];
         self.name.transform = CGAffineTransformIdentity;
+        [self.quantity.layer removeAllAnimations];
+        self.quantity.transform = CGAffineTransformIdentity;
+        [self.seat.layer removeAllAnimations];
+        self.seat.transform = CGAffineTransformIdentity;
     }
 }
 
