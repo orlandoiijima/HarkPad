@@ -65,9 +65,11 @@
     titleView.text = [NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"Table", nil), _order.table.name];
     self.navigationItem.titleView = titleView;
 
+    UIColor *panelColor = [UIColor colorWithWhite:0.2 alpha:1];
+
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
     _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo];
-    [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor: panelColor];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
     _tableView.delegate = self;
@@ -77,16 +79,17 @@
     _productPanelView.countColumns = 4;
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.topHeaderHeight = 0;
-    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:panelColor];
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.menuDelegate = self;
 
     _orderView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _orderView.backgroundView = nil;
+    _orderView.backgroundColor = panelColor;
     _orderView.dataSource = self.dataSource;
     _orderView.delegate = self.dataSource;
     [_orderView setEditing:YES];
-    [self addPanelWithView:_orderView frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y, orderViewWidth, rect.size.height - buttonSize) margin:5 padding:10 backgroundColor:[UIColor colorWithWhite:0.2 alpha:1]];
+    [self addPanelWithView:_orderView frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y, orderViewWidth, rect.size.height - buttonSize) margin:5 padding:10 backgroundColor: panelColor];
 
     CrystalButton *saveButton = [[CrystalButton alloc] initWithFrame: CGRectZero];
     [saveButton setTitle:NSLocalizedString(@"Save", nil) forState:UIControlStateNormal];
