@@ -635,11 +635,6 @@
     [tableView insertRowsAtIndexPaths: indexPathsInsert withRowAnimation:UITableViewRowAnimationTop];
     [tableView endUpdates];
 
-//    for (int section = 0; section < [tableView numberOfSections]; section++) {
-//        for (int row = 0; row < [tableView numberOfRowsInSection:section]; row++) {
-//            [tableView reloadRowsAtIndexPaths: [NSArray arrayWithObject: [NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationMiddle];
-//        }
-//    }
 }
 
 - (void) regroupOnTotalize {
