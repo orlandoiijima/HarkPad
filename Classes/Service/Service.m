@@ -261,6 +261,7 @@ static Service *_service;
         {
             TableInfo *tableInfo = [[TableInfo alloc] init];
             tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+            if (tableInfo.table == nil) continue;
             tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.id];
             NSDictionary *orderDic = [tableDic objectForKey:@"order"];
             if(orderDic != nil)

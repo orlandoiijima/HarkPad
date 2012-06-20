@@ -39,7 +39,11 @@
     if(isDocked != nil)
         table.isDocked = (BOOL)[isDocked intValue];
 
-    table.countSeatsPerSide = [NSMutableArray arrayWithArray: [jsonDictionary objectForKey:@"countSeats"]];
+    id countSeats = [jsonDictionary objectForKey:@"countSeats"];
+    if (countSeats != nil)
+        table.countSeatsPerSide = [NSMutableArray arrayWithArray: countSeats];
+    else
+        table.countSeatsPerSide = [NSMutableArray arrayWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
 
     NSNumber *left = [jsonDictionary objectForKey:@"l"];
     NSNumber *top =  [jsonDictionary objectForKey:@"t"];
