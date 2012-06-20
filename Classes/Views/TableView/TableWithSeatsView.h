@@ -15,6 +15,10 @@
 #import "TableInfo.h"
 #import "TableViewContainer.h"
 
+@class SeatSlider;
+
+typedef enum SeatViewMode {SeatViewModeShowSeats, SeatViewModeSlider} SeatViewMode;
+
 @interface TableWithSeatsView : UIView <ItemPropertiesDelegate, UIGestureRecognizerDelegate>
 
 @property (retain) TableViewContainer *tableView;
@@ -30,8 +34,11 @@
 @property (nonatomic) BOOL isSpareSeatViewVisible;
 @property (retain) SeatView *spareSeatView;
 @property (nonatomic) CGSize seatViewSize;
+@property (nonatomic) SeatViewMode seatViewMode;
 
-+ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo;
+@property(nonatomic, strong) SeatSlider *seatSlider;
+
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo mode:(SeatViewMode)mode;
 - (void)tapSeat: (id)sender;
 - (void) selectSeat: (int) offset;
 - (void)didModifyItem:(id)item;
@@ -44,5 +51,6 @@
 -(int) seatAtPoint:(CGPoint) point;
 -(CGRect) frameForSeat:(int) seatToFind;
 - (SeatView *) addNewSeatViewAtOffset:(int) seat atSide:(TableSide)side withGuest:(Guest *)guest;
+- (void)didSelectSeat: (int)seatOffset;
 
 @end

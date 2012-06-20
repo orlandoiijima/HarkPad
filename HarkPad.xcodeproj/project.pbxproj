@@ -313,6 +313,9 @@
 		E5F609A313489C2400D886BB /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BA /* info.png */; };
 		E5F609A313489C2400D886BD /* usersmall.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BC /* usersmall.png */; };
 		E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886BE /* UIImage+TBKMasking.m */; };
+		E5F609A313489C2400D886C3 /* SeatSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C2 /* SeatSlider.m */; };
+		E5F609A313489C2400D886C6 /* next48.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C5 /* next48.png */; };
+		E5F609A313489C2400D886C8 /* prev48.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C7 /* prev48.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -833,6 +836,11 @@
 		E5F609A313489C2400D886BE /* UIImage+TBKMasking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TBKMasking.m"; sourceTree = "<group>"; };
 		E5F609A313489C2400D886C0 /* UIImage+TBKMasking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBKMasking.h"; sourceTree = "<group>"; };
 		E5F609A313489C2400D886C1 /* OrderProxyDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderProxyDelegate.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C2 /* SeatSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatSlider.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C4 /* SeatSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatSlider.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C5 /* next48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next48.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C7 /* prev48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev48.png; sourceTree = "<group>"; };
+		E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectSeatDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -929,6 +937,7 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */,
 				E5F609A313489C2400D8869C /* ToolbarTitleView.h */,
 				E5F609A313489C2400D8869A /* ToolbarTitleView.m */,
 				E5F609A313489C2400D88643 /* TablePopupDelegate.h */,
@@ -1106,6 +1115,8 @@
 		E50A388E12E234B8007C2101 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886C7 /* prev48.png */,
+				E5F609A313489C2400D886C5 /* next48.png */,
 				E5F609A313489C2400D886BC /* usersmall.png */,
 				E5F609A313489C2400D886BA /* info.png */,
 				E5F609A313489C2400D886B8 /* info@2x.png */,
@@ -1746,6 +1757,8 @@
 		E5F609A313489C2400D88613 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886C4 /* SeatSlider.h */,
+				E5F609A313489C2400D886C2 /* SeatSlider.m */,
 				E5F609A313489C2400D88681 /* TableOverlayHud.h */,
 				E5F609A313489C2400D8867F /* TableOverlayHud.m */,
 				E5F609A313489C2400D8866F /* SeatGridView.h */,
@@ -1968,6 +1981,8 @@
 				E5F609A313489C2400D886B9 /* info@2x.png in Resources */,
 				E5F609A313489C2400D886BB /* info.png in Resources */,
 				E5F609A313489C2400D886BD /* usersmall.png in Resources */,
+				E5F609A313489C2400D886C6 /* next48.png in Resources */,
+				E5F609A313489C2400D886C8 /* prev48.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2188,6 +2203,7 @@
 				E5F609A313489C2400D886B0 /* TableActionButton.m in Sources */,
 				E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */,
 				E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */,
+				E5F609A313489C2400D886C3 /* SeatSlider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -503,7 +503,7 @@
                             (table.bounds.origin.y - offset.y) * scale.x,
                             table.bounds.size.width * scale.x,
                             table.bounds.size.height * scale.x);
-    TableWithSeatsView *tableView = [TableWithSeatsView viewWithFrame:frame tableInfo: tableInfo];
+    TableWithSeatsView *tableView = [TableWithSeatsView viewWithFrame:frame tableInfo: tableInfo mode: SeatViewModeShowSeats];
     tableView.delegate = self;
     TableOverlaySimple *overlaySimple = [[TableOverlaySimple alloc] initWithFrame: tableView.tableView.bounds tableName:table.name countCourses: tableInfo.orderInfo.countCourses currentCourseOffset:tableInfo.orderInfo.currentCourseOffset selectedCourse:-1 currentCourseState: tableInfo.orderInfo.currentCourseState orderState: tableInfo.orderInfo.state];
     tableView.contentTableView = overlaySimple;

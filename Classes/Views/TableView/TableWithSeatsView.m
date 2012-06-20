@@ -5,47 +5,67 @@
 //
 
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "TableWithSeatsView.h"
+#import "SeatSlider.h"
 
 @implementation TableWithSeatsView {
 
+@private
+    SeatSlider *_seatSlider;
+    SeatViewMode _seatViewMode;
 }
 
 @synthesize table, tableView, delegate = _delegate, orderInfo, isTableSelected = _isTableSelected, contentTableView = _contentTableView, isDragging, spareSeatView;
 @dynamic selectedGuests, isCloseButtonVisible, isSpareSeatViewVisible, seatViewSize;
 @synthesize closeButton;
+@synthesize seatSlider = _seatSlider;
+@synthesize seatViewMode = _seatViewMode;
 
-+ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo
+
++ (TableWithSeatsView *) viewWithFrame: (CGRect)frame tableInfo: (TableInfo *)tableInfo mode:(SeatViewMode) mode
 {
     TableWithSeatsView *view = [[TableWithSeatsView alloc] init];
     view.autoresizingMask = (UIViewAutoresizing)-1;
     view.frame = frame;
     view.clipsToBounds = NO;
+
+    view.seatViewMode = mode;
+
     view.table = tableInfo.table;
     view.orderInfo = tableInfo.orderInfo;
     Table *table = view.table;
-    CGRect tableRect = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideTop] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, view.seatViewSize.height, tableRect.size.width, tableRect.size.height - view.seatViewSize.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideBottom] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width, tableRect.size.height - view.seatViewSize.height);
 
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideRight] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width - view.seatViewSize.width, tableRect.size.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideLeft] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x + view.seatViewSize.width, tableRect.origin.y, tableRect.size.width - view.seatViewSize.width, tableRect.size.height);
+    CGRect tableRect = CGRectMake(0, 0, frame.size.width, frame.size.height);
+
+    if (mode == SeatViewModeShowSeats) {
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideTop] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, view.seatViewSize.height, tableRect.size.width, tableRect.size.height - view.seatViewSize.height);
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideBottom] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width, tableRect.size.height - view.seatViewSize.height);
+
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideRight] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width - view.seatViewSize.width, tableRect.size.height);
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideLeft] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x + view.seatViewSize.width, tableRect.origin.y, tableRect.size.width - view.seatViewSize.width, tableRect.size.height);
+
+        int seat = 0;
+        for (TableSide side = 0; side <= TableSideLeft; side++) {
+            for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
+                [view addNewSeatViewAtOffset:seat atSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
+                seat++;
+            }
+        }
+    }
+    else {
+        view.seatSlider = [SeatSlider sliderWithFrame:CGRectMake(0, 0, tableRect.size.width, 44) numberOfSeats:table.countSeatsTotal delegate: view];
+        [view addSubview:view.seatSlider];
+        tableRect = CGRectMake(0, view.seatSlider.frame.size.height, tableRect.size.width, tableRect.size.height - view.seatSlider.frame.size.height);
+    }
 
     view.tableView = [[TableViewContainer alloc] initWithFrame:tableRect];
     view.tableView.autoresizingMask = (UIViewAutoresizing) -1;
     [view addSubview:view.tableView];
-
-    int seat = 0;
-    for (TableSide side = 0; side <= TableSideLeft; side++) {
-        for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
-            [view addNewSeatViewAtOffset:seat atSide:side withGuest:[tableInfo.orderInfo getGuestBySeat: seat]];
-            seat++;
-        }
-    }
 
     view.spareSeatView = [SeatView viewWithFrame:CGRectMake(0, 0, view.seatViewSize.width, view.seatViewSize.height) offset:-1 atSide:TableSideBottom];
     view.spareSeatView.hidden = YES;
@@ -94,56 +114,62 @@
 }
 
 - (void)layoutSubviews {
-    CGRect tableRect = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideTop] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, self.seatViewSize.height, tableRect.size.width, tableRect.size.height - self.seatViewSize.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideBottom] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width, tableRect.size.height - self.seatViewSize.height);
+    if (_seatViewMode == SeatViewModeShowSeats) {
 
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideRight] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width - self.seatViewSize.width, tableRect.size.height);
-    if ([[table.countSeatsPerSide objectAtIndex: TableSideLeft] intValue] > 0)
-        tableRect = CGRectMake(tableRect.origin.x + self.seatViewSize.width, tableRect.origin.y, tableRect.size.width - self.seatViewSize.width, tableRect.size.height);
+        CGRect tableRect = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideTop] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, self.seatViewSize.height, tableRect.size.width, tableRect.size.height - self.seatViewSize.height);
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideBottom] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width, tableRect.size.height - self.seatViewSize.height);
 
-    tableView.frame = tableRect;
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideRight] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x, tableRect.origin.y, tableRect.size.width - self.seatViewSize.width, tableRect.size.height);
+        if ([[table.countSeatsPerSide objectAtIndex: TableSideLeft] intValue] > 0)
+            tableRect = CGRectMake(tableRect.origin.x + self.seatViewSize.width, tableRect.origin.y, tableRect.size.width - self.seatViewSize.width, tableRect.size.height);
 
-    int seat = 0;
-    float dx, dy;
-    CGRect seatFrame;
-    for (TableSide side = 0; side <= TableSideLeft; side++) {
-        int countSeats = [[table.countSeatsPerSide objectAtIndex: side] intValue];
-        if (countSeats > 0) {
-            switch (side) {
-                case TableSideTop:
-                    dx = tableRect.size.width / countSeats;
-                    dy = 0;
-                    seatFrame = CGRectMake(CGRectGetMinX(tableRect), CGRectGetMinY(tableRect) - self.seatViewSize.height, dx, self.seatViewSize.height);
-                    break;
-                case TableSideRight:
-                    dx = 0;
-                    dy = tableRect.size.height / countSeats;
-                    seatFrame = CGRectMake(CGRectGetMaxX(tableRect), CGRectGetMinY(tableRect), self.seatViewSize.width, dy);
-                    break;
-                case TableSideBottom:
-                    dx = - tableRect.size.width / countSeats;
-                    dy = 0;
-                    seatFrame = CGRectMake(CGRectGetMaxX(tableRect) + dx, CGRectGetMaxY(tableRect), -dx, self.seatViewSize.height);
-                    break;
-                case TableSideLeft:
-                    dx = 0;
-                    dy =  - tableRect.size.height / countSeats;
-                    seatFrame = CGRectMake(CGRectGetMinX(tableRect) - self.seatViewSize.width, CGRectGetMaxY(tableRect) + dy, self.seatViewSize.width, -dy);
-                    break;
-            }
-            for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
-                SeatView *seatView = [self seatViewAtOffset:seat];
-                seatView.frame = seatFrame;
-                seat++;
-                seatFrame = CGRectOffset(seatFrame, dx, dy);
+        tableView.frame = tableRect;
+
+        int seat = 0;
+        float dx, dy;
+        CGRect seatFrame;
+        for (TableSide side = 0; side <= TableSideLeft; side++) {
+            int countSeats = [[table.countSeatsPerSide objectAtIndex: side] intValue];
+            if (countSeats > 0) {
+                switch (side) {
+                    case TableSideTop:
+                        dx = tableRect.size.width / countSeats;
+                        dy = 0;
+                        seatFrame = CGRectMake(CGRectGetMinX(tableRect), CGRectGetMinY(tableRect) - self.seatViewSize.height, dx, self.seatViewSize.height);
+                        break;
+                    case TableSideRight:
+                        dx = 0;
+                        dy = tableRect.size.height / countSeats;
+                        seatFrame = CGRectMake(CGRectGetMaxX(tableRect), CGRectGetMinY(tableRect), self.seatViewSize.width, dy);
+                        break;
+                    case TableSideBottom:
+                        dx = - tableRect.size.width / countSeats;
+                        dy = 0;
+                        seatFrame = CGRectMake(CGRectGetMaxX(tableRect) + dx, CGRectGetMaxY(tableRect), -dx, self.seatViewSize.height);
+                        break;
+                    case TableSideLeft:
+                        dx = 0;
+                        dy =  - tableRect.size.height / countSeats;
+                        seatFrame = CGRectMake(CGRectGetMinX(tableRect) - self.seatViewSize.width, CGRectGetMaxY(tableRect) + dy, self.seatViewSize.width, -dy);
+                        break;
+                }
+                for(int i=0; i < [[table.countSeatsPerSide objectAtIndex: side] intValue]; i++) {
+                    SeatView *seatView = [self seatViewAtOffset:seat];
+                    seatView.frame = seatFrame;
+                    seat++;
+                    seatFrame = CGRectOffset(seatFrame, dx, dy);
+                }
             }
         }
     }
-
+    else {
+        _seatSlider.frame = CGRectMake(0, 0, self.frame.size.width, 44);
+        tableView.frame = CGRectMake(0, _seatSlider.frame.size.height + 5, self.frame.size.width, self.frame.size.height - _seatSlider.frame.size.height - 5);
+    }
     closeButton.frame = CGRectMake(tableView.frame.origin.x + tableView.frame.size.width + 15 - 30, tableView.frame.origin.y - 15, 30, 29);
     spareSeatView.frame = CGRectMake(- self.frame.origin.x, - self.frame.origin.y, self.seatViewSize.width, self.seatViewSize.height);
 }
@@ -228,23 +254,11 @@
     }
 }
 
-//- (void)editOrder: (Order *)o {
-//    if (_delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(editOrder:)])
-//        [self.delegate editOrder:o];
-//}
-//
-//- (void)makeBillForOrder: (Order *)o {
-//    if (_delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(makeBillForOrder:)])
-//        [self.delegate makeBillForOrder:o];
-//}
-//
-//- (void)getPaymentForOrder: (Order *)o {
-//    if (_delegate == nil) return;
-//    if([self.delegate respondsToSelector:@selector(getPaymentForOrder:)])
-//        [self.delegate getPaymentForOrder:o];
-//}
+- (void)didSelectSeat: (int)seatOffset {
+    self.isTableSelected = NO;
+    if([self.delegate respondsToSelector:@selector(didSelectSeat:)])
+        [self.delegate didSelectSeat: seatOffset];
+}
 
 - (SeatView *)seatViewAtOffset: (NSUInteger)offset
 {
@@ -367,27 +381,39 @@
 
 - (void) setOverlayText: (NSString *) text forSeat: (int)offset
 {
-    for(UIView *view in self.subviews) {
-        if ([view isKindOfClass:[SeatView class]]) {
-            SeatView *seatView = (SeatView *) view;
-            if (seatView.offset == offset)
-                seatView.overlayText = text;
+    if (_seatViewMode == SeatViewModeShowSeats) {
+        for(UIView *view in self.subviews) {
+            if ([view isKindOfClass:[SeatView class]]) {
+                SeatView *seatView = (SeatView *) view;
+                if (seatView.offset == offset)
+                    seatView.overlayText = text;
+            }
         }
+    }
+    else {
+        _seatSlider.subCaption.text = text;
     }
 }
 
 - (NSMutableArray *) selectedGuests
 {
     NSMutableArray *seats = [[NSMutableArray alloc] init];
-    for(UIView *view in self.subviews) {
-        if ([view isKindOfClass:[SeatView class]]) {
-            SeatView *seatView = (SeatView *) view;
-            if (seatView.isSelected) {
-                Guest *guest = [orderInfo getGuestBySeat:seatView.offset];
-                if (guest != nil)
-                    [seats addObject:guest];
+    if (_seatViewMode == SeatViewModeShowSeats) {
+        for(UIView *view in self.subviews) {
+            if ([view isKindOfClass:[SeatView class]]) {
+                SeatView *seatView = (SeatView *) view;
+                if (seatView.isSelected) {
+                    Guest *guest = [orderInfo getGuestBySeat:seatView.offset];
+                    if (guest != nil)
+                        [seats addObject:guest];
+                }
             }
         }
+    }
+    else {
+        Guest *guest = [orderInfo getGuestBySeat: _seatSlider.currentSeat];
+        if (guest != nil)
+            [seats addObject:guest];
     }
     return seats;
 }

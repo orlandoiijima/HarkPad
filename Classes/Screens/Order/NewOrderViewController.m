@@ -68,7 +68,8 @@
     UIColor *panelColor = [UIColor colorWithWhite:0.2 alpha:1];
 
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
-    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo];
+    SeatViewMode viewMode = tableInfo.table.countSeatsTotal >= 8 ? SeatViewModeSlider : SeatViewModeShowSeats;
+    _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo mode: viewMode];
     [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor: panelColor];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
     _tableView.contentTableView = _tableOverlayHud;
@@ -250,10 +251,10 @@
 
 - (void)didSelectSeat:(int)seatOffset {
     Guest *guest = [_order getGuestBySeat:seatOffset];
-    if (guest == nil) return;
     [self updateSeatOverlay];
-    [self.tableOverlayHud showForGuest:[self selectedGuest]];
-    [dataSource highlightRowsInTableView: _orderView forSeat:guest.seat];
+    [self.tableOverlayHud showForGuest: [self selectedGuest]];
+    int seat = guest == nil ? -1 : guest.seat;
+    [dataSource highlightRowsInTableView: _orderView forSeat: seat];
 }
 
 - (void)didSelectTableView:(TableWithSeatsView *)tableView {
