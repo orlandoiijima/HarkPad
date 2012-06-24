@@ -369,13 +369,19 @@
         return TableSideLeft;
     return NSNotFound;
 }
+
 - (void) selectSeat: (int) offset
 {
-    for(UIView *view in self.subviews) {
-        if ([view isKindOfClass:[SeatView class]] && view != spareSeatView) {
-            SeatView *seatView = (SeatView *) view;
-            seatView.isSelected = seatView.offset == offset;
+    if (_seatViewMode == SeatViewModeShowSeats) {
+        for(UIView *view in self.subviews) {
+            if ([view isKindOfClass:[SeatView class]] && view != spareSeatView) {
+                SeatView *seatView = (SeatView *) view;
+                seatView.isSelected = seatView.offset == offset;
+            }
         }
+    }
+    else {
+        _seatSlider.currentSeat = offset;
     }
 }
 
