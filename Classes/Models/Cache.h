@@ -12,6 +12,8 @@
 #import "Map.h"
 #import "TreeNode.h"
 
+@class Config;
+
 @interface Cache : NSObject {
     MenuCard *menuCard;
     Map *map;
@@ -26,5 +28,5 @@
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
-@property (retain) NSMutableDictionary *config;
+@property (retain) Config *config;
 @end

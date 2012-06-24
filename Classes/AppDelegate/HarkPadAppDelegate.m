@@ -14,6 +14,7 @@
 #import "NewOrderViewController.h"
 #import "TableMapViewController.h"
 #import "TestFlight.h"
+#import "Config.h"
 
 @implementation HarkPadAppDelegate
 
@@ -71,7 +72,7 @@
     [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
 
     Cache *cache = [Cache getInstance];
-    cache.config = result.jsonData;
+    cache.config = [Config configFromJson: result.jsonData];
     
     if (result.isSuccess == false) {
         [ModalAlert error:result.error];
@@ -82,10 +83,7 @@
         return;
     }
 
-    NSString *deviceKey = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"iphone" : @"ipad";
-
-    NSDictionary *ipad = [result.jsonData objectForKey: deviceKey];
-    NSDictionary * screen = [ipad objectForKey:@"screen"];
+    NSDictionary *screen = [cache.config getObjectAtPath:@"screen"];
 
     NSMutableDictionary *controllers = [[NSMutableDictionary alloc] init];
     for(NSString *key in screen.allKeys) {

@@ -316,6 +316,7 @@
 		E5F609A313489C2400D886C3 /* SeatSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C2 /* SeatSlider.m */; };
 		E5F609A313489C2400D886C6 /* next48.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C5 /* next48.png */; };
 		E5F609A313489C2400D886C8 /* prev48.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886C7 /* prev48.png */; };
+		E5F609A313489C2400D886CB /* Config.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D886CA /* Config.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -841,6 +842,8 @@
 		E5F609A313489C2400D886C5 /* next48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next48.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D886C7 /* prev48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prev48.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectSeatDelegate.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D886CA /* Config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Config.m; sourceTree = "<group>"; };
+		E5F609A313489C2400D886CC /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1030,6 +1033,8 @@
 		E50A386412E234B8007C2101 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E5F609A313489C2400D886CC /* Config.h */,
+				E5F609A313489C2400D886CA /* Config.m */,
 				E5F609A313489C2400D886C1 /* OrderProxyDelegate.h */,
 				E5F609A313489C2400D8867D /* DTO.h */,
 				E5F609A313489C2400D8867B /* DTO.m */,
@@ -2204,6 +2209,7 @@
 				E5F609A313489C2400D886B6 /* NSString+Utilities.m in Sources */,
 				E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */,
 				E5F609A313489C2400D886C3 /* SeatSlider.m in Sources */,
+				E5F609A313489C2400D886CB /* Config.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

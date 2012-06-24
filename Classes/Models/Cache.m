@@ -8,6 +8,7 @@
 
 #import "Cache.h"
 #import "Service.h"
+#import "Config.h"
 
 @implementation Cache
 

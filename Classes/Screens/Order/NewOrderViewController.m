@@ -13,6 +13,7 @@
 #import "CrystalButton.h"
 #import "ToolbarTitleView.h"
 #import "TestFlight.h"
+#import "Config.h"
 
 @implementation NewOrderViewController
 
@@ -68,7 +69,8 @@
     UIColor *panelColor = [UIColor colorWithWhite:0.2 alpha:1];
 
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
-    SeatViewMode viewMode = tableInfo.table.countSeatsTotal >= 8 ? SeatViewModeSlider : SeatViewModeShowSeats;
+    int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default: 8];
+    SeatViewMode viewMode = tableInfo.table.countSeatsTotal > threshold ? SeatViewModeSlider : SeatViewModeShowSeats;
     _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo mode: viewMode];
     [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor: panelColor];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];
