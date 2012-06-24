@@ -94,11 +94,11 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
         }
 
-        if ([key isEqualToString:@"order"]) {
-            controller = [[NewOrderViewController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Order", nil) image:[UIImage imageNamed:@"food"] tag:1];
-        }
-
+//        if ([key isEqualToString:@"order"]) {
+//            controller = [[NewOrderViewController alloc] init];
+//            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Order", nil) image:[UIImage imageNamed:@"food"] tag:1];
+//        }
+//
         if ([key isEqualToString:@"dashboard"]) {
             controller = [[DashboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
@@ -174,7 +174,8 @@
         if (controller != nil) {
             NSDictionary *screenName = [screen objectForKey:key];
             NSString *index = [screenName objectForKey:@"index"];
-            [controllers setObject:controller forKey:index];
+            if (index != nil)
+                [controllers setObject:controller forKey:index];
         }
     }
 
