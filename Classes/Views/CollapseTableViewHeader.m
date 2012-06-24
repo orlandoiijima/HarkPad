@@ -19,7 +19,7 @@
 
 @synthesize section = _section, delegate = _delegate, tableView = _tableView, imageView, isExpanded, seatGridView, isSelected, label, expandButton;
 
-- (id)initWithFrame:(CGRect)frame section: (NSUInteger) section delegate: (id<OrderDelegate>) delegate tableView: (UITableView *) tableView guests: (NSMutableArray *)guests isExpanded: (BOOL)expanded isSelected: (BOOL)selected
+- (id)initWithFrame:(CGRect)frame section: (NSUInteger) section delegate: (id<OrderDelegate>) delegate tableView: (UITableView *) tableView guests: (NSMutableArray *)guests isExpanded: (BOOL)expanded isSelected: (BOOL)selected  showSeat: (BOOL)showSeat
 {
     self = [super initWithFrame: frame];
     if (self) {
@@ -59,7 +59,7 @@
         labelAction.backgroundColor = [UIColor clearColor];
 
         seatGridView = [SeatGridView viewWithFrame:CGRectMake(frame.size.width - 59, 0, 36, frame.size.height) table:dataSource.order.table guests: guests];
-        if ([labelAction.text length] > 0)
+        if (showSeat == NO || [labelAction.text length] > 0)
             seatGridView.hidden = YES;
 
         [self addSubview: expandButton];

@@ -34,6 +34,6 @@
 @property (retain) UILabel *label;
 @property (retain) UIButton *expandButton;
 
-- (id)initWithFrame:(CGRect)frame section: (NSUInteger) section delegate: (id<OrderDelegate>) delegate tableView: (UITableView *) tableView guests: (NSMutableArray *)guests isExpanded: (BOOL)expanded isSelected: (BOOL)selected;
+- (id)initWithFrame:(CGRect)frame section: (NSUInteger) section delegate: (id<OrderDelegate>) delegate tableView: (UITableView *) tableView guests: (NSMutableArray *)guests isExpanded: (BOOL)expanded isSelected: (BOOL)selected  showSeat: (BOOL)showSeat;
 
 @end

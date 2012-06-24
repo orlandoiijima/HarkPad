@@ -50,8 +50,11 @@
         [_order addCourse];
     }
 
+    int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default: 8];
+    SeatViewMode viewMode = _order.table.countSeatsTotal > threshold ? SeatViewModeSlider : SeatViewModeShowSeats;
+
     self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:byCourse totalizeProducts:NO showFreeProducts:YES showProductProperties:YES isEditable:YES showPrice:NO showEmptySections:YES fontSize: 0];
-    self.dataSource.showSeat = YES;
+    self.dataSource.showSeat = viewMode == SeatViewModeShowSeats;
     self.dataSource.collapsableHeaders = YES;
     self.dataSource.delegate = self;
 
@@ -69,8 +72,6 @@
     UIColor *panelColor = [UIColor colorWithWhite:0.2 alpha:1];
 
     CGRect rect = CGRectInset(self.view.bounds, 5, 5);
-    int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default: 8];
-    SeatViewMode viewMode = tableInfo.table.countSeatsTotal > threshold ? SeatViewModeSlider : SeatViewModeShowSeats;
     _tableView = [TableWithSeatsView viewWithFrame:CGRectMake(0, 0, 100, 100) tableInfo: tableInfo mode: viewMode];
     [self addPanelWithView:_tableView frame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width - orderViewWidth, MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor: panelColor];
     _tableOverlayHud = [[TableOverlayHud alloc] initWithFrame:_tableView.tableView.bounds];

@@ -473,7 +473,7 @@
             }
         }
     }
-    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: _delegate  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false isSelected: sectionInfo.isSelected];
+    CollapseTableViewHeader *viewHeader = [[CollapseTableViewHeader alloc] initWithFrame:CGRectMake(0,0,tableView.bounds.size.width,height) section:section delegate: _delegate  tableView: tableView guests: guestsWithFood isExpanded: (BOOL)sectionInfo.isCollapsed == false isSelected: sectionInfo.isSelected showSeat:showSeat];
     viewHeader.backgroundColor = tableView.backgroundColor;
     return viewHeader;
 }
