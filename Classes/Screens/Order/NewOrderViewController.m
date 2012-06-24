@@ -83,6 +83,7 @@
     _productPanelView.countColumns = 4;
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.topHeaderHeight = 0;
+    _productPanelView.cellPadding = CGSizeMake(3, 3);
     [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:panelColor];
     _productPanelView.leftHeaderWidth = 0;
     _productPanelView.menuDelegate = self;
