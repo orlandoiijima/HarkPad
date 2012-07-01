@@ -8,6 +8,7 @@
 
 #import "WorkInProgressViewController.h"
 #import "ModalAlert.h"
+#import "TestFlight.h"
 
 @implementation WorkInProgressViewController
 
@@ -113,6 +114,7 @@
     [super viewDidAppear:animated];
     isVisible = true;
     [self refreshView];
+    [TestFlight passCheckpoint: [[self class] description]];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

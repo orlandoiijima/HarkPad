@@ -8,6 +8,7 @@
 
 #import "LogViewController.h"
 #import "Service.h"
+#import "TestFlight.h"
 
 @implementation LogViewController
 
@@ -86,11 +87,11 @@
     }
 }
 
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self refresh];	
+    [TestFlight passCheckpoint: [[self class] description]];
 }
 
 - (void)didReceiveMemoryWarning

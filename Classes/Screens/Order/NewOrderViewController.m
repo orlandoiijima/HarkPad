@@ -112,6 +112,7 @@
     Guest *guest = [_order firstGuest];
     if(guest != nil)
         self.selectedSeat = guest.seat;
+    [TestFlight passCheckpoint: [[self class] description]];
 }
 
 - (void) addPanelWithView:(UIView *)view frame:(CGRect) frame margin:(int) margin padding:(int) padding backgroundColor: (UIColor *)color{
@@ -170,6 +171,8 @@
         [view show];
         return;
     }
+    _order.id = serviceResult.id;
+    [[Service getInstance] updateOrderRaven: _order];
 }
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {

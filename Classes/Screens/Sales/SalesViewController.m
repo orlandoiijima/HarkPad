@@ -12,6 +12,7 @@
 #import "NSDate-Utilities.h"
 #import "Utils.h"
 #import "MBProgressHUD.h"
+#import "TestFlight.h"
 
 @implementation SalesViewController
 
@@ -218,12 +219,10 @@
     [self refreshView];
 }
 
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    [self refreshView];
-//}
-
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [TestFlight passCheckpoint: [[self class] description]];
+}
 
 - (void)didReceiveMemoryWarning
 {

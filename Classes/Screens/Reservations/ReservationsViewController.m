@@ -12,6 +12,7 @@
 #import "ModalAlert.h"
 #import "MBProgressHUD.h"
 #import "PreviousReservationsViewController.h"
+#import "TestFlight.h"
 
 @implementation ReservationsViewController
 
@@ -32,6 +33,11 @@
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [TestFlight passCheckpoint: [[self class] description]];
 }
 
 #pragma mark - View lifecycle

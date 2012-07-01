@@ -14,6 +14,7 @@
 #import "NewOrderViewController.h"
 #import "ZoomedTableViewController.h"
 #import "ToolbarTitleView.h"
+#import "TestFlight.h"
 
 @implementation TableMapViewController
 
@@ -725,6 +726,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [TestFlight passCheckpoint: [[self class] description]];
     if (isVisible)
         return;
     isVisible = true;

@@ -789,9 +789,13 @@ static Service *_service;
     
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
 {
-    NSURL *testUrl = [self makeEndPoint:page withQuery:@""];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: testUrl];
+    NSURL *postUrl = [self makeEndPoint:page withQuery:@""];
+    [self postPageCallbackWithUrl: postUrl key:key value:value delegate:delegate callback:callback userData:userData];
+}
+
+- (void)postPageCallbackWithUrl: (NSURL *)postUrl key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: postUrl];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
     NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
@@ -799,6 +803,23 @@ static Service *_service;
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = userData;
     [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
+
+}
+
+- (void) updateOrderRaven:(Order *)order {
+    NSError *error = nil;
+    NSMutableDictionary *orderAsDictionary = [order toDictionary];
+    [orderAsDictionary setObject: [[NSUserDefaults standardUserDefaults] stringForKey:@"env"] forKey:@"location"];
+    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
+    NSURL *shadowUrl = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api/order/updateorder", URL_DEV_SHADOW]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: shadowUrl];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    NSString *postString = [self urlEncode: jsonString];
+    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = nil;
+    [fetcher beginFetchWithDelegate:nil didFinishSelector:nil];
 }
 
 - (NSString *)urlEncode: (NSString *)unencodedString

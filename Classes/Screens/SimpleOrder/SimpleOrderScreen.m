@@ -16,6 +16,7 @@
 #import "ModalAlert.h"
 #import "Utils.h"
 #import "CrystalButton.h"
+#import "TestFlight.h"
 
 @implementation SimpleOrderScreen
 
@@ -268,6 +269,11 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [TestFlight passCheckpoint: [[self class] description]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
