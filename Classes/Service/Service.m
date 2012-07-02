@@ -810,16 +810,16 @@ static Service *_service;
     NSError *error = nil;
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [orderAsDictionary setObject: [[NSUserDefaults standardUserDefaults] stringForKey:@"env"] forKey:@"location"];
+    [orderAsDictionary setObject: [NSNumber numberWithInt: order.id] forKey:@"mysqlId"];
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
     NSURL *shadowUrl = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api/order/updateorder", URL_DEV_SHADOW]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: shadowUrl];
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    NSString *postString = [self urlEncode: jsonString];
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = nil;
-    [fetcher beginFetchWithDelegate:nil didFinishSelector:nil];
+    [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
 }
 
 - (NSString *)urlEncode: (NSString *)unencodedString
