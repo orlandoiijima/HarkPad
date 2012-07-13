@@ -474,6 +474,9 @@
     [districtView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
     CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo:serviceResult.data];
+    if (boundingRect.size.width == 0) {
+        return;
+    }
     mapScaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;
     if(mapScaleX * boundingRect.size.height > districtView.bounds.size.height)
         mapScaleX = ((float)districtView.bounds.size.height - 20) / boundingRect.size.height;

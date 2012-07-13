@@ -37,6 +37,8 @@ static Service *_service;
             url = URL_CLUB;
         else if([env isEqualToString:@"cafe5"])
             url = URL_CAFE5;
+        else if([env isEqualToString:@"droog"])
+            url = URL_DROOG;
         else
             url = URL_DEV;
     }

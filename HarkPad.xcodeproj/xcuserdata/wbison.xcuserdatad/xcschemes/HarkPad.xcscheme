@@ -52,13 +52,13 @@
       </BuildableProductRunnable>
       <EnvironmentVariables>
          <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
+            key = "env"
+            value = "mooi"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "env"
-            value = "dev"
+            key = "NSZombieEnabled"
+            value = "YES"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

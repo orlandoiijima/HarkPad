@@ -28,7 +28,7 @@
 			<key>Key</key>
 			<string>key</string>
 			<key>DefaultValue</key>
-			<string>1.2 (9)</string>
+			<string>1.2 (14)</string>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -47,9 +47,10 @@
 			<array>
 				<string>Anna</string>
 				<string>Anna Test</string>
-                <string>Frascati</string>
-                <string>Club</string>
-                <string>Cafe5</string>
+				<string>Frascati</string>
+				<string>Club</string>
+				<string>Cafe5</string>
+				<string>Droog</string>
 			</array>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
@@ -57,9 +58,10 @@
 			<array>
 				<string>anna</string>
 				<string>annatest</string>
-                <string>frascati</string>
-                <string>club</string>
-                <string>cafe5</string>
+				<string>frascati</string>
+				<string>club</string>
+				<string>cafe5</string>
+				<string>droog</string>
 			</array>
 		</dict>
 	</array>

@@ -172,7 +172,7 @@
         return;
     }
     _order.id = serviceResult.id;
-    [[Service getInstance] updateOrderRaven: _order];
+//    [[Service getInstance] updateOrderRaven: _order];
 }
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {

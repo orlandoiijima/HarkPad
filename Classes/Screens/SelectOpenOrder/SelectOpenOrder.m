@@ -101,8 +101,19 @@
         [self selectReservation];
     }
 
-    BillPdf *pdf = [BillPdf billByOrder:orderView.order];
-    [pdf create];
+//    BillPdf *pdf = [BillPdf billByOrder:orderView.order];
+//    NSString *pdfFilename = [pdf create];
+//
+//    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
+//    if ([UIPrintInteractionController canPrintData: pdfData]) {
+//        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+//        controller.printingItem = pdfData;
+//        UIPrintInfo *info = [UIPrintInfo printInfo];
+//        info.jobName = pdfFilename;
+//        info.outputType = UIPrintInfoOutputGeneral;
+//        controller.printInfo = info;
+//        [controller presentAnimated:YES completionHandler:nil];
+//    }
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)tapGestureRecognizer shouldReceiveTouch:(UITouch *)touch {

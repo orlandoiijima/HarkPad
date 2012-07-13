@@ -54,9 +54,10 @@
 
 - (void) getConfig
 {
-    [MBProgressHUD showProgressAddedTo: tabBarController.view withText: NSLocalizedString(@"Loading configuration", nil)];
-    
     Service *service = [Service getInstance];
+
+    [MBProgressHUD showProgressAddedTo: tabBarController.view withText:[NSString stringWithFormat: NSLocalizedString(@"Loading configuration for %@", nil), service.url]];
+    
     if ([service checkReachability] == NO) {
         [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
         NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Service unavailable at %@", nil), service.host];
