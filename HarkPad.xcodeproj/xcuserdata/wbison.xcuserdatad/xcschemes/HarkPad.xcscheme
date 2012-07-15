@@ -53,7 +53,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "env"
-            value = "mooi"
+            value = "annatest"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable

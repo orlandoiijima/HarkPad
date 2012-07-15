@@ -12,4 +12,10 @@
 
 }
 
++ (NSMutableArray *) templateFromJson:(NSMutableArray *)infoJson
+{
+    PrintTemplate *template = [[PrintTemplate alloc] init];
+    return template;
+}
+
 @end

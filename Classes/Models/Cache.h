@@ -13,12 +13,14 @@
 #import "TreeNode.h"
 
 @class Config;
+@class PrintInfo;
 
 @interface Cache : NSObject {
     MenuCard *menuCard;
     Map *map;
     NSMutableArray *productProperties;
     TreeNode *tree;
+    PrintInfo *printInfo;
 }
 
 + (Cache *) getInstance;
@@ -29,4 +31,8 @@
 @property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
 @property (retain) Config *config;
+@property(nonatomic, strong) PrintInfo *printInfo;
+
+- (void) loadFromJson:(NSMutableArray *)json;
+
 @end

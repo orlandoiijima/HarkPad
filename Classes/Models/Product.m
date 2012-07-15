@@ -30,25 +30,25 @@
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Product *product = [[Product alloc] initWithJson:jsonDictionary];
-    product.key = [jsonDictionary objectForKey:@"key"];
-    product.name = [jsonDictionary objectForKey:@"name"];
+    product.key = [jsonDictionary objectForKey:@"Key"];
+    product.name = [jsonDictionary objectForKey:@"Name"];
     if(product.name == nil)
         product.name = [NSString stringWithString:product.key];
-    product.description = [jsonDictionary objectForKey:@"description"];
-    product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
+    product.description = [jsonDictionary objectForKey:@"Description"];
+    product.sortOrder = [[jsonDictionary objectForKey:@"SortOrder"] intValue];
     product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
     product.isDeleted = (BOOL)[[jsonDictionary objectForKey:@"isDeleted"] intValue];
-    id vat = [jsonDictionary objectForKey:@"vat"];
+    id vat = [jsonDictionary objectForKey:@"Vat"];
     if (vat != nil)
     {
         product.vat = (Vat) [vat intValue];
     }
-    product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
-    id val = [jsonDictionary objectForKey:@"diet"];
+    product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"Price"] decimalValue]];
+    id val = [jsonDictionary objectForKey:@"Diet"];
     if (val != nil)
         product.diet = [val intValue];
 
-    id props =  [jsonDictionary objectForKey:@"properties"];
+    id props =  [jsonDictionary objectForKey:@"Properties"];
     if (props != nil) {
         for(NSDictionary *item in props)
         {

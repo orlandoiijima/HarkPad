@@ -90,7 +90,7 @@
 - (void) getUsers: (id) delegate callback: (SEL)callback;
 - (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback;
 
-- (void) getDeviceConfig: (id) delegate callback: (SEL)callback;
+- (void) getConfig: (id) delegate callback: (SEL)callback;
 
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
@@ -101,5 +101,7 @@
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
+- (void) getConfig:(id)delegate callback:(SEL)callback;
+- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback;
 
 @end

@@ -65,7 +65,7 @@
         [view show];
         return;
     }
-    [service getDeviceConfig:self callback:@selector(setupBarControllerCallback:)];
+    [service getConfig:self callback:@selector(setupBarControllerCallback:)];
 }
 
 - (void) setupBarControllerCallback: (ServiceResult *)result
@@ -73,8 +73,7 @@
     [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
 
     Cache *cache = [Cache getInstance];
-    cache.config = [Config configFromJson: result.jsonData];
-    
+
     if (result.isSuccess == false) {
         [ModalAlert error:result.error];
         IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
@@ -83,6 +82,8 @@
         tabBarController.viewControllers = [NSArray arrayWithObject:controller];
         return;
     }
+
+    [cache loadFromJson: result.jsonData];
 
     NSDictionary *screen = [cache.config getObjectAtPath:@"screen"];
 

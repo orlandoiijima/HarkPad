@@ -19,6 +19,8 @@
 @synthesize url;
 @dynamic host;
 
+#define API_VERSION @"v1"
+
 static Service *_service;
 
 - (id)init {
@@ -129,7 +131,7 @@ static Service *_service;
 	return [TreeNode nodeFromJsonDictionary:[self getResultFromJson:data] parent:nil];
 }
 
-- (Map *) getMap
+- (Map *)getMap
 {
     id data = [self getFromUrlWithCommand:@"getmap" query:@""];
 	return [Map mapFromJson: data];
@@ -822,6 +824,33 @@ static Service *_service;
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = nil;
     [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
+}
+
+- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
+    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+    [invocation setTarget:delegate];
+    [invocation setSelector:callback];
+
+    NSString *location =  @"annatest";//[[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, location, resource];
+    if (id != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
+    [request setHTTPMethod: method];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if (body != nil) {
+        NSError *error = nil;
+        NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
+        [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = invocation;
+    [fetcher beginFetchWithDelegate:self didFinishSelector: @selector(simpleCallback:finishedWithData:error:)];
+}
+
+- (void) getConfig:(id)delegate callback:(SEL)callback {
+    [self requestResource:@"config" method:@"GET" id:nil body:nil delegate:delegate callback:callback];
 }
 
 - (NSString *)urlEncode: (NSString *)unencodedString

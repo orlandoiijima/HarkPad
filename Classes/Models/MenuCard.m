@@ -21,10 +21,10 @@
     return self;
 }
 
-+ (MenuCard *) menuFromJson:(NSMutableArray *)jsonCategories
++ (MenuCard *) menuFromJson:(NSMutableDictionary *)jsonCategories
 {
     MenuCard *menu = [[MenuCard alloc] init];
-    for(NSDictionary *categoryDic in jsonCategories)
+    for(NSDictionary *categoryDic in [jsonCategories valueForKey:@"Categories"])
     {
         ProductCategory *category = [ProductCategory categoryFromJsonDictionary: categoryDic]; 
         [menu.categories addObject:category];

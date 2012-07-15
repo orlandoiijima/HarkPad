@@ -15,7 +15,7 @@
     NSMutableArray *districts;    
 }
 
-+ (Map *) mapFromJson: (NSMutableArray *) jsonArray;
++ (Map *) mapFromJson: (NSMutableDictionary *) jsonArray;
 - (Table *) getTable: (int) tableId;
 - (District *) getDistrict: (int) tableId;
 

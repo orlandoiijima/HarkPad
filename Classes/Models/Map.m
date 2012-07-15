@@ -19,10 +19,10 @@
     return self;
 }
 
-+ (Map *) mapFromJson:(NSMutableArray *)d
++ (Map *) mapFromJson:(NSMutableDictionary *)d
 {
     Map *map = [[Map alloc] init];
-    for(NSDictionary *districtDic in d)
+    for(NSDictionary *districtDic in [d valueForKey:@"Districts"])
     {
         District *district = [District districtFromJsonDictionary: districtDic]; 
         [map.districts addObject:district];

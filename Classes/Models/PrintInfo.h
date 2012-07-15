@@ -8,8 +8,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PrintTemplate : NSObject
+@interface PrintInfo : NSObject
+@property(nonatomic, strong) NSMutableArray *templates;
 
-+ (NSMutableArray *) templateFromJson:(NSMutableArray *)infoJson;
++ (PrintInfo *) infoFromJson:(NSMutableArray *)infoJson;
 
 @end

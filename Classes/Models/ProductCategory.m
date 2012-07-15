@@ -27,19 +27,19 @@
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     ProductCategory *category = [[ProductCategory alloc] init];
-    category.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    category.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
-    category.name = [jsonDictionary objectForKey:@"name"];
-    category.isFood = (BOOL)[[jsonDictionary objectForKey:@"isFood"] intValue];
-    char *c = (char*)[[jsonDictionary objectForKey:@"color"] UTF8String];
-    unsigned long color = strtoul(c, nil, strlen(c));
-    float red = ((color >> 24) & 0xFF) / 255.0;
-    float green = ((color >> 16) & 0xFF) / 255.0;
-    float blue = ((color >> 8) & 0xFF) / 255.0;
-    float alpha = (color & 0xFF) / 255.0; 
-    category.color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+//    category.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    category.sortOrder = [[jsonDictionary objectForKey:@"SortOrder"] intValue];
+    category.name = [jsonDictionary objectForKey:@"Name"];
+    category.isFood = (BOOL)[[jsonDictionary objectForKey:@"IsFood"] intValue];
+//    char *c = (char*)[[jsonDictionary objectForKey:@"Color"] UTF8String];
+//    unsigned long color = strtoul(c, nil, strlen(c));
+//    float red = ((color >> 24) & 0xFF) / 255.0;
+//    float green = ((color >> 16) & 0xFF) / 255.0;
+//    float blue = ((color >> 8) & 0xFF) / 255.0;
+//    float alpha = (color & 0xFF) / 255.0;
+//    category.color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     category.products = [[NSMutableArray alloc] init];
-    id products = [jsonDictionary objectForKey:@"products"];
+    id products = [jsonDictionary objectForKey:@"MenuItems"];
     for(NSDictionary *item in products)
     {
         Product *product = [Product productFromJsonDictionary: item]; 
