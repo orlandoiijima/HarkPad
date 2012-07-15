@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
@@ -320,6 +321,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintTemplate.h; sourceTree = "<group>"; };
+		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintTemplate.m; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
 		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlotDataSource.m; path = Models/SlotDataSource.m; sourceTree = "<group>"; };
@@ -1033,6 +1036,8 @@
 		E50A386412E234B8007C2101 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D0A7225076CA694DBDC5D765 /* PrintTemplate.h */,
+				D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */,
 				E5F609A313489C2400D886CC /* Config.h */,
 				E5F609A313489C2400D886CA /* Config.m */,
 				E5F609A313489C2400D886C1 /* OrderProxyDelegate.h */,
@@ -2210,6 +2215,7 @@
 				E5F609A313489C2400D886BF /* UIImage+TBKMasking.m in Sources */,
 				E5F609A313489C2400D886C3 /* SeatSlider.m in Sources */,
 				E5F609A313489C2400D886CB /* Config.m in Sources */,
+				D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
