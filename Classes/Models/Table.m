@@ -28,7 +28,7 @@
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Table *table = [[Table alloc] init];
-    table.name = [jsonDictionary objectForKey:@"name"];
+    table.name = [jsonDictionary objectForKey:@"Name"];
     table.id = [[jsonDictionary objectForKey:@"id"] intValue];
 
     id dockedTo = [jsonDictionary objectForKey:@"dockedToTableId"];
@@ -39,17 +39,24 @@
     if(isDocked != nil)
         table.isDocked = (BOOL)[isDocked intValue];
 
-    id countSeats = [jsonDictionary objectForKey:@"countSeats"];
-    if (countSeats != nil)
-        table.countSeatsPerSide = [NSMutableArray arrayWithArray: countSeats];
+    id countSeats = [jsonDictionary objectForKey:@"CountOfSeats"];
+    if (countSeats != nil) {
+        table.countSeatsPerSide = [NSMutableArray arrayWithObjects:
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"Top"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"Right"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"Bottom"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"Left"] intValue]], nil];
+    }
     else
         table.countSeatsPerSide = [NSMutableArray arrayWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
 
-    NSNumber *left = [jsonDictionary objectForKey:@"l"];
-    NSNumber *top =  [jsonDictionary objectForKey:@"t"];
-    NSNumber *width = [jsonDictionary objectForKey:@"w"];
-    NSNumber *height = [jsonDictionary objectForKey:@"h"];
-    table.bounds = CGRectMake([left floatValue], [top floatValue], [width floatValue], [height floatValue]);
+    NSString * frame = [jsonDictionary objectForKey:@"Frame"];
+    NSArray *frameParts = [frame componentsSeparatedByString:@","];
+    float left = [[frameParts objectAtIndex:0] floatValue];
+    float top = [[frameParts objectAtIndex:1] floatValue];
+    float width = [[frameParts objectAtIndex:2] floatValue];
+    float height = [[frameParts objectAtIndex:3] floatValue];
+    table.bounds = CGRectMake(left, top, width, height);
     return table;
 }
 

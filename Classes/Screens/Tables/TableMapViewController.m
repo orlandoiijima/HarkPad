@@ -230,7 +230,7 @@
 
 - (void) revertDrag
 {
-    District *district = [[[Cache getInstance] map] getDistrict: dragTableView.table.id];
+    District *district = [[[Cache getInstance] map] getDistrict: dragTableView.table.name];
     self.currentDistrictOffset = [self offsetOfDistrict:district];
     [UIView animateWithDuration:0.3 animations:^{
         dragTableView.center = dragTableOriginalCenter;
@@ -404,7 +404,7 @@
         return;
     if (self.currentDistrict == nil) return;
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getTablesInfoForDistrict: self.currentDistrict.id delegate: self callback:@selector(refreshViewWithInfo:)];
+    [[Service getInstance] getTablesInfoForDistrict: self.currentDistrict.name delegate: self callback:@selector(refreshViewWithInfo:)];
 }
 
 - (CGRect)boundingRectForDistrict: (int)district tableInfo: (NSMutableArray *)info
@@ -418,9 +418,9 @@
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
-        District *infoDistrict = [map getDistrict:tableInfo.table.id];
+        District *infoDistrict = [map getDistrict:tableInfo.table.name];
         if(infoDistrict == nil) {
-            NSLog(@"district not found for table id %d", tableInfo.table.id);
+            NSLog(@"district not found for table id %@", tableInfo.table.name);
             continue;
         }
         if(district == [self offsetOfDistrict: infoDistrict]) {
@@ -485,7 +485,7 @@
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
-        if (tableInfo.table.district.id == district.id) {
+        if ([tableInfo.table.district isEqual: district]) {
             TableWithSeatsView *tableView = [self createTable:tableInfo offset: mapOffset scale: CGPointMake(mapScaleX, mapScaleX)];
             [districtView addSubview:tableView];
         }
@@ -495,7 +495,7 @@
 - (void) setupAllDistricts
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getTablesInfoForDistrict: -1 delegate: self callback:@selector(refreshAllViewWithInfo:)];
+    [[Service getInstance] getTablesInfoForDistrict: nil delegate: self callback:@selector(refreshAllViewWithInfo:)];
 }
 
 

@@ -21,6 +21,7 @@
     NSMutableArray *productProperties;
     TreeNode *tree;
     PrintInfo *printInfo;
+    Config *config;
 }
 
 + (Cache *) getInstance;
@@ -33,6 +34,6 @@
 @property (retain) Config *config;
 @property(nonatomic, strong) PrintInfo *printInfo;
 
-- (void) loadFromJson:(NSMutableArray *)json;
+- (void) loadFromJson:(NSMutableDictionary *)json;
 
 @end

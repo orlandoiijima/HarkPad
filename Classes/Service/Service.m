@@ -13,6 +13,7 @@
 #import "urls.h"
 #import "User.h"
 #import "Reachability.h"
+#import "CallbackInfo.h"
 
 @implementation Service
 
@@ -239,44 +240,6 @@ static Service *_service;
     NSError *error = nil;
     NSString *jsonString = [[CJSONSerializer serializer] serializeObject: tableIds error:&error];
     [self postPageCallback: @"DockTables" key: @"tables" value: jsonString  delegate: nil callback: nil userData: nil];
-}
-
-- (void) getTablesInfoForDistrict:(int)districtId delegate: (id) delegate callback: (SEL)callback
-{
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"gettablesinfo"
-                withQuery:[NSString stringWithFormat:@"districtId=%d", districtId]
-                 delegate: self
-                 callback:@selector(getTablesInfoCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    if (result.isSuccess) {
-        NSMutableArray *tablesDic = [self getResultFromJson: data];
-        NSMutableArray *tables = [[NSMutableArray alloc] init];
-        for(NSDictionary *tableDic in tablesDic)
-        {
-            TableInfo *tableInfo = [[TableInfo alloc] init];
-            tableInfo.table = [Table tableFromJsonDictionary: tableDic];
-            if (tableInfo.table == nil) continue;
-            tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.id];
-            NSDictionary *orderDic = [tableDic objectForKey:@"order"];
-            if(orderDic != nil)
-                tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
-            [tables addObject:tableInfo];
-        }
-        result.data = tables;
-    }
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
 }
 
 - (void) setGender: (NSString *)gender forGuest: (int)guestId
@@ -574,66 +537,6 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
-- (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback
-{
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getopenorderbytable"
-                withQuery:[NSString stringWithFormat:@"tableId=%d", tableId]
-                 delegate:self
-                 callback:@selector(getOpenOrderByTableCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getOpenOrderByTableCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    if (result.isSuccess) {
-        NSDictionary *orderDic = [self getResultFromJson:data];
-           if(orderDic != nil && [orderDic count] > 0) {
-               result.data = [Order orderFromJsonDictionary:orderDic];
-           }
-    }
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
-}
-
-- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback
-{
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getopenorders"
-                withQuery:[NSString stringWithFormat:@"districtId=%d", districtId]
-                 delegate:self
-                 callback:@selector(getOpenOrdersCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getOpenOrdersCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-    
-    if (result.isSuccess) {
-        NSMutableArray *ordersDic = [self getResultFromJson: data];
-        NSMutableArray *orders = [[NSMutableArray alloc] init];
-        for(NSDictionary *orderDic in ordersDic)
-        {
-           Order *order = [Order orderFromJsonDictionary: orderDic];
-           [orders addObject:order];
-        }
-
-        result.data = orders;
-    }
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
-}
 
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
 {
@@ -826,6 +729,123 @@ static Service *_service;
     [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
 }
 
+
+- (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
+{
+    id converter = ^(NSDictionary *district)
+        {
+            NSMutableArray *tables = [[NSMutableArray alloc] init];
+            NSArray *tablesDic = [district objectForKey:@"Tables"];
+            for(NSDictionary *tableDic in tablesDic) {
+                TableInfo *tableInfo = [[TableInfo alloc] init];
+                tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+                if (tableInfo.table == nil) continue;
+                tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.name];
+                NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
+                if(orderDic != nil)
+                    tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
+                [tables addObject:tableInfo];
+            }
+            return tables;
+        };
+
+    [self getRequestResource:@"DistrictInfo"
+                          id: district
+                   converter: converter
+                    delegate: delegate
+                    callback: callback];
+}
+
+//- (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+//{
+//   ServiceResult *result = [ServiceResult resultFromData:data error:error];
+//
+//   if (result.isSuccess) {
+//       NSMutableArray *tablesDic = [self getResultFromJson: data];
+//       NSMutableArray *tables = [[NSMutableArray alloc] init];
+//       for(NSDictionary *tableDic in tablesDic)
+//       {
+//           TableInfo *tableInfo = [[TableInfo alloc] init];
+//           tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+//           if (tableInfo.table == nil) continue;
+//           tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.name];
+//           NSDictionary *orderDic = [tableDic objectForKey:@"order"];
+//           if(orderDic != nil)
+//               tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
+//           [tables addObject:tableInfo];
+//       }
+//       result.data = tables;
+//   }
+//   NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+//   [invocation setArgument:&result atIndex:2];
+//   [invocation invoke];
+//}
+
+- (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback
+{
+    [self getRequestResource:@"TableOrder"
+                          id: tableId
+                   converter: ^(NSDictionary *dictionary)
+                   {
+                        return [Order orderFromJsonDictionary: dictionary];
+                   }
+                    delegate: delegate
+                    callback: callback];
+}
+
+//- (void) getOpenOrderByTableCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+//{
+//    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+//
+//    if (result.isSuccess) {
+//        NSDictionary *orderDic = [self getResultFromJson:data];
+//           if(orderDic != nil && [orderDic count] > 0) {
+//               result.data = [Order orderFromJsonDictionary:orderDic];
+//           }
+//    }
+//    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+//    [invocation setArgument:&result atIndex:2];
+//    [invocation invoke];
+//}
+
+- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback
+{
+    [self getRequestResource: @"TableOrder"
+                          id: nil
+                   converter: ^(NSDictionary *ordersDic)
+                       {
+                           NSMutableArray *orders = [[NSMutableArray alloc] init];
+                           for(NSDictionary *orderDic in ordersDic)
+                           {
+                              Order *order = [Order orderFromJsonDictionary: orderDic];
+                              [orders addObject:order];
+                           }
+                           return orders;
+                       }
+                    delegate: delegate
+                    callback: callback];
+}
+
+//- (void) getOpenOrdersCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+//{
+//    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+//
+//    if (result.isSuccess) {
+//        NSMutableArray *ordersDic = [self getResultFromJson: data];
+//        NSMutableArray *orders = [[NSMutableArray alloc] init];
+//        for(NSDictionary *orderDic in ordersDic)
+//        {
+//           Order *order = [Order orderFromJsonDictionary: orderDic];
+//           [orders addObject:order];
+//        }
+//
+//        result.data = orders;
+//    }
+//    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
+//    [invocation setArgument:&result atIndex:2];
+//    [invocation invoke];
+//}
+
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
@@ -847,6 +867,40 @@ static Service *_service;
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = invocation;
     [fetcher beginFetchWithDelegate:self didFinishSelector: @selector(simpleCallback:finishedWithData:error:)];
+}
+
+- (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback {
+    CallbackInfo *info = [CallbackInfo infoWithDelegate:delegate callback:callback converter:converter];
+
+    NSString *location =  @"annatest";//[[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, location, resource];
+    if (id != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
+    [request setHTTPMethod: @"GET"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    if (body != nil) {
+//        NSError *error = nil;
+//        NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
+//        [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+//    }
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = info;
+    [fetcher beginFetchWithDelegate: self didFinishSelector:@selector(callbackWithConversion:finishedWithData:error:)];
+}
+
+- (void) callbackWithConversion:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    CallbackInfo *info = fetcher.userData;
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        if (info.converter != nil)
+            result.data = info.converter([self getResultFromJson:data]);
+    }
+    [info.invocation setArgument:&result atIndex:2];
+    [info.invocation invoke];
+
 }
 
 - (void) getConfig:(id)delegate callback:(SEL)callback {

@@ -29,11 +29,11 @@
 {
     Menu *menu = [[Menu alloc] init];
     menu.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    menu.price = [jsonDictionary objectForKey:@"price"];
-    menu.key = [jsonDictionary objectForKey:@"key"];
-    menu.name = [jsonDictionary objectForKey:@"name"];
+    menu.price = [jsonDictionary objectForKey:@"Price"];
+    menu.key = [jsonDictionary objectForKey:@"Key"];
+    menu.name = [jsonDictionary objectForKey:@"Name"];
     menu.items = [[NSMutableArray alloc] init];
-    id items = [jsonDictionary objectForKey:@"items"];
+    id items = [jsonDictionary objectForKey:@"Items"];
     for(NSDictionary *item in items)
     {
         MenuItem *menuItem = [MenuItem menuItemFromJsonDictionary: item]; 

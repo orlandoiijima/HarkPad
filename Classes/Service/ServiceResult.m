@@ -27,7 +27,8 @@
 {
     ServiceResult *serviceResult = [[ServiceResult alloc] init];
     if (connectionError != nil) {
-        serviceResult.error = [connectionError localizedDescription];
+        serviceResult.error = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        serviceResult.error = [connectionError localizedDescription];
         return serviceResult;
     }
     if((NSNull *)data == [NSNull null] || [data length] == 0) {

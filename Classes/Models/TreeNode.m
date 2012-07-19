@@ -16,20 +16,20 @@
 + (TreeNode *) nodeFromJsonDictionary: (NSDictionary *)jsonDictionary parent: (TreeNode *) parent
 {
     TreeNode *node = [[TreeNode alloc] init];
-    node.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    node.name = [jsonDictionary objectForKey:@"name"];
+    node.id = [[jsonDictionary objectForKey:@"Id"] intValue];
+    node.name = [jsonDictionary objectForKey:@"Name"];
     node.parent = parent;
-    NSString *color = [jsonDictionary objectForKey:@"color"];
+    NSString *color = [jsonDictionary objectForKey:@"Color"];
     if(color != nil)
         node.color = [node getColor:color];
-    NSNumber *productId = [jsonDictionary objectForKey:@"productId"];
+    NSNumber *productId = [jsonDictionary objectForKey:@"ProductId"];
     if(productId != nil && (NSNull *)productId != [NSNull null])
         node.product = [[[Cache getInstance] menuCard] getProduct:[productId intValue]];
-    NSNumber *menuId = [jsonDictionary objectForKey:@"menuId"];
+    NSNumber *menuId = [jsonDictionary objectForKey:@"MenuId"];
     if(menuId != nil)
         node.menu = [[[Cache getInstance] menuCard] getMenu:[menuId intValue]];
     [parent.nodes addObject: node];
-    id nodes = [jsonDictionary objectForKey:@"nodes"];
+    id nodes = [jsonDictionary objectForKey:@"Nodes"];
     for(NSDictionary *childDic in nodes)
     {
         [TreeNode nodeFromJsonDictionary: childDic parent: node]; 
@@ -53,15 +53,15 @@
     if (self.id != 0)
         [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     if (self.parent != nil) {
-        [dic setObject: [NSNumber numberWithInt:self.parent.id] forKey:@"parentId"];
-        [dic setObject: [NSNumber numberWithInt:[self.parent.nodes indexOfObject:self]] forKey:@"sortOrder"];
+        [dic setObject: [NSNumber numberWithInt:self.parent.id] forKey:@"ParentId"];
+        [dic setObject: [NSNumber numberWithInt:[self.parent.nodes indexOfObject:self]] forKey:@"SortOrder"];
     }
     if ([self.name length] > 0)
-        [dic setObject: self.name forKey:@"name"];
+        [dic setObject: self.name forKey:@"Name"];
     if (self.product != nil)
-        [dic setObject: [NSNumber numberWithInt: self.product.id] forKey:@"productId"];
+        [dic setObject: [NSNumber numberWithInt: self.product.id] forKey:@"ProductId"];
     if (self.menu != nil)
-        [dic setObject: [NSNumber numberWithInt: self.menu.id] forKey:@"menuId"];
+        [dic setObject: [NSNumber numberWithInt: self.menu.id] forKey:@"MenuId"];
     return dic;
 }
 

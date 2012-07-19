@@ -85,12 +85,12 @@
 
     [cache loadFromJson: result.jsonData];
 
-    NSDictionary *screen = [cache.config getObjectAtPath:@"screen"];
+    NSArray *screens = [cache.config getObjectAtPath:@"Screens"];
 
-    NSMutableDictionary *controllers = [[NSMutableDictionary alloc] init];
-    for(NSString *key in screen.allKeys) {
+    NSMutableArray *controllers = [[NSMutableArray alloc] init];
+    for(NSString *screen in screens) {
         UIViewController *controller = nil;
-        if ([key isEqualToString:@"tables"]) {
+        if ([screen isEqualToString:@"tables"]) {
             TableMapViewController *tableMapViewController = [[TableMapViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
@@ -101,27 +101,27 @@
 //            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Order", nil) image:[UIImage imageNamed:@"food"] tag:1];
 //        }
 //
-        if ([key isEqualToString:@"dashboard"]) {
+        if ([screen isEqualToString:@"dashboard"]) {
             controller = [[DashboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
         }
 
-        if ([key isEqualToString:@"chef"]) {
+        if ([screen isEqualToString:@"chef"]) {
             controller = [[ChefViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Chef" image:[UIImage imageNamed:@"star"] tag:1];
         }
 
-        if ([key isEqualToString:@"inprogress"]) {
+        if ([screen isEqualToString:@"inprogress"]) {
             controller = [[WorkInProgressViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Serve", nil) image:[UIImage imageNamed:@"food"] tag:1];
         }
 
-        if ([key isEqualToString:@"sales"]) {
+        if ([screen isEqualToString:@"sales"]) {
             controller = [[SalesViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Sales", nil) image:[UIImage imageNamed:@"creditcard"] tag:1];
         }
 
-        if ([key isEqualToString:@"reservations"]) {
+        if ([screen isEqualToString:@"reservations"]) {
             if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
             {
                 ReservationsSimple *reservationsController = [[ReservationsSimple alloc] init];
@@ -134,58 +134,51 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Reservations", nil) image:[UIImage imageNamed:@"calendar"] tag:1];
         }
 
-        if ([key isEqualToString:@"log"]) {
+        if ([screen isEqualToString:@"log"]) {
             controller = [[LogViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
-        if ([key isEqualToString:@"settings"]) {
+        if ([screen isEqualToString:@"settings"]) {
             IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
         }
 
-        if ([key isEqualToString:@"quickorder"]) {
+        if ([screen isEqualToString:@"quickorder"]) {
             SimpleOrderScreen *simpleOrderScreen = [[SimpleOrderScreen alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: simpleOrderScreen];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Quick" image:[UIImage imageNamed:@"fork-and-knife"] tag:2];
         }
         
-        if ([key isEqualToString:@"orders"]) {
+        if ([screen isEqualToString:@"orders"]) {
             SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeOverview title: NSLocalizedString(@"Running orders", nil)];
             controller = [[UINavigationController alloc] initWithRootViewController: selectOpenOrder];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
-        if ([key isEqualToString:@"bills"]) {
+        if ([screen isEqualToString:@"bills"]) {
             InvoicesViewController *invoicesViewController = [[InvoicesViewController alloc] initWithStyle:UITableViewStyleGrouped];
             controller = [[UINavigationController alloc] initWithRootViewController: invoicesViewController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
-        if ([key isEqualToString:@"products"]) {
+        if ([screen isEqualToString:@"products"]) {
             controller = [[ProductMaintenance alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
-        if ([key isEqualToString:@"menutree"]) {
+        if ([screen isEqualToString:@"menutree"]) {
             controller = [[MenuTreeMaintenance alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menu", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if (controller != nil) {
-            NSDictionary *screenName = [screen objectForKey:key];
-            NSString *index = [screenName objectForKey:@"index"];
-            if (index != nil)
-                [controllers setObject:controller forKey:index];
+            [controllers addObject: controller];
         }
     }
 
-    id sortedIndices = [[controllers allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSMutableArray *sortedControllers = [[NSMutableArray alloc] init];
-    for(NSString *key in sortedIndices)
-        [sortedControllers addObject:[controllers objectForKey:key]];
-    tabBarController.viewControllers = sortedControllers;
+    tabBarController.viewControllers = controllers;
 }
 
 @end

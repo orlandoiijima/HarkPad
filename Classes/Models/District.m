@@ -23,10 +23,10 @@
 + (District *) districtFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     District *district = [[District alloc] init];
-    district.name = [jsonDictionary objectForKey:@"name"];
-    district.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    district.name = [jsonDictionary objectForKey:@"Name"];
+    district.id = [[jsonDictionary objectForKey:@"Id"] intValue];
     district.tables = [[NSMutableArray alloc] init];
-    id tables = [jsonDictionary objectForKey:@"tables"];
+    id tables = [jsonDictionary objectForKey:@"Tables"];
     for(NSDictionary *item in tables)
     {
         Table *table = [Table tableFromJsonDictionary: item]; 
@@ -56,5 +56,8 @@
     return rect;
 }
 
+- (BOOL)isEqual:(District *) district {
+    return [name isEqualToString: district.name];
+}
 
 @end

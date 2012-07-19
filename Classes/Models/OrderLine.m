@@ -21,29 +21,29 @@
 {
     OrderLine *orderLine = [[OrderLine alloc] initWithJson:jsonDictionary];
     orderLine.order = order;
-    int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
+    int productId = [[jsonDictionary objectForKey:@"ProductId"] intValue];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
-    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
+    NSNumber *seconds = [jsonDictionary objectForKey:@"CreatedOn"];
     orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     
-    id val = [jsonDictionary objectForKey:@"quantity"];
+    id val = [jsonDictionary objectForKey:@"Quantity"];
     if((NSNull *)val != [NSNull null])
         orderLine.quantity = [val intValue];
     
-    val = [jsonDictionary objectForKey:@"sortOrder"];
+    val = [jsonDictionary objectForKey:@"SortOrder"];
     if((NSNull *)val != [NSNull null])
         orderLine.sortOrder = [val intValue];
     
-    val = [jsonDictionary objectForKey:@"state"];
+    val = [jsonDictionary objectForKey:@"State"];
     if((NSNull *)val != [NSNull null])
         orderLine.state = (State)[val intValue];
     
-    val = [jsonDictionary objectForKey:@"note"];
+    val = [jsonDictionary objectForKey:@"Note"];
     if((NSNull *)val != [NSNull null])
         orderLine.note = val;
     
     if(order != nil) {
-        val = [jsonDictionary objectForKey:@"seat"];
+        val = [jsonDictionary objectForKey:@"Seat"];
         if (val != nil) {
             int seat = [val intValue];
             orderLine.guest = [orderLine getGuestBySeat: seat guests: order.guests];
@@ -52,7 +52,7 @@
     }
     
     if(order != nil) {
-        val = [jsonDictionary objectForKey:@"course"];
+        val = [jsonDictionary objectForKey:@"Course"];
         if (val != nil) {
             int offset = [val intValue];
             orderLine.course = [orderLine getCourseByOffset: offset courses: order.courses];
@@ -64,7 +64,7 @@
         [order.lines addObject:orderLine];
     }
     
-    id propertyValues = [jsonDictionary objectForKey:@"propertyValues"];
+    id propertyValues = [jsonDictionary objectForKey:@"PropertyValues"];
     for(NSDictionary *propertyValueDic in propertyValues)
     {
         OrderLinePropertyValue *propertyValue = [OrderLinePropertyValue valueFromJsonDictionary: propertyValueDic]; 
@@ -109,19 +109,19 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"productId"];
-    [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"sortOrder"];
-    [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"quantity"];
+    [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"ProductId"];
+    [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"SortOrder"];
+    [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"Quantity"];
     if (guest != nil)
-        [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"seat"];
+        [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"Seat"];
     if (course != nil)
-        [dic setObject: [NSNumber numberWithInt:course.offset] forKey:@"course"];
+        [dic setObject: [NSNumber numberWithInt:course.offset] forKey:@"Course"];
     if(note != nil)
-        [dic setObject: note forKey:@"note"];
+        [dic setObject: note forKey:@"Note"];
 
     if([propertyValues count] > 0) {
         NSMutableArray *dicProps = [[NSMutableArray alloc] init];
-        [dic setObject:dicProps forKey:@"propertyValues"];
+        [dic setObject:dicProps forKey:@"PropertyValues"];
         for(OrderLinePropertyValue *value in propertyValues)
         {
             [dicProps addObject: [value toDictionary]];

@@ -8,11 +8,8 @@
 #import "Config.h"
 
 
-@implementation Config {
+@implementation Config
 
-@private
-    __strong NSDictionary *_settings;
-}
 @synthesize settings = _settings;
 
 
@@ -25,8 +22,10 @@
 
 - (id) getObjectAtPath: (NSString *) path {
     NSArray *parts = [path componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"\\/"]];
-    NSString *deviceKey = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"iphone" : @"ipad";
+    NSString *deviceKey = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"IPhone" : @"IPad";
     id value = [_settings objectForKey:deviceKey];
+    if (value == nil)
+        return nil;
     for (NSString *part in parts) {
         value = [value objectForKey:part];
     }

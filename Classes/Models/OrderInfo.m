@@ -49,33 +49,33 @@
     
     Cache *cache = [Cache getInstance];
     
-    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    order.state = [[jsonDictionary objectForKey:@"state"] intValue];
+    order.id = [[jsonDictionary objectForKey:@"Id"] intValue];
+    order.state = [[jsonDictionary objectForKey:@"State"] intValue];
 
-    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
+    int tableId = [[jsonDictionary objectForKey:@"TableId"] intValue];
     order.table = [cache.map getTable:tableId]; 
     
-    id language = [jsonDictionary objectForKey:@"language"];
+    id language = [jsonDictionary objectForKey:@"Language"];
     if(language != nil)
         order.language = language;
     
-    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
+    NSNumber *seconds = [jsonDictionary objectForKey:@"CreatedOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    order.countCourses = [[jsonDictionary objectForKey:@"countCourses"] intValue];
+    order.countCourses = [[jsonDictionary objectForKey:@"CountCourses"] intValue];
     
-    id currentCourse = [jsonDictionary objectForKey:@"current"];
+    id currentCourse = [jsonDictionary objectForKey:@"Current"];
     if(currentCourse != nil)
         order.currentCourseOffset = [currentCourse intValue];
     
-    seconds = [jsonDictionary objectForKey:@"requestedOn"];
+    seconds = [jsonDictionary objectForKey:@"RequestedOn"];
     if(seconds != nil)
         order.currentCourseRequestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    seconds = [jsonDictionary objectForKey:@"servedOn"];
+    seconds = [jsonDictionary objectForKey:@"ServedOn"];
     if(seconds != nil)
         order.currentCourseServedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    id guestsDic =  [jsonDictionary objectForKey:@"guests"];
+    id guestsDic =  [jsonDictionary objectForKey:@"Guests"];
     for(NSDictionary *item in guestsDic)
     {
         Guest *guest = [Guest guestFromJsonDictionary:item order: nil];

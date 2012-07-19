@@ -54,9 +54,9 @@
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void) printSalesReport: (NSDate *)date;
-- (void) getOpenOrderByTable: (int)tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
-- (void) getTablesInfoForDistrict: (int)districtid delegate: (id) delegate callback: (SEL)callback;
+- (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
 - (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 - (void) quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback;
@@ -101,7 +101,8 @@
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
-- (void) getConfig:(id)delegate callback:(SEL)callback;
+//- (void) getConfig:(id)delegate callback:(SEL)callback;
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback;
+- (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
 
 @end

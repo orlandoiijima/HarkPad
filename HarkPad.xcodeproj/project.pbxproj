@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
+		D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */; };
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
 		E50152681315A26B007959F5 /* SlotTable.m in Sources */ = {isa = PBXBuildFile; fileRef = E50152671315A25D007959F5 /* SlotTable.m */; };
@@ -325,6 +326,8 @@
 		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintTemplate.h; sourceTree = "<group>"; };
 		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintInfo.h; sourceTree = "<group>"; };
 		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintInfo.m; sourceTree = "<group>"; };
+		D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackInfo.m; sourceTree = "<group>"; };
+		D0A72A165B000AF1792D8130 /* CallbackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInfo.h; sourceTree = "<group>"; };
 		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintTemplate.m; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
@@ -1275,6 +1278,8 @@
 		E50A391212E23A43007C2101 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D0A72A165B000AF1792D8130 /* CallbackInfo.h */,
+				D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */,
 				E50A391312E23A43007C2101 /* Service.h */,
 				E50A391412E23A43007C2101 /* Service.m */,
 				E5C1BD4413642CDB00B4D92A /* ServiceResult.h */,
@@ -2222,6 +2227,7 @@
 				E5F609A313489C2400D886CB /* Config.m in Sources */,
 				D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */,
 				D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */,
+				D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,9 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Config : NSObject
+@interface Config : NSObject {
+    NSDictionary *_settings;
+}
 
 @property (retain) NSDictionary *settings;
 

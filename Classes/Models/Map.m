@@ -43,18 +43,17 @@
     return nil;
 }
 
-- (District *) getDistrict: (int) tableId
+- (District *) getDistrict: (NSString *)tableName
 {
     for(District *district in districts)
     {
         for(Table *table in district.tables)
         {
-            if(table.id == tableId)
+            if([table.name isEqualToString: tableName])
                 return district;
-        }    
-    }   
+        }
+    }
     return nil;
 }
-
 
 @end
