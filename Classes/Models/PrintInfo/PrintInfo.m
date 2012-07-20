@@ -15,7 +15,7 @@
 }
 @synthesize templates = _templates;
 
-+ (PrintInfo *) infoFromJson:(NSMutableArray *)infoJson
++ (PrintInfo *) infoFromJson:(NSMutableDictionary *)infoJson
 {
     PrintInfo *info = [[PrintInfo alloc] init];
     info.templates = [[NSMutableArray alloc] init];
@@ -25,6 +25,14 @@
         [info.templates addObject: template];
     }
     return info;
+}
+
+- (PrintTemplate *) getTemplateNamed:(NSString *)templateName {
+    for(PrintTemplate *template in self.templates) {
+        if ([template.name isEqualToString:templateName])
+            return template;
+    }
+    return [PrintTemplate defaultTemplate];
 }
 
 @end

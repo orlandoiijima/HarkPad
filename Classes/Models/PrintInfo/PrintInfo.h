@@ -6,11 +6,12 @@
 
 
 #import <Foundation/Foundation.h>
-
+#import "PrintTemplate.h"
 
 @interface PrintInfo : NSObject
 @property(nonatomic, strong) NSMutableArray *templates;
 
-+ (PrintInfo *) infoFromJson:(NSMutableArray *)infoJson;
++ (PrintInfo *) infoFromJson:(NSMutableDictionary *)infoJson;
+- (PrintTemplate *) getTemplateNamed:(NSString *)templateName;
 
 @end

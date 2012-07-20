@@ -109,7 +109,7 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: [NSNumber numberWithInt:product.id] forKey:@"ProductId"];
+    [dic setObject: product.key forKey:@"ProductId"];
     [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"SortOrder"];
     [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"Quantity"];
     if (guest != nil)

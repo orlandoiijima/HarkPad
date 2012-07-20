@@ -58,7 +58,7 @@
 
     id tableId = [jsonDictionary objectForKey:@"TableId"];
     if (tableId != nil)
-        order.table = [cache.map getTable:[tableId intValue]];
+        order.table = [cache.map getTableByName:tableId];
 
     id guestsDic =  [jsonDictionary objectForKey:@"Guests"];
     for(NSDictionary *item in guestsDic)
@@ -105,7 +105,7 @@
     NSMutableDictionary *dic = [super toDictionary];
 
     if (table != nil)
-        [dic setObject: [NSNumber numberWithInt: table.id] forKey:@"TableId"];
+        [dic setObject: table.name forKey:@"TableId"];
 
     if (reservation != nil && reservation.id >= 0)
         [dic setObject: [NSNumber numberWithInt: reservation.id] forKey:@"ReservationId"];

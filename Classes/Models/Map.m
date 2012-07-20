@@ -43,7 +43,20 @@
     return nil;
 }
 
-- (District *) getDistrict: (NSString *)tableName
+- (Table *) getTableByName: (NSString *) table
+{
+    for(District *district in districts)
+    {
+        for(Table *table in district.tables)
+        {
+            if([table.name isEqualToString:table])
+                return table;
+        }
+    }
+    return nil;
+}
+
+- (District *)getTableDistrict: (NSString *)tableName
 {
     for(District *district in districts)
     {

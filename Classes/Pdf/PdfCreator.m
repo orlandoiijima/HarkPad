@@ -8,6 +8,10 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <Foundation/Foundation.h>
 #import "PdfCreator.h"
+#import "Run.h"
+#import "PrintColumn.h"
+#import "Cache.h"
+#import "PrintInfo.h"
 
 
 @implementation PdfCreator {
@@ -15,9 +19,9 @@
 
 @synthesize delegate = _delegate, template = _template;
 
-+ (PdfCreator *)pdfCreatorWithTemplate: (NSMutableDictionary *) template {
++ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template {
     PdfCreator *creator = [[PdfCreator alloc] init];
-    creator.template = template;
+    creator.template  = [[[Cache getInstance] printInfo] getTemplateNamed:template];
     return creator;
 }
 
@@ -31,25 +35,22 @@
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGContextSetRGBFillColor(currentContext, 0.0, 0.0, 0.0, 1.0);
 
-    NSArray *texts = [self.template objectForKey:@"texts"];
-    int y = 0;
-    for(NSDictionary *text in texts) {
-        NSString *textToDraw = [text objectForKey:@"text"];
-        textToDraw = [self evaluateString:textToDraw];
-        int x = [[text objectForKey:@"x"] intValue];
-        if([text objectForKey:@"y"] != nil) 
-            y = [[text objectForKey:@"y"] intValue];
-        int width = [[text objectForKey:@"width"] intValue];
+    float y = 0;
+    for(Run *run in self.template.preRuns) {
+        NSString *textToDraw = [self evaluateString: run.text];
+        float x = [run.xSpec floatValue];
+        y = run.ySpec == nil ? y : [run.ySpec floatValue];
+        float width = run.width;
 
         UIFont *font = [UIFont systemFontOfSize:14.0];
     
         CGSize stringSize = [textToDraw sizeWithFont:font
-                                   constrainedToSize:CGSizeMake(width, 100)
+                                   constrainedToSize:CGSizeMake(run.width, 100)
                                        lineBreakMode:UILineBreakModeWordWrap];
     
         CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
     
-        UITextAlignment alignment = [[text objectForKey:@"alignment"] intValue];
+        UITextAlignment alignment = run.alignment;
         [textToDraw drawInRect:renderingRect
                       withFont:font
                  lineBreakMode:UILineBreakModeWordWrap
@@ -59,17 +60,14 @@
     
     int countRows = [self.delegate countOfRows];
     if (countRows > 0) {
-        NSDictionary *table = [self.template objectForKey:@"table"];
-        NSArray *columns = [table objectForKey:@"columns"];
-        int y = [[table objectForKey:@"y"] intValue];
-        CGFloat fontSize = [[table objectForKey:@"fontSize"] floatValue];
-        UIFont *font = [UIFont systemFontOfSize: fontSize];
-        for(int row = 0; row < countRows; row++) {
-            int x = [[table objectForKey:@"x"] intValue];
-            int height = 0;
-            for(NSDictionary *columnDic in columns) {
-                NSString *variable = [columnDic objectForKey:@"text"];
-                int width = [[columnDic objectForKey:@"width"] intValue];
+        y = [self.template.table.ySpec floatValue];
+        UIFont *font = [UIFont systemFontOfSize: self.template.table.pointSize];
+        for(NSUInteger row = 0; row < countRows; row++) {
+            float x = [self.template.table.xSpec floatValue];
+            float height = 0;
+            for(PrintColumn *column in self.template.table.columns) {
+                NSString *variable = column.text;
+                float width = column.width;
                 if ([variable length] > 0) {
                     NSString *cell = [self.delegate stringForVariable:variable inRow:row];
 
@@ -80,42 +78,15 @@
                         height = stringSize.height;
                     CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
 
-                    UITextAlignment alignment = [[columnDic objectForKey:@"alignment"] intValue];
                     [cell drawInRect:renderingRect
                                   withFont:font
                              lineBreakMode:UILineBreakModeWordWrap
-                           alignment:alignment];
+                           alignment:column.alignment];
                 }
                 x += width;
             }        
             y += height;
         }
-
-        //  Tablefooter
-        int x = [[table objectForKey:@"x"] intValue];
-        int height = 0;
-        for(NSDictionary *columnDic in columns) {
-            NSString *variable = [columnDic objectForKey:@"footer"];
-            int width = [[columnDic objectForKey:@"width"] intValue];
-            if ([variable length] > 0) {
-                NSString *cell = [self.delegate stringForVariable:variable inRow: countRows];
-
-                CGSize stringSize = [cell sizeWithFont:font
-                                           constrainedToSize:CGSizeMake(width, 100)
-                                               lineBreakMode:UILineBreakModeWordWrap];
-                if (stringSize.height > height)
-                    height = stringSize.height;
-                CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
-
-                UITextAlignment alignment = [[columnDic objectForKey:@"alignment"] intValue];
-                [cell drawInRect:renderingRect
-                              withFont:font
-                         lineBreakMode:UILineBreakModeWordWrap
-                       alignment:alignment];
-            }
-            x += width;
-        }
-
     }
     
     UIGraphicsEndPDFContext();

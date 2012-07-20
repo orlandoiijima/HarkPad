@@ -26,7 +26,7 @@
 + (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)connectionError
 {
     ServiceResult *serviceResult = [[ServiceResult alloc] init];
-    if (connectionError != nil) {
+    if (connectionError != nil && connectionError.code != 404) {
         serviceResult.error = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //        serviceResult.error = [connectionError localizedDescription];
         return serviceResult;

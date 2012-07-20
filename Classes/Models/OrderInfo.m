@@ -52,8 +52,8 @@
     order.id = [[jsonDictionary objectForKey:@"Id"] intValue];
     order.state = [[jsonDictionary objectForKey:@"State"] intValue];
 
-    int tableId = [[jsonDictionary objectForKey:@"TableId"] intValue];
-    order.table = [cache.map getTable:tableId]; 
+    id tableId = [jsonDictionary objectForKey:@"TableId"];
+    order.table = [cache.map getTableByName:tableId];
     
     id language = [jsonDictionary objectForKey:@"Language"];
     if(language != nil)

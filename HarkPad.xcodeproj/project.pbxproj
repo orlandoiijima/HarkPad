@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
+		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
+		D0A72886B4C04B275B535402 /* PrintTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7260BC1E66EC8185DF19B /* PrintTable.m */; };
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
+		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
 		D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */; };
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
@@ -323,12 +326,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintTemplate.h; sourceTree = "<group>"; };
-		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintInfo.h; sourceTree = "<group>"; };
-		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintInfo.m; sourceTree = "<group>"; };
+		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
+		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
+		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTemplate.h; path = PrintInfo/PrintTemplate.h; sourceTree = "<group>"; };
+		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
+		D0A724EB5FADC1B41DB64F49 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Run.h; path = PrintInfo/Run.h; sourceTree = "<group>"; };
+		D0A7260BC1E66EC8185DF19B /* PrintTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTable.m; path = PrintInfo/PrintTable.m; sourceTree = "<group>"; };
+		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintInfo.h; path = PrintInfo/PrintInfo.h; sourceTree = "<group>"; };
+		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintInfo.m; path = PrintInfo/PrintInfo.m; sourceTree = "<group>"; };
 		D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackInfo.m; sourceTree = "<group>"; };
 		D0A72A165B000AF1792D8130 /* CallbackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInfo.h; sourceTree = "<group>"; };
-		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintTemplate.m; sourceTree = "<group>"; };
+		D0A72A7076F7B954783AF85D /* PrintColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintColumn.m; path = PrintInfo/PrintColumn.m; sourceTree = "<group>"; };
+		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTemplate.m; path = PrintInfo/PrintTemplate.m; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
 		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlotDataSource.m; path = Models/SlotDataSource.m; sourceTree = "<group>"; };
@@ -1042,10 +1051,16 @@
 		E50A386412E234B8007C2101 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D0A7263FF0324FB41ABD0159 /* PrintInfo.h */,
-				D0A728BD38634A7282D2C3D3 /* PrintInfo.m */,
-				D0A7225076CA694DBDC5D765 /* PrintTemplate.h */,
+				D0A7260BC1E66EC8185DF19B /* PrintTable.m */,
+				D0A7242671D5CB0FF9DAC04B /* PrintTable.h */,
+				D0A72A7076F7B954783AF85D /* PrintColumn.m */,
+				D0A720D33FB954DFAF75A84C /* PrintColumn.h */,
+				D0A724EB5FADC1B41DB64F49 /* Run.h */,
+				D0A7216893E8F514E46974C5 /* Run.m */,
 				D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */,
+				D0A7225076CA694DBDC5D765 /* PrintTemplate.h */,
+				D0A728BD38634A7282D2C3D3 /* PrintInfo.m */,
+				D0A7263FF0324FB41ABD0159 /* PrintInfo.h */,
 				E5F609A313489C2400D886CC /* Config.h */,
 				E5F609A313489C2400D886CA /* Config.m */,
 				E5F609A313489C2400D886C1 /* OrderProxyDelegate.h */,
@@ -2228,6 +2243,9 @@
 				D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */,
 				D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */,
 				D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */,
+				D0A7207B9029969873E01E28 /* Run.m in Sources */,
+				D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */,
+				D0A72886B4C04B275B535402 /* PrintTable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

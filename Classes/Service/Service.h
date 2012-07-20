@@ -27,6 +27,7 @@
 
 @property (retain) NSString *url;
 @property (assign) NSString *host;
+@property (retain) NSString *location;
 
 + (Service *) getInstance;
 + (void) clear;

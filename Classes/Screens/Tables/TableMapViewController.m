@@ -230,7 +230,7 @@
 
 - (void) revertDrag
 {
-    District *district = [[[Cache getInstance] map] getDistrict: dragTableView.table.name];
+    District *district = [[[Cache getInstance] map] getTableDistrict:dragTableView.table.name];
     self.currentDistrictOffset = [self offsetOfDistrict:district];
     [UIView animateWithDuration:0.3 animations:^{
         dragTableView.center = dragTableOriginalCenter;
@@ -418,7 +418,7 @@
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
-        District *infoDistrict = [map getDistrict:tableInfo.table.name];
+        District *infoDistrict = [map getTableDistrict:tableInfo.table.name];
         if(infoDistrict == nil) {
             NSLog(@"district not found for table id %@", tableInfo.table.name);
             continue;

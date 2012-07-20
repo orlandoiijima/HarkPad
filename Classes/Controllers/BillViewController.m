@@ -9,6 +9,7 @@
 #import "BillViewController.h"
 #import "Service.h"
 #import "Utils.h"
+#import "BillPdf.h"
 
 @implementation BillViewController
 
@@ -56,8 +57,23 @@
         printer = [_printers objectAtIndex:0];
     else if ([_printers count] > 1)
         printer = [printerSegment titleForSegmentAtIndex: printerSegment.selectedSegmentIndex];
-    [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]]; 
-    [self.navigationController popViewControllerAnimated:YES];
+
+    BillPdf *pdf = [BillPdf billByOrder: order];
+    NSString *pdfFilename = [pdf create];
+
+    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
+    if ([UIPrintInteractionController canPrintData: pdfData]) {
+        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        controller.printingItem = pdfData;
+        UIPrintInfo *info = [UIPrintInfo printInfo];
+        info.jobName = pdfFilename;
+        info.outputType = UIPrintInfoOutputGeneral;
+        controller.printInfo = info;
+        [controller presentAnimated:YES completionHandler:nil];
+    }
+
+//    [[Service getInstance] makeBills:nil forOrder: order.id withPrinter: [printer lowercaseString]];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction) changeGrouping

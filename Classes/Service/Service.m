@@ -15,10 +15,16 @@
 #import "Reachability.h"
 #import "CallbackInfo.h"
 
-@implementation Service
+@implementation Service {
+@private
+    NSString *_location;
+}
+
 
 @synthesize url;
 @dynamic host;
+@synthesize location = _location;
+
 
 #define API_VERSION @"v1"
 
@@ -27,20 +33,20 @@ static Service *_service;
 - (id)init {
     if ((self = [super init])) {
         [[NSUserDefaults standardUserDefaults] synchronize];	
-        NSString *env = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
-        if (env == nil)
-            env = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        if([env isEqualToString:@"annatest"])
+        _location = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
+        if (_location == nil)
+            _location = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
+        if([_location isEqualToString:@"annatest"])
             url = URL_ANNATEST;
-        else if([env isEqualToString:@"anna"])
+        else if([_location isEqualToString:@"anna"])
             url = URL_ANNA;
-        else if([env isEqualToString:@"frascati"])
+        else if([_location isEqualToString:@"frascati"])
             url = URL_FRASCATI;
-        else if([env isEqualToString:@"club"])
+        else if([_location isEqualToString:@"club"])
             url = URL_CLUB;
-        else if([env isEqualToString:@"cafe5"])
+        else if([_location isEqualToString:@"cafe5"])
             url = URL_CAFE5;
-        else if([env isEqualToString:@"droog"])
+        else if([_location isEqualToString:@"droog"])
             url = URL_DROOG;
         else
             url = URL_DEV;
@@ -537,24 +543,6 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
-
-- (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
-{
-    NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-
-    NSInvocation *invocation = nil;
-    if (delegate != nil && callback != nil) {
-        NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-        invocation = [NSInvocation invocationWithMethodSignature:sig];
-        [invocation retainArguments];
-        [invocation setTarget:delegate];
-        [invocation setSelector:callback];
-    }
-    [self postPageCallback: @"updateorder" key: @"order" value: jsonString delegate: self callback: @selector(simpleCallback:finishedWithData:error:) userData: invocation];
-}
-
 - (void)quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
@@ -740,7 +728,7 @@ static Service *_service;
                 TableInfo *tableInfo = [[TableInfo alloc] init];
                 tableInfo.table = [Table tableFromJsonDictionary: tableDic];
                 if (tableInfo.table == nil) continue;
-                tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.name];
+                tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
                 NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
                 if(orderDic != nil)
                     tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
@@ -756,31 +744,6 @@ static Service *_service;
                     callback: callback];
 }
 
-//- (void) getTablesInfoCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-//{
-//   ServiceResult *result = [ServiceResult resultFromData:data error:error];
-//
-//   if (result.isSuccess) {
-//       NSMutableArray *tablesDic = [self getResultFromJson: data];
-//       NSMutableArray *tables = [[NSMutableArray alloc] init];
-//       for(NSDictionary *tableDic in tablesDic)
-//       {
-//           TableInfo *tableInfo = [[TableInfo alloc] init];
-//           tableInfo.table = [Table tableFromJsonDictionary: tableDic];
-//           if (tableInfo.table == nil) continue;
-//           tableInfo.table.district = [[[Cache getInstance] map] getDistrict:tableInfo.table.name];
-//           NSDictionary *orderDic = [tableDic objectForKey:@"order"];
-//           if(orderDic != nil)
-//               tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
-//           [tables addObject:tableInfo];
-//       }
-//       result.data = tables;
-//   }
-//   NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-//   [invocation setArgument:&result atIndex:2];
-//   [invocation invoke];
-//}
-
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback
 {
     [self getRequestResource:@"TableOrder"
@@ -792,21 +755,6 @@ static Service *_service;
                     delegate: delegate
                     callback: callback];
 }
-
-//- (void) getOpenOrderByTableCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-//{
-//    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-//
-//    if (result.isSuccess) {
-//        NSDictionary *orderDic = [self getResultFromJson:data];
-//           if(orderDic != nil && [orderDic count] > 0) {
-//               result.data = [Order orderFromJsonDictionary:orderDic];
-//           }
-//    }
-//    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-//    [invocation setArgument:&result atIndex:2];
-//    [invocation invoke];
-//}
 
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback
 {
@@ -826,25 +774,11 @@ static Service *_service;
                     callback: callback];
 }
 
-//- (void) getOpenOrdersCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-//{
-//    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-//
-//    if (result.isSuccess) {
-//        NSMutableArray *ordersDic = [self getResultFromJson: data];
-//        NSMutableArray *orders = [[NSMutableArray alloc] init];
-//        for(NSDictionary *orderDic in ordersDic)
-//        {
-//           Order *order = [Order orderFromJsonDictionary: orderDic];
-//           [orders addObject:order];
-//        }
-//
-//        result.data = orders;
-//    }
-//    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-//    [invocation setArgument:&result atIndex:2];
-//    [invocation invoke];
-//}
+- (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
+{
+    NSMutableDictionary *orderAsDictionary = [order toDictionary];
+    [self requestResource:@"order" method:@"POST" id:nil body:orderAsDictionary delegate: delegate callback: callback];
+}
 
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
@@ -852,8 +786,7 @@ static Service *_service;
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
 
-    NSString *location =  @"annatest";//[[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, location, resource];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, _location, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
@@ -872,8 +805,7 @@ static Service *_service;
 - (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback {
     CallbackInfo *info = [CallbackInfo infoWithDelegate:delegate callback:callback converter:converter];
 
-    NSString *location =  @"annatest";//[[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, location, resource];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, _location, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
@@ -895,8 +827,8 @@ static Service *_service;
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
 
     if (result.isSuccess) {
-        if (info.converter != nil)
-            result.data = info.converter([self getResultFromJson:data]);
+        if (info.converter != nil && (NSNull *)result.jsonData != [NSNull null])
+            result.data = info.converter(result.jsonData);
     }
     [info.invocation setArgument:&result atIndex:2];
     [info.invocation invoke];
