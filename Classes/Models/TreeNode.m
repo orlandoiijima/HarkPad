@@ -22,9 +22,9 @@
     NSString *color = [jsonDictionary objectForKey:@"Color"];
     if(color != nil)
         node.color = [node getColor:color];
-    NSNumber *productId = [jsonDictionary objectForKey:@"ProductId"];
+    NSString *productId = [jsonDictionary objectForKey:@"ProductId"];
     if(productId != nil && (NSNull *)productId != [NSNull null])
-        node.product = [[[Cache getInstance] menuCard] getProduct:[productId intValue]];
+        node.product = [[[Cache getInstance] menuCard] getProduct: productId];
     NSNumber *menuId = [jsonDictionary objectForKey:@"MenuId"];
     if(menuId != nil)
         node.menu = [[[Cache getInstance] menuCard] getMenu:[menuId intValue]];

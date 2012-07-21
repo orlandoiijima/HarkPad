@@ -189,7 +189,7 @@
 }
 
 - (void)addProduct:(Product *)product forSeat:(int)seat course: (int)course {
-    OrderLine *line = [_order addLineWithProductId:product.id seat:seat course: course];
+    OrderLine *line = [_order addLineWithProductId:product.key seat:seat course: course];
     [self.dataSource tableView:self.orderView addLine:line];
     [self.dataSource highlightRowsInTableView:_orderView forSeat:seat];
 }

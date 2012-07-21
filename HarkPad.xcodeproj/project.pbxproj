@@ -144,8 +144,6 @@
 		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
-		E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384B12E234B8007C2101 /* NewOrderVC.m */; };
-		E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */; };
 		E5E722FC1311A12C00905959 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
 		E5E722FD1311A12C00905959 /* District.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386A12E234B8007C2101 /* District.m */; };
 		E5E722FE1311A12C00905959 /* DragNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386C12E234B8007C2101 /* DragNode.m */; };
@@ -162,11 +160,8 @@
 		E5E723091311A12C00905959 /* ProductCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388712E234B8007C2101 /* ProductCategory.m */; };
 		E5E7230A1311A12C00905959 /* Table.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388C12E234B8007C2101 /* Table.m */; };
 		E5E723161311A12C00905959 /* CourseProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B012E234B8007C2101 /* CourseProgress.m */; };
-		E5E723171311A12C00905959 /* NewOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B212E234B8007C2101 /* NewOrderView.m */; };
-		E5E723181311A12C00905959 /* OrderGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B412E234B8007C2101 /* OrderGridView.m */; };
 		E5E723191311A12C00905959 /* OrderLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B612E234B8007C2101 /* OrderLineCell.m */; };
 		E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B912E234B8007C2101 /* OrderTableCell.m */; };
-		E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BD12E234B8007C2101 /* ProductPanelView.m */; };
 		E5E7231D1311A12C00905959 /* Splitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BF12E234B8007C2101 /* Splitter.m */; };
 		E5E723201311A12C00905959 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390A12E236A7007C2101 /* Utils.m */; };
 		E5E723211311A12C00905959 /* TreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390D12E236BE007C2101 /* TreeNode.m */; };
@@ -188,8 +183,6 @@
 		E5E723341311A12C00905959 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E50A380712E21164007C2101 /* CoreGraphics.framework */; };
 		E5E723361311A12C00905959 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E50A380B12E21164007C2101 /* InfoPlist.strings */; };
 		E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A383E12E2193F007C2101 /* iTunesArtwork72.png */; };
-		E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A384C12E234B8007C2101 /* NewOrderVC.xib */; };
-		E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */; };
 		E5E7233C1311A12C00905959 /* readme in Resources */ = {isa = PBXBuildFile; fileRef = E50A388812E234B8007C2101 /* readme */; };
 		E5E7233D1311A12C00905959 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A388F12E234B8007C2101 /* food.png */; };
 		E5E7233E1311A12C00905959 /* fork-and-knife.png in Resources */ = {isa = PBXBuildFile; fileRef = E50A389012E234B8007C2101 /* fork-and-knife.png */; };
@@ -358,12 +351,6 @@
 		E50A383E12E2193F007C2101 /* iTunesArtwork72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork72.png; path = ../../../iTunesArtwork72.png; sourceTree = "<group>"; };
 		E50A384412E234B8007C2101 /* HarkPadAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarkPadAppDelegate.h; sourceTree = "<group>"; };
 		E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarkPadAppDelegate.m; sourceTree = "<group>"; };
-		E50A384A12E234B8007C2101 /* NewOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrderVC.h; sourceTree = "<group>"; };
-		E50A384B12E234B8007C2101 /* NewOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrderVC.m; sourceTree = "<group>"; };
-		E50A384C12E234B8007C2101 /* NewOrderVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewOrderVC.xib; sourceTree = "<group>"; };
-		E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLineDetailViewController.h; sourceTree = "<group>"; };
-		E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLineDetailViewController.m; sourceTree = "<group>"; };
-		E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderLineDetailViewController.xib; sourceTree = "<group>"; };
 		E50A386512E234B8007C2101 /* Cache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cache.h; sourceTree = "<group>"; };
 		E50A386612E234B8007C2101 /* Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cache.m; sourceTree = "<group>"; };
 		E50A386912E234B8007C2101 /* District.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = District.h; sourceTree = "<group>"; };
@@ -402,17 +389,11 @@
 		E50A389312E234B8007C2101 /* wine-glass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wine-glass.png"; sourceTree = "<group>"; };
 		E50A38AF12E234B8007C2101 /* CourseProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseProgress.h; sourceTree = "<group>"; };
 		E50A38B012E234B8007C2101 /* CourseProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CourseProgress.m; sourceTree = "<group>"; };
-		E50A38B112E234B8007C2101 /* NewOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewOrderView.h; sourceTree = "<group>"; };
-		E50A38B212E234B8007C2101 /* NewOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewOrderView.m; sourceTree = "<group>"; };
-		E50A38B312E234B8007C2101 /* OrderGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderGridView.h; sourceTree = "<group>"; };
-		E50A38B412E234B8007C2101 /* OrderGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderGridView.m; sourceTree = "<group>"; };
 		E50A38B512E234B8007C2101 /* OrderLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLineCell.h; sourceTree = "<group>"; };
 		E50A38B612E234B8007C2101 /* OrderLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLineCell.m; sourceTree = "<group>"; };
 		E50A38B712E234B8007C2101 /* OrderLineCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderLineCell.xib; sourceTree = "<group>"; };
 		E50A38B812E234B8007C2101 /* OrderTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderTableCell.h; sourceTree = "<group>"; };
 		E50A38B912E234B8007C2101 /* OrderTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderTableCell.m; sourceTree = "<group>"; };
-		E50A38BC12E234B8007C2101 /* ProductPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPanelView.h; sourceTree = "<group>"; };
-		E50A38BD12E234B8007C2101 /* ProductPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPanelView.m; sourceTree = "<group>"; };
 		E50A38BE12E234B8007C2101 /* Splitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Splitter.h; sourceTree = "<group>"; };
 		E50A38BF12E234B8007C2101 /* Splitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Splitter.m; sourceTree = "<group>"; };
 		E50A390912E236A7007C2101 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -1019,9 +1000,6 @@
 				E561E25C13348E8900229B76 /* BillViewController.h */,
 				E561E25D13348E8A00229B76 /* BillViewController.m */,
 				E561E25E13348E8C00229B76 /* BillViewController.xib */,
-				E50A384F12E234B8007C2101 /* OrderLineDetailViewController.h */,
-				E50A385012E234B8007C2101 /* OrderLineDetailViewController.m */,
-				E50A385112E234B8007C2101 /* OrderLineDetailViewController.xib */,
 				E5AC3D6F13224CDB0090F743 /* PaymentViewController.h */,
 				E5AC3D7013224CDC0090F743 /* PaymentViewController.m */,
 				E5AC3D7113224CDD0090F743 /* PaymentViewController.xib */,
@@ -1041,9 +1019,6 @@
 			children = (
 				E5F609A313489C2400D88650 /* NewOrderViewController.m */,
 				E5F609A313489C2400D8864F /* NewOrderViewController.h */,
-				E50A384A12E234B8007C2101 /* NewOrderVC.h */,
-				E50A384B12E234B8007C2101 /* NewOrderVC.m */,
-				E50A384C12E234B8007C2101 /* NewOrderVC.xib */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1239,17 +1214,11 @@
 				E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */,
 				E50A38AF12E234B8007C2101 /* CourseProgress.h */,
 				E50A38B012E234B8007C2101 /* CourseProgress.m */,
-				E50A38B112E234B8007C2101 /* NewOrderView.h */,
-				E50A38B212E234B8007C2101 /* NewOrderView.m */,
-				E50A38B312E234B8007C2101 /* OrderGridView.h */,
-				E50A38B412E234B8007C2101 /* OrderGridView.m */,
 				E50A38B512E234B8007C2101 /* OrderLineCell.h */,
 				E50A38B612E234B8007C2101 /* OrderLineCell.m */,
 				E50A38B712E234B8007C2101 /* OrderLineCell.xib */,
 				E50A38B812E234B8007C2101 /* OrderTableCell.h */,
 				E50A38B912E234B8007C2101 /* OrderTableCell.m */,
-				E50A38BC12E234B8007C2101 /* ProductPanelView.h */,
-				E50A38BD12E234B8007C2101 /* ProductPanelView.m */,
 				E50A38BE12E234B8007C2101 /* Splitter.h */,
 				E50A38BF12E234B8007C2101 /* Splitter.m */,
 				E5557D2C12EC56C500CA547D /* ProductSymbol.h */,
@@ -1916,8 +1885,6 @@
 			files = (
 				E5E723361311A12C00905959 /* InfoPlist.strings in Resources */,
 				E5E723381311A12C00905959 /* iTunesArtwork72.png in Resources */,
-				E5E723391311A12C00905959 /* NewOrderVC.xib in Resources */,
-				E5E7233A1311A12C00905959 /* OrderLineDetailViewController.xib in Resources */,
 				E5E7233C1311A12C00905959 /* readme in Resources */,
 				E5E7233D1311A12C00905959 /* food.png in Resources */,
 				E5E7233E1311A12C00905959 /* fork-and-knife.png in Resources */,
@@ -2046,8 +2013,6 @@
 			files = (
 				E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */,
 				E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */,
-				E5E722F71311A12C00905959 /* NewOrderVC.m in Sources */,
-				E5E722F81311A12C00905959 /* OrderLineDetailViewController.m in Sources */,
 				E5E722FC1311A12C00905959 /* Cache.m in Sources */,
 				E5E722FD1311A12C00905959 /* District.m in Sources */,
 				E5E722FE1311A12C00905959 /* DragNode.m in Sources */,
@@ -2064,11 +2029,8 @@
 				E5E723091311A12C00905959 /* ProductCategory.m in Sources */,
 				E5E7230A1311A12C00905959 /* Table.m in Sources */,
 				E5E723161311A12C00905959 /* CourseProgress.m in Sources */,
-				E5E723171311A12C00905959 /* NewOrderView.m in Sources */,
-				E5E723181311A12C00905959 /* OrderGridView.m in Sources */,
 				E5E723191311A12C00905959 /* OrderLineCell.m in Sources */,
 				E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */,
-				E5E7231C1311A12C00905959 /* ProductPanelView.m in Sources */,
 				E5E7231D1311A12C00905959 /* Splitter.m in Sources */,
 				E5E723201311A12C00905959 /* Utils.m in Sources */,
 				E5E723211311A12C00905959 /* TreeNode.m in Sources */,

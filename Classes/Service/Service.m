@@ -108,42 +108,6 @@ static Service *_service;
 	return (NSMutableArray *)[self getFromUrlWithCommand:@"getlog" query:@""];
 }
 
-- (void) getCard
-{
-	NSMutableDictionary *resultDic = [self getFromUrlWithCommand:@"getcard" query:@""];
-    Cache *cache = [Cache getInstance];
-    cache.menuCard = [MenuCard menuFromJson: [resultDic objectForKey:@"categories"]];
-    cache.menuCard.menus = [Menu menuFromJson: [resultDic objectForKey:@"menus"]];
-    NSMutableArray *productProperties = [resultDic objectForKey:@"productproperties"];
-    cache.productProperties = [[NSMutableArray alloc] init];
-    for (NSMutableDictionary *propDic in productProperties) {
-        [cache.productProperties addObject:[OrderLineProperty propertyFromJsonDictionary:propDic]];
-    }
-}
-
-- (NSMutableArray *) getMenus
-{
-    id data = [self getFromUrlWithCommand:@"getmenus" query:@""];
-	return [Menu menuFromJson:data];
-}
-
-- (TreeNode *) getTree
-{
-	NSURL *testUrl = [self makeEndPoint:@"getmenutree" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-    if(data == nil)
-    {
-        return nil;
-    }
-	return [TreeNode nodeFromJsonDictionary:[self getResultFromJson:data] parent:nil];
-}
-
-- (Map *)getMap
-{
-    id data = [self getFromUrlWithCommand:@"getmap" query:@""];
-	return [Map mapFromJson: data];
-}
-
 - (void) getUsers: (id) delegate callback: (SEL)callback
 {
     [self getUsersIncludingDeleted:NO delegate:delegate callback:callback];
@@ -543,24 +507,6 @@ static Service *_service;
 	return [Order orderFromJsonDictionary:orderDic];
 }
 
-- (void)quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback {
-    NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    NSMutableDictionary *orderInfo = [[NSMutableDictionary alloc] init];
-    [orderInfo setObject:orderAsDictionary forKey:@"order"];
-    [orderInfo setObject: [NSNumber numberWithInt:(int)paymentType] forKey:@"paymentType"];
-    [orderInfo setObject: [NSNumber numberWithBool:printInvoice] forKey:@"printInvoice"];
-
-    NSError *error = nil;
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderInfo error:&error];
-
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation retainArguments];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self postPageCallback:@"quickorder" key:@"order" value: jsonString delegate: self callback:@selector(simpleCallback:finishedWithData:error:) userData:invocation];
-}
-
 - (void) simpleCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
@@ -654,18 +600,18 @@ static Service *_service;
 	[NSData dataWithContentsOfURL: testUrl];
 }
 
-- (void) getDeviceConfig: (id) delegate callback: (SEL)callback
-{
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getdeviceconfig"
-                withQuery:@""
-                 delegate:self
-                 callback:@selector(simpleCallback:finishedWithData:error:)
-                 userData:invocation];
-}
+//- (void) getDeviceConfig: (id) delegate callback: (SEL)callback
+//{
+//    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+//    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+//    [invocation setTarget:delegate];
+//    [invocation setSelector:callback];
+//    [self getPageCallback:@"getdeviceconfig"
+//                withQuery:@""
+//                 delegate:self
+//                 callback:@selector(simpleCallback:finishedWithData:error:)
+//                 userData:invocation];
+//}
 
 - (NSString *) stringParameterForDate: (NSDate *)date
 {
@@ -701,22 +647,33 @@ static Service *_service;
 
 }
 
-- (void) updateOrderRaven:(Order *)order {
-    NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [orderAsDictionary setObject: [[NSUserDefaults standardUserDefaults] stringForKey:@"env"] forKey:@"location"];
-    [orderAsDictionary setObject: [NSNumber numberWithInt: order.id] forKey:@"mysqlId"];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-    NSURL *shadowUrl = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api/order/updateorder", URL_DEV_SHADOW]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: shadowUrl];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-    fetcher.userData = nil;
-    [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
-}
-
+//- (void) updateOrderRaven:(Order *)order {
+//    NSError *error = nil;
+//    NSMutableDictionary *orderAsDictionary = [order toDictionary];
+//    [orderAsDictionary setObject: [[NSUserDefaults standardUserDefaults] stringForKey:@"env"] forKey:@"location"];
+//    [orderAsDictionary setObject: [NSNumber numberWithInt: order.id] forKey:@"mysqlId"];
+//    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
+//    NSURL *shadowUrl = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api/order/updateorder", URL_DEV_SHADOW]];
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: shadowUrl];
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+//    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+//    fetcher.userData = nil;
+//    [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
+//}
+//
+//- (void)quickOrder: (Order *)order delegate: (id) delegate callback: (SEL)callback {
+//    NSError *error = nil;
+//    NSString *jsonString = [[CJSONSerializer serializer] serializeObject: [order toDictionary] error: &error];
+//
+//    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
+//    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
+//    [invocation retainArguments];
+//    [invocation setTarget:delegate];
+//    [invocation setSelector:callback];
+//    [self postPageCallback:@"quickorder" key:@"order" value: jsonString delegate: self callback:@selector(simpleCallback:finishedWithData:error:) userData:invocation];
+//}
 
 - (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
 {

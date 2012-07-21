@@ -35,6 +35,8 @@
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     CGContextSetRGBFillColor(currentContext, 0.0, 0.0, 0.0, 1.0);
 
+    float pointSize = self.template.pointSize == 0.0 ? 14.0 : self.template.pointSize;
+
     float y = 0;
     for(Run *run in self.template.preRuns) {
         NSString *textToDraw = [self evaluateString: run.text];
@@ -42,7 +44,7 @@
         y = run.ySpec == nil ? y : [run.ySpec floatValue];
         float width = run.width;
 
-        UIFont *font = [UIFont systemFontOfSize:14.0];
+        UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0.0 ? pointSize : run.pointSize];
     
         CGSize stringSize = [textToDraw sizeWithFont:font
                                    constrainedToSize:CGSizeMake(run.width, 100)
@@ -57,38 +59,56 @@
                      alignment:alignment];
         y += stringSize.height;
     }
-    
-    int countRows = [self.delegate countOfRows];
-    if (countRows > 0) {
+
+    int countSections = [self.delegate numberOfSections];
+    for (NSUInteger section=0; section < countSections; section++) {
+        int countRows = [self.delegate numberOfRowsInSection:section];
+        if (countRows == 0)
+            continue;
+
+        Run *sectionRun = self.template.table.section;
+        NSString *sectionHeader = [self.delegate stringForVariable: sectionRun.text row: -1 section: section];
+        if ([sectionHeader length] > 0) {
+            UIFont *font = [UIFont systemFontOfSize: sectionRun.pointSize == 0.0 ? pointSize : sectionRun.pointSize];
+            float x = [sectionRun.xSpec floatValue];
+            CGSize stringSize = [sectionHeader sizeWithFont:font
+                                       constrainedToSize:CGSizeMake(pageSize.width - x, 100)
+                                           lineBreakMode:UILineBreakModeWordWrap];
+            CGRect renderingRect = CGRectMake(x, y, sectionRun.width, stringSize.height);
+
+            [sectionHeader drawInRect:renderingRect
+                          withFont:font
+                     lineBreakMode:UILineBreakModeWordWrap
+                   alignment: sectionRun.alignment];
+        }
         y = [self.template.table.ySpec floatValue];
-        UIFont *font = [UIFont systemFontOfSize: self.template.table.pointSize];
+        UIFont *font = [UIFont systemFontOfSize: self.template.table.pointSize == 0.0 ? pointSize : self.template.table.pointSize];
         for(NSUInteger row = 0; row < countRows; row++) {
-            float x = [self.template.table.xSpec floatValue];
             float height = 0;
             for(PrintColumn *column in self.template.table.columns) {
-                NSString *variable = column.text;
-                float width = column.width;
+                NSString *variable = column.cell.text;
+                float x = [column.cell.xSpec floatValue];
                 if ([variable length] > 0) {
-                    NSString *cell = [self.delegate stringForVariable:variable inRow:row];
+                    NSString *cell = [self.delegate stringForVariable:variable row:row section: section];
 
                     CGSize stringSize = [cell sizeWithFont:font
-                                               constrainedToSize:CGSizeMake(width, 100)
+                                               constrainedToSize:CGSizeMake(column.cell.width, 100)
                                                    lineBreakMode:UILineBreakModeWordWrap];
                     if (stringSize.height > height)
                         height = stringSize.height;
-                    CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
+                    CGRect renderingRect = CGRectMake(x, y, column.cell.width, stringSize.height);
 
                     [cell drawInRect:renderingRect
                                   withFont:font
                              lineBreakMode:UILineBreakModeWordWrap
-                           alignment:column.alignment];
+                           alignment:column.cell.alignment];
                 }
-                x += width;
-            }        
+                x += column.cell.width;
+            }
             y += height;
         }
     }
-    
+
     UIGraphicsEndPDFContext();
 }
 

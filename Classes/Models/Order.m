@@ -248,7 +248,7 @@
     return nil;
 }
 
-- (OrderLine *) addLineWithProductId: (int)productId seat: (int) seat course: (int) courseOffset
+- (OrderLine *) addLineWithProductId: (NSString *)productId seat: (int) seat course: (int) courseOffset
 {
     OrderLine *line = [[OrderLine alloc] init];
 

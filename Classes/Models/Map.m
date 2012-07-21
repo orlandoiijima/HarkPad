@@ -43,13 +43,13 @@
     return nil;
 }
 
-- (Table *) getTableByName: (NSString *) table
+- (Table *) getTableByName: (NSString *) tableName
 {
     for(District *district in districts)
     {
         for(Table *table in district.tables)
         {
-            if([table.name isEqualToString:table])
+            if([table.name isEqualToString:tableName])
                 return table;
         }
     }

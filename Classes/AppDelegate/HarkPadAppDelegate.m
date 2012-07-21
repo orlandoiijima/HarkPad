@@ -11,7 +11,6 @@
 #import "ReservationsSimple.h"
 #import "ProductMaintenance.h"
 #import "MenuTreeMaintenance.h"
-#import "NewOrderViewController.h"
 #import "TableMapViewController.h"
 #import "TestFlight.h"
 #import "Config.h"

@@ -33,11 +33,7 @@
 + (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (id)getFromUrlWithCommand:(NSString *)command query: (NSString *) query;
-- (void) getCard;
-- (NSMutableArray *) getMenus;
 - (NSMutableArray *) getLog;
-- (Map *) getMap;
-- (TreeNode *) getTree;
 - (void) undockTable: (int)tableId;
 - (void) dockTables: (NSMutableArray*)tables;
 - (Order *) getOrder: (int) orderId;
@@ -58,16 +54,10 @@
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
-- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
-- (void) quickOrder: (Order *)order paymentType: (PaymentType)paymentType printInvoice: (BOOL)printInvoice  delegate: (id) delegate callback: (SEL)callback;
-
-- (void) updateOrderRaven:(Order *)order;
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
 - (void) serveCourse: (int) courseId;	
-- (void) setGender: (NSString *)gender forGuest: (int)guestId;
-- (void) startTable: (int)tableId fromReservation: (int) reservationId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
@@ -102,7 +92,6 @@
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
-//- (void) getConfig:(id)delegate callback:(SEL)callback;
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback;
 - (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
 

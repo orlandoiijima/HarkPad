@@ -21,7 +21,7 @@
 {
     OrderLine *orderLine = [[OrderLine alloc] initWithJson:jsonDictionary];
     orderLine.order = order;
-    int productId = [[jsonDictionary objectForKey:@"ProductId"] intValue];
+    NSString *productId = [jsonDictionary objectForKey:@"ProductId"];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
     NSNumber *seconds = [jsonDictionary objectForKey:@"CreatedOn"];
     orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];

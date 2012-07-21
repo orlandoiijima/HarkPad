@@ -19,7 +19,7 @@
 }
 
 + (MenuCard *) menuFromJson: (NSMutableDictionary *) jsonData;
-- (Product *) getProduct: (int) productId;
+- (Product *) getProduct: (NSString *) productId;
 - (Menu *) getMenu: (int) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;
 

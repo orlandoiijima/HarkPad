@@ -17,10 +17,10 @@
 + (ProductTotals *) totalsFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     ProductTotals *productTotals = [[ProductTotals alloc] init];
-    int productId = [[jsonDictionary objectForKey:@"productId"] intValue];
+    NSString * productId = [jsonDictionary objectForKey:@"ProductId"];
     productTotals.product = [[[Cache getInstance] menuCard] getProduct:productId];
     productTotals.totals = [[NSMutableDictionary alloc] init];
-    id totals = [jsonDictionary objectForKey:@"totals"];
+    id totals = [jsonDictionary objectForKey:@"Totals"];
     int i = 0;
     for(NSNumber *total in totals)
     {

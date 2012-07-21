@@ -32,17 +32,17 @@
     return menu;
 }
 
-- (Product *) getProduct: (int) productId
+- (Product *) getProduct: (NSString *) productId
 {
     for(ProductCategory *category in categories)
     {
         for(Product *product in category.products)
         {
-            if(product.id == productId)
+            if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
                 return product;
         }    
     }
-    NSLog(@"product %d not found", productId);
+    NSLog(@"product %@ not found", productId);
     return nil;
 }
 

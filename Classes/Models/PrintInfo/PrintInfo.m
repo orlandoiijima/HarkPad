@@ -29,7 +29,7 @@
 
 - (PrintTemplate *) getTemplateNamed:(NSString *)templateName {
     for(PrintTemplate *template in self.templates) {
-        if ([template.name isEqualToString:templateName])
+        if ([template.name compare:templateName options:NSCaseInsensitiveSearch] == NSOrderedSame)
             return template;
     }
     return [PrintTemplate defaultTemplate];

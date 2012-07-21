@@ -25,51 +25,6 @@
 {
     _orderDataSource = [OrderDataSource dataSourceForOrder:self.order grouping: noGrouping totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:12];
 
-//    NSMutableDictionary *template = [[NSMutableDictionary alloc] init];
-//    NSMutableDictionary *text = [[NSMutableDictionary alloc] init];
-//    [text setObject:[NSNumber numberWithInt:10] forKey:@"x"];
-//    [text setObject:[NSNumber numberWithInt:10] forKey:@"y"];
-//    [text setObject:[NSNumber numberWithInt:200] forKey:@"width"];
-//    [text setObject:@"Datum: {nowDate} {nowTime}" forKey:@"text"];
-//
-//    NSMutableDictionary *text2 = [[NSMutableDictionary alloc] init];
-//    [text2 setObject:[NSNumber numberWithInt:10] forKey:@"x"];
-//    [text2 setObject:[NSNumber numberWithInt:200] forKey:@"width"];
-//    [text2 setObject:@"Rekening: {id}" forKey:@"text"];
-//
-//    NSMutableArray *texts = [NSMutableArray arrayWithObjects:text, text2, nil];
-//
-//    if (_order.table != nil) {
-//        NSMutableDictionary *text3 = [[NSMutableDictionary alloc] init];
-//        [text3 setObject:[NSNumber numberWithInt:10] forKey:@"x"];
-//        [text3 setObject:[NSNumber numberWithInt:200] forKey:@"width"];
-//        [text3 setObject:@"Tafel: {table}" forKey:@"text"];
-//        [texts addObject:text3];
-//    }
-//    [template  setObject: texts forKey:@"texts"];
-//
-//    NSMutableDictionary *table = [[NSMutableDictionary alloc] init];
-//    [template setObject:table forKey:@"table"];
-//    [table setObject:[NSNumber numberWithInt:100] forKey:@"x"];
-//    [table setObject:[NSNumber numberWithInt:100] forKey:@"y"];
-//    [table setObject:[NSNumber numberWithFloat: 8.2] forKey:@"fontSize"];
-//
-//    NSMutableDictionary *column1 = [[NSMutableDictionary alloc] init];
-//    [column1 setObject:@"{quantity}" forKey:@"text"];
-//    [column1 setObject:[NSNumber numberWithInt:50] forKey:@"width"];
-//    [column1 setObject:[NSNumber numberWithInt:2] forKey:@"alignment"];
-//
-//    NSMutableDictionary *column2 = [[NSMutableDictionary alloc] init];
-//    [column2 setObject:@"{productName}" forKey:@"text"];
-//    [column2 setObject:[NSNumber numberWithInt:150] forKey:@"width"];
-//
-//    NSMutableDictionary *column3 = [[NSMutableDictionary alloc] init];
-//    [column3 setObject:@"{amount}" forKey:@"text"];
-//    [column3 setObject:@"{amountTotal}" forKey:@"footer"];
-//    [column3 setObject:[NSNumber numberWithInt:150] forKey:@"width"];
-//    [column3 setObject:[NSNumber numberWithInt:2] forKey:@"alignment"];
-//    [table setObject: [NSArray arrayWithObjects: column1, column2, column3, nil] forKey:@"columns"];
-    
     PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"invoice"];
 
     NSString *fileName = [NSString stringWithFormat:@"Invoice%d.pdf", _order.id];
@@ -81,41 +36,49 @@
     return pdfFileName;
 }
 
-- (NSUInteger)countOfRows {
+- (NSUInteger)numberOfRowsInSection:(NSInteger)section {
     return (NSUInteger) [_orderDataSource tableView:nil numberOfRowsInSection:0];
 }
 
+- (NSUInteger)numberOfSections {
+    return 1;
+}
+
+- (NSString *)titleForHeaderInSection:(NSInteger)section {
+    return nil;
+}
+
 - (NSString *)stringForVariable:(NSString *)variable {
-    if ([variable isEqualToString:@"{nowDate}"]) {
+    if ([variable compare: @"{nowDate}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
-    }
-    if ([variable isEqualToString:@"{nowTime}"]) {
+
+    if ([variable compare: @"{nowTime}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
-    }
-    if ([variable isEqualToString:@"{id}"]) {
+
+    if ([variable compare: @"{id}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSString stringWithFormat:@"%d", self.order.id];
-    }
-    if ([variable isEqualToString:@"{table}"]) {
+
+    if ([variable compare: @"{table}" options: NSCaseInsensitiveSearch] == NSOrderedSame) {
         if (self.order.table == nil) return @"";
         return [NSString stringWithFormat:@"%@",  self.order.table.name];
     }
     return variable;
 }
 
-- (NSString *)stringForVariable:(NSString *)variable inRow:(NSUInteger)row {
+- (NSString *)stringForVariable:(NSString *)variable row:(NSUInteger)row section:(NSUInteger)section {
     if (row < [_orderDataSource tableView:nil numberOfRowsInSection:0]) {
         OrderLine *line = [_orderDataSource orderLineAtIndexPath: [NSIndexPath indexPathForRow:row inSection:0]];
         if (line == nil) return @"";
-        if ([variable isEqualToString:@"{productName}"])
+        if ([variable compare: @"{productName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.name;
-        if ([variable isEqualToString:@"{productKey}"])
+        if ([variable compare: @"{productKey}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.key;
-        if ([variable isEqualToString:@"{quantity}"])
+        if ([variable compare: @"{quantity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [NSString stringWithFormat:@"%d", line.quantity];
-        if ([variable isEqualToString:@"{amount}"])
+        if ([variable compare: @"{amount}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getAmount withCurrency:YES]];
     }
-    if ([variable isEqualToString:@"{amountTotal}"])
+    if ([variable compare: @"{amountTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSString stringWithFormat:@"%@", [Utils getAmountString: self.order.totalAmount withCurrency:YES]];
     return @"";
 }

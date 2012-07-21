@@ -36,7 +36,7 @@
     if (product == nil) return;
     if ([_order.lines count] == 0)
         [self setupScreenForNewOrder];
-    OrderLine *line = [_order addLineWithProductId:product.id seat:-1 course:-1];
+    OrderLine *line = [_order addLineWithProductId:product.key seat:-1 course:-1];
     [self.dataSource tableView:self.orderView addLine:line];
     [self onOrderUpdated];
 }
@@ -147,7 +147,8 @@
 
 - (IBAction) cashOrder
 {
-    [[Service getInstance] quickOrder:_order paymentType: Cash printInvoice:NO delegate:self callback:@selector(cashOrderCallback:)];
+    _order.paymentType = Cash;
+    [[Service getInstance] updateOrder:_order delegate:self callback:@selector(cashOrderCallback:)];
 }
 
 - (void) cashOrderCallback: (ServiceResult *)serviceResult
