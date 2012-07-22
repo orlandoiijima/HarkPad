@@ -8,8 +8,7 @@
 @protocol TemplatePrintDelegate
 
 @required
-- (NSString *) stringForVariable: (NSString *)variable;
-- (NSString *) stringForVariable: (NSString *)variable row: (NSUInteger)row section: (NSUInteger)section;
+- (NSString *) stringForVariable: (NSString *)variable row: (int)row section: (int)section;
 - (NSUInteger) numberOfRowsInSection:(NSInteger)section;
 - (NSUInteger) numberOfSections;
 - (NSString *) titleForHeaderInSection:(NSInteger)section;

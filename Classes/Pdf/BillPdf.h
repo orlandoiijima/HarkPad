@@ -18,4 +18,6 @@
 + (BillPdf *)billByOrder: (Order *)order;
 - (NSString *)create;
 
+- (NSString *)stringForVariable:(NSString *)variable row:(int)row section:(int)section;
+
 @end

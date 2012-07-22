@@ -20,4 +20,6 @@
 + (PrintTemplate *) templateFromJson:(NSDictionary *)infoJson;
 + (PrintTemplate *) defaultTemplate;
 
+- (NSString *) evaluateString: (NSString *)string valueProvider:(id) delegate row:(int)row section:(int)section;
+
 @end

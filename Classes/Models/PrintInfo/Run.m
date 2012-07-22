@@ -6,6 +6,7 @@
 
 
 #import "Run.h"
+#import "TemplatePrintDelegate.h"
 
 
 @implementation Run {
@@ -39,6 +40,28 @@
     run.ySpec  = [infoJson objectForKey:@"YSpec"];
     run.text  = [infoJson objectForKey:@"Text"];
     return run;
+}
+
+- (NSString *) evaluateWithProvider:(id) delegate row:(int)row section:(int)section
+{
+    NSString *destination = @"";
+    int i = 0;
+    while (YES) {
+        NSString *tail = [_text substringFromIndex:i];
+        NSRange startVar = [tail rangeOfString:@"{"];
+        if (startVar.length == 0) {
+            destination = [destination stringByAppendingString: tail];
+            return destination;
+        }
+        NSRange endVar = [tail rangeOfString:@"}"];
+        if (endVar.length == 0 || endVar.location < startVar.location)
+            return destination;
+        NSString *variable = [tail substringWithRange:NSMakeRange(startVar.location, endVar.location - startVar.location + 1)];
+        NSString *outcome = [delegate stringForVariable:variable row:row section:section];
+        destination = [destination stringByAppendingString: [tail substringToIndex:startVar.location]];
+        destination = [destination stringByAppendingString:outcome];
+        i += endVar.location + 1;
+    }
 }
 
 @end

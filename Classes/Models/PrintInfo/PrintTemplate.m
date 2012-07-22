@@ -8,6 +8,8 @@
 #import "PrintTemplate.h"
 #import "PrintTable.h"
 #import "Run.h"
+#import "TemplatePrintDelegate.h"
+#import "Table.h"
 
 
 @implementation PrintTemplate {

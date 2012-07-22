@@ -20,4 +20,6 @@
 
 + (Run *) runFromJson:(NSDictionary *)infoJson;
 
+- (NSString *) evaluateWithProvider:(id) delegate row:(int)row section:(int)section;
+
 @end

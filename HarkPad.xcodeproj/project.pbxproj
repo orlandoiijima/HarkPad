@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
 		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
+		D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */; };
 		D0A72886B4C04B275B535402 /* PrintTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7260BC1E66EC8185DF19B /* PrintTable.m */; };
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
@@ -142,6 +143,7 @@
 		E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F021350CA94005397C0 /* SalesViewController.m */; };
 		E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E42F031350CA95005397C0 /* SalesViewController.xib */; };
 		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
+		E5E4C98A15BB42B3001E8F58 /* StarIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E4C98915BB42B3001E8F58 /* StarIO.framework */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
 		E5E722FC1311A12C00905959 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
@@ -320,6 +322,7 @@
 
 /* Begin PBXFileReference section */
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
+		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
 		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
 		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTemplate.h; path = PrintInfo/PrintTemplate.h; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
@@ -331,6 +334,7 @@
 		D0A72A165B000AF1792D8130 /* CallbackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInfo.h; sourceTree = "<group>"; };
 		D0A72A7076F7B954783AF85D /* PrintColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintColumn.m; path = PrintInfo/PrintColumn.m; sourceTree = "<group>"; };
 		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTemplate.m; path = PrintInfo/PrintTemplate.m; sourceTree = "<group>"; };
+		D0A72F76FF62CEA38268E37A /* StarPrintJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarPrintJob.h; path = StarPrint/StarPrintJob.h; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
 		E5015259131306E4007959F5 /* SlotDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlotDataSource.m; path = Models/SlotDataSource.m; sourceTree = "<group>"; };
@@ -642,6 +646,7 @@
 		E5E42F031350CA95005397C0 /* SalesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SalesViewController.xib; sourceTree = "<group>"; };
 		E5E42F0A1350E4E1005397C0 /* ProductTotals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTotals.h; sourceTree = "<group>"; };
 		E5E42F0B1350E4E2005397C0 /* ProductTotals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTotals.m; sourceTree = "<group>"; };
+		E5E4C98915BB42B3001E8F58 /* StarIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO.framework; path = ../../../Downloads/StarIO_iOS_SDK_V230/Distributables/StarIO.framework; sourceTree = "<group>"; };
 		E5E722E513116DFB00905959 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		E5E722E613116DFB00905959 /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
 		E5E722EE13118B3800905959 /* ChefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChefViewController.h; sourceTree = "<group>"; };
@@ -850,6 +855,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5E4C98A15BB42B3001E8F58 /* StarIO.framework in Frameworks */,
 				E55413AF1513D29900DDE051 /* libz.dylib in Frameworks */,
 				E59F903E14925179008EA0DA /* Security.framework in Frameworks */,
 				E55DFCEF139FDA5C00EB7C69 /* MessageUI.framework in Frameworks */,
@@ -869,6 +875,7 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				E5E4C98915BB42B3001E8F58 /* StarIO.framework */,
 				E55413AE1513D29900DDE051 /* libz.dylib */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
@@ -939,6 +946,8 @@
 		E50A384012E234B8007C2101 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D0A72F76FF62CEA38268E37A /* StarPrintJob.h */,
+				D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */,
 				E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */,
 				E5F609A313489C2400D8869C /* ToolbarTitleView.h */,
 				E5F609A313489C2400D8869A /* ToolbarTitleView.m */,
@@ -2208,6 +2217,7 @@
 				D0A7207B9029969873E01E28 /* Run.m in Sources */,
 				D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */,
 				D0A72886B4C04B275B535402 /* PrintTable.m in Sources */,
+				D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2301,6 +2311,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/../../../Downloads/StarIO_iOS_SDK_V230/Distributables\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2322,6 +2333,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
+					"\"$(SRCROOT)/../../../Downloads/StarIO_iOS_SDK_V230/Distributables\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";

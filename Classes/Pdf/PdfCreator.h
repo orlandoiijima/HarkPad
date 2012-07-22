@@ -19,6 +19,5 @@
 
 + (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template;
 - (void) createFileAtPath: (NSString *)path delegate: (id)delegate ;
-- (NSString *) evaluateString: (NSString *)string;
 
 @end

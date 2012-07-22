@@ -48,7 +48,8 @@
     return nil;
 }
 
-- (NSString *)stringForVariable:(NSString *)variable {
+- (NSString *)stringForVariable:(NSString *)variable row:(int)row section:(int)section {
+
     if ([variable compare: @"{nowDate}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 
@@ -62,12 +63,9 @@
         if (self.order.table == nil) return @"";
         return [NSString stringWithFormat:@"%@",  self.order.table.name];
     }
-    return variable;
-}
 
-- (NSString *)stringForVariable:(NSString *)variable row:(NSUInteger)row section:(NSUInteger)section {
-    if (row < [_orderDataSource tableView:nil numberOfRowsInSection:0]) {
-        OrderLine *line = [_orderDataSource orderLineAtIndexPath: [NSIndexPath indexPathForRow:row inSection:0]];
+    if (row >= 0 && row < [_orderDataSource tableView:nil numberOfRowsInSection: section]) {
+        OrderLine *line = [_orderDataSource orderLineAtIndexPath: [NSIndexPath indexPathForRow:row inSection: section]];
         if (line == nil) return @"";
         if ([variable compare: @"{productName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.name;
@@ -78,8 +76,10 @@
         if ([variable compare: @"{amount}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getAmount withCurrency:YES]];
     }
+
     if ([variable compare: @"{amountTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSString stringWithFormat:@"%@", [Utils getAmountString: self.order.totalAmount withCurrency:YES]];
+
     return @"";
 }
 

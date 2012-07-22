@@ -19,14 +19,14 @@
 
 @synthesize delegate = _delegate, template = _template;
 
-+ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template {
++ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template delegate: (id)delegate {
     PdfCreator *creator = [[PdfCreator alloc] init];
     creator.template  = [[[Cache getInstance] printInfo] getTemplateNamed:template];
+    creator.delegate = delegate;
     return creator;
 }
 
-- (void) createFileAtPath: (NSString *)path delegate: (id)delegate {
-    self.delegate = delegate;
+- (void) createFileAtPath: (NSString *)path {
     CGSize pageSize = CGSizeMake(612, 792);
     UIGraphicsBeginPDFContextToFile(path, CGRectZero, nil);
 
@@ -39,7 +39,7 @@
 
     float y = 0;
     for(Run *run in self.template.preRuns) {
-        NSString *textToDraw = [self evaluateString: run.text];
+        NSString *textToDraw = [run evaluateWithProvider: _delegate row:-1 section:-1];
         float x = [run.xSpec floatValue];
         y = run.ySpec == nil ? y : [run.ySpec floatValue];
         float width = run.width;
@@ -67,7 +67,7 @@
             continue;
 
         Run *sectionRun = self.template.table.section;
-        NSString *sectionHeader = [self.delegate stringForVariable: sectionRun.text row: -1 section: section];
+        NSString *sectionHeader = [sectionRun evaluateWithProvider: _delegate row: -1 section: section];
         if ([sectionHeader length] > 0) {
             UIFont *font = [UIFont systemFontOfSize: sectionRun.pointSize == 0.0 ? pointSize : sectionRun.pointSize];
             float x = [sectionRun.xSpec floatValue];
@@ -86,10 +86,9 @@
         for(NSUInteger row = 0; row < countRows; row++) {
             float height = 0;
             for(PrintColumn *column in self.template.table.columns) {
-                NSString *variable = column.cell.text;
                 float x = [column.cell.xSpec floatValue];
-                if ([variable length] > 0) {
-                    NSString *cell = [self.delegate stringForVariable:variable row:row section: section];
+                NSString *cell = [column.cell evaluateWithProvider: _delegate row:row section: section];
+                if ([cell length] > 0) {
 
                     CGSize stringSize = [cell sizeWithFont:font
                                                constrainedToSize:CGSizeMake(column.cell.width, 100)
@@ -110,28 +109,6 @@
     }
 
     UIGraphicsEndPDFContext();
-}
-
-- (NSString *) evaluateString: (NSString *)string
-{
-    NSString *destination = @"";
-    int i = 0;
-    while (YES) {
-        NSString *tail = [string substringFromIndex:i];
-        NSRange startVar = [tail rangeOfString:@"{"];
-        if (startVar.length == 0) {
-            destination = [destination stringByAppendingString: tail];
-            return destination;
-        }
-        NSRange endVar = [tail rangeOfString:@"}"];
-        if (endVar.length == 0 || endVar.location < startVar.location)
-            return destination;
-        NSString *variable = [tail substringWithRange:NSMakeRange(startVar.location, endVar.location - startVar.location + 1)];
-        NSString *outcome = [self.delegate stringForVariable:variable];
-        destination = [destination stringByAppendingString: [tail substringToIndex:startVar.location]];
-        destination = [destination stringByAppendingString:outcome];
-        i += endVar.location + 1;
-    }
 }
 
 @end
