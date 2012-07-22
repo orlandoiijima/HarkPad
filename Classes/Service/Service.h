@@ -76,12 +76,13 @@
 - (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 - (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 
-- (ServiceResult *) printInvoice: (int)orderId;
+//- (ServiceResult *) printInvoice: (int)orderId;
 
 - (void) getUsers: (id) delegate callback: (SEL)callback;
 - (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback;
 
 - (void) getConfig: (id) delegate callback: (SEL)callback;
+- (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
@@ -93,6 +94,6 @@
 
 - (BOOL) checkReachability;
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback;
-- (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
+- (void) getRequestResource: (NSString *)resource id: (NSString *)id arguments: (NSString *) arguments converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
 
 @end

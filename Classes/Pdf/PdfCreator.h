@@ -17,7 +17,6 @@
 @property (nonatomic, retain) id<TemplatePrintDelegate> delegate;
 @property (retain) PrintTemplate *template;
 
-+ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template;
-- (void) createFileAtPath: (NSString *)path delegate: (id)delegate ;
-
+- (NSString *) createFileNamed: (NSString *)fileName;
++ (PdfCreator *) pdfCreatorWithTemplateNamed: (NSString *) template delegate: (id)delegate;
 @end

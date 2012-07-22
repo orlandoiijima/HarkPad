@@ -14,6 +14,7 @@
 #import "User.h"
 #import "Reachability.h"
 #import "CallbackInfo.h"
+#import "NSDate-Utilities.h"
 
 @implementation Service {
 @private
@@ -451,53 +452,20 @@ static Service *_service;
     return;
 }
 
-- (ServiceResult *) printInvoice: (int)orderId
-{
-    NSURL *testUrl = [self makeEndPoint:@"printinvoice" withQuery:[NSString stringWithFormat:@"orderId=%d", orderId]];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [ServiceResult resultFromData:data error:nil];
-}
+//- (ServiceResult *) printInvoice: (int)orderId
+//{
+//    NSURL *testUrl = [self makeEndPoint:@"printinvoice" withQuery:[NSString stringWithFormat:@"orderId=%d", orderId]];
+//	NSData *data = [NSData dataWithContentsOfURL: testUrl];
+//	return [ServiceResult resultFromData:data error:nil];
+//}
 
-- (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
-{
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getsales"
-                withQuery:[NSString stringWithFormat:@"date=%@", [self stringParameterForDateTimestamp:date]]
-                 delegate:self
-                 callback:@selector(getSalesStatisticsCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getSalesStatisticsCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    if (result.isSuccess) {
-        NSMutableArray *stats = [[NSMutableArray alloc] init];
-        NSMutableDictionary *statsDic = [self getResultFromJson: data];
-        for(NSDictionary *statDic in statsDic)
-        {
-            ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
-            [stats addObject:totals];
-        }
-        result.data = stats;
-    }
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
-    return;
-}
-    
-- (void) printSalesReport:(NSDate *)date
-{
-    int dateSeconds = (int) [date timeIntervalSince1970];    
-	    NSURL *testUrl = [self makeEndPoint:@"printsalesreport"  withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
-	[NSData dataWithContentsOfURL: testUrl];
-	return;
-}
+//- (void) printSalesReport:(NSDate *)date
+//{
+//    int dateSeconds = (int) [date timeIntervalSince1970];
+//	    NSURL *testUrl = [self makeEndPoint:@"printsalesreport"  withQuery:[NSString stringWithFormat:@"date=%d", dateSeconds]];
+//	[NSData dataWithContentsOfURL: testUrl];
+//	return;
+//}
 
 - (Order *) getOrder: (int) orderId
 {
@@ -647,33 +615,26 @@ static Service *_service;
 
 }
 
-//- (void) updateOrderRaven:(Order *)order {
-//    NSError *error = nil;
-//    NSMutableDictionary *orderAsDictionary = [order toDictionary];
-//    [orderAsDictionary setObject: [[NSUserDefaults standardUserDefaults] stringForKey:@"env"] forKey:@"location"];
-//    [orderAsDictionary setObject: [NSNumber numberWithInt: order.id] forKey:@"mysqlId"];
-//    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-//    NSURL *shadowUrl = [NSURL URLWithString: [NSString stringWithFormat:@"%@/api/order/updateorder", URL_DEV_SHADOW]];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: shadowUrl];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-//    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-//    fetcher.userData = nil;
-//    [fetcher beginFetchWithDelegate:nil didFinishSelector: nil];
-//}
-//
-//- (void)quickOrder: (Order *)order delegate: (id) delegate callback: (SEL)callback {
-//    NSError *error = nil;
-//    NSString *jsonString = [[CJSONSerializer serializer] serializeObject: [order toDictionary] error: &error];
-//
-//    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-//    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-//    [invocation retainArguments];
-//    [invocation setTarget:delegate];
-//    [invocation setSelector:callback];
-//    [self postPageCallback:@"quickorder" key:@"order" value: jsonString delegate: self callback:@selector(simpleCallback:finishedWithData:error:) userData:invocation];
-//}
+- (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback
+{
+    [self getRequestResource: @"Sales"
+                          id: [date stringISO8601]
+                   arguments: nil
+                   converter: ^(NSDictionary *dictionary)
+                   {
+                       NSMutableDictionary *sales = [[NSMutableDictionary alloc] init];
+                       NSMutableArray *stats = [[NSMutableArray alloc] init];
+                       for(NSDictionary *statDic in dictionary)
+                       {
+                           ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
+                           [stats addObject:totals];
+                       }
+                       [sales setObject: stats forKey: @"Sales"];
+                       return sales;
+                   }
+                    delegate: delegate
+                    callback: callback];
+}
 
 - (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
 {
@@ -696,6 +657,7 @@ static Service *_service;
 
     [self getRequestResource:@"DistrictInfo"
                           id: district
+                   arguments: @""
                    converter: converter
                     delegate: delegate
                     callback: callback];
@@ -705,6 +667,7 @@ static Service *_service;
 {
     [self getRequestResource:@"TableOrder"
                           id: tableId
+                   arguments: @""
                    converter: ^(NSDictionary *dictionary)
                    {
                         return [Order orderFromJsonDictionary: dictionary];
@@ -717,6 +680,7 @@ static Service *_service;
 {
     [self getRequestResource: @"TableOrder"
                           id: nil
+                   arguments: @""
                    converter: ^(NSDictionary *ordersDic)
                        {
                            NSMutableArray *orders = [[NSMutableArray alloc] init];
@@ -735,6 +699,10 @@ static Service *_service;
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [self requestResource:@"order" method:@"POST" id:nil body:orderAsDictionary delegate: delegate callback: callback];
+}
+
+- (void) getConfig:(id)delegate callback:(SEL)callback {
+    [self requestResource:@"config" method:@"GET" id:nil body:nil delegate:delegate callback:callback];
 }
 
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
@@ -759,12 +727,14 @@ static Service *_service;
     [fetcher beginFetchWithDelegate:self didFinishSelector: @selector(simpleCallback:finishedWithData:error:)];
 }
 
-- (void) getRequestResource: (NSString *)resource id: (NSString *)id converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback {
+- (void) getRequestResource: (NSString *)resource id: (NSString *)id arguments: (NSString *) arguments converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback {
     CallbackInfo *info = [CallbackInfo infoWithDelegate:delegate callback:callback converter:converter];
 
     NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, _location, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
+    if (arguments != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
     [request setHTTPMethod: @"GET"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -790,10 +760,6 @@ static Service *_service;
     [info.invocation setArgument:&result atIndex:2];
     [info.invocation invoke];
 
-}
-
-- (void) getConfig:(id)delegate callback:(SEL)callback {
-    [self requestResource:@"config" method:@"GET" id:nil body:nil delegate:delegate callback:callback];
 }
 
 - (NSString *)urlEncode: (NSString *)unencodedString

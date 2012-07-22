@@ -25,15 +25,10 @@
 {
     _orderDataSource = [OrderDataSource dataSourceForOrder:self.order grouping: noGrouping totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:12];
 
-    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"invoice"];
-
+    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"invoice" delegate:self];
     NSString *fileName = [NSString stringWithFormat:@"Invoice%d.pdf", _order.id];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *pdfFileName = [documentsDirectory stringByAppendingPathComponent:fileName];
-    [creator createFileAtPath: pdfFileName delegate:self];
 
-    return pdfFileName;
+    return  [creator createFileNamed: fileName];
 }
 
 - (NSUInteger)numberOfRowsInSection:(NSInteger)section {

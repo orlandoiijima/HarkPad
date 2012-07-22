@@ -127,6 +127,13 @@
     }
 }
 
+- (NSString *) flatDateString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    return [dateFormatter stringFromDate:self];
+}
+
 - (NSString *) shortTime
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

@@ -86,5 +86,6 @@
 @property (readonly) NSInteger year;
 
 - (NSString *)stringISO8601;
+- (NSString *) flatDateString;
 
 @end

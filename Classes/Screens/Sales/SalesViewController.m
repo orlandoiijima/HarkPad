@@ -141,7 +141,7 @@
 - (void) refreshView
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:NSLocalizedString(@"Loading...", nil)];
-    [[Service getInstance] getSalesStatistics:dateToShow delegate:self callback:@selector(refreshViewCallback:)];
+    [[Service getInstance] getSalesForDate:dateToShow delegate:self callback:@selector(refreshViewCallback:)];
 }
 
 - (void) refreshViewCallback: (ServiceResult *)serviceResult
@@ -155,7 +155,7 @@
 
     dateLabel.text = [dateToShow prettyDateString];
 
-    NSMutableArray *productTotals = serviceResult.data;
+    NSMutableArray *productTotals = [serviceResult.data objectForKey: @"Sales"];
 
     self.groupedTotals = [[NSMutableDictionary alloc] init];
     if([productTotals count] == 0) {

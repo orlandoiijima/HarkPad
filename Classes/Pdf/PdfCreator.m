@@ -26,9 +26,14 @@
     return creator;
 }
 
-- (void) createFileAtPath: (NSString *)path {
+- (NSString *) createFileNamed: (NSString *)fileName {
+
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *pdfFileName = [documentsDirectory stringByAppendingPathComponent:fileName];
+
     CGSize pageSize = CGSizeMake(612, 792);
-    UIGraphicsBeginPDFContextToFile(path, CGRectZero, nil);
+    UIGraphicsBeginPDFContextToFile(pdfFileName, CGRectZero, nil);
 
     UIGraphicsBeginPDFPageWithInfo(CGRectMake(0, 0, pageSize.width, pageSize.height), nil);
 
@@ -109,6 +114,8 @@
     }
 
     UIGraphicsEndPDFContext();
+
+    return pdfFileName;
 }
 
 @end
