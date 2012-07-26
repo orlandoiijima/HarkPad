@@ -17,12 +17,12 @@
 @implementation PdfCreator {
 }
 
-@synthesize delegate = _delegate, template = _template;
+@synthesize dataSource = _dataSource, template = _template;
 
-+ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template delegate: (id)delegate {
++ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template dataSource: (id)dataSource {
     PdfCreator *creator = [[PdfCreator alloc] init];
     creator.template  = [[[Cache getInstance] printInfo] getTemplateNamed:template];
-    creator.delegate = delegate;
+    creator.dataSource = dataSource;
     return creator;
 }
 
@@ -65,14 +65,14 @@
         y += stringSize.height;
     }
 
-    int countSections = [self.delegate numberOfSections];
+    int countSections = [_dataSource numberOfSections];
     for (NSUInteger section=0; section < countSections; section++) {
-        int countRows = [self.delegate numberOfRowsInSection:section];
+        int countRows = [_dataSource numberOfRowsInSection:section];
         if (countRows == 0)
             continue;
 
         Run *sectionRun = self.template.table.section;
-        NSString *sectionHeader = [sectionRun evaluateWithProvider: _delegate row: -1 section: section];
+        NSString *sectionHeader = [sectionRun evaluateWithProvider: _dataSource row: -1 section: section];
         if ([sectionHeader length] > 0) {
             UIFont *font = [UIFont systemFontOfSize: sectionRun.pointSize == 0.0 ? pointSize : sectionRun.pointSize];
             float x = [sectionRun.xSpec floatValue];
@@ -92,7 +92,7 @@
             float height = 0;
             for(PrintColumn *column in self.template.table.columns) {
                 float x = [column.cell.xSpec floatValue];
-                NSString *cell = [column.cell evaluateWithProvider: _delegate row:row section: section];
+                NSString *cell = [column.cell evaluateWithProvider: _dataSource row:row section: section];
                 if ([cell length] > 0) {
 
                     CGSize stringSize = [cell sizeWithFont:font

@@ -7,15 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #import <StarIO/SMPort.h>
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 #import "PrintTemplate.h"
 
 
 @interface StarPrintJob : NSObject
 @property(nonatomic, strong) PrintTemplate *template;
 @property(nonatomic, strong) SMPort *port;
-@property (nonatomic, retain) id<TemplatePrintDelegate> delegate;
+@property (nonatomic, retain) id<TemplatePrintDataSource> dataSource;
 
-+ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName delegate: (id) delegate;
++ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource;
 
 @end

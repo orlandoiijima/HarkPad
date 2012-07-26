@@ -8,7 +8,7 @@
 #import "PrintTemplate.h"
 #import "PrintTable.h"
 #import "Run.h"
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 #import "Table.h"
 
 

@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 #import "Order.h"
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 #import "OrderDataSource.h"
 
-@interface BillPdf : NSObject <TemplatePrintDelegate>
+@interface BillPdf : NSObject <TemplatePrintDataSource>
 
 @property (retain) Order *order;
 @property (retain) OrderDataSource *orderDataSource;

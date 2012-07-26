@@ -6,7 +6,7 @@
 
 
 #import "Run.h"
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 
 
 @implementation Run {

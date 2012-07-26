@@ -5,7 +5,7 @@
 //
 
 
-@protocol TemplatePrintDelegate
+@protocol TemplatePrintDataSource
 
 @required
 - (NSString *) stringForVariable: (NSString *)variable row: (int)row section: (int)section;

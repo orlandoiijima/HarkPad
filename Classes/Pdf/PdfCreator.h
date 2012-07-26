@@ -6,17 +6,17 @@
 
 
 #import <Foundation/Foundation.h>
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 #import "PrintTemplate.h"
 
 @interface PdfCreator : NSObject {
-    id<TemplatePrintDelegate> __strong _delegate;
+    id<TemplatePrintDataSource> __strong _delegate;
 }
 
 
-@property (nonatomic, retain) id<TemplatePrintDelegate> delegate;
+@property (nonatomic, retain) id<TemplatePrintDataSource> dataSource;
 @property (retain) PrintTemplate *template;
 
 - (NSString *) createFileNamed: (NSString *)fileName;
-+ (PdfCreator *) pdfCreatorWithTemplateNamed: (NSString *) template delegate: (id)delegate;
++ (PdfCreator *) pdfCreatorWithTemplateNamed: (NSString *) template dataSource: (id)dataSource;
 @end

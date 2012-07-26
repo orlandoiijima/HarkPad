@@ -17,13 +17,14 @@
 #import "Utils.h"
 #import "CrystalButton.h"
 #import "TestFlight.h"
+#import "BillPdf.h"
 
 @implementation SimpleOrderScreen
 
 @synthesize productView = _productView;
 @synthesize orderView = _orderView;
 @synthesize order = _order;
-@synthesize previousOrderId = _previousOrderId;
+@synthesize previousOrder = _previousOrder;
 @synthesize dataSource, cashButton, orderButton, amountLabel, popoverController, infoLabel, printInvoiceButton;
 
 - (void)didReceiveMemoryWarning
@@ -54,7 +55,7 @@
     self.view.backgroundColor = [UIColor blackColor];
 
     self.title = NSLocalizedString(@"New order", nil);
-    _previousOrderId = -1;
+    _previousOrder = nil;
 
     float margin = 5;
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
@@ -159,7 +160,7 @@
         return;
     }
     _order.id = serviceResult.id;
-    _previousOrderId = _order.id;
+    _previousOrder = _order;
     [self prepareForNewOrder];
     [self setupStartScreen];
 }
@@ -173,8 +174,22 @@
 
 - (void) printPreviousOrder
 {
-    if(_previousOrderId == -1) return;
-    [[Service getInstance] printInvoice:_previousOrderId];
+    if(_previousOrder == nil) return;
+//    [[Service getInstance] printInvoice:_previousOrderId];
+
+    BillPdf *pdf = [BillPdf billByOrder: _previousOrder];
+    NSString *pdfFilename = [pdf create];
+
+    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
+    if ([UIPrintInteractionController canPrintData: pdfData]) {
+        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
+        controller.printingItem = pdfData;
+        UIPrintInfo *info = [UIPrintInfo printInfo];
+        info.jobName = pdfFilename;
+        info.outputType = UIPrintInfoOutputGeneral;
+        controller.printInfo = info;
+        [controller presentAnimated:YES completionHandler:nil];
+    }
 }
 
 - (void)didSelectItem:(id)item {
@@ -196,7 +211,7 @@
         [view show];
         return;
     }
-    _previousOrderId = serviceResult.id;
+    _previousOrder.id = serviceResult.id;
     [self prepareForNewOrder];
     [self setupStartScreen];
 }
@@ -234,7 +249,7 @@
                      orderButton.alpha = 0;
 
                      infoLabel.alpha = 1;
-                     printInvoiceButton.alpha = _previousOrderId != -1 ? 1 : 0;
+                     printInvoiceButton.alpha = _previousOrder != nil ? 1 : 0;
                  }
      ];
     [self.view bringSubviewToFront:printInvoiceButton];

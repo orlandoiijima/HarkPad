@@ -28,7 +28,7 @@
 
 - (NSString *)create
 {
-    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"sales" delegate:self];
+    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"sales" dataSource:self];
     NSString *fileName = [NSString stringWithFormat:@"Sales %@-%@.pdf", [_from flatDateString], [_to flatDateString] ];
 
     return  [creator createFileNamed: fileName];

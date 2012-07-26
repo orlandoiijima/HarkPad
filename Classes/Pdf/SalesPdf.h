@@ -6,10 +6,10 @@
 
 
 #import <Foundation/Foundation.h>
-#import "TemplatePrintDelegate.h"
+#import "TemplatePrintDataSource.h"
 
 
-@interface SalesPdf : NSObject <TemplatePrintDelegate>
+@interface SalesPdf : NSObject <TemplatePrintDataSource>
 
 @property(nonatomic, strong) NSDate *from;
 @property(nonatomic, strong) NSDate *to;

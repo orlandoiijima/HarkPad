@@ -16,17 +16,17 @@
 
 @private
     PrintTemplate *_template;
-    id _delegate;
+    id _dataSource;
 }
 @synthesize template = _template;
 @synthesize port = _port;
-@synthesize delegate = _delegate;
+@synthesize dataSource = _dataSource;
 
 
-+ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName delegate: (id) delegate {
++ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource {
     StarPrintJob *job = [[StarPrintJob alloc] init];
-    job.delegate = delegate;
-    job.template = [[[Cache getInstance] printInfo] getTemplateNamed: templateName]; 
+    job.dataSource = dataSource;
+    job.template = [[[Cache getInstance] printInfo] getTemplateNamed: templateName];
     return job;
 }
 
@@ -34,13 +34,13 @@
     @try {
         self.port = [SMPort getPort:@"aaa" :@"" :10000];
 
-        for(Run *run in self.template.preRuns) {
+        for(Run *run in _template.preRuns) {
             [self print:run row:-1 section:-1];
         }
     
-        int countSections = [self.delegate numberOfSections];
+        int countSections = [_dataSource numberOfSections];
         for (NSUInteger section=0; section < countSections; section++) {
-            int countRows = [self.delegate numberOfRowsInSection:section];
+            int countRows = [_dataSource numberOfRowsInSection:section];
             if (countRows == 0)
                 continue;
     
@@ -60,7 +60,7 @@
 }
 
 -(void) print:(Run *)run row:(int)row section:(int)section {
-    NSString *textToDraw = [run evaluateWithProvider:_delegate row:row section:section];
+    NSString *textToDraw = [run evaluateWithProvider:_dataSource row:row section:section];
     NSData *textNSData = [textToDraw dataUsingEncoding:NSWindowsCP1252StringEncoding];
     unsigned char *textData = (unsigned char *)malloc([textNSData length]);
     [textNSData getBytes:textData];
