@@ -26,7 +26,7 @@ typedef enum Vat {Low=0, High=1} Vat;
     bool isDeleted;
     Diet diet;
     NSMutableArray *properties;
-    Vat vat;
+    NSDecimalNumber *vat;
 }
 
 
@@ -36,7 +36,7 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property (retain) NSString *description;
 @property (retain) NSDecimalNumber *price;
 @property int sortOrder;
-@property Vat vat;
+@property (retain) NSDecimalNumber *vat;
 @property bool isQueued;
 @property bool isDeleted;
 @property (retain) NSMutableArray *properties;

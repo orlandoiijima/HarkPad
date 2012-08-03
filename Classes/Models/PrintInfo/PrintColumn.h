@@ -12,6 +12,7 @@
 
 @property (retain) Run *cell;
 @property (retain) NSString *header;
+@property (retain) NSString *footer;
 
 + (PrintColumn *) columnFromJson:(NSDictionary *)infoJson;
 

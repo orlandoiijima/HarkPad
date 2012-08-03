@@ -24,7 +24,7 @@
     [self putValue:product.name forKey:@"name"];
     [self putValue:product.key forKey:@"key"];
     [self putValue: [NSNumber numberWithFloat: [product.price floatValue]] forKey:@"price"];
-    [self putValue: [NSNumber numberWithBool: product.vat == 1] forKey:@"vat"];
+//    [self putValue: [NSNumber numberWithBool: product.vat == 1] forKey:@"vat"];
     for (OrderLineProperty*productProperty in [[Cache getInstance] productProperties]) {
         NSString *key = [NSString stringWithFormat:@"prop%d", productProperty.id];
         [self putValue: [NSNumber numberWithBool: [product hasProperty:productProperty.id]] forKey: key];
@@ -220,7 +220,7 @@
     product.name = [self getValueForKey:@"name"];
     product.key = [self getValueForKey:@"key"];
     product.price = [self getValueForKey:@"price"];
-    product.vat = [[self getValueForKey:@"vat"] intValue];
+//    product.vat = [[self getValueForKey:@"vat"] intValue];
     for (OrderLineProperty*productProperty in [[Cache getInstance] productProperties]) {
         NSString *key = [NSString stringWithFormat:@"prop%d", productProperty.id];
         bool hasProperty = [[self getValueForKey:key] boolValue];

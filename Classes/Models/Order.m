@@ -193,6 +193,17 @@
     return total;
 }
 
+- (NSDecimalNumber *)totalVatAmount
+{
+    id total = [NSDecimalNumber zero];
+    for(OrderLine *line in lines)
+    {
+        NSDecimalNumber *lineTotal = [line.product.vat decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:line.quantity]];
+        total = [total decimalNumberByAdding: lineTotal];
+    }
+    return total;
+}
+
 - (Course *)lastCourse
 {
     if(courses.count == 0)

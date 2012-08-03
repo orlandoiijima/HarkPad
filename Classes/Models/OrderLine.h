@@ -52,5 +52,6 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 - (Course *) getCourseByOffset: (int)offset courses: (NSArray *) courses;
 - (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests;
 - (NSDecimalNumber *) getAmount;
+- (NSDecimalNumber *) getVatAmount;
 
 @end

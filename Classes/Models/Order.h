@@ -40,6 +40,7 @@
 + (Order *) orderNull;
 - (NSMutableDictionary *)toDictionary;
 - (NSDecimalNumber *)totalAmount;
+- (NSDecimalNumber *)totalVatAmount;
 - (OrderLine *) addLineWithProductId: (NSString *) productId seat: (int) seat course: (int) course;
 
 - (Course *) getCourseByOffset: (int)offset;

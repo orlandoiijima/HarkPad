@@ -10,14 +10,12 @@
 #import "TemplatePrintDataSource.h"
 #import "OrderDataSource.h"
 
-@interface BillPdf : NSObject <TemplatePrintDataSource>
+@interface BillPdf : NSObject
 
 @property (retain) Order *order;
 @property (retain) OrderDataSource *orderDataSource;
 
 + (BillPdf *)billByOrder: (Order *)order;
 - (NSString *)create;
-
-- (NSString *)stringForVariable:(NSString *)variable row:(int)row section:(int)section;
 
 @end

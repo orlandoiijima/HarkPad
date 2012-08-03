@@ -48,8 +48,8 @@
     price.key = @"price";
     [section addElement:price];
     
-	QBooleanElement *bool1 = [[QBooleanElement alloc] initWithTitle: NSLocalizedString(@"BTW Hoog", nil) BoolValue:product.vat == 1];
-    [section addElement:bool1];    
+//	QBooleanElement *bool1 = [[QBooleanElement alloc] initWithTitle: NSLocalizedString(@"BTW Hoog", nil) BoolValue:product.vat == 1];
+//    [section addElement:bool1];
 
     NSMutableArray *categories = [[NSMutableArray alloc] init];
     int i = 0, selected = 0;

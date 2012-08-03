@@ -53,7 +53,7 @@
     product.name = [Utils trim:uiName.text];
     product.key = [Utils trim:uiKey.text];
     product.price = [Utils getAmountFromString:uiPrice.text];
-    product.vat = uiVat.selectedSegmentIndex;
+//    product.vat = uiVat.selectedSegmentIndex;
     if([self.delegate respondsToSelector:@selector(didSaveItem:)])
         [self.delegate didSaveItem:product];
 }

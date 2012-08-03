@@ -11,8 +11,10 @@
 		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
 		D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */; };
 		D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */; };
+		D0A725A1F43FE067592F2221 /* RasterDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */; };
 		D0A72886B4C04B275B535402 /* PrintTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7260BC1E66EC8185DF19B /* PrintTable.m */; };
 		D0A7289A4E6D311D679121A1 /* SalesPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723B495D263915E1232F2 /* SalesPdf.m */; };
+		D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725D9CED2E19A14244897 /* StarBitmap.m */; };
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
 		D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */; };
@@ -271,7 +273,6 @@
 		E5F609A313489C2400D8862E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862D /* Reachability.m */; };
 		E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862F /* SystemConfiguration.framework */; };
 		E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88638 /* GameKit.framework */; };
-		E5F609A313489C2400D8863F /* PBXBuildFile */ = {isa = PBXBuildFile; };
 		E5F609A313489C2400D88648 /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88647 /* lightbulb.png */; };
 		E5F609A313489C2400D8864B /* TableActionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864A /* TableActionsView.m */; };
 		E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864C /* TableOverlayInfo.m */; };
@@ -326,10 +327,14 @@
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
 		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
 		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
+		D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RasterDocument.m; path = Classes/StarPrint/RasterDocument.m; sourceTree = "<group>"; };
 		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTemplate.h; path = PrintInfo/PrintTemplate.h; sourceTree = "<group>"; };
+		D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RasterDocument.h; path = Classes/StarPrint/RasterDocument.h; sourceTree = "<group>"; };
 		D0A723B495D263915E1232F2 /* SalesPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPdf.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
+		D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarBitmap.h; path = Classes/StarPrint/StarBitmap.h; sourceTree = "<group>"; };
 		D0A724EB5FADC1B41DB64F49 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Run.h; path = PrintInfo/Run.h; sourceTree = "<group>"; };
+		D0A725D9CED2E19A14244897 /* StarBitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarBitmap.m; path = Classes/StarPrint/StarBitmap.m; sourceTree = "<group>"; };
 		D0A7260BC1E66EC8185DF19B /* PrintTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTable.m; path = PrintInfo/PrintTable.m; sourceTree = "<group>"; };
 		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintInfo.h; path = PrintInfo/PrintInfo.h; sourceTree = "<group>"; };
 		D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoicePrintDataSource.m; path = Print/InvoicePrintDataSource.m; sourceTree = "<group>"; };
@@ -881,6 +886,10 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
+				D0A725D9CED2E19A14244897 /* StarBitmap.m */,
+				D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */,
+				D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */,
+				D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */,
 				E5E4C98915BB42B3001E8F58 /* StarIO.framework */,
 				E55413AE1513D29900DDE051 /* libz.dylib */,
 				E50A384012E234B8007C2101 /* Classes */,
@@ -2198,7 +2207,6 @@
 				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
 				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,
 				E5F609A313489C2400D8862E /* Reachability.m in Sources */,
-				E5F609A313489C2400D8863F /* PBXBuildFile */,
 				E5F609A313489C2400D8864B /* TableActionsView.m in Sources */,
 				E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */,
 				E5F609A313489C2400D88651 /* NewOrderViewController.m in Sources */,
@@ -2230,6 +2238,8 @@
 				D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */,
 				D0A7289A4E6D311D679121A1 /* SalesPdf.m in Sources */,
 				D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */,
+				D0A725A1F43FE067592F2221 /* RasterDocument.m in Sources */,
+				D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

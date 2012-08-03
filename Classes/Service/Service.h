@@ -55,6 +55,7 @@
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
+- (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 
 - (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
 - (void) serveCourse: (int) courseId;	

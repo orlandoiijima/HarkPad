@@ -16,6 +16,14 @@
 @property(nonatomic, strong) SMPort *port;
 @property (nonatomic, retain) id<TemplatePrintDataSource> dataSource;
 
-+ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource;
+@property(nonatomic, assign) NSString *ip;
 
+@property(nonatomic) int y;
+
+@property(nonatomic) int tableOffset;
+
++ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource  ip:(NSString *)ip;
+- (void) print;
+- (void)printImageWithPortname:(NSString *)portName portSettings: (NSString*)portSettings imageToPrint: (UIImage*)imageToPrint maxWidth: (int)maxWidth;
+-(float) print:(Run *)run row:(int)row section:(int)section pointSize:(float)pointSize;
 @end

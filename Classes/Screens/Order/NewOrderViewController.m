@@ -155,7 +155,10 @@
 }
 
 - (void) save {
-    [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
+    if (_order.entityState == EntityStateNew)
+        [[Service getInstance] createOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
+    else
+        [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
 
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -74,10 +74,19 @@
             return [NSString stringWithFormat:@"%d", line.quantity];
         if ([variable compare: @"{amount}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getAmount withCurrency:YES]];
+        if ([variable compare: @"{amountVat}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+            return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getVatAmount withCurrency:YES]];
     }
 
     if ([variable compare: @"{amountTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSString stringWithFormat:@"%@", [Utils getAmountString: _orderDataSource.order.totalAmount withCurrency:YES]];
+    if ([variable compare: @"{amountVatTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return [NSString stringWithFormat:@"%@", [Utils getAmountString: _orderDataSource.order.totalVatAmount withCurrency:YES]];
+    if ([variable compare: @"{amountNettTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+    {
+        NSDecimalNumber *nettAmount = [_orderDataSource.order.totalAmount decimalNumberBySubtracting: _orderDataSource.order.totalVatAmount];
+        return [NSString stringWithFormat:@"%@", [Utils getAmountString: nettAmount withCurrency:YES]];
+    }
 
     return @"";
 }

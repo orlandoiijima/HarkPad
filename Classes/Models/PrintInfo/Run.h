@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Run : NSObject
+@interface Run : NSObject <NSCopying>
 
 @property (retain) NSString *text;
 @property (retain) NSString *xSpec;

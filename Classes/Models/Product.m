@@ -38,11 +38,7 @@
     product.sortOrder = [[jsonDictionary objectForKey:@"SortOrder"] intValue];
     product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
     product.isDeleted = (BOOL)[[jsonDictionary objectForKey:@"isDeleted"] intValue];
-    id vat = [jsonDictionary objectForKey:@"Vat"];
-    if (vat != nil)
-    {
-        product.vat = (Vat) [vat intValue];
-    }
+    product.vat = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"Vat"] decimalValue]];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"Price"] decimalValue]];
     id val = [jsonDictionary objectForKey:@"Diet"];
     if (val != nil)
@@ -70,7 +66,7 @@
     [dic setObject: [NSNumber numberWithBool: self.isDeleted] forKey:@"isDeleted"];
     [dic setObject: [NSNumber numberWithInt:self.category.id] forKey:@"categoryId"];
     [dic setObject: self.price forKey:@"price"];
-    [dic setObject: [NSNumber numberWithInt: self.vat] forKey:@"vat"];
+    [dic setObject: self.vat forKey:@"vat"];
     
     return dic;
 }
@@ -117,9 +113,10 @@
     if ([object isKindOfClass:[Product class]] == NO)
         return NO;
     Product *other = (Product *)object;
-    return self.id == other.id;
+    return  [key compare:other.key options:NSCaseInsensitiveSearch] == NSOrderedSame;
 }
+
 - (NSUInteger)hash {
-    return id;
+    return [key hash];
 }
 @end

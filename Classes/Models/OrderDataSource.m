@@ -107,7 +107,7 @@
         int row = 0;
         for(OrderLine * groupLine in group.lines)
         {
-            if(groupLine.product.id == line.product.id)
+            if([groupLine.product.key compare: line.product.key options:NSCaseInsensitiveSearch] == NSOrderedSame)
             {
                 groupLine.quantity += line.quantity;
                 if (tableView != nil) {
@@ -189,7 +189,7 @@
     NSMutableArray *guests = [[NSMutableArray alloc] init];
     if (product != nil) {
         for (OrderLine *line in order.lines) {
-            if (line.guest != nil && line.product.id == product.id) {
+            if (line.guest != nil && line.product == product) {
                 NSNumber *key = [self keyForOrderLine:line];
                 if ([aKey isEqualToNumber:key])
                     [guests addObject:line.guest];
@@ -236,7 +236,7 @@
     if (totalizeProducts) {
         NSNumber *groupKey = [self keyForOrderLine:line];
         for(OrderLine *l in order.lines) {
-            if ([[self keyForOrderLine:l] isEqualToNumber:groupKey] && l.product.id == line.product.id)
+            if ([[self keyForOrderLine:l] isEqualToNumber:groupKey] && (l.product == line.product))
                 [itemsToDelete addObject:l];
         }
     }
@@ -608,7 +608,7 @@
                 OrderLine *line1 = [group.lines objectAtIndex:row];
                 for (int j = 0; j < row; j++) {
                     OrderLine *line2 = [group.lines objectAtIndex:j];
-                    if (line1.product.id == line2.product.id) {
+                    if (line1.product == line2.product) {
                         if (totalizeProducts) {
                             [indexPathsDelete addObject:[NSIndexPath indexPathForRow:row inSection:section]];
                             NSLog(@"delete s:%d r:%d", section, row);

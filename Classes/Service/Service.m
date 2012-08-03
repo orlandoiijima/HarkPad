@@ -698,6 +698,12 @@ static Service *_service;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
+    [self requestResource:@"order" method:@"PUT" id:nil body:orderAsDictionary delegate: delegate callback: callback];
+}
+
+- (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
+{
+    NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [self requestResource:@"order" method:@"POST" id:nil body:orderAsDictionary delegate: delegate callback: callback];
 }
 

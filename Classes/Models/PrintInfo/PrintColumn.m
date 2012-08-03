@@ -14,6 +14,7 @@
 
 @private
     NSString *_header;
+    NSString *_footer;
     Run *_cell;
 }
 @synthesize cell = _cell;
@@ -23,7 +24,8 @@
 + (PrintColumn *) columnFromJson:(NSDictionary *)infoJson
 {
     PrintColumn *column = [[PrintColumn alloc] init];
-    column.header  = [infoJson objectForKey:@"Name"];
+    column.header  = [infoJson objectForKey:@"Header"];
+    column.footer  = [infoJson objectForKey:@"Footer"];
     column.cell  = [Run runFromJson: [infoJson objectForKey:@"Cell"]];
     return column;
 }

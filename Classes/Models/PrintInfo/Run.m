@@ -42,8 +42,22 @@
     return run;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    Run *run = [[Run alloc] init];
+    run.width = self.width;
+    run.text = [self.text copy];
+    run.xSpec = [self.xSpec copy];
+    run.ySpec = [self.ySpec copy];
+    run.alignment = self.alignment;
+    run.fontName = [self.fontName copy];
+    run.pointSize = self.pointSize;
+    return run;
+}
+
 - (NSString *) evaluateWithProvider:(id) delegate row:(int)row section:(int)section
 {
+    if (_text == nil)
+        return  _text;
     NSString *destination = @"";
     int i = 0;
     while (YES) {

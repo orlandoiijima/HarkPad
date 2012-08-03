@@ -9,6 +9,7 @@
 #import "PdfCreator.h"
 #import "Utils.h"
 #import "InvoicePrintDataSource.h"
+#import "StarPrintJob.h"
 
 
 @implementation BillPdf {
@@ -26,10 +27,13 @@
 {
     InvoicePrintDataSource *printDataSource = [InvoicePrintDataSource dataSourceForOrder:_order];
 
-    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"invoice" dataSource:printDataSource];
-    NSString *fileName = [NSString stringWithFormat:@"Invoice%d.pdf", _order.id];
-
-    return  [creator createFileNamed: fileName];
+    StarPrintJob *printJob = [StarPrintJob jobWithTemplateNamed:@"invoice" dataSource:printDataSource ip: @"192.168.1.106"];
+    [printJob print];
+    return nil;
+//    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"invoice" dataSource:printDataSource];
+//    NSString *fileName = [NSString stringWithFormat:@"Invoice%d.pdf", _order.id];
+//
+//    return  [creator createFileNamed: fileName];
 }
 
 @end
