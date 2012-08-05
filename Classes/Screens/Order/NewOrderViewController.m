@@ -14,6 +14,7 @@
 #import "ToolbarTitleView.h"
 #import "TestFlight.h"
 #import "Config.h"
+#import "ModalAlert.h"
 
 @implementation NewOrderViewController
 
@@ -200,6 +201,18 @@
 }
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
+    if (product == nil) return;
+    if (self.selectedCourse != nil && product.category.isFood) {
+        if (self.selectedCourse.servedOn != nil) {
+            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
+                return;
+        }
+        else
+        if (self.selectedCourse.requestedOn != nil) {
+            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
+                return;
+        }
+    }
     for(Guest *guest in [_tableView selectedGuests]) {
         [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
     }

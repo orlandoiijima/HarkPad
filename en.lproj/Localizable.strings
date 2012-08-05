@@ -113,3 +113,5 @@
 "Cannot delete active seat with orderlines" = "Cannot delete active seat with orderlines";
 "Empty" = "Empty";
 "Table not yet opened" = "Table not yet opened";
+"Selected course has already been served. Continue ?" = "Selected course has already been served. Continue ?";
+"Selected course has already been requested. Continue ?" = "Selected course has already been requested. Continue ?";
