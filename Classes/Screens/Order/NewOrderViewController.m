@@ -108,7 +108,11 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    self.selectedCourseOffset = 0;
+    Course *course = [_order nextCourseToRequest];
+    if (course != nil)
+        self.selectedCourseOffset = course.offset;
+    else
+        self.selectedCourseOffset = 0;
     Guest *guest = [_order firstGuest];
     if(guest != nil)
         self.selectedSeat = guest.seat;

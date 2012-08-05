@@ -268,7 +268,6 @@
 		E5F609A313489C2400D8862E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862D /* Reachability.m */; };
 		E5F609A313489C2400D88630 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8862F /* SystemConfiguration.framework */; };
 		E5F609A313489C2400D88639 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88638 /* GameKit.framework */; };
-		E5F609A313489C2400D8863F /* PBXBuildFile */ = {isa = PBXBuildFile; };
 		E5F609A313489C2400D88648 /* lightbulb.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88647 /* lightbulb.png */; };
 		E5F609A313489C2400D8864B /* TableActionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864A /* TableActionsView.m */; };
 		E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D8864C /* TableOverlayInfo.m */; };
@@ -2187,7 +2186,6 @@
 				E5F609A313489C2400D8861D /* UIImage+Tint.m in Sources */,
 				E5F609A313489C2400D88629 /* GuestProperties.m in Sources */,
 				E5F609A313489C2400D8862E /* Reachability.m in Sources */,
-				E5F609A313489C2400D8863F /* PBXBuildFile */,
 				E5F609A313489C2400D8864B /* TableActionsView.m in Sources */,
 				E5F609A313489C2400D8864D /* TableOverlayInfo.m in Sources */,
 				E5F609A313489C2400D88651 /* NewOrderViewController.m in Sources */,
