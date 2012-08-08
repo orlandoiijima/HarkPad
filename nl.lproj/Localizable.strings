@@ -111,3 +111,5 @@
 "Cannot delete active seat with orderlines" = "Stoel kan niet verwijderd worden want er zijn orderregels op geboekt";
 "Empty" = "Leeg";
 "Table not yet opened" = "Tafel is nog niet geopend";
+"Selected course has already been served. Continue ?" = "Geselecteerde gang is al geserveerd. Doorgaan ?";
+"Selected course has already been requested. Continue ?" = "Geselecteerde gang is al uitgevraagd. Doorgaan ?";
