@@ -7,10 +7,13 @@
 //
 
 #import "ServiceResult.h"
+#import "ModalAlert.h"
 
 @implementation ServiceResult
 
 @synthesize jsonData, data, id, error, notification, isSuccess;
+@synthesize httpStatusCode = _httpStatusCode;
+
 
 - (id)init {
     if ((self = [super init])) {
@@ -26,6 +29,7 @@
 + (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)connectionError
 {
     ServiceResult *serviceResult = [[ServiceResult alloc] init];
+    serviceResult.httpStatusCode = connectionError.code;
     if((NSNull *)data == [NSNull null] || [data length] == 0) {
         serviceResult.error = NSLocalizedString(@"No data received from server", nil);
     }
@@ -52,7 +56,21 @@
         }
     }
     return serviceResult;
-    
+}
+
+- (void) displayError {
+    if (isSuccess)
+        return;
+    NSString *message;
+    switch(_httpStatusCode) {
+        case 401:
+            message = NSLocalizedString(@"Unauthorized access", nil);
+            break;
+        default:
+            message = error;
+            break;
+    }
+    [ModalAlert error: message];
 }
 
 @end

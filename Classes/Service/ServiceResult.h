@@ -26,6 +26,9 @@
 @property BOOL isSuccess;
 @property int id;
 
+@property(nonatomic) NSInteger httpStatusCode;
+
 + (ServiceResult *) resultFromData:(NSData*)data error: (NSError *)error;
+- (void) displayError;
 
 @end

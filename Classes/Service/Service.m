@@ -11,10 +11,11 @@
 #import "Invoice.h"
 #import "ProductTotals.h"
 #import "urls.h"
-#import "User.h"
 #import "Reachability.h"
 #import "CallbackInfo.h"
 #import "NSDate-Utilities.h"
+#import "AppVault.h"
+#import "AuthorisationToken.h"
 
 @implementation Service {
 @private
@@ -711,20 +712,46 @@ static Service *_service;
     [self requestResource:@"config" method:@"GET" id:nil body:nil delegate:delegate callback:callback];
 }
 
+- (void) createLocation: (NSString *)locationName withIp: (NSString *)ip credentials:(Credentials *)credentials  delegate: (id) delegate callback: (SEL)callback {
+    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: locationName, @"Name", ip, @"Ip", nil];
+    [self requestResource:@"location" method:@"POST" id:nil body:dictionary  credentials:credentials delegate:delegate callback:callback];
+}
+
+- (void) registerDeviceWithCredentials: (Credentials *)credentials delegate: (id)delegate callback: (SEL)callback {
+    [self requestResource:@"device" method:@"POST" id:nil body:nil credentials:credentials delegate:delegate callback:callback];
+}
+
+- (void) signon: (Signon *)signon  delegate: (id) delegate callback: (SEL)callback {
+    NSMutableDictionary *dictionary  = [signon toDictionary];
+    [self requestResource:@"tenant" method:@"POST" id:nil body:dictionary delegate:delegate callback:callback];
+}
+
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
+    [self requestResource: resource method:method id:id body: body credentials:nil delegate:delegate callback:callback];
+}
+
+- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body credentials:(Credentials *)credentials delegate:(id)delegate callback:(SEL)callback {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
 
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, _location, resource];
+    NSError *error = nil;
+
+    NSString *database = [AppVault database];
+    if ([database length] == 0)
+        database = @"default";
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/database/%@/%@", URL_DEV_SHADOW, API_VERSION, database, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
     [request setHTTPMethod: method];
+    AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
+    if (credentials != nil)
+        [authorisationToken addCredentials:credentials];
+    [request setValue:[authorisationToken toHttpHeader] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if (body != nil) {
-        NSError *error = nil;
         NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
         [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
     }
@@ -736,13 +763,17 @@ static Service *_service;
 - (void) getRequestResource: (NSString *)resource id: (NSString *)id arguments: (NSString *) arguments converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback {
     CallbackInfo *info = [CallbackInfo infoWithDelegate:delegate callback:callback converter:converter];
 
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/location/%@/%@", URL_DEV_SHADOW, API_VERSION, _location, resource];
+    NSString *database = [AppVault database];
+    if ([database length] == 0)
+        database = @"default";
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/database/%@/%@", URL_DEV_SHADOW, API_VERSION, database, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     if (arguments != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
     [request setHTTPMethod: @"GET"];
+    [request setValue:[[AuthorisationToken tokenFromVault] toHttpHeader] forHTTPHeaderField:@"Authorization"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
 //    if (body != nil) {
 //        NSError *error = nil;

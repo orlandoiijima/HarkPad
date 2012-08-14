@@ -17,8 +17,10 @@
 #import "KitchenStatistics.h"
 #import "TableInfo.h"	
 #import "WorkInProgress.h"
+#import "Signon.h"
 #import "ServiceResult.h"
 #import "GTMHTTPFetcher.h"
+#import "Credentials.h"
 
 @interface Service : NSObject {    
     NSString *url;
@@ -85,6 +87,10 @@
 - (void) getConfig: (id) delegate callback: (SEL)callback;
 - (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 
+- (void) signon: (Signon *)signon  delegate: (id) delegate callback: (SEL)callback;
+- (void) createLocation: (NSString *)locationName withIp: (NSString *)ip credentials:(Credentials *)credentials  delegate: (id) delegate callback: (SEL)callback;
+- (void) registerDeviceWithCredentials: (Credentials *)credentials delegate: (id)delegate callback: (SEL)callback;
+
 - (ServiceResult *) deleteOrderLine: (int)orderLineId;
 - (id) getResultFromJson: (NSData *)data;
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
@@ -94,7 +100,7 @@
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
-- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback;
+- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body  credentials:(Credentials *)credentials delegate:(id)delegate callback:(SEL)callback;
 - (void) getRequestResource: (NSString *)resource id: (NSString *)id arguments: (NSString *) arguments converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
 
 @end

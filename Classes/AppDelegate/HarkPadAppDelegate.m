@@ -14,6 +14,9 @@
 #import "TableMapViewController.h"
 #import "TestFlight.h"
 #import "Config.h"
+#import "SignOnViewController.h"
+#import "AppVault.h"
+#import "NewDeviceViewController.h"
 
 @implementation HarkPadAppDelegate
 
@@ -31,7 +34,15 @@
     tabBarController = [[UITabBarController alloc] init];
     [window addSubview:tabBarController.view];
 
-    [self getConfig];
+    if ([AppVault isDeviceRegistered] == false) {
+        NewDeviceViewController *signOnController = [[NewDeviceViewController alloc] init];
+        UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: signOnController];
+        controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Signon", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
+
+        tabBarController.viewControllers = [NSArray arrayWithObject:controller];
+    }
+
+//    [self getConfig];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingChanged:)
