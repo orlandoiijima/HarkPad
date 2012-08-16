@@ -132,8 +132,9 @@
 - (void) setupToolbar {
 //    UIBarButtonItem * feedbackButton = [[UIBarButtonItem alloc] initWithTitle: @"Feedback" style:UIBarButtonItemStylePlain target:self action:@selector(getFeedback)];
     UIBarButtonItem * groupButton = [[UIBarButtonItem alloc] initWithTitle: @"Group" style:UIBarButtonItemStylePlain target:self action:@selector(totalizeProducts:)];
-    UIBarButtonItem * autoAdvanceButton = [[UIBarButtonItem alloc] initWithTitle: @"Advance" style:UIBarButtonItemStylePlain target:self action:@selector(autoAdvance:)];
-
+    UIBarButtonItem * autoAdvanceButton = [[UIBarButtonItem alloc] initWithTitle: @"Advance" style: UIBarButtonItemStylePlain target:self action:@selector(autoAdvance:)];
+    if (self.dataSource.showSeat)
+        [self autoAdvance:autoAdvanceButton];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:
     groupButton, autoAdvanceButton, nil];
 }
