@@ -6,7 +6,6 @@
 
 
 #import <QuartzCore/QuartzCore.h>
-#import <CoreGraphics/CoreGraphics.h>
 #import "SeatView.h"
 #import "UIImage+Tint.h"
 
@@ -16,6 +15,8 @@
 }
 
 @synthesize isHost = _isHost, hasDiet = _hasDiet, imageTopLeft = _imageTopLeft, imageTopRight = _imageTopRight, isSelected = _isSelected, image = _image, side, offset, guestType = _guestType, labelOverlay, overlayText;
+@synthesize isStateDropToDelete = _isStateDropToDelete;
+
 
 + (SeatView *)viewWithFrame: (CGRect) frame offset: (NSUInteger)offset atSide: (TableSide)side {
     SeatView *view = [[SeatView alloc] initWithFrame:frame];
@@ -139,6 +140,14 @@
         self.transform = CGAffineTransformIdentity;
         labelOverlay.hidden = YES;
     }
+}
+
+- (void)setIsStateDropToDelete: (BOOL)delete {
+    _isStateDropToDelete = delete;
+    if (delete)
+        _image.image = [UIImage imageNamed:@"closebox.png"];
+    else
+        self.guestType = _guestType;
 }
 
 @end

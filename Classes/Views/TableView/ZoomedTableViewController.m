@@ -58,6 +58,13 @@
             if (dragSeatView == nil) return;
             dragSeatView.center = CGPointMake(dragSeatView.center.x + point.x - dragPosition.x, dragSeatView.center.y + point.y - dragPosition.y);
             dragPosition = point;
+            int beforeSeat = [tableWithSeatsView seatAtPoint:point];
+            if (beforeSeat == NSNotFound && dragSeatView != tableWithSeatsView.spareSeatView) {
+                dragSeatView.isStateDropToDelete = YES;
+            }
+            else {
+                dragSeatView.isStateDropToDelete = NO;
+            }
             break;
         }
 

@@ -31,6 +31,9 @@
 @property (retain) UIImageView *imageTopRight;
 @property (retain) UILabel *labelOverlay;
 @property (retain, nonatomic) NSString *overlayText;
+
+@property(nonatomic) BOOL isStateDropToDelete;
+
 - (void) initByGuest: (Guest *)guest;
 
 @end
