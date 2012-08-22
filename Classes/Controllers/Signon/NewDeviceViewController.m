@@ -29,6 +29,7 @@
 
 - (IBAction)registerDevice {
     _credentialsAlertView = [CredentialsAlertView
+            viewWithPincode: @"1234"
             afterDone: ^(Credentials *credentials)
                 {
                     [[Service getInstance] registerDeviceWithCredentials: credentials delegate:self callback:@selector(registerDeviceCallback:)];

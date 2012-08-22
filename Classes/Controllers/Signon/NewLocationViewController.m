@@ -28,6 +28,7 @@
 
 - (IBAction)registerLocation {
     CredentialsAlertView *credentialsAlertView = [CredentialsAlertView
+            viewWithPincode: @"1234"
             afterDone: ^(Credentials *credentials)
                 {
                     [[Service getInstance] createLocation: _locationName.text withIp: _ip.text credentials: credentials delegate:self callback:@selector(registerLocationCallback:)];

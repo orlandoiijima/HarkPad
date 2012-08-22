@@ -40,9 +40,10 @@
         controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Signon", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
 
         tabBarController.viewControllers = [NSArray arrayWithObject:controller];
+        return YES;
     }
 
-//    [self getConfig];
+    [self getConfig];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(settingChanged:)
@@ -85,7 +86,7 @@
     Cache *cache = [Cache getInstance];
 
     if (result.isSuccess == false) {
-        [ModalAlert error:result.error];
+        [result displayError];
         IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
         UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
         controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];

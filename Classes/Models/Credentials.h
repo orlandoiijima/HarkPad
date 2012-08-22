@@ -11,7 +11,8 @@
 @interface Credentials : NSObject
 @property(nonatomic, copy) NSString *password;
 @property(nonatomic, copy) NSString *email;
+@property(nonatomic, copy) NSString *pincode;
 
-+ (Credentials *)credentialsWithEmail:(NSString *)email password:(NSString *)password;
++ (Credentials *)credentialsWithEmail:(NSString *)email password:(NSString *)password pincode:(NSString *)pincode;
 
 @end

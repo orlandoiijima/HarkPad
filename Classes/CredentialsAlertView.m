@@ -16,10 +16,12 @@
 
 }
 @synthesize afterDone = _afterDone;
+@synthesize pincode = _pincode;
 
 
-+ (CredentialsAlertView *) afterDone:(void (^)(Credentials *))afterDone {
++ (CredentialsAlertView *) viewWithPincode:(NSString *)pin afterDone:(void (^)(Credentials *))afterDone {
     CredentialsAlertView *alertView = [[CredentialsAlertView alloc] init];
+    alertView.pincode = pin;
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Administrator"
                                                            message:@"Enter your email and password"
                                                           delegate:alertView
@@ -39,7 +41,7 @@
     if (buttonIndex == 1) {
         NSString *email = [[alertView textFieldAtIndex:0] text];
         NSString *password = [[alertView textFieldAtIndex:1] text];
-        _afterDone([Credentials credentialsWithEmail:email password:password]);
+        _afterDone([Credentials credentialsWithEmail:email password:password pincode:_pincode]);
     }
 }
 

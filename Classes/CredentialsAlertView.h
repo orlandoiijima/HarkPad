@@ -13,5 +13,8 @@
 
 @property(nonatomic, copy) void (^afterDone)(Credentials *);
 
-+ (CredentialsAlertView *) afterDone:(void (^)(Credentials *))afterDone;
+@property(nonatomic, copy) NSString *pincode;
+
++ (CredentialsAlertView *) viewWithPincode:(NSString *)pin afterDone:(void (^)(Credentials *))afterDone;
+
 @end

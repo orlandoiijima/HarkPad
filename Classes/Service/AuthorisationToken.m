@@ -20,7 +20,7 @@
     AuthorisationToken *token = [[AuthorisationToken alloc] init];
     token.database = [AppVault database];
     token.deviceKey = [AppVault deviceKey];
-    token.pinCode = @"";
+    token.pinCode = @"1234";
     return token;
 }
 
@@ -42,9 +42,11 @@
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: _database forKey:@"Database"];
     [dic setObject: _deviceKey forKey:@"DeviceKey"];
-    [dic setObject: _pinCode forKey:@"PinCode"];
-    [dic setObject: _email forKey:@"Email"];
-    [dic setObject: _password forKey:@"Password"];
+    [dic setObject: _pinCode forKey:@"UserPin"];
+    if (_email != nil)
+        [dic setObject: _email forKey:@"Email"];
+    if (_password != nil)
+        [dic setObject: _password forKey:@"Password"];
     return dic;
 }
 
