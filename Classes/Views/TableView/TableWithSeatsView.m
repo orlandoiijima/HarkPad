@@ -170,7 +170,7 @@
         _seatSlider.frame = CGRectMake(0, 0, self.frame.size.width, 44);
         tableView.frame = CGRectMake(0, _seatSlider.frame.size.height + 5, self.frame.size.width, self.frame.size.height - _seatSlider.frame.size.height - 5);
     }
-    closeButton.frame = CGRectMake(tableView.frame.origin.x + tableView.frame.size.width + 15 - 30, tableView.frame.origin.y - 15, 30, 29);
+    closeButton.frame = CGRectMake(tableView.frame.origin.x + tableView.frame.size.width - 30, tableView.frame.origin.y - 30, 60, 58);
     spareSeatView.frame = CGRectMake(- self.frame.origin.x, - self.frame.origin.y, self.seatViewSize.width, self.seatViewSize.height);
 }
 
