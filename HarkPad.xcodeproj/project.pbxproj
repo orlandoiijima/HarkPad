@@ -37,6 +37,7 @@
 		E513728B13A906FE0037C033 /* GridViewCellLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E513728A13A906FE0037C033 /* GridViewCellLine.m */; };
 		E513729113A916DE0037C033 /* GridViewHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729013A916DD0037C033 /* GridViewHeaderCell.m */; };
 		E513729413A918E20037C033 /* CellPath.m in Sources */ = {isa = PBXBuildFile; fileRef = E513729313A918E20037C033 /* CellPath.m */; };
+		E51FCAF515FB49980037BF1D /* StarIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0A724C5E5138DFD4CE8427C /* StarIO.framework */; };
 		E52774251482CE5600DEBF8F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E52774231482CE5500DEBF8F /* Localizable.strings */; };
 		E5286C5B13925681004B1139 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = E5286C5A13925680004B1139 /* group.png */; };
 		E531E57C140FFB9B00BB6E11 /* CrystalButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E531E57B140FFB9B00BB6E11 /* CrystalButton.m */; };
@@ -160,7 +161,6 @@
 		E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F021350CA94005397C0 /* SalesViewController.m */; };
 		E5E42F051350CA96005397C0 /* SalesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E42F031350CA95005397C0 /* SalesViewController.xib */; };
 		E5E42F0C1350E4E3005397C0 /* ProductTotals.m in Sources */ = {isa = PBXBuildFile; fileRef = E5E42F0B1350E4E2005397C0 /* ProductTotals.m */; };
-		E5E4C98A15BB42B3001E8F58 /* StarIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5E4C98915BB42B3001E8F58 /* StarIO.framework */; };
 		E5E722F51311A12C00905959 /* HarkPad-main.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A380E12E21164007C2101 /* HarkPad-main.m */; };
 		E5E722F61311A12C00905959 /* HarkPadAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A384512E234B8007C2101 /* HarkPadAppDelegate.m */; };
 		E5E722FC1311A12C00905959 /* Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A386612E234B8007C2101 /* Cache.m */; };
@@ -351,6 +351,7 @@
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
 		D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarBitmap.h; path = Classes/StarPrint/StarBitmap.h; sourceTree = "<group>"; };
 		D0A724C2B42A6077C1207573 /* CredentialsAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsAlertView.h; sourceTree = "<group>"; };
+		D0A724C5E5138DFD4CE8427C /* StarIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO.framework; path = /Users/wbison/Documents/Dev/HarkPad/StarIO.framework; sourceTree = "<absolute>"; };
 		D0A724EB5FADC1B41DB64F49 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Run.h; path = PrintInfo/Run.h; sourceTree = "<group>"; };
 		D0A72503F6C4FA040F327098 /* Signon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signon.m; sourceTree = "<group>"; };
 		D0A725861E3A54F07E406B09 /* AuthorisationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorisationToken.m; sourceTree = "<group>"; };
@@ -361,6 +362,7 @@
 		D0A727FBF81FBC19F5742536 /* AppVault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppVault.h; path = Keychain/AppVault.h; sourceTree = "<group>"; };
 		D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoicePrintDataSource.m; path = Print/InvoicePrintDataSource.m; sourceTree = "<group>"; };
 		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintInfo.m; path = PrintInfo/PrintInfo.m; sourceTree = "<group>"; };
+		D0A72964553AD70B8C17D67D /* StarIO */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = StarIO; path = /Users/wbison/Documents/Dev/HarkPad/StarIO.framework/StarIO; sourceTree = "<absolute>"; };
 		D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoicePrintDataSource.h; path = Print/InvoicePrintDataSource.h; sourceTree = "<group>"; };
 		D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackInfo.m; sourceTree = "<group>"; };
 		D0A729D343400603E7618601 /* Credentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Credentials.h; sourceTree = "<group>"; };
@@ -693,7 +695,6 @@
 		E5E42F031350CA95005397C0 /* SalesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SalesViewController.xib; sourceTree = "<group>"; };
 		E5E42F0A1350E4E1005397C0 /* ProductTotals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTotals.h; sourceTree = "<group>"; };
 		E5E42F0B1350E4E2005397C0 /* ProductTotals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTotals.m; sourceTree = "<group>"; };
-		E5E4C98915BB42B3001E8F58 /* StarIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StarIO.framework; path = ../../../Downloads/StarIO_iOS_SDK_V230/Distributables/StarIO.framework; sourceTree = "<group>"; };
 		E5E722E513116DFB00905959 /* Slot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slot.h; sourceTree = "<group>"; };
 		E5E722E613116DFB00905959 /* Slot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slot.m; sourceTree = "<group>"; };
 		E5E722EE13118B3800905959 /* ChefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChefViewController.h; sourceTree = "<group>"; };
@@ -902,7 +903,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5E4C98A15BB42B3001E8F58 /* StarIO.framework in Frameworks */,
+				E51FCAF515FB49980037BF1D /* StarIO.framework in Frameworks */,
 				E55413AF1513D29900DDE051 /* libz.dylib in Frameworks */,
 				E59F903E14925179008EA0DA /* Security.framework in Frameworks */,
 				E55DFCEF139FDA5C00EB7C69 /* MessageUI.framework in Frameworks */,
@@ -926,7 +927,6 @@
 				D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */,
 				D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */,
 				D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */,
-				E5E4C98915BB42B3001E8F58 /* StarIO.framework */,
 				E55413AE1513D29900DDE051 /* libz.dylib */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
@@ -965,6 +965,8 @@
 		E50A37FB12E21164007C2101 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0A724C5E5138DFD4CE8427C /* StarIO.framework */,
+				D0A72964553AD70B8C17D67D /* StarIO */,
 				E5F609A313489C2400D88638 /* GameKit.framework */,
 				E5F609A313489C2400D8862F /* SystemConfiguration.framework */,
 				E59F903B14925179008EA0DA /* Security.framework */,
@@ -2406,6 +2408,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/../../../Downloads/StarIO_iOS_SDK_V230/Distributables\"",
+					"\"${PROJECT_DIR}/StarIO.framework\"/**",
+					"\"${PROJECT_DIR}/\"/**",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2428,6 +2433,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/Frameworks\"",
 					"\"$(SRCROOT)/../../../Downloads/StarIO_iOS_SDK_V230/Distributables\"",
+					"\"${PROJECT_DIR}/StarIO.framework\"/**",
+					"\"${PROJECT_DIR}/\"/**",
+					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HarkPad-Prefix.pch";
