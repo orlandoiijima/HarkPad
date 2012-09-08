@@ -26,6 +26,7 @@
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
 		D0A72CCF4513C582C7C09D3D /* Credentials.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A6EDAADA4816DF957F5 /* Credentials.m */; };
 		D0A72D3CBE95EF08405C142C /* Signon.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72503F6C4FA040F327098 /* Signon.m */; };
+		D0A72D6FCF704F3E1048C049 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72043B7146ED41AF52ED3 /* Logger.m */; };
 		D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */; };
 		E500D767135A31C000EA347E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E500D766135A31C000EA347E /* Settings.bundle */; };
 		E501526513144EB5007959F5 /* SlotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5015259131306E4007959F5 /* SlotDataSource.m */; };
@@ -337,6 +338,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D0A72043B7146ED41AF52ED3 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
 		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
 		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 		D0A725D9CED2E19A14244897 /* StarBitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarBitmap.m; path = Classes/StarPrint/StarBitmap.m; sourceTree = "<group>"; };
 		D0A7260BC1E66EC8185DF19B /* PrintTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTable.m; path = PrintInfo/PrintTable.m; sourceTree = "<group>"; };
 		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintInfo.h; path = PrintInfo/PrintInfo.h; sourceTree = "<group>"; };
+		D0A7275B8452CF4785C1FCD2 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsAlertView.m; sourceTree = "<group>"; };
 		D0A727FBF81FBC19F5742536 /* AppVault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppVault.h; path = Keychain/AppVault.h; sourceTree = "<group>"; };
 		D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoicePrintDataSource.m; path = Print/InvoicePrintDataSource.m; sourceTree = "<group>"; };
@@ -1325,6 +1328,8 @@
 		E50A390812E236A7007C2101 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D0A7275B8452CF4785C1FCD2 /* Logger.h */,
+				D0A72043B7146ED41AF52ED3 /* Logger.m */,
 				D0A7219AB050599F8D638F4F /* NSData+Base64.m */,
 				D0A72DCFAA1B03E30879E7E0 /* NSData+Base64.h */,
 				E5F609A313489C2400D886C0 /* UIImage+TBKMasking.h */,
@@ -2314,6 +2319,7 @@
 				E5CFC78A15D6A3C90098B7C9 /* NewLocationViewController.m in Sources */,
 				D0A721D410928A8E1E4B37AF /* CredentialsAlertView.m in Sources */,
 				D0A72CCF4513C582C7C09D3D /* Credentials.m in Sources */,
+				D0A72D6FCF704F3E1048C049 /* Logger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

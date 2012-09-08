@@ -8,6 +8,7 @@
 
 #import "ServiceResult.h"
 #import "ModalAlert.h"
+#import "Logger.h"
 
 @implementation ServiceResult
 
@@ -37,18 +38,32 @@
         NSError *error = nil;
         NSMutableDictionary *dic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
         if(error == nil) {
-            serviceResult.jsonData =  [dic objectForKey:@"result"];
-            if(serviceResult.jsonData != nil) {
-                if ([serviceResult.jsonData isKindOfClass:[NSMutableDictionary class]]) {
-                    id id = [serviceResult.jsonData objectForKey:@"id"];
-                    if (id != nil)
-                        serviceResult.id = [id intValue];
+            switch (serviceResult.httpStatusCode) {
+                case 200:
+                case 201:
+                {
+                    serviceResult.jsonData =  [dic objectForKey:@"result"];
+                    if(serviceResult.jsonData != nil) {
+                        if ([serviceResult.jsonData isKindOfClass:[NSMutableDictionary class]]) {
+                            id id = [serviceResult.jsonData objectForKey:@"id"];
+                            if (id != nil)
+                                serviceResult.id = [id intValue];
+                        }
+                        serviceResult.isSuccess = true;
+                    }
+                    id error =  [dic objectForKey:@"error"];
+                    if(error != nil) {
+                        serviceResult.error = [dic objectForKey:@"error"];
+                    }
+                    break;
                 }
-                serviceResult.isSuccess = true;
-            }
-            id error =  [dic objectForKey:@"error"];
-            if(error != nil) {
-                serviceResult.error = [dic objectForKey:@"error"];
+                case 404:
+                case 401:
+                case 500:
+                default:
+                    serviceResult.error = [dic description];
+                    [Logger Info:serviceResult.error];
+                    break;
             }
         }
         else {
