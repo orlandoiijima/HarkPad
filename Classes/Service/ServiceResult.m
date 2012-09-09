@@ -41,6 +41,7 @@
             switch (serviceResult.httpStatusCode) {
                 case 200:
                 case 201:
+                case 0:
                 {
                     serviceResult.jsonData =  [dic objectForKey:@"result"];
                     if(serviceResult.jsonData != nil) {

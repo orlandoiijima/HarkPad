@@ -25,7 +25,7 @@
     NSString *productId = [jsonDictionary objectForKey:@"ProductId"];
     if(productId != nil && (NSNull *)productId != [NSNull null])
         node.product = [[[Cache getInstance] menuCard] getProduct: productId];
-    NSNumber *menuId = [jsonDictionary objectForKey:@"MenuId"];
+    NSNumber *menuId = [jsonDictionary objectForKey:@"ProductCombinationId"];
     if(menuId != nil)
         node.menu = [[[Cache getInstance] menuCard] getMenu:[menuId intValue]];
     [parent.nodes addObject: node];

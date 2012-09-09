@@ -39,7 +39,7 @@
 //    float alpha = (color & 0xFF) / 255.0;
 //    category.color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     category.products = [[NSMutableArray alloc] init];
-    id products = [jsonDictionary objectForKey:@"MenuItems"];
+    id products = [jsonDictionary objectForKey:@"Products"];
     for(NSDictionary *item in products)
     {
         Product *product = [Product productFromJsonDictionary: item]; 

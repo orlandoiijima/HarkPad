@@ -97,6 +97,14 @@
     }
 }
 
++ (Product *)nullProduct {
+    Product *product = [[Product alloc] init];
+    product.key = @"Unknown";
+    product.name = @"Unknown";
+    product.description = @"Unknown";
+    return product;
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     Product *product = [[Product allocWithZone:zone] init];
     product.id = self.id;

@@ -67,7 +67,7 @@
 {
     Service *service = [Service getInstance];
 
-    [MBProgressHUD showProgressAddedTo: tabBarController.view withText:[NSString stringWithFormat: NSLocalizedString(@"Loading configuration for %@", nil), service.url]];
+    [MBProgressHUD showProgressAddedTo: tabBarController.view withText:[NSString stringWithFormat: NSLocalizedString(@"Loading configuration", nil)]];
     
     if ([service checkReachability] == NO) {
         [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];

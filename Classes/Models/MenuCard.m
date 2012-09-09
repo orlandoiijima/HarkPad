@@ -7,6 +7,7 @@
 //
 
 #import "MenuCard.h"
+#import "Logger.h"
 
 @implementation MenuCard
 
@@ -42,8 +43,8 @@
                 return product;
         }    
     }
-    NSLog(@"product %@ not found", productId);
-    return nil;
+    [Logger Error:@"product '%@' not found", productId];
+    return [Product nullProduct];
 }
 
 - (Menu *) getMenu: (int) menuId

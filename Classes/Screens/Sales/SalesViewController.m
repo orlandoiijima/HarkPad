@@ -134,7 +134,7 @@
 
 - (IBAction)printDayReport
 {
-    [[Service getInstance] printSalesReport: dateToShow];
+//    [[Service getInstance] printSalesReport: dateToShow];
     [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Report printed", nil)];
 }
 

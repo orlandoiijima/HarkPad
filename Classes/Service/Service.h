@@ -47,15 +47,14 @@
 
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
-- (void) getSalesStatistics: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
-- (void) printSalesReport: (NSDate *)date;
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
+- (void) getTablesInfoForAllDistricts: (id) delegate callback: (SEL)callback;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 - (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 
@@ -100,7 +99,21 @@
 - (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
-- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body  credentials:(Credentials *)credentials delegate:(id)delegate callback:(SEL)callback;
-- (void) getRequestResource: (NSString *)resource id: (NSString *)id arguments: (NSString *) arguments converter:(id (^)(NSDictionary *))converter delegate:(id)delegate callback:(SEL)callback;
+- (void) getRequestResource: (NSString *)resource
+                         id: (NSString *)id
+                  arguments: (NSString *) arguments
+                  converter:(id (^)(NSDictionary *))converter
+                   delegate:(id)delegate
+                   callback:(SEL)callback;
+
+- (void) requestResource: (NSString *)resource
+                  method:(NSString *)method
+                      id:(NSString *)id
+               arguments: (NSString *) arguments
+                    body: (NSDictionary *)body
+             credentials:(Credentials *)credentials
+               converter:(id (^)(NSDictionary *))converter
+                delegate:(id)delegate
+                callback:(SEL)callback;
 
 @end

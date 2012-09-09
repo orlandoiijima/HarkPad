@@ -15,21 +15,21 @@
 + (void) Info:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
-    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
-    [Logger Log:LogLevelInfo format:message];
+    NSString *logMsg = [[NSString alloc] initWithFormat:format arguments:args];
+    [Logger Log:LogLevelInfo format:logMsg];
     va_end(args);
 }
 
-+ (void) Log: (LogLevel)level format:(NSString *)format, ... {
-   	if (format== nil) return;
-
++ (void) Error:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
-
     NSString *logMsg = [[NSString alloc] initWithFormat:format arguments:args];
-    NSLog(logMsg);
-
+    [Logger Log:LogLevelError format:logMsg];
     va_end(args);
+}
+
++ (void) Log: (LogLevel)level format:(NSString *)logMsg {
+    NSLog(logMsg);
 }
 
 @end

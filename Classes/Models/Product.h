@@ -42,7 +42,9 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property (retain) NSMutableArray *properties;
 @property (nonatomic) Diet diet;
 
++ (Product *)nullProduct;
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
+
 - (NSMutableDictionary *)toDictionary;
 - (BOOL) hasProperty: (int)propertyId;
 - (void) addProperty: (OrderLineProperty *) orderLineProperty;

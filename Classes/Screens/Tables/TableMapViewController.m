@@ -152,11 +152,12 @@
             if(dragTableView == nil) return;
             [popoverController dismissPopoverAnimated:YES];
             CGPoint point = [panGestureRecognizer locationInView: self.currentDistrictView];
-            if ([[dragTableView.orderInfo guests] count] == 0)
+            if ([[dragTableView.orderInfo guests] count] == 0) {
                 if(dragTableView.table.maxCountSeatsHorizontal > 0)
                     point.y = dragPosition.y;
                 else
                     point.x = dragPosition.x;
+            }
             TableWithSeatsView *newTarget = [self tableViewAtPoint: point];
             if (newTarget != targetTableView && newTarget != dragTableView) {
                 if (targetTableView != nil)
@@ -495,7 +496,7 @@
 - (void) setupAllDistricts
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getTablesInfoForDistrict: nil delegate: self callback:@selector(refreshAllViewWithInfo:)];
+    [[Service getInstance] getTablesInfoForAllDistricts: self callback:@selector(refreshAllViewWithInfo:)];
 }
 
 
