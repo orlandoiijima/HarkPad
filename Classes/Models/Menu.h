@@ -12,18 +12,17 @@
 @interface Menu : NSObject {
     NSString *name;
     NSString *key;
-    int id;
     NSMutableArray *items;
     NSDecimalNumber *price;
 }
 
 @property (retain) NSString *name;
 @property (retain) NSString *key;
-@property int id;
 @property (retain) NSMutableArray *items;
 @property (retain) NSDecimalNumber *price;
 
 + (NSMutableArray *) menuFromJson: (NSMutableArray *)jsonData;
 + (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary;
 
++ (Menu *)nullMenu;
 @end

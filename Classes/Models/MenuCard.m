@@ -16,7 +16,8 @@
 - (id)init {
     if ((self = [super init])) {
         {
-            categories = [[NSMutableArray alloc] init];          
+            categories = [[NSMutableArray alloc] init];
+            menus = [[NSMutableArray alloc] init];
         }
     }
     return self;
@@ -24,13 +25,18 @@
 
 + (MenuCard *) menuFromJson:(NSMutableDictionary *)jsonCategories
 {
-    MenuCard *menu = [[MenuCard alloc] init];
+    MenuCard *menuCard = [[MenuCard alloc] init];
     for(NSDictionary *categoryDic in [jsonCategories valueForKey:@"Categories"])
     {
         ProductCategory *category = [ProductCategory categoryFromJsonDictionary: categoryDic]; 
-        [menu.categories addObject:category];
+        [menuCard.categories addObject:category];
     }
-    return menu;
+    for(NSDictionary *menuDic in [jsonCategories valueForKey:@"Menus"])
+    {
+        Menu *menu = [Menu menuFromJsonDictionary: menuDic];
+        [menuCard.menus addObject:menu];
+    }
+    return menuCard;
 }
 
 - (Product *) getProduct: (NSString *) productId
@@ -47,15 +53,16 @@
     return [Product nullProduct];
 }
 
-- (Menu *) getMenu: (int) menuId
+- (Menu *) getMenu: (NSString *) menuId
 {
     for(Menu *menu in menus)
     {
-        if(menu.id == menuId)
+        if([menu.key compare:menuId options:NSCaseInsensitiveSearch] == NSOrderedSame)
             return menu;
     }   
-    NSLog(@"menu %d not found", menuId);
-    return nil;
+
+    [Logger Error:@"menu '%@' not found", menuId];
+    return [Menu nullMenu];
 }
 
 - (OrderLineProperty *) getProductProperty: (int)propertyId

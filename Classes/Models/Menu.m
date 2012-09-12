@@ -12,7 +12,7 @@
 
 @implementation Menu
 
-@synthesize id, name, price, items, key;
+@synthesize name, price, items, key;
 
 + (NSMutableArray *) menuFromJson:(NSMutableArray *)menusJson
 {
@@ -28,7 +28,6 @@
 + (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Menu *menu = [[Menu alloc] init];
-    menu.id = [[jsonDictionary objectForKey:@"id"] intValue];
     menu.price = [jsonDictionary objectForKey:@"Price"];
     menu.key = [jsonDictionary objectForKey:@"Key"];
     menu.name = [jsonDictionary objectForKey:@"Name"];
@@ -42,4 +41,8 @@
     return menu;
 }
 
++ (Menu *)nullMenu {
+    Menu *menu = [[Menu alloc] init];
+    return menu;
+}
 @end

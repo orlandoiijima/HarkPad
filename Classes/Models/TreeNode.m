@@ -25,9 +25,9 @@
     NSString *productId = [jsonDictionary objectForKey:@"ProductId"];
     if(productId != nil && (NSNull *)productId != [NSNull null])
         node.product = [[[Cache getInstance] menuCard] getProduct: productId];
-    NSNumber *menuId = [jsonDictionary objectForKey:@"ProductCombinationId"];
+    NSString *menuId = [jsonDictionary objectForKey:@"ProductCombinationId"];
     if(menuId != nil)
-        node.menu = [[[Cache getInstance] menuCard] getMenu:[menuId intValue]];
+        node.menu = [[[Cache getInstance] menuCard] getMenu:menuId];
     [parent.nodes addObject: node];
     id nodes = [jsonDictionary objectForKey:@"Nodes"];
     for(NSDictionary *childDic in nodes)
@@ -50,8 +50,6 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (self.id != 0)
-        [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     if (self.parent != nil) {
         [dic setObject: [NSNumber numberWithInt:self.parent.id] forKey:@"ParentId"];
         [dic setObject: [NSNumber numberWithInt:[self.parent.nodes indexOfObject:self]] forKey:@"SortOrder"];
@@ -60,8 +58,6 @@
         [dic setObject: self.name forKey:@"Name"];
     if (self.product != nil)
         [dic setObject: [NSNumber numberWithInt: self.product.id] forKey:@"ProductId"];
-    if (self.menu != nil)
-        [dic setObject: [NSNumber numberWithInt: self.menu.id] forKey:@"MenuId"];
     return dic;
 }
 
