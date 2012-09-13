@@ -33,7 +33,7 @@
     }
     for(NSDictionary *menuDic in [jsonCategories valueForKey:@"Menus"])
     {
-        Menu *menu = [Menu menuFromJsonDictionary: menuDic];
+        Menu *menu = [Menu menuFromJsonDictionary: menuDic withCard: menuCard];
         [menuCard.menus addObject:menu];
     }
     return menuCard;

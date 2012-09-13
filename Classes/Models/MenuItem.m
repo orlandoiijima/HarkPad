@@ -11,15 +11,14 @@
 
 @implementation MenuItem
 
-@synthesize id, course, product;
+@synthesize course, product;
 
-+ (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary
++ (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary withCard: (MenuCard *)menuCard
 {
     MenuItem *menuItem = [[MenuItem alloc] init];
-    menuItem.id = [[jsonDictionary objectForKey:@"Id"] intValue];
     menuItem.course = [[jsonDictionary objectForKey:@"Course"] intValue];
-    NSString * productId = [jsonDictionary objectForKey:@"ProductId"];
-    menuItem.product = [[[Cache getInstance] menuCard] getProduct:productId];
+    NSString * productId = [jsonDictionary objectForKey:@"Key"];
+    menuItem.product = [menuCard getProduct:productId];
     return menuItem;
 }
 

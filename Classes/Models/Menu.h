@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class MenuCard;
+
 
 @interface Menu : NSObject {
     NSString *name;
@@ -21,8 +23,8 @@
 @property (retain) NSMutableArray *items;
 @property (retain) NSDecimalNumber *price;
 
-+ (NSMutableArray *) menuFromJson: (NSMutableArray *)jsonData;
-+ (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary;
+//+ (NSMutableArray *) menuFromJson: (NSMutableArray *)jsonData;
++ (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary withCard: (MenuCard *)menuCard;
 
 + (Menu *)nullMenu;
 @end

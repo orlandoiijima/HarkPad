@@ -10,12 +10,13 @@
 
 #import "Product.h"
 
+@class MenuCard;
+
 @interface MenuItem : NSObject {
 }
 
-+ (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary;
++ (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary  withCard: (MenuCard *)menuCard;
 
-@property int id;
 @property int course;
 @property (retain) Product *product;
 
