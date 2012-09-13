@@ -27,7 +27,6 @@
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     ProductCategory *category = [[ProductCategory alloc] init];
-//    category.id = [[jsonDictionary objectForKey:@"id"] intValue];
     category.sortOrder = [[jsonDictionary objectForKey:@"SortOrder"] intValue];
     category.name = [jsonDictionary objectForKey:@"Name"];
     category.isFood = (BOOL)[[jsonDictionary objectForKey:@"IsFood"] intValue];
@@ -35,7 +34,7 @@
     float red = [[c objectAtIndex:0] intValue] / 255.0;
     float green = [[c objectAtIndex:1] intValue] / 255.0;
     float blue = [[c objectAtIndex:2] intValue] / 255.0;
-    float alpha = [[c objectAtIndex:3] intValue] / 255.0;
+    float alpha = c.count > 3 ? [[c objectAtIndex:3] intValue] / 255.0 : 1.0;
     category.color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
     category.products = [[NSMutableArray alloc] init];
     id products = [jsonDictionary objectForKey:@"Products"];
