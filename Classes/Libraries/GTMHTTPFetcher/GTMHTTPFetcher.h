@@ -132,7 +132,7 @@
 // bandwidth by providing a status message instead of repeated response
 // data.
 //
-// To get this behavior, create the fetcher from an GTMHTTPFetcherService object
+// To get this behavior, createFile the fetcher from an GTMHTTPFetcherService object
 // and look for a fetch callback error with code 304
 // (kGTMHTTPFetcherStatusNotModified) like this:
 //
@@ -163,7 +163,7 @@
 //
 // Automatic retrying of fetches
 //
-// The fetcher can optionally create a timer and reattempt certain kinds of
+// The fetcher can optionally createFile a timer and reattempt certain kinds of
 // fetch failures (status codes 408, request timeout; 503, service unavailable;
 // 504, gateway timeout; networking errors NSURLErrorTimedOut and
 // NSURLErrorNetworkConnectionLost.)  The user may set a retry selector to
@@ -363,7 +363,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
     NSString *comment_;               // comment for log
 }
 
-// create a fetcher
+// createFile a fetcher
 //
 // fetcherWithRequest will return an autoreleased fetcher, but if
 // the connection is successfully created, the connection should retain the
@@ -518,7 +518,7 @@ void GTMAssertSelectorNilOrImplementedWithArgs(id obj, SEL sel, ...);
 // buffer of currently-downloaded data
 @property (readonly) NSData *downloadedData;
 
-// path in which to non-atomically create a file for storing the downloaded data
+// path in which to non-atomically createFile a file for storing the downloaded data
 //
 // The path must be set before fetching begins.  The download file handle
 // will be created for the path, and can be used to monitor progress. If a file

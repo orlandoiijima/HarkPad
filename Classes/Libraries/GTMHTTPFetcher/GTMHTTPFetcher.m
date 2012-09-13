@@ -255,7 +255,7 @@ static NSString *const kAuthSelectorKey = @"_authSel";
     [self addCookiesToRequest:request_];
     
     if (downloadPath_ != nil) {
-        // downloading to a path, so create a temporary file and a file handle for
+        // downloading to a path, so createFile a temporary file and a file handle for
         // downloading
         NSString *tempPath = [self createTempDownloadFilePathForPath:downloadPath_];
         
@@ -304,7 +304,7 @@ static NSString *const kAuthSelectorKey = @"_authSel";
     hasConnectionEnded_ = NO;
     
     if (!connection_) {
-        NSAssert(connection_ != nil, @"beginFetchWithDelegate could not create a connection");
+        NSAssert(connection_ != nil, @"beginFetchWithDelegate could not createFile a connection");
         goto CannotBeginFetch;
     }
     
@@ -694,7 +694,7 @@ CannotBeginFetch:
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     // this method is called when the server has determined that it
-    // has enough information to create the NSURLResponse
+    // has enough information to createFile the NSURLResponse
     // it can be called multiple times, for example in the case of a
     // redirect, so each time we reset the data.
     [downloadedData_ setLength:0];

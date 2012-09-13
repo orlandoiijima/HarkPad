@@ -566,8 +566,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         IASKSpecifierValuesViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
-            // the view controller has not been created yet, create it and set it to our viewList array
-            // create a new dictionary with the new view controller
+            // the view controller has not been created yet, createFile it and set it to our viewList array
+            // createFile a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierValuesViewControllerIndex]];	// copy the title and explain strings
             
@@ -623,8 +623,8 @@ CGRect IASKCGRectSwap(CGRect rect);
         IASKAppSettingsViewController *targetViewController = [[_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex] objectForKey:@"viewController"];
 		
         if (targetViewController == nil) {
-            // the view controller has not been created yet, create it and set it to our viewList array
-            // create a new dictionary with the new view controller
+            // the view controller has not been created yet, createFile it and set it to our viewList array
+            // createFile a new dictionary with the new view controller
             NSMutableDictionary *newItemDict = [NSMutableDictionary dictionaryWithCapacity:3];
             [newItemDict addEntriesFromDictionary: [_viewList objectAtIndex:kIASKSpecifierChildViewControllerIndex]];	// copy the title and explain strings
             

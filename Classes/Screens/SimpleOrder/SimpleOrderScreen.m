@@ -178,7 +178,7 @@
 //    [[Service getInstance] printInvoice:_previousOrderId];
 
     BillPdf *pdf = [BillPdf billByOrder: _previousOrder];
-    NSString *pdfFilename = [pdf create];
+    NSString *pdfFilename = [pdf createFile];
 
     NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
     if ([UIPrintInteractionController canPrintData: pdfData]) {

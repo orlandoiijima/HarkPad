@@ -102,7 +102,7 @@
     }
 
 //    BillPdf *pdf = [BillPdf billByOrder:orderView.order];
-//    NSString *pdfFilename = [pdf create];
+//    NSString *pdfFilename = [pdf createFile];
 //
 //    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
 //    if ([UIPrintInteractionController canPrintData: pdfData]) {

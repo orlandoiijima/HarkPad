@@ -96,7 +96,7 @@ This SDK can be run from both the iPhone Simulator and Device and has been teste
     2. Strip Debug Symbols During Copy
     3. Strip Linked Product
 
-4. Use the Checkpoint API to create important checkpoints throughout your application.
+4. Use the Checkpoint API to createFile important checkpoints throughout your application.
 
 When a tester does something you care about in your app you can pass a checkpoint.  For example completing a level, adding a todo item, etc.  The checkpoint progress is used to provide insight into how your testers are testing your apps.  The passed checkpoints are also attached to crashes, which can help when creating steps to replicate.
 

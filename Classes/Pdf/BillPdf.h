@@ -16,6 +16,6 @@
 @property (retain) OrderDataSource *orderDataSource;
 
 + (BillPdf *)billByOrder: (Order *)order;
-- (NSString *)create;
+- (NSString *)createFile;
 
 @end

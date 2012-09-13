@@ -534,19 +534,6 @@ static Service *_service;
 	return;
 }
 
-- (void) makeBills:(NSMutableArray *)bills forOrder:(int)orderId withPrinter:(NSString *)printer
-{
-    NSMutableDictionary *billsInfo = [[NSMutableDictionary alloc] init];
-    [billsInfo setObject:[NSNumber numberWithInt: orderId] forKey:@"orderId"];
-    [billsInfo setObject:printer forKey:@"printerId"];
-    
-    NSError *error = nil;
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:billsInfo error:&error];
-
-    [self postPageCallback: @"makebills" key: @"bills" value: jsonString delegate: nil callback: nil userData: nil];
-}
-
-
 - (void) startTable: (int)tableId fromReservation: (int) reservationId
 {
     NSURL *testUrl = [self makeEndPoint:@"starttable" withQuery:[NSString stringWithFormat:@"tableId=%d&reservationId=%d", tableId, reservationId]];
