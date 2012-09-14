@@ -20,9 +20,9 @@
 @synthesize datasource = _datasource;
 
 
-+ (void) printWithDatasource: (id) datasource withDocument: (OrderDocument *)documentInfo toPrinter: (PrinterInfo *)printer {
++ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocument *)documentInfo toPrinter: (PrinterInfo *)printer {
     if (printer.type == PrinterTypeAirplay) {
-        PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: documentInfo.templateName dataSource: datasource];
+        PdfCreator *creator = [PdfCreator pdfCreatorWithTemplate:documentInfo.template dataSource:dataSource];
         NSString *fileName = [NSString stringWithFormat:@"Invoice.pdf"];
 
         NSString *pdfFilename = [creator createFileNamed: fileName];
@@ -39,7 +39,7 @@
          }
     }
     else {
-        StarPrintJob *printJob = [StarPrintJob jobWithTemplateNamed: documentInfo.templateName dataSource: datasource ip: printer.address];
+        StarPrintJob *printJob = [StarPrintJob jobWithTemplate:documentInfo.template dataSource:dataSource ip:printer.address];
         [printJob print];
     }
     return;

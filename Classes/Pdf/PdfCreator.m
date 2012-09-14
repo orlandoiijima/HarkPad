@@ -19,9 +19,9 @@
 
 @synthesize dataSource = _dataSource, template = _template;
 
-+ (PdfCreator *)pdfCreatorWithTemplateNamed: (NSString *) template dataSource: (id)dataSource {
++ (PdfCreator *)pdfCreatorWithTemplate: (PrintTemplate *) template dataSource: (id)dataSource {
     PdfCreator *creator = [[PdfCreator alloc] init];
-    creator.template  = [[[Cache getInstance] printInfo] getTemplateNamed:template];
+    creator.template  = template;
     creator.dataSource = dataSource;
     return creator;
 }

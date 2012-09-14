@@ -22,7 +22,7 @@
 
 @property(nonatomic) int tableOffset;
 
-+ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource  ip:(NSString *)ip;
++ (StarPrintJob *)jobWithTemplate:(PrintTemplate *)template dataSource: (id) dataSource  ip:(NSString *)ip;
 - (void) print;
 - (void)printImageWithPortname:(NSString *)portName portSettings: (NSString*)portSettings imageToPrint: (UIImage*)imageToPrint maxWidth: (int)maxWidth;
 -(float) print:(Run *)run row:(int)row section:(int)section pointSize:(float)pointSize;

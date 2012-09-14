@@ -11,6 +11,7 @@
 #import "PrintColumn.h"
 #import "RasterDocument.h"
 #import "StarBitmap.h"
+#import "Logger.h"
 #import <StarIO/SMPort.h>
 #import <sys/time.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -32,11 +33,11 @@
 @synthesize tableOffset = _tableOffset;
 
 
-+ (StarPrintJob *)jobWithTemplateNamed:(NSString *)templateName dataSource: (id) dataSource ip:(NSString *)ip {
++ (StarPrintJob *)jobWithTemplate:(PrintTemplate *)template dataSource: (id) dataSource ip:(NSString *)ip {
     StarPrintJob *job = [[StarPrintJob alloc] init];
     job.dataSource = dataSource;
     job.ip = ip;
-    job.template = [[[Cache getInstance] printInfo] getTemplateNamed: templateName];
+    job.template = template;
     return job;
 }
 
@@ -173,6 +174,7 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
             [alert show];
+            [Logger Info:@"Fail to open port %@", portName];
             return;
         }
 

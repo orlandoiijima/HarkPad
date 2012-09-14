@@ -13,6 +13,7 @@
 #import "PrintInfo.h"
 #import "Print.h"
 #import "InvoicePrintDataSource.h"
+#import "OrderPrinter.h"
 
 @implementation BillViewController
 
@@ -55,23 +56,9 @@
 
 - (IBAction) goPrint
 {
-    InvoicePrintDataSource *printDataSource = [InvoicePrintDataSource dataSourceForOrder: order];
-    for (OrderDocument *document in [[[Cache getInstance] printInfo] getDocumentInfoForTrigger: TriggerBill]) {
-        [Print printWithDatasource: printDataSource withDocument:document toPrinter:document.printer];
-    }
-//    BillPdf *pdf = [BillPdf billByOrder: order];
-//    NSString *pdfFilename = [pdf createFile];
-//
-//    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
-//    if ([UIPrintInteractionController canPrintData: pdfData]) {
-//        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-//        controller.printingItem = pdfData;
-//        UIPrintInfo *info = [UIPrintInfo printInfo];
-//        info.jobName = pdfFilename;
-//        info.outputType = UIPrintInfoOutputGeneral;
-//        controller.printInfo = info;
-//        [controller presentAnimated:YES completionHandler:nil];
-//    }
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerBill order: order];
+    [printer print];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 

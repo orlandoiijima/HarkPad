@@ -15,6 +15,8 @@
 #import "TestFlight.h"
 #import "Config.h"
 #import "ModalAlert.h"
+#import "Print.h"
+#import "OrderPrinter.h"
 
 @implementation NewOrderViewController
 
@@ -165,6 +167,9 @@
     else
         [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
 
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_order];
+    [printer print];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -180,7 +185,6 @@
         return;
     }
     _order.id = serviceResult.id;
-//    [[Service getInstance] updateOrderRaven: _order];
 }
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {

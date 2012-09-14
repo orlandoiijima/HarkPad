@@ -18,5 +18,6 @@
 @property (retain) PrintTemplate *template;
 
 - (NSString *) createFileNamed: (NSString *)fileName;
-+ (PdfCreator *) pdfCreatorWithTemplateNamed: (NSString *) template dataSource: (id)dataSource;
++ (PdfCreator *) pdfCreatorWithTemplate: (PrintTemplate *) template dataSource: (id)dataSource;
+
 @end

@@ -9,6 +9,7 @@
 #import "PrintTemplate.h"
 
 @class OrderLineFilter;
+@class PrinterInfo;
 
 typedef enum OrderTrigger {TriggerOrder, TriggerRequestCourse, TriggerServe, TriggerBill, TriggerPay} OrderTrigger ;
 
@@ -30,12 +31,12 @@ typedef enum OrderTrigger {TriggerOrder, TriggerRequestCourse, TriggerServe, Tri
 @interface OrderDocument : NSObject
 
 @property(nonatomic, strong) id name;
-@property(nonatomic, strong) id templateName;
+@property(nonatomic, strong) PrintTemplate * template;
 @property(nonatomic) OrderTrigger trigger;
 @property(nonatomic, strong) OrderLineFilter *filter;
+@property(nonatomic, strong) PrinterInfo *printer;
+@property(nonatomic) bool totalizeProducts;
 
-@property(nonatomic, strong) id printer;
-
-+ (OrderDocument *)documentFromJson:(NSDictionary *)documentJson;
++ (OrderDocument *)documentFromJson:(NSDictionary *)documentJson  printInfo: (PrintInfo *)printInfo;
 
 @end

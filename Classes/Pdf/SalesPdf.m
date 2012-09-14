@@ -8,6 +8,8 @@
 #import "SalesPdf.h"
 #import "PdfCreator.h"
 #import "NSDate-Utilities.h"
+#import "Cache.h"
+#import "PrintInfo.h"
 
 @implementation SalesPdf {
 
@@ -28,7 +30,8 @@
 
 - (NSString *)create
 {
-    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplateNamed: @"sales" dataSource:self];
+    PrintTemplate *template = [[[Cache getInstance] printInfo] getTemplateNamed:@"sales"];
+    PdfCreator *creator = [PdfCreator pdfCreatorWithTemplate: template dataSource:self];
     NSString *fileName = [NSString stringWithFormat:@"Sales %@-%@.pdf", [_from flatDateString], [_to flatDateString] ];
 
     return  [creator createFileNamed: fileName];

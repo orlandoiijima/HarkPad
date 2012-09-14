@@ -28,19 +28,20 @@
         [info.templates addObject: template];
     }
 
-    info.documents = [[NSMutableArray alloc] init];
-    for(NSDictionary *documentDic in [infoJson valueForKey:@"OrderDocuments"])
-    {
-        OrderDocument *document = [OrderDocument documentFromJson:documentDic];
-        [info.documents addObject: document];
-    }
-
     info.printers = [[NSMutableArray alloc] init];
     for(NSDictionary *dic in [infoJson valueForKey:@"Printers"])
     {
         PrinterInfo *printer = [PrinterInfo printerFromJson:dic];
         [info.printers addObject: printer];
     }
+
+    info.documents = [[NSMutableArray alloc] init];
+    for(NSDictionary *documentDic in [infoJson valueForKey:@"OrderDocuments"])
+    {
+        OrderDocument *document = [OrderDocument documentFromJson:documentDic printInfo: info];
+        [info.documents addObject: document];
+    }
+
     return info;
 }
 
@@ -74,26 +75,27 @@
 
 
 @implementation OrderDocument {
-
 }
+
 @synthesize name = _name;
-@synthesize templateName = _templateName;
+@synthesize template = _template;
 @synthesize trigger = _trigger;
 @synthesize filter = _filter;
 @synthesize printer = _printer;
+@synthesize totalizeProducts = _totalizeProducts;
 
 
-+ (OrderDocument *) documentFromJson:(NSDictionary *)documentJson
++ (OrderDocument *) documentFromJson:(NSDictionary *)documentJson printInfo: (PrintInfo *)printInfo
 {
     OrderDocument *doc = [[OrderDocument alloc] init];
     doc.name = [documentJson objectForKey:@"Name"];
-    doc.templateName = [documentJson objectForKey:@"TemplateName"];
+    doc.template  = [printInfo getTemplateNamed: [documentJson objectForKey:@"TemplateName"]];
     doc.trigger = (OrderTrigger) [[documentJson objectForKey:@"Trigger"] intValue];
-    doc.printer = [documentJson objectForKey:@"Printer"];
+    doc.printer = [printInfo getPrinterNamed: [documentJson objectForKey:@"Printer"]];
     doc.filter = [OrderLineFilter filterFromJson: [documentJson objectForKey:@"Include"]];
+    doc.totalizeProducts = (bool)[[documentJson objectForKey:@"TotalizeProducts"] intValue];
     return doc;
 }
-
 
 @end
 

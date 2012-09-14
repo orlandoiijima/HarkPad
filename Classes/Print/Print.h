@@ -15,4 +15,7 @@
 @property(nonatomic, strong) OrderDocument *documentInfo;
 @property(nonatomic, strong) PrinterInfo *printer;
 @property(nonatomic, strong) id datasource;
+
++ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocument *)documentInfo toPrinter:(PrinterInfo *)printer;
+
 @end
