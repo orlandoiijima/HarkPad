@@ -64,7 +64,6 @@
                 case 500:
                 default:
                     serviceResult.error = [dic description];
-                    [Logger Info:serviceResult.error];
                     break;
             }
         }
@@ -72,6 +71,9 @@
             serviceResult.error = [error localizedDescription];
         }
     }
+    if (serviceResult.error != nil)
+        [Logger Info:serviceResult.error];
+
     return serviceResult;
 }
 

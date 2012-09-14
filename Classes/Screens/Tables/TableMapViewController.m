@@ -125,7 +125,7 @@
         return;
     if(clickView.table.isDocked == false)
         return;
-    [self undockTable: clickView.table.id];
+    [self undockTable: clickView.table.name];
 }
 
 - (void) handlePanGesture: (UIPanGestureRecognizer *)panGestureRecognizer
@@ -241,7 +241,7 @@
 - (void) moveOrderFromTableView: (TableWithSeatsView *) from toTableView: (TableWithSeatsView *) to;
 {
     Service *service = [Service getInstance];
-    [service transferOrder: from.orderInfo.id toTable: to.table.id delegate: self callback: @selector(transferOrderCallback:)];
+    [service transferOrder: from.orderInfo.id toTable: to.table.name delegate: self callback: @selector(transferOrderCallback:)];
 }
 
 - (void) transferOrderCallback: (ServiceResult *) serviceResult
@@ -294,7 +294,7 @@
     NSMutableArray *countSeats = [NSMutableArray arrayWithArray:masterTable.countSeatsPerSide];
     for(TableWithSeatsView *tableView in self.currentDistrictView.subviews) {
         Table* table = tableView.table;
-        if(masterTable.id != table.id) {
+        if([masterTable.name isEqualToString: table.name] == NO) {
             if([masterTable isSeatAlignedWith:table]) {
                 if(CGRectContainsRect(outerBounds, table.bounds)) {
                     [tableViews addObject:tableView];
@@ -370,14 +370,14 @@
         else
         {
             NSMutableArray *tables = [[NSMutableArray alloc] init];
-            [tables addObject: masterTable];
+//            [tables addObject: masterTable];
             for(TableWithSeatsView *tableView in tableViews) {
                 Table* table = tableView.table;
                 [tables addObject:table];
             }
 
             [masterTableView removeFromSuperview];
-            [[Service getInstance] dockTables:tables];
+            [[Service getInstance] dockTables:tables toTable: masterTable];
         }
         isRefreshTimerDisabled = NO;
     }
@@ -658,7 +658,7 @@
     Course *nextCourse = [order nextCourseToRequest];
     if(nextCourse == nil) return;
 
-    [[Service getInstance] startCourse: nextCourse.id delegate:self callback:@selector(startNextCourseCallback:)];
+    [[Service getInstance] startCourse: nextCourse.id forOrder:order.id delegate:self callback:@selector(startNextCourseCallback:)];
 }
 
 - (void) startNextCourseCallback:(ServiceResult *)serviceResult
@@ -674,7 +674,7 @@
     [self refreshView];
 }
 
-- (void) undockTable: (int)tableId
+- (void) undockTable: (NSString *)tableId
 {
     [[Service getInstance] undockTable: tableId];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];

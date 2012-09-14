@@ -98,13 +98,13 @@
             if (beforeSeat != NSNotFound) {
                 if (dragSeatView == tableWithSeatsView.spareSeatView) {
                     [tableWithSeatsView insertSeatBeforeSeat:beforeSeat atSide:tableSide];
-                    [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
+                    [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.name beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
                     doRevert = false;
                 }
                 else {
                     if(dragSeatView.side != tableSide || (dragSeatView.offset != beforeSeat && dragSeatView.offset + 1 != beforeSeat)) {
                         [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
-                        [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.id beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                        [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.name beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
                         doRevert = false;
                     }
                 }
@@ -115,7 +115,7 @@
                         bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
                         if(continueDelete) {
                             [tableWithSeatsView removeSeat: seatToMove];
-                            [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.id delegate:self callback:@selector(deleteSeatCallback:)];
+                            [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.name delegate:self callback:@selector(deleteSeatCallback:)];
                             doRevert = false;
                         }
                     }

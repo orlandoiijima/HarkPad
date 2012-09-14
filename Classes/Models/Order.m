@@ -58,7 +58,7 @@
 
     id tableId = [jsonDictionary objectForKey:@"TableId"];
     if (tableId != nil)
-        order.table = [cache.map getTableByName:tableId];
+        order.table = [cache.map getTable:tableId];
 
     id guestsDic =  [jsonDictionary objectForKey:@"Guests"];
     for(NSDictionary *item in guestsDic)

@@ -28,7 +28,7 @@
     }
     
     Cache *cache = [Cache getInstance];
-    int tableId = [[jsonDictionary objectForKey:@"tableId"] intValue];
+    NSString * tableId = [jsonDictionary objectForKey:@"tableId"];
     slotTable.table = [cache.map getTable:tableId]; 
     
     return slotTable;

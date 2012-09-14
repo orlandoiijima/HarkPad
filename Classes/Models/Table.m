@@ -10,7 +10,7 @@
 #import "Service.h"
 
 @implementation Table
-@synthesize name, bounds, district, dockedToTableId, isDocked, id, countSeatsPerSide;
+@synthesize name, bounds, district, dockedToTableId, isDocked,  countSeatsPerSide;
 @dynamic maxCountSeatsHorizontal, maxCountSeatsVertical, countSeatsTotal;
 
 - (id)init
@@ -29,7 +29,6 @@
 {
     Table *table = [[Table alloc] init];
     table.name = [jsonDictionary objectForKey:@"Name"];
-    table.id = [[jsonDictionary objectForKey:@"id"] intValue];
 
     id dockedTo = [jsonDictionary objectForKey:@"dockedToTableId"];
     if(dockedTo != nil)

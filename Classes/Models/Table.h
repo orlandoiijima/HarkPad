@@ -16,7 +16,6 @@ typedef enum TableSide {
 } TableSide;
 
 @interface Table : NSObject {
-    int id;
     NSString *name;
     CGRect bounds;
     NSMutableArray *countSeatsPerSide;
@@ -24,7 +23,6 @@ typedef enum TableSide {
     int dockedToTableId;
 }
 
-@property int id;
 @property (retain) NSString *name;
 @property CGRect bounds;
 @property (retain) NSMutableArray *countSeatsPerSide;

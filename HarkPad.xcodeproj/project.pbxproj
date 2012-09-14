@@ -15,6 +15,7 @@
 		D0A721D410928A8E1E4B37AF /* CredentialsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */; };
 		D0A72216893CAE9707501E54 /* PrinterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */; };
 		D0A722453063DE6DCA9B3F7C /* AuthorisationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725861E3A54F07E406B09 /* AuthorisationToken.m */; };
+		D0A722DDD5F0A70909D0CD25 /* SeatActionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72E5053A5E444E5F279A5 /* SeatActionInfo.m */; };
 		D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */; };
 		D0A724DF58C5383933902B8D /* OrderPrinter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A729AF43360CCFD0B80558 /* OrderPrinter.m */; };
 		D0A725A1F43FE067592F2221 /* RasterDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */; };
@@ -345,6 +346,7 @@
 		D0A72043B7146ED41AF52ED3 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
 		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
+		D0A721482FF1EEB3962FE6F8 /* SeatActionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatActionInfo.h; sourceTree = "<group>"; };
 		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
 		D0A7216F7C63233D85A902F1 /* AuthorisationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorisationToken.h; sourceTree = "<group>"; };
 		D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RasterDocument.m; path = Classes/StarPrint/RasterDocument.m; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 		D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainWrapper.h; path = Keychain/KeychainWrapper.h; sourceTree = "<group>"; };
 		D0A72C9D651951E5AA84681E /* Print.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Print.h; path = Print/Print.h; sourceTree = "<group>"; };
 		D0A72DCFAA1B03E30879E7E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		D0A72E5053A5E444E5F279A5 /* SeatActionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatActionInfo.m; sourceTree = "<group>"; };
 		D0A72E70DFB247086AC657DB /* OrderLineFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderLineFilter.h; path = PrintInfo/OrderLineFilter.h; sourceTree = "<group>"; };
 		D0A72F328E064D29A465BF0D /* SignOnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignOnViewController.m; path = Signon/SignOnViewController.m; sourceTree = "<group>"; };
 		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTemplate.m; path = PrintInfo/PrintTemplate.m; sourceTree = "<group>"; };
@@ -1125,6 +1128,8 @@
 		E50A386412E234B8007C2101 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D0A721482FF1EEB3962FE6F8 /* SeatActionInfo.h */,
+				D0A72E5053A5E444E5F279A5 /* SeatActionInfo.m */,
 				D0A7242E79EEFD68DE5B54BE /* PrinterInfo.h */,
 				D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */,
 				D0A72E70DFB247086AC657DB /* OrderLineFilter.h */,
@@ -2344,6 +2349,7 @@
 				D0A72216893CAE9707501E54 /* PrinterInfo.m in Sources */,
 				D0A72DEF68481523B11CAEA4 /* Print.m in Sources */,
 				D0A724DF58C5383933902B8D /* OrderPrinter.m in Sources */,
+				D0A722DDD5F0A70909D0CD25 /* SeatActionInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

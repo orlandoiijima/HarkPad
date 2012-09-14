@@ -16,7 +16,7 @@
 }
 
 + (Map *) mapFromJson: (NSMutableDictionary *) jsonArray;
-- (Table *) getTable: (int) tableId;
+- (Table *) getTable: (NSString *) tableId;
 - (District *)getTableDistrict: (NSString *) tableName;
 - (Table *) getTableByName: (NSString *) table;
 

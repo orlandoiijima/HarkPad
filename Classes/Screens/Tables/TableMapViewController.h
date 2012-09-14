@@ -41,7 +41,7 @@
 - (void) editOrder: (Order *) order;
 - (void) updateOrder: (Order *) order;
 - (void) makeBillForOrder: (Order*)order;
-- (void) undockTable: (int)tableId;
+- (void) undockTable: (NSString *)tableId;
 - (void)getPaymentForOrder: (Order *)order;
 - (TableWithSeatsView *) tableViewAtPoint: (CGPoint) point;
 - (void) dockTableView: (TableWithSeatsView *)outerMostTableView toTableView: (TableWithSeatsView *)masterTableView;

@@ -30,13 +30,13 @@
     return map;
 }
 
-- (Table *) getTable: (int) tableId
+- (Table *) getTable: (NSString *) tableId
 {
     for(District *district in districts)
     {
         for(Table *table in district.tables)
         {
-            if(table.id == tableId)
+            if([table.name isEqualToString:tableId])
                 return table;
         }    
     }   

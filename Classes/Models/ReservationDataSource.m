@@ -169,10 +169,12 @@
         for(Reservation *reservation in slotReservations)
         {
             if(reservation.isPlaced)
+            {
                 if(showAll)
                     [insertIndexPaths addObject: [NSIndexPath indexPathForRow:row inSection:section]];
                 else
                     [deleteIndexPaths addObject: [NSIndexPath indexPathForRow:row inSection:section]];
+            }
             row++;	
         }
     }

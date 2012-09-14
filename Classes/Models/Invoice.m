@@ -16,9 +16,9 @@
 + (Invoice *) invoiceFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Invoice *invoice = [[Invoice alloc] init];
-    id tableId = [jsonDictionary objectForKey:@"tableId"];
+    NSString *tableId = [jsonDictionary objectForKey:@"tableId"];
     if (tableId != nil && tableId != [NSNull null]) {
-        invoice.table = [[[Cache getInstance] map] getTable: [tableId intValue]];
+        invoice.table = [[[Cache getInstance] map] getTable: tableId];
     }
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

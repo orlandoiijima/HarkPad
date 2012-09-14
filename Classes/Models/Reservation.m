@@ -82,9 +82,9 @@
     if(seconds != nil && (NSNull *)seconds != [NSNull null])
         reservation.paidOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
     
-    NSNumber *tableId = [jsonDictionary objectForKey:@"tableId"];
+    NSString *tableId = [jsonDictionary objectForKey:@"tableId"];
     if(tableId != nil && (NSNull *)tableId != [NSNull null])
-        reservation.table = [[[Cache getInstance] map] getTable:[tableId intValue]];
+        reservation.table = [[[Cache getInstance] map] getTable:tableId];
 
     return reservation;
 }

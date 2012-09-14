@@ -36,14 +36,14 @@
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (id)getFromUrlWithCommand:(NSString *)command query: (NSString *) query;
 - (NSMutableArray *) getLog;
-- (void) undockTable: (int)tableId;
-- (void) dockTables: (NSMutableArray*)tables;
+- (void) undockTable: (NSString *)tableId;
+- (void) dockTables: (NSMutableArray*)tables toTable:(Table *)table;
 - (Order *) getOrder: (int) orderId;
 - (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
-- (void) transferOrder: (int)orderId toTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) insertSeatAtTable: (int) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
-- (void) deleteSeat: (int) seat fromTable: (int) tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) moveSeat:(int)seat atTable: (int) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
+- (void) transferOrder: (int)orderId toTable: (NSString *) tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
+- (void) deleteSeat: (int) seat fromTable: (NSString *) tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
 
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
 - (NSMutableArray *) getBacklogStatistics;
@@ -58,8 +58,8 @@
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 - (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 
-- (void) startCourse: (int) courseId delegate: (id) delegate callback: (SEL)callback;
-- (void) serveCourse: (int) courseId;	
+- (void) startCourse: (int) courseId forOrder:(int)orderId  delegate: (id) delegate callback: (SEL)callback;
+- (void) serveCourse: (int) courseId forOrder:(int)orderId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
@@ -95,24 +95,23 @@
 - (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (NSString *)urlEncode: (NSString *)unencodedString;
-- (NSString *) stringParameterForDate: (NSDate *)date;
-- (NSString *) stringParameterForDateTimestamp: (NSDate *)date;
 
 - (BOOL) checkReachability;
 - (void) getRequestResource: (NSString *)resource
                          id: (NSString *)id
                   arguments: (NSString *) arguments
-                  converter:(id (^)(NSDictionary *))converter
+                  converter:(id (^)(id))converter
                    delegate:(id)delegate
                    callback:(SEL)callback;
 
 - (void) requestResource: (NSString *)resource
                   method:(NSString *)method
                       id:(NSString *)id
+                  action:(NSString *)action
                arguments: (NSString *) arguments
                     body: (NSDictionary *)body
              credentials:(Credentials *)credentials
-               converter:(id (^)(NSDictionary *))converter
+               converter:(id (^)(id))converter
                 delegate:(id)delegate
                 callback:(SEL)callback;
 
