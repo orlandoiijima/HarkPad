@@ -17,6 +17,7 @@
 #import "AppVault.h"
 #import "AuthorisationToken.h"
 #import "SeatActionInfo.h"
+#import "OrderGridHitInfo.h"
 
 @implementation Service {
 @private
@@ -85,17 +86,14 @@ static Service *_service;
     return result;
 }
 
-- (id)getFromUrlWithCommand:(NSString *)command query: (NSString *) query {
-    NSURL *urlToGet = [self makeEndPoint:command withQuery:query];
-    NSError *error;
-   	NSData *data = [NSData dataWithContentsOfURL: urlToGet options:0 error: &error];
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-   	return result.jsonData;
-}
 
 - (NSMutableArray *) getLog
 {
-	return (NSMutableArray *)[self getFromUrlWithCommand:@"getlog" query:@""];
+    NSURL *urlToGet = [self makeEndPoint:@"getlog" withQuery:@""];
+    NSError *error;
+   	NSData *data = [NSData dataWithContentsOfURL: urlToGet options:0 error: &error];
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+   	return (NSMutableArray *)result.jsonData;
 }
 
 - (void) getUsers: (id) delegate callback: (SEL)callback
@@ -109,7 +107,7 @@ static Service *_service;
     [self getRequestResource:@"user"
                           id:nil
                    arguments:nil
-                   converter: ^(NSArray *users)
+                   converter: ^(NSMutableArray *users)
                    {
                        return [User usersFromJson: users];
                    }
@@ -120,7 +118,16 @@ static Service *_service;
 
 - (void) undockTable: (NSString *)tableId
 {
-    [self requestResource:@"table" method:@"POST" id:tableId action: @"undock" arguments:nil body:nil credentials:nil converter:nil delegate:nil callback:nil];
+    [self requestResource:@"table"
+                   method:@"POST"
+                       id:tableId
+                   action: @"undock"
+                arguments:nil
+                     body:nil
+              credentials:nil
+                converter:nil
+                 delegate:nil
+                 callback:nil];
 	return;
 }
 
@@ -130,7 +137,16 @@ static Service *_service;
     order.id = orderId;
     order.table = [[[Cache getInstance] map] getTable:tableId];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" method:@"POST" id:[NSString stringWithFormat:@"%d", orderId] action:nil  arguments:nil body:orderDic credentials:nil converter:nil delegate:delegate callback:callback];
+    [self requestResource:@"order"
+                   method:@"PUT"
+                       id:[NSString stringWithFormat:@"%d", orderId]
+                   action:nil
+                arguments:nil
+                     body:orderDic
+              credentials:nil
+                converter:nil
+                 delegate:delegate
+                 callback:callback];
 	return;
 }
 
@@ -146,14 +162,32 @@ static Service *_service;
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:beforeSeat atSide:side];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResource:@"table" method:@"POST" id:tableId action: @"MoveSeat"  arguments:nil body: infoDic credentials:nil converter:nil delegate:delegate callback:callback];
+    [self requestResource:@"table"
+                   method:@"POST"
+                       id:tableId
+                   action: @"MoveSeat"
+                arguments:nil
+                     body: infoDic
+              credentials:nil
+                converter:nil
+                 delegate:delegate
+                 callback:callback];
 	return;
 }
 
 - (void)deleteSeat:(int)seat fromTable:(NSString *)tableId delegate:(id)delegate callback:(SEL)callback {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:-1 atSide:0];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResource:@"table" method:@"POST" id:tableId action:@"DeleteSeat"  arguments:nil body: infoDic credentials:nil converter:nil delegate:delegate callback:callback];
+    [self requestResource:@"table"
+                   method:@"POST"
+                       id:tableId
+                   action:@"DeleteSeat"
+                arguments:nil
+                     body: infoDic
+              credentials:nil
+                converter:nil
+                 delegate:delegate
+                 callback:callback];
 	return;
 }
 
@@ -164,7 +198,16 @@ static Service *_service;
         [tableNames addObject:table.name];
     }
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:tableNames forKey:@"Tables"];
-    [self requestResource:@"table" method:@"POST" id: masterTable.name action:@"DockTables"  arguments:nil body: infoDic credentials:nil converter:nil delegate:nil callback:nil];
+    [self requestResource:@"table"
+                   method:@"POST"
+                       id: masterTable.name
+                   action:@"DockTables"
+                arguments:nil
+                     body: infoDic
+              credentials:nil
+                converter:nil
+                 delegate:nil
+                 callback:nil];
 }
 
 // *********************************
@@ -192,24 +235,46 @@ static Service *_service;
 
 - (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
-    NSError *error = nil;
-    NSMutableDictionary *orderAsDictionary = [reservation toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:orderAsDictionary error:&error];
-    
-    [self postPageCallback: @"updatereservation" key: @"reservation" value: jsonString delegate:delegate callback:callback userData: reservation];
+    NSMutableDictionary *reservationDic = [reservation toDictionary];
+    [self requestResource:@"reservation"
+                   method:@"PUT"
+                       id:nil
+                   action:nil
+                arguments:nil
+                     body:reservationDic
+              credentials:nil
+                converter:nil
+                 delegate:delegate
+                 callback:callback];
 }
 
 - (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
-    [self requestResource:@"reservation" method:@"POST" id:nil action:nil arguments:nil body:reservationDic credentials:nil converter:nil delegate:delegate callback:callback];
+    [self requestResource:@"reservation"
+                   method:@"POST"
+                       id:nil
+                   action:nil
+                arguments:nil
+                     body:reservationDic
+              credentials:nil
+                converter:nil
+                 delegate:delegate
+                 callback:callback];
 }
 
 - (void) deleteReservation: (int)reservationId
 {
-    NSURL *testUrl = [self makeEndPoint:@"deletereservation" withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]];
-    [NSData dataWithContentsOfURL: testUrl];
-    return;
+    [self requestResource:@"reservation"
+                   method:@"DELETE"
+                       id:[NSString stringWithFormat:@"%d", reservationId]
+                   action:nil
+                arguments:nil
+                     body:nil
+              credentials:nil
+                converter:nil
+                 delegate:nil
+                 callback:nil];
 }
 
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
@@ -255,69 +320,52 @@ static Service *_service;
 
 - (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *productAsDictionary = [product toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
-    
-    [self postPageCallback: @"updateproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
 }
 
 - (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *productAsDictionary = [product toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:productAsDictionary error:&error];
-    
-    [self postPageCallback: @"createproduct" key: @"product" value: jsonString delegate:delegate callback:callback userData: product];
 }
 
 // *********************************
 
 - (void) updateCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *categoryAsDictionary = [category toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:categoryAsDictionary error:&error];
-    
-    [self postPageCallback: @"updatecategory" key: @"category" value: jsonString delegate:delegate callback:callback userData: category];
 }
 
 - (void) createCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *categoryAsDictionary = [category toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:categoryAsDictionary error:&error];
-    
-    [self postPageCallback: @"createcategory" key: @"category" value: jsonString delegate:delegate callback:callback userData: category];
 }
 
 // *********************************
 
 - (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *nodeAsDictionary = [node toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:nodeAsDictionary error:&error];
-
-    [self postPageCallback: @"updatetreenode" key: @"node" value: jsonString delegate:delegate callback:callback userData: node];
 }
 
 - (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
 {
-    NSError *error = nil;
-    NSMutableDictionary *nodeAsDictionary = [node toDictionary];
-    NSString *jsonString = [[CJSONSerializer serializer] serializeObject:nodeAsDictionary error:&error];
-
-    [self postPageCallback: @"createtreenode" key: @"node" value: jsonString delegate:delegate callback:callback userData: node];
 }
 
 // *********************************
 
-- (ServiceResult *) deleteOrderLine: (int)orderLineId
+- (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine
 {
-    NSURL *testUrl = [self makeEndPoint:@"deleteorderline" withQuery:[NSString stringWithFormat:@"orderlineId=%d", orderLineId]];
-	NSData *data = [NSData dataWithContentsOfURL: testUrl];
-	return [ServiceResult resultFromData:data error:nil];
+    Order *order = [[Order alloc] init];
+    order.id = orderLine.order.id;
+    orderLine.entityState = EntityStateDeleted;
+    [order addOrderLine:orderLine];
+    NSDictionary *orderDic = [order toDictionary];
+    [self requestResource:@"order"
+                   method:@"PUT"
+                       id:[NSString stringWithFormat:@"%d", order.id]
+                   action:nil
+                arguments:nil
+                     body:orderDic
+              credentials:nil
+                converter:nil
+                 delegate:nil
+                 callback:nil];
+    return nil;
 }
 
 - (NSMutableArray *) getBacklogStatistics
@@ -336,49 +384,16 @@ static Service *_service;
 
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback
 {
-//    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-//    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-//    [invocation setTarget:delegate];
-//    [invocation setSelector:callback];
-//    [self getPageCallback:@"getdashboardstatistics"
-//                withQuery:@""
-//                 delegate:self
-//                 callback:@selector(simpleCallback:finishedWithData:error:)
-//                 userData:invocation];
+    [self getRequestResource:@"dashboard"
+                          id:nil
+                   arguments:nil
+                   converter:nil
+                    delegate:delegate
+                    callback:callback];
 }
 
 - (void) getInvoices: (id) delegate callback: (SEL)callback
 {
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getinvoices"
-                withQuery:@""
-                 delegate:self
-                 callback:@selector(getInvoicesCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    if (result.isSuccess) {
-        NSMutableArray *invoices = [[NSMutableArray alloc] init];
-        NSMutableDictionary *invoicesDic = [self getResultFromJson: data];
-        for(NSDictionary *invoiceDic in invoicesDic)
-        {
-            Invoice *invoice = [Invoice invoiceFromJsonDictionary: invoiceDic];
-            [invoices addObject:invoice];
-        }
-        result.data = invoices;
-    }
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&result atIndex:2];
-    [invocation invoke];
-
-    return;
 }
 
 - (Order *) getOrder: (int) orderId
@@ -395,12 +410,13 @@ static Service *_service;
 
 - (void) startCourse: (int) courseId forOrder:(int)orderId delegate: (id) delegate callback: (SEL)callback
 {
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
     [self requestResource:@"order"
                    method:@"POST"
                        id:[NSString stringWithFormat:@"%d", orderId]
                    action:@"StartCourse"
                 arguments:@""
-                     body:nil
+                     body:dictionary
               credentials:nil
                 converter:nil
                  delegate:delegate
@@ -410,12 +426,13 @@ static Service *_service;
 
 - (void) serveCourse: (int) courseId forOrder:(int)orderId
 {
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
     [self requestResource:@"order"
                    method:@"POST"
                        id:[NSString stringWithFormat:@"%d", orderId]
                    action:@"ServeCourse"
                 arguments:@""
-                     body:nil
+                     body:dictionary
               credentials:nil
                 converter:nil
                  delegate:nil
@@ -425,57 +442,31 @@ static Service *_service;
 
 - (void) getWorkInProgress : (id) delegate callback: (SEL)callback
 {
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"getworkinprogress"
-                withQuery:@""
-                 delegate:self
-                 callback:@selector(getWorkInProgressCallback:finishedWithData:error:)
-                 userData:invocation];
-}
-
-- (void) getWorkInProgressCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-	NSMutableArray *stats = [[NSMutableArray alloc] init];
-    NSMutableDictionary *statsDic = [self getResultFromJson: data];
-    for(NSDictionary *statDic in statsDic)
-    {
-        WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
-        [stats addObject: work];
-    }
-
-    NSInvocation *invocation = (NSInvocation *)fetcher.userData;
-    [invocation setArgument:&stats atIndex:2];
-    [invocation invoke];
+    [self getRequestResource:@"workinprogress"
+                       id:nil
+                arguments:nil
+                converter:^(NSDictionary *statsDic)
+                {
+                    NSMutableArray *stats = [[NSMutableArray alloc] init];
+                    for(NSDictionary *statDic in statsDic)
+                    {
+                        WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
+                        [stats addObject: work];
+                    }
+                    return stats;
+                }
+                 delegate:delegate
+                 callback:callback];
 }
 
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
 {
-    NSURL *testUrl = [self makeEndPoint:@"processpayment" withQuery:[NSString stringWithFormat:@"orderId=%d&paymentType=%d", orderId, paymentType]];
-    
-	[NSData dataWithContentsOfURL: testUrl];
+    Order *order = [[Order alloc] init];
+    order.id = orderId;
+    order.paymentType = paymentType;
+    NSDictionary *orderDic = [order toDictionary];
+    [self requestResource:@"order" method:@"PUT" id:[NSString stringWithFormat:@"%d", orderId] action:nil  arguments:nil body:orderDic credentials:nil converter:nil delegate:nil callback:nil];
 	return;
-}
-
-- (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
-{
-    NSURL *postUrl = [self makeEndPoint:page withQuery:@""];
-    [self postPageCallbackWithUrl: postUrl key:key value:value delegate:delegate callback:callback userData:userData];
-}
-
-- (void)postPageCallbackWithUrl: (NSURL *)postUrl key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: postUrl];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];    
-    NSString *postString = [NSString stringWithFormat: @"%@=%@", key, [self urlEncode:value]];
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-    fetcher.userData = userData;
-    [fetcher beginFetchWithDelegate:delegate didFinishSelector:callback];
-
 }
 
 - (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback

@@ -16,20 +16,15 @@
 + (Backlog *) backlogFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Backlog *backlog = [[Backlog alloc] init];
-    NSString *productId = [jsonDictionary objectForKey:@"productId"];
+    NSString *productId = [jsonDictionary objectForKey:@"Product"];
     backlog.product = [[[Cache getInstance] menuCard] getProduct:productId];
     backlog.totals = [[NSMutableDictionary alloc] init];
-    id totals = [jsonDictionary objectForKey:@"totals"];
-    if([totals isKindOfClass:[NSArray class]])
+    id totals = [jsonDictionary objectForKey:@"Totals"];
+    for(NSDictionary *totalsDic in totals)
     {
-        NSNumber *count = [NSNumber numberWithInt:[[totals objectAtIndex:0] intValue]];
-        [backlog.totals setObject:count forKey: @"0"];
-    }
-    else
-    for(NSString *key in [totals allKeys])
-    {
-        NSNumber *count = [NSNumber numberWithInt:[[totals objectForKey: key] intValue]];
-        [backlog.totals setObject:count forKey: key];
+        NSNumber *distance = [totalsDic objectForKey:@"Distance"];
+        NSNumber *count = [totalsDic objectForKey:@"Count"];
+        [backlog.totals setObject:count forKey: distance];
     }
     return backlog;
 }

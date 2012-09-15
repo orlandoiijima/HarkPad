@@ -21,6 +21,8 @@
 @property (retain) Table *table;
 @property (retain) NSMutableArray *productCount;
 
-+ (WorkInProgress *) workFromJsonDictionary: (NSDictionary *)jsonDictionary;	
+@property(nonatomic) int orderId;
+
++ (WorkInProgress *) workFromJsonDictionary: (NSDictionary *)jsonDictionary;
 
 @end

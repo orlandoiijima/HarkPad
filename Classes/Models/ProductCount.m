@@ -18,7 +18,7 @@
     ProductCount *productCount = [[ProductCount alloc] init];
     NSString * productId = [jsonDictionary objectForKey:@"ProductId"];
     productCount.product = [[[Cache getInstance] menuCard] getProduct:productId];
-    productCount.count = [[jsonDictionary objectForKey:@"count"] intValue];
+    productCount.count = [[jsonDictionary objectForKey:@"Count"] intValue];
     return productCount;
 }
 

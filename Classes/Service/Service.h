@@ -34,7 +34,6 @@
 + (Service *) getInstance;
 + (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
-- (id)getFromUrlWithCommand:(NSString *)command query: (NSString *) query;
 - (NSMutableArray *) getLog;
 - (void) undockTable: (NSString *)tableId;
 - (void) dockTables: (NSMutableArray*)tables toTable:(Table *)table;
@@ -50,7 +49,6 @@
 
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
-- (void) getInvoicesCallback:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
@@ -78,8 +76,6 @@
 - (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 - (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 
-//- (ServiceResult *) printInvoice: (int)orderId;
-
 - (void) getUsers: (id) delegate callback: (SEL)callback;
 - (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback;
 
@@ -90,13 +86,13 @@
 - (void) createLocation: (NSString *)locationName withIp: (NSString *)ip credentials:(Credentials *)credentials  delegate: (id) delegate callback: (SEL)callback;
 - (void) registerDeviceWithCredentials: (Credentials *)credentials delegate: (id)delegate callback: (SEL)callback;
 
-- (ServiceResult *) deleteOrderLine: (int)orderLineId;
+- (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine;
+
 - (id) getResultFromJson: (NSData *)data;
-- (void)postPageCallback: (NSString *)page key: (NSString *)key value: (NSString *)value delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
-- (NSString *)urlEncode: (NSString *)unencodedString;
 
 - (BOOL) checkReachability;
+
 - (void) getRequestResource: (NSString *)resource
                          id: (NSString *)id
                   arguments: (NSString *) arguments

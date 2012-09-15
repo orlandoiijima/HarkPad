@@ -246,7 +246,7 @@
 
     for(OrderLine *l in itemsToDelete) {
         if (l.id != -1) {
-            ServiceResult *result = [[Service getInstance] deleteOrderLine: l.id];
+            ServiceResult *result = [[Service getInstance] deleteOrderLine: l];
             if(result == nil) return;
 
             if(result.isSuccess == false) {
