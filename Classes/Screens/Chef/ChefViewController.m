@@ -77,12 +77,23 @@
 {	    
     if(isVisible == false) return;
 
-    dataSource = [KitchenStatisticsDataSource dataSource];
+    [[Service getInstance] getBacklogStatistics:self callback:@selector(refreshViewCallback:)];
+}
+
+- (void) refreshViewCallback:(ServiceResult *)serviceResult
+{
+    if (serviceResult.isSuccess == NO) {
+        return;
+    }
+
+    dataSource = [KitchenStatisticsDataSource dataSourceWithData: serviceResult.data];
+
     table.dataSource = dataSource;
     table.delegate = dataSource;
-    
+
     [table reloadData];
 }
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

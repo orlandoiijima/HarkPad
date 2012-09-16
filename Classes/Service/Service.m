@@ -18,6 +18,7 @@
 #import "AuthorisationToken.h"
 #import "SeatActionInfo.h"
 #import "OrderGridHitInfo.h"
+#import "CallbackBlockInfo.h"
 
 @implementation Service {
 @private
@@ -368,27 +369,30 @@ static Service *_service;
     return nil;
 }
 
-- (NSMutableArray *) getBacklogStatistics
+- (void) getBacklogStatistics : (id) delegate callback: (SEL)callback
 {
-	NSURL *testUrl = [self makeEndPoint:@"getBacklogStatistics" withQuery:@""];
-	NSData *data = [NSData dataWithContentsOfURL:testUrl];
-	NSMutableArray *stats = [[NSMutableArray alloc] init];
-    NSMutableDictionary *statsDic = [self getResultFromJson: data];
-    for(NSDictionary *statDic in statsDic)
-    {
-        Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
-        [stats addObject:backlog];
-    }
-    return stats;
+    [self getRequestResource:@"backlog"
+                          id:nil
+                   arguments:nil
+                   converter:^(NSArray *items) {
+                       NSMutableArray *stats = [[NSMutableArray alloc] init];
+                       for(NSDictionary *statDic in items)
+                       {
+                           Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
+                           [stats addObject:backlog];
+                       }
+                       return stats;
+                   }
+                    delegate:delegate
+                    callback:callback];
+    return;
 }
 
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback
 {
     [self getRequestResource:@"dashboard"
-                          id:nil
-                   arguments:nil
-                   converter:nil
-                    delegate:delegate
+                          id:[[NSDate date] stringISO8601]
+                   arguments:nil converter:nil delegate:delegate
                     callback:callback];
 }
 
@@ -519,7 +523,6 @@ static Service *_service;
                     callback: callback];
 }
 
-
 - (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
 {
    id converter = ^(NSDictionary *districtDic)
@@ -545,6 +548,19 @@ static Service *_service;
                   converter: converter
                    delegate: delegate
                    callback: callback];
+}
+
+- (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+    [self requestResourceBlock:@"districtinfo"
+                        method:@"GET"
+                            id:district
+                        action:nil
+                     arguments:@""
+                          body:nil
+                   credentials:nil
+                       success:success
+                         error:error];
 }
 
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback
@@ -672,6 +688,56 @@ static Service *_service;
     }
     [info.invocation setArgument:&result atIndex:2];
     [info.invocation invoke];
+}
+
+- (void) requestResourceBlock: (NSString *)resource
+                  method:(NSString *)method
+                      id:(NSString *)id
+                  action:(NSString *)action
+               arguments: (NSString *) arguments
+                    body: (NSDictionary *)body
+             credentials:(Credentials *)credentials
+                 success:(void (^)(ServiceResult*))onSuccess
+                 error:(void (^)(ServiceResult*))onError
+{
+    CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError];
+
+    NSError *error = nil;
+
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", URL_DEV_SHADOW, API_VERSION, resource];
+    if (id != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
+    if (action != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", action];
+    if (arguments != nil)
+        urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
+    [request setHTTPMethod: method];
+    AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
+    if (credentials != nil)
+        [authorisationToken addCredentials:credentials];
+    [request setValue:[authorisationToken toHttpHeader] forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    if (body != nil) {
+        NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
+        [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
+    fetcher.userData = info;
+    [fetcher beginFetchWithDelegate:self didFinishSelector: @selector(callbackWithBlock:finishedWithData:error:)];
+}
+
+- (void) callbackWithBlock:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
+{
+    CallbackBlockInfo *info = fetcher.userData;
+    ServiceResult *result = [ServiceResult resultFromData:data error:error];
+
+    if (result.isSuccess) {
+        info.success(result);
+    }
+    else {
+        info.error(result);
+    }
 }
 
 - (NSString *)urlEncode: (NSString *)unencodedString

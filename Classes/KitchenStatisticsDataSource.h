@@ -16,7 +16,7 @@
 @property (retain) NSMutableDictionary *groupedTotals;
 
 - (NSString *) keyForSection: (int) section;
-+ (KitchenStatisticsDataSource *) dataSource;
++ (KitchenStatisticsDataSource *) dataSourceWithData: (NSMutableArray *)backlog;
 - (UILabel *) addCountLabelWithFrame: (CGRect) frame backgroundColor: (UIColor *) color cell: (UITableViewCell *)cell;
 
 @end

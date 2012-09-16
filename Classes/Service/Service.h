@@ -45,13 +45,16 @@
 - (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
 
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
-- (NSMutableArray *) getBacklogStatistics;
+- (void) getBacklogStatistics : (id) delegate callback: (SEL)callback;
 
 - (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
 - (void) getInvoices: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
 - (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
+
+- (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+
 - (void) getTablesInfoForAllDistricts: (id) delegate callback: (SEL)callback;
 - (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
 - (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
@@ -110,5 +113,15 @@
                converter:(id (^)(id))converter
                 delegate:(id)delegate
                 callback:(SEL)callback;
+
+- (void) requestResourceBlock: (NSString *)resource
+                  method:(NSString *)method
+                      id:(NSString *)id
+                  action:(NSString *)action
+               arguments: (NSString *) arguments
+                    body: (NSDictionary *)body
+             credentials:(Credentials *)credentials
+                 success:(void (^)(ServiceResult*))onSuccess
+                 error:(void (^)(ServiceResult*))onError;
 
 @end

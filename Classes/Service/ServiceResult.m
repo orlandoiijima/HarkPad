@@ -36,6 +36,7 @@
     }
     else {
         NSError *error = nil;
+//        NSLog([[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         NSMutableDictionary *dic = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
         if(error == nil) {
             switch (serviceResult.httpStatusCode) {

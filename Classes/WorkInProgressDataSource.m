@@ -49,7 +49,7 @@
 
     WorkInProgress *work = [workInProgress objectAtIndex:indexPath.row];
     
-    cell.labelTable.text = work.table.name;
+    cell.labelTable.text = work.tableId;
     int interval = (int)[[NSDate date] timeIntervalSinceDate: work.course.requestedOn];
     cell.labelTimer.text = [NSString stringWithFormat:@"%d\"", interval / 60];
     cell.labelCourse.text = @"";

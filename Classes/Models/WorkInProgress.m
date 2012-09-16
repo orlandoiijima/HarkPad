@@ -11,7 +11,7 @@
 
 @implementation WorkInProgress
 
-@synthesize course, table, productCount;
+@synthesize course, tableId, productCount;
 @synthesize orderId = _orderId;
 
 
@@ -21,8 +21,7 @@
     id course = [jsonDictionary objectForKey:@"Course"];
     work.course = [Course courseFromJsonDictionary:course order:nil];
     work.orderId = [[jsonDictionary objectForKey:@"OrderId"] intValue];
-    NSString * tableId = [jsonDictionary objectForKey:@"TableId"];
-    work.table = [[[Cache getInstance] map] getTable: tableId];
+    work.tableId = [jsonDictionary objectForKey:@"TableId"];
     work.productCount = [[NSMutableArray alloc] init];
     id products = [jsonDictionary objectForKey:@"Products"];
     for(NSDictionary *dic in products)

@@ -15,10 +15,10 @@
 
 #pragma mark - Table view data source
 
-+ (KitchenStatisticsDataSource *) dataSource
++ (KitchenStatisticsDataSource *) dataSourceWithData: (NSMutableArray *)backlog
 {
     KitchenStatisticsDataSource *source = [[KitchenStatisticsDataSource alloc] init];
-    NSMutableArray *backlog = [[Service getInstance] getBacklogStatistics];
+//    NSMutableArray *backlog = [[Service getInstance] getBacklogStatistics];
     source.groupedTotals = [[NSMutableDictionary alloc] init];
     for(Backlog *total in backlog) {
         NSString *key = [NSString stringWithFormat:@"%d %@", total.product.category.sortOrder, total.product.category.name];

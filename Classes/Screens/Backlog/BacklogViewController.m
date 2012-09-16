@@ -20,7 +20,6 @@
     if (self) {
         // Custom initialization
         
-        backlog = [[Service getInstance] getBacklogStatistics];
         float marginTop = 20;
         float marginLeft = 20;
         float x;
@@ -106,6 +105,16 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+
+- (void) refreshView
+{
+    [[Service getInstance] getBacklogStatistics:self callback:@selector(refreshViewCallback:)];
+}
+
+- (void) refreshViewCallback:(NSMutableArray *)stats
+{
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

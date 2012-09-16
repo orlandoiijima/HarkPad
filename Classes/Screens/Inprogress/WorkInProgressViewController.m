@@ -35,10 +35,14 @@
     [[Service getInstance] getWorkInProgress: self callback:@selector(refreshViewCallback:)];
 }
 
-- (void) refreshViewCallback:(NSMutableArray *)workInProgress
+- (void) refreshViewCallback:(ServiceResult *)serviceResult
 {
+    if (serviceResult.isSuccess == false) {
+        return;
+    }
+
     dataSource = [[WorkInProgressDataSource alloc] init];
-    dataSource.workInProgress = workInProgress;
+    dataSource.workInProgress = serviceResult.data;
     
     table.dataSource = dataSource;
     
@@ -57,7 +61,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WorkInProgress *work = [dataSource.workInProgress objectAtIndex:indexPath.row];
-    NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.table.name];
+    NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.tableId];
     if([ModalAlert confirm:query]) {
 //        [[Service getInstance] serveCourse:work.course.id forOrder:0];
         //  TODO

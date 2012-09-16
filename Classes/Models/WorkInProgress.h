@@ -18,7 +18,7 @@
 }
 
 @property (retain) Course *course;
-@property (retain) Table *table;
+@property (retain) NSString *tableId;
 @property (retain) NSMutableArray *productCount;
 
 @property(nonatomic) int orderId;

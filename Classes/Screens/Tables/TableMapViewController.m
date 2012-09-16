@@ -404,8 +404,28 @@
     if(isVisible == false)
         return;
     if (self.currentDistrict == nil) return;
-    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getTablesInfoForDistrict: self.currentDistrict.name delegate: self callback:@selector(refreshViewWithInfo:)];
+//    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
+    [[Service getInstance] getTablesInfoForDistrictBlock: self.currentDistrict.name
+                                                 success:^(ServiceResult *serviceResult) {
+                                                     NSMutableArray *tables = [[NSMutableArray alloc] init];
+                                                     NSArray *tablesDic = [serviceResult.jsonData objectForKey:@"Tables"];
+                                                     for(NSDictionary *tableDic in tablesDic) {
+                                                         TableInfo *tableInfo = [[TableInfo alloc] init];
+                                                         tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+                                                         if (tableInfo.table == nil) continue;
+                                                         tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
+                                                         NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
+                                                         if(orderDic != nil)
+                                                             tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
+                                                         [tables addObject:tableInfo];
+                                                     }
+                                                     serviceResult.data = tables;
+                                                     [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
+
+                                                 }
+                                                   error: ^(ServiceResult *serviceResult) {
+                                                       [ModalAlert error:serviceResult.error];
+                                                   }];
 }
 
 - (CGRect)boundingRectForDistrict: (int)district tableInfo: (NSMutableArray *)info
@@ -431,17 +451,16 @@
     return rect;
 }
 
-- (void) refreshViewWithInfo: (ServiceResult *)serviceResult
-{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-
-    if (serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
-    }
-
-    [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
-}
+//- (void) refreshViewWithInfo: (ServiceResult *)serviceResult
+//{
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//
+//    if (serviceResult.isSuccess == false) {
+//        return;
+//    }
+//
+//    [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
+//}
 
 - (void) refreshAllViewWithInfo: (ServiceResult *)serviceResult
 {

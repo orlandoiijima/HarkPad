@@ -12,6 +12,7 @@
 		D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72353EC05832573A4999C /* SignOnViewController.xib */; };
 		D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */; };
 		D0A720D5404C646A9EEA6E21 /* SignOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F328E064D29A465BF0D /* SignOnViewController.m */; };
+		D0A7218162D9B649A9B82C7E /* CallbackBlockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F304068F8C99FEC8A79 /* CallbackBlockInfo.m */; };
 		D0A721D410928A8E1E4B37AF /* CredentialsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */; };
 		D0A72216893CAE9707501E54 /* PrinterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */; };
 		D0A722453063DE6DCA9B3F7C /* AuthorisationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725861E3A54F07E406B09 /* AuthorisationToken.m */; };
@@ -344,6 +345,7 @@
 
 /* Begin PBXFileReference section */
 		D0A72043B7146ED41AF52ED3 /* Logger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Logger.m; sourceTree = "<group>"; };
+		D0A720CB26E09E2CFE64E985 /* CallbackBlockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackBlockInfo.h; sourceTree = "<group>"; };
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
 		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
 		D0A721482FF1EEB3962FE6F8 /* SeatActionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatActionInfo.h; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		D0A72DCFAA1B03E30879E7E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D0A72E5053A5E444E5F279A5 /* SeatActionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeatActionInfo.m; sourceTree = "<group>"; };
 		D0A72E70DFB247086AC657DB /* OrderLineFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderLineFilter.h; path = PrintInfo/OrderLineFilter.h; sourceTree = "<group>"; };
+		D0A72F304068F8C99FEC8A79 /* CallbackBlockInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackBlockInfo.m; sourceTree = "<group>"; };
 		D0A72F328E064D29A465BF0D /* SignOnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignOnViewController.m; path = Signon/SignOnViewController.m; sourceTree = "<group>"; };
 		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTemplate.m; path = PrintInfo/PrintTemplate.m; sourceTree = "<group>"; };
 		D0A72F6FA589EABA20C2D7AE /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainWrapper.m; path = Keychain/KeychainWrapper.m; sourceTree = "<group>"; };
@@ -1378,6 +1381,8 @@
 		E50A391212E23A43007C2101 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D0A720CB26E09E2CFE64E985 /* CallbackBlockInfo.h */,
+				D0A72F304068F8C99FEC8A79 /* CallbackBlockInfo.m */,
 				D0A7216F7C63233D85A902F1 /* AuthorisationToken.h */,
 				D0A725861E3A54F07E406B09 /* AuthorisationToken.m */,
 				D0A72A165B000AF1792D8130 /* CallbackInfo.h */,
@@ -2350,6 +2355,7 @@
 				D0A72DEF68481523B11CAEA4 /* Print.m in Sources */,
 				D0A724DF58C5383933902B8D /* OrderPrinter.m in Sources */,
 				D0A722DDD5F0A70909D0CD25 /* SeatActionInfo.m in Sources */,
+				D0A7218162D9B649A9B82C7E /* CallbackBlockInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
