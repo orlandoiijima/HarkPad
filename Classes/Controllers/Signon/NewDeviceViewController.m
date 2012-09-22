@@ -9,6 +9,7 @@
 #import "NewDeviceViewController.h"
 #import "SignOnViewController.h"
 #import "CredentialsAlertView.h"
+#import "AppVault.h"
 
 @interface NewDeviceViewController ()
 
@@ -32,19 +33,23 @@
             viewWithPincode: @"1234"
             afterDone: ^(Credentials *credentials)
                 {
-                    [[Service getInstance] registerDeviceWithCredentials: credentials delegate:self callback:@selector(registerDeviceCallback:)];
+                    [[Service getInstance]
+                            registerDeviceWithCredentials: credentials
+                            success:^(ServiceResult *serviceResult) {
+                                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"Database"]];
+                                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"DeviceKey"]];
+                                [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"LocationId"] intValue]];
+                            }
+                            error:^(ServiceResult *result) {
+                                [result displayError];
+                            }
+                    ];
                     return;
                 }
     ];
 
 }
 
-- (void)registerDeviceCallback:(ServiceResult *)result {
-    if (result.isSuccess == false) {
-        [result displayError];
-        return;
-    }
-}
 
 - (IBAction)signOnOrganisation {
     SignOnViewController *controller  = [[SignOnViewController alloc] init];

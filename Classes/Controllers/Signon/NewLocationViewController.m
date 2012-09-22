@@ -9,7 +9,6 @@
 #import "NewLocationViewController.h"
 #import "Service.h"
 #import "CredentialsAlertView.h"
-#import "Credentials.h"
 
 @interface NewLocationViewController ()
 
@@ -27,21 +26,21 @@
 }
 
 - (IBAction)registerLocation {
-    CredentialsAlertView *credentialsAlertView = [CredentialsAlertView
-            viewWithPincode: @"1234"
-            afterDone: ^(Credentials *credentials)
-                {
-                    [[Service getInstance] createLocation: _locationName.text withIp: _ip.text credentials: credentials delegate:self callback:@selector(registerLocationCallback:)];
-                    return;
-                }
+    [CredentialsAlertView
+        viewWithPincode: @"1234"
+        afterDone: ^(Credentials *credentials)
+            {
+                [[Service getInstance]
+                        createLocation: _locationName.text
+                           credentials: credentials
+                               success:nil
+                               error:^(ServiceResult *result) {
+                                   [result displayError];
+                               }
+                ];
+                return;
+            }
     ];
-}
-
-- (void)registerLocationCallback:(ServiceResult *)result {
-    if (result.isSuccess == false) {
-        [result displayError];
-        return;
-    }
 }
 
 - (void)viewDidLoad

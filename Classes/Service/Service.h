@@ -38,46 +38,46 @@
 - (void) undockTable: (NSString *)tableId;
 - (void) dockTables: (NSMutableArray*)tables toTable:(Table *)table;
 - (Order *) getOrder: (int) orderId;
-- (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback;
-- (void) transferOrder: (int)orderId toTable: (NSString *) tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
-- (void) deleteSeat: (int) seat fromTable: (NSString *) tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback;
+- (void) getReservations: (NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+
+- (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+
+- (void) deleteSeat: (int) seat fromTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
-- (void) getBacklogStatistics : (id) delegate callback: (SEL)callback;
+- (void) getBacklogStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getDashboardStatistics : (id) delegate callback: (SEL)callback;
-- (void) getInvoices: (id) delegate callback: (SEL)callback;
+- (void) getDashboardStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) getInvoices: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
 - (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
-- (void) getTablesInfoForDistrict: (NSString *)district delegate: (id) delegate callback: (SEL)callback;
 
 - (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getTablesInfoForAllDistricts: (id) delegate callback: (SEL)callback;
-- (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
-- (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback;
+- (void) updateOrder: (Order *) order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) createOrder: (Order *) order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) startCourse: (int) courseId forOrder:(int)orderId  delegate: (id) delegate callback: (SEL)callback;
+- (void) startCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) serveCourse: (int) courseId forOrder:(int)orderId;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
-- (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
-- (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
+- (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) deleteReservation: (int)reservationId;
 - (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
-- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback;
 - (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback;
+- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) createProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) updateProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
-- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback;
+- (void) updateCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) createCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) updateCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback;
-- (void) createCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback;
-
-- (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
-- (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
+- (void) createTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) updateTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getUsers: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
@@ -85,13 +85,12 @@
 - (void) getConfig: (id) delegate callback: (SEL)callback;
 - (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback;
 
-- (void) signon: (Signon *)signon  delegate: (id) delegate callback: (SEL)callback;
-- (void) createLocation: (NSString *)locationName withIp: (NSString *)ip credentials:(Credentials *)credentials  delegate: (id) delegate callback: (SEL)callback;
-- (void) registerDeviceWithCredentials: (Credentials *)credentials delegate: (id)delegate callback: (SEL)callback;
+- (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) registerDeviceWithCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine;
 
-- (id) getResultFromJson: (NSData *)data;
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 
 - (BOOL) checkReachability;

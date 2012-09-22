@@ -22,6 +22,4 @@
 
 - (IBAction) signon;
 
-- (void) signonCallback:(ServiceResult *)result;
-
 @end

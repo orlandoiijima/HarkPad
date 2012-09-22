@@ -80,7 +80,7 @@
     self.amountLabel.backgroundColor = [UIColor clearColor];
     self.amountLabel.textColor = [UIColor whiteColor];
     self.amountLabel.font = [UIFont systemFontOfSize:100];
-    self.amountLabel.textAlignment = UITextAlignmentCenter;
+    self.amountLabel.textAlignment = NSTextAlignmentCenter;
 
     self.infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, columnWidth, 100)];
     [self.view addSubview:self.infoLabel];
@@ -91,7 +91,7 @@
     self.infoLabel.backgroundColor = [UIColor clearColor];
     self.infoLabel.textColor = [UIColor whiteColor];
     self.infoLabel.font = [UIFont systemFontOfSize:18];
-    self.infoLabel.textAlignment = UITextAlignmentCenter;
+    self.infoLabel.textAlignment = NSTextAlignmentCenter;
 
     self.printInvoiceButton = [[CrystalButton alloc] initWithFrame: CGRectMake(
             x + (columnWidth - 200)/2,
@@ -149,21 +149,17 @@
 - (IBAction) cashOrder
 {
     _order.paymentType = Cash;
-    [[Service getInstance] updateOrder:_order delegate:self callback:@selector(cashOrderCallback:)];
+    [[Service getInstance] updateOrder:_order success:^(ServiceResult *serviceResult){
+        _order.id = serviceResult.id;
+        _previousOrder = _order;
+        [self prepareForNewOrder];
+        [self setupStartScreen];
+    }
+    error: ^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
-- (void) cashOrderCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
-    _order.id = serviceResult.id;
-    _previousOrder = _order;
-    [self prepareForNewOrder];
-    [self setupStartScreen];
-}
 
 - (IBAction) selectOrder
 {
@@ -200,20 +196,15 @@
             [order addOrderLine:line];
         }
         [self.navigationController popViewControllerAnimated:YES];
-        [[Service getInstance] updateOrder:order delegate:self callback:@selector(updateOrderCallback:)];
+        [[Service getInstance] updateOrder:order success:^(ServiceResult *serviceResult){
+            _previousOrder.id = serviceResult.id;
+            [self prepareForNewOrder];
+            [self setupStartScreen];
+        }
+        error:^(ServiceResult *serviceResult) {
+            [serviceResult displayError];
+        }];
     }
-}
-
-- (void) updateOrderCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
-    _previousOrder.id = serviceResult.id;
-    [self prepareForNewOrder];
-    [self setupStartScreen];
 }
 
 

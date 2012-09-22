@@ -108,7 +108,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.backgroundColor = color;
     label.shadowColor = [UIColor lightGrayColor];
-    label.textAlignment = UITextAlignmentRight;
+    label.textAlignment = NSTextAlignmentRight;
     [cell.contentView addSubview:label];
     return label;
 }

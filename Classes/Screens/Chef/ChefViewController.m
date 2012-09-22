@@ -77,21 +77,16 @@
 {	    
     if(isVisible == false) return;
 
-    [[Service getInstance] getBacklogStatistics:self callback:@selector(refreshViewCallback:)];
-}
-
-- (void) refreshViewCallback:(ServiceResult *)serviceResult
-{
-    if (serviceResult.isSuccess == NO) {
-        return;
-    }
-
-    dataSource = [KitchenStatisticsDataSource dataSourceWithData: serviceResult.data];
-
-    table.dataSource = dataSource;
-    table.delegate = dataSource;
-
-    [table reloadData];
+    [[Service getInstance]
+            getBacklogStatistics:^(ServiceResult *serviceResult){
+                            dataSource = [KitchenStatisticsDataSource dataSourceWithData: serviceResult.data];
+                            table.dataSource = dataSource;
+                            table.delegate = dataSource;
+                            [table reloadData];
+                        }
+                           error:^(ServiceResult *serviceResult){
+                               [serviceResult displayError];
+                           }];
 }
 
 

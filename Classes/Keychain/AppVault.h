@@ -19,6 +19,9 @@
 + (NSString *)database;
 + (void)setDatabase:(NSString *)database;
 
++ (int)locationId;
++ (void)setLocationId:(int)locationId;
+
 + (bool) isDeviceRegistered;
 
 @end

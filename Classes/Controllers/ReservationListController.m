@@ -51,23 +51,24 @@
     self.contentSizeForViewInPopover = CGSizeMake(200, 0);
 
     self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 100, 100) style:UITableViewStyleGrouped];
-    [[Service getInstance] getReservations:[NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
-}
-
-
-- (void)getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date {
-    NSMutableArray *reservations = serviceResult.data;
-    if ([reservations count] == 0) {
-        if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-            [self.delegate didSelectItem: [Reservation null]];
-        }
-    }
-    self.dataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:NO withReservations: reservations];
-    self.tableView.dataSource = dataSource;
-    self.tableView.delegate = self;
-    self.contentSizeForViewInPopover = CGSizeMake(350, 400);
-    [self.tableView reloadData];
-    //   self.view.frame = CGRectMake(0, 0, 350, 400);
+    [[Service getInstance]
+            getReservations:[NSDate date]
+            success:^(ServiceResult *serviceResult) {
+                NSMutableArray *reservations = serviceResult.data;
+                if ([reservations count] == 0) {
+                    if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
+                        [self.delegate didSelectItem: [Reservation null]];
+                    }
+                }
+                self.dataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:NO withReservations: reservations];
+                self.tableView.dataSource = dataSource;
+                self.tableView.delegate = self;
+                self.contentSizeForViewInPopover = CGSizeMake(350, 400);
+                [self.tableView reloadData];
+            }
+                      error:^(ServiceResult *serviceResult) {
+                          [serviceResult displayError];
+                      }];
 }
 
 - (void)tableView:(UITableView *)view didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -84,19 +84,17 @@
     signon.email = _email.text;
     signon.password = _password.text;
 
-    [[Service getInstance] signon:signon delegate:self callback:@selector(signonCallback:)];
+    [[Service getInstance]
+            signon:signon
+           success: ^(ServiceResult *result) {
+               NSString *deviceKey = [result.jsonData valueForKey:@"DeviceKey"];
+               NSString *dataBase = [result.jsonData valueForKey:@"Database"];
+               [AppVault setDeviceKey: deviceKey];
+               [AppVault setDatabase:dataBase];
+           }
+             error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }
+    ];
 }
-
-- (void) signonCallback:(ServiceResult *)result {
-    if (result.isSuccess == false) {
-        [result displayError];
-        return;
-    }
-
-    NSString *deviceKey = [result.jsonData valueForKey:@"DeviceKey"];
-    NSString *dataBase = [result.jsonData valueForKey:@"Database"];
-    [AppVault setDeviceKey: deviceKey];
-    [AppVault setDatabase:dataBase];
-}
-
 @end

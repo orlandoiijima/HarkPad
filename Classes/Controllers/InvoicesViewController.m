@@ -46,23 +46,6 @@
     self.title = NSLocalizedString(@"Recent bills", nil);
 }
 
-- (void) getInvoicesCallback: (ServiceResult *)serviceResult
-{
-    [MBProgressHUD hideHUDForView:self.view animated:NO];
-
-    if(serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
-    }
-
-    [super dataSourceDidFinishLoadingNewData];
-    self.lastUpdate = [NSDate date];
-
-    self.invoices = serviceResult.data;
-    [self.tableView reloadData];
-}
-
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -78,7 +61,21 @@
 - (void) refresh
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getInvoices:self callback:@selector(getInvoicesCallback:)];
+    [[Service getInstance] getInvoices:^(ServiceResult *serviceResult) {
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+
+        if(serviceResult.isSuccess == false) {
+            [ModalAlert error:serviceResult.error];
+            return;
+        }
+
+        [super dataSourceDidFinishLoadingNewData];
+        self.lastUpdate = [NSDate date];
+
+        self.invoices = serviceResult.data;
+        [self.tableView reloadData];
+    }
+            error:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

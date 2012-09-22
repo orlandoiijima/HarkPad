@@ -15,12 +15,15 @@
 @implementation AuthorisationToken {
 
 }
+@synthesize locationId = _locationId;
+
 
 + (AuthorisationToken *) tokenFromVault {
     AuthorisationToken *token = [[AuthorisationToken alloc] init];
     token.database = [AppVault database];
     token.deviceKey = [AppVault deviceKey];
     token.pinCode = @"1234";
+    token.locationId = [AppVault locationId];
     return token;
 }
 
@@ -40,13 +43,17 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: _database forKey:@"Database"];
-    [dic setObject: _deviceKey forKey:@"DeviceKey"];
-    [dic setObject: _pinCode forKey:@"UserPin"];
+    if (_database != nil)
+        [dic setObject: _database forKey:@"Database"];
+    if (_deviceKey != nil)
+        [dic setObject: _deviceKey forKey:@"DeviceKey"];
+    if (_pinCode != nil)
+        [dic setObject: _pinCode forKey:@"UserPin"];
     if (_email != nil)
         [dic setObject: _email forKey:@"Email"];
     if (_password != nil)
         [dic setObject: _password forKey:@"Password"];
+    [dic setObject: [NSNumber numberWithInt:_locationId] forKey:@"LocationId"];
     return dic;
 }
 

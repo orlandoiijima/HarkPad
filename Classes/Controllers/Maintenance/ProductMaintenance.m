@@ -259,10 +259,19 @@
         {
             switch(product.entityState) {
                 case EntityStateModified:
-                    [[Service getInstance] updateProduct: product delegate:self callback:@selector(updateFetcher:finishedWithData:error:)];
+                    [[Service getInstance] updateProduct: product success:^(ServiceResult *serviceResult) {
+
+                    } error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }];
                     break;
                 case EntityStateNew:
-                    [[Service getInstance] createProduct: product delegate:self callback:@selector(createFetcher:finishedWithData:error:)];
+                    [[Service getInstance] createProduct: product success:^(ServiceResult *serviceResult) {
+
+                    }
+                    error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }];
                     break;
                 case EntityStateDeleted:
                     break;

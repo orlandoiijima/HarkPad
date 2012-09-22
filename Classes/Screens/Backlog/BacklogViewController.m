@@ -108,11 +108,7 @@
 
 - (void) refreshView
 {
-    [[Service getInstance] getBacklogStatistics:self callback:@selector(refreshViewCallback:)];
-}
-
-- (void) refreshViewCallback:(NSMutableArray *)stats
-{
+    [[Service getInstance] getBacklogStatistics:nil error:nil];
 }
 
 

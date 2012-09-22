@@ -18,6 +18,8 @@
 @property (retain) NSString *email;
 @property (retain) NSString *password;
 
+@property(nonatomic) int locationId;
+
 + (AuthorisationToken *) tokenFromVault;
 
 - (void)addCredentials:(Credentials *)credentials;

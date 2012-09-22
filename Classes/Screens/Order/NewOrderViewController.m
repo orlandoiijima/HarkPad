@@ -163,9 +163,17 @@
 
 - (void) save {
     if (_order.entityState == EntityStateNew)
-        [[Service getInstance] createOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
+        [[Service getInstance] createOrder:_order success:^(ServiceResult *serviceResult){
+            _order.id = serviceResult.id;
+        } error:^(ServiceResult *serviceResult){
+            [serviceResult displayError];
+        }];
     else
-        [[Service getInstance] updateOrder:_order delegate:self callback:@selector(updateOrderCallback:)];
+        [[Service getInstance] updateOrder:_order success:^(ServiceResult *serviceResult){
+            _order.id = serviceResult.id;
+        } error:^(ServiceResult *serviceResult){
+            [serviceResult displayError];
+        }];
 
     OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_order];
     [printer print];
@@ -177,15 +185,6 @@
     return YES;
 }
 
-- (void) updateOrderCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
-    _order.id = serviceResult.id;
-}
 
 - (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
     [self.tableOverlayHud showForNode:node];

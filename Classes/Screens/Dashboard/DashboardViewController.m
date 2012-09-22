@@ -23,15 +23,6 @@
     return self;
 }
 
-- (void) didDataReceiveCallback: (ServiceResult *)result
-{
-    self.data = result.jsonData;
-    [super dataSourceDidFinishLoadingNewData]; 
-    self.lastUpdate = [NSDate date];
-    [self.tableView reloadData];
-}
-
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -154,8 +145,15 @@
 
 - (void) reloadTableViewDataSource
 {
-    [[Service getInstance] getDashboardStatistics:self callback:@selector(didDataReceiveCallback:)];
+    [[Service getInstance] getDashboardStatistics:^(ServiceResult *serviceResult){
+        self.data = serviceResult.jsonData;
+        [super dataSourceDidFinishLoadingNewData];
+        self.lastUpdate = [NSDate date];
+        [self.tableView reloadData];
+    }
+    error:nil];
 }
+
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {

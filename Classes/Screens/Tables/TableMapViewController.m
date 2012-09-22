@@ -241,15 +241,14 @@
 - (void) moveOrderFromTableView: (TableWithSeatsView *) from toTableView: (TableWithSeatsView *) to;
 {
     Service *service = [Service getInstance];
-    [service transferOrder: from.orderInfo.id toTable: to.table.name delegate: self callback: @selector(transferOrderCallback:)];
-}
-
-- (void) transferOrderCallback: (ServiceResult *) serviceResult
-{
-    if (serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-    }
-    [self refreshView];
+    [service transferOrder: from.orderInfo.id
+                   toTable: to.table.name
+                   success: ^(ServiceResult *serviceResult) {
+                      [self refreshView];
+                    }
+                     error: ^(ServiceResult *serviceResult) {
+                        [ModalAlert error:serviceResult.error];
+                    }];
 }
 
 - (void) dockTableView: (TableWithSeatsView *)dropTableView toTableView: (TableWithSeatsView *)target
@@ -661,7 +660,7 @@
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
@@ -677,20 +676,14 @@
     Course *nextCourse = [order nextCourseToRequest];
     if(nextCourse == nil) return;
 
-    [[Service getInstance] startCourse: nextCourse.id forOrder:order.id delegate:self callback:@selector(startNextCourseCallback:)];
-}
-
-- (void) startNextCourseCallback:(ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
+    [[Service getInstance] startCourse: nextCourse.id forOrder:order.id success:^(ServiceResult *serviceResult) {
+        [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Course requested", nil)];
+        [self unzoom];
+        [self refreshView];
     }
-
-    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Course requested", nil)];
-    [self unzoom];
-    [self refreshView];
+    error:^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
 - (void) undockTable: (NSString *)tableId
@@ -711,16 +704,9 @@
 
 -(void) updateOrder:(Order *)order
 {
-    [[Service getInstance] updateOrder: order delegate: self callback:@selector(updateOrderCallback:)];
-}
-
--(void) updateOrderCallback: (ServiceResult *) serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
+    [[Service getInstance] updateOrder: order success:nil error:^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

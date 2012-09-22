@@ -80,7 +80,7 @@
         self.headerLabel.text = NSLocalizedString(@"No reservations found", <#comment#>);
         self.reservationsTableView.hidden = YES;
         self.orderTableView.hidden = YES;
-        self.headerLabel.textAlignment = UITextAlignmentCenter;
+        self.headerLabel.textAlignment = NSTextAlignmentCenter;
     }
     self.reservationDataSource = [ReservationDataSource dataSourceWithDate:nil includePlacedReservations:YES withReservations:reservations];
     self.reservationsTableView.dataSource = self.reservationDataSource;

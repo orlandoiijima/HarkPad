@@ -11,11 +11,9 @@
 
 @interface NewLocationViewController : UIViewController
 
-@property (retain) IBOutlet UITextField *ip;
 @property (retain) IBOutlet UITextField *locationName;
 
 - (IBAction) registerLocation;
 
-- (void) registerLocationCallback:(ServiceResult *)result;
 
 @end

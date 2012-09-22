@@ -98,13 +98,34 @@
             if (beforeSeat != NSNotFound) {
                 if (dragSeatView == tableWithSeatsView.spareSeatView) {
                     [tableWithSeatsView insertSeatBeforeSeat:beforeSeat atSide:tableSide];
-                    [[Service getInstance] insertSeatAtTable:tableWithSeatsView.table.name beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(insertSeatCallback:)];
+                    [[Service getInstance]
+                            insertSeatAtTable:tableWithSeatsView.table.name
+                                   beforeSeat: beforeSeat
+                                       atSide: tableSide
+                                     success:nil
+                                     error:^(ServiceResult *serviceResult) {
+                                         UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                         [view show];
+                                         [self revertDrag];
+                                     }
+                    ];
                     doRevert = false;
                 }
                 else {
                     if(dragSeatView.side != tableSide || (dragSeatView.offset != beforeSeat && dragSeatView.offset + 1 != beforeSeat)) {
                         [tableWithSeatsView moveSeat: seatToMove toSeat:beforeSeat atSide:tableSide];
-                        [[Service getInstance] moveSeat: seatToMove atTable:tableWithSeatsView.table.name beforeSeat: beforeSeat atSide: tableSide delegate:self callback:@selector(moveSeatCallback:)];
+                        [[Service getInstance]
+                                moveSeat: seatToMove
+                                 atTable:tableWithSeatsView.table.name
+                              beforeSeat: beforeSeat
+                                  atSide: tableSide
+                                success:nil
+                                error:^(ServiceResult *serviceResult) {
+                                    UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                    [view show];
+                                    [self revertDrag];
+                                }
+                        ];
                         doRevert = false;
                     }
                 }
@@ -115,7 +136,16 @@
                         bool continueDelete = [ModalAlert confirm:NSLocalizedString(@"Delete seat ?", <#comment#>)];
                         if(continueDelete) {
                             [tableWithSeatsView removeSeat: seatToMove];
-                            [[Service getInstance] deleteSeat: seatToMove fromTable:tableWithSeatsView.table.name delegate:self callback:@selector(deleteSeatCallback:)];
+                            [[Service getInstance]
+                                    deleteSeat: seatToMove
+                                     fromTable:tableWithSeatsView.table.name
+                                      success:nil
+                                         error:^(ServiceResult *serviceResult){
+                                             UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                                             [view show];
+                                             [self revertDrag];
+                                         }
+                            ];
                             doRevert = false;
                         }
                     }
@@ -144,36 +174,6 @@
     if ([guest.lines count] > 0)
         return NO;
     return YES;
-}
-
-- (void) insertSeatCallback:(ServiceResult *) serviceResult {
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-
-        [self revertDrag];
-        return;
-    }
-}
-
-- (void) deleteSeatCallback:(ServiceResult *) serviceResult {
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-
-        [self revertDrag];
-        return;
-    }
-}
-
-- (void) moveSeatCallback:(ServiceResult *) serviceResult {
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-
-        [self revertDrag];
-        return;
-    }
 }
 
 - (void) revertDrag {
@@ -242,31 +242,35 @@
     else {
         order.table = tableWithSeatsView.table;
     }
-    [[Service getInstance] getReservations: [NSDate date] delegate:self callback:@selector(getReservationsCallback:onDate:)];
+    NSDate *date = [NSDate date];
+    [[Service getInstance] getReservations: date
+            success:^(ServiceResult *serviceResult) {
+                NSMutableArray *reservations = serviceResult.data;
+                if ([reservations count] == 0) {
+                }
+                Reservation *walkinReservation = [[Reservation alloc] init];
+                walkinReservation.type = ReservationTypeWalkin;
+                walkinReservation.id = -1;
+                walkinReservation.startsOn = [NSDate date];
+                walkinReservation.countGuests = order.table.countSeatsTotal;
+                walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
+                [reservations addObject:walkinReservation];
+                if (order.reservation != nil) {
+                    for (Reservation *reservation in reservations)
+                        if (reservation.id == order.reservation.id) {
+                            reservation.orderId = -1;
+                        }
+                }
+                reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];
+                self.tableViewDashboard.reservationsTableView.dataSource = reservationDataSource;
+                self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
+            }
+            error: ^(ServiceResult *serviceResult) {
+                [serviceResult displayError];
+            }
+];
     self.tableViewDashboard.order = order;
     self.tableWithSeatsView.orderInfo = order;
-}
-
-- (void)getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date {
-    NSMutableArray *reservations = serviceResult.data;
-    if ([reservations count] == 0) {
-    }
-    Reservation *walkinReservation = [[Reservation alloc] init];
-    walkinReservation.type = ReservationTypeWalkin;
-    walkinReservation.id = -1;
-    walkinReservation.startsOn = [NSDate date];
-    walkinReservation.countGuests = order.table.countSeatsTotal;
-    walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
-    [reservations addObject:walkinReservation];
-    if (order.reservation != nil) {
-        for (Reservation *reservation in reservations)
-            if (reservation.id == order.reservation.id) {
-                reservation.orderId = -1;
-            }
-    }
-    reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];
-    self.tableViewDashboard.reservationsTableView.dataSource = reservationDataSource;
-    self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
 }
 
 - (void)updateOrder {

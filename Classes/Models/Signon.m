@@ -19,7 +19,6 @@
     [dic setObject: self.password forKey:@"password"];
     [dic setObject: self.email forKey:@"email"];
     [dic setObject: self.location forKey:@"location"];
-//    [dic setObject: self.ip forKey:@"ip"];
     [dic setObject: self.firstName forKey:@"firstName"];
     [dic setObject:self.surName forKey:@"surName"];
 

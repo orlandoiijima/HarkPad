@@ -41,7 +41,7 @@ static Service *_service;
         _location = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
         if (_location == nil)
             _location = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        url = @"10.211.55.5:9483"; //URL_DEV_SHADOW;
+        url = URL_DEV_LOCAL;
     }
     return self;
 }
@@ -74,19 +74,6 @@ static Service *_service;
         testUrl = [NSString stringWithFormat:@"%@?%@", testUrl, query];
     return [NSURL URLWithString:testUrl];
 }
-//
-//- (id) getResultFromJson: (NSData *)data
-//{
-//    NSError *error = nil;
-//	NSDictionary *jsonDictionary = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error ];
-//    if(error != nil)
-//        return [[NSMutableDictionary alloc] init];
-//    id result =  [jsonDictionary objectForKey:@"result"];
-//    if((NSNull *)result == [NSNull null])
-//        return [[NSMutableDictionary alloc] init];
-//    return result;
-//}
-
 
 - (NSMutableArray *) getLog
 {
@@ -131,7 +118,7 @@ static Service *_service;
 	return;
 }
 
-- (void) transferOrder: (int)orderId toTable: (NSString *) tableId delegate: (id) delegate callback: (SEL)callback
+- (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
@@ -149,7 +136,7 @@ static Service *_service;
 	return;
 }
 
-- (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback
+- (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:-1 beforeSeat:seat atSide:side];
     NSDictionary *infoDic = [info toDictionary];
@@ -165,7 +152,7 @@ static Service *_service;
 	return;
 }
 
-- (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int) beforeSeat atSide:(TableSide)side delegate: (id) delegate callback: (SEL)callback
+- (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int) beforeSeat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:beforeSeat atSide:side];
     NSDictionary *infoDic = [info toDictionary];
@@ -181,7 +168,8 @@ static Service *_service;
 	return;
 }
 
-- (void)deleteSeat:(int)seat fromTable:(NSString *)tableId delegate:(id)delegate callback:(SEL)callback {
+- (void)deleteSeat:(int)seat fromTable:(NSString *)tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:-1 atSide:0];
     NSDictionary *infoDic = [info toDictionary];
     [self requestResourceBlock:@"table"
@@ -216,28 +204,31 @@ static Service *_service;
 
 // *********************************
 
-- (void) getReservations: (NSDate *)date delegate: (id) delegate callback: (SEL)callback
+- (void) getReservations: (NSDate *)date success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSString *arg = [NSString stringWithFormat:@"from=%@&to=%@", [date stringISO8601], [date stringISO8601]];
-    [self getRequestResource:@"reservation"
+    [self requestResourceBlock:@"reservation"
                             id:nil
+            action:nil
                      arguments:arg
-                     converter: ^(NSDictionary *dictionary)
+            body:nil
+            method:@"POST"
+            credentials:nil
+                     success: ^(ServiceResult *serviceResult)
                      {
                          NSMutableArray *reservations = [[NSMutableArray alloc] init];
-                         for(NSDictionary *reservationDic in dictionary)
+                         for(NSDictionary *reservationDic in serviceResult.jsonData)
                          {
                              Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
                              [reservations addObject:reservation];
                          }
-                         return reservations;
+                         serviceResult.data = reservations;
                      }
-                      delegate:delegate
-                      callback:callback];
+                         error:nil];
 }
 
 
-- (void) updateReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
+- (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
     [self requestResourceBlock:@"reservation"
@@ -251,7 +242,7 @@ static Service *_service;
                     error:nil];
 }
 
-- (void) createReservation: (Reservation *)reservation delegate:(id)delegate callback:(SEL)callback;
+- (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
     [self requestResourceBlock:@"reservation"
@@ -306,44 +297,47 @@ static Service *_service;
                  userData:invocation];
 }
 
-- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to delegate: (id) delegate callback: (SEL)callback
+- (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSString *arg = [NSString stringWithFormat:@"from=%@&to=%@", [from stringISO8601], [to stringISO8601]];
-    [self getRequestResource:@"reservationslot"
+    [self requestResourceBlock:@"reservationslot"
                             id:nil
+                        action:nil
                      arguments:arg
-                     converter:nil
-                      delegate:delegate
-                      callback:callback];
+                          body:nil
+                        method:@"GET"
+                   credentials:nil
+                       success:nil
+                         error:nil];
 }
 
 // *********************************
 
-- (void) updateProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
+- (void) updateProduct: (Product *)product success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
 }
 
-- (void) createProduct: (Product *)product delegate:(id)delegate callback:(SEL)callback
-{
-}
-
-// *********************************
-
-- (void) updateCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
-{
-}
-
-- (void) createCategory: (ProductCategory *)category delegate:(id)delegate callback:(SEL)callback
+- (void) createProduct: (Product *)product success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
 }
 
 // *********************************
 
-- (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
+- (void) updateCategory: (ProductCategory *)category success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
 }
 
-- (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback
+- (void) createCategory: (ProductCategory *)category success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+}
+
+// *********************************
+
+- (void) updateTreeNode: (TreeNode *)node success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+}
+
+- (void) createTreeNode: (TreeNode *)node success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
 }
 
@@ -368,62 +362,73 @@ static Service *_service;
     return nil;
 }
 
-- (void) getBacklogStatistics : (id) delegate callback: (SEL)callback
+- (void) getBacklogStatistics : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource:@"backlog"
+    [self requestResourceBlock:@"backlog"
                           id:nil
+                      action:nil
                    arguments:nil
-                   converter:^(NSArray *items) {
-                       NSMutableArray *stats = [[NSMutableArray alloc] init];
-                       for(NSDictionary *statDic in items)
-                       {
-                           Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
-                           [stats addObject:backlog];
-                       }
-                       return stats;
-                   }
-                    delegate:delegate
-                    callback:callback];
+                        body:nil
+                      method:@"GET"
+                 credentials:nil
+                     success:^(ServiceResult *serviceResult) {
+                               NSMutableArray *stats = [[NSMutableArray alloc] init];
+                               for(NSDictionary *statDic in serviceResult.jsonData)
+                               {
+                                   Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
+                                   [stats addObject:backlog];
+                               }
+                               serviceResult.data =  stats;
+                           }
+                       error:nil];
     return;
 }
 
-- (void) getDashboardStatistics : (id) delegate callback: (SEL)callback
+- (void) getDashboardStatistics : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource:@"dashboard"
+    [self requestResourceBlock:@"dashboard"
                           id:[[NSDate date] stringISO8601]
-                   arguments:nil converter:nil delegate:delegate
-                    callback:callback];
+            action:nil
+            arguments:nil
+            body:nil
+            method:nil
+            credentials:nil
+            success:nil
+            error:nil];
 }
 
 - (void) getInvoices: (id) delegate callback: (SEL)callback
 {
 }
 
-- (Order *) getOrder: (int) orderId
+- (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource:@"order"
+    [self requestResourceBlock:@"order"
                           id:[NSString stringWithFormat:@"%d", orderId]
+            action:nil
                    arguments:nil
-                   converter: ^(NSDictionary *dictionary) {
-                        return [Order orderFromJsonDictionary:dictionary];
+            body:nil
+            method:@"GET"
+            credentials:nil
+                   success: ^(ServiceResult *serviceResult) {
+                        serviceResult.data =  [Order orderFromJsonDictionary: serviceResult.jsonData];
                     }
-                    delegate:nil callback:nil];
+                         error:nil];
     return nil;
 }
 
-- (void) startCourse: (int) courseId forOrder:(int)orderId delegate: (id) delegate callback: (SEL)callback
+- (void) startCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
-    [self requestResource:@"order"
-                   method:@"POST"
+    [self requestResourceBlock:@"order"
                        id:[NSString stringWithFormat:@"%d", orderId]
                    action:@"StartCourse"
                 arguments:@""
                      body:dictionary
+                        method:@"POST"
               credentials:nil
-                converter:nil
-                 delegate:delegate
-                 callback:callback];
+                  success:nil
+                    error:nil];
 	return;
 }
 
@@ -609,18 +614,45 @@ static Service *_service;
     [self requestResource:@"config" method:@"GET" id:@"1" body:nil delegate:delegate callback:callback];
 }
 
-- (void) createLocation: (NSString *)locationName withIp: (NSString *)ip credentials:(Credentials *)credentials  delegate: (id) delegate callback: (SEL)callback {
-    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: locationName, @"Name", ip, @"Ip", nil];
-    [self requestResource:@"location" method:@"POST" id:nil action:nil arguments:nil body:dictionary credentials:credentials converter:nil delegate:delegate callback:callback];
+- (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: locationName, @"Name",  nil];
+    [self requestResourceBlock:@"location"
+                       id:nil
+                   action:nil
+                arguments:nil
+                     body:dictionary
+                   method:@"POST"
+              credentials:credentials
+                  success:success
+                    error:error];
 }
 
-- (void) registerDeviceWithCredentials: (Credentials *)credentials delegate: (id)delegate callback: (SEL)callback {
-    [self requestResource:@"device" method:@"POST" id:nil action: nil arguments:nil body:nil credentials:credentials converter:nil delegate:delegate callback:callback];
+- (void) registerDeviceWithCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+    [self requestResourceBlock:@"device"
+                            id:nil
+                        action: nil
+                     arguments:nil
+                          body:nil
+                        method:@"POST"
+                   credentials:credentials
+                       success:success
+                         error:error];
 }
 
-- (void) signon: (Signon *)signon  delegate: (id) delegate callback: (SEL)callback {
+- (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
     NSMutableDictionary *dictionary  = [signon toDictionary];
-    [self requestResource:@"tenant" method:@"POST" id:nil body:dictionary delegate:delegate callback:callback];
+    [self requestResourceBlock:@"tenant"
+                       id:nil
+                   action: nil
+                arguments:nil
+                     body:dictionary
+                   method:@"POST"
+              credentials:nil
+                  success:success
+                    error:error];
 }
 
 - (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
@@ -652,7 +684,7 @@ static Service *_service;
 
     NSError *error = nil;
 
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", URL_DEV_SHADOW, API_VERSION, resource];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", url, API_VERSION, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     if (action != nil)
@@ -702,7 +734,7 @@ static Service *_service;
 
     NSError *error = nil;
 
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", URL_DEV_SHADOW, API_VERSION, resource];
+    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", url, API_VERSION, resource];
     if (id != nil)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
     if (action != nil)

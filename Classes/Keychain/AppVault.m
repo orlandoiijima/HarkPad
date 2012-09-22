@@ -32,4 +32,14 @@
 + (void)setDatabase:(NSString *)database {
     [KeychainWrapper createKeychainValue:database forIdentifier:@"Database"];
 }
+
+
++ (int)locationId {
+    return [[KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationId"] intValue];
+}
+
++ (void)setLocationId:(int)locationId {
+    [KeychainWrapper createKeychainValue:[NSString stringWithFormat:@"%d", locationId] forIdentifier:@"LocationId"];
+}
+
 @end

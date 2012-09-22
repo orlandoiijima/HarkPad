@@ -201,33 +201,30 @@
 - (void)refreshReservations
 {
     Service *service = [Service getInstance];
-    [service getCountAvailableSeatsPerSlotFromDate: self.firstDateInView toDate:self.lastDateInView delegate:self callback:@selector(refreshCalendarCallback:)];
-}
-
-- (void) refreshCalendarCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
-    }
-
-    NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
-    for(id item in serviceResult.jsonData) {
-        DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
-        [reservations setObject:info forKey:[info.date inJson]];
-    }
-    for(int week = 0; week < 10; week++) {
-        for(int day = 0; day < 7; day++) {
-            CalendarDayCell *cell = (CalendarDayCell *)[self cellAtColumn:day row: week];
-            if (cell != nil) {
-                NSString *key = [cell.date inJson];
-                DayReservationsInfo *info = [reservations objectForKey:key];
-                if (info != nil) {
-                    [cell setInfo: info];
+    [service getCountAvailableSeatsPerSlotFromDate: self.firstDateInView
+                                            toDate:self.lastDateInView
+    success:^(ServiceResult *serviceResult){
+        NSMutableDictionary *reservations = [[NSMutableDictionary alloc] init];
+        for(id item in serviceResult.jsonData) {
+            DayReservationsInfo *info = [DayReservationsInfo infoFromJsonDictionary:item];
+            [reservations setObject:info forKey:[info.date inJson]];
+        }
+        for(int week = 0; week < 10; week++) {
+            for(int day = 0; day < 7; day++) {
+                CalendarDayCell *cell = (CalendarDayCell *)[self cellAtColumn:day row: week];
+                if (cell != nil) {
+                    NSString *key = [cell.date inJson];
+                    DayReservationsInfo *info = [reservations objectForKey:key];
+                    if (info != nil) {
+                        [cell setInfo: info];
+                    }
                 }
             }
         }
     }
+    error: ^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
 @end

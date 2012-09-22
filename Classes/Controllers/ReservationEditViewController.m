@@ -77,10 +77,10 @@
         reservation.startsOn = datePicker.date;
     }
     
-    if(reservation.id == 0)
-        [[Service getInstance] createReservation:reservation delegate:hostController callback:@selector(createFetcher:finishedWithData:error:)];
-    else
-        [[Service getInstance] updateReservation:reservation delegate:hostController callback:@selector(updateFetcher:finishedWithData:error:)];
+//    if(reservation.id == 0)
+//        [[Service getInstance] createReservation:reservation delegate:hostController callback:@selector(createFetcher:finishedWithData:error:)];
+//    else
+//        [[Service getInstance] updateReservation:reservation delegate:hostController callback:@selector(updateFetcher:finishedWithData:error:)];
     
     [hostController closePopup];
 }

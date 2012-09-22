@@ -120,7 +120,7 @@
         newNode.product = insertingProduct;
         newNode.parent = menuView.parentNode;
         [newNode.parent.nodes insertObject:newNode atIndex: offset];
-        [[Service getInstance] createTreeNode:newNode delegate:nil callback:nil];
+        [[Service getInstance] createTreeNode:newNode success:nil error:nil];
 
         insertingProduct = nil;
     }
@@ -129,7 +129,7 @@
         if (node == nil) return;
         [node.parent.nodes removeObjectAtIndex: [menuView toOffset:menuView.dragStartPath]];
         [node.parent.nodes insertObject:node atIndex:[menuView toOffset:cellLine.path]];
-        [[Service getInstance] updateTreeNode: node delegate:nil callback:nil];
+        [[Service getInstance] updateTreeNode: node success:nil error:nil];
         
     }
 }
@@ -142,9 +142,9 @@
         Product *product = (Product *)item;
         if (product == nil) return;
         if (product.id == 0)
-            [[Service getInstance] createProduct:product delegate:nil callback:nil];
+            [[Service getInstance] createProduct:product success:nil error:nil];
         else {
-            [[Service getInstance] updateProduct:product delegate:nil callback:nil];
+            [[Service getInstance] updateProduct:product  success:nil error:nil];
             [productView updateCellLinesByProduct:product];
             [menuView updateCellLinesByProduct:product];
         }
@@ -153,9 +153,9 @@
         ProductCategory *category = (ProductCategory *)item;
         if (category == nil) return;
         if (category.id == 0)
-            [[Service getInstance] createCategory:category delegate:nil callback:nil];
+            [[Service getInstance] createCategory:category success:nil error:nil];
         else {
-            [[Service getInstance] updateCategory:category delegate:nil callback:nil];
+            [[Service getInstance] updateCategory:category success:nil error:nil];
             [menuView updateCellLinesByCategory:category];
             [productView updateCellLinesByCategory:category];
         }
@@ -164,9 +164,9 @@
         TreeNode *node = (TreeNode *)item;
         if (node == nil) return;
         if (node.id == 0)
-            [[Service getInstance] createTreeNode: node delegate:nil callback:nil];
+            [[Service getInstance] createTreeNode: node success:nil error:nil];
         else {
-            [[Service getInstance] updateTreeNode:node delegate:nil callback:nil];
+            [[Service getInstance] updateTreeNode:node success:nil error:nil];
         }
     }
 }

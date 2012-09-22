@@ -135,24 +135,29 @@
 {
     if(self.dayView == nil) return;
     if(self.dayView.dataSource == nil || self.dayView.dataSource.date == nil) return;
-    [[Service getInstance] getReservations: self.dayView.dataSource.date delegate:self callback:@selector(getReservationsCallback:onDate:)];
+    NSDate *date = self.dayView.dataSource.date;
+    [[Service getInstance]
+            getReservations: date
+                   success:^(ServiceResult *serviceResult) {
+                       NSMutableArray *reservations = serviceResult.data;
+                       Reservation *selectedReservation = self.dayView.selectedReservation;
+                       bool includeSeated = segmentShow.selectedSegmentIndex == 1;
+                       ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
+                       NSString *key = [self dateToKey: dataSource.date];
+                       [dataSources setObject: dataSource forKey:key];
+                       if([dayView.date isEqualToDateIgnoringTime:date]) {
+                           dayView.dataSource = dataSource;
+                           [self updateCalendarWithReservations: reservations forDate: date];
+                       }
+                       if(selectedReservation != nil)
+                           self.dayView.selectedReservation = selectedReservation;
+
+                   }
+                      error:^(ServiceResult *serviceResult) {
+                   }
+    ];
 }
 
-- (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
-{
-    NSMutableArray *reservations = serviceResult.data;
-    Reservation *selectedReservation = self.dayView.selectedReservation;
-    bool includeSeated = segmentShow.selectedSegmentIndex == 1;
-    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
-    NSString *key = [self dateToKey: dataSource.date];
-    [dataSources setObject: dataSource forKey:key];
-    if([dayView.date isEqualToDateIgnoringTime:date]) {
-        dayView.dataSource = dataSource;
-        [self updateCalendarWithReservations: reservations forDate: date];
-    }
-    if(selectedReservation != nil)
-        self.dayView.selectedReservation = selectedReservation;
-}
 
 - (NSString *) dateToKey: (NSDate *)date
 {
@@ -172,7 +177,26 @@
     if(dataSource == nil) {
         dataSource = [[ReservationDataSource alloc] init];
         [dataSources setObject: dataSource forKey:key];
-        [[Service getInstance] getReservations: dayView.date delegate:self callback:@selector(getReservationsCallback:onDate:)];
+        [[Service getInstance]
+                getReservations: date
+                       success:^(ServiceResult *serviceResult) {
+                           NSMutableArray *reservations = serviceResult.data;
+                           Reservation *selectedReservation = self.dayView.selectedReservation;
+                           bool includeSeated = segmentShow.selectedSegmentIndex == 1;
+                           ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
+                           NSString *key = [self dateToKey: dataSource.date];
+                           [dataSources setObject: dataSource forKey:key];
+                           if([dayView.date isEqualToDateIgnoringTime:date]) {
+                               dayView.dataSource = dataSource;
+                               [self updateCalendarWithReservations: reservations forDate: date];
+                           }
+                           if(selectedReservation != nil)
+                               self.dayView.selectedReservation = selectedReservation;
+
+                       }
+                          error:^(ServiceResult *serviceResult) {
+                       }
+        ];
     }
     else {
         dayView.dataSource = dataSource;

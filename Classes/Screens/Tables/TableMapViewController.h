@@ -37,7 +37,6 @@
 }
 
 - (void) refreshView;
-- (void) refreshViewWithInfo: (NSMutableArray *)tablesInfo;
 - (void) editOrder: (Order *) order;
 - (void) updateOrder: (Order *) order;
 - (void) makeBillForOrder: (Order*)order;

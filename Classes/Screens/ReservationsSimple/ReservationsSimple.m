@@ -106,19 +106,20 @@
 - (void) gotoDate: (NSDate *)date
 {
     self.dayView.date = date;
-    [[Service getInstance] getReservations: self.dayView.date delegate:self callback:@selector(getReservationsCallback:onDate:)];
-}
-
-- (void) getReservationsCallback: (ServiceResult *)serviceResult onDate: (NSDate *)date
-{
-    NSMutableArray *reservations = serviceResult.data;
-    Reservation *selectedReservation = self.dayView.selectedReservation;
-    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: YES withReservations:reservations];
-    if([self.dayView.date isEqualToDateIgnoringTime:date]) {
-        self.dayView.dataSource = dataSource;
-    }
-    if(selectedReservation != nil)
-        self.dayView.selectedReservation = selectedReservation;
+    [[Service getInstance] getReservations: self.dayView.date
+            success:^(ServiceResult *serviceResult) {
+                NSMutableArray *reservations = serviceResult.data;
+                Reservation *selectedReservation = self.dayView.selectedReservation;
+                ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: YES withReservations:reservations];
+                if([self.dayView.date isEqualToDateIgnoringTime:date]) {
+                    self.dayView.dataSource = dataSource;
+                }
+                if(selectedReservation != nil)
+                    self.dayView.selectedReservation = selectedReservation;
+            }
+error: ^(ServiceResult *serviceResult) {
+ [serviceResult displayError];
+}];
 }
 
 - (void)viewDidUnload
