@@ -27,18 +27,18 @@
         self.headerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview: self.searchCaptionLabel];
         self.searchCaptionLabel.hidden = YES;
-        self.searchCaptionLabel.textAlignment = UITextAlignmentCenter;
+        self.searchCaptionLabel.textAlignment = NSTextAlignmentCenter;
 
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width/2, 35)];
         dateLabel.font = [UIFont systemFontOfSize:22];
-        dateLabel.textAlignment = UITextAlignmentRight;
+        dateLabel.textAlignment = NSTextAlignmentRight;
         dateLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.headerView addSubview:dateLabel];
 
         dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/2 + 5, 0, frame.size.width/2, 35)];
         dayLabel.font = [UIFont systemFontOfSize:22];
         dayLabel.textColor = [UIColor colorWithWhite: 0.5 alpha: 0.5];
-        dayLabel.textAlignment = UITextAlignmentLeft;
+        dayLabel.textAlignment = NSTextAlignmentLeft;
         dayLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self.headerView addSubview:dayLabel];
 
@@ -52,7 +52,7 @@
         for(NSString *slot in labels)
         {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, width, labelHeight)];
-            label.textAlignment = UITextAlignmentCenter;
+            label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:10];
             label.textColor = [UIColor grayColor];
             label.text = slot;
@@ -60,7 +60,7 @@
             [self.headerView addSubview: label];
             
             label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + label.bounds.size.height, width, labelHeight)];
-            label.textAlignment = UITextAlignmentCenter;
+            label.textAlignment = NSTextAlignmentCenter;
             label.font = [UIFont systemFontOfSize:16];
             label.text = slot;
             [countLabels setValue:label forKey:slot];
@@ -84,7 +84,7 @@
         infoLabel = [[UILabel alloc] initWithFrame: CGRectMake(0, 2*(frame.size.height/5), frame.size.width, 40)];
         [self addSubview:infoLabel];
         infoLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        infoLabel.textAlignment = UITextAlignmentCenter;
+        infoLabel.textAlignment = NSTextAlignmentCenter;
         infoLabel.textColor = [UIColor lightGrayColor];
         infoLabel.hidden = YES;
     }

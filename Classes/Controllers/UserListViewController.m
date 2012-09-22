@@ -70,22 +70,36 @@
 
     self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
 
-    [[Service getInstance] getUsers:self callback:@selector(getUsersCallback:)];
+    [[Service getInstance] getUsers:^(ServiceResult *serviceResult) {
+        users = [User usersFromJson:serviceResult.jsonData];
+        if ([users count] == 0) {
+            if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
+                [self.delegate didSelectItem: [User userNull]];
+            }
+        }
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
+        int maxUsers = [users count] > 15 ? 15 : [users count];
+        self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
+        [self.tableView reloadData];
+
+    }
+    error:nil];
 }
 
-- (void)getUsersCallback: (ServiceResult *)serviceResult {
-    users = serviceResult.data;
-    if ([users count] == 0) {
-        if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-            [self.delegate didSelectItem: [User userNull]];
-        }
-    }
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    int maxUsers = [users count] > 15 ? 15 : [users count];
-    self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
-    [self.tableView reloadData];
-}
+//- (void)getUsersCallback: (ServiceResult *)serviceResult {
+//    users = serviceResult.data;
+//    if ([users count] == 0) {
+//        if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
+//            [self.delegate didSelectItem: [User userNull]];
+//        }
+//    }
+//    self.tableView.dataSource = self;
+//    self.tableView.delegate = self;
+//    int maxUsers = [users count] > 15 ? 15 : [users count];
+//    self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
+//    [self.tableView reloadData];
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     User *user = [users objectAtIndex:indexPath.row];

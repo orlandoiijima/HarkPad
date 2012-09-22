@@ -86,7 +86,7 @@
 
     cell.quantity = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, height)];
     [cell.contentView addSubview:cell.quantity];
-    cell.quantity.textAlignment = UITextAlignmentRight;
+    cell.quantity.textAlignment = NSTextAlignmentRight;
     cell.quantity.backgroundColor = [UIColor clearColor];
     if (fontSize != 0)
         cell.quantity.font = [UIFont systemFontOfSize:fontSize];
@@ -119,7 +119,7 @@
         cell.price = [[UILabel alloc] initWithFrame:CGRectMake(right-50, 0, 50, height)];
         [cell.contentView addSubview:cell.price];
 //        cell.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        cell.price.textAlignment = UITextAlignmentRight;
+        cell.price.textAlignment = NSTextAlignmentRight;
         cell.price.backgroundColor = [UIColor clearColor];
         cell.price.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         if (fontSize != 0)

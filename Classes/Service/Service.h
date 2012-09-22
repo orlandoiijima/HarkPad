@@ -79,8 +79,8 @@
 - (void) createTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 - (void) updateTreeNode: (TreeNode *)node delegate:(id)delegate callback:(SEL)callback;
 
-- (void) getUsers: (id) delegate callback: (SEL)callback;
-- (void) getUsersIncludingDeleted:(bool)includeDeleted delegate: (id) delegate callback: (SEL)callback;
+- (void) getUsers: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getConfig: (id) delegate callback: (SEL)callback;
 - (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback;
@@ -115,11 +115,11 @@
                 callback:(SEL)callback;
 
 - (void) requestResourceBlock: (NSString *)resource
-                  method:(NSString *)method
                       id:(NSString *)id
                   action:(NSString *)action
                arguments: (NSString *) arguments
                     body: (NSDictionary *)body
+                  method:(NSString *)method
              credentials:(Credentials *)credentials
                  success:(void (^)(ServiceResult*))onSuccess
                  error:(void (^)(ServiceResult*))onError;

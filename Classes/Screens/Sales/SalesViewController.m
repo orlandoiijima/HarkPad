@@ -55,7 +55,7 @@
         NSArray *labels = [NSArray arrayWithObjects:@"Contant", @"Pin", @"Credit", @"Totaal", nil];
         for(int i=0; i < 4; i++) {
             UILabel *typeLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, COLUMN_WIDTH, 20)];
-            typeLabel.textAlignment = UITextAlignmentRight;
+            typeLabel.textAlignment = NSTextAlignmentRight;
             typeLabel.text = [labels objectAtIndex:i];
             typeLabel.backgroundColor = [UIColor clearColor];
             [headerView addSubview:typeLabel];
@@ -126,7 +126,7 @@
 - (UILabel *) addAmountLabelWithFrame: (CGRect) frame  cell: (UITableViewCell *)cell
 {
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
-    label.textAlignment = UITextAlignmentRight;
+    label.textAlignment = NSTextAlignmentRight;
     label.shadowColor = [UIColor lightGrayColor];
     [cell.contentView addSubview:label];
     return label;

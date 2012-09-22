@@ -40,7 +40,7 @@
             for(int i = 0; i < 6; i++)
             {
                 label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
-                label.textAlignment = UITextAlignmentRight;
+                label.textAlignment = NSTextAlignmentRight;
                 [self.view addSubview:label];
                 NSString *key = [NSString stringWithFormat:@"%d", i];
                 NSNumber *count = [line.totals objectForKey:key];
@@ -51,7 +51,7 @@
                 [courseTotals setObject:[NSNumber numberWithInt:courseTotal] forKey:key];
             }
             label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
-            label.textAlignment = UITextAlignmentRight;
+            label.textAlignment = NSTextAlignmentRight;
             [self.view addSubview:label];
             label.text = [NSString stringWithFormat:@"%d", productTotal];
             label.textColor = [UIColor blueColor];
@@ -62,7 +62,7 @@
         for(int i = 0; i < 6; i++)
         {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
-            label.textAlignment = UITextAlignmentRight;
+            label.textAlignment = NSTextAlignmentRight;
             [self.view addSubview:label];
             NSString *key = [NSString stringWithFormat:@"%d", i];
             NSNumber *count = [courseTotals objectForKey:key];
@@ -72,7 +72,7 @@
             productTotal += [count intValue];
         }
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y, cellWidth, lineHeight)];
-        label.textAlignment = UITextAlignmentRight;
+        label.textAlignment = NSTextAlignmentRight;
         [self.view addSubview:label];
         label.text = [NSString stringWithFormat:@"%d", productTotal];
         label.textColor = [UIColor blueColor];

@@ -422,7 +422,7 @@
                                                      serviceResult.data = tables;
                                                      [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
 
-                                                 }
+                                                    }
                                                    error: ^(ServiceResult *serviceResult) {
                                                        [ModalAlert error:serviceResult.error];
                                                    }];

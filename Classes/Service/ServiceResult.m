@@ -69,7 +69,10 @@
             }
         }
         else {
-            serviceResult.error = [error localizedDescription];
+            if ([data length] > 0)
+                serviceResult.error = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            else
+                serviceResult.error = [error localizedDescription];
         }
     }
     if (serviceResult.error != nil)

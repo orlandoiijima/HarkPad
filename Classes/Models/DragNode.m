@@ -45,7 +45,7 @@
 
 - (void)drawRect:(CGRect)rect {
     UIFont *font = [UIFont systemFontOfSize:17.0];
-    CGSize size = [label sizeWithFont:font forWidth:rect.size.width lineBreakMode:UILineBreakModeClip];
+    CGSize size = [label sizeWithFont:font forWidth:rect.size.width lineBreakMode:NSLineBreakByClipping];
     CGPoint point = CGPointMake(rect.origin.x + (rect.size.width - size.width)/2, rect.origin.y + (rect.size.height - size.height)/2);
     [label drawAtPoint:point withFont:font];
 }

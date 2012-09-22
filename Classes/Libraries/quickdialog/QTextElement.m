@@ -40,7 +40,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
         cell.textLabel.font = _font;
-        cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.textColor = _color;
         cell.textLabel.text = _text;
@@ -57,7 +57,7 @@
         return [super getRowHeightForTableView:tableView];
     }
     CGSize constraint = CGSizeMake(300, 20000);
-    CGSize  size= [_text sizeWithFont:_font constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    CGSize  size= [_text sizeWithFont:_font constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     return size.height+20;
 }
 

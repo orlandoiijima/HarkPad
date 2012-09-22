@@ -27,7 +27,7 @@
     progress.label = [[UILabel alloc] initWithFrame:CGRectMake((frame.size.width - frame.size.width/4)/2, (frame.size.height - frame.size.height/3)/2, frame.size.width/4, frame.size.height/3)];
     progress.label.autoresizingMask = (UIViewAutoresizing) -1;
     progress.label.text = [Utils getCourseChar: selectedCourse];
-    progress.label.textAlignment = UITextAlignmentCenter;
+    progress.label.textAlignment = NSTextAlignmentCenter;
     progress.label.backgroundColor = [UIColor clearColor];
     progress.label.shadowColor = [UIColor lightTextColor];
     progress.label.font = [UIFont systemFontOfSize: 64];
