@@ -91,10 +91,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Reservation *reservation = [self.reservationDataSource getReservation:indexPath];
-    Order *order = [[Service getInstance] getOrder:reservation.orderId];
-    self.orderDataSource = [OrderDataSource dataSourceForOrder:order grouping:bySeat totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:14];
-    self.orderTableView.dataSource = self.orderDataSource;
-    [self.orderTableView reloadData];
+
+    [[Service getInstance]
+            getOrder:reservation.orderId
+             success:^(ServiceResult *serviceResult){
+                Order *order = [Order orderFromJsonDictionary:serviceResult.jsonData];
+                 self.orderDataSource = [OrderDataSource dataSourceForOrder:order grouping:bySeat totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:14];
+                 self.orderTableView.dataSource = self.orderDataSource;
+                 [self.orderTableView reloadData];
+            }
+               error:^(ServiceResult *serviceResult) {
+                [serviceResult displayError];
+                }];
 }
 
 - (CGFloat)tableView:(UITableView *)view heightForRowAtIndexPath:(NSIndexPath *)indexPath {

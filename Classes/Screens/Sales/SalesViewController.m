@@ -141,7 +141,22 @@
 - (void) refreshView
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:NSLocalizedString(@"Loading...", nil)];
-    [[Service getInstance] getSalesForDate:dateToShow delegate:self callback:@selector(refreshViewCallback:)];
+    [[Service getInstance] getSalesForDate:dateToShow
+                                   success:^(ServiceResult *serviceResult) {
+                                       NSMutableDictionary *sales = [[NSMutableDictionary alloc] init];
+                                       NSMutableArray *stats = [[NSMutableArray alloc] init];
+                                       for(NSDictionary *statDic in serviceResult.jsonData)
+                                       {
+                                           ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
+                                           [stats addObject:totals];
+                                       }
+                                       [sales setObject: stats forKey: @"Sales"];
+                                       serviceResult.jsonData = sales;
+                                       [self refreshViewCallback:serviceResult];
+                                   }
+                                     error:^(ServiceResult *serviceResult) {
+                                         [serviceResult displayError];
+                                     }];
 }
 
 - (void) refreshViewCallback: (ServiceResult *)serviceResult

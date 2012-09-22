@@ -208,7 +208,13 @@
 
 - (void) refreshView {
     [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
-    [[Service getInstance] getOpenOrdersForDistrict: -1 delegate:self callback:@selector(getOpenOrdersCallback:)];
+    [[Service getInstance] getOpenOrdersForDistrict: -1
+    success:^(ServiceResult *serviceResult) {
+        [self getOpenOrdersCallback:serviceResult];
+    }
+    error:^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
 - (void) getOpenOrdersCallback: (ServiceResult *)serviceResult {
@@ -220,12 +226,6 @@
 
     [self.scrollView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
-    
     self.orders = serviceResult.data;
     
     if (selectedOpenOrderType == typeSelection) {

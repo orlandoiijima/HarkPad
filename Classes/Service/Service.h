@@ -37,7 +37,7 @@
 - (NSMutableArray *) getLog;
 - (void) undockTable: (NSString *)tableId;
 - (void) dockTables: (NSMutableArray*)tables toTable:(Table *)table;
-- (Order *) getOrder: (int) orderId;
+- (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getReservations: (NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
@@ -46,17 +46,17 @@
 - (void) deleteSeat: (int) seat fromTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getWorkInProgress: (id) delegate callback: (SEL)callback;
+- (void) getWorkInProgress:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getBacklogStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getDashboardStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getInvoices: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
-- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback;
+- (void) getOpenOrdersForDistrict: (int)districtId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getTablesInfoForAllDistricts: (id) delegate callback: (SEL)callback;
+- (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateOrder: (Order *) order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createOrder: (Order *) order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
@@ -82,8 +82,8 @@
 - (void) getUsers: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getConfig: (id) delegate callback: (SEL)callback;
-- (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback;
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) getSalesForDate:(NSDate *)date  success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;

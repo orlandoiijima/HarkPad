@@ -514,7 +514,13 @@
 - (void) setupAllDistricts
 {
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getTablesInfoForAllDistricts: self callback:@selector(refreshAllViewWithInfo:)];
+    [[Service getInstance] getTablesInfoForAllDistricts:
+    ^(ServiceResult *serviceResult) {
+        [self refreshAllViewWithInfo:serviceResult];
+    }
+            error:^(ServiceResult *serviceResult) {
+                [serviceResult displayError];
+            }];
 }
 
 

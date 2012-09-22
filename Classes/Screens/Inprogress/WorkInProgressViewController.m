@@ -32,22 +32,24 @@
 {
     if(isVisible == false) return;
 
-    [[Service getInstance] getWorkInProgress: self callback:@selector(refreshViewCallback:)];
-}
-
-- (void) refreshViewCallback:(ServiceResult *)serviceResult
-{
-    if (serviceResult.isSuccess == false) {
-        return;
+    [[Service getInstance] getWorkInProgress: ^(ServiceResult *serviceResult)
+    {
+            NSMutableArray *stats = [[NSMutableArray alloc] init];
+            for(NSDictionary *statDic in serviceResult.jsonData)
+            {
+                WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
+                [stats addObject: work];
+            }
+            dataSource = [[WorkInProgressDataSource alloc] init];
+            dataSource.workInProgress = stats;
+            table.dataSource = dataSource;
+            [table reloadData];
     }
-
-    dataSource = [[WorkInProgressDataSource alloc] init];
-    dataSource.workInProgress = serviceResult.data;
-    
-    table.dataSource = dataSource;
-    
-    [table reloadData];
+                                       error:^(ServiceResult *serviceResult) {
+                                           [serviceResult displayError];
+                                       }];
 }
+
 
 
 - (void)didReceiveMemoryWarning

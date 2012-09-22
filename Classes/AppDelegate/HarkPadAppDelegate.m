@@ -76,7 +76,12 @@
         [view show];
         return;
     }
-    [service getConfig:self callback:@selector(setupBarControllerCallback:)];
+    [service getConfig: ^(ServiceResult * serviceResult) {
+                        [self setupBarControllerCallback:serviceResult];
+                    }
+                 error:^(ServiceResult *serviceResult) {
+                     [self setupBarControllerCallback:serviceResult];
+                 }];
 }
 
 - (void) setupBarControllerCallback: (ServiceResult *)result

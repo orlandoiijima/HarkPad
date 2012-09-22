@@ -149,11 +149,18 @@
     // Navigation logic may go here. Create and push another view controller.
     OrderLinesViewController *controller = [[OrderLinesViewController alloc] initWithStyle:UITableViewStyleGrouped];
     controller.invoicesViewController = self;
-    controller.order = [[Service getInstance] getOrder:invoice.orderId];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    controller.title = cell.textLabel.text;
-    
-    [self.navigationController pushViewController:controller animated:YES];
+    [[Service getInstance]
+            getOrder:invoice.orderId
+             success:^(ServiceResult *serviceResult){
+                controller.order = [Order orderFromJsonDictionary:serviceResult.jsonData];
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                controller.title = cell.textLabel.text;
+
+                [self.navigationController pushViewController:controller animated:YES];
+            }
+               error:^(ServiceResult *serviceResult) {
+                [serviceResult displayError];
+                }];
 }
 
 - (void) onUpdateOrder: (Order *)order

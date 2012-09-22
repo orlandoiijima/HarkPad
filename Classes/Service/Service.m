@@ -397,7 +397,7 @@ static Service *_service;
             error:nil];
 }
 
-- (void) getInvoices: (id) delegate callback: (SEL)callback
+- (void) getInvoices:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
 }
 
@@ -447,23 +447,18 @@ static Service *_service;
 	return;
 }
 
-- (void) getWorkInProgress : (id) delegate callback: (SEL)callback
+- (void) getWorkInProgress : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource:@"workinprogress"
+    [self requestResourceBlock:@"workinprogress"
                        id:nil
+                           action:nil
                 arguments:nil
-                converter:^(NSDictionary *statsDic)
-                {
-                    NSMutableArray *stats = [[NSMutableArray alloc] init];
-                    for(NSDictionary *statDic in statsDic)
-                    {
-                        WorkInProgress *work = [WorkInProgress workFromJsonDictionary: statDic];
-                        [stats addObject: work];
-                    }
-                    return stats;
-                }
-                 delegate:delegate
-                 callback:callback];
+            body:nil
+            method:@"GET"
+            credentials:nil
+                success:success
+                         error:error
+];
 }
 
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
@@ -472,59 +467,45 @@ static Service *_service;
     order.id = orderId;
     order.paymentType = paymentType;
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" method:@"PUT" id:[NSString stringWithFormat:@"%d", orderId] action:nil  arguments:nil body:orderDic credentials:nil converter:nil delegate:nil callback:nil];
+    [self requestResourceBlock:@"order"
+                            id:[NSString stringWithFormat:@"%d", orderId]
+                        action:nil
+                     arguments:nil
+                          body:orderDic
+                        method:@"PUT"
+                   credentials:nil
+                       success:nil
+                         error:nil
+    ];
 	return;
 }
 
-- (void) getSalesForDate:(NSDate *)date delegate: (id) delegate callback: (SEL)callback
+- (void) getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource: @"Sales"
+    [self requestResourceBlock: @"Sales"
                           id: [date stringISO8601]
+            action:nil
                    arguments: nil
-                   converter: ^(NSDictionary *dictionary)
-                   {
-                       NSMutableDictionary *sales = [[NSMutableDictionary alloc] init];
-                       NSMutableArray *stats = [[NSMutableArray alloc] init];
-                       for(NSDictionary *statDic in dictionary)
-                       {
-                           ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
-                           [stats addObject:totals];
-                       }
-                       [sales setObject: stats forKey: @"Sales"];
-                       return sales;
-                   }
-                    delegate: delegate
-                    callback: callback];
+            body:nil
+            method:@"GET"
+            credentials:nil
+            success:success
+                         error:error
+];
 }
 
-- (void) getTablesInfoForAllDistricts: (id) delegate callback: (SEL)callback
-{
-    id converter = ^(NSArray *districts)
-        {
-            NSMutableArray *tables = [[NSMutableArray alloc] init];
-            for(NSDictionary *districtDic in districts) {
-                NSArray *tablesDic = [districtDic objectForKey:@"Tables"];
-                for(NSDictionary *tableDic in tablesDic) {
-                    TableInfo *tableInfo = [[TableInfo alloc] init];
-                    tableInfo.table = [Table tableFromJsonDictionary: tableDic];
-                    if (tableInfo.table == nil) continue;
-                    tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
-                    NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
-                    if(orderDic != nil)
-                        tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
-                    [tables addObject:tableInfo];
-                }
-            }
-            return tables;
-        };
-
-    [self getRequestResource:@"DistrictInfo"
-                          id: nil
-                   arguments: @""
-                   converter: converter
-                    delegate: delegate
-                    callback: callback];
-}
+//- (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+//{
+//    [self requestResourceBlock:@"DistrictInfo"
+//                          id: nil
+//            action:nil
+//                   arguments: @""
+//            body:nil
+//            method:@"GET"
+//            credentials:nil
+//               success:success
+//            error: error];
+//}
 
 //- (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
 //{
@@ -568,50 +549,81 @@ static Service *_service;
 
 - (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback
 {
-    [self getRequestResource:@"TableOrder"
+    [self requestResourceBlock: @"TableOrder"
                           id: tableId
+            action:nil
                    arguments: @""
-                   converter: ^(NSDictionary *dictionary)
-                   {
-                        return [Order orderFromJsonDictionary: dictionary];
-                   }
-                    delegate: delegate
-                    callback: callback];
+            body:nil
+            method:@"GET"
+            credentials:nil
+                   success: ^(ServiceResult *serviceResult)
+                       {
+                           serviceResult.data = [Order orderFromJsonDictionary: serviceResult.jsonData];
+                       }
+error:nil];
 }
 
-- (void) getOpenOrdersForDistrict: (int)districtId delegate: (id) delegate callback: (SEL)callback
+- (void) getOpenOrdersForDistrict: (int)districtId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self getRequestResource: @"TableOrder"
+    [self requestResourceBlock: @"TableOrder"
                           id: nil
+            action:nil
                    arguments: @""
-                   converter: ^(NSDictionary *ordersDic)
+            body:nil
+            method:@"GET"
+            credentials:nil
+                   success: ^(ServiceResult *serviceResult)
                        {
                            NSMutableArray *orders = [[NSMutableArray alloc] init];
-                           for(NSDictionary *orderDic in ordersDic)
+                           for(NSDictionary *orderDic in serviceResult.jsonData)
                            {
                               Order *order = [Order orderFromJsonDictionary: orderDic];
                               [orders addObject:order];
                            }
-                           return orders;
+                           serviceResult.data =  orders;
                        }
-                    delegate: delegate
-                    callback: callback];
+error:nil];
 }
 
-- (void) updateOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
+- (void) updateOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResource:@"order" method:@"PUT" id:nil body:orderAsDictionary delegate: delegate callback: callback];
+    [self requestResourceBlock:@"order"
+                       id:nil
+            action:nil
+            arguments:nil
+                     body:orderAsDictionary
+                   method:@"PUT"
+            credentials:nil
+                  success:success
+                    error:error];
 }
 
-- (void) createOrder: (Order *) order  delegate: (id) delegate callback: (SEL)callback
+- (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResource:@"order" method:@"POST" id:nil body:orderAsDictionary delegate: delegate callback: callback];
+    [self requestResourceBlock:@"order"
+                       id:nil
+            action:nil
+            arguments:nil
+                     body:orderAsDictionary
+                   method:@"POST"
+            credentials:nil
+                  success:success
+                    error:error];
 }
 
-- (void) getConfig:(id)delegate callback:(SEL)callback {
-    [self requestResource:@"config" method:@"GET" id:@"1" body:nil delegate:delegate callback:callback];
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error {
+    [self requestResourceBlock:@"config"
+                            id:@"1"
+            action:nil
+            arguments:nil
+                          body:nil
+    method:@"GET"
+            credentials:nil
+            success:success
+                         error:error
+    ];
 }
 
 - (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -653,71 +665,6 @@ static Service *_service;
               credentials:nil
                   success:success
                     error:error];
-}
-
-- (void) requestResource: (NSString *)resource method:(NSString *)method id:(NSString *)id body: (NSDictionary *)body delegate:(id)delegate callback:(SEL)callback {
-    [self requestResource: resource method:method id:id action:nil arguments:nil body:body credentials:nil converter:nil delegate:delegate callback:callback];
-}
-
-- (void) getRequestResource: (NSString *)resource
-                         id: (NSString *)id
-                  arguments: (NSString *) arguments
-                  converter:(id (^)(id))converter
-                   delegate:(id)delegate
-                   callback:(SEL)callback
-{
-    [self requestResource: resource method: @"GET" id:id action:nil  arguments:arguments body:nil credentials:nil converter:converter delegate:delegate callback:callback];
-}
-
-- (void) requestResource: (NSString *)resource
-                  method:(NSString *)method
-                      id:(NSString *)id
-                  action:(NSString *)action
-               arguments: (NSString *) arguments
-                    body: (NSDictionary *)body
-             credentials:(Credentials *)credentials
-               converter:(id (^)(id))converter
-                delegate:(id)delegate
-                callback:(SEL)callback
-{
-    CallbackInfo *info = [CallbackInfo infoWithDelegate:delegate callback:callback converter:converter];
-
-    NSError *error = nil;
-
-    NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", url, API_VERSION, resource];
-    if (id != nil)
-        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
-    if (action != nil)
-        urlRequest = [urlRequest stringByAppendingFormat:@"/%@", action];
-    if (arguments != nil)
-        urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
-    [request setHTTPMethod: method];
-    AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
-    if (credentials != nil)
-        [authorisationToken addCredentials:credentials];
-    [request setValue:[authorisationToken toHttpHeader] forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    if (body != nil) {
-        NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
-        [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-    fetcher.userData = info;
-    [fetcher beginFetchWithDelegate:self didFinishSelector: @selector(callbackWithConversion:finishedWithData:error:)];
-}
-
-- (void) callbackWithConversion:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    CallbackInfo *info = fetcher.userData;
-    ServiceResult *result = [ServiceResult resultFromData:data error:error];
-
-    if (result.isSuccess) {
-        if (info.converter != nil && (NSNull *)result.jsonData != [NSNull null])
-            result.data = info.converter(result.jsonData);
-    }
-    [info.invocation setArgument:&result atIndex:2];
-    [info.invocation invoke];
 }
 
 - (void) requestResourceBlock: (NSString *)resource
