@@ -19,6 +19,7 @@
 #import "SeatActionInfo.h"
 #import "OrderGridHitInfo.h"
 #import "CallbackBlockInfo.h"
+#import "Logger.h"
 
 @implementation Service {
 @private
@@ -212,19 +213,10 @@ static Service *_service;
             action:nil
                      arguments:arg
             body:nil
-            method:@"POST"
+            method:@"GET"
             credentials:nil
-                     success: ^(ServiceResult *serviceResult)
-                     {
-                         NSMutableArray *reservations = [[NSMutableArray alloc] init];
-                         for(NSDictionary *reservationDic in serviceResult.jsonData)
-                         {
-                             Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
-                             [reservations addObject:reservation];
-                         }
-                         serviceResult.data = reservations;
-                     }
-                         error:nil];
+                     success: success
+                         error:error];
 }
 
 
@@ -307,8 +299,8 @@ static Service *_service;
                           body:nil
                         method:@"GET"
                    credentials:nil
-                       success:nil
-                         error:nil];
+                       success:success
+                         error:error];
 }
 
 // *********************************
@@ -494,18 +486,18 @@ static Service *_service;
 ];
 }
 
-//- (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-//{
-//    [self requestResourceBlock:@"DistrictInfo"
-//                          id: nil
-//            action:nil
-//                   arguments: @""
-//            body:nil
-//            method:@"GET"
-//            credentials:nil
-//               success:success
-//            error: error];
-//}
+- (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+{
+    [self requestResourceBlock:@"DistrictInfo"
+                          id: nil
+            action:nil
+                   arguments: @""
+            body:nil
+            method:@"GET"
+            credentials:nil
+               success:success
+            error: error];
+}
 
 //- (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
 //{
@@ -682,13 +674,16 @@ error:nil];
     NSError *error = nil;
 
     NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", url, API_VERSION, resource];
-    if (id != nil)
+    if ([id length] > 0)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", id];
-    if (action != nil)
+    if ([action length] > 0)
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", action];
-    if (arguments != nil)
+    if ([arguments length] > 0)
         urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
+    [Logger Info:urlRequest];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
+    if([method isEqualToString:@"POST"])
+        [Logger Info:@"test"];
     [request setHTTPMethod: method];
     AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
     if (credentials != nil)
@@ -707,13 +702,18 @@ error:nil];
 - (void) callbackWithBlock:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
 {
     CallbackBlockInfo *info = fetcher.userData;
+    if (info == nil) return;
+
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
+    if (result == nil) return;
 
     if (result.isSuccess) {
-        info.success(result);
+        if (info.success)
+            info.success(result);
     }
     else {
-        info.error(result);
+        if (info.error)
+            info.error(result);
     }
 }
 

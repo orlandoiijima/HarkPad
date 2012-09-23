@@ -139,7 +139,12 @@
     [[Service getInstance]
             getReservations: date
                    success:^(ServiceResult *serviceResult) {
-                       NSMutableArray *reservations = serviceResult.data;
+                       NSMutableArray *reservations = [[NSMutableArray alloc] init];
+                       for(NSDictionary *reservationDic in serviceResult.jsonData)
+                       {
+                           Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
+                           [reservations addObject:reservation];
+                       }
                        Reservation *selectedReservation = self.dayView.selectedReservation;
                        bool includeSeated = segmentShow.selectedSegmentIndex == 1;
                        ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
@@ -154,6 +159,7 @@
 
                    }
                       error:^(ServiceResult *serviceResult) {
+                          [serviceResult displayError];
                    }
     ];
 }
@@ -195,6 +201,7 @@
 
                        }
                           error:^(ServiceResult *serviceResult) {
+                              [serviceResult displayError];
                        }
         ];
     }

@@ -451,4 +451,16 @@
     [sISO8601 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     return [sISO8601 stringFromDate: self];
 }
+ + (NSDate *)dateFromISO8601: (NSString *)string{
+    NSDateFormatter* sISO8601 = [[NSDateFormatter alloc] init];
+    [sISO8601 setTimeStyle:NSDateFormatterFullStyle];
+    [sISO8601 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
+     if ([string characterAtIndex:[string length] - 3] == ':')
+     {
+         NSString *head = [string substringToIndex:[string length] - 3];
+         NSString *tail = [string substringFromIndex:[string length] - 2];
+         string = [head stringByAppendingString:tail];
+     }
+     return [sISO8601 dateFromString:string];
+ }
 @end

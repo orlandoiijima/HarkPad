@@ -34,55 +34,55 @@
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Reservation *reservation = [[Reservation alloc] init];
-    reservation.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    reservation.id = [[jsonDictionary objectForKey:@"Id"] intValue];
     
-    id val = [jsonDictionary objectForKey:@"notes"];
+    id val = [jsonDictionary objectForKey:@"Notes"];
     if((NSNull *)val != [NSNull null])
        reservation.notes = val;
 
-    reservation.name = [jsonDictionary objectForKey:@"name"];
+    reservation.name = [jsonDictionary objectForKey:@"Name"];
 
-    val = [jsonDictionary objectForKey:@"email"];
+    val = [jsonDictionary objectForKey:@"Email"];
     if((NSNull *)val != [NSNull null])
         reservation.email = val;
     
-    val = [jsonDictionary objectForKey:@"language"];
+    val = [jsonDictionary objectForKey:@"Language"];
     if((NSNull *)val != [NSNull null])
         reservation.language = val;
 
-    val = [jsonDictionary objectForKey:@"phone"];
+    val = [jsonDictionary objectForKey:@"Phone"];
     if((NSNull *)val != [NSNull null])
         reservation.phone = val;
 
-    val = [jsonDictionary objectForKey:@"type"];
+    val = [jsonDictionary objectForKey:@"Type"];
     if(val != nil && (NSNull *)val != [NSNull null])
         reservation.type = (ReservationType)[val intValue];
     
-    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
-    reservation.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    NSString *createdOn = [jsonDictionary objectForKey:@"CreatedOn"];
+    reservation.createdOn = [NSDate dateFromISO8601:createdOn];
 
-    seconds = [jsonDictionary objectForKey:@"startsOn"];
-    reservation.startsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    NSString *startsOn = [jsonDictionary objectForKey:@"StartsOn"];
+    reservation.startsOn = [NSDate dateFromISO8601:startsOn];
     
-    seconds = [jsonDictionary objectForKey:@"endsOn"];
-    reservation.endsOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    NSString *endsOn = [jsonDictionary objectForKey:@"EndsOn"];
+    reservation.endsOn = [NSDate dateFromISO8601:endsOn];
     
-    reservation.countGuests = [[jsonDictionary objectForKey:@"countGuests"] intValue];
-    NSNumber *orderId = [jsonDictionary objectForKey:@"orderId"];
+    reservation.countGuests = [[jsonDictionary objectForKey:@"CountGuests"] intValue];
+    NSNumber *orderId = [jsonDictionary objectForKey:@"OrderId"];
     if(orderId != nil && (NSNull *)orderId != [NSNull null])
         reservation.orderId = [orderId intValue];
     else
         //  Not yet linked to order	
         reservation.orderId = -1;
-    NSNumber *orderState = [jsonDictionary objectForKey:@"orderState"];
+    NSNumber *orderState = [jsonDictionary objectForKey:@"OrderState"];
     if(orderState != nil && (NSNull *)orderState != [NSNull null])
         reservation.orderState = [orderState intValue];
 
-    seconds = [jsonDictionary objectForKey:@"paidOn"];
-    if(seconds != nil && (NSNull *)seconds != [NSNull null])
-        reservation.paidOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    NSString *paidOn = [jsonDictionary objectForKey:@"PaidOn"];
+    if(paidOn != nil)
+        reservation.paidOn = [NSDate dateFromISO8601:paidOn];
     
-    NSString *tableId = [jsonDictionary objectForKey:@"tableId"];
+    NSString *tableId = [jsonDictionary objectForKey:@"TableId"];
     if(tableId != nil && (NSNull *)tableId != [NSNull null])
         reservation.table = [[[Cache getInstance] map] getTable:tableId];
 

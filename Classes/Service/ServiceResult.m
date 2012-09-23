@@ -75,7 +75,7 @@
                 serviceResult.error = [error localizedDescription];
         }
     }
-    if (serviceResult.error != nil)
+    if (serviceResult.isSuccess == false && [serviceResult.error length] > 0)
         [Logger Info:serviceResult.error];
 
     return serviceResult;

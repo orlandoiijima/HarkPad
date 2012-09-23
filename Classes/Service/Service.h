@@ -95,23 +95,23 @@
 
 - (BOOL) checkReachability;
 
-- (void) getRequestResource: (NSString *)resource
-                         id: (NSString *)id
-                  arguments: (NSString *) arguments
-                  converter:(id (^)(id))converter
-                   delegate:(id)delegate
-                   callback:(SEL)callback;
-
-- (void) requestResource: (NSString *)resource
-                  method:(NSString *)method
-                      id:(NSString *)id
-                  action:(NSString *)action
-               arguments: (NSString *) arguments
-                    body: (NSDictionary *)body
-             credentials:(Credentials *)credentials
-               converter:(id (^)(id))converter
-                delegate:(id)delegate
-                callback:(SEL)callback;
+//- (void) getRequestResource: (NSString *)resource
+//                         id: (NSString *)id
+//                  arguments: (NSString *) arguments
+//                  converter:(id (^)(id))converter
+//                   delegate:(id)delegate
+//                   callback:(SEL)callback;
+//
+//- (void) requestResource: (NSString *)resource
+//                  method:(NSString *)method
+//                      id:(NSString *)id
+//                  action:(NSString *)action
+//               arguments: (NSString *) arguments
+//                    body: (NSDictionary *)body
+//             credentials:(Credentials *)credentials
+//               converter:(id (^)(id))converter
+//                delegate:(id)delegate
+//                callback:(SEL)callback;
 
 - (void) requestResourceBlock: (NSString *)resource
                       id:(NSString *)id

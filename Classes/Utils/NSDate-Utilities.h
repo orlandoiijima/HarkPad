@@ -88,4 +88,6 @@
 - (NSString *)stringISO8601;
 - (NSString *) flatDateString;
 
++ (NSDate *)dateFromISO8601: (NSString *)string;
+
 @end
