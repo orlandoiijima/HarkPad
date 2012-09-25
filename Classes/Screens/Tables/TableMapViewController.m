@@ -15,6 +15,7 @@
 #import "ZoomedTableViewController.h"
 #import "ToolbarTitleView.h"
 #import "TestFlight.h"
+#import "Logger.h"
 
 @implementation TableMapViewController
 
@@ -406,20 +407,7 @@
 //    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
     [[Service getInstance] getTablesInfoForDistrictBlock: self.currentDistrict.name
                                                  success:^(ServiceResult *serviceResult) {
-                                                     NSMutableArray *tables = [[NSMutableArray alloc] init];
-                                                     NSArray *tablesDic = [serviceResult.jsonData objectForKey:@"Tables"];
-                                                     for(NSDictionary *tableDic in tablesDic) {
-                                                         TableInfo *tableInfo = [[TableInfo alloc] init];
-                                                         tableInfo.table = [Table tableFromJsonDictionary: tableDic];
-                                                         if (tableInfo.table == nil) continue;
-                                                         tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
-                                                         NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
-                                                         if(orderDic != nil)
-                                                             tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
-                                                         [tables addObject:tableInfo];
-                                                     }
-                                                     serviceResult.data = tables;
-                                                     [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
+                                                     [self refreshDistrict:self.currentDistrictOffset withData:serviceResult.jsonData];
 
                                                     }
                                                    error: ^(ServiceResult *serviceResult) {
@@ -461,28 +449,23 @@
 //    [self refreshDistrict:self.currentDistrictOffset withData:serviceResult];
 //}
 
-- (void) refreshAllViewWithInfo: (ServiceResult *)serviceResult
+- (void) refreshAllViewWithInfo: (NSMutableArray *)districts
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 
-    if (serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
-    }
-
     for (int districtOffset = 0; districtOffset < [self.pages count]; districtOffset++) {
-        [self refreshDistrict: districtOffset withData:serviceResult];
+        [self refreshDistrict: districtOffset withData: [districts objectAtIndex:districtOffset]];
     }
 
-    [NSTimer scheduledTimerWithTimeInterval:20.0f
-                                     target:self
-                                   selector:@selector(refreshView)
-                                   userInfo:nil
-                                    repeats:YES];
+//    [NSTimer scheduledTimerWithTimeInterval:20.0f
+//                                     target:self
+//                                   selector:@selector(refreshView)
+//                                   userInfo:nil
+//                                    repeats:YES];
 
 }
 
-- (void) refreshDistrict: (int) districtOffset withData: (ServiceResult *)serviceResult
+- (void) refreshDistrict: (int) districtOffset withData: (NSMutableDictionary *)districtDic
 {
     UIView *districtView = [self viewForDistrictOffset:districtOffset];
     if(districtView == nil)
@@ -492,15 +475,29 @@
         return;
     [districtView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
 
-    CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo:serviceResult.data];
+    NSMutableArray *tables = [[NSMutableArray alloc] init];
+    NSArray *tablesDic = [districtDic objectForKey:@"tables"];
+    for(NSDictionary *tableDic in tablesDic) {
+        TableInfo *tableInfo = [[TableInfo alloc] init];
+        tableInfo.table = [Table tableFromJsonDictionary: tableDic];
+        if (tableInfo.table == nil) continue;
+        tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
+        NSDictionary *orderDic = [tableDic objectForKey:@"order"];
+        if(orderDic != nil)
+            tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
+        [tables addObject:tableInfo];
+    }
+
+    CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo: tables];
     if (boundingRect.size.width == 0) {
+        [Logger Error:@"Empty boundingrectangle for district"];
         return;
     }
     mapScaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;
     if(mapScaleX * boundingRect.size.height > districtView.bounds.size.height)
         mapScaleX = ((float)districtView.bounds.size.height - 20) / boundingRect.size.height;
     mapOffset = boundingRect.origin;
-    for(TableInfo *tableInfo in serviceResult.data)
+    for(TableInfo *tableInfo in tables)
     {
         if(tableInfo.table.dockedToTableId != -1)
             continue;
@@ -516,7 +513,7 @@
     [MBProgressHUD showProgressAddedTo:self.view withText:@""];
     [[Service getInstance] getTablesInfoForAllDistricts:
     ^(ServiceResult *serviceResult) {
-        [self refreshAllViewWithInfo:serviceResult];
+        [self refreshAllViewWithInfo:serviceResult.jsonData];
     }
             error:^(ServiceResult *serviceResult) {
                 [serviceResult displayError];
@@ -710,9 +707,23 @@
 
 -(void) updateOrder:(Order *)order
 {
-    [[Service getInstance] updateOrder: order success:nil error:^(ServiceResult *serviceResult) {
-        [serviceResult displayError];
-    }];
+    if (order == nil) return;
+    if (order.entityState == EntityStateNew)
+        [[Service getInstance]
+                createOrder: order
+                    success:nil
+                      error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }
+        ];
+    else
+        [[Service getInstance]
+                updateOrder: order
+                    success:nil
+                      error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }
+        ];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

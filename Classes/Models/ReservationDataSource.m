@@ -408,12 +408,16 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Reservation *reservation = [self getReservation:indexPath];
-        if(reservation == nil) return;
-        [[Service getInstance] deleteReservation: reservation.id];
-        [self deleteReservation:reservation fromTableView:tableView];
-    }   
+    if (editingStyle != UITableViewCellEditingStyleDelete)
+        return;
+    Reservation *reservation = [self getReservation:indexPath];
+    if(reservation == nil) return;
+    [[Service getInstance]
+            deleteReservation: reservation.id
+                      success: ^(ServiceResult *serviceResult) {
+                                    [self deleteReservation:reservation fromTableView:tableView];
+                                }
+                        error:nil];
 }
 
 

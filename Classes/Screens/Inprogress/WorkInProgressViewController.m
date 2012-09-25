@@ -65,9 +65,16 @@
     WorkInProgress *work = [dataSource.workInProgress objectAtIndex:indexPath.row];
     NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.tableId];
     if([ModalAlert confirm:query]) {
-//        [[Service getInstance] serveCourse:work.course.id forOrder:0];
-        //  TODO
-        [dataSource deleteLine:work fromTableView:tableView];
+        [[Service getInstance]
+                serveCourse:work.course.id
+                   forOrder:0
+                    success: ^(ServiceResult *serviceResult) {
+                                [dataSource deleteLine:work fromTableView:tableView];
+                                }
+                      error: ^(ServiceResult *serviceResult) {
+                                [serviceResult displayError];
+                                }
+        ];
     }
 }
 

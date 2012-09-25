@@ -30,7 +30,7 @@
 {
     Guest *guest = [[Guest alloc] initWithJson:jsonDictionary];
     guest.order = order;
-    guest.seat = [[jsonDictionary objectForKey:@"seat"] intValue];
+    guest.seat = [[jsonDictionary objectForKey:@"id"] intValue];
     id val = [jsonDictionary objectForKey:@"diet"];
     if (val != nil)
         guest.diet = [val intValue];
@@ -57,7 +57,7 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"seat"];
+    [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"id"];
     if (guestType == guestFemale)
         [dic setObject: @"F" forKey:@"gender"];
     if (diet != 0)

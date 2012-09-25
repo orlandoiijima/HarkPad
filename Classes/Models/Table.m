@@ -49,13 +49,16 @@
     else
         table.countSeatsPerSide = [NSMutableArray arrayWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
 
-    NSString * frame = [jsonDictionary objectForKey:@"frame"];
-    NSArray *frameParts = [frame componentsSeparatedByString:@","];
-    float left = [[frameParts objectAtIndex:0] floatValue];
-    float top = [[frameParts objectAtIndex:1] floatValue];
-    float width = [[frameParts objectAtIndex:2] floatValue];
-    float height = [[frameParts objectAtIndex:3] floatValue];
-    table.bounds = CGRectMake(left, top, width, height);
+    id frame = [jsonDictionary objectForKey:@"frame"];
+    if (frame != nil) {
+        table.bounds = CGRectMake(
+                [[frame objectForKey:@"left"] floatValue],
+                [[frame objectForKey:@"top"] floatValue],
+                [[frame objectForKey:@"width"] floatValue],
+                [[frame objectForKey:@"height"] floatValue]);
+    }
+    else
+        table.bounds = CGRectMake(0,0,0,0);
     return table;
 }
 

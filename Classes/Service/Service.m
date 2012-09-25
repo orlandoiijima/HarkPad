@@ -8,13 +8,9 @@
 
 #import "Service.h"
 #import "Backlog.h"
-#import "Invoice.h"
-#import "ProductTotals.h"
 #import "urls.h"
 #import "Reachability.h"
-#import "CallbackInfo.h"
 #import "NSDate-Utilities.h"
-#import "AppVault.h"
 #import "AuthorisationToken.h"
 #import "SeatActionInfo.h"
 #import "OrderGridHitInfo.h"
@@ -93,29 +89,29 @@ static Service *_service;
 
 - (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"user"
-                            id:nil
-                        action:nil
-                        arguments:nil
-                             body:nil
-                        method:@"GET"
-                   credentials:nil
-                      success:success
-                        error:error];
+    [self requestResource: @"user"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 	return;
 }
 
 - (void) undockTable: (NSString *)tableId
 {
-    [self requestResourceBlock:@"table"
-                       id:tableId
+    [self requestResource: @"table"
+                       id: tableId
                    action: @"undock"
-                arguments:nil
-                     body:nil
-                   method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                arguments: nil
+                     body: nil
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
@@ -125,15 +121,15 @@ static Service *_service;
     order.id = orderId;
     order.table = [[[Cache getInstance] map] getTable:tableId];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResourceBlock:@"order"
-                       id:[NSString stringWithFormat:@"%d", orderId]
-                   action:nil
-                arguments:nil
-                     body:orderDic
-                   method:@"PUT"
-              credentials:nil
-                       success:nil
-                         error:nil];
+    [self requestResource: @"order"
+                       id: [NSString stringWithFormat:@"%d", orderId]
+                   action: nil
+                arguments: nil
+                     body: orderDic
+                   method: @"PUT"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
@@ -141,15 +137,15 @@ static Service *_service;
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:-1 beforeSeat:seat atSide:side];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResourceBlock:@"table"
-                            id:tableId
-                        action: @"InsertSeat"
-                     arguments:nil
-                          body:infoDic
-                        method:@"POST"
-                   credentials:nil
-                       success:nil
-                         error:nil];
+    [self requestResource: @"table"
+                       id: tableId
+                   action: @"InsertSeat"
+                arguments: nil
+                     body: infoDic
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
@@ -157,15 +153,15 @@ static Service *_service;
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:beforeSeat atSide:side];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResourceBlock:@"table"
-                       id:tableId
+    [self requestResource: @"table"
+                       id: tableId
                    action: @"MoveSeat"
-                arguments:nil
+                arguments: nil
                      body: infoDic
-                   method:@"POST"
-              credentials:nil
-                success:nil
-                  error:nil];
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
@@ -173,15 +169,15 @@ static Service *_service;
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:-1 atSide:0];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResourceBlock:@"table"
-                       id:tableId
-                   action:@"DeleteSeat"
-                arguments:nil
+    [self requestResource: @"table"
+                       id: tableId
+                   action: @"DeleteSeat"
+                arguments: nil
                      body: infoDic
-                   method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
@@ -192,15 +188,15 @@ static Service *_service;
         [tableNames addObject:table.name];
     }
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:tableNames forKey:@"Tables"];
-    [self requestResourceBlock:@"table"
+    [self requestResource: @"table"
                        id: masterTable.name
-                   action:@"DockTables"
-                arguments:nil
+                   action: @"DockTables"
+                arguments: nil
                      body: infoDic
-                   method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 }
 
 // *********************************
@@ -208,22 +204,22 @@ static Service *_service;
 - (void) getReservations: (NSDate *)date success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSString *arg = [NSString stringWithFormat:@"from=%@&to=%@", [date stringISO8601], [date stringISO8601]];
-    [self requestResourceBlock:@"reservation"
-                            id:nil
-            action:nil
-                     arguments:arg
-            body:nil
-            method:@"GET"
-            credentials:nil
-                     success: success
-                         error:error];
+    [self requestResource: @"reservation"
+                       id: nil
+                   action: nil
+                arguments: arg
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 
 - (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
-    [self requestResourceBlock:@"reservation"
+    [self requestResource: @"reservation"
                        id: nil
                    action: nil
                 arguments: nil
@@ -237,7 +233,7 @@ static Service *_service;
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
-    [self requestResourceBlock:@"reservation"
+    [self requestResource: @"reservation"
                        id: nil
                    action: nil
                 arguments: nil
@@ -250,7 +246,7 @@ static Service *_service;
 
 - (void) deleteReservation: (int)reservationId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"reservation"
+    [self requestResource:@"reservation"
                        id: [NSString stringWithFormat:@"%d", reservationId]
                    action: nil
                 arguments: nil
@@ -263,7 +259,7 @@ static Service *_service;
 
 - (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"reservation"
+    [self requestResource: @"reservation"
                        id: nil
                    action: nil
                 arguments: [NSString stringWithFormat:@"q=%@", query]
@@ -291,15 +287,15 @@ static Service *_service;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSString *arg = [NSString stringWithFormat:@"from=%@&to=%@", [from stringISO8601], [to stringISO8601]];
-    [self requestResourceBlock:@"reservationslot"
-                            id:nil
-                        action:nil
-                     arguments:arg
-                          body:nil
-                        method:@"GET"
-                   credentials:nil
-                       success:success
-                         error:error];
+    [self requestResource: @"reservationslot"
+                       id: nil
+                   action: nil
+                arguments: arg
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 // *********************************
@@ -341,51 +337,50 @@ static Service *_service;
     orderLine.entityState = EntityStateDeleted;
     [order addOrderLine:orderLine];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResourceBlock:@"order"
-                       id:[NSString stringWithFormat:@"%d", order.id]
-                   action:nil
-                arguments:nil
-                     body:orderDic
-                   method:@"PUT"
-              credentials:nil
-                  success:nil
-                    error:nil];
+    [self requestResource: @"order"
+                       id: [NSString stringWithFormat:@"%d", order.id]
+                   action: nil
+                arguments: nil
+                     body: orderDic
+                   method: @"PUT"
+              credentials: nil
+                  success: nil
+                    error: nil];
     return nil;
 }
 
 - (void) getBacklogStatistics : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"backlog"
-                          id:nil
-                      action:nil
-                   arguments:nil
-                        body:nil
-                      method:@"GET"
-                 credentials:nil
-                     success:^(ServiceResult *serviceResult) {
-                               NSMutableArray *stats = [[NSMutableArray alloc] init];
-                               for(NSDictionary *statDic in serviceResult.jsonData)
-                               {
-                                   Backlog *backlog = [Backlog backlogFromJsonDictionary: statDic];
-                                   [stats addObject:backlog];
-                               }
-                               serviceResult.data =  stats;
-                           }
-                       error:nil];
+    [self requestResource: @"backlog"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: ^(ServiceResult *serviceResult) {
+                            NSMutableArray *stats = [[NSMutableArray alloc] init];
+                            for (NSDictionary *statDic in serviceResult.jsonData) {
+                                Backlog *backlog = [Backlog backlogFromJsonDictionary:statDic];
+                                [stats addObject:backlog];
+                            }
+                            serviceResult.data = stats;
+                        }
+                    error: nil];
     return;
 }
 
 - (void) getDashboardStatistics : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"dashboard"
-                          id:[[NSDate date] stringISO8601]
-            action:nil
-            arguments:nil
-            body:nil
-            method:nil
-            credentials:nil
-            success:nil
-            error:nil];
+    [self requestResource: @"dashboard"
+                       id: [[NSDate date] stringISO8601]
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: nil
+              credentials: nil
+                  success: nil
+                    error: nil];
 }
 
 - (void) getInvoices:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -394,62 +389,61 @@ static Service *_service;
 
 - (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"order"
-                          id:[NSString stringWithFormat:@"%d", orderId]
-            action:nil
-                   arguments:nil
-            body:nil
-            method:@"GET"
-            credentials:nil
-                   success: ^(ServiceResult *serviceResult) {
-                        serviceResult.data =  [Order orderFromJsonDictionary: serviceResult.jsonData];
-                    }
-                         error:nil];
+    [self requestResource:@"order"
+                       id: [NSString stringWithFormat:@"%d", orderId]
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: ^(ServiceResult *serviceResult) {
+                             serviceResult.data = [Order orderFromJsonDictionary:serviceResult.jsonData];
+                            }
+                    error: nil];
     return nil;
 }
 
 - (void) startCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
-    [self requestResourceBlock:@"order"
-                       id:[NSString stringWithFormat:@"%d", orderId]
-                   action:@"StartCourse"
-                arguments:@""
-                     body:dictionary
-                        method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+    [self requestResource: @"order"
+                       id: [NSString stringWithFormat:@"%d", orderId]
+                   action: @"StartCourse"
+                arguments: nil
+                     body: dictionary
+                   method: @"POST"
+              credentials: nil
+                  success: success
+                    error: error];
 	return;
 }
 
-- (void) serveCourse: (int) courseId forOrder:(int)orderId
+- (void) serveCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
-    [self requestResourceBlock:@"order"
-                       id:[NSString stringWithFormat:@"%d", orderId]
-                   action:@"ServeCourse"
-                arguments:@""
-                     body:dictionary
-                   method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+    [self requestResource:@"order"
+                       id: [NSString stringWithFormat:@"%d", orderId]
+                   action: @"ServeCourse"
+                arguments: nil
+                     body: dictionary
+                   method: @"POST"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
 - (void) getWorkInProgress : (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"workinprogress"
-                       id:nil
-                           action:nil
-                arguments:nil
-            body:nil
-            method:@"GET"
-            credentials:nil
-                success:success
-                         error:error
-];
+    [self requestResource: @"workinprogress"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
@@ -458,204 +452,174 @@ static Service *_service;
     order.id = orderId;
     order.paymentType = paymentType;
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResourceBlock:@"order"
-                            id:[NSString stringWithFormat:@"%d", orderId]
-                        action:nil
-                     arguments:nil
-                          body:orderDic
-                        method:@"PUT"
-                   credentials:nil
-                       success:nil
-                         error:nil
-    ];
+    [self requestResource: @"order"
+                       id: [NSString stringWithFormat:@"%d", orderId]
+                   action: nil
+                arguments: nil
+                     body: orderDic
+                   method: @"PUT"
+              credentials: nil
+                  success: nil
+                    error: nil];
 	return;
 }
 
 - (void) getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock: @"Sales"
-                          id: [date stringISO8601]
-            action:nil
-                   arguments: nil
-            body:nil
-            method:@"GET"
-            credentials:nil
-            success:success
-                         error:error
-];
+    [self requestResource: @"Sales"
+                       id: [date stringISO8601]
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"DistrictInfo"
-                          id: nil
-            action:nil
-                   arguments: @""
-            body:nil
-            method:@"GET"
-            credentials:nil
-               success:success
-            error: error];
+    [self requestResource:@"DistrictInfo"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
-
-//- (void) getTablesInfoForDistrict:(NSString *)district delegate: (id) delegate callback: (SEL)callback
-//{
-//   id converter = ^(NSDictionary *districtDic)
-//       {
-//           NSMutableArray *tables = [[NSMutableArray alloc] init];
-//           NSArray *tablesDic = [districtDic objectForKey:@"Tables"];
-//           for(NSDictionary *tableDic in tablesDic) {
-//               TableInfo *tableInfo = [[TableInfo alloc] init];
-//               tableInfo.table = [Table tableFromJsonDictionary: tableDic];
-//               if (tableInfo.table == nil) continue;
-//               tableInfo.table.district = [[[Cache getInstance] map] getTableDistrict:tableInfo.table.name];
-//               NSDictionary *orderDic = [tableDic objectForKey:@"Order"];
-//               if(orderDic != nil)
-//                   tableInfo.orderInfo = [OrderInfo infoFromJsonDictionary: orderDic];
-//               [tables addObject:tableInfo];
-//           }
-//           return tables;
-//       };
-//
-//   [self getRequestResource:@"DistrictInfo"
-//                         id: district
-//                  arguments: @""
-//                  converter: converter
-//                   delegate: delegate
-//                   callback: callback];
-//}
 
 - (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock: @"districtinfo"
-                            id: district
-                        action: nil
-                     arguments: @""
-                          body: nil
-                        method: @"GET"
-                   credentials: nil
-                       success: success
-                         error: error];
+    [self requestResource: @"districtinfo"
+                       id: district
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) getOpenOrderByTable: (NSString *)tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock: @"TableOrder"
-                            id: tableId
-                        action: nil
-                     arguments: @""
-                          body: nil
-                        method: @"GET"
-                   credentials: nil
-                       success: success
-                         error: error];
+    [self requestResource:@"TableOrder"
+                       id: tableId
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error:error];
 }
 
 - (void) getOpenOrdersForDistrict: (int)districtId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock: @"TableOrder"
-                            id: nil
-                        action: nil
-                     arguments: @""
-                          body: nil
-                        method: @"GET"
-                   credentials: nil
-                       success: success
-                         error: error];
+    [self requestResource: @"TableOrder"
+                       id: districtId == -1 ? nil : [NSString stringWithFormat:@"%d", districtId]
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) updateOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResourceBlock:@"order"
-                       id:nil
-            action:nil
-            arguments:nil
-                     body:orderAsDictionary
-                   method:@"PUT"
-            credentials:nil
-                  success:success
-                    error:error];
+    [self requestResource: @"order"
+                       id: [NSString stringWithFormat:@"%d", order.id]
+                   action: nil
+                arguments: nil
+                     body: orderAsDictionary
+                   method: @"PUT"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResourceBlock:@"order"
-                       id:nil
-            action:nil
-            arguments:nil
-                     body:orderAsDictionary
-                   method:@"POST"
-            credentials:nil
-                  success:success
-                    error:error];
+    [self requestResource: @"order"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: orderAsDictionary
+                   method: @"POST"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error {
-    [self requestResourceBlock:@"config"
-                            id:@"1"
-            action:nil
-            arguments:nil
-                          body:nil
-    method:@"GET"
-            credentials:nil
-            success:success
-                         error:error
+    [self requestResource: @"config"
+                       id: @"1"
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil success:success
+                    error: error
     ];
 }
 
 - (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: locationName, @"Name",  nil];
-    [self requestResourceBlock:@"location"
-                       id:nil
-                   action:nil
-                arguments:nil
-                     body:dictionary
-                   method:@"POST"
-              credentials:credentials
-                  success:success
-                    error:error];
+    [self requestResource: @"location"
+                       id: nil action:nil
+                arguments: nil
+                     body: dictionary
+                   method: @"POST"
+              credentials: credentials
+                  success: success
+                    error: error];
 }
 
 - (void) registerDeviceWithCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"device"
-                            id:nil
-                        action: nil
-                     arguments:nil
-                          body:nil
-                        method:@"POST"
-                   credentials:credentials
-                       success:success
-                         error:error];
+    [self requestResource: @"device"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"POST"
+              credentials: credentials
+                  success: success
+                    error: error];
 }
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *dictionary  = [signon toDictionary];
-    [self requestResourceBlock:@"tenant"
-                       id:nil
-                   action: nil
-                arguments:nil
-                     body:dictionary
+    [self requestResource:@"tenant"
+                       id:nil action:nil arguments:nil body:dictionary
                    method:@"POST"
-              credentials:nil
-                  success:success
+              credentials:nil success:success
                     error:error];
 }
 
-- (void) requestResourceBlock: (NSString *)resource
-                      id:(NSString *)id
-                  action:(NSString *)action
-               arguments: (NSString *) arguments
-                    body: (NSDictionary *)body
-                  method:(NSString *)method
-             credentials:(Credentials *)credentials
-                 success:(void (^)(ServiceResult*))onSuccess
-                 error:(void (^)(ServiceResult*))onError
+- (void)requestResource: (NSString *)resource
+                     id: (NSString *)id
+                 action: (NSString *)action
+              arguments: (NSString *)arguments
+                   body: (NSDictionary *)body
+                 method: (NSString *)method
+            credentials: (Credentials *)credentials
+                success: (void (^)(ServiceResult *))onSuccess
+                  error: (void (^)(ServiceResult*))onError
 {
+    if ([method isEqualToString:@"PUT"] && [id length] == 0)
+        [Logger Info:@"put without id"];
+    if (([method isEqualToString:@"PUT"] || [method isEqualToString:@"POST"]) && [body count] == 0)
+        [Logger Info:@"put or post without data"];
+
     CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError];
 
     NSError *error = nil;
@@ -678,6 +642,7 @@ static Service *_service;
     if (body != nil) {
         NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
         [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+        [Logger Info:jsonString];
     }
     GTMHTTPFetcher* fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
     fetcher.userData = info;

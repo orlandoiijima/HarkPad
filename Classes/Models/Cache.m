@@ -36,11 +36,11 @@ static 	Cache * _cache = nil;
 }
 
 - (void) loadFromJson:(NSMutableDictionary *)json {
-    _cache.map = [Map mapFromJson:[json valueForKey:@"TableMap"]];
-    _cache.menuCard = [MenuCard menuFromJson:[json valueForKey:@"Menu"]];
-    _cache.tree = [TreeNode nodeFromJsonDictionary:[json valueForKey:@"MenuTree"] parent:nil];
-    _cache.config = [Config configFromJson:[json valueForKey:@"Settings"]];
-    _cache.printInfo = [PrintInfo infoFromJson:[json valueForKey:@"PrintInfo"]];
+    _cache.map = [Map mapFromJson:[json valueForKey:@"tableMap"]];
+    _cache.menuCard = [MenuCard menuFromJson:[json valueForKey:@"menu"]];
+    _cache.tree = [TreeNode nodeFromJsonDictionary:[json valueForKey:@"menuTree"] parent:nil];
+    _cache.config = [Config configFromJson:[json valueForKey:@"settings"]];
+    _cache.printInfo = [PrintInfo infoFromJson:[json valueForKey:@"printInfo"]];
 }
 
 + (void) clear

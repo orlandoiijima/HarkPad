@@ -230,11 +230,16 @@
 
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
 {
-    if (serviceResult.isSuccess == false && serviceResult.httpStatusCode != 404) {
-        [serviceResult displayError];
-        return;
+    if (serviceResult.httpStatusCode == 404)
+        order = nil;
+    else {
+        if (serviceResult.isSuccess == false) {
+            [serviceResult displayError];
+            return;
+        }
+        order = [Order orderFromJsonDictionary: serviceResult.jsonData];
     }
-    order = [Order orderFromJsonDictionary: serviceResult.jsonData];
+
     if(order == nil) {
         order = [Order orderForTable:tableWithSeatsView.table];
         for(Guest *guest in order.guests) {

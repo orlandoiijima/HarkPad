@@ -29,7 +29,7 @@
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
     Course *course = [[Course alloc] initWithJson:jsonDictionary];
-    course.offset = [[jsonDictionary objectForKey:@"offset"] intValue];
+    course.offset = [[jsonDictionary objectForKey:@"id"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil && (NSNull *) seconds != [NSNull null])
         course.requestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
@@ -44,7 +44,7 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: [NSNumber numberWithInt:self.offset] forKey:@"offset"];
+    [dic setObject: [NSNumber numberWithInt:self.offset] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt:[self.requestedOn timeIntervalSince1970]] forKey:@"requestedOn"];
     [dic setObject: [NSNumber numberWithInt:[self.servedOn timeIntervalSince1970]] forKey:@"servedOn"];
 

@@ -49,33 +49,33 @@
     
     Cache *cache = [Cache getInstance];
     
-    order.id = [[jsonDictionary objectForKey:@"Id"] intValue];
-    order.state = [[jsonDictionary objectForKey:@"State"] intValue];
+    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    order.state = [[jsonDictionary objectForKey:@"state"] intValue];
 
-    id tableId = [jsonDictionary objectForKey:@"TableId"];
+    id tableId = [jsonDictionary objectForKey:@"tableId"];
     order.table = [cache.map getTableByName:tableId];
     
-    id language = [jsonDictionary objectForKey:@"Language"];
+    id language = [jsonDictionary objectForKey:@"language"];
     if(language != nil)
         order.language = language;
     
-    NSNumber *seconds = [jsonDictionary objectForKey:@"CreatedOn"];
+    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    order.countCourses = [[jsonDictionary objectForKey:@"CountCourses"] intValue];
+    order.countCourses = [[jsonDictionary objectForKey:@"countCourses"] intValue];
     
-    id currentCourse = [jsonDictionary objectForKey:@"Current"];
+    id currentCourse = [jsonDictionary objectForKey:@"current"];
     if(currentCourse != nil)
         order.currentCourseOffset = [currentCourse intValue];
     
-    seconds = [jsonDictionary objectForKey:@"RequestedOn"];
+    seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil)
         order.currentCourseRequestedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    seconds = [jsonDictionary objectForKey:@"ServedOn"];
+    seconds = [jsonDictionary objectForKey:@"servedOn"];
     if(seconds != nil)
         order.currentCourseServedOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    id guestsDic =  [jsonDictionary objectForKey:@"Guests"];
+    id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
     {
         Guest *guest = [Guest guestFromJsonDictionary:item order: nil];

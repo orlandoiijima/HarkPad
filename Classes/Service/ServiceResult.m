@@ -61,7 +61,10 @@
                     }
                     break;
                 }
+
                 case 404:
+                    break;
+
                 case 401:
                 case 500:
                 default:

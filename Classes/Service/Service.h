@@ -61,12 +61,12 @@
 - (void) createOrder: (Order *) order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) startCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) serveCourse: (int) courseId forOrder:(int)orderId;
+- (void) serveCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) processPayment: (int) paymentType forOrder: (int) orderId;
 
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) deleteReservation: (int)reservationId;
+- (void) deleteReservation: (int)reservationId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
@@ -113,14 +113,14 @@
 //                delegate:(id)delegate
 //                callback:(SEL)callback;
 
-- (void) requestResourceBlock: (NSString *)resource
-                      id:(NSString *)id
-                  action:(NSString *)action
-               arguments: (NSString *) arguments
-                    body: (NSDictionary *)body
-                  method:(NSString *)method
-             credentials:(Credentials *)credentials
-                 success:(void (^)(ServiceResult*))onSuccess
-                 error:(void (^)(ServiceResult*))onError;
+- (void)requestResource:(NSString *)resource
+                     id:(NSString *)id
+                 action:(NSString *)action
+              arguments:(NSString *)arguments
+                   body:(NSDictionary *)body
+                 method:(NSString *)method
+            credentials:(Credentials *)credentials
+                success:(void (^)(ServiceResult *))onSuccess
+                  error:(void (^)(ServiceResult*))onError;
 
 @end
