@@ -227,43 +227,33 @@
 
 - (void) openEditPopup: (Reservation*)reservation
 {
-    ReservationEditViewController *popup = [ReservationEditViewController initWithReservation: reservation];
+    ReservationEditViewController *popup = [ReservationEditViewController initWithReservation: reservation delegate:self];
     popover = [[UIPopoverController alloc] initWithContentViewController: popup];
-    popup.hostController = self;
     popover.delegate = self;
     
     UIBarButtonItem *button;
-    if (reservation.id != 0)
+    if (reservation.id != 0) {
+        self.originalStartsOn = [reservation.startsOn copyWithZone:nil];
         button = buttonEdit;
-    else
+    }
+    else {
+        self.originalStartsOn = nil;
         if (reservation.type == ReservationTypeWalkin)
             button = buttonWalkin;
     else
             button = buttonAdd;
+    }
     [popover presentPopoverFromBarButtonItem: button permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    Reservation *reservation = (Reservation *)fetcher.userData;
-    if(reservation == nil) return;
-    
-    ServiceResult *serviceResult = [ServiceResult resultFromData:data error:error];
-    if(serviceResult.id != -1) {
-        reservation.id = serviceResult.id;
-        [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Reservation stored", nil)];
-    }
-    else {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-    }
-    return;
+- (void)didModifyItem:(id)item {
+    [self closePopup];
 }
 
-- (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error
-{
-    Reservation *reservation = [self.dayView selectedReservation];
-    if(reservation == nil) return;
+- (void)didSaveItem:(id)item {
+    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Reservation stored", nil)];
+    [self closePopup];
+    return;
 }
 
 - (void) editMode
@@ -279,7 +269,6 @@
 {
     Reservation *reservation = [self.dayView selectedReservation];
     if(reservation == nil || reservation.id == 0) return;
-    self.originalStartsOn = [reservation.startsOn copyWithZone:nil];
     [self openEditPopup:reservation];
 }	
 
@@ -320,7 +309,7 @@
         dataSourceNew = [dataSources objectForKey:key];
     }
 
-    if(reservation.id == 0)
+    if(originalStartsOn == nil)
     {
         //  New reservation
         [dataSourceNew addReservation:reservation fromTableView: dayViewNew.table];
@@ -370,6 +359,7 @@
 {
     Reservation *reservation = [[Reservation alloc] init];
     reservation.type = ReservationTypeWalkin;
+    self.originalStartsOn = nil;
     [self openEditPopup:reservation];
 }
 
@@ -409,22 +399,18 @@
 
     [dayView startSearchModeWithQuery:query];
     saveDate = dayView.date;
-    [[Service getInstance] searchReservationsForText: query delegate:self callback:@selector(searchReservationsCallback:)];
-}
+    [[Service getInstance] searchReservationsForText: query success:^(ServiceResult *serviceResult) {
+        NSMutableArray *reservations = serviceResult.data;
+        [dayView setSearchCaptionLabelText: [NSString stringWithFormat: NSLocalizedString(@"Reservations found with '%@':", nil), searchBar.text]];
 
-- (void) searchReservationsCallback: (ServiceResult *)serviceResult
-{
-    if(serviceResult.isSuccess == false) {
-        [ModalAlert error:serviceResult.error];
-        return;
+        ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate: nil includePlacedReservations: YES withReservations:reservations];
+        if(self.dayView != nil) {
+            self.dayView.dataSource = dataSource;
+        }
     }
-    NSMutableArray *reservations = serviceResult.data;
-    [dayView setSearchCaptionLabelText: [NSString stringWithFormat: NSLocalizedString(@"Reservations found with '%@':", nil), searchBar.text]];
-
-    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate: nil includePlacedReservations: YES withReservations:reservations];
-    if(self.dayView != nil) {
-        self.dayView.dataSource = dataSource;
-    }
+    error: ^(ServiceResult *serviceResult) {
+        [serviceResult displayError];
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -485,5 +471,6 @@
 {
 	return YES;
 }
+
 
 @end

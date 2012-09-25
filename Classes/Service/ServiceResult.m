@@ -47,12 +47,13 @@
                 {
                     serviceResult.jsonData =  [dic objectForKey:@"result"];
                     if(serviceResult.jsonData != nil) {
-                        if ([serviceResult.jsonData isKindOfClass:[NSMutableDictionary class]]) {
+                        if ([serviceResult.jsonData isKindOfClass:[NSDictionary class]]) {
                             id id = [serviceResult.jsonData objectForKey:@"id"];
                             if (id != nil)
                                 serviceResult.id = [id intValue];
                         }
                         serviceResult.isSuccess = true;
+                        [Logger Info:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
                     }
                     id error =  [dic objectForKey:@"error"];
                     if(error != nil) {

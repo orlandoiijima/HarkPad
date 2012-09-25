@@ -53,14 +53,14 @@
     
         CGSize stringSize = [textToDraw sizeWithFont:font
                                    constrainedToSize:CGSizeMake(run.width, 100)
-                                       lineBreakMode:UILineBreakModeWordWrap];
+                                       lineBreakMode:NSLineBreakByWordWrapping];
     
         CGRect renderingRect = CGRectMake(x, y, width, stringSize.height);
     
         UITextAlignment alignment = run.alignment;
         [textToDraw drawInRect:renderingRect
                       withFont:font
-                 lineBreakMode:UILineBreakModeWordWrap
+                 lineBreakMode:NSLineBreakByWordWrapping
                      alignment:alignment];
         y += stringSize.height;
     }
@@ -78,12 +78,12 @@
             float x = [sectionRun.xSpec floatValue];
             CGSize stringSize = [sectionHeader sizeWithFont:font
                                        constrainedToSize:CGSizeMake(pageSize.width - x, 100)
-                                           lineBreakMode:UILineBreakModeWordWrap];
+                                           lineBreakMode:NSLineBreakByWordWrapping];
             CGRect renderingRect = CGRectMake(x, y, sectionRun.width, stringSize.height);
 
             [sectionHeader drawInRect:renderingRect
                           withFont:font
-                     lineBreakMode:UILineBreakModeWordWrap
+                     lineBreakMode:NSLineBreakByWordWrapping
                    alignment: sectionRun.alignment];
         }
         y = [self.template.table.ySpec floatValue];
@@ -97,14 +97,14 @@
 
                     CGSize stringSize = [cell sizeWithFont:font
                                                constrainedToSize:CGSizeMake(column.cell.width, 100)
-                                                   lineBreakMode:UILineBreakModeWordWrap];
+                                                   lineBreakMode:NSLineBreakByWordWrapping];
                     if (stringSize.height > height)
                         height = stringSize.height;
                     CGRect renderingRect = CGRectMake(x, y, column.cell.width, stringSize.height);
 
                     [cell drawInRect:renderingRect
                                   withFont:font
-                             lineBreakMode:UILineBreakModeWordWrap
+                             lineBreakMode:NSLineBreakByWordWrapping
                            alignment:column.cell.alignment];
                 }
                 x += column.cell.width;

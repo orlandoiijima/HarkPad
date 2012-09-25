@@ -210,6 +210,13 @@
     [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
     [[Service getInstance] getOpenOrdersForDistrict: -1
     success:^(ServiceResult *serviceResult) {
+        NSMutableArray *orders = [[NSMutableArray alloc] init];
+        for(NSDictionary *orderDic in serviceResult.jsonData)
+        {
+           Order *order = [Order orderFromJsonDictionary: orderDic];
+           [orders addObject:order];
+        }
+        serviceResult.data =  orders;
         [self getOpenOrdersCallback:serviceResult];
     }
     error:^(ServiceResult *serviceResult) {

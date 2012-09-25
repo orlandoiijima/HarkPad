@@ -27,7 +27,7 @@
     UIFont *font = [UIFont systemFontOfSize:14];
 
     headerLabel = [[UILabel alloc] init];
-    headerLabel.textAlignment = UITextAlignmentCenter;
+    headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.shadowColor = [UIColor lightGrayColor];
     headerLabel.font = [UIFont systemFontOfSize:14];
     headerLabel.backgroundColor = [UIColor clearColor];
@@ -35,21 +35,21 @@
     [self addSubview:headerLabel];
 
     subHeaderLabel = [[UILabel alloc] init];
-    subHeaderLabel.textAlignment = UITextAlignmentCenter;
+    subHeaderLabel.textAlignment = NSTextAlignmentCenter;
     subHeaderLabel.font = [UIFont fontWithName:@"Baskerville-Italic" size:13];
     subHeaderLabel.backgroundColor = [UIColor clearColor];
     subHeaderLabel.numberOfLines = 0;
     [self addSubview:subHeaderLabel];
 
     drinkLabel = [[UILabel alloc] init];
-    drinkLabel.textAlignment = UITextAlignmentLeft;
+    drinkLabel.textAlignment = NSTextAlignmentLeft;
     drinkLabel.font = font;
     drinkLabel.backgroundColor = [UIColor clearColor];
     drinkLabel.numberOfLines = 0;
     [self addSubview:drinkLabel];
 
     foodLabel = [[UILabel alloc] init];
-    foodLabel.textAlignment = UITextAlignmentRight;
+    foodLabel.textAlignment = NSTextAlignmentRight;
     foodLabel.font = font;
     foodLabel.backgroundColor = [UIColor clearColor];
     foodLabel.numberOfLines = 0;
@@ -165,7 +165,7 @@
         label.text = text;
         label.textColor = [UIColor blackColor];
     }
-    label.textAlignment = isFood ? UITextAlignmentRight : UITextAlignmentLeft;
+    label.textAlignment = isFood ? NSTextAlignmentRight : NSTextAlignmentLeft;
     CGSize textSize = [label.text sizeWithFont: label.font constrainedToSize:CGSizeMake(rect.size.width, 1000)];
     label.frame = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, textSize.height);
     return;
@@ -261,7 +261,7 @@
     if ([headerLabel.text isEqualToString:drinkLabel.text] == NO && [drinkLabel.text length] > 0) {
         textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
         drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
-        drinkLabel.textAlignment = UITextAlignmentCenter;
+        drinkLabel.textAlignment = NSTextAlignmentCenter;
         drinkLabel.textColor = [UIColor blackColor];
         y += textSize.height + 2;
     }
@@ -270,7 +270,7 @@
 
     foodLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
     foodLabel.textColor = [UIColor blackColor];
-    foodLabel.textAlignment = UITextAlignmentCenter;
+    foodLabel.textAlignment = NSTextAlignmentCenter;
 
     drinkImage.frame = CGRectInfinite;
     foodImage.frame = CGRectInfinite;

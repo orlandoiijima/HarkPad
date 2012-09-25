@@ -51,7 +51,7 @@
 
 - (void) getDashboardStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getInvoices: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback;
+- (void) getOpenOrderByTable: (NSString *)tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getOpenOrdersForDistrict: (int)districtId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
@@ -67,7 +67,7 @@
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) deleteReservation: (int)reservationId;
-- (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
+- (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;

@@ -36,7 +36,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, frame.size.width - 5, 16)];
         label.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
         [self addSubview: label];
-        label.textAlignment = UITextAlignmentRight;
+        label.textAlignment = NSTextAlignmentRight;
         label.backgroundColor = [UIColor clearColor];
         label.shadowColor = [UIColor whiteColor];
         label.text = name;

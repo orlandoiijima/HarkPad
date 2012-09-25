@@ -22,7 +22,7 @@
 + (Map *) mapFromJson:(NSMutableDictionary *)d
 {
     Map *map = [[Map alloc] init];
-    for(NSDictionary *districtDic in [d valueForKey:@"Districts"])
+    for(NSDictionary *districtDic in [d valueForKey:@"districts"])
     {
         District *district = [District districtFromJsonDictionary: districtDic]; 
         [map.districts addObject:district];

@@ -16,8 +16,8 @@
 + (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary withCard: (MenuCard *)menuCard
 {
     MenuItem *menuItem = [[MenuItem alloc] init];
-    menuItem.course = [[jsonDictionary objectForKey:@"Course"] intValue];
-    NSString * productId = [jsonDictionary objectForKey:@"Key"];
+    menuItem.course = [[jsonDictionary objectForKey:@"course"] intValue];
+    NSString * productId = [jsonDictionary objectForKey:@"key"];
     menuItem.product = [menuCard getProduct:productId];
     return menuItem;
 }

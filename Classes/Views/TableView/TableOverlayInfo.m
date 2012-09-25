@@ -75,13 +75,13 @@
         [self.scrollView addSubview:captionLabel];
         captionLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         captionLabel.numberOfLines = 0;
-        captionLabel.lineBreakMode = UILineBreakModeWordWrap;
+        captionLabel.lineBreakMode = NSLineBreakByWordWrapping;
         captionLabel.font = [UIFont systemFontOfSize:14];
         captionLabel.backgroundColor = [UIColor clearColor];
         captionLabel.textColor = [UIColor colorWithWhite:0.4 alpha:1];
-        captionLabel.textAlignment = UITextAlignmentCenter;
+        captionLabel.textAlignment = NSTextAlignmentCenter;
         captionLabel.text = caption;
-        CGSize size = [caption sizeWithFont:captionLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize size = [caption sizeWithFont:captionLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:NSLineBreakByWordWrapping];
         captionLabel.frame = CGRectMake(0, y, scrollView.bounds.size.width, size.height);
         y += size.height + 1;
         
@@ -89,13 +89,13 @@
         [self.scrollView addSubview:valueLabel];
         valueLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
         valueLabel.numberOfLines = 0;
-        valueLabel.lineBreakMode = UILineBreakModeWordWrap;
+        valueLabel.lineBreakMode = NSLineBreakByWordWrapping;
         valueLabel.font = [UIFont systemFontOfSize:17];
         valueLabel.backgroundColor = [UIColor clearColor];
         valueLabel.textColor = [UIColor colorWithWhite:0.0 alpha:1];
-        valueLabel.textAlignment = UITextAlignmentCenter;
+        valueLabel.textAlignment = NSTextAlignmentCenter;
         valueLabel.text = value;
-        size = [value sizeWithFont:valueLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:UILineBreakModeWordWrap];
+        size = [value sizeWithFont:valueLabel.font constrainedToSize:CGSizeMake(scrollView.bounds.size.width, 1000) lineBreakMode:NSLineBreakByWordWrapping];
         valueLabel.frame = CGRectMake(0, y, scrollView.bounds.size.width, size.height);
         y += size.height + 7;
     }

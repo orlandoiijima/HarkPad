@@ -52,7 +52,7 @@
         OrderDataSource *dataSource = (OrderDataSource *) tableView.dataSource;
         OrderDataSourceSection *sectionInfo = [dataSource groupForSection: section];
         UILabel *labelAction = [[UILabel alloc] initWithFrame:CGRectMake(frame.size.width/3, 0, frame.size.width - frame.size.width/3 - 20, frame.size.height)];
-        labelAction.textAlignment = UITextAlignmentRight;
+        labelAction.textAlignment = NSTextAlignmentRight;
         labelAction.text = sectionInfo.subTitle;
         labelAction.textColor = [UIColor lightGrayColor];
         labelAction.font = [UIFont systemFontOfSize:12];

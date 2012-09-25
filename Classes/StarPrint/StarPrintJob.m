@@ -121,9 +121,9 @@
     if ([textToDraw length] == 0)
         return 0;
     UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
-    CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(run.width, 200) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(run.width, 200) lineBreakMode:NSLineBreakByWordWrapping];
     CGRect rect = CGRectMake([run.xSpec intValue], [self updateY:run.ySpec font:font], run.width, 200);
-    [textToDraw drawInRect:rect withFont:font lineBreakMode:UILineBreakModeWordWrap alignment: run.alignment];
+    [textToDraw drawInRect:rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment: run.alignment];
     return measuredSize.height;
 }
 
@@ -134,7 +134,7 @@
     else
     if ([ySpec characterAtIndex:0] == '+') {
         int delta = MAX(0, [ySpec characterAtIndex:1] - '0');
-        CGSize measuredSize = [@"x" sizeWithFont:font constrainedToSize:CGSizeMake(1000, 200) lineBreakMode:UILineBreakModeWordWrap];
+        CGSize measuredSize = [@"x" sizeWithFont:font constrainedToSize:CGSizeMake(1000, 200) lineBreakMode:NSLineBreakByWordWrapping];
         _y = _y + delta * measuredSize.height;
     }
     else {

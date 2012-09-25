@@ -45,42 +45,42 @@
 
     Order *order = [[Order alloc] initWithJson:jsonDictionary];
 
-    order.state = (OrderState) [[jsonDictionary objectForKey:@"State"] intValue];
-    NSNumber *seconds = [jsonDictionary objectForKey:@"CreatedOn"];
+    order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
+    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    order.name = [jsonDictionary objectForKey:@"Name"];
+    order.name = [jsonDictionary objectForKey:@"name"];
     
-    order.paymentType =(PaymentType) [[jsonDictionary objectForKey:@"PaymentType"] intValue];
-    seconds = [jsonDictionary objectForKey:@"PaidOn"];
+    order.paymentType =(PaymentType) [[jsonDictionary objectForKey:@"paymentType"] intValue];
+    seconds = [jsonDictionary objectForKey:@"paidOn"];
     if (seconds != nil)
         order.paidOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
 
-    id tableId = [jsonDictionary objectForKey:@"TableId"];
+    id tableId = [jsonDictionary objectForKey:@"tableId"];
     if (tableId != nil)
         order.table = [cache.map getTable:tableId];
 
-    id guestsDic =  [jsonDictionary objectForKey:@"Guests"];
+    id guestsDic =  [jsonDictionary objectForKey:@"guests"];
     for(NSDictionary *item in guestsDic)
     {
         Guest *guest = [Guest guestFromJsonDictionary:item order:order];
         [order.guests addObject: guest];
     }
 
-    id coursesDic =  [jsonDictionary objectForKey:@"Courses"];
+    id coursesDic =  [jsonDictionary objectForKey:@"courses"];
     for(NSDictionary *item in coursesDic)
     {
         Course *course = [Course courseFromJsonDictionary:item order: order];
         [order.courses addObject: course];
     }
 
-    id lines =  [jsonDictionary objectForKey:@"Lines"];
+    id lines =  [jsonDictionary objectForKey:@"lines"];
     for(NSDictionary *item in lines)
     {
         [OrderLine orderLineFromJsonDictionary:item order: order];
     }
     
-    id reservationDic = [jsonDictionary objectForKey:@"Reservation"];
+    id reservationDic = [jsonDictionary objectForKey:@"reservation"];
     if(reservationDic != nil &&  (NSNull *)reservationDic != [NSNull null])
     {
         order.reservation = [Reservation reservationFromJsonDictionary: reservationDic];
@@ -105,16 +105,16 @@
     NSMutableDictionary *dic = [super toDictionary];
 
     if (table != nil)
-        [dic setObject: table.name forKey:@"TableId"];
+        [dic setObject: table.name forKey:@"tableId"];
 
     if (reservation != nil && reservation.id >= 0)
-        [dic setObject: [NSNumber numberWithInt: reservation.id] forKey:@"ReservationId"];
+        [dic setObject: [NSNumber numberWithInt: reservation.id] forKey:@"reservationId"];
 
     if (invoicedTo != nil)
-        [dic setObject: [NSNumber numberWithInt: invoicedTo.id] forKey:@"InvoicedToId"];
+        [dic setObject: [NSNumber numberWithInt: invoicedTo.id] forKey:@"invoicedToId"];
 
     if (name != nil)
-        [dic setObject:name forKey:@"Name"];
+        [dic setObject:name forKey:@"name"];
 
     NSMutableArray *dicCourses = nil;
     for(Course *course in [self courses])
@@ -122,7 +122,7 @@
         if ([course.lines count] > 0 && course.entityState != EntityStateNone) {
             if (dicCourses == nil) {
                 dicCourses = [[NSMutableArray alloc] init];
-                [dic setObject:dicCourses forKey:@"Courses"];
+                [dic setObject:dicCourses forKey:@"courses"];
             }
             [dicCourses addObject: [course toDictionary]];
         }
@@ -146,7 +146,7 @@
         if (line.entityState != EntityStateNone) {
             if (dicLines == nil) {
                 dicLines = [[NSMutableArray alloc] init];
-                [dic setObject:dicLines forKey:@"Lines"];
+                [dic setObject:dicLines forKey:@"lines"];
             }
             [dicLines addObject: [line toDictionary]];
         }

@@ -224,55 +224,54 @@ static Service *_service;
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
     [self requestResourceBlock:@"reservation"
-                       id:nil
-                   action:nil
-                arguments:nil
-                     body:reservationDic
-                   method:@"PUT"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: reservationDic
+                   method: @"PUT"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *reservationDic = [reservation toDictionary];
     [self requestResourceBlock:@"reservation"
-                       id:nil
-                   action:nil
-                arguments:nil
-                     body:reservationDic
-                   method:@"POST"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: reservationDic
+                   method: @"POST"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
-- (void) deleteReservation: (int)reservationId
+- (void) deleteReservation: (int)reservationId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     [self requestResourceBlock:@"reservation"
-                       id:[NSString stringWithFormat:@"%d", reservationId]
-                   action:nil
-                arguments:nil
-                     body:nil
-                   method:@"DELETE"
-              credentials:nil
-                  success:nil
-                    error:nil];
+                       id: [NSString stringWithFormat:@"%d", reservationId]
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"DELETE"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
-- (void) searchReservationsForText: (NSString *)query delegate:(id)delegate callback:(SEL)callback;
+- (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
-    [invocation retainArguments];
-    [invocation setTarget:delegate];
-    [invocation setSelector:callback];
-    [self getPageCallback:@"searchreservations"
-                withQuery:[NSString stringWithFormat:@"q=%@", query]
-                 delegate: self
-                 callback:@selector(getReservationsCallback:finishedWithData:error:)
-                 userData:invocation];
+    [self requestResourceBlock:@"reservation"
+                       id: nil
+                   action: nil
+                arguments: [NSString stringWithFormat:@"q=%@", query]
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback
@@ -528,53 +527,41 @@ static Service *_service;
 
 - (void) getTablesInfoForDistrictBlock:(NSString *)district success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResourceBlock:@"districtinfo"
-                            id:district
-                        action:nil
-                     arguments:@""
-                          body:nil
-                        method:@"GET"
-                   credentials:nil
-                       success:success
-                         error:error];
+    [self requestResourceBlock: @"districtinfo"
+                            id: district
+                        action: nil
+                     arguments: @""
+                          body: nil
+                        method: @"GET"
+                   credentials: nil
+                       success: success
+                         error: error];
 }
 
-- (void) getOpenOrderByTable: (NSString *)tableId delegate: (id) delegate callback: (SEL)callback
+- (void) getOpenOrderByTable: (NSString *)tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     [self requestResourceBlock: @"TableOrder"
-                          id: tableId
-            action:nil
-                   arguments: @""
-            body:nil
-            method:@"GET"
-            credentials:nil
-                   success: ^(ServiceResult *serviceResult)
-                       {
-                           serviceResult.data = [Order orderFromJsonDictionary: serviceResult.jsonData];
-                       }
-error:nil];
+                            id: tableId
+                        action: nil
+                     arguments: @""
+                          body: nil
+                        method: @"GET"
+                   credentials: nil
+                       success: success
+                         error: error];
 }
 
 - (void) getOpenOrdersForDistrict: (int)districtId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     [self requestResourceBlock: @"TableOrder"
-                          id: nil
-            action:nil
-                   arguments: @""
-            body:nil
-            method:@"GET"
-            credentials:nil
-                   success: ^(ServiceResult *serviceResult)
-                       {
-                           NSMutableArray *orders = [[NSMutableArray alloc] init];
-                           for(NSDictionary *orderDic in serviceResult.jsonData)
-                           {
-                              Order *order = [Order orderFromJsonDictionary: orderDic];
-                              [orders addObject:order];
-                           }
-                           serviceResult.data =  orders;
-                       }
-error:nil];
+                            id: nil
+                        action: nil
+                     arguments: @""
+                          body: nil
+                        method: @"GET"
+                   credentials: nil
+                       success: success
+                         error: error];
 }
 
 - (void) updateOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -682,8 +669,6 @@ error:nil];
         urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
     [Logger Info:urlRequest];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
-    if([method isEqualToString:@"POST"])
-        [Logger Info:@"test"];
     [request setHTTPMethod: method];
     AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
     if (credentials != nil)

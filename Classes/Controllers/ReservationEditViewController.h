@@ -11,6 +11,8 @@
 #import "GTMHTTPFetcher.h"
 #import "PopupHost.h"
 
+@protocol ItemPropertiesDelegate;
+
 @interface ReservationEditViewController : UIViewController {
     Reservation *reservation;
     UITextView *notesView;
@@ -21,7 +23,7 @@
     UITextField *countView;
     UISegmentedControl *languageView;
     NSMutableArray *languages;
-    UIViewController<PopupHost> *hostController;
+    id<ItemPropertiesDelegate> delegate;
 }
 
 @property (retain, nonatomic) Reservation *reservation;
@@ -32,9 +34,9 @@
 @property (retain) IBOutlet UITextField *phoneView;
 @property (retain) IBOutlet UITextField *countView;
 @property (retain) IBOutlet UISegmentedControl *languageView;
-@property (retain) UIViewController *hostController;
+@property (nonatomic, retain) id<ItemPropertiesDelegate> delegate;
 @property (retain) NSMutableArray *languages;
-+ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation;
++ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation delegate: (id<ItemPropertiesDelegate>)delegate;
 
 - (IBAction) save;
 - (IBAction) cancel;

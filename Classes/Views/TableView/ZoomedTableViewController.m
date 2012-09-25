@@ -28,7 +28,12 @@
     tableWithSeatsView.contentTableView = controller.view;
     tableWithSeatsView.delegate = controller;
     [tableWithSeatsView.superview bringSubviewToFront:tableWithSeatsView];
-    [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.name delegate:controller callback:@selector(getOpenOrderByTableCallback:)];
+    [[Service getInstance] getOpenOrderByTable: tableWithSeatsView.table.name success:^(ServiceResult *serviceResult) {
+        [controller getOpenOrderByTableCallback:serviceResult];
+    }
+    error:^(ServiceResult *serviceResult) {
+        [controller getOpenOrderByTableCallback:serviceResult];
+    }];
 
     UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc] initWithTarget:controller action:@selector(handlePanGesture:)];
     [tableWithSeatsView addGestureRecognizer:recognizer];
@@ -225,13 +230,11 @@
 
 -(void) getOpenOrderByTableCallback: (ServiceResult *)serviceResult
 {
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
+    if (serviceResult.isSuccess == false && serviceResult.httpStatusCode != 404) {
+        [serviceResult displayError];
         return;
     }
-
-    order = serviceResult.data;
+    order = [Order orderFromJsonDictionary: serviceResult.jsonData];
     if(order == nil) {
         order = [Order orderForTable:tableWithSeatsView.table];
         for(Guest *guest in order.guests) {
@@ -268,7 +271,7 @@
             error: ^(ServiceResult *serviceResult) {
                 [serviceResult displayError];
             }
-];
+    ];
     self.tableViewDashboard.order = order;
     self.tableWithSeatsView.orderInfo = order;
 }

@@ -16,8 +16,9 @@
 #import "NSDate-Utilities.h"
 #import "PopupHost.h"
 #import "ToggleButton.h"
+#import "ItemPropertiesDelegate.h"
 
-@interface ReservationsViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate> {
+@interface ReservationsViewController : UIViewController <UIPopoverControllerDelegate, UITableViewDelegate, PopupHost, UISearchBarDelegate, CalendarViewDelegate, ItemPropertiesDelegate> {
     ReservationDayView *dayView;
     UIScrollView *scrollView;
     NSMutableDictionary *dataSources;
@@ -54,7 +55,6 @@
 - (CalendarMonthView *)calendarViewForDate: (NSDate *)date;
 
 - (void) startSearchForText: (NSString *) query;
-- (void) searchReservationsCallback: (NSMutableArray *)reservations;
 - (IBAction) endSearchMode;
 
 - (IBAction) add;
@@ -66,9 +66,6 @@
 - (void) closePopup;
 - (void) cancelPopup;
 - (void) toggleShowCalendar;
-
-- (void)createFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
-- (void)updateFetcher:(GTMHTTPFetcher *)fetcher finishedWithData:(NSData *)data error:(NSError *)error;
 
 - (void)refreshCalendar;
 

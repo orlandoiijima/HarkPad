@@ -27,7 +27,7 @@
         self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, frame.size.width, 20)];
         self.label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.label.text = NSLocalizedString(@"Select reservation or 'walk-in':", nil);
-        self.label.textAlignment = UITextAlignmentCenter;
+        self.label.textAlignment = NSTextAlignmentCenter;
         self.label.shadowColor = [UIColor whiteColor];
         self.label.backgroundColor = [UIColor clearColor];
         [self addSubview:self.label];
@@ -44,7 +44,7 @@
         self.emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         self.emptyLabel.autoresizingMask = (UIViewAutoresizing) -1;
         self.emptyLabel.text = NSLocalizedString(@"No reservations", nil);
-        self.emptyLabel.textAlignment = UITextAlignmentCenter;
+        self.emptyLabel.textAlignment = NSTextAlignmentCenter;
         self.emptyLabel.shadowColor = [UIColor whiteColor];
         self.emptyLabel.backgroundColor = [UIColor clearColor];
         self.emptyLabel.hidden = YES;

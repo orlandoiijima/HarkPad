@@ -30,14 +30,14 @@
 {
     Guest *guest = [[Guest alloc] initWithJson:jsonDictionary];
     guest.order = order;
-    guest.seat = [[jsonDictionary objectForKey:@"Seat"] intValue];
-    id val = [jsonDictionary objectForKey:@"Diet"];
+    guest.seat = [[jsonDictionary objectForKey:@"seat"] intValue];
+    id val = [jsonDictionary objectForKey:@"diet"];
     if (val != nil)
         guest.diet = [val intValue];
-    val = [jsonDictionary objectForKey:@"Gender"];
+    val = [jsonDictionary objectForKey:@"gender"];
     if (val != nil && [val isEqualToString:@"M"] == NO)
         guest.guestType = guestFemale;
-    id isHost = [jsonDictionary objectForKey:@"IsHost"];
+    id isHost = [jsonDictionary objectForKey:@"isHost"];
     if (isHost != nil)
         guest.isHost = (BOOL) [isHost intValue];
 
@@ -57,13 +57,13 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"Seat"];
+    [dic setObject: [NSNumber numberWithInt:self.seat] forKey:@"seat"];
     if (guestType == guestFemale)
-        [dic setObject: @"F" forKey:@"Gender"];
+        [dic setObject: @"F" forKey:@"gender"];
     if (diet != 0)
-        [dic setObject: [NSNumber numberWithInt:self.diet] forKey:@"Diet"];
+        [dic setObject: [NSNumber numberWithInt:self.diet] forKey:@"diet"];
     if (isHost)
-        [dic setObject: [NSNumber numberWithBool:isHost] forKey:@"IsHost"];
+        [dic setObject: [NSNumber numberWithBool:isHost] forKey:@"isHost"];
     return dic;
 }
 

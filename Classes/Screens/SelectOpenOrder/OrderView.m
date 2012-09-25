@@ -33,7 +33,7 @@
 
             self.amountLabel = [[UILabel alloc] initWithFrame: CGRectMake(self.bounds.size.width - 100, self.bounds.size.height - 25, 87, 20)];
             [self addSubview:self.amountLabel];
-            self.amountLabel.textAlignment = UITextAlignmentRight;
+            self.amountLabel.textAlignment = NSTextAlignmentRight;
             self.amountLabel.backgroundColor = [UIColor clearColor];
             self.amountLabel.text = [Utils getAmountString:[anOrder totalAmount] withCurrency:YES];
         }
@@ -42,7 +42,7 @@
             infoLabel.backgroundColor = [UIColor clearColor];
             infoLabel.textColor = [UIColor grayColor];
             infoLabel.numberOfLines = 0;
-            infoLabel.lineBreakMode = UILineBreakModeWordWrap;
+            infoLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [self addSubview:infoLabel];
             if (anOrder.id == byNothing) {
                 UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x, infoLabel.frame.origin.y - 30, infoLabel.frame.size.width, 30)];
@@ -59,7 +59,7 @@
             else
             if (anOrder.id == byEmployee)
                 infoLabel.text = NSLocalizedString(@"Tap to select coworker", nil);
-            infoLabel.textAlignment = UITextAlignmentCenter;
+            infoLabel.textAlignment = NSTextAlignmentCenter;
         }
         self.order = anOrder;
     }

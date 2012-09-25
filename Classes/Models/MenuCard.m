@@ -26,12 +26,12 @@
 + (MenuCard *) menuFromJson:(NSMutableDictionary *)jsonCategories
 {
     MenuCard *menuCard = [[MenuCard alloc] init];
-    for(NSDictionary *categoryDic in [jsonCategories valueForKey:@"Categories"])
+    for(NSDictionary *categoryDic in [jsonCategories valueForKey:@"categories"])
     {
         ProductCategory *category = [ProductCategory categoryFromJsonDictionary: categoryDic]; 
         [menuCard.categories addObject:category];
     }
-    for(NSDictionary *menuDic in [jsonCategories valueForKey:@"Menus"])
+    for(NSDictionary *menuDic in [jsonCategories valueForKey:@"menus"])
     {
         Menu *menu = [Menu menuFromJsonDictionary: menuDic withCard: menuCard];
         [menuCard.menus addObject:menu];

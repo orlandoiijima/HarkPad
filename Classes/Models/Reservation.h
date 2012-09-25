@@ -14,8 +14,7 @@ typedef enum ReservationType {
     ReservationTypeOnline = 0, ReservationTypePhone, ReservationTypeWalkin
 } ReservationType;
 
-@interface Reservation : NSObject{
-    int id;
+@interface Reservation : DTO {
     NSString *name;
     NSString *phone;
     NSString *email;
@@ -33,7 +32,6 @@ typedef enum ReservationType {
     Table *table;
 }
 
-@property int id;
 @property (retain) NSString *name;
 @property (retain) NSString *phone;
 @property (retain) NSString *email;

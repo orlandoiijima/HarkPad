@@ -8,10 +8,11 @@
 
 #import "ReservationEditViewController.h"
 #import "Service.h"
+#import "ItemPropertiesDelegate.h"
 
 @implementation ReservationEditViewController
 
-@synthesize reservation, languages, datePicker, notesView, nameView, emailView, phoneView, countView, languageView, hostController;
+@synthesize reservation, languages, datePicker, notesView, nameView, emailView, phoneView, countView, languageView, delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -22,11 +23,12 @@
     return self;
 }
 
-+ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation
++ (ReservationEditViewController *) initWithReservation: (Reservation *)reservation delegate:(id<ItemPropertiesDelegate>)delegate
 {
     NSString *nib = reservation.type == ReservationTypeWalkin ? @"ReservationWalkinViewController" : @"ReservationViewController";
     ReservationEditViewController *popup = [[ReservationEditViewController alloc] initWithNibName:nib bundle:[NSBundle mainBundle]];
     popup.reservation = reservation;
+    popup.delegate = delegate;
     return popup;
 }
 
@@ -77,18 +79,32 @@
         reservation.startsOn = datePicker.date;
     }
     
-//    if(reservation.id == 0)
-//        [[Service getInstance] createReservation:reservation delegate:hostController callback:@selector(createFetcher:finishedWithData:error:)];
-//    else
-//        [[Service getInstance] updateReservation:reservation delegate:hostController callback:@selector(updateFetcher:finishedWithData:error:)];
-    
-    [hostController closePopup];
+    if(reservation.id == 0) {
+        [[Service getInstance] createReservation:reservation
+        success:^(ServiceResult *serviceResult) {
+            reservation.id = serviceResult.id;
+            [delegate didSaveItem:reservation];
+        }
+        error: ^(ServiceResult *serviceResult) {
+            [serviceResult displayError];
+        }];
+    }
+    else {
+        [[Service getInstance] updateReservation:reservation
+        success:^(ServiceResult *serviceResult) {
+            [delegate didModifyItem:reservation];
+        }
+        error: ^(ServiceResult *serviceResult) {
+            [serviceResult displayError];
+        }];
+    }
+//    [hostController closePopup];
 }
 
 
 - (IBAction) cancel
 {
-    [hostController cancelPopup];    
+//    [hostController cancelPopup];
 }
 
 

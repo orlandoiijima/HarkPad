@@ -18,12 +18,12 @@
 + (WorkInProgress *) workFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     WorkInProgress *work = [[WorkInProgress alloc] init];
-    id course = [jsonDictionary objectForKey:@"Course"];
+    id course = [jsonDictionary objectForKey:@"course"];
     work.course = [Course courseFromJsonDictionary:course order:nil];
-    work.orderId = [[jsonDictionary objectForKey:@"OrderId"] intValue];
-    work.tableId = [jsonDictionary objectForKey:@"TableId"];
+    work.orderId = [[jsonDictionary objectForKey:@"orderId"] intValue];
+    work.tableId = [jsonDictionary objectForKey:@"tableId"];
     work.productCount = [[NSMutableArray alloc] init];
-    id products = [jsonDictionary objectForKey:@"Products"];
+    id products = [jsonDictionary objectForKey:@"products"];
     for(NSDictionary *dic in products)
     {
         ProductCount *productCount = [ProductCount countFromJsonDictionary:dic];

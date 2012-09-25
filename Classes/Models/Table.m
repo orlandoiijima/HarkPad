@@ -28,7 +28,7 @@
 + (Table *) tableFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Table *table = [[Table alloc] init];
-    table.name = [jsonDictionary objectForKey:@"Name"];
+    table.name = [jsonDictionary objectForKey:@"name"];
 
     id dockedTo = [jsonDictionary objectForKey:@"dockedToTableId"];
     if(dockedTo != nil)
@@ -38,18 +38,18 @@
     if(isDocked != nil)
         table.isDocked = (BOOL)[isDocked intValue];
 
-    id countSeats = [jsonDictionary objectForKey:@"CountSeats"];
+    id countSeats = [jsonDictionary objectForKey:@"countSeats"];
     if (countSeats != nil) {
         table.countSeatsPerSide = [NSMutableArray arrayWithObjects:
-                [NSNumber numberWithInt:[[countSeats objectForKey:@"Top"] intValue]],
-                [NSNumber numberWithInt:[[countSeats objectForKey:@"Right"] intValue]],
-                [NSNumber numberWithInt:[[countSeats objectForKey:@"Bottom"] intValue]],
-                [NSNumber numberWithInt:[[countSeats objectForKey:@"Left"] intValue]], nil];
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"top"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"right"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"bottom"] intValue]],
+                [NSNumber numberWithInt:[[countSeats objectForKey:@"left"] intValue]], nil];
     }
     else
         table.countSeatsPerSide = [NSMutableArray arrayWithObjects: [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], [NSNumber numberWithInt:0], nil];
 
-    NSString * frame = [jsonDictionary objectForKey:@"Frame"];
+    NSString * frame = [jsonDictionary objectForKey:@"frame"];
     NSArray *frameParts = [frame componentsSeparatedByString:@","];
     float left = [[frameParts objectAtIndex:0] floatValue];
     float top = [[frameParts objectAtIndex:1] floatValue];
