@@ -7,11 +7,14 @@
 //
 
 #import "Order.h"
+#import "AppVault.h"
 
 @implementation Order
 
 @synthesize table, courses, guests, createdOn, paidOn, state, reservation, lines, name, paymentType, invoicedTo;
 @dynamic firstGuest, lastCourse, lastSeat, currentCourse, nextCourseToRequest, nextCourseToServe;
+@synthesize locationId = _locationId;
+
 
 - (id)init
 {
@@ -23,6 +26,7 @@
         self.createdOn = [NSDate date];
         self.state = OrderStateOrdering;
         self.entityState = EntityStateNew;
+        self.locationId = [AppVault locationId];
 	}
     return(self);
 }
@@ -45,6 +49,8 @@
 
     Order *order = [[Order alloc] initWithJson:jsonDictionary];
 
+    order.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
+    
     order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
     order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
@@ -103,6 +109,8 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
+
+    [dic setObject: [NSNumber numberWithInt: _locationId] forKey:@"locationId"];
 
     if (table != nil)
         [dic setObject: table.name forKey:@"tableId"];

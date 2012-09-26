@@ -8,10 +8,13 @@
 
 #import "Reservation.h"
 #import "NSDate-Utilities.h"
+#import "AppVault.h"
 
 @implementation Reservation
 
 @synthesize  startsOn, endsOn, email, notes, phone, createdOn, countGuests, language, name, mailingList, orderId, table, orderState, type, paidOn		;
+@synthesize locationId = _locationId;
+
 
 - (id)init
 {
@@ -27,6 +30,7 @@
         self.email = @"";
         self.type = ReservationTypePhone;
         self.orderId = -1;
+        self.locationId = [AppVault locationId];
 	}
     return(self);
 }
@@ -34,6 +38,8 @@
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     Reservation *reservation = [[Reservation alloc] initWithJson:jsonDictionary];
+
+    reservation.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
 
     id val = [jsonDictionary objectForKey:@"notes"];
     if((NSNull *)val != [NSNull null])
@@ -103,6 +109,8 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
+
+    [dic setObject: [NSNumber numberWithInt: _locationId] forKey:@"locationId"];
 
     if(self.name != nil)
         [dic setObject: self.name forKey:@"name"];
