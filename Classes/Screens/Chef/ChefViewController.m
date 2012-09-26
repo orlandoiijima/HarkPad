@@ -79,7 +79,12 @@
 
     [[Service getInstance]
             getBacklogStatistics:^(ServiceResult *serviceResult){
-                            dataSource = [KitchenStatisticsDataSource dataSourceWithData: serviceResult.data];
+                            NSMutableArray *stats = [[NSMutableArray alloc] init];
+                            for (NSDictionary *statDic in serviceResult.jsonData) {
+                                Backlog *backlog = [Backlog backlogFromJsonDictionary:statDic];
+                                [stats addObject:backlog];
+                            }
+                            dataSource = [KitchenStatisticsDataSource dataSourceWithData: stats];
                             table.dataSource = dataSource;
                             table.delegate = dataSource;
                             [table reloadData];

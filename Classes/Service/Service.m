@@ -358,15 +358,8 @@ static Service *_service;
                      body: nil
                    method: @"GET"
               credentials: nil
-                  success: ^(ServiceResult *serviceResult) {
-                            NSMutableArray *stats = [[NSMutableArray alloc] init];
-                            for (NSDictionary *statDic in serviceResult.jsonData) {
-                                Backlog *backlog = [Backlog backlogFromJsonDictionary:statDic];
-                                [stats addObject:backlog];
-                            }
-                            serviceResult.data = stats;
-                        }
-                    error: nil];
+                  success: success
+                    error: error];
     return;
 }
 

@@ -83,7 +83,7 @@
 
     int total = 0;
     for(int i=0; i < 8; i++) {
-        NSNumber *count = [backlog.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
+        NSNumber *count = [backlog.totals objectForKey:[NSNumber numberWithInt:i]];
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
         label.backgroundColor = backlog.product.category.color;
         label.text = count == nil ? @"-" : [NSString stringWithFormat:@"%@", count];
