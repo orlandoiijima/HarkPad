@@ -417,7 +417,9 @@
                       success: ^(ServiceResult *serviceResult) {
                                     [self deleteReservation:reservation fromTableView:tableView];
                                 }
-                        error:nil];
+                        error: ^(ServiceResult *serviceResult) {
+                            [serviceResult displayError];
+                        }];
 }
 
 
