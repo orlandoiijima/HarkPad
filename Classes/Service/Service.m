@@ -615,10 +615,8 @@ static Service *_service;
                 success: (void (^)(ServiceResult *))onSuccess
                   error: (void (^)(ServiceResult*))onError
 {
-    if ([method isEqualToString:@"PUT"] && [id length] == 0)
-        [Logger Info:@"put without id"];
     if (([method isEqualToString:@"PUT"] || [method isEqualToString:@"POST"]) && [body count] == 0)
-        [Logger Info:@"put or post without data"];
+        [Logger Info:@"Put or post without data"];
 
     CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError];
 
