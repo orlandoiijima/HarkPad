@@ -13,6 +13,7 @@
 #import "MBProgressHUD.h"
 #import "PreviousReservationsViewController.h"
 #import "TestFlight.h"
+#import "Logger.h"
 
 @implementation ReservationsViewController
 
@@ -139,31 +140,33 @@
     [[Service getInstance]
             getReservations: date
                    success:^(ServiceResult *serviceResult) {
-                       NSMutableArray *reservations = [[NSMutableArray alloc] init];
-                       for(NSDictionary *reservationDic in serviceResult.jsonData)
-                       {
-                           Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
-                           [reservations addObject:reservation];
-                       }
-                       Reservation *selectedReservation = self.dayView.selectedReservation;
-                       bool includeSeated = segmentShow.selectedSegmentIndex == 1;
-                       ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
-                       NSString *key = [self dateToKey: dataSource.date];
-                       [dataSources setObject: dataSource forKey:key];
-                       if([dayView.date isEqualToDateIgnoringTime:date]) {
-                           dayView.dataSource = dataSource;
-                           [self updateCalendarWithReservations: reservations forDate: date];
-                       }
-                       if(selectedReservation != nil)
-                           self.dayView.selectedReservation = selectedReservation;
-
+                       [self OnSuccessGetReservationsAtDate:date withResult:serviceResult];
                    }
-                      error:^(ServiceResult *serviceResult) {
+                     error:^(ServiceResult *serviceResult) {
                           [serviceResult displayError];
                    }
     ];
 }
 
+- (void) OnSuccessGetReservationsAtDate: (NSDate *)date withResult: (ServiceResult *)serviceResult {
+    NSMutableArray *reservations = [[NSMutableArray alloc] init];
+    for(NSDictionary *reservationDic in serviceResult.jsonData)
+    {
+        Reservation *reservation = [Reservation reservationFromJsonDictionary: reservationDic];
+        [reservations addObject:reservation];
+    }
+    Reservation *selectedReservation = self.dayView.selectedReservation;
+    bool includeSeated = segmentShow.selectedSegmentIndex == 1;
+    ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
+    NSString *key = [self dateToKey: dataSource.date];
+    [dataSources setObject: dataSource forKey:key];
+    if([dayView.date isEqualToDateIgnoringTime:date]) {
+        dayView.dataSource = dataSource;
+        [self updateCalendarWithReservations: reservations forDate: date];
+    }
+    if(selectedReservation != nil)
+        self.dayView.selectedReservation = selectedReservation;
+}
 
 - (NSString *) dateToKey: (NSDate *)date
 {
@@ -183,26 +186,15 @@
     if(dataSource == nil) {
         dataSource = [[ReservationDataSource alloc] init];
         [dataSources setObject: dataSource forKey:key];
+        [Logger Info:@"start call"];
         [[Service getInstance]
-                getReservations: date
-                       success:^(ServiceResult *serviceResult) {
-                           NSMutableArray *reservations = serviceResult.data;
-                           Reservation *selectedReservation = self.dayView.selectedReservation;
-                           bool includeSeated = segmentShow.selectedSegmentIndex == 1;
-                           ReservationDataSource *dataSource = [ReservationDataSource dataSourceWithDate:date includePlacedReservations: includeSeated withReservations:reservations];
-                           NSString *key = [self dateToKey: dataSource.date];
-                           [dataSources setObject: dataSource forKey:key];
-                           if([dayView.date isEqualToDateIgnoringTime:date]) {
-                               dayView.dataSource = dataSource;
-                               [self updateCalendarWithReservations: reservations forDate: date];
-                           }
-                           if(selectedReservation != nil)
-                               self.dayView.selectedReservation = selectedReservation;
-
-                       }
-                          error:^(ServiceResult *serviceResult) {
-                              [serviceResult displayError];
-                       }
+            getReservations: date
+                success:^(ServiceResult *serviceResult) {
+                    [self OnSuccessGetReservationsAtDate:date withResult:serviceResult];
+                }
+                error:^(ServiceResult *serviceResult) {
+                    [serviceResult displayError];
+                }
         ];
     }
     else {
