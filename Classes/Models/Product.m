@@ -58,13 +58,11 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     [dic setObject: self.name forKey:@"name"];
     if (self.description != nil)
         [dic setObject: self.description forKey:@"description"];
     [dic setObject: self.key forKey:@"key"];
     [dic setObject: [NSNumber numberWithBool: self.isDeleted] forKey:@"isDeleted"];
-    [dic setObject: [NSNumber numberWithInt:self.category.id] forKey:@"categoryId"];
     [dic setObject: self.price forKey:@"price"];
     [dic setObject: self.vat forKey:@"vat"];
     

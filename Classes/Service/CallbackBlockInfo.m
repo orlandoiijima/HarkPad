@@ -14,6 +14,7 @@
 }
 @synthesize success = _success;
 @synthesize error = _error;
+@synthesize view = _view;
 
 
 + (CallbackBlockInfo *) infoWithSuccess: (void (^)(ServiceResult*))success error:(void (^)(ServiceResult*))error {

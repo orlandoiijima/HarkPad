@@ -25,4 +25,6 @@
 - (IBAction)handleDoubleTapGesture:(UITapGestureRecognizer *)sender;
 - (UILabel *) addAmountLabelWithFrame: (CGRect) frame cell: (UITableViewCell *)cell;
 - (IBAction) printDayReport;
+- (void) refreshViewCallback: (NSMutableArray *)productTotals;
+
 @end

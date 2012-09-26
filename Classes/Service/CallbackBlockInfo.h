@@ -14,6 +14,8 @@
 
 @property(nonatomic, copy) void (^error)(ServiceResult *);
 
+@property(nonatomic, strong) id view;
+
 + (CallbackBlockInfo *) infoWithSuccess: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 @end

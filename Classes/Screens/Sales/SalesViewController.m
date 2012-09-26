@@ -95,9 +95,12 @@
         label.tag = 200;
     }
     NSDecimalNumber *total = [NSDecimalNumber zero];
+
     for(int i=0; i < 3; i++) {
         UILabel *label = (UILabel *)[cell.contentView viewWithTag:100+i];
-        NSDecimalNumber *amount = [totals.totals objectForKey:[NSString stringWithFormat:@"%d", i]];
+        NSDecimalNumber *amount = [totals.totals objectForKey:[NSNumber numberWithInt: i]];
+        if(amount == nil)
+            amount = [NSDecimalNumber zero];
         label.text = [Utils getAmountString: amount withCurrency:NO];
         label.backgroundColor = totals.product == nil ? [UIColor whiteColor] : totals.product.category.color;
         label.highlightedTextColor = [UIColor whiteColor];
@@ -140,37 +143,30 @@
 
 - (void) refreshView
 {
-    [MBProgressHUD showProgressAddedTo:self.view withText:NSLocalizedString(@"Loading...", nil)];
     [[Service getInstance] getSalesForDate:dateToShow
                                    success:^(ServiceResult *serviceResult) {
-                                       NSMutableDictionary *sales = [[NSMutableDictionary alloc] init];
                                        NSMutableArray *stats = [[NSMutableArray alloc] init];
                                        for(NSDictionary *statDic in serviceResult.jsonData)
                                        {
                                            ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
                                            [stats addObject:totals];
                                        }
-                                       [sales setObject: stats forKey: @"Sales"];
-                                       serviceResult.jsonData = sales;
-                                       [self refreshViewCallback:serviceResult];
+ //                                      [sales setObject: stats forKey: @"Sales"];
+                                       serviceResult.data = stats;
+                                       [self refreshViewCallback: stats];
                                    }
                                      error:^(ServiceResult *serviceResult) {
                                          [serviceResult displayError];
-                                     }];
+                                     }
+                                 view: (UIView *)self.view
+                                   textHUD: (NSString *)@"Loading"];
 }
 
-- (void) refreshViewCallback: (ServiceResult *)serviceResult
+- (void) refreshViewCallback: (NSMutableArray *)productTotals
 {
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    if(serviceResult.isSuccess == false) {
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:@"Error" message:serviceResult.error delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [view show];
-        return;
-    }
-
     dateLabel.text = [dateToShow prettyDateString];
 
-    NSMutableArray *productTotals = [serviceResult.data objectForKey: @"Sales"];
+//    NSMutableArray *productTotals = serviceResult.data;
 
     self.groupedTotals = [[NSMutableDictionary alloc] init];
     if([productTotals count] == 0) {
@@ -201,17 +197,17 @@
         
         for(ProductTotals *categoryLine in categoryTotals)
         {
-            if(categoryLine.product.category.id == total.product.category.id)
+            if([categoryLine.product.category.name isEqualToString:total.product.category.name])
             {
-                for(NSString *key in [total.totals allKeys])
+                for(NSNumber *paymentKey in [total.totals allKeys])
                 {
-                    float amount = [[categoryLine.totals objectForKey:key] floatValue];
-                    amount += [[total.totals objectForKey:key] floatValue];
-                    [categoryLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
+                    float amount = [[categoryLine.totals objectForKey:paymentKey] floatValue];
+                    amount += [[total.totals objectForKey:paymentKey] floatValue];
+                    [categoryLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:paymentKey];
 
-                    amount = [[grandTotalLine.totals objectForKey:key] floatValue];
-                    amount += [[total.totals objectForKey:key] floatValue];
-                    [grandTotalLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:key];
+                    amount = [[grandTotalLine.totals objectForKey:paymentKey] floatValue];
+                    amount += [[total.totals objectForKey:paymentKey] floatValue];
+                    [grandTotalLine.totals setObject:[NSDecimalNumber numberWithFloat:amount] forKey:paymentKey];
                 }
                 break;
             }

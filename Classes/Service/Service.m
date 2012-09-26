@@ -16,6 +16,7 @@
 #import "OrderGridHitInfo.h"
 #import "CallbackBlockInfo.h"
 #import "Logger.h"
+#import "MBProgressHUD.h"
 
 @implementation Service {
 @private
@@ -457,17 +458,18 @@ static Service *_service;
 	return;
 }
 
-- (void) getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-{
+- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error view:(UIView *)parent textHUD:(NSString *)text {
     [self requestResource: @"Sales"
-                       id: [date stringISO8601]
+                       id: [date inJson]
                    action: nil
                 arguments: nil
                      body: nil
                    method: @"GET"
               credentials: nil
                   success: success
-                    error: error];
+                    error: error
+                     view: parent
+                  textHUD: text];
 }
 
 - (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -608,10 +610,41 @@ static Service *_service;
                 success: (void (^)(ServiceResult *))onSuccess
                   error: (void (^)(ServiceResult*))onError
 {
+    [self requestResource: resource
+                         id: id
+                     action: action
+                  arguments: arguments
+                       body: body
+                     method: method
+                credentials: credentials
+                    success: onSuccess
+                      error: onError
+                     view:nil
+    textHUD:nil];
+} 
+    
+- (void)requestResource: (NSString *)resource
+                     id: (NSString *)id
+                 action: (NSString *)action
+              arguments: (NSString *)arguments
+                   body: (NSDictionary *)body
+                 method: (NSString *)method
+            credentials: (Credentials *)credentials
+                success: (void (^)(ServiceResult *))onSuccess
+                  error: (void (^)(ServiceResult*))onError
+                   view: (UIView *)view
+                textHUD: (NSString *)text
+{
     if (([method isEqualToString:@"PUT"] || [method isEqualToString:@"POST"]) && [body count] == 0)
         [Logger Info:@"Put or post without data"];
 
     CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError];
+
+    if (view != nil && text != nil) {
+        [MBProgressHUD showProgressAddedTo: view withText:NSLocalizedString(text, nil)];
+        info.view = view;
+    }
+    
 
     NSError *error = nil;
 
@@ -645,6 +678,9 @@ static Service *_service;
     CallbackBlockInfo *info = fetcher.userData;
     if (info == nil) return;
 
+    if (info.view != nil)   
+        [MBProgressHUD hideHUDForView: info.view animated:YES];
+    
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
     if (result == nil) return;
 

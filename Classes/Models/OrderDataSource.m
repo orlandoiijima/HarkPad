@@ -321,7 +321,7 @@
         case noGrouping:
             return [NSNumber numberWithInt:1];
         case byCategory:
-            return [NSNumber numberWithInt: (line.product.category.sortOrder << 16) + line.product.category.id];
+            return [NSNumber numberWithInt: (line.product.category.sortOrder << 16)];
         case bySeat:
             return [self keyForGuest: line.guest];
         case byCourse:

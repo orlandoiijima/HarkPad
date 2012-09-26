@@ -11,7 +11,7 @@
 
 @implementation ProductCategory
 
-@synthesize name, products, sortOrder, color, isFood, id;
+@synthesize name, products, sortOrder, color, isFood;
 
 - (id)init
 {
@@ -50,8 +50,6 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (self.id != 0)
-        [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
     if ([self.name length] > 0)
         [dic setObject: self.name forKey:@"name"];
     float r,g,b,a;

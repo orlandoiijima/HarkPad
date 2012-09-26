@@ -83,7 +83,8 @@
 - (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) getSalesForDate:(NSDate *)date  success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+
+- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error view:(UIView *)parent textHUD:(NSString *)text;
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
