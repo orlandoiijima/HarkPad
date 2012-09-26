@@ -152,13 +152,13 @@
     if ([item isKindOfClass:[ProductCategory class]]) {
         ProductCategory *category = (ProductCategory *)item;
         if (category == nil) return;
-        if (category.id == 0)
-            [[Service getInstance] createCategory:category success:nil error:nil];
-        else {
-            [[Service getInstance] updateCategory:category success:nil error:nil];
-            [menuView updateCellLinesByCategory:category];
-            [productView updateCellLinesByCategory:category];
-        }
+//        if (category.id == 0)
+//            [[Service getInstance] createCategory:category success:nil error:nil];
+//        else {
+//            [[Service getInstance] updateCategory:category success:nil error:nil];
+//            [menuView updateCellLinesByCategory:category];
+//            [productView updateCellLinesByCategory:category];
+//        }
     }
     if ([item isKindOfClass:[TreeNode class]]) {
         TreeNode *node = (TreeNode *)item;

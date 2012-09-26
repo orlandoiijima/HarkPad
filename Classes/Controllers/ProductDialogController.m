@@ -55,8 +55,8 @@
     int i = 0, selected = 0;
     for (ProductCategory *category in [[[Cache getInstance] menuCard] categories]) {
         [categories addObject:category.name];
-        if(category.id == product.category.id)
-            selected = i;
+//        if(category.id == product.category.id)
+//            selected = i;
         i++;
     }
     QRadioElement *category = [[QRadioElement alloc] initWithItems: categories selected:selected title: NSLocalizedString(@"Group", nil)];

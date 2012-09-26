@@ -172,40 +172,40 @@
 
 - (void) updateCellLinesByCategory: (ProductCategory *)productCategory
 {
-    if (_parentCategory != nil && _parentCategory.id != productCategory.id)
-        return;
-    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
-        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
-            continue;
-        id item = [self itemForPath:cellLine.path];
-        if (_parentCategory == nil) {
-            if ( ((ProductCategory *)item).id == productCategory.id) {
-                cellLine.backgroundColor = productCategory.color;
-                cellLine.textLabel.text = productCategory.name;
-            }
-        }
-        else {
-            if ( ((Product *)item).category.id == productCategory.id)
-                cellLine.backgroundColor = productCategory.color;
-        }
-    }
+//    if (_parentCategory != nil && _parentCategory.id != productCategory.id)
+//        return;
+//    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
+//        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
+//            continue;
+//        id item = [self itemForPath:cellLine.path];
+//        if (_parentCategory == nil) {
+//            if ( ((ProductCategory *)item).id == productCategory.id) {
+//                cellLine.backgroundColor = productCategory.color;
+//                cellLine.textLabel.text = productCategory.name;
+//            }
+//        }
+//        else {
+//            if ( ((Product *)item).category.id == productCategory.id)
+//                cellLine.backgroundColor = productCategory.color;
+//        }
+//    }
 }
 
 - (void) updateCellLinesByProduct: (Product *)updatedProduct
 {
-    if (updatedProduct == nil) return;
-    if (_parentCategory == nil)
-        return;
-    if (_parentCategory.id != updatedProduct.category.id)
-        return;
-    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
-        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
-            continue;
-        Product *product = (Product *)[self itemForPath:cellLine.path];
-        if(product != nil && product.id == updatedProduct.id) {
-            cellLine.textLabel.text = product.key;
-        }
-    }
+//    if (updatedProduct == nil) return;
+//    if (_parentCategory == nil)
+//        return;
+//    if (_parentCategory.id != updatedProduct.category.id)
+//        return;
+//    for(GridViewCellLine *cellLine in [self.contentView subviews]) {
+//        if( [cellLine isKindOfClass:[GridViewCellLine class]] == false)
+//            continue;
+//        Product *product = (Product *)[self itemForPath:cellLine.path];
+//        if(product != nil && product.id == updatedProduct.id) {
+//            cellLine.textLabel.text = product.key;
+//        }
+//    }
 }
 
 //- (void)gridView:(GridView *)gridView willDisplayCellLine:(GridViewCellLine *)cell {

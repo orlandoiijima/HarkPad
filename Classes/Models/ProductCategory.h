@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface ProductCategory : NSObject {
-    int id;
     NSString *name;
     int sortOrder;
     UIColor *color;
@@ -17,7 +16,6 @@
     NSMutableArray *products;
 }
 
-@property int id;
 @property (retain) NSString *name;
 @property int sortOrder;
 @property (retain) UIColor *color;

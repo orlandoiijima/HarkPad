@@ -196,9 +196,9 @@
             continue;
         TreeNode *node = [self nodeAtCellLine:cellLine];
         if (node != nil && node.product != nil) {
-            if (node.product.category.id == productCategory.id) {
-                cellLine.backgroundColor = productCategory.color;
-            }
+//            if (node.product.category.id == productCategory.id) {
+//                cellLine.backgroundColor = productCategory.color;
+//            }
         }
     }
 }

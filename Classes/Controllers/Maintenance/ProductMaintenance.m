@@ -137,8 +137,8 @@
 {
     NSMutableArray *categories = [[[Cache getInstance] menuCard] categories];
     for(int section=0; section < [categories count]; section++)
-        if ( ((ProductCategory *)[categories objectAtIndex:section]).id == category.id)
-            return section;
+//        if ( ((ProductCategory *)[categories objectAtIndex:section]).id == category.id)
+//            return section;
     return 0;
 }
 
