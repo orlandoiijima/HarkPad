@@ -24,4 +24,8 @@
 
 + (bool) isDeviceRegistered;
 
++ (void)setLocation:(NSString *)location;
++ (NSString *)location;
+
+
 @end

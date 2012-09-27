@@ -13,8 +13,11 @@
 #import "Utils.h"
 #import "MBProgressHUD.h"
 #import "TestFlight.h"
+#import "ReportMailer.h"
 
-@implementation SalesViewController
+@implementation SalesViewController {
+    ReportMailer *mailer;
+}
 
 @synthesize groupedTotals, dateToShow, dateLabel, tableAmounts;
 
@@ -137,8 +140,25 @@
 
 - (IBAction)printDayReport
 {
-//    [[Service getInstance] printSalesReport: dateToShow];
-    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Report printed", nil)];
+    NSString *csv = @"";
+    for (int category = 0; category < [groupedTotals count]; category++) {
+        NSString *key = [self keyForSection:category];
+        if ([key isEqualToString:@"Totalen"] == NO) {
+            for (ProductTotals *totals in [groupedTotals objectForKey:key]) {
+                csv = [csv stringByAppendingFormat:@"\"%@\", \"%@\"", totals.product.key, totals.product.category.name];
+                for (int i = 0; i < 3; i++) {
+                    NSDecimalNumber *amount = [totals.totals objectForKey:[NSNumber numberWithInt: i]];
+                    csv = [csv stringByAppendingFormat:@",%@", amount == nil ? @"0" : amount];
+                }
+                csv = [csv stringByAppendingString:@"\r\n"];
+            }
+        }
+    }
+    NSData *data = [csv dataUsingEncoding:NSUTF8StringEncoding];
+    mailer = [ReportMailer mailerWithData:data name:NSLocalizedString(@"Dayreport", nil) fromDate:dateToShow toDate:dateToShow viewController:self];
+    [mailer send];
+
+//    [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Report printed", nil)];
 }
 
 - (void) refreshView
@@ -151,7 +171,6 @@
                                            ProductTotals *totals = [ProductTotals totalsFromJsonDictionary: statDic];
                                            [stats addObject:totals];
                                        }
- //                                      [sales setObject: stats forKey: @"Sales"];
                                        serviceResult.data = stats;
                                        [self refreshViewCallback: stats];
                                    }
@@ -165,8 +184,6 @@
 - (void) refreshViewCallback: (NSMutableArray *)productTotals
 {
     dateLabel.text = [dateToShow prettyDateString];
-
-//    NSMutableArray *productTotals = serviceResult.data;
 
     self.groupedTotals = [[NSMutableDictionary alloc] init];
     if([productTotals count] == 0) {

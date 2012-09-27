@@ -58,7 +58,7 @@
     }
 
     tag.name = [[UILabel alloc] initWithFrame:CGRectMake(13, vSpace, nameWidth - 13, frame.size.height - 2 * vSpace - 10)];
-    tag.name.textAlignment = UITextAlignmentLeft;
+    tag.name.textAlignment = NSTextAlignmentLeft;
     tag.name.font = [UIFont boldSystemFontOfSize:16];
     tag.name.backgroundColor = [UIColor clearColor];
     [tag addSubview: tag.name];

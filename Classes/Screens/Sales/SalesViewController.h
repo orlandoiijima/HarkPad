@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 
-@interface SalesViewController : UIViewController {
+@interface SalesViewController : UIViewController <MFMailComposeViewControllerDelegate> {
     NSMutableDictionary *groupedTotals;
     NSDate *dateToShow;
 }

@@ -42,4 +42,12 @@
     [KeychainWrapper createKeychainValue:[NSString stringWithFormat:@"%d", locationId] forIdentifier:@"LocationId"];
 }
 
++ (NSString *)location {
+    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"Location"];
+}
+
++ (void)setLocation:(NSString *)location {
+    [KeychainWrapper createKeychainValue: location forIdentifier:@"Location"];
+}
+
 @end

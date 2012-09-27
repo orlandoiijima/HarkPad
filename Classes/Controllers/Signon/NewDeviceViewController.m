@@ -36,9 +36,10 @@
                     [[Service getInstance]
                             registerDeviceWithCredentials: credentials
                             success:^(ServiceResult *serviceResult) {
-                                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"Database"]];
-                                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"DeviceKey"]];
-                                [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"LocationId"] intValue]];
+                                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
+                                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
+                                [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
+                                [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
                             }
                             error:^(ServiceResult *result) {
                                 [result displayError];
