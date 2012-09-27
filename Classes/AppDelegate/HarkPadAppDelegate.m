@@ -170,7 +170,7 @@
         if ([screen isEqualToString:@"orders"]) {
             SelectOpenOrder *selectOpenOrder = [[SelectOpenOrder alloc] initWithType:typeOverview title: NSLocalizedString(@"Running orders", nil)];
             controller = [[UINavigationController alloc] initWithRootViewController: selectOpenOrder];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Bills", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Orders", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if ([screen isEqualToString:@"bills"]) {

@@ -12,7 +12,7 @@
 @interface Invoice : NSObject {
     NSDate *createdOn;
     NSDecimalNumber *amount;
-    Table *table;
+    NSString *tableId;
     int orderId;
     int paymentType;
 }
@@ -21,7 +21,7 @@
 @property (retain) NSDecimalNumber *amount;
 @property int orderId;
 @property int paymentType;
-@property (retain) Table *table;
+@property (retain) NSString *tableId;
 
 + (Invoice *) invoiceFromJsonDictionary: (NSDictionary *)jsonDictionary;
 

@@ -8,6 +8,8 @@
 
 #import "Order.h"
 #import "AppVault.h"
+#import "NSDate-Utilities.h"
+#import "Logger.h"
 
 @implementation Order
 
@@ -52,15 +54,16 @@
     order.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
     
     order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
-    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
-    order.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+
+    NSString *createdOn = [jsonDictionary objectForKey:@"createdOn"];
+    order.createdOn = [NSDate dateFromISO8601:createdOn];
 
     order.name = [jsonDictionary objectForKey:@"name"];
     
     order.paymentType =(PaymentType) [[jsonDictionary objectForKey:@"paymentType"] intValue];
-    seconds = [jsonDictionary objectForKey:@"paidOn"];
-    if (seconds != nil)
-        order.paidOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
+    NSString *paidOn = [jsonDictionary objectForKey:@"paidOn"];
+    if (paidOn != nil)
+        order.paidOn = [NSDate dateFromISO8601:paidOn];
 
     id tableId = [jsonDictionary objectForKey:@"tableId"];
     if (tableId != nil)
@@ -382,7 +385,5 @@
         return reservation.language;
     return @"nl";
 }
-
-
 
 @end

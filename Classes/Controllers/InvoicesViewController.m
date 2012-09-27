@@ -60,22 +60,21 @@
 
 - (void) refresh
 {
-    [MBProgressHUD showProgressAddedTo:self.view withText:@""];
-    [[Service getInstance] getInvoices:^(ServiceResult *serviceResult) {
-        [MBProgressHUD hideHUDForView:self.view animated:NO];
-
-        if(serviceResult.isSuccess == false) {
-            [ModalAlert error:serviceResult.error];
-            return;
-        }
-
-        [super dataSourceDidFinishLoadingNewData];
-        self.lastUpdate = [NSDate date];
-
-        self.invoices = serviceResult.data;
-        [self.tableView reloadData];
-    }
-            error:nil];
+    [[Service getInstance]
+            getInvoices:^(ServiceResult *serviceResult) {
+                self.invoices = [[NSMutableArray alloc] init];
+                for(NSDictionary *orderDic in serviceResult.jsonData)
+                {
+                   Invoice *invoice = [Invoice invoiceFromJsonDictionary: orderDic];
+                   [self.invoices addObject: invoice];
+                }
+                [super dataSourceDidFinishLoadingNewData];
+                self.lastUpdate = [NSDate date];
+                [self.tableView reloadData];
+                }
+            error: ^(ServiceResult *serviceResult) {
+                [serviceResult displayError];
+            }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -130,8 +129,8 @@
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         [formatter setDateStyle:NSDateFormatterNoStyle];
-        if (invoice.table != nil)
-            cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.table.name, [formatter stringFromDate:invoice.createdOn]];
+        if (invoice.tableId != nil)
+            cell.textLabel.text = [NSString stringWithFormat:@"Tafel %@ (%@)", invoice.tableId, [formatter stringFromDate:invoice.createdOn]];
         else
             cell.textLabel.text = [formatter stringFromDate:invoice.createdOn];
         cell.detailTextLabel.text = [Utils getAmountString:invoice.amount withCurrency:YES];

@@ -679,7 +679,7 @@
     Course *nextCourse = [order nextCourseToRequest];
     if(nextCourse == nil) return;
 
-    [[Service getInstance] startCourse: nextCourse.id forOrder:order.id success:^(ServiceResult *serviceResult) {
+    [[Service getInstance] startCourse: nextCourse.id forOrder:order success:^(ServiceResult *serviceResult) {
         [MBProgressHUD showSucceededAddedTo:self.view withText: NSLocalizedString(@"Course requested", nil)];
         [self unzoom];
         [self refreshView];

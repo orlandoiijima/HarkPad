@@ -17,6 +17,8 @@
 #import "CallbackBlockInfo.h"
 #import "Logger.h"
 #import "MBProgressHUD.h"
+#import "PrintInfo.h"
+#import "OrderPrinter.h"
 
 @implementation Service {
 @private
@@ -379,6 +381,15 @@ static Service *_service;
 
 - (void) getInvoices:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
+    [self requestResource: @"invoice"
+                       id: nil
+                   action: nil
+                arguments: nil
+                     body: nil
+                   method: @"GET"
+              credentials: nil
+                  success: success
+                    error: error];
 }
 
 - (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -390,18 +401,19 @@ static Service *_service;
                      body: nil
                    method: @"GET"
               credentials: nil
-                  success: ^(ServiceResult *serviceResult) {
-                             serviceResult.data = [Order orderFromJsonDictionary:serviceResult.jsonData];
-                            }
-                    error: nil];
+                  success: success
+                    error: error];
     return nil;
 }
 
-- (void) startCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) startCourse: (int) courseId forOrder:(Order *)order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerRequestCourse order: order];
+    [printer print];
+
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
     [self requestResource: @"order"
-                       id: [NSString stringWithFormat:@"%d", orderId]
+                       id: [NSString stringWithFormat:@"%d", order.id]
                    action: @"StartCourse"
                 arguments: nil
                      body: dictionary
@@ -412,7 +424,7 @@ static Service *_service;
 	return;
 }
 
-- (void) serveCourse: (int) courseId forOrder:(int)orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void)serveCourse:(int)courseId forOrderId:(int)orderId success:(void (^)(ServiceResult *))success error: (void (^)(ServiceResult*))error
 {
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
     [self requestResource:@"order"
@@ -526,6 +538,9 @@ static Service *_service;
 
 - (void) updateOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: order];
+    [printer print];
+
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [self requestResource: @"order"
                        id: [NSString stringWithFormat:@"%d", order.id]
@@ -540,6 +555,9 @@ static Service *_service;
 
 - (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: order];
+    [printer print];
+
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [self requestResource: @"order"
                        id: nil

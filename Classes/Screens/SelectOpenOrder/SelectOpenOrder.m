@@ -210,21 +210,20 @@
     [MBProgressHUD showProgressAddedTo: self.view withText: NSLocalizedString(@"Loading orders", nil)];
     [[Service getInstance] getOpenOrdersForDistrict: -1
     success:^(ServiceResult *serviceResult) {
-        NSMutableArray *orders = [[NSMutableArray alloc] init];
+        orders = [[NSMutableArray alloc] init];
         for(NSDictionary *orderDic in serviceResult.jsonData)
         {
            Order *order = [Order orderFromJsonDictionary: orderDic];
            [orders addObject:order];
         }
-        serviceResult.data =  orders;
-        [self getOpenOrdersCallback:serviceResult];
+        [self getOpenOrdersCallback: orders];
     }
     error:^(ServiceResult *serviceResult) {
         [serviceResult displayError];
     }];
 }
 
-- (void) getOpenOrdersCallback: (ServiceResult *)serviceResult {
+- (void) getOpenOrdersCallback: (NSMutableArray *)openOrders {
     [MBProgressHUD hideHUDForView: self.view animated:YES];
 
     int selectedOrderId = -1;
@@ -233,8 +232,8 @@
 
     [self.scrollView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
 
-    self.orders = serviceResult.data;
-    
+    self.orders = openOrders;
+
     if (selectedOpenOrderType == typeSelection) {
         Order *order = [Order orderNull];
         order.name = NSLocalizedString(@"Bill", nil);

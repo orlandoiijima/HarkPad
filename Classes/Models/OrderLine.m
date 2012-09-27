@@ -12,6 +12,7 @@
 #import "Cache.h"
 #import "Order.h"
 #import "OrderGridHitInfo.h"
+#import "NSDate-Utilities.h"
 
 @implementation OrderLine
 
@@ -23,9 +24,10 @@
     orderLine.order = order;
     NSString *productId = [jsonDictionary objectForKey:@"productId"];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
-    NSNumber *seconds = [jsonDictionary objectForKey:@"createdOn"];
-    orderLine.createdOn = [NSDate dateWithTimeIntervalSince1970:[seconds intValue]];
-    
+
+    NSString *createdOn = [jsonDictionary objectForKey:@"createdOn"];
+    orderLine.createdOn = [NSDate dateFromISO8601:createdOn];
+
     id val = [jsonDictionary objectForKey:@"quantity"];
     if((NSNull *)val != [NSNull null])
         orderLine.quantity = [val intValue];

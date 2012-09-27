@@ -67,13 +67,13 @@
     if([ModalAlert confirm:query]) {
         [[Service getInstance]
                 serveCourse:work.course.id
-                   forOrder:0
-                    success: ^(ServiceResult *serviceResult) {
-                                [dataSource deleteLine:work fromTableView:tableView];
-                                }
-                      error: ^(ServiceResult *serviceResult) {
-                                [serviceResult displayError];
-                                }
+                 forOrderId:0
+                    success:^(ServiceResult *serviceResult) {
+                        [dataSource deleteLine:work fromTableView:tableView];
+                    }
+                      error:^(ServiceResult *serviceResult) {
+                          [serviceResult displayError];
+                      }
         ];
     }
 }
