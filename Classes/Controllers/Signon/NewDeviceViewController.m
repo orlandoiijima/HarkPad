@@ -10,6 +10,7 @@
 #import "SignOnViewController.h"
 #import "CredentialsAlertView.h"
 #import "AppVault.h"
+#import "LoginViewController.h"
 
 @interface NewDeviceViewController ()
 
@@ -29,25 +30,28 @@
 }
 
 - (IBAction)registerDevice {
-    _credentialsAlertView = [CredentialsAlertView
-            viewWithPincode: @"1234"
-            afterDone: ^(Credentials *credentials)
-                {
-                    [[Service getInstance]
-                            registerDeviceWithCredentials: credentials
-                            success:^(ServiceResult *serviceResult) {
-                                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
-                                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
-                                [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
-                                [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
-                            }
-                            error:^(ServiceResult *result) {
-                                [result displayError];
-                            }
-                    ];
-                    return;
+    LoginViewController *controller = [LoginViewController controllerFullCredentialsRequired:YES onAuthenticated:^(Credentials *credentials) {
+        [[Service getInstance]
+                registerDeviceWithCredentials: credentials
+                success:^(ServiceResult *serviceResult) {
+                    [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
+                    [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
+                    [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
+                    [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
                 }
-    ];
+                error:^(ServiceResult *result) {
+                    [result displayError];
+                }
+        ];
+    }];
+    [self.navigationController pushViewController: controller animated:YES];
+//    _credentialsAlertView = [CredentialsAlertView
+//            viewWithPincode: @"1234"
+//            afterDone: ^(Credentials *credentials)
+//                {
+//                    return;
+//                }
+//    ];
 
 }
 

@@ -13,8 +13,14 @@
     int id;
 }
 
+typedef enum Role {RoleStandard, RoleManager, RoleBackOffice, RoleAdmin} Role ;
+
 @property (retain) NSString *name;
 @property int id;
+@property(nonatomic, strong) id pin;
+@property(nonatomic) int role;
+
+@property(nonatomic) int locationId;
 
 + (NSMutableArray *) usersFromJson:(NSMutableArray *)usersJson;
 + (User *) userFromJsonDictionary: (NSDictionary *)jsonDictionary;

@@ -28,11 +28,18 @@
 + (void) clear;
 
 @property (retain) MenuCard *menuCard;
+
+- (NSMutableArray *)getLocationUsers;
+
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
 @property (retain) Config *config;
 @property(nonatomic, strong) PrintInfo *printInfo;
+
+@property(nonatomic, strong) NSMutableArray *users;
+
+@property(nonatomic, strong) NSMutableArray *locations;
 
 - (void) loadFromJson:(NSMutableDictionary *)json;
 

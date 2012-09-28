@@ -79,10 +79,7 @@
 - (void) createTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getUsers: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-
-- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error view:(UIView *)view text:(NSString *)text;
 
 - (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error view:(UIView *)parent textHUD:(NSString *)text;
 
@@ -95,24 +92,6 @@
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 
 - (BOOL) checkReachability;
-
-//- (void) getRequestResource: (NSString *)resource
-//                         id: (NSString *)id
-//                  arguments: (NSString *) arguments
-//                  converter:(id (^)(id))converter
-//                   delegate:(id)delegate
-//                   callback:(SEL)callback;
-//
-//- (void) requestResource: (NSString *)resource
-//                  method:(NSString *)method
-//                      id:(NSString *)id
-//                  action:(NSString *)action
-//               arguments: (NSString *) arguments
-//                    body: (NSDictionary *)body
-//             credentials:(Credentials *)credentials
-//               converter:(id (^)(id))converter
-//                delegate:(id)delegate
-//                callback:(SEL)callback;
 
 - (void)requestResource:(NSString *)resource
                      id:(NSString *)id

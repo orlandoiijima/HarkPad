@@ -22,17 +22,19 @@
 #import "MBProgressHUD.h"
 
 @class TableMapViewController;
+@class LoginViewController;
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
+    LoginViewController *loginViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) IBOutlet UITabBarController *loginViewController;
 
 - (void) getConfig;
-- (void) setupBarControllerCallback: (ServiceResult *)result;
 - (BOOL) checkReachability;
 
 @end

@@ -70,36 +70,14 @@
 
     self.view = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 10, 10) style:UITableViewStyleGrouped];
 
-    [[Service getInstance] getUsers:^(ServiceResult *serviceResult) {
-        users = [User usersFromJson:serviceResult.jsonData];
-        if ([users count] == 0) {
-            if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-                [self.delegate didSelectItem: [User userNull]];
-            }
-        }
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        int maxUsers = [users count] > 15 ? 15 : [users count];
-        self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
-        [self.tableView reloadData];
+    users = [[Cache getInstance] getLocationUsers];
 
-    }
-    error:nil];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    int maxUsers = [users count] > 15 ? 15 : [users count];
+    self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
+    [self.tableView reloadData];
 }
-
-//- (void)getUsersCallback: (ServiceResult *)serviceResult {
-//    users = serviceResult.data;
-//    if ([users count] == 0) {
-//        if([self.delegate respondsToSelector:@selector(didSelectItem:)]) {
-//            [self.delegate didSelectItem: [User userNull]];
-//        }
-//    }
-//    self.tableView.dataSource = self;
-//    self.tableView.delegate = self;
-//    int maxUsers = [users count] > 15 ? 15 : [users count];
-//    self.contentSizeForViewInPopover = CGSizeMake(200, maxUsers * self.tableView.rowHeight + self.tableView.sectionHeaderHeight + self.tableView.sectionFooterHeight);
-//    [self.tableView reloadData];
-//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     User *user = [users objectAtIndex:indexPath.row];
@@ -107,14 +85,6 @@
     if([self.delegate respondsToSelector:@selector(didSelectItem:)])
         [self.delegate didSelectItem: user];
 }
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-}
-*/
 
 - (void)viewDidUnload
 {

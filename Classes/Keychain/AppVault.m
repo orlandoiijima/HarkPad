@@ -14,7 +14,8 @@
 }
 
 + (bool) isDeviceRegistered {
-    return  ([[AppVault database] length] != 0 && [[AppVault deviceKey] length] != 0);
+    return NO;
+//    return  ([[AppVault database] length] != 0 && [[AppVault deviceKey] length] != 0);
 }
 
 + (NSString *)deviceKey {
@@ -48,6 +49,15 @@
 
 + (void)setLocation:(NSString *)location {
     [KeychainWrapper createKeychainValue: location forIdentifier:@"Location"];
+}
+
+
++ (NSString *)pinCode {
+    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"Pincode"];
+}
+
++ (void)setPinCode:(NSString *)pinCode {
+    [KeychainWrapper createKeychainValue: pinCode forIdentifier:@"Pincode"];
 }
 
 @end

@@ -84,26 +84,6 @@ static Service *_service;
    	return (NSMutableArray *)result.jsonData;
 }
 
-- (void) getUsers: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-{
-    [self getUsersIncludingDeleted:NO success:success error:error];
-	return;
-}
-
-- (void) getUsersIncludingDeleted:(bool)includeDeleted success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-{
-    [self requestResource: @"user"
-                       id: nil
-                   action: nil
-                arguments: nil
-                     body: nil
-                   method: @"GET"
-              credentials: nil
-                  success: success
-                    error: error];
-	return;
-}
-
 - (void) undockTable: (NSString *)tableId
 {
     [self requestResource: @"table"
@@ -570,7 +550,7 @@ static Service *_service;
                     error: error];
 }
 
-- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error {
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error view:(UIView *)view text:(NSString *)text {
     [self requestResource: @"config"
                        id: @"1"
                    action: nil
@@ -579,6 +559,8 @@ static Service *_service;
                    method: @"GET"
               credentials: nil success:success
                     error: error
+                     view: view
+                  textHUD: text
     ];
 }
 

@@ -10,13 +10,18 @@
 @implementation User
 
 @synthesize name, id;
-
+@synthesize pin = _pin;
+@synthesize role = _role;
+@synthesize locationId = _locationId;
 
 + (User *) userNull
 {
     User *user = [[User alloc] init];
     user.name = @"";
+    user.pin = @"";
+    user.role = RoleStandard;
     user.id = -1;
+    user.locationId = -1;
     return user;
 }
 
@@ -25,18 +30,14 @@
     User *user = [[User alloc] init];
     user.name = [jsonDictionary objectForKey:@"name"];
     user.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    return user;
-}
-
-+ (NSMutableArray *) usersFromJson:(NSMutableArray *)usersJson
-{
-    NSMutableArray *users = [[NSMutableArray alloc] init];
-    for(NSDictionary *userDic in usersJson)
-    {
-        User *user = [User userFromJsonDictionary: userDic];
-        [users addObject:user];
+    user.pin = [jsonDictionary objectForKey:@"pin"];
+    user.locationId = -1;
+    id location = [jsonDictionary objectForKey:@"locationId"];
+    if (location != nil) {
+        user.locationId = [location intValue];
     }
-    return users;
+    user.role = (Role) [[jsonDictionary objectForKey:@"role"] intValue];
+    return user;
 }
 
 - (bool) isNullUser
