@@ -22,12 +22,12 @@
 #import "MBProgressHUD.h"
 
 @class TableMapViewController;
-@class LoginViewController;
+@class PinLoginViewController;
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
-    LoginViewController *loginViewController;
+    PinLoginViewController *loginViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

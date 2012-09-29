@@ -23,12 +23,12 @@
     return nil;
 }
 
-- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password pincode:(NSString *)pin authenticated: (void (^)(BOOL isAuthenticated))authenticate {
-    Credentials *credentials = [Credentials credentialsWithEmail:email password:password pincode:pin];
-    [[Service getInstance] requestResource:@"logintoken" id:pin action:nil arguments:nil body:nil method:@"GET" credentials:credentials success:^(ServiceResult *serviceResult){
-        authenticate(YES);
+- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password authenticated: (void (^)(NSString *))authenticate {
+    Credentials *credentials = [Credentials credentialsWithEmail:email password:password pincode:nil];
+    [[Service getInstance] requestResource:@"logintoken" id:nil action:nil arguments:nil body:nil method:@"GET" credentials:credentials success:^(ServiceResult *serviceResult){
+        authenticate([serviceResult.jsonData objectForKey:@"pinCode"]);
     } error:^(ServiceResult *serviceResult) {
-        authenticate(NO);
+        authenticate(nil);
     }];
 }
 

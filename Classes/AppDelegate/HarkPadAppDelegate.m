@@ -14,7 +14,7 @@
 #import "Config.h"
 #import "AppVault.h"
 #import "NewDeviceViewController.h"
-#import "LoginViewController.h"
+#import "PinLoginViewController.h"
 #import "MainTabBarController.h"
 
 @implementation HarkPadAppDelegate
@@ -43,10 +43,10 @@
         return YES;
     }
 
-    loginViewController = [LoginViewController controllerFullCredentialsRequired:NO onAuthenticated:^(Credentials *credentials) {
+    loginViewController = [PinLoginViewController controllerWithAuthenticatedBlock:^(User *user) {
         MainTabBarController *controller = [[MainTabBarController alloc] init];
-        [window.rootViewController presentViewController: controller animated:YES completion:nil];
-    }];
+        [window.rootViewController presentViewController:controller animated:YES completion:nil];
+    }                                                                     onCancel:nil];
     window.rootViewController = loginViewController;
     [window addSubview: loginViewController.view];
 

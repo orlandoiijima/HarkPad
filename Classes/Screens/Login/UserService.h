@@ -13,7 +13,7 @@
 @interface UserService : NSObject
 - (User *)findUserWithPin:(NSString *)pin;
 
-- (BOOL)authenticateWithEmail:(NSString *)email password:(NSString *)password pincode:(NSString *)pin authenticated:(void (^)(BOOL))authenticate;
+- (BOOL)authenticateWithEmail:(NSString *)email password:(NSString *)password authenticated:(void (^)(NSString *))authenticate;
 
 
 @end

@@ -7,6 +7,7 @@
 
 #import "AppVault.h"
 #import "KeychainWrapper.h"
+#import "Credentials.h"
 
 
 @implementation AppVault {
@@ -49,15 +50,6 @@
 
 + (void)setLocation:(NSString *)location {
     [KeychainWrapper createKeychainValue: location forIdentifier:@"Location"];
-}
-
-
-+ (NSString *)pinCode {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"Pincode"];
-}
-
-+ (void)setPinCode:(NSString *)pinCode {
-    [KeychainWrapper createKeychainValue: pinCode forIdentifier:@"Pincode"];
 }
 
 @end

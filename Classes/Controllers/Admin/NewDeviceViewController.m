@@ -10,7 +10,9 @@
 #import "SignOnViewController.h"
 #import "CredentialsAlertView.h"
 #import "AppVault.h"
-#import "LoginViewController.h"
+#import "PinLoginViewController.h"
+#import "AddDeviceViewController.h"
+#import "AdminLoginViewController.h"
 
 @interface NewDeviceViewController ()
 
@@ -30,20 +32,11 @@
 }
 
 - (IBAction)registerDevice {
-    LoginViewController *controller = [LoginViewController controllerFullCredentialsRequired:YES onAuthenticated:^(Credentials *credentials) {
-        [[Service getInstance]
-                registerDeviceWithCredentials: credentials
-                success:^(ServiceResult *serviceResult) {
-                    [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
-                    [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
-                    [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
-                    [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
-                }
-                error:^(ServiceResult *result) {
-                    [result displayError];
-                }
-        ];
-    }];
+    AdminLoginViewController *controller = [AdminLoginViewController controllerFullCredentialsRequired:YES onAuthenticated:^(Credentials *credentials) {
+        AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
+        [self.navigationController pushViewController:addDeviceViewController animated:YES];
+    }
+                                                                                          onCancel:nil];
     [self.navigationController pushViewController: controller animated:YES];
 //    _credentialsAlertView = [CredentialsAlertView
 //            viewWithPincode: @"1234"

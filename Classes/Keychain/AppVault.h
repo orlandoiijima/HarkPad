@@ -26,10 +26,6 @@
 
 + (void)setLocation:(NSString *)location;
 
-+ (NSString *)pinCode;
-
-+ (void)setPinCode:(NSString *)pinCode;
-
 + (NSString *)location;
 
 
