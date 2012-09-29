@@ -7,28 +7,33 @@
 
 #import "Session.h"
 #import "User.h"
+#import "Credentials.h"
+#import "UserService.h"
 
 
 @implementation Session {
 
 }
 
-static User *authenticatedUser;
-static BOOL isAuthenticatedAsAdmin;
+static Credentials *credentials;
 
-+ (void) setAuthenticatedUser: (User *)user {
-    authenticatedUser = user;
-}
 
 + (User *) authenticatedUser {
-    return authenticatedUser;
-}
-
-+ (void)setIsAuthenticatedAsAdmin:(BOOL)b {
-    isAuthenticatedAsAdmin = b;
+    if (credentials ==  nil)
+        return nil;
+    return [[[UserService alloc]init] findUserWithPin: credentials.pincode];
 }
 
 + (BOOL) isAuthenticatedAsAdmin {
-    return isAuthenticatedAsAdmin;
+    return credentials != nil && credentials.email != nil && credentials.password != nil;
 }
+
++ (void) setCredentials:(Credentials *) cred {
+    credentials = cred;
+}
+
++ (Credentials *)credentials {
+    return credentials;
+}
+
 @end

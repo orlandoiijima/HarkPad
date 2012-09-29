@@ -19,8 +19,6 @@
 @end
 
 @implementation NewDeviceViewController
-@synthesize credentialsAlertView = _credentialsAlertView;
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +30,7 @@
 }
 
 - (IBAction)registerDevice {
-    AdminLoginViewController *controller = [AdminLoginViewController controllerFullCredentialsRequired:YES onAuthenticated:^(Credentials *credentials) {
+    AdminLoginViewController *controller = [AdminLoginViewController controllerWithAuthenticatedBlock:^(Credentials *credentials) {
         AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
         [self.navigationController pushViewController:addDeviceViewController animated:YES];
     }

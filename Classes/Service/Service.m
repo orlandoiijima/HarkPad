@@ -577,13 +577,14 @@ static Service *_service;
                     error: error];
 }
 
-- (void) registerDeviceWithCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
+    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:locationId], @"locationId",  nil];
     [self requestResource: @"device"
                        id: nil
                    action: nil
                 arguments: nil
-                     body: nil
+                     body: dictionary
                    method: @"POST"
               credentials: credentials
                   success: success

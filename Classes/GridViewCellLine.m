@@ -28,7 +28,7 @@
         self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin; 
         self.textLabel.backgroundColor = [UIColor clearColor];
         self.textLabel.shadowColor = [UIColor lightGrayColor];
-        self.textLabel.textAlignment = UITextAlignmentCenter;
+        self.textLabel.textAlignment = NSTextAlignmentCenter;
         self.textLabel.text = title;
         [self addSubview: self.textLabel];
         
@@ -36,7 +36,7 @@
         self.middleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin; 
         self.middleLabel.backgroundColor = [UIColor clearColor];
         self.middleLabel.shadowColor = [UIColor lightGrayColor];
-        self.middleLabel.textAlignment = UITextAlignmentCenter;
+        self.middleLabel.textAlignment = NSTextAlignmentCenter;
         self.middleLabel.adjustsFontSizeToFitWidth = NO;
         self.middleLabel.font = [UIFont systemFontOfSize:12];
         self.middleLabel.text = label2;
@@ -47,7 +47,7 @@
         self.bottomLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin; 
         self.bottomLabel.backgroundColor = [UIColor clearColor];
         self.bottomLabel.shadowColor = [UIColor lightGrayColor];
-        self.bottomLabel.textAlignment = UITextAlignmentCenter;
+        self.bottomLabel.textAlignment = NSTextAlignmentCenter;
         self.bottomLabel.font = [UIFont systemFontOfSize:12];
         self.bottomLabel.text = label3;
         self.bottomLabel.textColor = [UIColor colorWithRed:0 green:0 blue:0.5 alpha:1];

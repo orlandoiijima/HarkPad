@@ -8,6 +8,8 @@
 
 #import "Credentials.h"
 
+@class User;
+
 
 @interface PinLoginViewController : UIViewController
 
@@ -23,7 +25,7 @@
 
 @property(nonatomic) int numberOfAttempts;
 
-@property(nonatomic, copy) void (^didAuthenticateBlock)(Credentials *);
+@property(nonatomic, copy) void (^didAuthenticateBlock)(User *);
 @property(nonatomic, copy) void (^didCancel)(void);
 
 + (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;

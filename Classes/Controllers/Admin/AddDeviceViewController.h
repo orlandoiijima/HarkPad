@@ -10,6 +10,13 @@
 
 #import "BaseAdminViewController.h"
 
+@class LocationsView;
+
 @interface AddDeviceViewController : BaseAdminViewController
+
+@property (retain) IBOutlet LocationsView *locations;
+
+- (IBAction) addLocation;
+- (IBAction) go;
 
 @end

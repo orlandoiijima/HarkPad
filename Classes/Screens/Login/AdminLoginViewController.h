@@ -10,14 +10,18 @@
 
 @class Credentials;
 @class User;
+@class UserService;
 
 @interface AdminLoginViewController : UIViewController
 
 @property (retain) IBOutlet UITextField *emailField;
 @property (retain) IBOutlet UITextField *passwordField;
 
-@property(nonatomic, copy) void (^didAuthenticateBlock)(User *, Credentials *);
+@property(nonatomic, copy) void (^didAuthenticateBlock)(Credentials *);
+@property(nonatomic, copy) void (^didCancel)(void);
 
-+ (AdminLoginViewController *)controller:(void (^)(User *,Credentials *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
+@property(nonatomic, strong) UserService *userService;
+
++ (AdminLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(Credentials *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
 
 @end

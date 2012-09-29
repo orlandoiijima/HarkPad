@@ -7,17 +7,19 @@
 
 #import <Foundation/Foundation.h>
 
-@class User;
+#include "Credentials.h"
+#include "User.h"
 
 
 @interface Session : NSObject
-+ (void)setAuthenticatedUser:(User *)user;
 
 + (User *)authenticatedUser;
 
-+ (void)setIsAuthenticatedAsAdmin:(BOOL)b;
-
 + (BOOL)isAuthenticatedAsAdmin;
+
++ (void)setCredentials:(Credentials *)cred;
+
++ (Credentials *)credentials;
 
 
 @end

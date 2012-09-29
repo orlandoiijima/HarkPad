@@ -17,6 +17,16 @@
 @end
 
 @implementation AdminLoginViewController
+@synthesize userService = _userService;
+
+
++ (AdminLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(Credentials *))didAuthenticateBlock onCancel:(void (^)(void))didCancel {
+    AdminLoginViewController *controller = [[AdminLoginViewController alloc] init];
+    controller.didAuthenticateBlock = didAuthenticateBlock;
+    controller.didCancel = didCancel;
+    controller.userService = [[UserService alloc] init];
+    return controller;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +41,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [_emailField becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,18 +52,17 @@
 
 
 - (IBAction)go {
-    UserService *service = [[UserService alloc] init];
-    [service authenticateWithEmail:_emailField.text password:_passwordField.text  authenticated:^(NSString *pin) {
+    [self.userService authenticateWithEmail:_emailField.text password:_passwordField.text  authenticated:^(NSString *pin) {
         if (pin != nil) {
-            User *user = [service findUserWithPin: pin];
-            [self didAuthenticate: user];
+            [self didAuthenticate: pin];
         }
     }];
 }
 
-- (void) didAuthenticate: (User *)user {
-    [Session setIsAuthenticatedAsAdmin: YES];
-    self.didAuthenticateBlock(user, [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode: user.pin]);
+- (void) didAuthenticate: (NSString *)pin {
+    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:pin];
+    [Session setCredentials:credentials];
+    self.didAuthenticateBlock(credentials);
 }
 
 @end

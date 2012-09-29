@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "ServiceResult.h"
 
-@interface NewLocationViewController : UIViewController
+@interface NewLocationViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
 
 @property (retain) IBOutlet UITextField *locationName;
+@property (retain) IBOutlet UIButton *logoButton;
+@property (retain) IBOutlet UIImageView *logoView;
+
+@property(nonatomic, strong) UIPopoverController *popover;
+
+- (IBAction) selectLogo;
 
 - (IBAction) registerLocation;
 

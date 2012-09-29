@@ -10,11 +10,9 @@
 #import "Service.h"
 #import "CredentialsAlertView.h"
 
-@interface NewLocationViewController ()
-
-@end
-
 @implementation NewLocationViewController
+@synthesize popover = _popover;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +21,23 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    _logoView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [_popover dismissPopoverAnimated:YES];
+//    [[picker parentViewController] dismissViewControllerAnimated:YES completion:nil];
+
+}
+
+- (IBAction)selectLogo {
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    controller.delegate = self;
+    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    _popover.delegate = self;
+    [_popover presentPopoverFromRect:_logoButton.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (IBAction)registerLocation {

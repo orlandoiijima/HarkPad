@@ -12,8 +12,6 @@
 
 @interface NewDeviceViewController : UIViewController
 
-@property(nonatomic, strong) CredentialsAlertView *credentialsAlertView;
-
 - (IBAction) registerDevice;
 - (IBAction) signOnOrganisation;
 

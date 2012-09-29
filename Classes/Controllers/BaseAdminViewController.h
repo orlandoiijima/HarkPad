@@ -7,9 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class PinLoginViewController;
-
+#import "AdminLoginViewController.h"
 
 @interface BaseAdminViewController : UIViewController
-@property(nonatomic, strong) PinLoginViewController *loginViewController;
+@property(nonatomic, strong) AdminLoginViewController *loginViewController;
 @end

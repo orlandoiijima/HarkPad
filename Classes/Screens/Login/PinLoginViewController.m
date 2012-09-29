@@ -18,7 +18,6 @@
 
 @implementation PinLoginViewController
 @synthesize numberOfAttempts = _numberOfAttempts;
-@synthesize fullCredentialsRequired = _fullCredentialsRequired;
 @synthesize didAuthenticateBlock = _didAuthenticateBlock;
 
 
@@ -97,7 +96,7 @@
 }
 
 - (void) didAuthenticate: (User *)user {
-    [Session setAuthenticatedUser: user];
+    [Session setCredentials:[Credentials credentialsWithEmail:nil password:nil pincode:user.pin]];
     self.didAuthenticateBlock( user);
 }
 

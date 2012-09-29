@@ -7,6 +7,12 @@
 //
 
 #import "AddDeviceViewController.h"
+#import "ServiceResult.h"
+#import "AppVault.h"
+#import "Service.h"
+#import "Session.h"
+#import "LocationsView.h"
+#import "NewLocationViewController.h"
 
 @interface AddDeviceViewController ()
 
@@ -28,19 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
+
 /*
-        [[Service getInstance]
-                registerDeviceWithCredentials: credentials
-                success:^(ServiceResult *serviceResult) {
-                    [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
-                    [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
-                    [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
-                    [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
-                }
-                error:^(ServiceResult *result) {
-                    [result displayError];
-                }
-        ];
 */
 }
 
@@ -49,5 +44,29 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)addLocation {
+    NewLocationViewController *controller = [[NewLocationViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (IBAction)go {
+
+    if (_locations.selectedLocationId == -1)
+        return;
+
+    [[Service getInstance]
+            registerDeviceAtLocation: _locations.selectedLocationId
+                     withCredentials: [Session credentials]
+            success:^(ServiceResult *serviceResult) {
+                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
+                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
+            }
+            error:^(ServiceResult *result) {
+                [result displayError];
+            }
+    ];
+}
+
 
 @end
