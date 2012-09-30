@@ -6,11 +6,13 @@
 
 
 #import <Foundation/Foundation.h>
+#import "DTO.h"
 
-
-@interface Location : NSObject
+@interface Location : DTO
 @property(nonatomic, strong) id name;
 @property(nonatomic) int id;
+
+@property(nonatomic, strong) UIImage *logo;
 
 + (Location *)locationFromJsonDictionary:(NSDictionary *)jsonDictionary;
 

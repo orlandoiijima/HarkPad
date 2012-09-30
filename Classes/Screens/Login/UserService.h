@@ -8,12 +8,13 @@
 #import <Foundation/Foundation.h>
 
 @class User;
+@class ProgressInfo;
 
 
 @interface UserService : NSObject
 - (User *)findUserWithPin:(NSString *)pin;
 
-- (BOOL)authenticateWithEmail:(NSString *)email password:(NSString *)password authenticated:(void (^)(NSString *))authenticate;
+- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password progressInfo:(ProgressInfo *)progressInfo authenticated:(void (^)(NSString *))authenticate;
 
 
 @end

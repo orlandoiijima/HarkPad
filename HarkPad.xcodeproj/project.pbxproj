@@ -13,7 +13,6 @@
 		D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72353EC05832573A4999C /* SignOnViewController.xib */; };
 		D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */; };
 		D0A720D5404C646A9EEA6E21 /* SignOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F328E064D29A465BF0D /* SignOnViewController.m */; };
-		D0A72136FEA131F43EE73924 /* PinLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A7291D249E2D4F83C3BD71 /* PinLoginViewController.xib */; };
 		D0A7218162D9B649A9B82C7E /* CallbackBlockInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F304068F8C99FEC8A79 /* CallbackBlockInfo.m */; };
 		D0A721D410928A8E1E4B37AF /* CredentialsAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */; };
 		D0A72216893CAE9707501E54 /* PrinterInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */; };
@@ -41,6 +40,7 @@
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
 		D0A72BAABF06E3BA77A8DCC1 /* AddDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */; };
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
+		D0A72C927ACFDE4866D43DC8 /* ProgressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A3D24F7C136261FFABD /* ProgressInfo.m */; };
 		D0A72CCF4513C582C7C09D3D /* Credentials.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A6EDAADA4816DF957F5 /* Credentials.m */; };
 		D0A72D339C76CD1CB3CAEA2B /* BaseAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72051732FB9F2B1D27845 /* BaseAdminViewController.m */; };
 		D0A72D3CBE95EF08405C142C /* Signon.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72503F6C4FA040F327098 /* Signon.m */; };
@@ -376,6 +376,7 @@
 		D0A7225076CA694DBDC5D765 /* PrintTemplate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTemplate.h; path = PrintInfo/PrintTemplate.h; sourceTree = "<group>"; };
 		D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RasterDocument.h; path = Classes/StarPrint/RasterDocument.h; sourceTree = "<group>"; };
 		D0A723092D3605A8F1699A44 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		D0A723465CF4B6781EAB8934 /* ProgressInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressInfo.h; sourceTree = "<group>"; };
 		D0A72353EC05832573A4999C /* SignOnViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SignOnViewController.xib; path = SignOnViewController.xib; sourceTree = "<group>"; };
 		D0A723B495D263915E1232F2 /* SalesPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPdf.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
@@ -404,7 +405,6 @@
 		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintInfo.m; path = PrintInfo/PrintInfo.m; sourceTree = "<group>"; };
 		D0A728F2E41DD2D9602A232D /* OrderPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderPrinter.h; path = Print/OrderPrinter.h; sourceTree = "<group>"; };
 		D0A728FB65368A1906AE9D39 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
-		D0A7291D249E2D4F83C3BD71 /* PinLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PinLoginViewController.xib; sourceTree = "<group>"; };
 		D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoicePrintDataSource.h; path = Print/InvoicePrintDataSource.h; sourceTree = "<group>"; };
 		D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceViewController.xib; sourceTree = "<group>"; };
 		D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackInfo.m; sourceTree = "<group>"; };
@@ -412,6 +412,7 @@
 		D0A729D343400603E7618601 /* Credentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Credentials.h; sourceTree = "<group>"; };
 		D0A72A165B000AF1792D8130 /* CallbackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInfo.h; sourceTree = "<group>"; };
 		D0A72A23082D4FAEBBE9A51B /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
+		D0A72A3D24F7C136261FFABD /* ProgressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressInfo.m; sourceTree = "<group>"; };
 		D0A72A6EDAADA4816DF957F5 /* Credentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Credentials.m; sourceTree = "<group>"; };
 		D0A72A7076F7B954783AF85D /* PrintColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintColumn.m; path = PrintInfo/PrintColumn.m; sourceTree = "<group>"; };
 		D0A72AA07ED2CD9B8F40F698 /* AddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeviceViewController.m; sourceTree = "<group>"; };
@@ -996,7 +997,6 @@
 				D0A7249DB97997599F7EB71B /* AdminLoginViewController.h */,
 				D0A72DDED47A25FA99D198D1 /* UserService.h */,
 				D0A7202D9B8FD91678E5DE9F /* UserService.m */,
-				D0A7291D249E2D4F83C3BD71 /* PinLoginViewController.xib */,
 				D0A7221FA5B72BCCFBEF917D /* PinLoginViewController.m */,
 				D0A72BBD181CD4DEB08B0AE1 /* PinLoginViewController.h */,
 			);
@@ -1465,6 +1465,8 @@
 		E50A391212E23A43007C2101 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D0A723465CF4B6781EAB8934 /* ProgressInfo.h */,
+				D0A72A3D24F7C136261FFABD /* ProgressInfo.m */,
 				D0A720CB26E09E2CFE64E985 /* CallbackBlockInfo.h */,
 				D0A72F304068F8C99FEC8A79 /* CallbackBlockInfo.m */,
 				D0A7216F7C63233D85A902F1 /* AuthorisationToken.h */,
@@ -2198,7 +2200,6 @@
 				D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */,
 				E5CFC77A15D6839A0098B7C9 /* NewDeviceViewController.xib in Resources */,
 				E5CFC78B15D6A3C90098B7C9 /* NewLocationViewController.xib in Resources */,
-				D0A72136FEA131F43EE73924 /* PinLoginViewController.xib in Resources */,
 				D0A72BAABF06E3BA77A8DCC1 /* AddDeviceViewController.xib in Resources */,
 				D0A72B77E6AA3E52C53F8A99 /* AdminLoginViewController.xib in Resources */,
 			);
@@ -2456,6 +2457,7 @@
 				D0A7267CDA9B728671C5A722 /* AdminLoginViewController.m in Sources */,
 				D0A726DA14A30F9921DFFFEE /* LocationsView.m in Sources */,
 				D0A729B004C2DE7C62495A08 /* LocationCell.m in Sources */,
+				D0A72C927ACFDE4866D43DC8 /* ProgressInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -85,8 +85,7 @@
                  error: ^(ServiceResult *serviceResult) {
                             [serviceResult displayError];
                             }
-                view:loginViewController.view
-                text:@"Loading config"
+                progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: loginViewController.view]
     ];
 }
 

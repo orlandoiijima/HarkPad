@@ -8,10 +8,13 @@
 
 #import "NewLocationViewController.h"
 #import "Service.h"
-#import "CredentialsAlertView.h"
+#import "Session.h"
+#import "ItemPropertiesDelegate.h"
+#import "Location.h"
 
 @implementation NewLocationViewController
 @synthesize popover = _popover;
+@synthesize delegate = _delegate;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -41,27 +44,28 @@
 }
 
 - (IBAction)registerLocation {
-    [CredentialsAlertView
-        viewWithPincode: @"1234"
-        afterDone: ^(Credentials *credentials)
-            {
-                [[Service getInstance]
-                        createLocation: _locationName.text
-                           credentials: credentials
-                               success:nil
-                               error:^(ServiceResult *result) {
-                                   [result displayError];
-                               }
-                ];
-                return;
-            }
+    Location *location = [[Location alloc] init];
+    location.name = _locationName.text;
+    if (_logoView.image != nil) {
+        location.logo = _logoView.image;
+    }
+    [[Service getInstance]
+            createLocation: location
+               credentials: [Session credentials]
+                   success: ^(ServiceResult *serviceResult) {
+                       [self.delegate didSaveItem:location];
+                   }
+                     error:^(ServiceResult *result) {
+                       [result displayError];
+                   }
+              progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Registering location", nil) label:nil activityIndicatorView:nil]
     ];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = NSLocalizedString(@"New location", <#comment#>);
 }
 
 - (void)viewDidUnload

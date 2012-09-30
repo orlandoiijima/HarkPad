@@ -53,7 +53,7 @@
             x = frame.size.width - 113;
             UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(x, 0, 70, frame.size.height)];
             label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-            label.textAlignment = UITextAlignmentRight;
+            label.textAlignment = NSTextAlignmentRight;
             label.text = [Utils getAmountString: [guest totalAmount] withCurrency:YES];
             [view addSubview:label];
         }
@@ -63,7 +63,7 @@
         if (table != nil) {
             x -= 50;
             SeatGridView *seatGridView = [SeatGridView viewWithFrame:CGRectMake(x, 0, 50, frame.size.height) table:table guests:[NSMutableArray arrayWithObject:guest]];
-            seatGridView.alignment = UITextAlignmentRight;
+            seatGridView.alignment = NSTextAlignmentRight;
             seatGridView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
             [view addSubview:seatGridView];
         }

@@ -14,7 +14,7 @@
 
 + (SeatGridView *)viewWithFrame: (CGRect) frame table: (Table *)table guests: (NSMutableArray *)guests {
     SeatGridView *view = [[SeatGridView alloc] initWithFrame:frame];
-    view.alignment = UITextAlignmentCenter;
+    view.alignment = NSTextAlignmentCenter;
     view.countSeats = table.countSeatsPerSide;
     view.guests = guests;
     view.backgroundColor = [UIColor clearColor];
@@ -47,15 +47,15 @@
     CGFloat x,y;
 
     switch (alignment) {
-        case UITextAlignmentLeft:
+        case NSTextAlignmentLeft:
             x = 0.5;
         break;
 
-        case UITextAlignmentCenter:
+        case NSTextAlignmentCenter:
             x = (self.bounds.size.width - dx*width)/2 + 0.5;
         break;
 
-        case UITextAlignmentRight:
+        case NSTextAlignmentRight:
             x = self.bounds.size.width - dx*width - 0.5;
         break;
     }

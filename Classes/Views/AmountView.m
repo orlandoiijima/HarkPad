@@ -34,7 +34,7 @@
 - (void) createSubViews
 {
     mainView = [[UILabel alloc] init];
-    mainView.textAlignment = UITextAlignmentRight;
+    mainView.textAlignment = NSTextAlignmentRight;
     [self addSubview:mainView];
     
     centsView = [[UILabel alloc] init];

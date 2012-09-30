@@ -72,7 +72,7 @@
     slider.caption = [[UILabel alloc] initWithFrame: CGRectMake(slider.guestButton.frame.origin.x, 0, slider.guestButton.frame.size.width, frame.size.height/2)];
     [slider addSubview:slider.caption];
     slider.caption.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    slider.caption.textAlignment = UITextAlignmentCenter;
+    slider.caption.textAlignment = NSTextAlignmentCenter;
     slider.caption.textColor = [UIColor whiteColor];
     slider.caption.backgroundColor = [UIColor clearColor];
     slider.caption.font = [UIFont systemFontOfSize:24];
@@ -80,7 +80,7 @@
     slider.subCaption = [[UILabel alloc] initWithFrame:CGRectMake(slider.guestButton.frame.origin.x, frame.size.height/2, slider.guestButton.frame.size.width, frame.size.height/2)];
     [slider addSubview:slider.subCaption];
     slider.subCaption.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    slider.subCaption.textAlignment = UITextAlignmentCenter;
+    slider.subCaption.textAlignment = NSTextAlignmentCenter;
     slider.subCaption.textColor = [UIColor whiteColor];
     slider.subCaption.backgroundColor = [UIColor clearColor];
     slider.subCaption.font = [UIFont systemFontOfSize:20];

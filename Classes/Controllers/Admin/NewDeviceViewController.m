@@ -34,16 +34,8 @@
         AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
         [self.navigationController pushViewController:addDeviceViewController animated:YES];
     }
-                                                                                          onCancel:nil];
+      onCancel:nil];
     [self.navigationController pushViewController: controller animated:YES];
-//    _credentialsAlertView = [CredentialsAlertView
-//            viewWithPincode: @"1234"
-//            afterDone: ^(Credentials *credentials)
-//                {
-//                    return;
-//                }
-//    ];
-
 }
 
 
@@ -55,7 +47,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
+    self.title = NSLocalizedString(@"New device", <#comment#>);
 }
 
 - (void)viewDidUnload

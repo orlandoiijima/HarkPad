@@ -177,8 +177,7 @@
                                      error:^(ServiceResult *serviceResult) {
                                          [serviceResult displayError];
                                      }
-                                 view: (UIView *)self.view
-                                   textHUD: (NSString *)@"Loading"];
+                              progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", <#comment#>) parentView:self.view]];
 }
 
 - (void) refreshViewCallback: (NSMutableArray *)productTotals

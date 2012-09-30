@@ -12,6 +12,7 @@
 #import "MenuCard.h"
 #import "Map.h"
 #import "Reservation.h"
+#import "Location.h"
 #import "Slot.h"
 #import "CJSONSerializer.h"
 #import "KitchenStatistics.h"
@@ -21,6 +22,7 @@
 #import "ServiceResult.h"
 #import "GTMHTTPFetcher.h"
 #import "Credentials.h"
+#import "ProgressInfo.h"
 
 @interface Service : NSObject {    
     NSString *url;
@@ -79,13 +81,13 @@
 - (void) createTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error view:(UIView *)view text:(NSString *)text;
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
-- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error view:(UIView *)parent textHUD:(NSString *)text;
+- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) createLocation: (Location *)location credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
+- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine;
 
@@ -101,6 +103,7 @@
                  method:(NSString *)method
             credentials:(Credentials *)credentials
                 success:(void (^)(ServiceResult *))onSuccess
-                  error:(void (^)(ServiceResult*))onError;
+                  error:(void (^)(ServiceResult*))onError
+           progressInfo: (ProgressInfo *) progressInfo;
 
 @end

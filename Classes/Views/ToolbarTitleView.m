@@ -16,7 +16,7 @@
     self = [super initWithFrame:frame];
     self.font = [UIFont systemFontOfSize:22];
     self.backgroundColor = [UIColor clearColor];
-    self.textAlignment = UITextAlignmentCenter;
+    self.textAlignment = NSTextAlignmentCenter;
     self.shadowColor = [UIColor whiteColor];
     return self;
 }

@@ -7,10 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+#import "Location.h"
 
 @interface LocationsView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate>
 @property(nonatomic, strong) NSMutableArray *locations;
 
 @property (nonatomic) int selectedLocationId;
 
+- (void)addLocation:(Location *)location;
 @end

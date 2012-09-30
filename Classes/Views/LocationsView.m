@@ -9,7 +9,6 @@
 #import "ServiceResult.h"
 #import "Session.h"
 #import "Service.h"
-#import "OrderLineCell.h"
 #import "LocationCell.h"
 
 
@@ -40,9 +39,12 @@
     [self registerClass:[LocationCell class] forCellWithReuseIdentifier:@"xjsjw"];
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(200, 200)];
+    [flowLayout setItemSize:CGSizeMake(75, 75)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     [self setCollectionViewLayout:flowLayout];
+
+    self.backgroundView = nil;
+    self.backgroundColor = [UIColor clearColor];
 
     self.dataSource = self;
     self.delegate = self;
@@ -55,25 +57,36 @@
                      method:@"GET"
                 credentials:[Session credentials]
                     success: ^(ServiceResult *serviceResult) {
-                            self.locations = [[NSMutableArray alloc] init];
-                        for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
-                            [self.locations addObject: [dictionary objectForKey:@"name"]];
-                        }
-                        [self reloadData];
-                    }
-                      error:nil];
+                                self.locations = [[NSMutableArray alloc] init];
+                                for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
+                                    Location *location = [Location locationFromJsonDictionary:dictionary];
+                                    [self.locations addObject: location];
+                                }
+                                [self reloadData];
+                            }
+                      error:nil
+               progressInfo:nil];
     return;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.locations == nil)
+
+    Location *location = [self locationAtIndexPath: indexPath];
+    if (location == nil)
         return nil;
 
     static NSString *cellIdentifier = @"xjsjw";
 
     LocationCell *cell = (LocationCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.nameLabel.text = [self.locations objectAtIndex:indexPath.row];
+    cell.nameLabel.text = location.name;
+    cell.logoImage.image = location.logo;
     return cell;
+}
+
+- (Location *)locationAtIndexPath:(NSIndexPath *)path {
+    if (self.locations == nil || path.row >= self.locations.count)
+        return nil;
+    return [self.locations objectAtIndex:path.row];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -82,5 +95,9 @@
     return [self.locations count];
 }
 
+- (void)addLocation:(Location *)location {
+    [self.locations addObject:location];
+    [self reloadData];
+}
 
 @end

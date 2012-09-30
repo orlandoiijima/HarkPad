@@ -25,7 +25,6 @@
     NSString *_location;
 }
 
-
 @synthesize url;
 @dynamic host;
 @synthesize location = _location;
@@ -436,7 +435,7 @@ static Service *_service;
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
-    order.paymentType = paymentType;
+    order.paymentType = (PaymentType) paymentType;
     NSDictionary *orderDic = [order toDictionary];
     [self requestResource: @"order"
                        id: [NSString stringWithFormat:@"%d", orderId]
@@ -450,7 +449,7 @@ static Service *_service;
 	return;
 }
 
-- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error view:(UIView *)parent textHUD:(NSString *)text {
+- (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo {
     [self requestResource: @"Sales"
                        id: [date inJson]
                    action: nil
@@ -460,8 +459,7 @@ static Service *_service;
               credentials: nil
                   success: success
                     error: error
-                     view: parent
-                  textHUD: text];
+             progressInfo: progressInfo];
 }
 
 - (void) getTablesInfoForAllDistricts: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -550,7 +548,7 @@ static Service *_service;
                     error: error];
 }
 
-- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error view:(UIView *)view text:(NSString *)text {
+- (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo {
     [self requestResource: @"config"
                        id: @"1"
                    action: nil
@@ -559,36 +557,37 @@ static Service *_service;
                    method: @"GET"
               credentials: nil success:success
                     error: error
-                     view: view
-                  textHUD: text
+             progressInfo: progressInfo
     ];
 }
 
-- (void) createLocation: (NSString *)locationName credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) createLocation: (Location *)location credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo
 {
-    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: locationName, @"Name",  nil];
     [self requestResource: @"location"
-                       id: nil action:nil
+                       id: nil
+                   action: nil
                 arguments: nil
-                     body: dictionary
+                     body: [location toDictionary]
                    method: @"POST"
               credentials: credentials
                   success: success
-                    error: error];
+                    error: error
+             progressInfo: progressInfo];
 }
 
-- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo
 {
-    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:locationId], @"locationId",  nil];
+//    NSMutableDictionary *dictionary  = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInt:locationId], @"locationId",  nil];
     [self requestResource: @"device"
                        id: nil
                    action: nil
                 arguments: nil
-                     body: dictionary
+                     body: nil
                    method: @"POST"
               credentials: credentials
                   success: success
-                    error: error];
+                    error: error
+             progressInfo: progressInfo];
 }
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -620,8 +619,7 @@ static Service *_service;
                 credentials: credentials
                     success: onSuccess
                       error: onError
-                     view:nil
-    textHUD:nil];
+               progressInfo: nil];
 } 
     
 - (void)requestResource: (NSString *)resource
@@ -633,19 +631,15 @@ static Service *_service;
             credentials: (Credentials *)credentials
                 success: (void (^)(ServiceResult *))onSuccess
                   error: (void (^)(ServiceResult*))onError
-                   view: (UIView *)view
-                textHUD: (NSString *)text
+           progressInfo: (ProgressInfo *)progressInfo
 {
     if (([method isEqualToString:@"PUT"] || [method isEqualToString:@"POST"]) && [body count] == 0)
         [Logger Info:@"Put or post without data"];
 
-    CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError];
+    CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError progressInfo:progressInfo];
 
-    if (view != nil && text != nil) {
-        [MBProgressHUD showProgressAddedTo: view withText:NSLocalizedString(text, nil)];
-        info.view = view;
-    }
-    
+    if (progressInfo != nil)
+        [progressInfo start];
 
     NSError *error = nil;
 
@@ -679,9 +673,9 @@ static Service *_service;
     CallbackBlockInfo *info = fetcher.userData;
     if (info == nil) return;
 
-    if (info.view != nil)   
-        [MBProgressHUD hideHUDForView: info.view animated:YES];
-    
+    if (info.progressInfo != nil)
+        [info.progressInfo stop];
+
     ServiceResult *result = [ServiceResult resultFromData:data error:error];
     if (result == nil) return;
 

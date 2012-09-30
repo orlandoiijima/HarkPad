@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ServiceResult.h"
 
+@protocol ItemPropertiesDelegate;
+
 @interface NewLocationViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
 
 @property (retain) IBOutlet UITextField *locationName;
@@ -16,6 +18,8 @@
 @property (retain) IBOutlet UIImageView *logoView;
 
 @property(nonatomic, strong) UIPopoverController *popover;
+
+@property(nonatomic, strong) id<ItemPropertiesDelegate> delegate;
 
 - (IBAction) selectLogo;
 

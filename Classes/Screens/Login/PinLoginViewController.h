@@ -8,32 +8,25 @@
 
 #import "Credentials.h"
 
-@class User;
-
+#import "UserService.h"
+#import "User.h"
+#import "Session.h"
 
 @interface PinLoginViewController : UIViewController
 
-@property (retain) IBOutlet UILabel *pin1Field;
-@property (retain) IBOutlet UILabel *pin2Field;
-@property (retain) IBOutlet UILabel *pin3Field;
-@property (retain) IBOutlet UILabel *pin4Field;
-@property (retain) IBOutlet UITextField *pinField;
-
-@property (retain) IBOutlet UIButton *goButton;
-@property (retain) IBOutlet UIActivityIndicatorView *activityView;
-@property (retain) IBOutlet UIView *credentialsPanel;
+@property (retain) UITextField *pinField;
 
 @property(nonatomic) int numberOfAttempts;
 
 @property(nonatomic, copy) void (^didAuthenticateBlock)(User *);
 @property(nonatomic, copy) void (^didCancel)(void);
 
-+ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
+@property(nonatomic, strong) NSMutableArray *pinLabels;
 
-- (void)fillPinFields:(NSString *)pin;
++ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
 
 - (NSString *)getPinFromFields;
 
-- (IBAction) go;
+- (void) go;
 
 @end

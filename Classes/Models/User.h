@@ -22,7 +22,6 @@ typedef enum Role {RoleStandard, RoleManager, RoleBackOffice, RoleAdmin} Role ;
 
 @property(nonatomic) int locationId;
 
-+ (NSMutableArray *) usersFromJson:(NSMutableArray *)usersJson;
 + (User *) userFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (User *) userNull;
 

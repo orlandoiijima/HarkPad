@@ -9,12 +9,15 @@
 
 
 #import "BaseAdminViewController.h"
+#import "ItemPropertiesDelegate.h"
 
 @class LocationsView;
 
-@interface AddDeviceViewController : BaseAdminViewController
+@interface AddDeviceViewController : BaseAdminViewController <ItemPropertiesDelegate>
 
-@property (retain) IBOutlet LocationsView *locations;
+@property (retain) IBOutlet LocationsView *locationsView;
+@property (retain) IBOutlet UIActivityIndicatorView *indicatorView;
+@property (retain) IBOutlet UILabel *indicatorLabel;
 
 - (IBAction) addLocation;
 - (IBAction) go;

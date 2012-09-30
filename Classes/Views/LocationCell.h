@@ -10,4 +10,5 @@
 
 @interface LocationCell : UICollectionViewCell
 @property(nonatomic, strong) UILabel *nameLabel;
+@property(nonatomic, strong) UIImageView *logoImage;
 @end

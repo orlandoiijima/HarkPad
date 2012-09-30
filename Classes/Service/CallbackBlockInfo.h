@@ -8,6 +8,8 @@
 #import <Foundation/Foundation.h>
 #include "ServiceResult.h"
 
+@class ProgressInfo;
+
 @interface CallbackBlockInfo : NSObject
 
 @property(nonatomic, copy) void (^success)(ServiceResult *);
@@ -16,6 +18,8 @@
 
 @property(nonatomic, strong) id view;
 
-+ (CallbackBlockInfo *) infoWithSuccess: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+@property(nonatomic, strong) ProgressInfo *progressInfo;
+
++ (CallbackBlockInfo *)infoWithSuccess:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)info;
 
 @end

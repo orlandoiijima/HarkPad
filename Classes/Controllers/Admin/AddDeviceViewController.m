@@ -13,6 +13,7 @@
 #import "Session.h"
 #import "LocationsView.h"
 #import "NewLocationViewController.h"
+#import "Location.h"
 
 @interface AddDeviceViewController ()
 
@@ -32,11 +33,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 
-
-/*
-*/
+    self.title = NSLocalizedString(@"Register iPad", nil);
 }
 
 - (void)didReceiveMemoryWarning
@@ -47,16 +45,25 @@
 
 - (IBAction)addLocation {
     NewLocationViewController *controller = [[NewLocationViewController alloc] init];
+    controller.delegate = self;
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+- (void)didSaveItem:(id)item {
+    Location *location = (Location *)item;
+    if (location == nil) return;
+    [self.locationsView addLocation: location];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 - (IBAction)go {
 
-    if (_locations.selectedLocationId == -1)
+    if (_locationsView.selectedLocationId == -1)
         return;
 
     [[Service getInstance]
-            registerDeviceAtLocation: _locations.selectedLocationId
+            registerDeviceAtLocation: _locationsView.selectedLocationId
                      withCredentials: [Session credentials]
             success:^(ServiceResult *serviceResult) {
                 [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
@@ -65,6 +72,7 @@
             error:^(ServiceResult *result) {
                 [result displayError];
             }
+         progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Registering device", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
     ];
 }
 

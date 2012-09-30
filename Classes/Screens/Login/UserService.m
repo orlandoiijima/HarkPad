@@ -9,6 +9,7 @@
 #import "User.h"
 #import "Cache.h"
 #import "Service.h"
+#import "ProgressInfo.h"
 
 
 @implementation UserService {
@@ -23,13 +24,27 @@
     return nil;
 }
 
-- (void)authenticateWithEmail:(NSString *)email password:(NSString *)password authenticated: (void (^)(NSString *))authenticate {
+- (void)authenticateWithEmail:(NSString *)email
+                     password:(NSString *)password
+                 progressInfo: (ProgressInfo *)progressInfo
+                authenticated: (void (^)(NSString *))authenticate {
     Credentials *credentials = [Credentials credentialsWithEmail:email password:password pincode:nil];
-    [[Service getInstance] requestResource:@"logintoken" id:nil action:nil arguments:nil body:nil method:@"GET" credentials:credentials success:^(ServiceResult *serviceResult){
-        authenticate([serviceResult.jsonData objectForKey:@"pinCode"]);
-    } error:^(ServiceResult *serviceResult) {
-        authenticate(nil);
-    }];
+    [[Service getInstance]
+            requestResource:@"logintoken"
+                         id:nil
+                     action:nil
+                  arguments:nil
+                       body:nil
+                     method:@"GET"
+                credentials:credentials
+                    success:^(ServiceResult *serviceResult){
+                                 authenticate([serviceResult.jsonData objectForKey:@"pinCode"]);
+                                }
+                      error:^(ServiceResult *serviceResult) {
+                                authenticate(nil);
+                            }
+               progressInfo:progressInfo
+    ];
 }
 
 @end

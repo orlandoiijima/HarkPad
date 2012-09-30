@@ -7,10 +7,6 @@
 //
 
 #import "AdminLoginViewController.h"
-#import "Credentials.h"
-#import "User.h"
-#import "Session.h"
-#import "UserService.h"
 
 @interface AdminLoginViewController ()
 
@@ -40,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.title = NSLocalizedString(@"Login", <#comment#>);
     [_emailField becomeFirstResponder];
 }
 
@@ -52,10 +48,14 @@
 
 
 - (IBAction)go {
-    [self.userService authenticateWithEmail:_emailField.text password:_passwordField.text  authenticated:^(NSString *pin) {
-        if (pin != nil) {
-            [self didAuthenticate: pin];
-        }
+    [self.userService
+            authenticateWithEmail: _emailField.text
+                         password: _passwordField.text
+                     progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Verifying...", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
+                    authenticated:^(NSString *pin) {
+                                    if (pin != nil) {
+                                        [self didAuthenticate: pin];
+                                    }
     }];
 }
 

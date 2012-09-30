@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class CredentialsAlertView;
-
 @interface NewDeviceViewController : UIViewController
 
 - (IBAction) registerDevice;

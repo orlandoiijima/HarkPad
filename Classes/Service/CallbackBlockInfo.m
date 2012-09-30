@@ -7,6 +7,7 @@
 
 #import "CallbackBlockInfo.h"
 #import "ServiceResult.h"
+#import "ProgressInfo.h"
 
 
 @implementation CallbackBlockInfo {
@@ -15,12 +16,14 @@
 @synthesize success = _success;
 @synthesize error = _error;
 @synthesize view = _view;
+@synthesize progressInfo = _progressInfo;
 
 
-+ (CallbackBlockInfo *) infoWithSuccess: (void (^)(ServiceResult*))success error:(void (^)(ServiceResult*))error {
++ (CallbackBlockInfo *)infoWithSuccess:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo {
     CallbackBlockInfo *info = [[CallbackBlockInfo alloc] init];
     info.success = success;
     info.error = error;
+    info.progressInfo = progressInfo;
     return info;
 }
 @end

@@ -26,7 +26,7 @@
     button.labelCommand = [[UILabel alloc] init];
     button.labelCommand.text = caption;
     button.labelCommand.backgroundColor = [UIColor clearColor];
-    button.labelCommand.textAlignment = UITextAlignmentLeft;
+    button.labelCommand.textAlignment = NSTextAlignmentLeft;
     [button addSubview: button.labelCommand];
 
     button.labelDescription = [[UILabel alloc] init];
@@ -35,8 +35,8 @@
     button.labelDescription.font = [UIFont fontWithName:@"Helvetica-Oblique" size:14];
     button.labelDescription.backgroundColor = [UIColor clearColor];
     button.labelDescription.numberOfLines = 0;
-    button.labelDescription.lineBreakMode = UILineBreakModeWordWrap;
-    button.labelDescription.textAlignment = UITextAlignmentLeft;
+    button.labelDescription.lineBreakMode = NSLineBreakByWordWrapping;
+    button.labelDescription.textAlignment = NSTextAlignmentLeft;
     [button addSubview: button.labelDescription];
 
     [button addTarget:delegate action:action forControlEvents:UIControlEventTouchUpInside];

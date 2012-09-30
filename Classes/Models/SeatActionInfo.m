@@ -24,6 +24,7 @@
     info.beforeSeat = beforeSeat;
     info.seat = seat;
     info.tableSide = side;
+    return info;
 }
 
 - (NSMutableDictionary *)toDictionary
