@@ -57,11 +57,11 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, PIN_WIDTH, PIN_WIDTH)];
         [view addSubview:label];
         CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-        gradientLayer.cornerRadius = 3;
+        gradientLayer.cornerRadius = 6;
         gradientLayer.frame = label.bounds;
-        gradientLayer.borderColor = [[UIColor blackColor] CGColor];
-        gradientLayer.borderWidth = 1;
-        gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:1] CGColor], nil];
+        gradientLayer.borderColor = [[UIColor grayColor] CGColor];
+        gradientLayer.borderWidth = 2;
+        gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1] CGColor], nil];
         gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.4], [NSNumber numberWithFloat:1.0], nil];
         [view.layer insertSublayer:gradientLayer atIndex:0];
 
@@ -107,7 +107,7 @@
     return _pinField.text;
 }
 
-- (void)shake:(UIView*)itemView
+- (void)shake:(UILabel*)itemView
 {
     CGFloat t = 2.0;
 
@@ -122,7 +122,8 @@
 
     } completion:^(BOOL completed){
         itemView.transform = CGAffineTransformIdentity;
-
+        itemView.text = @"";
+        _pinField.text = @"";
     }];
 }
 
