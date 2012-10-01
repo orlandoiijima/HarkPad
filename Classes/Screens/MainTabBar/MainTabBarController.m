@@ -25,10 +25,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    TableMapViewController *tableMapViewController = [[TableMapViewController alloc] init];
-    UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
-    controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
-    [self setupTabController];
+    if ([[Cache getInstance] config] == nil) {
+        [[Service getInstance] getConfig: ^(ServiceResult * serviceResult) {
+                                [[Cache getInstance] loadFromJson: serviceResult.jsonData];
+                                [self setupTabController];
+                                }
+                     error: ^(ServiceResult *serviceResult) {
+                                [serviceResult displayError];
+                                }
+                    progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: self.view]
+        ];
+
+    }
+    else
+        [self setupTabController];
 }
 
 - (void) setupTabController {
@@ -46,11 +56,6 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];
         }
 
-//        if ([key isEqualToString:@"order"]) {
-//            controller = [[NewOrderViewController alloc] init];
-//            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Order", nil) image:[UIImage imageNamed:@"food"] tag:1];
-//        }
-//
         if ([screen isEqualToString:@"dashboard"]) {
             controller = [[DashboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];

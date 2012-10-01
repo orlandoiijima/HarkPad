@@ -14,6 +14,7 @@
 #import "LocationsView.h"
 #import "NewLocationViewController.h"
 #import "Location.h"
+#import "MainTabBarController.h"
 
 @interface AddDeviceViewController ()
 
@@ -68,6 +69,9 @@
             success:^(ServiceResult *serviceResult) {
                 [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
                 [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
+
+                MainTabBarController *controller = [[MainTabBarController alloc] init];
+                [[[UIApplication sharedApplication] keyWindow] setRootViewController: controller];
             }
             error:^(ServiceResult *result) {
                 [result displayError];
@@ -75,6 +79,5 @@
          progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Registering device", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
     ];
 }
-
 
 @end
