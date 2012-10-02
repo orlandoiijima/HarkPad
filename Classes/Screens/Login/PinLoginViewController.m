@@ -17,25 +17,17 @@
 @synthesize numberOfAttempts = _numberOfAttempts;
 @synthesize didAuthenticateBlock = _didAuthenticateBlock;
 @synthesize pinLabels = _pinLabels;
+@synthesize captionField = _captionField;
+
 
 #define PIN_WIDTH 70
 #define PIN_SPACE 10
 
 
-+ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock onCancel:(void (^)(void))didCancel {
++ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock {
     PinLoginViewController *controller = [[PinLoginViewController alloc] init];
     controller.didAuthenticateBlock = didAuthenticateBlock;
-    controller.didCancel = didCancel;
     return controller;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
 }
 
 - (void)viewDidLoad
@@ -44,16 +36,26 @@
 
     self.numberOfAttempts = 0;
 
-    _pinField = [[UITextField alloc]init];
+    _captionField = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    [self.view addSubview:_captionField];
+    _captionField.text = NSLocalizedString(@"Enter your accesskey", nil);
+    _captionField.textAlignment = NSTextAlignmentCenter;
+    _captionField.textColor = [UIColor whiteColor];
+    _captionField.backgroundColor = [UIColor clearColor];
+    _captionField.font = [UIFont systemFontOfSize:30];
+    _captionField.alpha = 0;
+
+    _pinField = [[UITextField alloc] initWithFrame:CGRectMake(-500, -500, 10, 10)];
     _pinField.keyboardType = UIKeyboardTypeNumberPad;
     [_pinField addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
-    _pinField.center = CGPointMake(-500,-500);
     [self.view addSubview: _pinField];
     [_pinField becomeFirstResponder];
 
+    float y = self.view.frame.size.height / 4;
+
     _pinLabels = [[NSMutableArray alloc] init];
     for (int j = 0; j < 4; j++) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, PIN_WIDTH, PIN_WIDTH)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width / 2, y, PIN_WIDTH, PIN_WIDTH)];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, PIN_WIDTH, PIN_WIDTH)];
         [view addSubview:label];
         CAGradientLayer *gradientLayer = [CAGradientLayer layer];
@@ -76,20 +78,28 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    _captionField.frame = CGRectMake(0, self.view.frame.size.height / 4 - 60, self.view.frame.size.width, 40);
     [UIView animateWithDuration:0.5 animations:^{
+        _captionField.alpha = 1;
         float x = (self.view.frame.size.width - 4 * PIN_WIDTH - 3 * PIN_SPACE) / 2;
         for (int j = 0; j < 4; j++) {
             UILabel *label = [_pinLabels objectAtIndex:j];
-            label.superview.center = CGPointMake(x + j * (PIN_WIDTH + PIN_SPACE) + PIN_WIDTH/2, self.view.frame.size.height / 4);
+            label.superview.center = CGPointMake(x + j * (PIN_WIDTH + PIN_SPACE) + PIN_WIDTH/2, label.superview.center.y);
         }
     }];
 }
-
 
 - (void) wrongPin {
     for (int j = 0; j < 4; j++) {
         UILabel *label = [_pinLabels objectAtIndex:j];
         [self shake:label];
+    }
+}
+
+- (void) hidePin {
+    for (int j = 0; j < 4; j++) {
+        UILabel *label = [_pinLabels objectAtIndex:j];
+        label.superview.hidden = YES;
     }
 }
 
@@ -101,10 +111,6 @@
     }
     if([pin length] == 4)
         [self go];
-}
-
-- (NSString *) getPinFromFields {
-    return _pinField.text;
 }
 
 - (void)shake:(UILabel*)itemView
@@ -127,15 +133,9 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)go {
+- (void) go {
     UserService *service = [[UserService alloc] init];
-    NSString *pin = [self getPinFromFields];
+    NSString *pin = _pinField.text;
 
     User *user = [service findUserWithPin: pin];
     if (user == nil) {
@@ -146,6 +146,8 @@
         }
     }
     else {
+        [self hidePin];
+        _captionField.text = user.name;
         [self didAuthenticate:user];
     }
 }

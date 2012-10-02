@@ -46,7 +46,7 @@
     loginViewController = [PinLoginViewController controllerWithAuthenticatedBlock:^(User *user) {
         MainTabBarController *controller = [[MainTabBarController alloc] init];
         [window.rootViewController presentViewController:controller animated:YES completion:nil];
-    }                                                                     onCancel:nil];
+        }];
     window.rootViewController = loginViewController;
     [window addSubview: loginViewController.view];
 

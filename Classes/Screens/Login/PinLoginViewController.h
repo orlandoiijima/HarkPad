@@ -23,9 +23,9 @@
 
 @property(nonatomic, strong) NSMutableArray *pinLabels;
 
-+ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
+@property(nonatomic, strong) UILabel *captionField;
 
-- (NSString *)getPinFromFields;
++ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock;
 
 - (void) go;
 
