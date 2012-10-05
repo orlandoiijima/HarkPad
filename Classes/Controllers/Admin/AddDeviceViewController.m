@@ -22,14 +22,14 @@
 
 @implementation AddDeviceViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+//{
+//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
 
 - (void)viewDidLoad
 {
@@ -76,8 +76,8 @@
             }
             error:^(ServiceResult *result) {
                 [result displayError];
-            }
-         progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Registering device", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
+                }
+         progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering device", nil) parentView:self.view]
     ];
 }
 

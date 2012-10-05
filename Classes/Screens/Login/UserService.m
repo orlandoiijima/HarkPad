@@ -41,6 +41,7 @@
                                  authenticate([serviceResult.jsonData objectForKey:@"pinCode"]);
                                 }
                       error:^(ServiceResult *serviceResult) {
+                                [serviceResult displayError];
                                 authenticate(nil);
                             }
                progressInfo:progressInfo

@@ -652,6 +652,7 @@ static Service *_service;
         urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
     [Logger Info:urlRequest];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
+    request.timeoutInterval = 5;
     [request setHTTPMethod: method];
     AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
     if (credentials != nil)

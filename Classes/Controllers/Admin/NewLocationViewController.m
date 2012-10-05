@@ -63,7 +63,7 @@
                      error:^(ServiceResult *result) {
                        [result displayError];
                    }
-              progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Registering location", nil) label:nil activityIndicatorView:nil]
+              progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering location", nil) parentView:self.view]
     ];
 }
 

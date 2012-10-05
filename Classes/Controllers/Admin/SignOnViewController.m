@@ -64,6 +64,10 @@
         [_password2 becomeFirstResponder];
         return false;
     }
+    if ([_pincode.text length] != 4) {
+        [_pincode becomeFirstResponder];
+        return false;
+    }
     return YES;
 }
 
@@ -82,8 +86,8 @@
     [[Service getInstance]
             signon:signon
            success: ^(ServiceResult *result) {
-               NSString *deviceKey = [result.jsonData valueForKey:@"DeviceKey"];
-               NSString *dataBase = [result.jsonData valueForKey:@"Database"];
+               NSString *deviceKey = [result.jsonData valueForKey:@"deviceKey"];
+               NSString *dataBase = [result.jsonData valueForKey:@"database"];
                [AppVault setDeviceKey: deviceKey];
                [AppVault setDatabase:dataBase];
            }

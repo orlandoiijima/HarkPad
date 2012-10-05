@@ -51,7 +51,8 @@
             _label.text = @"";
     }
     else {
-        [MBProgressHUD hideHUDForView: _parentView animated:YES];
+        if (_parentView != nil)
+            [MBProgressHUD hideHUDForView: _parentView animated:YES];
     }
 }
 

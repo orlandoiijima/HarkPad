@@ -16,8 +16,6 @@
 @interface AddDeviceViewController : BaseAdminViewController <ItemPropertiesDelegate>
 
 @property (retain) IBOutlet LocationsView *locationsView;
-@property (retain) IBOutlet UIActivityIndicatorView *indicatorView;
-@property (retain) IBOutlet UILabel *indicatorLabel;
 
 - (IBAction) addLocation;
 - (IBAction) go;
