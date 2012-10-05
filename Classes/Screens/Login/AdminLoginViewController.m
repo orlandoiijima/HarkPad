@@ -37,6 +37,8 @@
 {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Login", <#comment#>);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(go)];
+
     [_emailField becomeFirstResponder];
 }
 

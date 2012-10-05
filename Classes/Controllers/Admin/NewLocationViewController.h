@@ -14,14 +14,14 @@
 @interface NewLocationViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIPopoverControllerDelegate>
 
 @property (retain) IBOutlet UITextField *locationName;
-@property (retain) IBOutlet UIButton *logoButton;
-@property (retain) IBOutlet UIImageView *logoView;
 
 @property(nonatomic, strong) UIPopoverController *popover;
 
 @property(nonatomic, strong) id<ItemPropertiesDelegate> delegate;
 
-- (IBAction) selectLogo;
+@property(nonatomic, strong) IBOutlet UILabel *logoLabel;
+
+@property(nonatomic, strong) IBOutlet UIImageView * logoView;
 
 - (IBAction) registerLocation;
 

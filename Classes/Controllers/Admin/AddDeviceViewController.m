@@ -36,6 +36,7 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"Register iPad", nil);
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(go)];
 }
 
 - (void)didReceiveMemoryWarning

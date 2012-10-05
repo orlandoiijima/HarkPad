@@ -18,8 +18,6 @@
 @synthesize locations = _locations;
 @dynamic selectedLocationId;
 
-
-
 - (int) selectedLocationId {
     if ([self.indexPathsForSelectedItems count] == 0)
         return -1;
@@ -39,8 +37,8 @@
     [self registerClass:[LocationCell class] forCellWithReuseIdentifier:@"xjsjw"];
 
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(75, 75)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setItemSize:CGSizeMake(150, 80)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     [self setCollectionViewLayout:flowLayout];
 
     self.backgroundView = nil;
