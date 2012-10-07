@@ -8,6 +8,12 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "PinLoginViewController.h"
+#import "ProgressInfo.h"
+#import "ServiceResult.h"
+#import "Cache.h"
+#import "MBProgressHUD.h"
+#import "Service.h"
+#import "AppVault.h"
 
 @interface PinLoginViewController ()
 
@@ -18,6 +24,8 @@
 @synthesize didAuthenticateBlock = _didAuthenticateBlock;
 @synthesize pinLabels = _pinLabels;
 @synthesize captionField = _captionField;
+@synthesize logoView = _logoView;
+@synthesize name = _name;
 
 
 #define PIN_WIDTH 70
@@ -33,6 +41,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    if ([[Cache getInstance] isLoaded] == false)
+        [self getConfig];
 
     self.numberOfAttempts = 0;
 
@@ -156,5 +167,50 @@
     [Session setCredentials:[Credentials credentialsWithEmail:nil password:nil pincode:user.pin]];
     self.didAuthenticateBlock( user);
 }
+
+
+- (void) getConfig
+{
+    Service *service = [Service getInstance];
+    [service getConfig: ^(ServiceResult * serviceResult) {
+                            [[Cache getInstance] loadFromJson: serviceResult.jsonData];
+        [self showLocationInfo];
+                            }
+                 error: ^(ServiceResult *serviceResult) {
+                            [serviceResult displayError];
+                            }
+                progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: self.view]
+    ];
+}
+
+- (void)showLocationInfo {
+    Location *location =  [[Cache getInstance] currentLocation];
+    if (location == nil) return;
+
+    float topMargin = 20;
+    float nameHeight = 30;
+    float logoHeight = 0;
+    float bottomMargin = 30;
+    if (location.logo != nil) {
+        logoHeight = _captionField.frame.origin.y - topMargin - nameHeight - bottomMargin;
+        self.logoView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - logoHeight)/2, topMargin, logoHeight, logoHeight)];
+        self.logoView.image = location.logo;
+        self.logoView.alpha = 0;
+        [self.view addSubview:self.logoView];
+    }
+    self.name = [[UILabel alloc] initWithFrame: CGRectMake(0, logoHeight + 10 + 10, self.view.frame.size.width, nameHeight)];
+    self.name.textColor = [UIColor whiteColor];
+    self.name.backgroundColor = [UIColor clearColor];
+    self.name.alpha = 0;
+    self.name.text = location.name;
+    self.name.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.name];
+
+    [UIView animateWithDuration:0.8 animations:^{
+        self.logoView.alpha = 1;
+        self.name.alpha = 1;
+    }];
+}
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AdminLoginViewController.h"
+#import "AppVault.h"
 
 @interface AdminLoginViewController ()
 
@@ -16,11 +17,12 @@
 @synthesize userService = _userService;
 
 
-+ (AdminLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(Credentials *))didAuthenticateBlock onCancel:(void (^)(void))didCancel {
++ (AdminLoginViewController *)controllerDidEnterAuthentication:(void (^)(Credentials *))didEnterCredentialsBlock didCancel:(void (^)(void))didCancel {
     AdminLoginViewController *controller = [[AdminLoginViewController alloc] init];
-    controller.didAuthenticateBlock = didAuthenticateBlock;
+    controller.didEnterCredentialsBlock = didEnterCredentialsBlock;
     controller.didCancel = didCancel;
     controller.userService = [[UserService alloc] init];
+    controller.contentSizeForViewInPopover = CGSizeMake(300, 400);
     return controller;
 }
 
@@ -50,21 +52,25 @@
 
 
 - (IBAction)go {
-    [self.userService
-            authenticateWithEmail: _emailField.text
-                         password: _passwordField.text
-                     progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Verifying...", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
-                    authenticated:^(NSString *pin) {
-                                    if (pin != nil) {
-                                        [self didAuthenticate: pin];
-                                    }
-    }];
+    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:[[Session credentials] pincode]];
+    [Session setCredentials:credentials];
+    self.didEnterCredentialsBlock(credentials);
+
+//    [self.userService
+//            authenticateWithEmail: _emailField.text
+//                         password: _passwordField.text
+//                     progressInfo: [ProgressInfo progressWithActivityText:NSLocalizedString(@"Verifying...", nil) label:_indicatorLabel activityIndicatorView: _indicatorView]
+//                    authenticated:^(NSString *pin) {
+//                                    if (pin != nil) {
+//                                        [self didAuthenticate: pin];
+//                                    }
+//    }];
 }
 
-- (void) didAuthenticate: (NSString *)pin {
-    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:pin];
-    [Session setCredentials:credentials];
-    self.didAuthenticateBlock(credentials);
-}
+//- (void) didAuthenticate: (NSString *)pin {
+//    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:pin];
+//    [Session setCredentials:credentials];
+//    self.didEnterCredentialsBlock(credentials);
+//}
 
 @end

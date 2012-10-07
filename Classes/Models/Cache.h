@@ -14,6 +14,7 @@
 
 @class Config;
 @class PrintInfo;
+@class Location;
 
 @interface Cache : NSObject {
     MenuCard *menuCard;
@@ -31,6 +32,9 @@
 
 - (NSMutableArray *)getLocationUsers;
 
+- (Location *)currentLocation;
+
+
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
 @property (retain) TreeNode *tree;
@@ -40,6 +44,8 @@
 @property(nonatomic, strong) NSMutableArray *users;
 
 @property(nonatomic, strong) NSMutableArray *locations;
+
+@property(nonatomic) BOOL isLoaded;
 
 - (void) loadFromJson:(NSMutableDictionary *)json;
 

@@ -46,24 +46,14 @@
 
     self.dataSource = self;
     self.delegate = self;
-    [[Service getInstance]
-            requestResource:@"location"
-                         id:nil
-                     action:nil
-                  arguments:nil
-                       body:nil
-                     method:@"GET"
-                credentials:[Session credentials]
-                    success: ^(ServiceResult *serviceResult) {
-                                self.locations = [[NSMutableArray alloc] init];
-                                for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
-                                    Location *location = [Location locationFromJsonDictionary:dictionary];
-                                    [self.locations addObject: location];
-                                }
-                                [self reloadData];
-                            }
-                      error:nil
-               progressInfo:nil];
+    [[Service getInstance] requestResource:@"location" id:nil action:nil arguments:nil body:nil method:@"GET" success:^(ServiceResult *serviceResult) {
+        self.locations = [[NSMutableArray alloc] init];
+        for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
+            Location *location = [Location locationFromJsonDictionary:dictionary];
+            [self.locations addObject:location];
+        }
+        [self reloadData];
+    }                                error:nil progressInfo:nil];
     return;
 }
 

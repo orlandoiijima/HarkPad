@@ -38,4 +38,14 @@
     return dic;
 }
 
+- (void)setLogo:(UIImage *)logo {
+    _logo = logo;
+    entityState = EntityStateModified;
+}
+
+- (void)setName:(id)name {
+    _name = name;
+    entityState = EntityStateModified;
+}
+
 @end

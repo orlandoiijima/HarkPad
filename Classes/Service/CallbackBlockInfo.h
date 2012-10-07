@@ -20,6 +20,8 @@
 
 @property(nonatomic, strong) ProgressInfo *progressInfo;
 
+@property(nonatomic) BOOL isAdminRequired;
+
 + (CallbackBlockInfo *)infoWithSuccess:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)info;
 
 @end

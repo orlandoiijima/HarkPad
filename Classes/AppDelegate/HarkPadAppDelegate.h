@@ -34,7 +34,6 @@
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 @property (nonatomic, retain) IBOutlet UITabBarController *loginViewController;
 
-- (void) getConfig;
 - (BOOL) checkReachability;
 
 @end

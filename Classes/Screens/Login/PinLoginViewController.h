@@ -25,6 +25,10 @@
 
 @property(nonatomic, strong) UILabel *captionField;
 
+@property(nonatomic, strong) UIImageView *logoView;
+
+@property(nonatomic, strong) UILabel *name;
+
 + (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock;
 
 - (void) go;

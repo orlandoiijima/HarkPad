@@ -19,12 +19,13 @@
 @property (retain) IBOutlet UITextField *passwordField;
 @property (retain) IBOutlet UIActivityIndicatorView *indicatorView;
 @property (retain) IBOutlet UILabel *indicatorLabel;
+@property (retain) IBOutlet UIButton *loginButton;
 
-@property(nonatomic, copy) void (^didAuthenticateBlock)(Credentials *);
+@property(nonatomic, copy) void (^didEnterCredentialsBlock)(Credentials *);
 @property(nonatomic, copy) void (^didCancel)(void);
 
 @property(nonatomic, strong) UserService *userService;
 
-+ (AdminLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(Credentials *))didAuthenticateBlock onCancel:(void (^)(void))didCancel;
++ (AdminLoginViewController *)controllerDidEnterAuthentication:(void (^)(Credentials *))didEnterCredentialsBlock didCancel:(void (^)(void))didCancel;
 
 @end

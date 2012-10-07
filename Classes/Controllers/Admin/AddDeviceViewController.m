@@ -12,7 +12,7 @@
 #import "Service.h"
 #import "Session.h"
 #import "LocationsView.h"
-#import "NewLocationViewController.h"
+#import "EditLocationViewController.h"
 #import "Location.h"
 #import "MainTabBarController.h"
 
@@ -46,16 +46,27 @@
 }
 
 - (IBAction)addLocation {
-    NewLocationViewController *controller = [[NewLocationViewController alloc] init];
-    controller.delegate = self;
+    Location *location = [[Location alloc] init];
+    EditLocationViewController *controller = [EditLocationViewController controllerWithLocation: location delegate:self];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didSaveItem:(id)item {
     Location *location = (Location *)item;
     if (location == nil) return;
-    [self.locationsView addLocation: location];
-    [self.navigationController popViewControllerAnimated:YES];
+    [[Service getInstance]
+            createLocation: location
+               credentials: [Session credentials]
+                   success: ^(ServiceResult *serviceResult) {
+                       [self.locationsView addLocation: location];
+                       [self.navigationController popViewControllerAnimated:YES];
+                   }
+                     error:^(ServiceResult *result) {
+                       [self.navigationController popViewControllerAnimated:YES];
+                       [result displayError];
+                   }
+              progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering location", nil) parentView:self.view]
+    ];
 }
 
 

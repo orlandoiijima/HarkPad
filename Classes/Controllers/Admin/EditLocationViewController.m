@@ -1,5 +1,5 @@
 //
-//  NewLocationViewController.m
+//  EditLocationViewController.m
 //  HarkPad
 //
 //  Created by Willem Bison on 11-08-12.
@@ -7,18 +7,21 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "NewLocationViewController.h"
-#import "Service.h"
-#import "Session.h"
-#import "ItemPropertiesDelegate.h"
-#import "Location.h"
+#import "EditLocationViewController.h"
 
-@implementation NewLocationViewController
+@implementation EditLocationViewController
 @synthesize popover = _popover;
 @synthesize delegate = _delegate;
 @synthesize logoLabel = _logoLabel;
 @synthesize logoView = _logoView;
+@synthesize location = _location;
 
++ (EditLocationViewController *)controllerWithLocation:(Location *)location delegate: (id<ItemPropertiesDelegate>) delegate {
+    EditLocationViewController * controller = [[EditLocationViewController alloc] init];
+    controller.location = location;
+    controller.delegate = delegate;
+    return controller;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,35 +47,37 @@
     [_popover presentPopoverFromRect:_logoView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (IBAction)registerLocation {
+- (IBAction)done {
     if ([_locationName.text length] == 0) {
         //  TODO
         return;
     }
-    Location *location = [[Location alloc] init];
-    location.name = _locationName.text;
+
+    _location.name = _locationName.text;
     if (_logoView.image != nil) {
-        location.logo = _logoView.image;
+        _location.logo = _logoView.image;
     }
-    [[Service getInstance]
-            createLocation: location
-               credentials: [Session credentials]
-                   success: ^(ServiceResult *serviceResult) {
-                       [self.delegate didSaveItem:location];
-                   }
-                     error:^(ServiceResult *result) {
-                       [result displayError];
-                   }
-              progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering location", nil) parentView:self.view]
-    ];
+
+    Service *service = [Service getInstance];
+    NSString *method = _location.id == -1 ? @"POST" : @"PUT";
+    [service requestResource:@"location" id:nil action:nil arguments:nil body:[_location toDictionary] method:method success:^(ServiceResult *serviceResult) {
+        [self.delegate didSaveItem:_location];
+    }                  error:^(ServiceResult *result) {
+        [result displayError];
+    }           progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing location", nil) parentView:self.view]];
+
+}
+
+- (BOOL)requiresAdmin {
+    return YES;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"New location", <#comment#>);
+    self.title = _location.id == -1 ?  NSLocalizedString(@"New location", <#comment#>) :  NSLocalizedString(@"Edit location", <#comment#>);
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(registerLocation)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 
     [_logoView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectLogo:)]];
     CAShapeLayer *shapeLayer = [CAShapeLayer layer];
@@ -88,6 +93,9 @@
       UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:15.0];
     [shapeLayer setPath:path.CGPath];
     [[_logoView layer] addSublayer:shapeLayer];
+
+    _logoView.image = _location.logo;
+    _locationName.text = _location.name;
 }
 
 - (void)viewDidUnload

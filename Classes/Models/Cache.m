@@ -21,6 +21,7 @@ static 	Cache * _cache = nil;
 @synthesize printInfo;
 @synthesize users = _users;
 @synthesize locations = _locations;
+@synthesize isLoaded = _isLoaded;
 
 
 + (Cache*) getInstance {
@@ -55,6 +56,8 @@ static 	Cache * _cache = nil;
     for(NSMutableDictionary *dic in [json valueForKey:@"users"]) {
         [_cache.users addObject:[User userFromJsonDictionary: dic]];
     }
+    
+    _isLoaded = YES;
 }
 
 + (void) clear
@@ -76,4 +79,16 @@ static 	Cache * _cache = nil;
     }
     return locationUsers;
 }
+
+- (Location *)currentLocation {
+    if ([_locations count] == 0)
+        return nil;
+    int locationId = [AppVault locationId];
+    for (Location *location in _locations) {
+        if (location.id == locationId)
+            return location;
+    }
+    return nil;
+}
+
 @end

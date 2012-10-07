@@ -16,29 +16,32 @@
 
 }
 @synthesize loginViewController = _loginViewController;
+@synthesize popoverController = _popover;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
-//    if ([Session isAuthenticatedAsAdmin] == false) {
-//        self.loginViewController = [AdminLoginViewController controllerWithAuthenticatedBlock:^(Credentials *credentials) {
-//            [[Service getInstance]
-//                    registerDeviceWithCredentials:credentials
-//                                          success:^(ServiceResult *serviceResult) {
-//                                              [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
-//                                              [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
-//                                              [AppVault setLocationId:[[serviceResult.jsonData objectForKey:@"locationId"] intValue]];
-//                                              [AppVault setLocation:[serviceResult.jsonData objectForKey:@"location"]];
-//                                              [self.loginViewController dismissViewControllerAnimated:YES completion:nil];
-//                                          }
-//                                            error:^(ServiceResult *result) {
-//                                                [result displayError];
-//                                            }
-//            ];
-//        }
-//                                                                                     onCancel:nil];
-//        [self presentViewController: self.loginViewController animated:YES completion:nil];
-//    }
+- (BOOL) requiresAdmin {
+    return NO;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if ([self requiresAdmin] == NO)
+        return;
+    if ([Session isAuthenticatedAsAdmin] == YES)
+        return;
+    _loginViewController = [AdminLoginViewController controllerDidEnterAuthentication:^(Credentials *credentials) {
+        [_popover dismissPopoverAnimated:YES];
+    }                                                                       didCancel:nil];
+
+    self.view.userInteractionEnabled = NO;
+
+    _popover = [[UIPopoverController alloc] initWithContentViewController:_loginViewController];
+    _popover.delegate = self;
+    [_popover presentPopoverFromRect: self.view.frame inView:self.view permittedArrowDirections:0 animated:YES];
+}
+
+- (BOOL)popoverControllerShouldDismissPopover:(UIPopoverController *)popoverController {
+    return NO;
 }
 
 @end

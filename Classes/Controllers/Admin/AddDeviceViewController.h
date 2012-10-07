@@ -13,7 +13,7 @@
 
 @class LocationsView;
 
-@interface AddDeviceViewController : BaseAdminViewController <ItemPropertiesDelegate>
+@interface AddDeviceViewController : UIViewController <ItemPropertiesDelegate>
 
 @property (retain) IBOutlet LocationsView *locationsView;
 

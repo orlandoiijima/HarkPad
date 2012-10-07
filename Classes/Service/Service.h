@@ -24,7 +24,7 @@
 #import "Credentials.h"
 #import "ProgressInfo.h"
 
-@interface Service : NSObject {    
+@interface Service : NSObject <UIPopoverControllerDelegate> {
     NSString *url;
 }
 
@@ -32,6 +32,8 @@
 @property (retain) NSString *url;
 @property (assign) NSString *host;
 @property (retain) NSString *location;
+
+@property(nonatomic, strong) UIPopoverController *popover;
 
 + (Service *) getInstance;
 + (void) clear;
@@ -95,15 +97,6 @@
 
 - (BOOL) checkReachability;
 
-- (void)requestResource:(NSString *)resource
-                     id:(NSString *)id
-                 action:(NSString *)action
-              arguments:(NSString *)arguments
-                   body:(NSDictionary *)body
-                 method:(NSString *)method
-            credentials:(Credentials *)credentials
-                success:(void (^)(ServiceResult *))onSuccess
-                  error:(void (^)(ServiceResult*))onError
-           progressInfo: (ProgressInfo *) progressInfo;
+- (void)requestResource:(NSString *)resource id:(NSString *)id action:(NSString *)action arguments:(NSString *)arguments body:(NSDictionary *)body method:(NSString *)method success:(void (^)(ServiceResult *))onSuccess error:(void (^)(ServiceResult *))onError progressInfo:(ProgressInfo *)progressInfo;
 
 @end

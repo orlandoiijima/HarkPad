@@ -30,11 +30,6 @@
 
     [TestFlight takeOff:@"64c7394c3f8507999809cd493b267759_NjkxNDQyMDEyLTAzLTA4IDA3OjU2OjI4LjI4MDQwOQ"];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(settingChanged:)
-                                                 name: kIASKAppSettingChanged object:nil];
-
-
     if ([AppVault isDeviceRegistered] == false) {
         NewDeviceViewController *signOnController = [[NewDeviceViewController alloc] init];
         UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: signOnController];
@@ -50,14 +45,7 @@
     window.rootViewController = loginViewController;
     [window addSubview: loginViewController.view];
 
-    [self getConfig];
-
     return YES;
-}
-
-- (void) settingChanged: (NSNotification *)notification {
-    [Service clear];
-    [self getConfig];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -66,27 +54,4 @@
 - (BOOL) checkReachability {
     return [[Service getInstance] checkReachability];
 }
-
-- (void) getConfig
-{
-    Service *service = [Service getInstance];
-
-    if ([service checkReachability] == NO) {
-        [MBProgressHUD hideHUDForView:tabBarController.view animated:YES];
-        NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"Service unavailable at %@", nil), service.host];
-        UIAlertView *view = [[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:self cancelButtonTitle: @"OK" otherButtonTitles:nil];
-        [view show];
-        return;
-    }
-
-    [service getConfig: ^(ServiceResult * serviceResult) {
-                            [[Cache getInstance] loadFromJson: serviceResult.jsonData];
-                            }
-                 error: ^(ServiceResult *serviceResult) {
-                            [serviceResult displayError];
-                            }
-                progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: loginViewController.view]
-    ];
-}
-
 @end

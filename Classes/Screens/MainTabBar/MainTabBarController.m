@@ -20,6 +20,7 @@
 #import "SimpleOrderScreen.h"
 #import "MenuTreeMaintenance.h"
 #import "ProductMaintenance.h"
+#import "LocationsViewController.h"
 
 @implementation MainTabBarController
 
@@ -126,6 +127,11 @@
         if ([screen isEqualToString:@"menutree"]) {
             controller = [[MenuTreeMaintenance alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menu", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+
+        if ([screen isEqualToString:@"locations"]) {
+            controller = [[LocationsViewController alloc] init];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Locations", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if (controller != nil) {

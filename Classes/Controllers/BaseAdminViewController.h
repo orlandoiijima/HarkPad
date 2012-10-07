@@ -9,6 +9,11 @@
 
 #import "AdminLoginViewController.h"
 
-@interface BaseAdminViewController : UIViewController
+@interface BaseAdminViewController : UIViewController <UIPopoverControllerDelegate>
 @property(nonatomic, strong) AdminLoginViewController *loginViewController;
+
+@property(nonatomic, strong) UIPopoverController *popoverController;
+
+- (BOOL)requiresAdmin;
+
 @end

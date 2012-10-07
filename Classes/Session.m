@@ -9,6 +9,7 @@
 #import "User.h"
 #import "Credentials.h"
 #import "UserService.h"
+#import "KitchenStatisticsDataSource.h"
 
 
 @implementation Session {
@@ -16,7 +17,7 @@
 }
 
 static Credentials *credentials;
-
+static BOOL isAuthenticatedAsAdmin;
 
 + (User *) authenticatedUser {
     if (credentials ==  nil)
@@ -25,11 +26,17 @@ static Credentials *credentials;
 }
 
 + (BOOL) isAuthenticatedAsAdmin {
-    return credentials != nil && credentials.email != nil && credentials.password != nil;
+    return isAuthenticatedAsAdmin;
+}
+
+
++ (BOOL) setIsAuthenticatedAsAdmin:(BOOL)val{
+    return isAuthenticatedAsAdmin = val;
 }
 
 + (void) setCredentials:(Credentials *) cred {
     credentials = cred;
+    isAuthenticatedAsAdmin = NO;
 }
 
 + (Credentials *)credentials {

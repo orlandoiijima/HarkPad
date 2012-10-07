@@ -97,7 +97,6 @@
     return nil;
 }
 
-
 - (id)init {
     if ((self = [super init])) {
         self.quantity = 1;

@@ -17,6 +17,9 @@
 
 + (BOOL)isAuthenticatedAsAdmin;
 
++ (BOOL)setIsAuthenticatedAsAdmin:(BOOL)val;
+
+
 + (void)setCredentials:(Credentials *)cred;
 
 + (Credentials *)credentials;
