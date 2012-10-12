@@ -46,4 +46,15 @@
     Menu *menu = [[Menu alloc] init];
     return menu;
 }
+
+- (id)copyWithZone:(NSZone *)zone {
+    Menu *menu = [[Menu allocWithZone:zone] init];
+    menu.key = [self.key copy];
+    menu.items = [[NSMutableArray allocWithZone:zone] init];
+    for (MenuItem *item in self.items) {
+        [menu.items addObject:[item copy]];
+    }
+    return menu;
+}
+
 @end

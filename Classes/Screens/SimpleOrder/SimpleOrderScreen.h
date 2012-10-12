@@ -6,15 +6,17 @@
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "MenuTreeView.h"
+#import "MenuPanelView.h"
 #import "Order.h"
 #import "SelectOpenOrder.h"
 
-@interface SimpleOrderScreen : UIViewController <MenuTreeViewDelegate, SelectItemDelegate, OrderDelegate> {
+@class MenuPanelViewController;
+
+@interface SimpleOrderScreen : UIViewController <ProductPanelDelegate, SelectItemDelegate, OrderDelegate> {
     Order * _order;
 }
 
-@property (retain) MenuTreeView *productView;
+@property (retain) MenuPanelView *productView;
 @property (retain) UITableView *orderView;
 @property (retain) UIButton *cashButton;
 @property (retain) UIButton *orderButton;

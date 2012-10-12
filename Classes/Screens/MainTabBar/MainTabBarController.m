@@ -18,9 +18,9 @@
 #import "LogViewController.h"
 #import "IASKAppSettingsViewController.h"
 #import "SimpleOrderScreen.h"
-#import "MenuTreeMaintenance.h"
-#import "ProductMaintenance.h"
 #import "LocationsViewController.h"
+#import "MenuCardViewController.h"
+#import "MenuCardListViewController.h"
 
 @implementation MainTabBarController
 
@@ -120,13 +120,8 @@
         }
 
         if ([screen isEqualToString:@"products"]) {
-            controller = [[ProductMaintenance alloc] init];
+            controller = [[MenuCardListViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
-        }
-
-        if ([screen isEqualToString:@"menutree"]) {
-            controller = [[MenuTreeMaintenance alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menu", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if ([screen isEqualToString:@"locations"]) {

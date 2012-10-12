@@ -14,8 +14,6 @@
 #import "OrderLineProperty.h"
 
 @interface MenuCard : NSObject {
-    NSMutableArray *categories;
-    NSMutableArray *menus;
 }
 
 + (MenuCard *) menuFromJson: (NSMutableDictionary *) jsonData;
@@ -23,7 +21,9 @@
 - (Menu *) getMenu: (NSString *) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;
 
-@property (retain) NSMutableArray *categories;
-@property (retain) NSMutableArray *menus;
 
+@property(nonatomic, strong) NSMutableArray *favorites;
+@property(nonatomic, strong) NSMutableArray *menus;
+@property(nonatomic, strong) NSMutableArray *categories;
+@property(nonatomic, strong) NSDate *validFrom;
 @end

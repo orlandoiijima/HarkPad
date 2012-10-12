@@ -38,11 +38,15 @@
     product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
     product.isDeleted = (BOOL)[[jsonDictionary objectForKey:@"isDeleted"] intValue];
+//    id daySection = [jsonDictionary objectForKey:@"daySection"];
+//    if (daySection != nil) {
+//        product.daySection =
+//    }
     product.vat = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"vat"] decimalValue]];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
     id val = [jsonDictionary objectForKey:@"diet"];
     if (val != nil)
-        product.diet = [val intValue];
+        product.diet = (Diet)[val intValue];
 
     id props =  [jsonDictionary objectForKey:@"properties"];
     if (props != nil) {
@@ -108,10 +112,16 @@
     product.id = self.id;
     product.key = [self.key copy];
     product.name = [self.name copy];
+    product.description = [self.description copy];
     product.category = self.category;
     product.entityState = self.entityState;
     product.price = self.price;
-    product.properties = self.properties;
+    product.diet = self.diet;
+    product.vat = self.vat;
+    product.properties = [[NSMutableArray allocWithZone:zone] init];
+    for (NSString *prop in properties) {
+        [product.properties addObject:[prop copy]];
+    }
     return product;
 }
 

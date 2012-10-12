@@ -15,7 +15,6 @@
 @synthesize nameLabel = _nameLabel;
 @synthesize logoImage = _logoImage;
 
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
 

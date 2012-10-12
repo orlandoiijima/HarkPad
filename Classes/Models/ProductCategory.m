@@ -59,5 +59,19 @@
     return dic;
 }
 
+- (id)copyWithZone:(NSZone *)zone {
+    ProductCategory *category = [[ProductCategory allocWithZone:zone] init];
+    category.name = [self.name copy];
+    category.color = [self.color copy];
+    category.products = [[NSMutableArray allocWithZone:zone] init];
+    category.sortOrder = self.sortOrder;
+    category.isFood = self.isFood;
+    for (Product *product in self.products) {
+        Product *newProduct = [product copy];
+        [category.products addObject:newProduct];
+        newProduct.category = category;
+    }
+    return category;
+}
 
 @end

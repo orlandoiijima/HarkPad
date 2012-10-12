@@ -18,6 +18,8 @@
 #import "CrystalButton.h"
 #import "TestFlight.h"
 #import "BillPdf.h"
+#import "MenuPanelViewController.h"
+#import "MenuPanelView.h"
 
 @implementation SimpleOrderScreen
 
@@ -27,13 +29,14 @@
 @synthesize previousOrder = _previousOrder;
 @synthesize dataSource, cashButton, orderButton, amountLabel, popoverController, infoLabel, printInvoiceButton;
 
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
 }
 
-- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
+- (void)didTapProduct:(Product *)product {
     if (product == nil) return;
     if ([_order.lines count] == 0)
         [self setupScreenForNewOrder];
@@ -41,7 +44,6 @@
     [self.dataSource tableView:self.orderView addLine:line];
     [self onOrderUpdated];
 }
-
 
 #pragma mark - View lifecycle
 
@@ -61,15 +63,18 @@
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
     float columnHeight = self.view.bounds.size.height - 2*margin;
 
-    self.productView = [[MenuTreeView alloc] initWithFrame:CGRectMake(margin, margin, columnWidth, columnHeight)];
+    self.productView = [MenuPanelView viewWithFrame: CGRectMake(margin, margin, columnWidth, columnHeight) menuCard: [[Cache getInstance] menuCard] delegate: self];
+
     [self.view addSubview:self.productView];
-    self.productView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.productView.menuDelegate = self;
-    self.productView.leftHeaderWidth = 20;
-    self.productView.topHeaderHeight = 20;
-    self.productView.cellPadding = CGSizeMake(3, 3);
-    [self.productView setNeedsDisplay];
-    self.productView.tapStyle = tapNothing;
+
+//    self.productView = [[MenuTreeView alloc] initWithFrame:CGRectMake(margin, margin, columnWidth, columnHeight)];
+//    [self.view addSubview:self.productView];
+//    self.productView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    self.productView.menuDelegate = self;
+//    self.productView.leftHeaderWidth = 20;
+//    self.productView.topHeaderHeight = 20;
+//    self.productView.cellPadding = CGSizeMake(3, 3);
+//    [self.productView setNeedsDisplay];
 
     float x = 2*margin + self.productView.frame.size.width;
     float y = margin + 20;
@@ -141,7 +146,7 @@
     self.orderButton.alpha = 0;
     [self.orderButton addTarget:self action:@selector(selectOrder) forControlEvents:UIControlEventTouchDown];
 
-    [self.productView reloadData];
+//    [self.productView reloadData];
 
     [self prepareForNewOrder];
 }

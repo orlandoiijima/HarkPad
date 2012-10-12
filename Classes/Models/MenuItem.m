@@ -22,4 +22,12 @@
     return menuItem;
 }
 
+
+- (id)copyWithZone:(NSZone *)zone {
+    MenuItem *menuItem = [[MenuItem allocWithZone:zone] init];
+    menuItem.course = self.course;
+    menuItem.product = [self.product copy];
+    return menuItem;
+}
+
 @end
