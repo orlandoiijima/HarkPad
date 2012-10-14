@@ -11,6 +11,8 @@
 #import "MenuCardViewController.h"
 #import "MenuCardCell.h"
 #import "NSDate-Utilities.h"
+#import "GetDateViewController.h"
+#import "CKCalendarView.h"
 
 @interface MenuCardListViewController ()
 
@@ -89,8 +91,11 @@
 - (IBAction)new {
     MenuCard *newCard = [[[Cache getInstance] menuCard] copy];
     newCard.validFrom = [[NSDate date] dateByAddingDays:7];
-    [self.menuCards addObject:newCard];
-    [_menuList insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem: 0 inSection: 0]]];
+    [self.menuCards insertObject:newCard atIndex:0];
+    GetDateViewController *controller = [[GetDateViewController alloc] init];
+    controller.menuCard = newCard;
+    [self.navigationController pushViewController:controller animated:YES];
+//    [_menuList insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem: 0 inSection: 0]]];
 }
 
 - (void)didReceiveMemoryWarning

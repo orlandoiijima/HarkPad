@@ -9,24 +9,18 @@
 
 @class ProductCategory;
 @class MenuCardViewController;
-
-@protocol CategoryPanelDelegate <NSObject>
-
-@optional
-- (void) didTapCategory: (ProductCategory *)category;
-- (void) didLongPressCategory: (ProductCategory *)category;
-@end
-
+@protocol ProductPanelDelegate;
 
 @interface CategoryPanelView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (retain) id<CategoryPanelDelegate> panelDelegate;
+@property (retain) id<ProductPanelDelegate> panelDelegate;
 
 @property(nonatomic, strong) NSMutableArray *categories;
 
 @property(nonatomic, strong) id selectedCategory;
 
-+ (CategoryPanelView *)panelWithFrame:(CGRect)frame delegate:(id <CategoryPanelDelegate>)delegate;
++ (CategoryPanelView *)panelWithFrame:(CGRect)frame delegate:(id <ProductPanelDelegate>)delegate;
 
 
+- (void)refreshCategory:(ProductCategory *)category;
 @end

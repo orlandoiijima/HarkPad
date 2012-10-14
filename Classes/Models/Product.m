@@ -5,16 +5,13 @@
 //  Created by Willem Bison on 30-09-10.
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
-#import <Foundation/Foundation.h>
-#import "CJSONDeserializer.h"
 #import "Product.h"
 #import "OrderLineProperty.h"
+#import "Utils.h"
 
 
-@implementation Product
-
-@synthesize category, price, name, key, description, sortOrder, properties, isQueued, isDeleted, diet;
-@synthesize vat;
+@implementation Product {
+}
 
 
 - (id)init
@@ -61,7 +58,7 @@
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: self.name forKey:@"name"];
     if (self.description != nil)
         [dic setObject: self.description forKey:@"description"];
@@ -75,7 +72,7 @@
 
 - (BOOL) hasProperty: (int)propertyId
 {
-    for (OrderLineProperty *prop in properties) {
+    for (OrderLineProperty *prop in _properties) {
         if(prop.id == propertyId)
             return YES;
     }
@@ -91,7 +88,7 @@
 
 - (void) deleteProperty: (OrderLineProperty *) orderLineProperty
 {
-    for (OrderLineProperty *prop in properties) {
+    for (OrderLineProperty *prop in _properties) {
         if(prop.id == orderLineProperty.id) {
             [self.properties removeObject:prop];
             return;
@@ -110,16 +107,16 @@
 - (id)copyWithZone:(NSZone *)zone {
     Product *product = [[Product allocWithZone:zone] init];
     product.id = self.id;
-    product.key = [self.key copy];
-    product.name = [self.name copy];
+    product.key = [_key copy];
+    product.name = [_name copy];
     product.description = [self.description copy];
-    product.category = self.category;
+    product.category = _category;
     product.entityState = self.entityState;
-    product.price = self.price;
-    product.diet = self.diet;
-    product.vat = self.vat;
+    product.price = _price;
+    product.diet = _diet;
+    product.vat = _vat;
     product.properties = [[NSMutableArray allocWithZone:zone] init];
-    for (NSString *prop in properties) {
+    for (NSString *prop in _properties) {
         [product.properties addObject:[prop copy]];
     }
     return product;
@@ -129,10 +126,49 @@
     if ([object isKindOfClass:[Product class]] == NO)
         return NO;
     Product *other = (Product *)object;
-    return  [key compare:other.key options:NSCaseInsensitiveSearch] == NSOrderedSame;
+    return  [_key compare:other.key options:NSCaseInsensitiveSearch] == NSOrderedSame;
+}
+
+- (void)setName:(NSString *)aName {
+    if ([[Utils trim:aName] isEqualToString:_name])
+        return;
+    entityState = EntityStateModified;
+    _name = [Utils trim:aName];
+}
+
+- (void)setKey:(NSString *)aKey {
+    if ([[Utils trim:aKey] isEqualToString:_key])
+        return;
+    entityState = EntityStateModified;
+    _key = [Utils trim:aKey];
+}
+
+- (void)setDescription:(NSString *)aDescription {
+    if ([[Utils trim:aDescription] isEqualToString:_description])
+        return;
+    entityState = EntityStateModified;
+    _description = [Utils trim:aDescription];
+}
+
+- (void)setPrice:(NSDecimalNumber *)aPrice {
+    if ([aPrice isEqualToNumber:_price]) return;
+    entityState = EntityStateModified;
+    _price = aPrice;
+}
+
+- (void)setDiet:(Diet)aDiet {
+    if (_diet == aDiet) return;
+    entityState = EntityStateModified;
+    _diet = aDiet;
+}
+
+- (void)setVat:(NSDecimalNumber *)aVat {
+    if ([_vat isEqualToNumber: aVat]) return;
+    entityState = EntityStateModified;
+    _vat = aVat;
 }
 
 - (NSUInteger)hash {
-    return [key hash];
+    return [_key hash];
 }
 @end

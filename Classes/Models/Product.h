@@ -16,27 +16,27 @@
 typedef enum Vat {Low=0, High=1} Vat;
 
 @interface Product : DTO <NSCopying> {
-    NSString *name;
-    NSString *key;
-    ProductCategory *category;
-    NSString *description;
-    NSDecimalNumber *price;
-    int sortOrder;
-    bool isQueued;
-    bool isDeleted;
-    Diet diet;
-    NSMutableArray *properties;
-    NSDecimalNumber *vat;
+//    NSString *name;
+//    NSString *key;
+//    ProductCategory *category;
+//    NSString *description;
+//    NSDecimalNumber *price;
+//    int sortOrder;
+//    bool isQueued;
+//    bool isDeleted;
+//    Diet diet;
+//    NSMutableArray *properties;
+//    NSDecimalNumber *vat;
 }
 
 
-@property (retain) NSString *name;
-@property (retain) NSString *key;
+@property (retain, nonatomic) NSString *name;
+@property (retain, nonatomic) NSString *key;
 @property (retain) ProductCategory *category;
-@property (retain) NSString *description;
-@property (retain) NSDecimalNumber *price;
+@property (retain, nonatomic) NSString *description;
+@property (retain, nonatomic) NSDecimalNumber *price;
 @property int sortOrder;
-@property (retain) NSDecimalNumber *vat;
+@property (retain, nonatomic) NSDecimalNumber *vat;
 @property bool isQueued;
 @property bool isDeleted;
 @property (retain) NSMutableArray *properties;

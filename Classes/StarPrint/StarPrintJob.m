@@ -174,7 +174,7 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
             [alert show];
-            [Logger Info:@"Fail to open port %@", portName];
+            [Logger Info:[NSString stringWithFormat:@"Fail to open port %@", portName]];
             return;
         }
 

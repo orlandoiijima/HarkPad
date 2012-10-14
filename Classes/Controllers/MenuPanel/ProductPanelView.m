@@ -52,14 +52,20 @@
     return [self.products objectAtIndex:path.row];
 }
 
-- (int)indexForProduct:(Product *)product {
+- (NSIndexPath *)indexPathForProduct:(Product *)product {
     int i = 0;
     for (Product *p in _products) {
         if ([p.key isEqualToString: product.key])
-            return i;
+            return [NSIndexPath indexPathForItem:i  inSection:0];
         i++;
     }
-    return -1;
+    return nil;
+}
+
+- (void) refreshProduct:(Product *)product {
+    NSIndexPath *indexPath = [self indexPathForProduct:product];
+    if (indexPath == nil) return;
+    [self reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -78,9 +84,9 @@
 
 - (void)setSelectedProduct:(Product *)product {
     _selectedProduct = product;
-    int i = [self indexForProduct: product];
-    if (i == -1) return;
-    [self selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+    NSIndexPath *indexPath = [self indexPathForProduct:product];
+    if (indexPath == nil) return;
+    [self selectItemAtIndexPath: indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -90,5 +96,16 @@
     if (self.panelDelegate == nil) return;
     [self.panelDelegate didTapProduct: product];
 }
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(_selectedProduct == nil)
+        return YES;
+    BOOL canDeselect = [self.panelDelegate canDeselect];
+    if (canDeselect)
+        return YES;
+    self.selectedProduct = _selectedProduct;
+    return NO;
+}
+
 
 @end

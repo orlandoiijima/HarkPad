@@ -21,4 +21,7 @@
 + (NSDecimalNumber *) getAmountFromString: (NSString *)amount;
 + (NSString *) trim: (NSString *) text;
 
++ (void)setModifiedValue:(NSString *)val forKey:(NSString *)key ofObject:(id)o;
+
+
 @end

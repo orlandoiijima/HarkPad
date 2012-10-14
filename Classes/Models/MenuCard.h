@@ -13,7 +13,7 @@
 #import "Menu.h"
 #import "OrderLineProperty.h"
 
-@interface MenuCard : NSObject {
+@interface MenuCard : DTO {
 }
 
 + (MenuCard *) menuFromJson: (NSMutableDictionary *) jsonData;

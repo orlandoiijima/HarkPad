@@ -15,7 +15,7 @@
 @class ProductPanelView;
 @class MenuCard;
 
-@interface MenuPanelView : UIView <ProductPanelDelegate, CategoryPanelDelegate>
+@interface MenuPanelView : UIView <ProductPanelDelegate>
 
 @property(nonatomic, strong) NSMutableArray *categories;
 @property(nonatomic, strong) CategoryPanelView *categoryPanelView;

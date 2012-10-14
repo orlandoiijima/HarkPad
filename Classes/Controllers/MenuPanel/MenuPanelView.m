@@ -70,7 +70,7 @@
     }
 
     view.delegate = delegate;
-    
+
     view.categoryPanelView = [CategoryPanelView panelWithFrame: CGRectMake(0, 0, frame.size.width, 100) delegate:view];
     view.categoryPanelView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     [view addSubview: view.categoryPanelView];
@@ -113,6 +113,10 @@
 
 }
 
+- (BOOL)canDeselect {
+    return [_delegate canDeselect];
+}
+
 - (void)didTapMenu:(Menu *)menu {
     if (_delegate == nil) return;
     [_delegate didTapMenu: menu];
@@ -130,12 +134,26 @@
 - (void)didTapCategory:(ProductCategory *)category {
     [_delegate didTapCategory:category];
     _productPanelView.products = category.products;
-     _productPanelView.selectedProduct = [category.products objectAtIndex:0];
+    [self setSelectedProduct:[category.products objectAtIndex:0]];
     [_delegate didTapProduct: _productPanelView.selectedProduct];
 }
 
 - (void)setSelectedProduct:(id)selectedProduct {
     _productPanelView.selectedProduct = selectedProduct;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([object isKindOfClass:[Product class]]) {
+        Product *product = (Product *)object;
+        if (product == nil) return;
+        [_productPanelView refreshProduct:product];
+    }
+    else {
+        ProductCategory *category = (ProductCategory *)object;
+        if (category == nil) return;
+        [_categoryPanelView refreshCategory: category];
+        [_productPanelView reloadData];
+    }
 }
 
 @end

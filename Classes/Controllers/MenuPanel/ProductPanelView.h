@@ -16,6 +16,7 @@
 
 @optional
 - (void) didTapProduct: (Product *)product;
+- (BOOL) canDeselect;
 - (void) didTapCategory: (ProductCategory *)category;
 - (void) didTapMenu: (Menu *)menu;
 - (void) didLongPressProduct: (Product *)product;
@@ -34,5 +35,6 @@
 
 + (ProductPanelView *)panelWithFrame:(CGRect)frame delegate:(id <ProductPanelDelegate>)delegate;
 
+- (void)refreshProduct:(Product *)product;
 
 @end

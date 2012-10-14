@@ -10,6 +10,7 @@
 #import "ProductCategory.h"
 #import "MenuCard.h"
 #import "CategoryPanelCell.h"
+#import "ProductPanelView.h"
 
 @implementation CategoryPanelView
 @synthesize panelDelegate = _panelDelegate;
@@ -17,7 +18,7 @@
 @synthesize selectedCategory = _selectedCategory;
 
 
-+ (CategoryPanelView *) panelWithFrame:(CGRect)frame  delegate: (id<CategoryPanelDelegate>)delegate {
++ (CategoryPanelView *) panelWithFrame:(CGRect)frame  delegate: (id<ProductPanelDelegate>)delegate {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
@@ -72,20 +73,33 @@
     [self.panelDelegate didTapCategory:category];
 }
 
-- (int)indexForCategory:(ProductCategory *)category {
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    BOOL canDeselect = [self.panelDelegate canDeselect];
+    if (canDeselect)
+        return YES;
+    return NO;
+}
+
+- (NSIndexPath *)indexPathForCategory:(ProductCategory *)category {
     int i = 0;
     for (ProductCategory *c in _categories) {
         if ([c.name isEqualToString:category.name])
-            return i;
+            return [NSIndexPath indexPathForItem:i inSection:0];
         i++;
     }
-    return -1;
+    return nil;
 }
 
 - (void)setSelectedCategory:(ProductCategory *)category {
-    int i = [self indexForCategory:category];
-    if (i == -1) return;
-    [self selectItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+    NSIndexPath *indexPath = [self indexPathForCategory:category];
+    if (indexPath == nil) return;
+    [self selectItemAtIndexPath: indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+}
+
+- (void)refreshCategory:(ProductCategory *)category {
+    NSIndexPath *indexPath = [self indexPathForCategory: category];
+    if (indexPath == nil) return;
+    [self reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
 }
 
 @end

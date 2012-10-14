@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DTO.h"
 
-@interface ProductCategory : NSObject {
+@interface ProductCategory : DTO {
     NSString *name;
     int sortOrder;
     UIColor *color;
     BOOL isFood;
-    NSMutableArray *products;
 }
 
 @property (retain) NSString *name;

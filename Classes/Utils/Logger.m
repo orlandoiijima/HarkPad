@@ -12,20 +12,12 @@
 
 }
 
-+ (void) Info:(NSString *)format, ... {
-    va_list args;
-    va_start(args, format);
-    NSString *logMsg = [[NSString alloc] initWithFormat:format arguments:args];
++ (void) Info:(NSString *)logMsg {
     [Logger Log:LogLevelInfo format:logMsg];
-    va_end(args);
 }
 
-+ (void) Error:(NSString *)format, ... {
-    va_list args;
-    va_start(args, format);
-    NSString *logMsg = [[NSString alloc] initWithFormat:format arguments:args];
++ (void) Error:(NSString *)logMsg {
     [Logger Log:LogLevelError format:logMsg];
-    va_end(args);
 }
 
 + (void) Log: (LogLevel)level format:(NSString *)logMsg {

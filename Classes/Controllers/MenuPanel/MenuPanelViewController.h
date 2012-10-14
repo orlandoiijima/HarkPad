@@ -15,7 +15,7 @@
 @class ProductPanelView;
 @class MenuCard;
 
-@interface MenuPanelViewController : UIViewController <CategoryPanelDelegate, ProductPanelDelegate>
+@interface MenuPanelViewController : UIViewController <ProductPanelDelegate>
 
 @property(nonatomic, strong) CategoryPanelView *categoryPanelView;
 @property(nonatomic, strong) ProductPanelView *productPanelView;

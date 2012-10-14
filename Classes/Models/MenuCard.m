@@ -69,7 +69,7 @@
                 return product;
         }    
     }
-    [Logger Error:@"product '%@' not found", productId];
+    [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
 }
 
@@ -79,9 +79,9 @@
     {
         if([menu.key compare:menuId options:NSCaseInsensitiveSearch] == NSOrderedSame)
             return menu;
-    }   
+    }
 
-    [Logger Error:@"menu '%@' not found", menuId];
+    [Logger Error:[NSString stringWithFormat:@"menu '%@' not found", menuId]];
     return [Menu nullMenu];
 }
 
@@ -122,6 +122,26 @@
         [card.menus addObject: newMenu];
     }
     return card;
+}
+
+- (NSMutableDictionary *)toDictionary {
+    NSMutableDictionary *dictionary = [super toDictionary];
+
+    [dictionary setObject: [_validFrom stringISO8601] forKey:@"validFrom"];
+
+    NSMutableArray *categories = [[NSMutableArray alloc] init];
+    for (ProductCategory *category in _categories) {
+        [categories addObject:[category toDictionary]];
+    }
+    [dictionary setObject:categories forKey:@"categories"];
+
+    NSMutableArray *favorites = [[NSMutableArray alloc] init];
+    for (Product *favorite in _favorites) {
+        [favorites addObject:favorite.key];
+    }
+    [dictionary setObject:favorites forKey:@"favorites"];
+
+    return dictionary;
 }
 
 @end

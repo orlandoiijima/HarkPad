@@ -97,7 +97,7 @@
         return [NSString stringWithFormat:@"%@", [Utils getAmountString: nettAmount withCurrency:YES]];
     }
 
-    [Logger Error: @"Unknown variable '%@'", variable];
+    [Logger Error:[NSString stringWithFormat:@"Unknown variable '%@'", variable]];
     return @"";
 }
 

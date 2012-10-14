@@ -8,10 +8,11 @@
 
 #import "ProductCategory.h"
 #import "Product.h"
+#import "UIColor-Expanded.h"
 
 @implementation ProductCategory
 
-@synthesize name, products, sortOrder, color, isFood;
+@synthesize name, sortOrder, color, isFood;
 
 - (id)init
 {
@@ -30,12 +31,8 @@
     category.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     category.name = [jsonDictionary objectForKey:@"name"];
     category.isFood = (BOOL)[[jsonDictionary objectForKey:@"isFood"] intValue];
-    NSArray *c = [[jsonDictionary objectForKey:@"color"] componentsSeparatedByString:@","];
-    float red = [[c objectAtIndex:0] intValue] / 255.0;
-    float green = [[c objectAtIndex:1] intValue] / 255.0;
-    float blue = [[c objectAtIndex:2] intValue] / 255.0;
-    float alpha = c.count > 3 ? [[c objectAtIndex:3] intValue] / 255.0 : 1.0;
-    category.color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+    NSString *color = [jsonDictionary objectForKey:@"color"];
+    category.color = [UIColor colorWithHexString: color];
     category.products = [[NSMutableArray alloc] init];
     id products = [jsonDictionary objectForKey:@"products"];
     for(NSDictionary *item in products)
@@ -49,13 +46,16 @@
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *dic = [super toDictionary];
     if ([self.name length] > 0)
         [dic setObject: self.name forKey:@"name"];
-    float r,g,b,a;
-    [self.color getRed:&r green:&g blue:&b alpha:&a];
-    NSUInteger x = ((long)(255*r) << 24) + ((long)(255*g) << 16) + ((long)(255*b) << 8) + ((long)(255*a));
-    [dic setObject: [NSNumber numberWithUnsignedLong:x] forKey:@"color"];
+    [dic setObject: self.color.hexStringFromColor forKey:@"color"];
+
+    NSMutableArray *products = [[NSMutableArray alloc] init];
+    for (Product *product in _products) {
+        [products addObject:[product toDictionary]];
+    }
+    [dic setObject: products forKey:@"products"];
     return dic;
 }
 

@@ -34,7 +34,8 @@
 + (ProductPropertiesView *)viewWithFrame:(CGRect)frame;
 
 - (IBAction) colorAction;
-- (IBAction) cancelAction;
+
+- (void)endEdit;
 - (bool) validate;
 
 @end

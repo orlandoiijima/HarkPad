@@ -60,6 +60,10 @@
         [uiPrice becomeFirstResponder];
         return NO;
     }
+    if ([[Utils trim:_uiCategory.text] length] == 0) {
+        [_uiCategory becomeFirstResponder];
+        return NO;
+    }
     return YES;
 }
 
@@ -76,22 +80,12 @@
     [_popoverController dismissPopoverAnimated:YES];
 }
 
-- (IBAction)saveAction {
-    if ([self validate] == NO) return;
-
+- (void)endEdit {
     _product.name = [Utils trim:uiName.text];
-    _product.key = [Utils trim:uiKey.text];
+    [Utils setModifiedValue:uiKey.text forKey:@"key" ofObject:_product];
     _product.price = [Utils getAmountFromString:uiPrice.text];
     _product.category.name = [Utils trim:_uiCategory.text];
-//    product.vat = uiVat.selectedSegmentIndex;
-    if([self.delegate respondsToSelector:@selector(didSaveItem:)])
-        [self.delegate didSaveItem: _product];
+    [self endEditing:NO];
 }
-
-- (IBAction)cancelAction {
-    if([self.delegate respondsToSelector:@selector(didCancelItem:)])
-        [self.delegate didCancelItem: _product];
-}
-
 
 @end

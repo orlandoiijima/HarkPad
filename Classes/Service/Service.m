@@ -370,13 +370,15 @@ static Service *_service;
         urlRequest = [urlRequest stringByAppendingFormat:@"/%@", action];
     if ([arguments length] > 0)
         urlRequest = [urlRequest stringByAppendingFormat:@"?%@", arguments];
-    [Logger Info:urlRequest];
+    [Logger Info:[NSString stringWithFormat:@"%@: %@", method, urlRequest]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
     request.timeoutInterval = 20;
     [request setHTTPMethod: method];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if (body != nil) {
         NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
+        if(error != nil)
+            [Logger Info:error.description];
         [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
         [Logger Info:jsonString];
     }

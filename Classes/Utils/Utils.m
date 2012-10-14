@@ -64,4 +64,12 @@
     return [text stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];    
 }
 
++ (void) setModifiedValue:(NSString *)val forKey:(NSString *)key ofObject:(id)o {
+    NSString *newValue = [Utils trim: val];
+    NSString *oldValue = [o valueForKey:key];
+    if ([newValue isEqualToString:oldValue])
+        return;
+    [o setValue:newValue forKey:key];
+}
+
 @end
