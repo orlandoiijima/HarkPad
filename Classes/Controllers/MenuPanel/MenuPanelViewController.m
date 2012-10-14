@@ -16,10 +16,6 @@
 #import "MenuCard.h"
 #import "MenuPanelView.h"
 
-@interface MenuPanelViewController ()
-
-@end
-
 @implementation MenuPanelViewController
 @synthesize categoryPanelView = _categoryPanelView;
 @synthesize productPanelView = _productPanelView;

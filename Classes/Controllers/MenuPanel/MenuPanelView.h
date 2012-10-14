@@ -22,7 +22,7 @@
 @property(nonatomic, strong) ProductPanelView *productPanelView;
 @property(nonatomic, strong) id<ProductPanelDelegate> delegate;
 
-@property(nonatomic, strong) id selectedProduct;
+@property(nonatomic, strong) id selectedItem;
 
 - (void)setMenuCard:(MenuCard *)card;
 

@@ -50,6 +50,8 @@
 - (id)copyWithZone:(NSZone *)zone {
     Menu *menu = [[Menu allocWithZone:zone] init];
     menu.key = [self.key copy];
+    menu.name = [self.name copy];
+    menu.price = [self.price copy];
     menu.items = [[NSMutableArray allocWithZone:zone] init];
     for (MenuItem *item in self.items) {
         [menu.items addObject:[item copy]];

@@ -14,6 +14,7 @@
 @class ProductPropertiesView;
 @class MenuPanelView;
 @class MenuCard;
+@class MenuPropertiesView;
 
 @interface MenuCardViewController : UIViewController <ProductPanelDelegate, CKCalendarDelegate>
 
@@ -23,7 +24,9 @@
 
 @property(nonatomic, strong) UIPopoverController *popover;
 
-@property(nonatomic, strong) UIButton *calendarButton;
+@property(nonatomic, strong) UIBarButtonItem *calendarButton;
+
+@property(nonatomic, strong) MenuPropertiesView * menuProperties;
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card;
 

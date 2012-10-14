@@ -15,7 +15,7 @@
 @synthesize categoryPanelView = _categoryPanelView;
 @synthesize productPanelView = _productPanelView;
 @synthesize delegate = _delegate;
-@synthesize selectedProduct = _selectedProduct;
+@synthesize selectedItem = _selectedItem;
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -36,6 +36,7 @@
 - (void) setMenuCard:(MenuCard *)card {
     _categories = [[NSMutableArray alloc] init];
     ProductCategory *favorites = [[ProductCategory alloc] init];
+    favorites.name = NSLocalizedString(@"Favorites", nil);
     for (NSString *productKey in card.favorites) {
         Product *product = [card getProduct:productKey];
         if (product != nil)
@@ -43,6 +44,14 @@
     }
     if ([favorites.products count] > 0)
         [_categories addObject:favorites];
+
+    ProductCategory *menus = [[ProductCategory alloc] init];
+    menus.name = NSLocalizedString(@"Menus", nil);
+    for (Menu *menu in card.menus) {
+        [menus.products addObject:menu];
+    }
+    if ([menus.products count] > 0)
+        [_categories addObject:menus];
 
     for (ProductCategory *category in card.categories) {
         [_categories addObject: category];
@@ -79,6 +88,9 @@
     view.productPanelView = [ProductPanelView panelWithFrame:frame  delegate: view];
     view.productPanelView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [view addSubview: view.productPanelView];
+
+    [view setMenuCard: menuCard];
+
     return view;
 }
 
@@ -134,12 +146,16 @@
 - (void)didTapCategory:(ProductCategory *)category {
     [_delegate didTapCategory:category];
     _productPanelView.products = category.products;
-    [self setSelectedProduct:[category.products objectAtIndex:0]];
-    [_delegate didTapProduct: _productPanelView.selectedProduct];
+    [self setSelectedItem:[category.products objectAtIndex:0]];
+    if ([_productPanelView.selectedItem isKindOfClass:[Product class]])
+        [_delegate didTapProduct: _productPanelView.selectedItem];
+    else
+        [_delegate didTapMenu: (Menu *)_productPanelView.selectedItem];
+
 }
 
-- (void)setSelectedProduct:(id)selectedProduct {
-    _productPanelView.selectedProduct = selectedProduct;
+- (void)setSelectedItem:(id)selectedItem {
+    _productPanelView.selectedItem = selectedItem;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -148,7 +164,8 @@
         if (product == nil) return;
         [_productPanelView refreshProduct:product];
     }
-    else {
+    else
+    if ([object isKindOfClass:[ProductCategory class]]) {
         ProductCategory *category = (ProductCategory *)object;
         if (category == nil) return;
         [_categoryPanelView refreshCategory: category];

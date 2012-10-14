@@ -16,7 +16,7 @@
 
 @implementation ProductPanelView
 @synthesize products = _products;
-@synthesize selectedProduct = _selectedProduct;
+@synthesize selectedItem = _selectedItem;
 
 
 + (ProductPanelView *) panelWithFrame:(CGRect) frame delegate: (id<ProductPanelDelegate>)delegate {
@@ -46,7 +46,7 @@
     return [_products count];
 }
 
-- (Product *)productAtIndexPath:(NSIndexPath *)path {
+- (Product *)itemAtIndexPath:(NSIndexPath *)path {
     if (_products == nil || path.row >= _products.count)
         return nil;
     return [self.products objectAtIndex:path.row];
@@ -70,40 +70,52 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    Product *product = [self productAtIndexPath: indexPath];
-    if (product == nil)
+    id item = [self itemAtIndexPath:indexPath];
+    if (item == nil)
         return nil;
 
     static NSString *cellIdentifier = @"xjsjw";
 
     ProductPanelCell *cell = (ProductPanelCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.nameLabel.text = product.key;
-    cell.backgroundColor = product.category.color;
+
+    if ([item isKindOfClass:[Product class]]) {
+        Product *product = (Product *)item;
+        cell.nameLabel.text = product.key;
+        cell.backgroundColor = product.category.color;
+    }
+    else {
+        Menu *menu = (Menu *)item;
+        cell.nameLabel.text = menu.key;
+        cell.backgroundColor = [UIColor greenColor];
+    }
     return cell;
 }
 
-- (void)setSelectedProduct:(Product *)product {
-    _selectedProduct = product;
+- (void)setSelectedItem:(Product *)product {
+    _selectedItem = product;
     NSIndexPath *indexPath = [self indexPathForProduct:product];
     if (indexPath == nil) return;
     [self selectItemAtIndexPath: indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    Product *product = [self productAtIndexPath: indexPath];
+    Product *product = [self itemAtIndexPath:indexPath];
     if (product == nil)
         return;
     if (self.panelDelegate == nil) return;
-    [self.panelDelegate didTapProduct: product];
+    if ([product isKindOfClass:[Product class]])
+        [self.panelDelegate didTapProduct: product];
+    else
+        [self.panelDelegate didTapMenu: (Menu *)product];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(_selectedProduct == nil)
+    if(_selectedItem == nil)
         return YES;
     BOOL canDeselect = [self.panelDelegate canDeselect];
     if (canDeselect)
         return YES;
-    self.selectedProduct = _selectedProduct;
+    self.selectedItem = _selectedItem;
     return NO;
 }
 

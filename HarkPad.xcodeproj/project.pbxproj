@@ -63,6 +63,8 @@
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
 		D0A72BAABF06E3BA77A8DCC1 /* AddDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */; };
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
+		D0A72C2E6124EA25868C780F /* MenuPropertiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72D8E1D27017B35C8B81E /* MenuPropertiesView.m */; };
+		D0A72C75F2D0F19237101ED5 /* MenuPropertiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A726B3FA6D72BD870A25FF /* MenuPropertiesView.xib */; };
 		D0A72C80F8CAF7F52E4C5DA2 /* CKCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72387D870217C26E51DA1 /* CKCalendarViewController.m */; };
 		D0A72C8BE489C4AA1C03EEB7 /* MenuCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723F928BA0C776DEA4D18 /* MenuCardListViewController.m */; };
 		D0A72C927ACFDE4866D43DC8 /* ProgressInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A3D24F7C136261FFABD /* ProgressInfo.m */; };
@@ -405,6 +407,7 @@
 		D0A7242E79EEFD68DE5B54BE /* PrinterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrinterInfo.h; path = PrintInfo/PrinterInfo.h; sourceTree = "<group>"; };
 		D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarBitmap.h; path = Classes/StarPrint/StarBitmap.h; sourceTree = "<group>"; };
 		D0A72448DBCF926199C0FC6E /* left_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_arrow@2x.png"; sourceTree = "<group>"; };
+		D0A7244AEC8A476D394F42E9 /* MenuPropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPropertiesView.h; sourceTree = "<group>"; };
 		D0A7246CD0D27153E4336EC5 /* CategoryPanelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPanelCell.h; sourceTree = "<group>"; };
 		D0A7249DB97997599F7EB71B /* AdminLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminLoginViewController.h; sourceTree = "<group>"; };
 		D0A724C2B42A6077C1207573 /* CredentialsAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsAlertView.h; sourceTree = "<group>"; };
@@ -429,6 +432,7 @@
 		D0A7267418480309D0FFA80E /* GetDateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetDateViewController.xib; sourceTree = "<group>"; };
 		D0A726A1FD5A8A0AFB70FAAC /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
 		D0A726A5084EA7177E79E5B5 /* BaseAdminViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdminViewController.h; sourceTree = "<group>"; };
+		D0A726B3FA6D72BD870A25FF /* MenuPropertiesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuPropertiesView.xib; sourceTree = "<group>"; };
 		D0A7275B8452CF4785C1FCD2 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		D0A7276714A14B2A6E4591FB /* ChangeDeviceLocation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeDeviceLocation.xib; sourceTree = "<group>"; };
 		D0A72776BB4F5B177DAEA2E5 /* LocationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsView.h; sourceTree = "<group>"; };
@@ -477,6 +481,7 @@
 		D0A72CF2E64E2A594E82C9D3 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
 		D0A72CFC3037B51D2F95B0A1 /* ChangeDeviceLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeDeviceLocation.h; sourceTree = "<group>"; };
 		D0A72D1575F5C493F2081AF7 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
+		D0A72D8E1D27017B35C8B81E /* MenuPropertiesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPropertiesView.m; sourceTree = "<group>"; };
 		D0A72D9F4E3B91881325B09A /* MenuPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPanelView.m; sourceTree = "<group>"; };
 		D0A72DCFAA1B03E30879E7E0 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		D0A72DD7C3DD51E902158F30 /* MenuPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPanelViewController.h; sourceTree = "<group>"; };
@@ -1019,6 +1024,9 @@
 				D0A72C3C6AD25B922ABB5162 /* GetDateViewController.h */,
 				D0A72B2B8F16DE9BEB308EEE /* GetDateViewController.m */,
 				D0A7267418480309D0FFA80E /* GetDateViewController.xib */,
+				D0A7244AEC8A476D394F42E9 /* MenuPropertiesView.h */,
+				D0A72D8E1D27017B35C8B81E /* MenuPropertiesView.m */,
+				D0A726B3FA6D72BD870A25FF /* MenuPropertiesView.xib */,
 			);
 			path = Maintenance;
 			sourceTree = "<group>";
@@ -2258,6 +2266,7 @@
 				D0A72654343A4679C7C8585D /* left_arrow@2x.png in Resources */,
 				D0A724D6D5D656705B1769B7 /* right_arrow.png in Resources */,
 				D0A7292B923A742DFCB5A128 /* right_arrow@2x.png in Resources */,
+				D0A72C75F2D0F19237101ED5 /* MenuPropertiesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2518,6 +2527,7 @@
 				D0A726223006CE1CF20B1920 /* CKCalendarView.m in Sources */,
 				D0A72C80F8CAF7F52E4C5DA2 /* CKCalendarViewController.m in Sources */,
 				D0A721F361E14444C6F31532 /* UIBarButtonItem+Image.m in Sources */,
+				D0A72C2E6124EA25868C780F /* MenuPropertiesView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

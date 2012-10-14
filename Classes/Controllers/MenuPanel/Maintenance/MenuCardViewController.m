@@ -15,6 +15,7 @@
 #import "CKCalendarView.h"
 #import "CKCalendarViewController.h"
 #import "UIBarButtonItem+Image.h"
+#import "MenuPropertiesView.h"
 
 @interface MenuCardViewController ()
 
@@ -25,6 +26,7 @@
 @synthesize productProperties = _productProperties;
 @synthesize menuCard = _menuCard;
 @synthesize calendarButton = _calendarButton;
+@synthesize menuProperties = _menuProperties;
 
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card {
@@ -47,6 +49,9 @@
     _productProperties = [ProductPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height)];
     [self.view addSubview:_productProperties];
 
+    _menuProperties = [MenuPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard];
+    [self.view addSubview:_menuProperties];
+
     [_menuPanel setMenuCard: _menuCard];
 
     [self updateTitle];
@@ -59,39 +64,49 @@
 }
 
 - (void)didTapProduct:(Product *)product {
+    _productProperties.hidden = NO;
+    _menuProperties.hidden = YES;
     [self startEdit:product];
 }
 
 - (void)didTapCategory:(ProductCategory *)category {
 
-    _menuPanel.selectedProduct = [category.products objectAtIndex:0];
+    _menuPanel.selectedItem = [category.products objectAtIndex:0];
+}
+
+- (void)didTapMenu:(Menu *)menu {
+    _productProperties.hidden = YES;
+    _menuProperties.hidden = NO;
+    _menuProperties.menu = menu;
 }
 
 - (BOOL)canDeselect {
     if (_productProperties.product == nil)
         return YES;
-    if (_productProperties.validate == NO)
+    if ([_productProperties validate] == NO)
         return NO;
     [self endEdit];
     return YES;
 }
 
 - (void)startEdit: (Product *)product {
-    if (product == nil) return;
-    if (_productProperties.product != nil) {
-        [_productProperties.product removeObserver:_menuPanel forKeyPath:@"key"];
-        [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"color"];
-        [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"name"];
+    if ([_menuPanel.selectedItem isKindOfClass:[Product class]]) {
+        if (product == nil) return;
+        if (_productProperties.product != nil) {
+            [_productProperties.product removeObserver:_menuPanel forKeyPath:@"key"];
+            [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"color"];
+            [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"name"];
+        }
+        _productProperties.product = product;
+        [product addObserver: _menuPanel forKeyPath:@"key" options:0 context:nil];
+        [product.category addObserver: _menuPanel forKeyPath:@"color" options:0 context:nil];
+        [product.category addObserver: _menuPanel forKeyPath:@"name" options:0 context:nil];
     }
-    _productProperties.product = product;
-    [product addObserver: _menuPanel forKeyPath:@"key" options:0 context:nil];
-    [product.category addObserver: _menuPanel forKeyPath:@"color" options:0 context:nil];
-    [product.category addObserver: _menuPanel forKeyPath:@"name" options:0 context:nil];
 }
 
-
 - (void)endEdit {
-    [_productProperties endEdit];
+    if ([_menuPanel.selectedItem isKindOfClass:[Product class]])
+        [_productProperties endEdit];
 }
 
 - (void) save {

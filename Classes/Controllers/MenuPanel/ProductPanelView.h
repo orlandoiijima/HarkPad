@@ -31,7 +31,7 @@
 @property(nonatomic, strong) NSMutableArray * products;
 
 
-@property(nonatomic, strong) Product * selectedProduct;
+@property(nonatomic, strong) Product *selectedItem;
 
 + (ProductPanelView *)panelWithFrame:(CGRect)frame delegate:(id <ProductPanelDelegate>)delegate;
 
