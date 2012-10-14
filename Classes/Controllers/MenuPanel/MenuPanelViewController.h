@@ -23,6 +23,9 @@
 
 @property(nonatomic, strong) MenuCard *menuCard;
 
-+ (MenuPanelViewController *)controllerWithMenuCard:(MenuCard *)menuCard;
+@property(nonatomic, strong) id <ProductPanelDelegate> delegate;
+
++ (MenuPanelViewController *)controllerWithMenuCard:(MenuCard *)menuCard delegate:(id <ProductPanelDelegate>)delegate;
+
 
 @end

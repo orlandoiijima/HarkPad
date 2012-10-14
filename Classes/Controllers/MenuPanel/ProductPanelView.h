@@ -16,9 +16,11 @@
 
 @optional
 - (void) didTapProduct: (Product *)product;
+- (void) didSelectProduct: (Product *)product;
 - (BOOL) canDeselect;
 - (void) didTapCategory: (ProductCategory *)category;
 - (void) didTapMenu: (Menu *)menu;
+- (void) didSelectMenu: (Menu *)menu;
 - (void) didLongPressProduct: (Product *)product;
 - (void) didLongPressMenu: (Menu *)menu;
 - (void) didLongPressCategory: (ProductCategory *)category;

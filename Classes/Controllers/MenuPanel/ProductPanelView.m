@@ -112,7 +112,9 @@
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if(_selectedItem == nil)
         return YES;
-    BOOL canDeselect = [self.panelDelegate canDeselect];
+    BOOL canDeselect = YES;
+    if (self.panelDelegate != nil && [self.panelDelegate respondsToSelector:@selector(canDeselect)])
+        canDeselect = [self.panelDelegate canDeselect];
     if (canDeselect)
         return YES;
     self.selectedItem = _selectedItem;

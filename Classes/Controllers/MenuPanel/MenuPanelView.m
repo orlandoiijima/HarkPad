@@ -126,17 +126,23 @@
 }
 
 - (BOOL)canDeselect {
-    return [_delegate canDeselect];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(canDeselect)])
+        return [_delegate canDeselect];
+    return YES;
 }
 
 - (void)didTapMenu:(Menu *)menu {
-    if (_delegate == nil) return;
-    [_delegate didTapMenu: menu];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapMenu:)])
+        [_delegate didTapMenu: menu];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
+        [_delegate didSelectMenu: menu];
 }
 
 - (void)didTapProduct:(Product *)product {
-    if (_delegate == nil) return;
-    [_delegate didTapProduct:product];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapProduct:)])
+        [_delegate didTapProduct:product];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
+        [_delegate didSelectProduct:product];
 }
 
 - (void)didLongPressCategory:(ProductCategory *)category {
@@ -144,14 +150,18 @@
 }
 
 - (void)didTapCategory:(ProductCategory *)category {
-    [_delegate didTapCategory:category];
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapCategory:)])
+        [_delegate didTapCategory:category];
     _productPanelView.products = category.products;
     [self setSelectedItem:[category.products objectAtIndex:0]];
-    if ([_productPanelView.selectedItem isKindOfClass:[Product class]])
-        [_delegate didTapProduct: _productPanelView.selectedItem];
-    else
-        [_delegate didTapMenu: (Menu *)_productPanelView.selectedItem];
-
+    if ([_productPanelView.selectedItem isKindOfClass:[Product class]]) {
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
+            [_delegate didSelectProduct: _productPanelView.selectedItem];
+    }
+    else {
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
+            [_delegate didSelectMenu: (Menu *)_productPanelView.selectedItem];
+    }
 }
 
 - (void)setSelectedItem:(id)selectedItem {

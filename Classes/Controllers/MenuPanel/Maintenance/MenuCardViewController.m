@@ -63,7 +63,7 @@
     self.title = [NSString stringWithFormat: NSLocalizedString(@"Menu starting %@", nil), [shortDate stringFromDate: _menuCard.validFrom]];
 }
 
-- (void)didTapProduct:(Product *)product {
+- (void)didSelectProduct:(Product *)product {
     _productProperties.hidden = NO;
     _menuProperties.hidden = YES;
     [self startEdit:product];
@@ -74,7 +74,7 @@
     _menuPanel.selectedItem = [category.products objectAtIndex:0];
 }
 
-- (void)didTapMenu:(Menu *)menu {
+- (void)didSelectMenu:(Menu *)menu {
     _productProperties.hidden = YES;
     _menuProperties.hidden = NO;
     _menuProperties.menu = menu;

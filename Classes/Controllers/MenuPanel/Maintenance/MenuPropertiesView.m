@@ -72,11 +72,20 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
-    MenuPanelViewController *controller = [MenuPanelViewController controllerWithMenuCard:_menuCard];
+    [_productTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    MenuPanelViewController *controller = [MenuPanelViewController controllerWithMenuCard:_menuCard delegate:self];
     self.popover = [[UIPopoverController alloc] initWithContentViewController:controller];
     CGRect cellFrame = [self convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView:tableView];
     [self.popover presentPopoverFromRect:cellFrame inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+- (void)didTapProduct:(Product *)product {
+    NSIndexPath *indexPath = [_productTable indexPathForSelectedRow];
+    if (indexPath == nil) return;
+    MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
+    item.product = product;
+    [_productTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.popover dismissPopoverAnimated:YES];
+}
 
 @end

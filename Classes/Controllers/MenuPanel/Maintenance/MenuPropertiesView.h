@@ -7,10 +7,11 @@
 //
 
 #import "Menu.h"
+#import "ProductPanelView.h"
 
 @class MenuCard;
 
-@interface MenuPropertiesView : UIView <UITableViewDataSource, UITableViewDelegate>
+@interface MenuPropertiesView : UIView <UITableViewDataSource, UITableViewDelegate, ProductPanelDelegate>
 
 @property (retain) IBOutlet UITableView *productTable;
 @property (retain) IBOutlet UITextField *nameField;

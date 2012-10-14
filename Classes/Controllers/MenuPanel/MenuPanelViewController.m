@@ -21,11 +21,12 @@
 @synthesize productPanelView = _productPanelView;
 @synthesize categories = _categories;
 @synthesize menuCard = _menuCard;
+@synthesize delegate = _delegate;
 
 
-+ (MenuPanelViewController *) controllerWithMenuCard:(MenuCard *)menuCard {
++ (MenuPanelViewController *) controllerWithMenuCard:(MenuCard *)menuCard delegate:(id<ProductPanelDelegate>)delegate{
     MenuPanelViewController *controller = [[MenuPanelViewController alloc] init];
-
+    controller.delegate = delegate;
     controller.menuCard = menuCard;
     return controller;
 }
@@ -40,7 +41,7 @@
 }
 
 - (void)loadView {
-    self.view = [MenuPanelView viewWithFrame:CGRectMake(0, 0, 100, 100) menuCard: self.menuCard delegate:self];
+    self.view = [MenuPanelView viewWithFrame:CGRectMake(0, 0, 100, 100) menuCard: self.menuCard delegate:_delegate];
 }
 
 
