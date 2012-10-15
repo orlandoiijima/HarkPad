@@ -17,6 +17,8 @@
 
 @interface MenuPanelView : UIView <ProductPanelDelegate>
 
+typedef enum MenuPanelShow {MenuPanelShowProducts, MenuPanelShowAll} MenuPanelShow;
+
 @property(nonatomic, strong) NSMutableArray *categories;
 @property(nonatomic, strong) CategoryPanelView *categoryPanelView;
 @property(nonatomic, strong) ProductPanelView *productPanelView;
@@ -24,8 +26,10 @@
 
 @property(nonatomic, strong) id selectedItem;
 
+@property(nonatomic) MenuPanelShow show;
+
 - (void)setMenuCard:(MenuCard *)card;
 
-+ (MenuPanelView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard delegate:(id<ProductPanelDelegate>)delegate;
++ (MenuPanelView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show delegate:(id <ProductPanelDelegate>)delegate;
 
 @end

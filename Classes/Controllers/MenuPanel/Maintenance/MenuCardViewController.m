@@ -43,7 +43,7 @@
     _calendarButton = [UIBarButtonItem buttonWithImage:[UIImage imageNamed:@"calendar.png"] target:self action:@selector(getDate:)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: doneButton, _calendarButton, nil];
 
-    _menuPanel = [MenuPanelView viewWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard delegate:self];
+    _menuPanel = [MenuPanelView viewWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard menuPanelShow:MenuPanelShowAll delegate:self];
     [self.view addSubview:_menuPanel];
 
     _productProperties = [ProductPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height)];

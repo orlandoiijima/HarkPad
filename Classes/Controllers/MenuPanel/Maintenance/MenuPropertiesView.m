@@ -38,6 +38,7 @@
 
         self = [nib objectAtIndex:0];
         self.frame = frame;
+        [_productTable setEditing:YES animated:YES];
     }
     return self;
 }
@@ -47,7 +48,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_menu.items count] + 1;
+    return [_menu.items count];
 }
 
 //- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -66,6 +67,7 @@
         MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
         cell.textLabel.text = item.product.key;
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
     return cell;
 }
@@ -73,7 +75,7 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
     [_productTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-    MenuPanelViewController *controller = [MenuPanelViewController controllerWithMenuCard:_menuCard delegate:self];
+    MenuPanelViewController *controller = [MenuPanelViewController controllerWithMenuCard:_menuCard menuPanelShow:MenuPanelShowProducts delegate:self];
     self.popover = [[UIPopoverController alloc] initWithContentViewController:controller];
     CGRect cellFrame = [self convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView:tableView];
     [self.popover presentPopoverFromRect:cellFrame inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];

@@ -63,7 +63,7 @@
     float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
     float columnHeight = self.view.bounds.size.height - 2*margin;
 
-    self.productView = [MenuPanelView viewWithFrame: CGRectMake(margin, margin, columnWidth, columnHeight) menuCard: [[Cache getInstance] menuCard] delegate: self];
+    self.productView = [MenuPanelView viewWithFrame: CGRectMake(margin, margin, columnWidth, columnHeight) menuCard: [[Cache getInstance] menuCard] menuPanelShow:MenuPanelShowAll delegate: self];
 
     [self.view addSubview:self.productView];
 

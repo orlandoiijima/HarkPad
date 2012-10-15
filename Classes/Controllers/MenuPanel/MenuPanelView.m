@@ -16,6 +16,7 @@
 @synthesize productPanelView = _productPanelView;
 @synthesize delegate = _delegate;
 @synthesize selectedItem = _selectedItem;
+@synthesize show = _show;
 
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
@@ -35,23 +36,26 @@
 
 - (void) setMenuCard:(MenuCard *)card {
     _categories = [[NSMutableArray alloc] init];
-    ProductCategory *favorites = [[ProductCategory alloc] init];
-    favorites.name = NSLocalizedString(@"Favorites", nil);
-    for (NSString *productKey in card.favorites) {
-        Product *product = [card getProduct:productKey];
-        if (product != nil)
-            [favorites.products addObject:product];
-    }
-    if ([favorites.products count] > 0)
-        [_categories addObject:favorites];
 
-    ProductCategory *menus = [[ProductCategory alloc] init];
-    menus.name = NSLocalizedString(@"Menus", nil);
-    for (Menu *menu in card.menus) {
-        [menus.products addObject:menu];
+    if (_show == MenuPanelShowAll) {
+        ProductCategory *favorites = [[ProductCategory alloc] init];
+        favorites.name = NSLocalizedString(@"Favorites", nil);
+        for (NSString *productKey in card.favorites) {
+            Product *product = [card getProduct:productKey];
+            if (product != nil)
+                [favorites.products addObject:product];
+        }
+        if ([favorites.products count] > 0)
+            [_categories addObject:favorites];
+
+        ProductCategory *menus = [[ProductCategory alloc] init];
+        menus.name = NSLocalizedString(@"Menus", nil);
+        for (Menu *menu in card.menus) {
+            [menus.products addObject:menu];
+        }
+        if ([menus.products count] > 0)
+            [_categories addObject:menus];
     }
-    if ([menus.products count] > 0)
-        [_categories addObject:menus];
 
     for (ProductCategory *category in card.categories) {
         [_categories addObject: category];
@@ -60,23 +64,10 @@
     _categoryPanelView.categories = _categories;
 }
 
-+ (MenuPanelView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard delegate:(id<ProductPanelDelegate>)delegate{
++ (MenuPanelView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show delegate:(id<ProductPanelDelegate>)delegate{
 
     MenuPanelView *view = [[MenuPanelView alloc] initWithFrame:frame];
-
-    view.categories = [[NSMutableArray alloc] init];
-    ProductCategory *favorites = [[ProductCategory alloc] init];
-    for (NSString *productKey in menuCard.favorites) {
-        Product *product = [menuCard getProduct:productKey];
-        if (product != nil)
-            [favorites.products addObject:product];
-    }
-    if ([favorites.products count] > 0)
-        [view.categories addObject:favorites];
-
-    for (ProductCategory *category in menuCard.categories) {
-        [view.categories addObject: category];
-    }
+    view.show = show;
 
     view.delegate = delegate;
 

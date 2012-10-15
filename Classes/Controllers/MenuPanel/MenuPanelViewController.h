@@ -10,6 +10,7 @@
 
 #import "CategoryPanelView.h"
 #import "ProductPanelView.h"
+#import "MenuPanelView.h"
 
 @class CategoryPanelView;
 @class ProductPanelView;
@@ -25,7 +26,9 @@
 
 @property(nonatomic, strong) id <ProductPanelDelegate> delegate;
 
-+ (MenuPanelViewController *)controllerWithMenuCard:(MenuCard *)menuCard delegate:(id <ProductPanelDelegate>)delegate;
+@property(nonatomic) MenuPanelShow show;
+
++ (MenuPanelViewController *)controllerWithMenuCard:(MenuCard *)menuCardd menuPanelShow:(MenuPanelShow)show delegate:(id <ProductPanelDelegate>)delegate;
 
 
 @end
