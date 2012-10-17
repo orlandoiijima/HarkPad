@@ -25,6 +25,7 @@
             _categories = [[NSMutableArray alloc] init];
             _menus = [[NSMutableArray alloc] init];
             _favorites = [[NSMutableArray alloc] init];
+            _vatPercentages = [[NSMutableArray alloc] init];
         }
     }
     return self;
@@ -56,6 +57,8 @@
         [menuCard.favorites addObject:product];
     }
 
+    menuCard.vatPercentages = [jsonCategories valueForKey:@"vatPercentages"];
+
     return menuCard;
 }
 
@@ -71,6 +74,23 @@
     }
     [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
+}
+
+- (NSString *)vatNameByPercentage: (NSDecimalNumber *)vat {
+    for (NSDictionary *dictionary in _vatPercentages) {
+        if ([[dictionary objectForKey:@"percentage"] isEqual:vat])
+            return [dictionary objectForKey:@"name"];
+    }
+    return @"";
+}
+
+- (int)vatIndexByPercentage: (NSDecimalNumber *)vat {
+    for (int j = 0; j < [_vatPercentages count]; j++) {
+        NSDictionary *dictionary = [_vatPercentages objectAtIndex:j];
+        if ([[dictionary objectForKey:@"percentage"] isEqual:vat])
+            return j;
+    }
+    return -1;
 }
 
 - (Menu *) getMenu: (NSString *) menuId
@@ -107,6 +127,7 @@
     card.categories = [[NSMutableArray allocWithZone:zone] init];
     card.favorites = [[NSMutableArray allocWithZone:zone] init];
     card.menus = [[NSMutableArray allocWithZone:zone] init];
+    card.vatPercentages = [[NSMutableArray allocWithZone:zone] init];
     card.validFrom = [self.validFrom copy];
     for (ProductCategory *category in self.categories) {
         [card.categories addObject:[category copy]];
@@ -121,6 +142,10 @@
         }
         [card.menus addObject: newMenu];
     }
+//    for (NSDecimalNumber *percentage in self.vatPercentages) {
+//        [card.vatPercentages addObject:[percentage copy]];
+//    }
+    card.vatPercentages = [NSMutableArray arrayWithArray:self.vatPercentages];
     return card;
 }
 
@@ -140,6 +165,8 @@
         [favorites addObject:favorite.key];
     }
     [dictionary setObject:favorites forKey:@"favorites"];
+
+    [dictionary setObject:_vatPercentages forKey:@"vatPercentages"];
 
     return dictionary;
 }

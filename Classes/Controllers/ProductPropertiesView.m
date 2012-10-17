@@ -17,10 +17,13 @@
 @synthesize uiKey, uiName, uiPrice, uiVat, delegate = _delegate;
 @synthesize product = _product;
 @synthesize popoverController = _popoverController;
+@synthesize vatPercentages = _vatPercentages;
 
 
-+ (ProductPropertiesView *)viewWithFrame:(CGRect)frame {
++ (ProductPropertiesView *)viewWithFrame:(CGRect)frame vatPercentages:(NSMutableDictionary *)vatPercentages {
     ProductPropertiesView * view = [[ProductPropertiesView alloc] initWithFrame:frame];
+    view.vatPercentages = vatPercentages;
+    [view initVat];
     return view;
 }
 
@@ -37,12 +40,22 @@
     return self;
 }
 
+- (void) initVat {
+    [uiVat removeAllSegments];
+    int i = 0;
+    for (NSDictionary *vat in _vatPercentages) {
+        NSDecimalNumber *percentage = [NSString stringWithFormat:@"%@", [vat objectForKey:@"percentage"]];
+        NSString *label = [NSString stringWithFormat:@"%@ (%@)", [vat objectForKey:@"name"], percentage];
+        [uiVat insertSegmentWithTitle:label atIndex:i++ animated:YES];
+    }
+}
+
 - (void)setProduct:(Product *)product {
     _product = product;
     uiKey.text = _product.key;
     uiName.text = _product.name;
     uiPrice.text = [NSString stringWithFormat:@"%@", product.price];
-    uiVat.selectedSegmentIndex =  product.vat == [NSDecimalNumber numberWithInt:6] ? 0:1;
+    uiVat.selectedSegmentIndex = [[[Cache getInstance] menuCard] vatIndexByPercentage:product.vat];
     _uiColorButton.backgroundColor = product.category.color;
     _uiCategory.text = product.category.name;
 }

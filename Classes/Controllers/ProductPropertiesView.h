@@ -31,11 +31,14 @@
 
 @property(nonatomic, strong) UIPopoverController *popoverController;
 
-+ (ProductPropertiesView *)viewWithFrame:(CGRect)frame;
+@property(nonatomic, strong) NSMutableDictionary *vatPercentages;
 
 - (IBAction) colorAction;
 
 - (void)endEdit;
+
++ (ProductPropertiesView *)viewWithFrame:(CGRect)frame vatPercentages:(NSMutableArray *)vatPercentages;
+
 - (bool) validate;
 
 @end

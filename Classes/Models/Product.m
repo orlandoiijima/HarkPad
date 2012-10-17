@@ -112,7 +112,7 @@
     product.description = [self.description copy];
     product.category = _category;
     product.entityState = self.entityState;
-    product.price = _price;
+    product.price = [_price copy];
     product.diet = _diet;
     product.vat = _vat;
     product.properties = [[NSMutableArray allocWithZone:zone] init];

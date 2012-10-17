@@ -123,6 +123,7 @@
 }
 
 - (void)didTapMenu:(Menu *)menu {
+    self.selectedItem = menu;
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapMenu:)])
         [_delegate didTapMenu: menu];
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
@@ -130,6 +131,7 @@
 }
 
 - (void)didTapProduct:(Product *)product {
+    self.selectedItem = product;
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapProduct:)])
         [_delegate didTapProduct:product];
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
@@ -157,6 +159,10 @@
 
 - (void)setSelectedItem:(id)selectedItem {
     _productPanelView.selectedItem = selectedItem;
+}
+
+- (id)selectedItem {
+    return _productPanelView.selectedItem;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
