@@ -10,7 +10,6 @@
 #import "MenuCard.h"
 #import "Menu.h"
 #import "Map.h"
-#import "TreeNode.h"
 
 @class Config;
 @class PrintInfo;
@@ -20,7 +19,6 @@
     MenuCard *menuCard;
     Map *map;
     NSMutableArray *productProperties;
-    TreeNode *tree;
     PrintInfo *printInfo;
     Config *config;
 }
@@ -37,7 +35,6 @@
 
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
-@property (retain) TreeNode *tree;
 @property (retain) Config *config;
 @property(nonatomic, strong) PrintInfo *printInfo;
 

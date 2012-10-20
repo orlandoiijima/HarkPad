@@ -20,7 +20,7 @@
 
 - (void) showForGuest: (Guest *) guest;
 - (void) showForOrder: (Order *) order;
-- (void) showForNode:(TreeNode *)treeNode;
+- (void) showForNode:(id)treeNode;
 
 - (void) setupLabel: (UILabel *)label withProducts: (NSMutableArray *) products counts: (NSMutableDictionary *) productCounts isFood: (BOOL) isFood withFrame: (CGRect) rect;
 

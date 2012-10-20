@@ -226,54 +226,54 @@
     [self setupLabel: foodLabel withProducts: products counts:productCounts isFood:YES withFrame: sectionFrame];
 }
 
--(void)showForNode:(TreeNode *)treeNode {
-    if (treeNode.product == nil && treeNode.menu == nil)
-        return;
-
-    CGFloat y = 15;
-
-    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
-    layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 15);
-    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:0.7 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.6 alpha:1] CGColor], nil];
-
-    y += 5;
-
-    if (treeNode.product) {
-        headerLabel.text = treeNode.product.name;
-        drinkLabel.text = treeNode.product.description;
-        foodLabel.text = [Utils getAmountString: treeNode.product.price withCurrency:YES];
-    }
-    else {
-        headerLabel.text = treeNode.menu.name;
-        drinkLabel.text = @"";
-        for(MenuItem *item in treeNode.menu.items) {
-            if ([drinkLabel.text length] > 0)
-                drinkLabel.text = [drinkLabel.text stringByAppendingString:@", "];
-            drinkLabel.text = [drinkLabel.text stringByAppendingString: item.product.name];
-        }
-        foodLabel.text = [Utils getAmountString: treeNode.menu.price withCurrency:YES];
-    }
-    CGSize textSize = [headerLabel.text sizeWithFont: headerLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, 100)];
-    headerLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
-    headerLabel.textColor = [UIColor blackColor];
-    y += textSize.height + 2;
-
-    if ([headerLabel.text isEqualToString:drinkLabel.text] == NO && [drinkLabel.text length] > 0) {
-        textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
-        drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
-        drinkLabel.textAlignment = NSTextAlignmentCenter;
-        drinkLabel.textColor = [UIColor blackColor];
-        y += textSize.height + 2;
-    }
-    else
-        drinkLabel.text = @"";
-
-    foodLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
-    foodLabel.textColor = [UIColor blackColor];
-    foodLabel.textAlignment = NSTextAlignmentCenter;
-
-    drinkImage.frame = CGRectInfinite;
-    foodImage.frame = CGRectInfinite;
+-(void)showForNode:(id)treeNode {
+//    if (treeNode.product == nil && treeNode.menu == nil)
+//        return;
+//
+//    CGFloat y = 15;
+//
+//    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
+//    layer.frame = CGRectMake(20, y, self.bounds.size.width - 40, self.bounds.size.height - y - 15);
+//    layer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:0.7 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.8 green:0.8 blue:0.6 alpha:1] CGColor], nil];
+//
+//    y += 5;
+//
+//    if (treeNode.product) {
+//        headerLabel.text = treeNode.product.name;
+//        drinkLabel.text = treeNode.product.description;
+//        foodLabel.text = [Utils getAmountString: treeNode.product.price withCurrency:YES];
+//    }
+//    else {
+//        headerLabel.text = treeNode.menu.name;
+//        drinkLabel.text = @"";
+//        for(MenuItem *item in treeNode.menu.items) {
+//            if ([drinkLabel.text length] > 0)
+//                drinkLabel.text = [drinkLabel.text stringByAppendingString:@", "];
+//            drinkLabel.text = [drinkLabel.text stringByAppendingString: item.product.name];
+//        }
+//        foodLabel.text = [Utils getAmountString: treeNode.menu.price withCurrency:YES];
+//    }
+//    CGSize textSize = [headerLabel.text sizeWithFont: headerLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, 100)];
+//    headerLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+//    headerLabel.textColor = [UIColor blackColor];
+//    y += textSize.height + 2;
+//
+//    if ([headerLabel.text isEqualToString:drinkLabel.text] == NO && [drinkLabel.text length] > 0) {
+//        textSize = [drinkLabel.text sizeWithFont: drinkLabel.font constrainedToSize:CGSizeMake(layer.frame.size.width  - 20, layer.frame.size.height - (y - layer.frame.origin.y) - 20)];
+//        drinkLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+//        drinkLabel.textAlignment = NSTextAlignmentCenter;
+//        drinkLabel.textColor = [UIColor blackColor];
+//        y += textSize.height + 2;
+//    }
+//    else
+//        drinkLabel.text = @"";
+//
+//    foodLabel.frame = CGRectMake(layer.frame.origin.x + 10, y, layer.frame.size.width - 20, textSize.height);
+//    foodLabel.textColor = [UIColor blackColor];
+//    foodLabel.textAlignment = NSTextAlignmentCenter;
+//
+//    drinkImage.frame = CGRectInfinite;
+//    foodImage.frame = CGRectInfinite;
 }
 
 @end

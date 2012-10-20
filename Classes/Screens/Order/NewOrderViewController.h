@@ -7,16 +7,17 @@
 //
 
 #import "TableWithSeatsView.h"
-#import "MenuTreeView.h"
 #import "OrderDataSource.h"
 #import "TableOverlaySimple.h"
 #import "TableOverlayHud.h"
 
-@interface NewOrderViewController : UIViewController <MenuTreeViewDelegate, UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate> {
+@class ProductPanelView;
+
+@interface NewOrderViewController : UIViewController <UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate> {
     Course *selectedCourse;
 }
 
-@property (retain) MenuTreeView *productPanelView;
+@property (retain) ProductPanelView *productPanelView;
 @property (retain) TableWithSeatsView *tableView;
 @property (retain) TableOverlayHud *tableOverlayHud;
 @property (retain) UITableView *orderView;

@@ -16,6 +16,10 @@
 #import "CKCalendarViewController.h"
 #import "UIBarButtonItem+Image.h"
 #import "MenuPropertiesView.h"
+#import "MenuCollectionView.h"
+#import "UIColor-Expanded.h"
+#import "ProductCategory.h"
+#import "CategorySupplementaryView.h"
 
 @interface MenuCardViewController ()
 
@@ -27,6 +31,7 @@
 @synthesize menuCard = _menuCard;
 @synthesize calendarButton = _calendarButton;
 @synthesize menuProperties = _menuProperties;
+@synthesize addButton = _addButton;
 
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card {
@@ -41,18 +46,18 @@
 
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(save)];
     _calendarButton = [UIBarButtonItem buttonWithImage:[UIImage imageNamed:@"calendar.png"] target:self action:@selector(getDate:)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: doneButton, _calendarButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects: doneButton, _calendarButton, _addButton, nil];
 
-    _menuPanel = [MenuPanelView viewWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard menuPanelShow:MenuPanelShowAll delegate:self];
+    _menuPanel = [MenuCollectionView viewWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard menuPanelShow:MenuPanelShowAll editing:YES delegate:self];
     [self.view addSubview:_menuPanel];
 
-    _productProperties = [ProductPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height) vatPercentages:_menuCard.vatPercentages];
+    _productProperties = [ProductPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard];
+    _productProperties.delegate = self;
     [self.view addSubview:_productProperties];
 
     _menuProperties = [MenuPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width/2, self.view.frame.size.height) menuCard:_menuCard];
+    _productProperties.delegate = self;
     [self.view addSubview:_menuProperties];
-
-    [_menuPanel setMenuCard: _menuCard];
 
     [self updateTitle];
 }
@@ -69,11 +74,6 @@
     [self startEdit:product];
 }
 
-- (void)didTapCategory:(ProductCategory *)category {
-
-    _menuPanel.selectedItem = [category.products objectAtIndex:0];
-}
-
 - (void)didSelectMenu:(Menu *)menu {
     _productProperties.hidden = YES;
     _menuProperties.hidden = NO;
@@ -85,33 +85,37 @@
         return YES;
     if ([_productProperties validate] == NO)
         return NO;
-    [self endEdit];
     return YES;
+}
+
+- (void)didTapColorButtonOnHeaderView:(CategorySupplementaryView *)headerView {
+    _activeHeaderView = headerView;
+    ColorViewController *controller = [[ColorViewController alloc] init];
+    controller.delegate = self;
+    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    CGRect frame = [self.view convertRect:headerView.frame fromView:_menuPanel];
+    [_popover presentPopoverFromRect: frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
+    ProductCategory *category = _activeHeaderView.category;
+    category.color = [UIColor colorWithHexString:hexColor];
+    int section = [_menuPanel sectionByCategory:category];
+    [_menuPanel reloadSections:[NSIndexSet indexSetWithIndex: section]];
+    [_popover dismissPopoverAnimated:YES];
 }
 
 - (void)startEdit: (Product *)product {
     if ([_menuPanel.selectedItem isKindOfClass:[Product class]]) {
         if (product == nil) return;
-        if (_productProperties.product != nil) {
-            [_productProperties.product removeObserver:_menuPanel forKeyPath:@"key"];
-            [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"color"];
-            [_productProperties.product.category removeObserver:_menuPanel forKeyPath:@"name"];
-        }
         _productProperties.product = product;
-        [product addObserver: _menuPanel forKeyPath:@"key" options:0 context:nil];
-        [product.category addObserver: _menuPanel forKeyPath:@"color" options:0 context:nil];
-        [product.category addObserver: _menuPanel forKeyPath:@"name" options:0 context:nil];
     }
 }
 
-- (void)endEdit {
-    if ([_menuPanel.selectedItem isKindOfClass:[Product class]])
-        [_productProperties endEdit];
-}
 
 - (void) save {
     [[Service getInstance]
-            requestResource: @"menu"
+            requestResource: @"menucard"
                          id: nil
                      action: nil
                   arguments: nil
@@ -123,7 +127,31 @@
                       error: ^(ServiceResult *serviceResult) {
                                   [serviceResult displayError];
                               }
-               progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Storing", nil) parentView:self.view]];
+               progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Saving", nil) parentView:self.view]];
+}
+
+- (void)new {
+    if ([_menuPanel.selectedItem isKindOfClass:[Product class]]) {
+        Product *selectedProduct = (Product *)_menuPanel.selectedItem;
+        Product *product = [[Product alloc] init];
+        product.key = NSLocalizedString(@"New", @"Key of new product");
+        product.category = selectedProduct.category;
+        [product.category.products insertObject: product atIndex:0];
+        [_menuPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
+        _menuPanel.selectedItem = product;
+    }
+}
+
+- (void)didTapDummyInCategory:(ProductCategory *)category {
+    Product *product = [[Product alloc] init];
+    product.key = NSLocalizedString(@"New", @"Key of new product");
+    product.category = category;
+    [product.category.products addObject: product];
+
+    int section = [_menuPanel sectionByCategory:category];
+    int item = [category.products count] - 1;
+    [_menuPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:item inSection:section]]];
+    _menuPanel.selectedItem = product;
 }
 
 - (void) getDate:(UIBarButtonItem *)button {
@@ -138,6 +166,13 @@
     [self updateTitle];
 }
 
+- (void)didModifyItem:(id)item {
+    [_menuPanel refreshItem:item];
+}
+
+- (void)didDeleteItem:(id)item {
+    [_menuPanel deleteItem:item];
+}
 
 - (void)didReceiveMemoryWarning
 {

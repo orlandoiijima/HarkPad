@@ -20,6 +20,9 @@
     self.nameLabel = [[UILabel alloc] initWithFrame:self.bounds];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
+    self.nameLabel.numberOfLines = 0;
+    self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.nameLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.nameLabel];
 
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];

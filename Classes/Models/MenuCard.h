@@ -23,8 +23,16 @@
 - (int)vatIndexByPercentage:(NSDecimalNumber *)vat;
 
 
+- (NSDecimalNumber *)vatPercentageByIndex:(int)i;
+
 - (Menu *) getMenu: (NSString *) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;
+
+- (BOOL)isInQuickMenu:(id)item;
+
+- (void)addToQuickMenu:(id)item;
+
+- (void)removeFromQuickMenu:(id)item;
 
 
 @property(nonatomic, strong) NSMutableArray *favorites;

@@ -17,6 +17,7 @@
 #import "ModalAlert.h"
 #import "Print.h"
 #import "OrderPrinter.h"
+#import "ProductPanelView.h"
 
 @implementation NewOrderViewController
 
@@ -82,14 +83,14 @@
     _tableView.delegate = self;
     _tableView.autoresizingMask = (UIViewAutoresizing) -1;
 
-    _productPanelView = [[MenuTreeView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-    _productPanelView.countColumns = 4;
-    _productPanelView.leftHeaderWidth = 0;
-    _productPanelView.topHeaderHeight = 0;
-    _productPanelView.cellPadding = CGSizeMake(3, 3);
-    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:panelColor];
-    _productPanelView.leftHeaderWidth = 0;
-    _productPanelView.menuDelegate = self;
+    _productPanelView = [[ProductPanelView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+//    _productPanelView.countColumns = 4;
+//    _productPanelView.leftHeaderWidth = 0;
+//    _productPanelView.topHeaderHeight = 0;
+//    _productPanelView.cellPadding = CGSizeMake(3, 3);
+//    [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:panelColor];
+//    _productPanelView.leftHeaderWidth = 0;
+//    _productPanelView.menuDelegate = self;
 
     _orderView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _orderView.backgroundView = nil;
@@ -186,18 +187,18 @@
 }
 
 
-- (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
-    [self.tableOverlayHud showForNode:node];
-}
-
-- (void)menuTreeView:(MenuTreeView *)menuTreeView didEndLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
-    if (self.tableView.isTableSelected) {
-        [self.tableOverlayHud showForOrder:_order];
-    }
-    else {
-        [self.tableOverlayHud showForGuest:self.selectedGuest];
-    }
-}
+//- (void)menuTreeView:(MenuTreeView *)menuTreeView didLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
+//    [self.tableOverlayHud showForNode:node];
+//}
+//
+//- (void)menuTreeView:(MenuTreeView *)menuTreeView didEndLongPressNode:(TreeNode *)node cellLine:(GridViewCellLine *)cellLine {
+//    if (self.tableView.isTableSelected) {
+//        [self.tableOverlayHud showForOrder:_order];
+//    }
+//    else {
+//        [self.tableOverlayHud showForGuest:self.selectedGuest];
+//    }
+//}
 
 - (void)addProduct:(Product *)product forSeat:(int)seat course: (int)course {
     OrderLine *line = [_order addLineWithProductId:product.key seat:seat course: course];
@@ -205,63 +206,63 @@
     [self.dataSource highlightRowsInTableView:_orderView forSeat:seat];
 }
 
-- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
-    if (product == nil) return;
-    if (self.selectedCourse != nil && product.category.isFood) {
-        if (self.selectedCourse.servedOn != nil) {
-            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
-                return;
-        }
-        else
-        if (self.selectedCourse.requestedOn != nil) {
-            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
-                return;
-        }
-    }
-    for(Guest *guest in [_tableView selectedGuests]) {
-        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
-    }
-    if (_tableView.isTableSelected) {
-        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
-    }
-
-    Course *nextCourse = nil;
-    if (self.selectedCourse != nil) {
-        nextCourse = self.selectedCourse.nextCourse;
-        if (nextCourse == nil) {
-            nextCourse = [_order addCourse];
-            [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
-        }
-    }
-
-    [self.tableOverlayHud showForGuest:[self selectedGuest]];
-    if (self.autoAdvance) {
-        if (self.selectedGuest != nil) {
-            if (self.selectedGuest.isLast) {
-                if(nextCourse != nil) {
-                    //
-                    self.selectedCourse = nextCourse;
-                    self.selectedGuest = _order.firstGuest;
-                }
-            }
-            else {
-                Guest *nextGuest =  self.selectedGuest.nextGuest;
-                if (nextGuest != nil)
-                    self.selectedGuest = nextGuest;
-            }
-        }
-    }
-}
-
-- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapMenu:(Menu *)menu {
-    for(Guest *guest in [_tableView selectedGuests]) {
-        for(MenuItem *menuItem in menu.items) {
-            [self addProduct: menuItem.product forSeat: guest.seat course: menuItem.course];
-        }
-    }
-    [self.tableOverlayHud showForGuest:[self selectedGuest]];
-    [self selectNextGuest];
-}
+//- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
+//    if (product == nil) return;
+//    if (self.selectedCourse != nil && product.category.isFood) {
+//        if (self.selectedCourse.servedOn != nil) {
+//            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
+//                return;
+//        }
+//        else
+//        if (self.selectedCourse.requestedOn != nil) {
+//            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
+//                return;
+//        }
+//    }
+//    for(Guest *guest in [_tableView selectedGuests]) {
+//        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
+//    }
+//    if (_tableView.isTableSelected) {
+//        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
+//    }
+//
+//    Course *nextCourse = nil;
+//    if (self.selectedCourse != nil) {
+//        nextCourse = self.selectedCourse.nextCourse;
+//        if (nextCourse == nil) {
+//            nextCourse = [_order addCourse];
+//            [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
+//        }
+//    }
+//
+//    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+//    if (self.autoAdvance) {
+//        if (self.selectedGuest != nil) {
+//            if (self.selectedGuest.isLast) {
+//                if(nextCourse != nil) {
+//                    //
+//                    self.selectedCourse = nextCourse;
+//                    self.selectedGuest = _order.firstGuest;
+//                }
+//            }
+//            else {
+//                Guest *nextGuest =  self.selectedGuest.nextGuest;
+//                if (nextGuest != nil)
+//                    self.selectedGuest = nextGuest;
+//            }
+//        }
+//    }
+//}
+//
+//- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapMenu:(Menu *)menu {
+//    for(Guest *guest in [_tableView selectedGuests]) {
+//        for(MenuItem *menuItem in menu.items) {
+//            [self addProduct: menuItem.product forSeat: guest.seat course: menuItem.course];
+//        }
+//    }
+//    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+//    [self selectNextGuest];
+//}
 
 - (BOOL)canSelectCourse:(NSUInteger)courseOffset {
     return YES;

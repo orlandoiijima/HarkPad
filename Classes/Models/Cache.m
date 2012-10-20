@@ -10,14 +10,13 @@
 #import "Service.h"
 #import "Config.h"
 #import "PrintInfo.h"
-#import "Location.h"
 #import "AppVault.h"
 
 @implementation Cache
 
 static 	Cache * _cache = nil;
 
-@synthesize menuCard, map,tree, productProperties, config;
+@synthesize menuCard, map,productProperties, config;
 @synthesize printInfo;
 @synthesize users = _users;
 @synthesize locations = _locations;
@@ -42,8 +41,7 @@ static 	Cache * _cache = nil;
 
 - (void) loadFromJson:(NSMutableDictionary *)json {
     _cache.map = [Map mapFromJson:[json valueForKey:@"tableMap"]];
-    _cache.menuCard = [MenuCard menuFromJson:[json valueForKey:@"menu"]];
-    _cache.tree = [TreeNode nodeFromJsonDictionary:[json valueForKey:@"menuTree"] parent:nil];
+    _cache.menuCard = [MenuCard menuFromJson:[json valueForKey:@"menuCard"]];
     _cache.config = [Config configFromJson:[json valueForKey:@"settings"]];
     _cache.printInfo = [PrintInfo infoFromJson:[json valueForKey:@"printInfo"]];
 
@@ -64,7 +62,6 @@ static 	Cache * _cache = nil;
 {
     _cache.menuCard = nil;
     _cache.map = nil;
-    _cache.tree = nil;
     _cache.productProperties = nil;
     _cache.users = nil;
     _cache.locations = nil;

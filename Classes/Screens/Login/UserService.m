@@ -28,7 +28,6 @@
                      password:(NSString *)password
                  progressInfo: (ProgressInfo *)progressInfo
                 authenticated: (void (^)(NSString *))authenticate {
-    Credentials *credentials = [Credentials credentialsWithEmail:email password:password pincode:nil];
     [[Service getInstance] requestResource:@"logintoken" id:nil action:nil arguments:nil body:nil method:@"GET" success:^(ServiceResult *serviceResult) {
         authenticate([serviceResult.jsonData objectForKey:@"pinCode"]);
     }                                error:^(ServiceResult *serviceResult) {

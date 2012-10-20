@@ -43,7 +43,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_products count];
+    return [_products count] + 1;
 }
 
 - (Product *)itemAtIndexPath:(NSIndexPath *)path {
@@ -70,14 +70,17 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    id item = [self itemAtIndexPath:indexPath];
-    if (item == nil)
-        return nil;
-
     static NSString *cellIdentifier = @"xjsjw";
 
     ProductPanelCell *cell = (ProductPanelCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
+    id item = [self itemAtIndexPath:indexPath];
+    if (item == nil) {
+        if ([self isDummyAddCell:indexPath]) {
+
+        }
+    }
+    else
     if ([item isKindOfClass:[Product class]]) {
         Product *product = (Product *)item;
         cell.nameLabel.text = product.key;
@@ -91,6 +94,10 @@
     return cell;
 }
 
+- (BOOL) isDummyAddCell:(NSIndexPath *) indexPath {
+    return indexPath.row == [_products count];
+}
+
 - (void)setSelectedItem:(Product *)product {
     _selectedItem = product;
     NSIndexPath *indexPath = [self indexPathForProduct:product];
@@ -99,10 +106,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.panelDelegate == nil) return;
+
+    if ([self isDummyAddCell:indexPath]) {
+        [self.panelDelegate didTapDummy];
+        return;
+    }
+
     Product *product = [self itemAtIndexPath:indexPath];
     if (product == nil)
         return;
-    if (self.panelDelegate == nil) return;
     if ([product isKindOfClass:[Product class]])
         [self.panelDelegate didTapProduct: product];
     else

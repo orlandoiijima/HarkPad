@@ -10,15 +10,21 @@
 
 #import "ProductPanelView.h"
 #import "CKCalendarView.h"
+#import "MenuDelegate.h"
+#import "ColorViewController.h"
+#import "ItemPropertiesDelegate.h"
 
 @class ProductPropertiesView;
 @class MenuPanelView;
 @class MenuCard;
 @class MenuPropertiesView;
+@class MenuCollectionView;
+@class ProductCategory;
+@class CategorySupplementaryView;
 
-@interface MenuCardViewController : UIViewController <ProductPanelDelegate, CKCalendarDelegate>
+@interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate, ColorViewControllerDelegate>
 
-@property(nonatomic, strong) IBOutlet MenuPanelView *menuPanel;
+@property(nonatomic, strong) IBOutlet MenuCollectionView *menuPanel;
 @property(nonatomic, strong) IBOutlet ProductPropertiesView * productProperties;
 @property(nonatomic, strong) MenuCard *menuCard;
 
@@ -27,6 +33,11 @@
 @property(nonatomic, strong) UIBarButtonItem *calendarButton;
 
 @property(nonatomic, strong) MenuPropertiesView * menuProperties;
+
+@property(nonatomic, strong) UIBarButtonItem *addButton;
+
+
+@property(nonatomic, strong) CategorySupplementaryView *activeHeaderView;
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card;
 

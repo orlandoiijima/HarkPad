@@ -30,4 +30,11 @@
     return menuItem;
 }
 
+- (NSMutableDictionary *)toDictionary {
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    [dictionary setObject:[NSNumber numberWithInt: self.course] forKey:@"course"];
+    [dictionary setObject: self.product.key forKey:@"key"];
+    return dictionary;
+}
+
 @end

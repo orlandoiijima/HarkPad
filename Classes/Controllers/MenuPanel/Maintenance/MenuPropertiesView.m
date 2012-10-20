@@ -11,6 +11,9 @@
 #import "MenuItem.h"
 #import "MenuCard.h"
 #import "MenuPanelViewController.h"
+#import "ItemPropertiesDelegate.h"
+#import "ModalAlert.h"
+#import "MenuDelegate.h"
 
 
 @implementation MenuPropertiesView
@@ -20,6 +23,7 @@
     _keyField.text = menu.key;
     _nameField.text = menu.name;
     _priceField.text = [NSString stringWithFormat:@"%@", menu.price];
+    _includedInQuickMenu.on = [_menuCard isInQuickMenu: menu];
     [_productTable reloadData];
 }
 
@@ -39,6 +43,7 @@
         self = [nib objectAtIndex:0];
         self.frame = frame;
         [_productTable setEditing:YES animated:YES];
+        _productTable.allowsSelectionDuringEditing = YES;
     }
     return self;
 }
@@ -69,6 +74,8 @@
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
+    cell.shouldIndentWhileEditing = NO;
+    cell.showsReorderControl = NO;
     return cell;
 }
 
@@ -88,6 +95,54 @@
     item.product = product;
     [_productTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     [self.popover dismissPopoverAnimated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    MenuItem *itemToMove =  [_menu.items objectAtIndex: sourceIndexPath.row];
+    [_menu.items removeObjectAtIndex:sourceIndexPath.row];
+    [_menu.items insertObject:itemToMove atIndex:destinationIndexPath.row];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (IBAction)updateName {
+    _menu.name = [Utils trim: _nameField.text];
+    [self didUpdate];
+}
+
+- (IBAction)updateCode {
+    _menu.key = [Utils trim: _keyField.text];
+    [self didUpdate];
+}
+
+//- (IBAction)updateVat {
+//    _menu.vat = [_menuCard vatPercentageByIndex: .selectedSegmentIndex];
+//    [self didUpdate];
+//}
+
+- (IBAction)updatePrice {
+    _menu.price = [Utils getAmountFromString: _priceField.text];
+    [self didUpdate];
+}
+
+- (IBAction)delete {
+    if ([ModalAlert confirm:NSLocalizedString(@"Delete menu ?", nil)]) {
+        [_delegate didDeleteItem:_menu];
+    }
+}
+
+- (void) didUpdate {
+    if (self.delegate == nil) return;
+    [self.delegate didModifyItem: _menu];
+}
+
+- (IBAction)toggleQuickMenu {
+    if ([_menuCard isInQuickMenu:_menu])
+        [_menuCard removeFromQuickMenu:_menu];
+    else
+        [_menuCard addToQuickMenu:_menu];
 }
 
 @end

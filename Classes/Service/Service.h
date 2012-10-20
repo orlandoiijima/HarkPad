@@ -80,9 +80,6 @@
 - (void) updateCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) createTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) updateTreeNode: (TreeNode *)node success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-
 - (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo;

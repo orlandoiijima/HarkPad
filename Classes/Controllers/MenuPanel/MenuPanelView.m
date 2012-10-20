@@ -60,7 +60,6 @@
     for (ProductCategory *category in card.categories) {
         [_categories addObject: category];
     }
-    [_categoryPanelView setCategories:_categories];
     _categoryPanelView.categories = _categories;
 }
 
@@ -138,6 +137,11 @@
         [_delegate didSelectProduct:product];
 }
 
+- (void)didTapDummy {
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapDummy)])
+        [_delegate didTapDummy];
+}
+
 - (void)didLongPressCategory:(ProductCategory *)category {
 
 }
@@ -147,37 +151,37 @@
         [_delegate didTapCategory:category];
     _productPanelView.products = category.products;
     [self setSelectedItem:[category.products objectAtIndex:0]];
-    if ([_productPanelView.selectedItem isKindOfClass:[Product class]]) {
-        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
-            [_delegate didSelectProduct: _productPanelView.selectedItem];
-    }
-    else {
-        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
-            [_delegate didSelectMenu: (Menu *)_productPanelView.selectedItem];
-    }
 }
 
 - (void)setSelectedItem:(id)selectedItem {
     _productPanelView.selectedItem = selectedItem;
+    if ([selectedItem isKindOfClass:[Product class]]) {
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
+            [_delegate didSelectProduct: selectedItem];
+    }
+    else {
+        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
+            [_delegate didSelectMenu: (Menu *)selectedItem];
+    }
 }
 
 - (id)selectedItem {
     return _productPanelView.selectedItem;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([object isKindOfClass:[Product class]]) {
-        Product *product = (Product *)object;
-        if (product == nil) return;
-        [_productPanelView refreshProduct:product];
-    }
-    else
-    if ([object isKindOfClass:[ProductCategory class]]) {
-        ProductCategory *category = (ProductCategory *)object;
-        if (category == nil) return;
-        [_categoryPanelView refreshCategory: category];
-        [_productPanelView reloadData];
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+//    if ([object isKindOfClass:[Product class]]) {
+//        Product *product = (Product *)object;
+//        if (product == nil) return;
+//        [_productPanelView refreshProduct:product];
+//    }
+//    else
+//    if ([object isKindOfClass:[ProductCategory class]]) {
+//        ProductCategory *category = (ProductCategory *)object;
+//        if (category == nil) return;
+//        [_categoryPanelView refreshCategory: category];
+//        [_productPanelView reloadData];
+//    }
+//}
 
 @end

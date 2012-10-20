@@ -93,6 +93,11 @@
     return -1;
 }
 
+- (NSDecimalNumber *)vatPercentageByIndex: (int)i {
+    NSDictionary *dictionary = [_vatPercentages objectAtIndex:i];
+    return [dictionary objectForKey:@"percentage"];
+}
+
 - (Menu *) getMenu: (NSString *) menuId
 {
     for(Menu *menu in _menus)
@@ -142,9 +147,6 @@
         }
         [card.menus addObject: newMenu];
     }
-//    for (NSDecimalNumber *percentage in self.vatPercentages) {
-//        [card.vatPercentages addObject:[percentage copy]];
-//    }
     card.vatPercentages = [NSMutableArray arrayWithArray:self.vatPercentages];
     return card;
 }
@@ -160,6 +162,12 @@
     }
     [dictionary setObject:categories forKey:@"categories"];
 
+    NSMutableArray *menus = [[NSMutableArray alloc] init];
+    for (Menu *menu in _menus) {
+        [menus addObject:[menu toDictionary]];
+    }
+    [dictionary setObject:menus forKey:@"menus"];
+
     NSMutableArray *favorites = [[NSMutableArray alloc] init];
     for (Product *favorite in _favorites) {
         [favorites addObject:favorite.key];
@@ -169,6 +177,31 @@
     [dictionary setObject:_vatPercentages forKey:@"vatPercentages"];
 
     return dictionary;
+}
+
+- (BOOL) isInQuickMenu: (id)item {
+    NSString *key = [item key];
+    for (Product *favorite in _favorites) {
+        if ([favorite.key isEqualToString: key])
+            return YES;
+    }
+    return NO;
+}
+
+- (void) addToQuickMenu:(id)item {
+    if ([self isInQuickMenu:item])
+        return;
+    [_favorites addObject:item];
+}
+
+- (void) removeFromQuickMenu:(id) item {
+    NSString *key = [item key];
+    for (Product *favorite in _favorites) {
+        if ([favorite.key isEqualToString: key]) {
+            [_favorites removeObject:favorite];
+            return;
+        }
+    }
 }
 
 @end

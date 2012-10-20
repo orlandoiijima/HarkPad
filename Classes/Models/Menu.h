@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DTO.h"
 
 @class MenuCard;
 
@@ -27,4 +28,7 @@
 + (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary withCard: (MenuCard *)menuCard;
 
 + (Menu *)nullMenu;
+
+- (NSMutableDictionary *)toDictionary;
+
 @end

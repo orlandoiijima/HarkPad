@@ -18,6 +18,9 @@
 + (MenuItem *) menuItemFromJsonDictionary: (NSDictionary *)jsonDictionary  withCard: (MenuCard *)menuCard;
 
 @property int course;
+
+- (NSMutableDictionary *)toDictionary;
+
 @property (retain) Product *product;
 
 @end

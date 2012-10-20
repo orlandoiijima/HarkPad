@@ -47,6 +47,19 @@
     return menu;
 }
 
+- (NSMutableDictionary *)toDictionary {
+    NSMutableDictionary *dictionary = [[NSMutableDictionary alloc] init];
+    [dictionary setObject: self.name forKey:@"name"];
+    [dictionary setObject: self.key forKey:@"key"];
+    [dictionary setObject: self.price forKey:@"price"];
+    NSMutableArray *menuItems = [[NSMutableArray alloc] init];
+    for (MenuItem *item in items) {
+        [menuItems addObject:[item toDictionary]];
+    }
+    [dictionary setObject: menuItems forKey:@"items"];
+    return dictionary;
+}
+
 - (id)copyWithZone:(NSZone *)zone {
     Menu *menu = [[Menu allocWithZone:zone] init];
     menu.key = [self.key copy];

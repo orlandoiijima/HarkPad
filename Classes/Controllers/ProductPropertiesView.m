@@ -9,20 +9,19 @@
 #import "ProductPropertiesView.h"
 #import "Utils.h"
 #import "Service.h"
-#import "ColorViewController.h"
-#import "UIColor-Expanded.h"
+#import "ModalAlert.h"
 
 @implementation ProductPropertiesView
 
 @synthesize uiKey, uiName, uiPrice, uiVat, delegate = _delegate;
 @synthesize product = _product;
 @synthesize popoverController = _popoverController;
-@synthesize vatPercentages = _vatPercentages;
+@synthesize menuCard = _menuCard;
 
 
-+ (ProductPropertiesView *)viewWithFrame:(CGRect)frame vatPercentages:(NSMutableDictionary *)vatPercentages {
++ (ProductPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard {
     ProductPropertiesView * view = [[ProductPropertiesView alloc] initWithFrame:frame];
-    view.vatPercentages = vatPercentages;
+    view.menuCard = menuCard;
     [view initVat];
     return view;
 }
@@ -43,9 +42,9 @@
 - (void) initVat {
     [uiVat removeAllSegments];
     int i = 0;
-    for (NSDictionary *vat in _vatPercentages) {
+    for (NSDictionary *vat in _menuCard.vatPercentages) {
         NSDecimalNumber *percentage = [NSString stringWithFormat:@"%@", [vat objectForKey:@"percentage"]];
-        NSString *label = [NSString stringWithFormat:@"%@ (%@)", [vat objectForKey:@"name"], percentage];
+        NSString *label = [NSString stringWithFormat:@"%@ (%@ %%)", [vat objectForKey:@"name"], percentage];
         [uiVat insertSegmentWithTitle:label atIndex:i++ animated:YES];
     }
 }
@@ -55,9 +54,8 @@
     uiKey.text = _product.key;
     uiName.text = _product.name;
     uiPrice.text = [NSString stringWithFormat:@"%@", product.price];
-    uiVat.selectedSegmentIndex = [[[Cache getInstance] menuCard] vatIndexByPercentage:product.vat];
-    _uiColorButton.backgroundColor = product.category.color;
-    _uiCategory.text = product.category.name;
+    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:product.vat];
+    _uiIncludedInQuickMenu.on = [_menuCard isInQuickMenu:_product];
 }
 
 - (bool)validate {
@@ -73,32 +71,45 @@
         [uiPrice becomeFirstResponder];
         return NO;
     }
-    if ([[Utils trim:_uiCategory.text] length] == 0) {
-        [_uiCategory becomeFirstResponder];
-        return NO;
-    }
     return YES;
 }
 
-- (IBAction)colorAction {
-    ColorViewController *controller = [[ColorViewController alloc] init];
-    controller.delegate = self;
-    _popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
-    [_popoverController presentPopoverFromRect: _uiColorButton.frame inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+- (IBAction)toggleQuickMenu {
+    if ([_menuCard isInQuickMenu:_product])
+        [_menuCard removeFromQuickMenu:_product];
+    else
+        [_menuCard addToQuickMenu:_product];
 }
 
-- (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
-    _uiColorButton.backgroundColor = [UIColor colorWithHexString:hexColor];
-    _product.category.color = _uiColorButton.backgroundColor;
-    [_popoverController dismissPopoverAnimated:YES];
-}
-
-- (void)endEdit {
+- (IBAction)updateName {
     _product.name = [Utils trim:uiName.text];
-    [Utils setModifiedValue:uiKey.text forKey:@"key" ofObject:_product];
-    _product.price = [Utils getAmountFromString:uiPrice.text];
-    _product.category.name = [Utils trim:_uiCategory.text];
-    [self endEditing:NO];
+    [self didUpdate];
 }
 
+- (IBAction)updateCode {
+    _product.key = [Utils trim:uiKey.text];
+    [self didUpdate];
+}
+
+- (IBAction)updateVat {
+    _product.vat = [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex];
+    [self didUpdate];
+}
+
+- (IBAction)updatePrice {
+    _product.price = [Utils getAmountFromString:uiPrice.text];
+    [self didUpdate];
+}
+
+- (IBAction)delete {
+    if ([ModalAlert confirm:NSLocalizedString(@"Delete item ?", nil)]) {
+        [_delegate didDeleteItem: _product];
+    }
+
+}
+
+- (void) didUpdate {
+    if (self.delegate == nil) return;
+    [self.delegate didModifyItem:_product];
+}
 @end

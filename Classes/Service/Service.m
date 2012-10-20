@@ -210,16 +210,6 @@ static Service *_service;
 
 // *********************************
 
-- (void) updateTreeNode: (TreeNode *)node success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-{
-}
-
-- (void) createTreeNode: (TreeNode *)node success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
-{
-}
-
-// *********************************
-
 - (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine
 {
     Order *order = [[Order alloc] init];

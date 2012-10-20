@@ -42,7 +42,7 @@
 
     // Do any additional setup after loading the view from its nib.
     [[Service getInstance]
-            requestResource: @"menu"
+            requestResource: @"menucard"
                          id: nil
                      action: nil
                   arguments: nil

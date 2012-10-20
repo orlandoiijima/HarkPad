@@ -18,10 +18,13 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
 
-    self.nameLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    self.nameLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 5, 5)];
     self.nameLabel.backgroundColor = [UIColor clearColor];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.autoresizingMask = (UIViewAutoresizing) -1;
+    self.nameLabel.numberOfLines = 0;
+    self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.nameLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.nameLabel];
 
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];

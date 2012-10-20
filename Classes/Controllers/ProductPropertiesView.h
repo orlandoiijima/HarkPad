@@ -8,36 +8,35 @@
 
 #import <UIKit/UIKit.h>
 #import "Product.h"
-#import "ItemPropertiesDelegate.h"
+#import "MenuDelegate.h"
 #import "ColorViewController.h"
 
-@interface ProductPropertiesView : UIView <ColorViewControllerDelegate> {
-    UITextField *uiKey;
-    UITextField *uiName;
-    UITextField *uiPrice;
-    UISegmentedControl *uiVat;
-    id<ItemPropertiesDelegate> __strong _delegate;
+@class MenuCard;
+
+@interface ProductPropertiesView : UIView {
 }
 
 @property (retain) IBOutlet UITextField *uiKey;
 @property (retain) IBOutlet UITextField *uiName;
 @property (retain) IBOutlet UITextField *uiPrice;
 @property (retain) IBOutlet UISegmentedControl *uiVat;
-@property (nonatomic, retain) id<ItemPropertiesDelegate> delegate;
-@property (retain) IBOutlet UIButton *uiColorButton;
-@property (retain) IBOutlet UITextField *uiCategory;
-
+@property (nonatomic, retain) id<MenuDelegate> delegate;
+@property (retain) IBOutlet UISwitch *uiIncludedInQuickMenu;
+@property (retain) IBOutlet UIButton *uiDelete;
 @property(nonatomic, strong) Product *product;
 
 @property(nonatomic, strong) UIPopoverController *popoverController;
 
-@property(nonatomic, strong) NSMutableDictionary *vatPercentages;
+@property(nonatomic, strong) MenuCard *menuCard;
 
-- (IBAction) colorAction;
+- (IBAction) toggleQuickMenu;
+- (IBAction) updateName;
+- (IBAction) updateCode;
+- (IBAction) updateVat;
+- (IBAction) updatePrice;
+- (IBAction) delete;
 
-- (void)endEdit;
-
-+ (ProductPropertiesView *)viewWithFrame:(CGRect)frame vatPercentages:(NSMutableArray *)vatPercentages;
++ (ProductPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard;
 
 - (bool) validate;
 
