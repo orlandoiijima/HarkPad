@@ -6,9 +6,12 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import "ColorViewController.h"
 #import "CategorySupplementaryView.h"
 #import "ProductCategory.h"
 #import "MenuDelegate.h"
+#import "ColorButtonView.h"
+#import "UIColor-Expanded.h"
 
 @implementation CategorySupplementaryView
 @synthesize delegate = _delegate;
@@ -20,14 +23,16 @@
     _delegate = delegate;
     _name.text = category.name;
     _colorButton.backgroundColor = category.color;
-}
-
-- (void)colorButtonTap {
-    [_delegate didTapColorButtonOnHeaderView:self];
+    _colorButton.delegate = self;
 }
 
 - (IBAction) textChange: (UITextField *)textField {
     _category.name = _name.text;
+}
+
+- (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
+    _category.color = [UIColor colorWithHexString:hexColor];
+    [_delegate didSelectColor:_category.color  forCategory:_category];
 }
 
 @end

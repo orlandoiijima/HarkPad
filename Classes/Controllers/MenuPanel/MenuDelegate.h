@@ -18,7 +18,7 @@
 - (void) didDeleteItem:(id)item;
 - (void) didModifyItem:(id)item;
 - (void) didSelectProduct: (Product *)product;
-- (void) didTapColorButtonOnHeaderView: (CategorySupplementaryView *)view;
+- (void) didSelectColor:(UIColor *)color forCategory: (ProductCategory *)category;
 - (void) didUpdateProduct:(Product *)product;
 - (void) didUpdateMenu:(Menu *)menu;
 - (BOOL) canDeselect;

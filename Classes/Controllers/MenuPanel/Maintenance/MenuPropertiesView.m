@@ -14,6 +14,7 @@
 #import "ItemPropertiesDelegate.h"
 #import "ModalAlert.h"
 #import "MenuDelegate.h"
+#import "MenuCollectionViewController.h"
 
 
 @implementation MenuPropertiesView
@@ -82,13 +83,14 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
     [_productTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-    MenuPanelViewController *controller = [MenuPanelViewController controllerWithMenuCard:_menuCard menuPanelShow:MenuPanelShowProducts delegate:self];
+    MenuCollectionViewController *controller = [MenuCollectionViewController controllerWithMenuCard:_menuCard menuPanelShow:MenuPanelShowProducts delegate:self];
+    controller.selectedItem = item;
     self.popover = [[UIPopoverController alloc] initWithContentViewController:controller];
     CGRect cellFrame = [self convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView:tableView];
     [self.popover presentPopoverFromRect:cellFrame inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (void)didTapProduct:(Product *)product {
+- (void)didSelectProduct:(Product *)product {
     NSIndexPath *indexPath = [_productTable indexPathForSelectedRow];
     if (indexPath == nil) return;
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];

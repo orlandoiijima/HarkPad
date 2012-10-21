@@ -20,7 +20,6 @@
 
 @implementation MenuCardListViewController
 @synthesize menuList = _menuList;
-@synthesize buttonNew = _buttonNew;
 @synthesize menuCards = _menuCards;
 
 
@@ -50,6 +49,8 @@
                      method: @"GET"
                     success: ^(ServiceResult *serviceResult) {
                                 self.menuCards = [[NSMutableArray alloc] init];
+                                MenuCard *dummyCard = [[MenuCard alloc] init];
+                                [self.menuCards addObject: dummyCard];
                                 for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
                                     MenuCard *card = [MenuCard menuFromJson:dictionary];
                                     [self.menuCards addObject:card];
@@ -59,7 +60,7 @@
                       error: ^(ServiceResult *serviceResult) {
                                 [serviceResult displayError];
                              }
-               progressInfo: nil];
+               progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", nil) parentView:self.view]];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,19 +84,25 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    MenuCard *menuCard = [self.menuCards objectAtIndex:indexPath.row];
-    MenuCardViewController *controller = [MenuCardViewController controllerWithMenuCard:menuCard];
-    [self.navigationController pushViewController:controller animated:YES];
+    if (indexPath.row == 0)
+        [self addNewMenuCard];
+    else {
+        MenuCard *menuCard = [self.menuCards objectAtIndex:indexPath.row];
+        MenuCardViewController *controller = [MenuCardViewController controllerWithMenuCard:menuCard];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
-- (IBAction)new {
+- (void) addNewMenuCard {
     MenuCard *newCard = [[[Cache getInstance] menuCard] copy];
+    newCard.entityState = EntityStateNew;
+    newCard.id = -1;
     newCard.validFrom = [[NSDate date] dateByAddingDays:7];
-    [self.menuCards insertObject:newCard atIndex:0];
+    [self.menuCards insertObject:newCard atIndex:1];
     GetDateViewController *controller = [[GetDateViewController alloc] init];
     controller.menuCard = newCard;
     [self.navigationController pushViewController:controller animated:YES];
-//    [_menuList insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem: 0 inSection: 0]]];
+//    [_menuList insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem: 1 inSection: 0]]];
 }
 
 - (void)didReceiveMemoryWarning

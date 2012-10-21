@@ -8,12 +8,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ProductPanelCell.h"
 #import "Product.h"
+#import "Menu.h"
 
 
 @implementation ProductPanelCell {
 
 }
-@synthesize nameLabel = _nameLabel;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -26,6 +26,12 @@
     self.nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.nameLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.nameLabel];
+
+    _addImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"ABAddCircle.png"]];
+    _addImage.frame = CGRectInset(self.bounds, 5, 5);
+    _addImage.contentMode = UIViewContentModeCenter;
+    [self addSubview: _addImage];
+    _addImage.hidden = YES;
 
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.cornerRadius = 1;
@@ -54,5 +60,28 @@
     [super setSelected:selected];
     self.layer.borderColor = selected ? [[UIColor blueColor] CGColor] : [[UIColor blackColor] CGColor];
 }
+
+- (void) setPanelItem:(id)item withCategory:(ProductCategory *)category {
+    if (item == nil) {
+        _nameLabel.hidden = YES;
+        _addImage.hidden = NO;
+        self.backgroundColor = category.color;
+    }
+    else {
+        NSString *key = [item key];
+        _nameLabel.text = key;
+        _nameLabel.hidden = NO;
+        _addImage.hidden = YES;
+        if ([item isKindOfClass:[Product class]]) {
+            Product *product = (Product *)item;
+            self.backgroundColor = product.category.color;
+        }
+        else {
+            Menu *menu = (Menu *)item;
+            self.backgroundColor = [UIColor greenColor];
+        }
+    }
+}
+
 
 @end

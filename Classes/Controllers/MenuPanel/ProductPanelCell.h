@@ -6,8 +6,13 @@
 
 
 #import <Foundation/Foundation.h>
-
+#import "ProductCategory.h"
 
 @interface ProductPanelCell : UICollectionViewCell
 @property(retain) UILabel * nameLabel;
+@property(nonatomic, strong) UIImageView *addImage;
+
+- (void)setPanelItem:(id)item withCategory:(ProductCategory *)category;
+
+
 @end

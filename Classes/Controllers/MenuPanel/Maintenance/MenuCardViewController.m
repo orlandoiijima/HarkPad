@@ -88,22 +88,27 @@
     return YES;
 }
 
-- (void)didTapColorButtonOnHeaderView:(CategorySupplementaryView *)headerView {
-    _activeHeaderView = headerView;
-    ColorViewController *controller = [[ColorViewController alloc] init];
-    controller.delegate = self;
-    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
-    CGRect frame = [self.view convertRect:headerView.frame fromView:_menuPanel];
-    [_popover presentPopoverFromRect: frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-}
-
-- (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
-    ProductCategory *category = _activeHeaderView.category;
-    category.color = [UIColor colorWithHexString:hexColor];
+- (void)didSelectColor:(UIColor *)color forCategory:(ProductCategory *)category {
     int section = [_menuPanel sectionByCategory:category];
     [_menuPanel reloadSections:[NSIndexSet indexSetWithIndex: section]];
-    [_popover dismissPopoverAnimated:YES];
 }
+
+//- (void)didTapColorButtonOnHeaderView:(CategorySupplementaryView *)headerView {
+//    _activeHeaderView = headerView;
+//    ColorViewController *controller = [[ColorViewController alloc] init];
+//    controller.delegate = self;
+//    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+//    CGRect frame = [self.view convertRect:headerView.frame fromView:_menuPanel];
+//    [_popover presentPopoverFromRect: frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+//}
+//
+//- (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
+//    ProductCategory *category = _activeHeaderView.category;
+//    category.color = [UIColor colorWithHexString:hexColor];
+//    int section = [_menuPanel sectionByCategory:category];
+//    [_menuPanel reloadSections:[NSIndexSet indexSetWithIndex: section]];
+//    [_popover dismissPopoverAnimated:YES];
+//}
 
 - (void)startEdit: (Product *)product {
     if ([_menuPanel.selectedItem isKindOfClass:[Product class]]) {

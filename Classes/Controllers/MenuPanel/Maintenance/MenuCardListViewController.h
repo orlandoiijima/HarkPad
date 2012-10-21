@@ -13,9 +13,8 @@
 @interface MenuCardListViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property(nonatomic, strong) IBOutlet UICollectionView * menuList;
-@property(nonatomic, strong) IBOutlet UIButton * buttonNew;
 @property(nonatomic, strong) NSMutableArray *menuCards;
 
-- (IBAction) new;
+- (void) addNewMenuCard;
 
 @end

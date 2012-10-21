@@ -27,7 +27,7 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
-    flowLayout.headerReferenceSize = CGSizeMake(100, 60);
+    flowLayout.headerReferenceSize = CGSizeMake(100, 40);
     [flowLayout setItemSize:CGSizeMake(125, 60)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
 
@@ -59,16 +59,14 @@
             if (product != nil)
                 [favorites.products addObject:product];
         }
-//        if ([favorites.products count] > 0)
-//            [_categories addObject:favorites];
+        [_categories addObject:favorites];
 
         ProductCategory *menus = [[ProductCategory alloc] init];
         menus.name = NSLocalizedString(@"Menus", nil);
         for (Menu *menu in card.menus) {
             [menus.products addObject:menu];
         }
-//        if ([menus.products count] > 0)
-//            [_categories addObject:menus];
+        [_categories addObject:menus];
     }
 
     for (ProductCategory *category in card.categories) {
@@ -134,23 +132,8 @@
     ProductPanelCell *cell = (ProductPanelCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
     id item = [self itemAtIndexPath:indexPath];
-    if (item == nil) {
-        if ([self isDummyAddCell:indexPath]) {
-            cell.nameLabel.text = @"+";
-            cell.backgroundColor = [UIColor redColor];
-        }
-    }
-    else
-    if ([item isKindOfClass:[Product class]]) {
-        Product *product = (Product *)item;
-        cell.nameLabel.text = product.key;
-        cell.backgroundColor = product.category.color;
-    }
-    else {
-        Menu *menu = (Menu *)item;
-        cell.nameLabel.text = menu.key;
-        cell.backgroundColor = [UIColor greenColor];
-    }
+    ProductCategory *category = [self categoryBySection: indexPath.section];
+    [cell setPanelItem:item withCategory: category];
     return cell;
 }
 

@@ -14,6 +14,7 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     self.clipsToBounds = YES;
+    self.backgroundColor = [UIColor clearColor];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.cornerRadius = 6;
     gradientLayer.frame = self.bounds;
@@ -26,15 +27,35 @@
 }
 
 - (void) setMenuCard:(MenuCard *) menuCard {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    _dateLabel.text = [dateFormatter stringFromDate: menuCard.validFrom];
-    _countMenusLabel.text = [NSString stringWithFormat: @"%d", [menuCard.menus count]];
-    int count = 0;
-    for (ProductCategory *category in menuCard.categories) {
-        count += [category.products count];
+    if (menuCard.validFrom == nil) {
+        [self setIsDummy:YES];
+        _addLabel.text = NSLocalizedString(@"Tap to make new menucard", nil);
     }
-    _countItemsLabel.text = [NSString stringWithFormat:@"%d", count];
+    else {
+        [self setIsDummy:NO];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        _dateLabel.text = [dateFormatter stringFromDate: menuCard.validFrom];
+        _countMenusLabel.text = [NSString stringWithFormat: @"%d", [menuCard.menus count]];
+        int count = 0;
+        for (ProductCategory *category in menuCard.categories) {
+            count += [category.products count];
+        }
+        _countItemsLabel.text = [NSString stringWithFormat:@"%d", count];
+    }
+}
+
+- (void) setIsDummy:(BOOL)isDummy {
+    if (isDummy) {
+        _container.hidden = YES;
+        _addImage.hidden = NO;
+        _addLabel.hidden = NO;
+    }
+    else {
+        _container.hidden = NO;
+        _addImage.hidden = YES;
+        _addLabel.hidden = YES;
+    }
 }
 
 - (void)layoutSubviews {

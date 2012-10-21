@@ -22,7 +22,7 @@
 @class ProductCategory;
 @class CategorySupplementaryView;
 
-@interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate, ColorViewControllerDelegate>
+@interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate>
 
 @property(nonatomic, strong) IBOutlet MenuCollectionView *menuPanel;
 @property(nonatomic, strong) IBOutlet ProductPropertiesView * productProperties;
@@ -36,8 +36,6 @@
 
 @property(nonatomic, strong) UIBarButtonItem *addButton;
 
-
-@property(nonatomic, strong) CategorySupplementaryView *activeHeaderView;
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card;
 
