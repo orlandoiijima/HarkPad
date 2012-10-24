@@ -16,11 +16,14 @@
     BOOL isFood;
 }
 
+typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, CategoryTypeMenus} CategoryType;
+
 @property (retain) NSString *name;
 @property int sortOrder;
 @property (retain) UIColor *color;
 @property BOOL isFood;
 @property (retain) NSMutableArray *products;
+@property(nonatomic) CategoryType type;
 
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary;
 - (NSMutableDictionary *)toDictionary;

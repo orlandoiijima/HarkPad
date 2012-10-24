@@ -44,7 +44,7 @@
     int i = 0;
     for (NSDictionary *vat in _menuCard.vatPercentages) {
         NSDecimalNumber *percentage = [NSString stringWithFormat:@"%@", [vat objectForKey:@"percentage"]];
-        NSString *label = [NSString stringWithFormat:@"%@ (%@ %%)", [vat objectForKey:@"name"], percentage];
+        NSString *label = [NSString stringWithFormat:@"%@ (%@%%)", [vat objectForKey:@"name"], percentage];
         [uiVat insertSegmentWithTitle:label atIndex:i++ animated:YES];
     }
 }
@@ -75,10 +75,12 @@
 }
 
 - (IBAction)toggleQuickMenu {
-    if ([_menuCard isInQuickMenu:_product])
-        [_menuCard removeFromQuickMenu:_product];
-    else
-        [_menuCard addToQuickMenu:_product];
+    if ([_menuCard isInQuickMenu:_product]) {
+        [_delegate didInclude:_product inFavorites:NO];
+    }
+    else {
+        [_delegate didInclude:_product inFavorites:YES];
+    }
 }
 
 - (IBAction)updateName {

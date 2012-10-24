@@ -25,7 +25,7 @@
 - (void) didTapCategory: (ProductCategory *)category;
 - (void) didTapMenu: (Menu *)menu;
 - (void) didSelectMenu: (Menu *)menu;
-//- (void) didInclude: (id)item inQuickMenu: (bool)include;
+- (void) didInclude: (id)item inFavorites: (bool)include;
 - (void) didLongPressProduct: (Product *)product;
 - (void) didLongPressMenu: (Menu *)menu;
 - (void) didLongPressCategory: (ProductCategory *)category;

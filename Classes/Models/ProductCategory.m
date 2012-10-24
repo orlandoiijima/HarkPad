@@ -34,6 +34,7 @@
     NSString *color = [jsonDictionary objectForKey:@"color"];
     category.color = [UIColor colorWithHexString: color];
     category.products = [[NSMutableArray alloc] init];
+    category.type = CategoryTypeStandard;
     id products = [jsonDictionary objectForKey:@"products"];
     for(NSDictionary *item in products)
     {

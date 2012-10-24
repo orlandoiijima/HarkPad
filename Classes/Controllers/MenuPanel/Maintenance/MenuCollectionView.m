@@ -28,7 +28,7 @@
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.headerReferenceSize = CGSizeMake(100, 40);
-    [flowLayout setItemSize:CGSizeMake(125, 60)];
+    [flowLayout setItemSize:CGSizeMake(125, 50)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
 
     MenuCollectionView *view = [[MenuCollectionView alloc] initWithFrame:frame collectionViewLayout:flowLayout];
@@ -49,20 +49,23 @@
 
 
 - (void) setMenuCard:(MenuCard *)card {
+    _menuCard = card;
     _categories = [[NSMutableArray alloc] init];
 
     if (_show == MenuPanelShowAll) {
         ProductCategory *favorites = [[ProductCategory alloc] init];
         favorites.name = NSLocalizedString(@"Favorites", nil);
-        for (NSString *productKey in card.favorites) {
-            Product *product = [card getProduct:productKey];
-            if (product != nil)
-                [favorites.products addObject:product];
+        favorites.type = CategoryTypeFavorites;
+        favorites.color = [UIColor clearColor];
+        for (Product *product in card.favorites) {
+            [favorites.products addObject:product];
         }
         [_categories addObject:favorites];
 
         ProductCategory *menus = [[ProductCategory alloc] init];
         menus.name = NSLocalizedString(@"Menus", nil);
+        menus.type = CategoryTypeMenus;
+        menus.color = [UIColor orangeColor];
         for (Menu *menu in card.menus) {
             [menus.products addObject:menu];
         }
@@ -120,7 +123,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     ProductCategory *category = [self categoryBySection:section];
     if (category == nil) return 0;
-    if (_isEditing)
+    if (_isEditing && category.type != CategoryTypeFavorites)
         return [category.products count] + 1;
     return [category.products count];
 }
@@ -192,6 +195,24 @@
     ProductCategory *category = [item category];
     if (category == nil) return;
     [category.products removeObject:item];
+    [self deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+}
+
+- (void)addToFavorites:(id)item {
+    [_menuCard addToQuickMenu: item];
+    ProductCategory *category = [_categories objectAtIndex:0];
+    [category.products addObject:item];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[category.products count] - 1 inSection:0];
+    [self insertItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
+}
+- (void)removeFromFavorites:(id)item {
+    [_menuCard removeFromQuickMenu: item];
+    ProductCategory *category = [_categories objectAtIndex:0];
+    int i = [category.products indexOfObjectPassingTest:^(id p, NSUInteger i, BOOL *x){
+        return [[item key] isEqualToString:[p key]];
+    }];
+    [category.products removeObjectAtIndex:i];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     [self deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
 }
 

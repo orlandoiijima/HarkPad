@@ -11,6 +11,7 @@
 #import "MenuPanelView.h"
 
 @protocol MenuDelegate;
+@class MenuCard;
 
 @interface MenuCollectionView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -22,6 +23,8 @@
 
 @property(nonatomic, strong) id <MenuDelegate> menuDelegate;
 
+@property(nonatomic, strong) MenuCard *menuCard;
+
 + (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show editing:(BOOL)editing delegate:(id <MenuDelegate>)delegate;
 
 - (int)sectionByCategory:(ProductCategory *)category;
@@ -32,6 +35,10 @@
 
 - (void)refreshItem:(id)item;
 - (void)deleteItem:(id)item;
+
+- (void)addToFavorites:(id)item;
+
+- (void)removeFromFavorites:(id)item;
 
 
 @end

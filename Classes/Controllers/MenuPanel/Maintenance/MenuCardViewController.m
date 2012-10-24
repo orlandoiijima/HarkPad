@@ -171,6 +171,15 @@
     [self updateTitle];
 }
 
+- (void)didInclude:(id)item inFavorites:(bool)include {
+    if (include == NO) {
+        [_menuPanel removeFromFavorites:item];
+    }
+    else {
+        [_menuPanel addToFavorites:item];
+    }
+}
+
 - (void)didModifyItem:(id)item {
     [_menuPanel refreshItem:item];
 }

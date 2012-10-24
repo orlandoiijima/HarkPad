@@ -23,11 +23,13 @@
     _delegate = delegate;
     _name.text = category.name;
     _colorButton.backgroundColor = category.color;
-    _colorButton.delegate = self;
+    if (_category.type == CategoryTypeStandard)
+        _colorButton.delegate = self;
 }
 
 - (IBAction) textChange: (UITextField *)textField {
-    _category.name = _name.text;
+    if (_category.type == CategoryTypeStandard)
+        _category.name = _name.text;
 }
 
 - (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
