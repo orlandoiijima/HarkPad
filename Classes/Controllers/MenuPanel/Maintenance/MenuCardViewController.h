@@ -13,6 +13,7 @@
 #import "MenuDelegate.h"
 #import "ColorViewController.h"
 #import "ItemPropertiesDelegate.h"
+#import "LXReorderableCollectionViewFlowLayout.h"
 
 @class ProductPropertiesView;
 @class MenuPanelView;
@@ -22,7 +23,7 @@
 @class ProductCategory;
 @class CategorySupplementaryView;
 
-@interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate>
+@interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate, UIGestureRecognizerDelegate>
 
 @property(nonatomic, strong) IBOutlet MenuCollectionView *menuPanel;
 @property(nonatomic, strong) IBOutlet ProductPropertiesView * productProperties;
@@ -35,7 +36,6 @@
 @property(nonatomic, strong) MenuPropertiesView * menuProperties;
 
 @property(nonatomic, strong) UIBarButtonItem *addButton;
-
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card;
 

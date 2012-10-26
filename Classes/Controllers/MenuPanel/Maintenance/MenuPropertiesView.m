@@ -15,6 +15,7 @@
 #import "ModalAlert.h"
 #import "MenuDelegate.h"
 #import "MenuCollectionViewController.h"
+#import "OrderLineCell.h"
 
 
 @implementation MenuPropertiesView
@@ -24,14 +25,20 @@
     _keyField.text = menu.key;
     _nameField.text = menu.name;
     _priceField.text = [NSString stringWithFormat:@"%@", menu.price];
-    _includedInQuickMenu.on = [_menuCard isInQuickMenu: menu];
+    _includedInQuickMenu.selected  = [_menuCard isInQuickMenu: menu];
     [_productTable reloadData];
 }
 
 + (MenuPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard {
     MenuPropertiesView *view = [[MenuPropertiesView alloc] initWithFrame:frame];
     view.menuCard = menuCard;
+    [view.includedInQuickMenu setImage:[UIImage imageNamed:@"BlueStar.png"] forState:UIControlStateSelected];
+    view.productTable.backgroundView = nil;
     return view;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -43,23 +50,31 @@
 
         self = [nib objectAtIndex:0];
         self.frame = frame;
-        [_productTable setEditing:YES animated:YES];
-        _productTable.allowsSelectionDuringEditing = YES;
     }
     return self;
 }
+
+//- (void)resizeTableView {
+//    _productTable.frame = CGRectMake(
+//            _productTable.frame.origin.x,
+//            _productTable.frame.origin.y,
+//            _productTable.frame.size.width,
+//            ([_menu.items count]+1) * 44 + 20);
+//}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_menu.items count];
+    return [_menu.items count] + 1;
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return [Utils getCourseString:section];
-//}
+- (MenuItem *)menuItemAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.row >= [_menu.items count])
+        return nil;
+    return [_menu.items objectAtIndex:indexPath.row];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
@@ -68,20 +83,28 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
+    cell.textLabel.backgroundColor = [UIColor clearColor];
 
-    if(indexPath.row < [_menu.items count]) {
-        MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
+    MenuItem *item = [self menuItemAtIndexPath:indexPath];
+    if(item != nil) {
         cell.textLabel.text = item.product.key;
+        cell.textLabel.textColor = [UIColor blackColor];
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.backgroundColor = item.product.category.color;
     }
-    cell.shouldIndentWhileEditing = NO;
-    cell.showsReorderControl = NO;
+    else {
+        cell.textLabel.textColor = [UIColor blueColor];
+        cell.textLabel.text = NSLocalizedString(@"New", nil);
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.backgroundColor = [UIColor whiteColor];
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
+    MenuItem *item = [self menuItemAtIndexPath:indexPath];
     [_productTable selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     MenuCollectionViewController *controller = [MenuCollectionViewController controllerWithMenuCard:_menuCard menuPanelShow:MenuPanelShowProducts delegate:self];
     controller.selectedItem = item;
@@ -94,19 +117,27 @@
     NSIndexPath *indexPath = [_productTable indexPathForSelectedRow];
     if (indexPath == nil) return;
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
-    item.product = product;
-    [_productTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    if (item == nil) {
+        item = [[MenuItem alloc] init];
+        item.course = [_menu.items count];
+        [_menu.items addObject:item];
+        item.product = product;
+        [_productTable insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    }
+    else {
+        item.product = product;
+        [_productTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+
+    }
     [self.popover dismissPopoverAnimated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    MenuItem *itemToMove =  [_menu.items objectAtIndex: sourceIndexPath.row];
+    MenuItem *itemToMove = [self menuItemAtIndexPath:sourceIndexPath];
+    if (itemToMove == nil) return;
+
     [_menu.items removeObjectAtIndex:sourceIndexPath.row];
     [_menu.items insertObject:itemToMove atIndex:destinationIndexPath.row];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
 }
 
 - (IBAction)updateName {
@@ -118,11 +149,6 @@
     _menu.key = [Utils trim: _keyField.text];
     [self didUpdate];
 }
-
-//- (IBAction)updateVat {
-//    _menu.vat = [_menuCard vatPercentageByIndex: .selectedSegmentIndex];
-//    [self didUpdate];
-//}
 
 - (IBAction)updatePrice {
     _menu.price = [Utils getAmountFromString: _priceField.text];
@@ -141,10 +167,14 @@
 }
 
 - (IBAction)toggleQuickMenu {
-    if ([_menuCard isInQuickMenu:_menu])
-        [_menuCard removeFromQuickMenu:_menu];
-    else
-        [_menuCard addToQuickMenu:_menu];
+    if ([_menuCard isInQuickMenu:_menu]) {
+        _includedInQuickMenu.selected = NO;
+        [_delegate didInclude:_menu inFavorites:NO];
+    }
+    else {
+        _includedInQuickMenu.selected = YES;
+        [_delegate didInclude:_menu inFavorites:YES];
+    }
 }
 
 @end

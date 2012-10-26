@@ -43,7 +43,7 @@
 }
 
 - (void)loadView {
-    self.view = [MenuCollectionView viewWithFrame:CGRectZero menuCard: _menuCard menuPanelShow: _show editing:NO delegate: _delegate];
+    self.view = [MenuCollectionView viewWithFrame:CGRectZero menuCard: _menuCard menuPanelShow: _show numberOfColumns:3 editing:NO menuDelegate: _delegate];
 }
 
 - (void)viewDidLoad

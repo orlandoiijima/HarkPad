@@ -22,6 +22,7 @@
 + (ProductPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard {
     ProductPropertiesView * view = [[ProductPropertiesView alloc] initWithFrame:frame];
     view.menuCard = menuCard;
+    [view.uiIncludedInQuickMenu setImage:[UIImage imageNamed:@"BlueStar.png"] forState:UIControlStateSelected];
     [view initVat];
     return view;
 }
@@ -55,7 +56,7 @@
     uiName.text = _product.name;
     uiPrice.text = [NSString stringWithFormat:@"%@", product.price];
     uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:product.vat];
-    _uiIncludedInQuickMenu.on = [_menuCard isInQuickMenu:_product];
+    _uiIncludedInQuickMenu.selected  = [_menuCard isInQuickMenu: _product];
 }
 
 - (bool)validate {
@@ -77,9 +78,11 @@
 - (IBAction)toggleQuickMenu {
     if ([_menuCard isInQuickMenu:_product]) {
         [_delegate didInclude:_product inFavorites:NO];
+        _uiIncludedInQuickMenu.selected = NO;
     }
     else {
         [_delegate didInclude:_product inFavorites:YES];
+        _uiIncludedInQuickMenu.selected = YES;
     }
 }
 

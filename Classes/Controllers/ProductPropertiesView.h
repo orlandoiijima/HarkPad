@@ -21,7 +21,7 @@
 @property (retain) IBOutlet UITextField *uiPrice;
 @property (retain) IBOutlet UISegmentedControl *uiVat;
 @property (nonatomic, retain) id<MenuDelegate> delegate;
-@property (retain) IBOutlet UISwitch *uiIncludedInQuickMenu;
+@property (retain) IBOutlet UIButton *uiIncludedInQuickMenu;
 @property (retain) IBOutlet UIButton *uiDelete;
 @property(nonatomic, strong) Product *product;
 

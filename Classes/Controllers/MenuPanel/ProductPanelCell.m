@@ -78,7 +78,7 @@
         }
         else {
             Menu *menu = (Menu *)item;
-            self.backgroundColor = category.color;
+            self.backgroundColor = [UIColor orangeColor]; // category.color;
         }
     }
 }

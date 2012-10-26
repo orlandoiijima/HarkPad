@@ -9,11 +9,14 @@
 
 
 #import "MenuPanelView.h"
+#import "LXReorderableCollectionViewFlowLayout.h"
 
 @protocol MenuDelegate;
 @class MenuCard;
+@class ProductCategory;
+@class Product;
 
-@interface MenuCollectionView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MenuCollectionView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate,LXReorderableCollectionViewDelegateFlowLayout>
 
 @property(nonatomic) enum MenuPanelShow show;
 @property(nonatomic, strong) NSMutableArray *categories;
@@ -25,13 +28,23 @@
 
 @property(nonatomic, strong) MenuCard *menuCard;
 
-+ (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show editing:(BOOL)editing delegate:(id <MenuDelegate>)delegate;
+@property(nonatomic, strong) ProductCategory *draggingFromCategory;
+
+@property(nonatomic, strong) NSIndexPath *draggingFromIndexPath;
+
+@property(nonatomic, strong) Product * draggingProduct;
+
++ (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show numberOfColumns:(int)numberOfColumns editing:(BOOL)editing menuDelegate:(id <MenuDelegate>)menuDelegate;
+
+- (ProductCategory *)categoryBySection:(int)section;
 
 - (int)sectionByCategory:(ProductCategory *)category;
 
 - (id)itemAtIndexPath:(NSIndexPath *)path;
 
 - (NSIndexPath *)indexPathForItem:(id)item;
+
+- (void)collectionView:(UICollectionView *)view layout:(LXReorderableCollectionViewFlowLayout *)layout didStartDragAtIndexPath:(NSIndexPath *)path;
 
 - (void)refreshItem:(id)item;
 - (void)deleteItem:(id)item;
@@ -40,5 +53,8 @@
 
 - (void)removeFromFavorites:(id)item;
 
+- (void)insertCategory:(ProductCategory *)category atIndex:(NSInteger)index;
+
+- (int)sectionFromPoint:(CGPoint)point;
 
 @end

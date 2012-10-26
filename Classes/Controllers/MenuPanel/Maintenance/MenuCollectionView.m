@@ -13,6 +13,9 @@
 #import "Table.h"
 #import "MenuDelegate.h"
 #import "CategorySupplementaryView.h"
+#import "LXReorderableCollectionViewFlowLayout.h"
+#import "ProductCategory.h"
+#import "Product.h"
 
 @implementation MenuCollectionView
 @synthesize show = _show;
@@ -22,13 +25,13 @@
 @synthesize menuDelegate = _menuDelegate;
 
 
-+ (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show editing:(BOOL)editing delegate:(id<MenuDelegate>)delegate{
++ (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show numberOfColumns:(int) numberOfColumns editing:(BOOL)editing menuDelegate:(id<MenuDelegate>)menuDelegate{
 
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    LXReorderableCollectionViewFlowLayout *flowLayout = [[ LXReorderableCollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
-    flowLayout.headerReferenceSize = CGSizeMake(100, 40);
-    [flowLayout setItemSize:CGSizeMake(125, 50)];
+    flowLayout.headerReferenceSize = CGSizeMake(200, 40);
+    [flowLayout setItemSize:CGSizeMake(frame.size.width / numberOfColumns, 50)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
 
     MenuCollectionView *view = [[MenuCollectionView alloc] initWithFrame:frame collectionViewLayout:flowLayout];
@@ -36,7 +39,7 @@
     view.show = show;
     view.isEditing = editing;
 
-    view.menuDelegate = delegate;
+    view.menuDelegate = menuDelegate;
     view.delegate = view;
     view.dataSource = view;
 
@@ -44,6 +47,8 @@
 
     [view registerClass:[ProductPanelCell class] forCellWithReuseIdentifier:@"xjsjw"];
     [view registerNib:[UINib nibWithNibName:@"CategorySupplementaryView" bundle:[NSBundle mainBundle]]  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"wsa"];
+
+    [flowLayout setUpGestureRecognizersOnCollectionView];
     return view;
 }
 
@@ -57,18 +62,14 @@
         favorites.name = NSLocalizedString(@"Favorites", nil);
         favorites.type = CategoryTypeFavorites;
         favorites.color = [UIColor clearColor];
-        for (Product *product in card.favorites) {
-            [favorites.products addObject:product];
-        }
+        favorites.products = card.favorites;
         [_categories addObject:favorites];
 
         ProductCategory *menus = [[ProductCategory alloc] init];
         menus.name = NSLocalizedString(@"Menus", nil);
         menus.type = CategoryTypeMenus;
         menus.color = [UIColor orangeColor];
-        for (Menu *menu in card.menus) {
-            [menus.products addObject:menu];
-        }
+        menus.products = card.menus;
         [_categories addObject:menus];
     }
 
@@ -102,11 +103,11 @@
 - (NSIndexPath *)indexPathForItem:(id)item {
     int section = 0;
     NSString *key = [item key];
-    for (ProductCategory *category in _categories) {
+    for (ProductCategory *category in _menuCard.categories) {
         int row = 0;
         for (id categoryItem in category.products) {
             if ([key isEqualToString: [categoryItem key]])
-                return [NSIndexPath indexPathForItem:row  inSection:section];
+                return [NSIndexPath indexPathForItem:row  inSection:section + 2];
             row++;
         }
         section++;
@@ -156,16 +157,11 @@
     _selectedItem = item;
     NSIndexPath *indexPath = [self indexPathForItem:item];
     if (indexPath == nil) return;
+    [self setSelectedIndexPath:indexPath];
+}
+
+- (void) setSelectedIndexPath: (NSIndexPath *)indexPath {
     [self selectItemAtIndexPath: indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
-
-}
-
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     id item = [self itemAtIndexPath:indexPath];
     _selectedItem = item;
     if ([self isDummyAddCell:indexPath]) {
@@ -179,8 +175,79 @@
         [self.menuDelegate didSelectMenu: (Menu *)item];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self setSelectedIndexPath:indexPath];
+}
+
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
+}
+
+- (void)collectionView:(UICollectionView *)theCollectionView layout:(UICollectionViewLayout *)theLayout itemAtIndexPath:(NSIndexPath *)theFromIndexPath willMoveToIndexPath:(NSIndexPath *)theToIndexPath {
+    ProductCategory *category = [self categoryBySection:theFromIndexPath.section];
+    [self LogCategory:category];
+    NSLog(@"%d:%d -> %d:%d", theFromIndexPath.section, theFromIndexPath.row, theToIndexPath.section, theToIndexPath.row);
+    Product *product = [category.products objectAtIndex:theFromIndexPath.row];
+    if (theFromIndexPath.section == theToIndexPath.section) {
+        if (theFromIndexPath.row < theToIndexPath.row) {
+            [category.products removeObjectAtIndex:theFromIndexPath.row];
+            [category.products insertObject:product atIndex:theToIndexPath.row];
+        }
+        else {
+            [category.products removeObjectAtIndex:theFromIndexPath.row];
+            [category.products insertObject:product atIndex:theToIndexPath.row];
+        }
+    }
+    else {
+        [category.products removeObjectAtIndex:theFromIndexPath.row];
+        category = [self categoryBySection:theToIndexPath.section];
+        if (theToIndexPath.section != 0)
+            product.category = category;
+        [category.products insertObject:product atIndex:theToIndexPath.row];
+    }
+    [self LogCategory:category];
+}
+
+- (void)LogCategory:(ProductCategory *)category {
+    int i = 0;
+    for(Product *product in category.products) {
+        NSLog(@"%d: %@", i++, product.key);
+    }
+}
+
+- (BOOL)collectionView:(UICollectionView *)theCollectionView layout:(UICollectionViewLayout *)theLayout itemAtIndexPath:(NSIndexPath *)theFromIndexPath canMoveToIndexPath:(NSIndexPath *)theToIndexPath {
+    ProductCategory *category = [self categoryBySection:theFromIndexPath.section];
+    //  Cant move dummy Add product
+    if (theFromIndexPath.row == [category.products count])
+        return NO;
+    //  Cant move past dummy Add product
+    if (theToIndexPath.row == [category.products count])
+        return NO;
+    return YES;
+}
+
+- (void)collectionView:(UICollectionView *)view layout:(LXReorderableCollectionViewFlowLayout *)layout didDropAtIndexPath:(NSIndexPath *)path {
+    if (path.section != 0) return;
+    if (_draggingFromCategory == nil) return;
+    if (_draggingFromCategory.type != CategoryTypeStandard) return;
+
+    //  Restore category
+    _draggingProduct.category = _draggingFromCategory;
+    [self reloadItemsAtIndexPaths:@[path]];
+
+    [_draggingFromCategory.products insertObject:_draggingProduct atIndex:_draggingFromIndexPath.row];
+    [_menuCard.favorites insertObject:_draggingProduct atIndex:_draggingFromIndexPath.row];
+    [self insertItemsAtIndexPaths:@[_draggingFromIndexPath]];
+}
+
+- (void)collectionView:(UICollectionView *)view layout:(LXReorderableCollectionViewFlowLayout *)layout didStartDragAtIndexPath:(NSIndexPath *)path {
+    _draggingFromCategory = [self categoryBySection: path.section];
+    _draggingFromIndexPath = path;
+    _draggingProduct = [self itemAtIndexPath:path];
 }
 
 - (void) refreshItem:(id)item {
@@ -196,24 +263,56 @@
     if (category == nil) return;
     [category.products removeObject:item];
     [self deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+    [self setSelectedIndexPath:indexPath];
+    if ([_menuCard isInQuickMenu: item]) {
+        [self removeFromFavorites:item];
+    }
 }
 
 - (void)addToFavorites:(id)item {
-    [_menuCard addToQuickMenu: item];
+    int i = [_menuCard addToQuickMenu: item];
     ProductCategory *category = [_categories objectAtIndex:0];
-    [category.products addObject:item];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:[category.products count] - 1 inSection:0];
+//    [category.products addObject:item];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     [self insertItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
 }
+
 - (void)removeFromFavorites:(id)item {
-    [_menuCard removeFromQuickMenu: item];
-    ProductCategory *category = [_categories objectAtIndex:0];
-    int i = [category.products indexOfObjectPassingTest:^(id p, NSUInteger i, BOOL *x){
-        return [[item key] isEqualToString:[p key]];
-    }];
-    [category.products removeObjectAtIndex:i];
+    int i = [_menuCard removeFromQuickMenu: item];
+//    ProductCategory *category = [_categories objectAtIndex:0];
+//    int i = [category.products indexOfObjectPassingTest:^(id p, NSUInteger i, BOOL *x){
+//        return [[item key] isEqualToString:[p key]];
+//    }];
+//    [category.products removeObjectAtIndex:i];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     [self deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
 }
 
+- (void)insertCategory:(ProductCategory *)newCategory atIndex:(NSInteger)index {
+    if (index < 2) return;
+    [_categories insertObject:newCategory atIndex:index];
+    [_menuCard.categories insertObject:newCategory atIndex:index - 2];
+    [self insertSections:[NSIndexSet indexSetWithIndex:index]];
+}
+
+- (int) sectionFromPoint:(CGPoint) point {
+    for(CategorySupplementaryView *headerView in [[self headerViews] reverseObjectEnumerator]) {
+        if (point.y > headerView.frame.origin.y)
+            return [self sectionByCategory: headerView.category];
+    }
+    return -1;
+}
+
+- (NSMutableArray *)headerViews {
+    NSMutableArray *headers = [[NSMutableArray alloc] init];
+    for(UIView *view in self.subviews) {
+        if ([view isKindOfClass:[CategorySupplementaryView class]]) {
+            [headers addObject:view];
+        }
+    }
+    [headers sortUsingComparator:(NSComparator)^(CategorySupplementaryView *view1, CategorySupplementaryView *view2){
+        return view1.frame.origin.y > view2.frame.origin.y ? 1 : ( view1.frame.origin.y == view2.frame.origin.y ? 0:-1);
+    }];
+    return headers;
+}
 @end

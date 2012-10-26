@@ -6,6 +6,7 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 
+#import <GameKit/GameKit.h>
 #import "MenuCard.h"
 #import "Logger.h"
 #import "NSDate-Utilities.h"
@@ -71,6 +72,11 @@
             if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
                 return product;
         }    
+    }
+    for(Product *product in _menus)
+    {
+        if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
+            return product;
     }
     [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
@@ -188,20 +194,36 @@
     return NO;
 }
 
-- (void) addToQuickMenu:(id)item {
-    if ([self isInQuickMenu:item])
-        return;
-    [_favorites addObject:item];
+- (int) addToQuickMenu:(id)newItem {
+    if (newItem == nil) return -1;
+
+    if ([self isInQuickMenu:newItem])
+        return -1;
+    int i = [_favorites count];
+    NSString *newCategoryName = [newItem isKindOfClass:[Product class]] ? ((Product *)newItem).category.name : @"";
+    for (id item in [_favorites reverseObjectEnumerator]) {
+        NSString *categoryName = [item isKindOfClass:[Product class]] ? ((Product *)item).category.name : @"";
+        if ([categoryName isEqualToString:newCategoryName]) {
+            [_favorites insertObject:newItem atIndex:i];
+            return i;
+        }
+        i--;
+    }
+    [_favorites addObject:newItem];
+    return [_favorites count] - 1;
 }
 
-- (void) removeFromQuickMenu:(id) item {
+- (int) removeFromQuickMenu:(id) item {
     NSString *key = [item key];
+    int i = 0;
     for (Product *favorite in _favorites) {
         if ([favorite.key isEqualToString: key]) {
             [_favorites removeObject:favorite];
-            return;
+            return i;
         }
+        i++;
     }
+    return -1;
 }
 
 @end

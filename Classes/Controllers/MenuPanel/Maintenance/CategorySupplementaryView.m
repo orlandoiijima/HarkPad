@@ -23,8 +23,18 @@
     _delegate = delegate;
     _name.text = category.name;
     _colorButton.backgroundColor = category.color;
-    if (_category.type == CategoryTypeStandard)
-        _colorButton.delegate = self;
+
+    _colorButton.delegate = self;
+    if (_category.type == CategoryTypeStandard) {
+        _colorButton.enabled = YES;
+        _colorButton.hidden = NO;
+        _name.enabled = YES;
+    }
+    else {
+        _colorButton.enabled = NO;
+        _colorButton.hidden = YES;
+        _name.enabled = NO;
+    }
 }
 
 - (IBAction) textChange: (UITextField *)textField {

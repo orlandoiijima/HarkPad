@@ -24,6 +24,7 @@
 		D0A722358D93D762FF0343A9 /* CategoryPanelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728399F59984BF057783A /* CategoryPanelCell.m */; };
 		D0A7223D325EC11042B618DD /* GetDateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A7267418480309D0FFA80E /* GetDateViewController.xib */; };
 		D0A722453063DE6DCA9B3F7C /* AuthorisationToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725861E3A54F07E406B09 /* AuthorisationToken.m */; };
+		D0A7229E0F5C02D62C6C4073 /* LXReorderableCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C55648CFF98BE4D32EC /* LXReorderableCollectionViewFlowLayout.m */; };
 		D0A722D01829918BD6E125A8 /* PinLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7221FA5B72BCCFBEF917D /* PinLoginViewController.m */; };
 		D0A722DDD5F0A70909D0CD25 /* SeatActionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72E5053A5E444E5F279A5 /* SeatActionInfo.m */; };
 		D0A722E931CC4F598D323A78 /* GzColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724F0E30DE62F1E8B3E45 /* GzColors.m */; };
@@ -456,6 +457,7 @@
 		D0A728D72230B6EF69BEF964 /* MenuCardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardListViewController.h; sourceTree = "<group>"; };
 		D0A728F2E41DD2D9602A232D /* OrderPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderPrinter.h; path = Print/OrderPrinter.h; sourceTree = "<group>"; };
 		D0A728FAD603D2D4DD3B7AD9 /* MenuCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardCell.h; sourceTree = "<group>"; };
+		D0A728FAFD5A6017AA19752B /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		D0A728FB65368A1906AE9D39 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		D0A7293DC7CBCDB5D656FDC3 /* MenuCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardCell.m; sourceTree = "<group>"; };
 		D0A72943F6D46DEC14204C11 /* CategorySupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategorySupplementaryView.m; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 		D0A72C2F2256A4408DA92E88 /* MenuCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCard.m; sourceTree = "<group>"; };
 		D0A72C3C6AD25B922ABB5162 /* GetDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDateViewController.h; sourceTree = "<group>"; };
 		D0A72C52921DE75AAB59B03B /* SalesPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPdf.h; sourceTree = "<group>"; };
+		D0A72C55648CFF98BE4D32EC /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderLineFilter.m; path = PrintInfo/OrderLineFilter.m; sourceTree = "<group>"; };
 		D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainWrapper.h; path = Keychain/KeychainWrapper.h; sourceTree = "<group>"; };
 		D0A72C989D0F5E2FDAE87939 /* ReportMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportMailer.m; path = Reports/ReportMailer.m; sourceTree = "<group>"; };
@@ -1145,6 +1148,15 @@
 			path = MenuPanel;
 			sourceTree = "<group>";
 		};
+		D0A72E7A1B78FECA75BE4933 /* LXReorderableCollectionViewFlowLayout */ = {
+			isa = PBXGroup;
+			children = (
+				D0A728FAFD5A6017AA19752B /* LXReorderableCollectionViewFlowLayout.h */,
+				D0A72C55648CFF98BE4D32EC /* LXReorderableCollectionViewFlowLayout.m */,
+			);
+			path = LXReorderableCollectionViewFlowLayout;
+			sourceTree = "<group>";
+		};
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
@@ -1651,6 +1663,7 @@
 				E5F609A313489C2400D8862B /* Reachability */,
 				D0A726CCCFCF0BFE45973F59 /* ColorPicker */,
 				D0A72D533DE6858D773E3695 /* CKCalendar */,
+				D0A72E7A1B78FECA75BE4933 /* LXReorderableCollectionViewFlowLayout */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -2538,6 +2551,7 @@
 				D0A7212BA5C09E8EB86B0E4C /* CategorySupplementaryView.m in Sources */,
 				D0A7295BA39A3BE9C2E17B01 /* MenuCollectionViewController.m in Sources */,
 				D0A72F6A61198E86C3E43017 /* ColorButtonView.m in Sources */,
+				D0A7229E0F5C02D62C6C4073 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

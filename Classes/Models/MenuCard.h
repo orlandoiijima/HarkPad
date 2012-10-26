@@ -30,9 +30,9 @@
 
 - (BOOL)isInQuickMenu:(id)item;
 
-- (void)addToQuickMenu:(id)item;
+- (int)addToQuickMenu:(id)newItem;
 
-- (void)removeFromQuickMenu:(id)item;
+- (int)removeFromQuickMenu:(id)item;
 
 
 @property(nonatomic, strong) NSMutableArray *favorites;
