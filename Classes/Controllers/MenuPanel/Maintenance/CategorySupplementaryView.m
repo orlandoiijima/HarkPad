@@ -18,14 +18,14 @@
 @synthesize category = _category;
 
 
-- (void) setupForCategory:(ProductCategory *) category delegate:(id<MenuDelegate>)delegate {
+- (void) setupForCategory:(ProductCategory *) category isEditing:(bool)isEditing delegate:(id<MenuDelegate>)delegate {
     _category = category;
     _delegate = delegate;
     _name.text = category.name;
     _colorButton.backgroundColor = category.color;
 
     _colorButton.delegate = self;
-    if (_category.type == CategoryTypeStandard) {
+    if (_category.type == CategoryTypeStandard && isEditing) {
         _colorButton.enabled = YES;
         _colorButton.hidden = NO;
         _name.enabled = YES;

@@ -27,6 +27,12 @@
     self.nameLabel.adjustsFontSizeToFitWidth = YES;
     [self addSubview:self.nameLabel];
 
+    _favoriteImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"favorite.png"]];
+    [self addSubview: _favoriteImage];
+    _favoriteImage.frame = CGRectMake(self.bounds.size.width - 20 - 3, 3, 20, 20);
+    _favoriteImage.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
+    _favoriteImage.contentMode = UIViewContentModeScaleAspectFit;
+
     _addImage = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"ABAddCircle.png"]];
     _addImage.frame = CGRectInset(self.bounds, 5, 5);
     _addImage.contentMode = UIViewContentModeCenter;
@@ -45,6 +51,7 @@
 
     self.layer.borderColor = [[UIColor blackColor] CGColor];
     self.layer.borderWidth = 2;
+    self.layer.cornerRadius = 4;
 
 //    CAGradientLayer *l = [CAGradientLayer layer];
 //    l.frame = self.bounds;
@@ -61,7 +68,12 @@
     self.layer.borderColor = selected ? [[UIColor blueColor] CGColor] : [[UIColor blackColor] CGColor];
 }
 
-- (void) setPanelItem:(id)item withCategory:(ProductCategory *)category {
+- (void)setIsFavorite:(bool)favorite {
+    _favoriteImage.hidden = !favorite;
+}
+
+- (void) setPanelItem:(id)item withCategory:(ProductCategory *)category isFavorite:(bool)favorite {
+    self.isFavorite = favorite;
     if (item == nil) {
         _nameLabel.hidden = YES;
         _addImage.hidden = NO;
@@ -77,7 +89,6 @@
             self.backgroundColor = product.category.color;
         }
         else {
-            Menu *menu = (Menu *)item;
             self.backgroundColor = [UIColor orangeColor]; // category.color;
         }
     }

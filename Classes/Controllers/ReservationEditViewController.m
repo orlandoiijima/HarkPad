@@ -79,7 +79,7 @@
         reservation.startsOn = datePicker.date;
     }
     
-    if(reservation.id == 0) {
+    if(reservation.isNew) {
         [[Service getInstance] createReservation:reservation
         success:^(ServiceResult *serviceResult) {
             reservation.id = serviceResult.id;
@@ -98,13 +98,12 @@
             [serviceResult displayError];
         }];
     }
-//    [hostController closePopup];
 }
 
 
 - (IBAction) cancel
 {
-//    [hostController cancelPopup];
+    [delegate didCancelItem:nil];
 }
 
 

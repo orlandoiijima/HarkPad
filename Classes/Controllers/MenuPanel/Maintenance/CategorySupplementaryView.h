@@ -22,7 +22,7 @@
 
 @property(nonatomic, strong) id x;
 
-- (void)setupForCategory:(ProductCategory *)category delegate:(id <MenuDelegate>)delegate;
+- (void)setupForCategory:(ProductCategory *)category isEditing:(bool)isEditing delegate:(id <MenuDelegate>)delegate;
 
 - (IBAction)textChange:(UITextField *)textField;
 

@@ -48,7 +48,7 @@
     view.labelOverlay.backgroundColor = [UIColor clearColor];
     view.labelOverlay.shadowColor = [UIColor whiteColor];
     view.labelOverlay.shadowOffset = CGSizeMake(1, 1);
-    view.labelOverlay.textAlignment = UITextAlignmentCenter;
+    view.labelOverlay.textAlignment = NSTextAlignmentCenter;
     view.labelOverlay.font = [UIFont systemFontOfSize:18];
 
     view.alpha = 1.0;

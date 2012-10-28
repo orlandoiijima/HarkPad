@@ -24,6 +24,8 @@
 @property (retain) NSMutableArray *items;
 @property (retain) NSDecimalNumber *price;
 
+@property (retain, nonatomic) NSDecimalNumber *vat;
+
 //+ (NSMutableArray *) menuFromJson: (NSMutableArray *)jsonData;
 + (Menu *) menuFromJsonDictionary: (NSDictionary *)jsonDictionary withCard: (MenuCard *)menuCard;
 

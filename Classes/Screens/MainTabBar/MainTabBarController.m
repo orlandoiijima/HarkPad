@@ -16,11 +16,11 @@
 #import "WorkInProgressViewController.h"
 #import "ChefViewController.h"
 #import "LogViewController.h"
-#import "IASKAppSettingsViewController.h"
 #import "SimpleOrderScreen.h"
 #import "LocationsViewController.h"
 #import "MenuCardViewController.h"
 #import "MenuCardListViewController.h"
+#import "CJSONDataSerializer.h"
 
 @implementation MainTabBarController
 
@@ -95,11 +95,11 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
-        if ([screen isEqualToString:@"settings"]) {
-            IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
-            controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
-        }
+//        if ([screen isEqualToString:@"settings"]) {
+//            IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
+//            controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
+//            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
+//        }
 
         if ([screen isEqualToString:@"quickorder"]) {
             SimpleOrderScreen *simpleOrderScreen = [[SimpleOrderScreen alloc] init];
@@ -122,11 +122,6 @@
         if ([screen isEqualToString:@"products"]) {
             controller = [[MenuCardListViewController alloc] init];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
-        }
-
-        if ([screen isEqualToString:@"locations"]) {
-            controller = [[LocationsViewController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Locations", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if (controller != nil) {

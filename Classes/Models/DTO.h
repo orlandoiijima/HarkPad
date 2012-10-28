@@ -17,6 +17,8 @@
 @property (nonatomic) EntityState entityState;
 @property (nonatomic) int id;
 
+@property(nonatomic) BOOL isNew;
+
 - (id)initWithJson:(NSDictionary *)jsonDictionary;
 - (NSMutableDictionary *)toDictionary;
 

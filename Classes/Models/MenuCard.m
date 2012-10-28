@@ -185,7 +185,7 @@
     return dictionary;
 }
 
-- (BOOL) isInQuickMenu: (id)item {
+- (BOOL)isFavorite: (id)item {
     NSString *key = [item key];
     for (Product *favorite in _favorites) {
         if ([favorite.key isEqualToString: key])
@@ -197,7 +197,7 @@
 - (int) addToQuickMenu:(id)newItem {
     if (newItem == nil) return -1;
 
-    if ([self isInQuickMenu:newItem])
+    if ([self isFavorite:newItem])
         return -1;
     int i = [_favorites count];
     NSString *newCategoryName = [newItem isKindOfClass:[Product class]] ? ((Product *)newItem).category.name : @"";

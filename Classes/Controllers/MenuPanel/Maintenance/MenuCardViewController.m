@@ -14,7 +14,6 @@
 #import "Service.h"
 #import "CKCalendarViewController.h"
 #import "UIBarButtonItem+Image.h"
-#import "MenuPropertiesView.h"
 #import "MenuCollectionView.h"
 #import "ModalAlert.h"
 
@@ -51,23 +50,13 @@
     _menuPanel = [MenuCollectionView viewWithFrame:CGRectMake(0, 0, self.view.frame.size.width - EDITPANELWIDTH - SPACING, self.view.frame.size.height) menuCard:_menuCard  menuPanelShow:MenuPanelShowAll numberOfColumns:4 editing:YES menuDelegate:self];
     [self.view addSubview:_menuPanel];
 
-    _productProperties = [ProductPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width - EDITPANELWIDTH, 0, EDITPANELWIDTH, self.view.frame.size.height) menuCard:_menuCard];
+    _productProperties = [ProductPropertiesView viewWithFrame:CGRectMake(self.view.frame.size.width - EDITPANELWIDTH, 0, EDITPANELWIDTH, self.view.frame.size.height) menuCard:_menuCard];
     _productProperties.delegate = self;
     [self.view addSubview:_productProperties];
-
-    _menuProperties = [MenuPropertiesView viewWithFrame: CGRectMake(self.view.frame.size.width - EDITPANELWIDTH, 0, EDITPANELWIDTH, self.view.frame.size.height) menuCard:_menuCard];
-    _menuProperties.delegate = self;
-    [self.view addSubview:_menuProperties];
 
     UIPinchGestureRecognizer *recognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchHandler:)];
     recognizer.delegate = self;
     [_menuPanel addGestureRecognizer: recognizer];
-
-//    if ([_menuCard.categories count] > 0) {
-//        ProductCategory *category = [_menuCard.categories objectAtIndex:0];
-//        if ([category.products count] > 0)
-//            _menuPanel.selectedItem = [category.products objectAtIndex:0];
-//    }
 
     for (int section=0; section < [_menuPanel numberOfSections]; section++) {
         if([_menuPanel numberOfItemsInSection:section] > 0) {
@@ -118,15 +107,11 @@
 }
 
 - (void)didSelectProduct:(Product *)product {
-    _productProperties.hidden = NO;
-    _menuProperties.hidden = YES;
     [self startEdit:product];
 }
 
 - (void)didSelectMenu:(Menu *)menu {
-    _productProperties.hidden = YES;
-    _menuProperties.hidden = NO;
-    _menuProperties.menu = menu;
+    [self startEdit: menu];
 }
 
 - (BOOL)canDeselect {
@@ -142,11 +127,8 @@
     [_menuPanel reloadSections:[NSIndexSet indexSetWithIndex: section]];
 }
 
-- (void)startEdit: (Product *)product {
-    if ([_menuPanel.selectedItem isKindOfClass:[Product class]]) {
-        if (product == nil) return;
-        _productProperties.product = product;
-    }
+- (void)startEdit: (id)item {
+    _productProperties.item = item;
 }
 
 

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "IASKSettingsReader.h"
 #import "Service.h"
 #import "TableMapViewController.h"
 #import "SimpleOrderScreen.h"
@@ -18,7 +17,6 @@
 #import "WorkInProgressViewController.h"
 #import "../Screens/Reservations/ReservationsViewController.h"
 #import "LogViewController.h"
-#import "IASKAppSettingsViewController.h"
 #import "MBProgressHUD.h"
 
 @class TableMapViewController;

@@ -248,6 +248,10 @@
     return;
 }
 
+- (void)didCancelItem:(id)item {
+    [self cancelPopup];
+}
+
 - (void) editMode
 {
     if(self.dayView == nil || self.dayView.table == nil) return;

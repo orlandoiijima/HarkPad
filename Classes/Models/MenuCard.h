@@ -28,7 +28,7 @@
 - (Menu *) getMenu: (NSString *) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;
 
-- (BOOL)isInQuickMenu:(id)item;
+- (BOOL)isFavorite:(id)item;
 
 - (int)addToQuickMenu:(id)newItem;
 

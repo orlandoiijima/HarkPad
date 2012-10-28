@@ -10,6 +10,11 @@
 #import "Utils.h"
 #import "Service.h"
 #import "ModalAlert.h"
+#import "ProductPropertiesTableViewDataSource.h"
+#import "MenuItemsTableViewDataSource.h"
+#import "MenuItem.h"
+#import "MenuPanelView.h"
+#import "MenuCollectionViewController.h"
 
 @implementation ProductPropertiesView
 
@@ -22,7 +27,9 @@
 + (ProductPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard {
     ProductPropertiesView * view = [[ProductPropertiesView alloc] initWithFrame:frame];
     view.menuCard = menuCard;
+    view.uiPropertiesTable.backgroundView = nil;
     [view.uiIncludedInQuickMenu setImage:[UIImage imageNamed:@"BlueStar.png"] forState:UIControlStateSelected];
+    view.uiPropertiesTable.allowsSelection = NO;
     [view initVat];
     return view;
 }
@@ -50,13 +57,23 @@
     }
 }
 
-- (void)setProduct:(Product *)product {
-    _product = product;
-    uiKey.text = _product.key;
-    uiName.text = _product.name;
-    uiPrice.text = [NSString stringWithFormat:@"%@", product.price];
-    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:product.vat];
-    _uiIncludedInQuickMenu.selected  = [_menuCard isInQuickMenu: _product];
+- (void)setItem:(id)item {
+    _item = item;
+    uiKey.text = [item key];
+    uiName.text = [item name];
+    uiPrice.text = [Utils getAmountString: [item price] withCurrency:NO];
+    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage: [item vat]];
+    _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:item];
+    if ([item isKindOfClass:[Product class]]) {
+        _product = (Product *)item;
+        _tableDataSource = [ProductPropertiesTableViewDataSource dataSourceWithProduct:item createCell: ^UITableViewCell *(int row) {return [self createPropertyCellForRow:row];}];
+    }
+    else {
+        _menu = (Menu *)item;
+        _tableDataSource = [MenuItemsTableViewDataSource dataSourceWithMenu:item createCell: ^UITableViewCell *(int row) {return [self createMenuItemCellForRow:row];}];
+    }
+    _uiPropertiesTable.dataSource = _tableDataSource;
+    [_uiPropertiesTable reloadData];
 }
 
 - (bool)validate {
@@ -76,45 +93,169 @@
 }
 
 - (IBAction)toggleQuickMenu {
-    if ([_menuCard isInQuickMenu:_product]) {
-        [_delegate didInclude:_product inFavorites:NO];
+    if ([_menuCard isFavorite:_item]) {
+        [_delegate didInclude:_item inFavorites:NO];
         _uiIncludedInQuickMenu.selected = NO;
     }
     else {
-        [_delegate didInclude:_product inFavorites:YES];
+        [_delegate didInclude: _item inFavorites:YES];
         _uiIncludedInQuickMenu.selected = YES;
     }
 }
 
 - (IBAction)updateName {
-    _product.name = [Utils trim:uiName.text];
+    [_item setValue:[Utils trim:uiName.text] forKey:@"name"];
     [self didUpdate];
 }
 
 - (IBAction)updateCode {
-    _product.key = [Utils trim:uiKey.text];
+    [_item setValue:[Utils trim:uiKey.text] forKey:@"key"];
     [self didUpdate];
 }
 
 - (IBAction)updateVat {
-    _product.vat = [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex];
+    [_item setValue: [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex] forKey:@"vat"];
     [self didUpdate];
 }
 
 - (IBAction)updatePrice {
-    _product.price = [Utils getAmountFromString:uiPrice.text];
+    [_item setValue:[Utils getAmountFromString:uiPrice.text] forKey:@"price"];
     [self didUpdate];
 }
 
 - (IBAction)delete {
     if ([ModalAlert confirm:NSLocalizedString(@"Delete item ?", nil)]) {
-        [_delegate didDeleteItem: _product];
+        [_delegate didDeleteItem: _item];
     }
 
 }
 
 - (void) didUpdate {
     if (self.delegate == nil) return;
-    [self.delegate didModifyItem:_product];
+    [self.delegate didModifyItem:_item];
 }
+
+
+- (UITableViewCell *) createPropertyCellForRow:(int) row {
+    static NSString *CellIdentifier = @"Cell";
+
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, (cell.contentView.bounds.size.height - 21)/2, cell.contentView.frame.size.width, 21)];
+    [textField addTarget:self action:@selector(propertyUpdated:) forControlEvents:UIControlEventEditingChanged];
+    textField.delegate = self;
+    textField.tag = 666;
+    [cell.contentView addSubview: textField];
+
+    if (_product != nil && row < [_product.properties count]) {
+        textField.text = _product.properties[row];
+    }
+    else {
+        textField.text = @"";
+        textField.placeholder = @"Saignant, medium, welldone";
+    }
+    cell.tag = row;
+    return cell;
+}
+
+- (UITableViewCell *) createMenuItemCellForRow:(int) row {
+    static NSString *CellIdentifier = @"Cell";
+
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.shouldIndentWhileEditing = NO;
+    MenuItem *item = [self menuItemAtRow:row];
+    if(item != nil) {
+        cell.textLabel.text = item.product.key;
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.backgroundColor = item.product.category.color;
+    }
+    else {
+        cell.textLabel.textColor = [UIColor blueColor];
+        cell.textLabel.text = NSLocalizedString(@"New", nil);
+        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.editingAccessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        cell.backgroundColor = [UIColor whiteColor];
+    }
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    MenuItem *item = [self menuItemAtRow: indexPath.row];
+    [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    MenuCollectionViewController *controller = [MenuCollectionViewController controllerWithMenuCard:_menuCard menuPanelShow:MenuPanelShowProducts delegate:self];
+    controller.selectedItem = item;
+    self.popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    CGRect cellFrame = [self convertRect:[tableView rectForRowAtIndexPath:indexPath] fromView:tableView];
+    [self.popover presentPopoverFromRect:cellFrame inView:self permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+
+}
+
+- (void)didSelectProduct:(Product *)product {
+    NSIndexPath *indexPath = [_uiPropertiesTable indexPathForSelectedRow];
+    if (indexPath == nil) return;
+    MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
+    if (item == nil) {
+        item = [[MenuItem alloc] init];
+        item.course = [_menu.items count];
+        [_menu.items addObject:item];
+        item.product = product;
+        [_uiPropertiesTable insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    }
+    else {
+        item.product = product;
+        [_uiPropertiesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+
+    }
+    [self.popover dismissPopoverAnimated:YES];
+}
+
+- (MenuItem *)menuItemAtRow:(int)row {
+    if(row >= [[_item items] count])
+        return nil;
+    return [[_item items] objectAtIndex:row];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    int index = [self tableRowByTextField:textField];
+    if (index == [_product.properties count]) {
+        [_product.properties addObject:@""];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    int index = [self tableRowByTextField:textField];
+    if (index >= [_product.properties count])
+        return NO;
+    if ([textField.text length] == 0) {
+        [_product.properties removeObjectAtIndex:index];
+        [_uiPropertiesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:YES];
+        return NO;
+    }
+    else {
+        if (index + 1 == [_uiPropertiesTable numberOfRowsInSection:0]) {
+            [_uiPropertiesTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index+1 inSection:0]] withRowAnimation:YES];
+        }
+        return YES;
+    }
+}
+
+- (int)tableRowByTextField:(UITextField *)textField {
+    UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
+    NSIndexPath *indexPath = [_uiPropertiesTable indexPathForCell:cell];
+    if (indexPath == nil) return -1;
+    return indexPath.row;
+}
+
+- (void)propertyUpdated:(UITextField *)textField {
+    int index = [self tableRowByTextField:textField];
+    if (index >= [_product.properties count])
+        return;
+    _product.properties[index] = textField.text;
+}
+
 @end

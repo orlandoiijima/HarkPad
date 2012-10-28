@@ -12,7 +12,9 @@
 @property(retain) UILabel * nameLabel;
 @property(nonatomic, strong) UIImageView *addImage;
 
-- (void)setPanelItem:(id)item withCategory:(ProductCategory *)category;
+@property(nonatomic, strong) UIImageView *favoriteImage;
+
+- (void)setPanelItem:(id)item withCategory:(ProductCategory *)category isFavorite:(bool)isFavorite;
 
 
 @end

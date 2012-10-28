@@ -41,11 +41,13 @@
         if (guest.isHost) {
             label.text = NSLocalizedString(@"Host", nil);
         }
-        if (guest.diet != 0)
+
+        if (guest.diet != 0) {
             if ([label.text length] > 0)
                 label.text = [label.text stringByAppendingFormat:@" (%@: %@)", [NSLocalizedString(@"Diet", nil) lowercaseString], [guest dietString]];
             else
                 label.text = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Diet", nil), [guest dietString]];
+        }
 
         [view addSubview:label];
 

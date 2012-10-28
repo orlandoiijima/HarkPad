@@ -47,4 +47,7 @@
         entityState = newState;
 }
 
+- (BOOL) isNew {
+    return entityState == EntityStateNew;
+}
 @end

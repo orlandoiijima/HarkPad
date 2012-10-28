@@ -22,6 +22,7 @@
 @class MenuCollectionView;
 @class ProductCategory;
 @class CategorySupplementaryView;
+@class QuickProductPropertiesController;
 
 @interface MenuCardViewController : UIViewController <CKCalendarDelegate, MenuDelegate, UIGestureRecognizerDelegate>
 
@@ -36,6 +37,8 @@
 @property(nonatomic, strong) MenuPropertiesView * menuProperties;
 
 @property(nonatomic, strong) UIBarButtonItem *addButton;
+
+@property(nonatomic, strong) QuickProductPropertiesController *productPropertiesController;
 
 + (MenuCardViewController *)controllerWithMenuCard:(MenuCard *)card;
 

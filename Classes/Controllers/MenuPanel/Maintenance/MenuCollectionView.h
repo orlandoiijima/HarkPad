@@ -34,6 +34,8 @@
 
 @property(nonatomic, strong) Product * draggingProduct;
 
+@property(nonatomic) int numberOfColumns;
+
 + (MenuCollectionView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show numberOfColumns:(int)numberOfColumns editing:(BOOL)editing menuDelegate:(id <MenuDelegate>)menuDelegate;
 
 - (ProductCategory *)categoryBySection:(int)section;
@@ -42,7 +44,7 @@
 
 - (id)itemAtIndexPath:(NSIndexPath *)path;
 
-- (NSIndexPath *)indexPathForItem:(id)item;
+- (NSMutableArray *)indexPathsForItem:(id)item;
 
 - (void)collectionView:(UICollectionView *)view layout:(LXReorderableCollectionViewFlowLayout *)layout didStartDragAtIndexPath:(NSIndexPath *)path;
 

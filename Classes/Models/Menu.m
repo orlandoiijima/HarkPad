@@ -32,6 +32,7 @@
     menu.price = [jsonDictionary objectForKey:@"price"];
     menu.key = [jsonDictionary objectForKey:@"key"];
     menu.name = [jsonDictionary objectForKey:@"name"];
+    menu.vat = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"vat"] decimalValue]];
     menu.items = [[NSMutableArray alloc] init];
     id items = [jsonDictionary objectForKey:@"items"];
     for(NSDictionary *item in items)
@@ -52,6 +53,7 @@
     [dictionary setObject: self.name forKey:@"name"];
     [dictionary setObject: self.key forKey:@"key"];
     [dictionary setObject: self.price forKey:@"price"];
+    [dictionary setObject: self.vat forKey:@"vat"];
     NSMutableArray *menuItems = [[NSMutableArray alloc] init];
     for (MenuItem *item in items) {
         [menuItems addObject:[item toDictionary]];
@@ -65,6 +67,7 @@
     menu.key = [self.key copy];
     menu.name = [self.name copy];
     menu.price = [self.price copy];
+    menu.vat = _vat;
     menu.items = [[NSMutableArray allocWithZone:zone] init];
     for (MenuItem *item in self.items) {
         [menu.items addObject:[item copy]];
