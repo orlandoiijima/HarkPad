@@ -22,12 +22,13 @@
 @property (retain) IBOutlet UITextField *uiKey;
 @property (retain) IBOutlet UITextField *uiName;
 @property (retain) IBOutlet UITextField *uiPrice;
-@property (retain) IBOutlet UITableView *uiPropertiesTable;
+@property (retain) IBOutlet UITableView *tableView;
 @property (retain) IBOutlet UISegmentedControl *uiVat;
 @property (nonatomic, retain) id<MenuDelegate> delegate;
 @property (retain) IBOutlet UIButton *uiIncludedInQuickMenu;
 @property (retain) IBOutlet UIButton *uiDelete;
 @property(nonatomic, strong) Product *product;
+@property (retain) IBOutlet UILabel *tableCaption;
 
 @property(nonatomic, strong) UIPopoverController *popoverController;
 

@@ -20,17 +20,17 @@
 #import "MBProgressHUD.h"
 
 @class TableMapViewController;
-@class PinLoginViewController;
+@class LoginPinViewController;
 
 @interface HarkPadAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
-    PinLoginViewController *loginViewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) IBOutlet UITabBarController *loginViewController;
+
+@property(nonatomic, strong) LoginPinViewController *loginViewController;
 
 - (BOOL) checkReachability;
 

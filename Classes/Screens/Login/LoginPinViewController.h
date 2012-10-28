@@ -1,5 +1,5 @@
 //
-//  PinLoginViewController.h
+//  LoginPinViewController.h
 //  HarkPad
 //
 //  Created by Willem Bison on 09/28/12.
@@ -12,7 +12,7 @@
 #import "User.h"
 #import "Session.h"
 
-@interface PinLoginViewController : UIViewController
+@interface LoginPinViewController : UIViewController
 
 @property (retain) UITextField *pinField;
 
@@ -29,7 +29,7 @@
 
 @property(nonatomic, strong) UILabel *name;
 
-+ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock;
++ (LoginPinViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock;
 
 - (void) go;
 

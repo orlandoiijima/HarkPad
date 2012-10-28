@@ -25,7 +25,7 @@
     [headerView addSubview: headerView.monthLabel];
     headerView.monthLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     headerView.monthLabel.backgroundColor = [UIColor clearColor];
-    headerView.monthLabel.textAlignment = UITextAlignmentCenter;
+    headerView.monthLabel.textAlignment = NSTextAlignmentCenter;
     NSDate *date = [calendarView firstDateInMonth];
     headerView.monthLabel.text = [date monthString];
 
@@ -37,7 +37,7 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, frame.size.height - height, calendarView.columnWidth, height)];
         [headerView addSubview:label];
         label.backgroundColor = [UIColor clearColor];
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.font = [UIFont systemFontOfSize:11];
         label.textColor = [UIColor grayColor];
         label.adjustsFontSizeToFitWidth = true;

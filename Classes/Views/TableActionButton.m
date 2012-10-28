@@ -65,12 +65,12 @@
         frame = CGRectMake(frame.origin.x + self.imageSize.width + 10, frame.origin.y, frame.size.width - self.imageSize.width - 10, frame.size.height);
         CGFloat y = frame.origin.y;
         if ([self.labelCommand.text length] > 0) {
-            self.labelCommand.textAlignment = UITextAlignmentLeft;
+            self.labelCommand.textAlignment = NSTextAlignmentLeft;
             self.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
             y += 30;
         }
         self.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
-        self.labelDescription.textAlignment = UITextAlignmentLeft;
+        self.labelDescription.textAlignment = NSTextAlignmentLeft;
 
     }
     else {
@@ -78,10 +78,10 @@
         CGFloat y = self.imageSize.height + 10;
         if ([self.labelCommand.text length] > 0) {
             self.labelCommand.frame = CGRectMake(frame.origin.x, y, frame.size.width, 20);
-            self.labelCommand.textAlignment = UITextAlignmentCenter;
+            self.labelCommand.textAlignment = NSTextAlignmentCenter;
             y += 30;
         }
-        self.labelDescription.textAlignment = UITextAlignmentCenter;
+        self.labelDescription.textAlignment = NSTextAlignmentCenter;
         self.labelDescription.frame = CGRectMake(frame.origin.x, y, frame.size.width, 0);
     }
     [self setCommandDescription:self.labelDescription.text];
@@ -99,7 +99,7 @@
 
 - (void) setCommandDescription:(NSString *)text {
     self.labelDescription.text = text;
-    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.labelDescription.frame.size.width, self.frame.size.height - self.labelDescription.frame.origin.y - 10) lineBreakMode:UILineBreakModeWordWrap];
+    CGSize size = [self.labelDescription.text sizeWithFont:self.labelDescription.font constrainedToSize:CGSizeMake(self.labelDescription.frame.size.width, self.frame.size.height - self.labelDescription.frame.origin.y - 10) lineBreakMode:NSLineBreakByWordWrapping];
     self.labelDescription.frame = CGRectMake(self.labelDescription.frame.origin.x, self.labelDescription.frame.origin.y, self.labelDescription.frame.size.width, size.height);
 }
 

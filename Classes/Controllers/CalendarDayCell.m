@@ -35,7 +35,7 @@
     cell.label.text = [NSString stringWithFormat:@"%d", [date day]];
     cell.label.backgroundColor = [UIColor clearColor];
     cell.label.textColor = isActive ? [UIColor blackColor] : [UIColor lightGrayColor];
-    cell.label.textAlignment = UITextAlignmentCenter;
+    cell.label.textAlignment = NSTextAlignmentCenter;
     [cell addSubview:cell.label];
 
     NSArray *colors = [NSArray arrayWithObjects:
@@ -69,7 +69,7 @@
 
 - (void)setupStatusView: (UILabel *)statusView colors: (NSArray *)colors locations: (NSArray *)locations
 {
-    statusView.textAlignment = UITextAlignmentCenter;
+    statusView.textAlignment = NSTextAlignmentCenter;
     statusView.font = [UIFont systemFontOfSize:12];
     statusView.adjustsFontSizeToFitWidth = YES;
     statusView.alpha = 0;

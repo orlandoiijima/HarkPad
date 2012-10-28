@@ -10,7 +10,7 @@
 #import "SignOnViewController.h"
 #import "CredentialsAlertView.h"
 #import "AppVault.h"
-#import "PinLoginViewController.h"
+#import "LoginPinViewController.h"
 #import "AddDeviceViewController.h"
 #import "AdminLoginViewController.h"
 

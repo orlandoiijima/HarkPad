@@ -1,5 +1,5 @@
 //
-//  PinLoginViewController.m
+//  LoginPinViewController.m
 //  HarkPad
 //
 //  Created by Willem Bison on 09/28/12.
@@ -7,7 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "PinLoginViewController.h"
+#import "LoginPinViewController.h"
 #import "ProgressInfo.h"
 #import "ServiceResult.h"
 #import "Cache.h"
@@ -15,11 +15,11 @@
 #import "Service.h"
 #import "AppVault.h"
 
-@interface PinLoginViewController ()
+@interface LoginPinViewController ()
 
 @end
 
-@implementation PinLoginViewController
+@implementation LoginPinViewController
 @synthesize numberOfAttempts = _numberOfAttempts;
 @synthesize didAuthenticateBlock = _didAuthenticateBlock;
 @synthesize pinLabels = _pinLabels;
@@ -32,8 +32,8 @@
 #define PIN_SPACE 10
 
 
-+ (PinLoginViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock {
-    PinLoginViewController *controller = [[PinLoginViewController alloc] init];
++ (LoginPinViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock {
+    LoginPinViewController *controller = [[LoginPinViewController alloc] init];
     controller.didAuthenticateBlock = didAuthenticateBlock;
     return controller;
 }

@@ -15,6 +15,7 @@
 #import "MenuItem.h"
 #import "MenuPanelView.h"
 #import "MenuCollectionViewController.h"
+#import "UIImage+Tint.h"
 
 @implementation ProductPropertiesView
 
@@ -27,9 +28,9 @@
 + (ProductPropertiesView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard {
     ProductPropertiesView * view = [[ProductPropertiesView alloc] initWithFrame:frame];
     view.menuCard = menuCard;
-    view.uiPropertiesTable.backgroundView = nil;
-    [view.uiIncludedInQuickMenu setImage:[UIImage imageNamed:@"BlueStar.png"] forState:UIControlStateSelected];
-    view.uiPropertiesTable.allowsSelection = NO;
+    view.tableView.backgroundView = nil;
+    [view.uiIncludedInQuickMenu setImage:[UIImage imageNamed:@"favorite.png"] forState:UIControlStateSelected];
+    [view.uiIncludedInQuickMenu setImage:[[UIImage imageNamed:@"favorite.png"] imageTintedWithColor:[UIColor grayColor]] forState:UIControlStateNormal];
     [view initVat];
     return view;
 }
@@ -51,7 +52,7 @@
     [uiVat removeAllSegments];
     int i = 0;
     for (NSDictionary *vat in _menuCard.vatPercentages) {
-        NSDecimalNumber *percentage = [NSString stringWithFormat:@"%@", [vat objectForKey:@"percentage"]];
+        NSDecimalNumber *percentage = [vat objectForKey:@"percentage"];
         NSString *label = [NSString stringWithFormat:@"%@ (%@%%)", [vat objectForKey:@"name"], percentage];
         [uiVat insertSegmentWithTitle:label atIndex:i++ animated:YES];
     }
@@ -66,14 +67,18 @@
     _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:item];
     if ([item isKindOfClass:[Product class]]) {
         _product = (Product *)item;
+        _tableView.allowsSelection = NO;
+        _tableCaption.text = NSLocalizedString(@"Options", nil);
         _tableDataSource = [ProductPropertiesTableViewDataSource dataSourceWithProduct:item createCell: ^UITableViewCell *(int row) {return [self createPropertyCellForRow:row];}];
     }
     else {
         _menu = (Menu *)item;
+        _tableView.allowsSelection = YES;
+        _tableCaption.text = NSLocalizedString(@"Courses", nil);
         _tableDataSource = [MenuItemsTableViewDataSource dataSourceWithMenu:item createCell: ^UITableViewCell *(int row) {return [self createMenuItemCellForRow:row];}];
     }
-    _uiPropertiesTable.dataSource = _tableDataSource;
-    [_uiPropertiesTable reloadData];
+    _tableView.dataSource = _tableDataSource;
+    [_tableView reloadData];
 }
 
 - (bool)validate {
@@ -196,7 +201,8 @@
 }
 
 - (void)didSelectProduct:(Product *)product {
-    NSIndexPath *indexPath = [_uiPropertiesTable indexPathForSelectedRow];
+    [self.popover dismissPopoverAnimated:YES];
+    NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
     if (indexPath == nil) return;
     MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
     if (item == nil) {
@@ -204,14 +210,12 @@
         item.course = [_menu.items count];
         [_menu.items addObject:item];
         item.product = product;
-        [_uiPropertiesTable insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+        [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     }
     else {
         item.product = product;
-        [_uiPropertiesTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
-
+        [_tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     }
-    [self.popover dismissPopoverAnimated:YES];
 }
 
 - (MenuItem *)menuItemAtRow:(int)row {
@@ -233,12 +237,12 @@
         return NO;
     if ([textField.text length] == 0) {
         [_product.properties removeObjectAtIndex:index];
-        [_uiPropertiesTable deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:YES];
+        [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index inSection:0]] withRowAnimation:YES];
         return NO;
     }
     else {
-        if (index + 1 == [_uiPropertiesTable numberOfRowsInSection:0]) {
-            [_uiPropertiesTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index+1 inSection:0]] withRowAnimation:YES];
+        if (index + 1 == [_tableView numberOfRowsInSection:0]) {
+            [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForItem:index + 1 inSection:0]] withRowAnimation:YES];
         }
         return YES;
     }
@@ -246,7 +250,7 @@
 
 - (int)tableRowByTextField:(UITextField *)textField {
     UITableViewCell *cell = (UITableViewCell *)[[textField superview] superview];
-    NSIndexPath *indexPath = [_uiPropertiesTable indexPathForCell:cell];
+    NSIndexPath *indexPath = [_tableView indexPathForCell:cell];
     if (indexPath == nil) return -1;
     return indexPath.row;
 }

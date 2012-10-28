@@ -9,8 +9,6 @@
 
 @interface UIBarButtonItem (Image)
 
-+ (UIBarButtonItem *)withImage:(UIImage *)image target:(id)target action:(SEL)action;
-
 + (UIBarButtonItem *)buttonWithImage:(UIImage *)image target:(id)target action:(SEL)action;
 
 @end
