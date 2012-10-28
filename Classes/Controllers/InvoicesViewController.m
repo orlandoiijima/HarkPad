@@ -44,6 +44,11 @@
     [self refresh];
 
     self.title = NSLocalizedString(@"Recent bills", nil);
+
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
 }
 
 - (void)viewDidUnload
@@ -51,11 +56,6 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-}
-
-- (void) reloadTableViewDataSource
-{
-    [self refresh];
 }
 
 - (void) refresh
@@ -68,11 +68,12 @@
                    Invoice *invoice = [Invoice invoiceFromJsonDictionary: orderDic];
                    [self.invoices addObject: invoice];
                 }
-                [super dataSourceDidFinishLoadingNewData];
+                [self.refreshControl endRefreshing];
                 self.lastUpdate = [NSDate date];
                 [self.tableView reloadData];
                 }
             error: ^(ServiceResult *serviceResult) {
+                [self.refreshControl endRefreshing];
                 [serviceResult displayError];
             }];
 }

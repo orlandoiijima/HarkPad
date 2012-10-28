@@ -39,14 +39,14 @@
     [self addSubview: _addImage];
     _addImage.hidden = YES;
 
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.cornerRadius = 1;
-    gradientLayer.frame = self.bounds;
-    gradientLayer.borderColor = [[UIColor blackColor] CGColor];
-    gradientLayer.borderWidth = 2;
-    gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:0.94] CGColor], nil];
-    gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil];
-    self.layer.mask = gradientLayer;
+//    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+//    gradientLayer.cornerRadius = 1;
+//    gradientLayer.frame = self.bounds;
+//    gradientLayer.borderColor = [[UIColor blackColor] CGColor];
+//    gradientLayer.borderWidth = 2;
+//    gradientLayer.colors = [NSArray arrayWithObjects:(__bridge id)[[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1] CGColor], (__bridge id)[[UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:0.94] CGColor], nil];
+//    gradientLayer.locations = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.3], [NSNumber numberWithFloat:1.0], nil];
+//    self.layer.mask = gradientLayer;
 
 
     self.layer.borderColor = [[UIColor blackColor] CGColor];

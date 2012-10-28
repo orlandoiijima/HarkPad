@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Order.h"
-#import "PullToRefreshTableViewController.h"
 
-@interface InvoicesViewController : PullToRefreshTableViewController {
+@interface InvoicesViewController : UITableViewController {
     NSMutableArray *invoices;
     NSDate *lastUpdate;
 }

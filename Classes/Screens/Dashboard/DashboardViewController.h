@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PullToRefreshTableViewController.h"
 
-@interface DashboardViewController : PullToRefreshTableViewController {
+@interface DashboardViewController : UITableViewController {
     NSMutableDictionary *data;
     NSDate *lastUpdate;
     NSMutableDictionary *sections;

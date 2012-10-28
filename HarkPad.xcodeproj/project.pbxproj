@@ -223,7 +223,6 @@
 		E5E7234D1311A12C00905959 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F3D11713100AC600753E36 /* Default-Landscape~ipad.png */; };
 		E5E7234E1311A12C00905959 /* ChefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5E722F013118B3D00905959 /* ChefViewController.xib */; };
 		E5F00514139A124E00B2ED57 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F00513139A124E00B2ED57 /* DashboardViewController.m */; };
-		E5F00518139A290600B2ED57 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */; };
 		E5F0051B139A2B6300B2ED57 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */; };
 		E5F0051D139AC64600B2ED57 /* dashboard.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F0051C139AC64600B2ED57 /* dashboard.png */; };
 		E5F2C993135188FF00FDBE85 /* KitchenStatisticsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F2C992135188FF00FDBE85 /* KitchenStatisticsDataSource.m */; };
@@ -691,8 +690,6 @@
 		E5E723521311A12C00905959 /* HarkPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HarkPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5F00512139A124E00B2ED57 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		E5F00513139A124E00B2ED57 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
-		E5F00516139A290600B2ED57 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
-		E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
 		E5F00519139A2B6300B2ED57 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		E5F0051A139A2B6300B2ED57 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		E5F0051C139AC64600B2ED57 /* dashboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboard.png; sourceTree = "<group>"; };
@@ -1175,8 +1172,6 @@
 				E5F609A313489C2400D885A2 /* UserListViewController.h */,
 				E5F609A313489C2400D88588 /* PopupHost.h */,
 				E547A3D413EDA6DC00E4AC1F /* ReservationWalkinViewController.xib */,
-				E5F00516139A290600B2ED57 /* PullToRefreshTableViewController.h */,
-				E5F00517139A290600B2ED57 /* PullToRefreshTableViewController.m */,
 				E561E25C13348E8900229B76 /* BillViewController.h */,
 				E561E25D13348E8A00229B76 /* BillViewController.m */,
 				E561E25E13348E8C00229B76 /* BillViewController.xib */,
@@ -2103,7 +2098,6 @@
 				E5E2D7A81386A5F400745EFE /* InvoicesViewController.m in Sources */,
 				E5E2D7AB1386B2EF00745EFE /* OrderLinesViewController.m in Sources */,
 				E5F00514139A124E00B2ED57 /* DashboardViewController.m in Sources */,
-				E5F00518139A290600B2ED57 /* PullToRefreshTableViewController.m in Sources */,
 				E5F0051B139A2B6300B2ED57 /* EGORefreshTableHeaderView.m in Sources */,
 				E55DFCCC139FD89000EB7C69 /* GTMHTTPFetcher.m in Sources */,
 				E55DFCE3139FD89000EB7C69 /* CDataScanner.m in Sources */,

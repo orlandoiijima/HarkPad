@@ -57,6 +57,11 @@
     
     self.lastUpdate = nil;
     [self reloadTableViewDataSource];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(reloadTableViewDataSource)
+             forControlEvents:UIControlEventValueChanged];
+    self.refreshControl = refreshControl;
+
 }
 
 - (void)viewDidUnload
@@ -147,11 +152,11 @@
 {
     [[Service getInstance] getDashboardStatistics:^(ServiceResult *serviceResult){
         self.data = serviceResult.jsonData;
-        [super dataSourceDidFinishLoadingNewData];
         self.lastUpdate = [NSDate date];
         [self.tableView reloadData];
     }
     error:nil];
+    [self.refreshControl endRefreshing];
 }
 
 
