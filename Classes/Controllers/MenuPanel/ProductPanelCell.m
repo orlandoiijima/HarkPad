@@ -19,7 +19,7 @@
     self = [super initWithFrame:frame];
 
     self.nameLabel = [[UILabel alloc] initWithFrame:CGRectInset(self.bounds, 5, 5)];
-    self.nameLabel.backgroundColor = [UIColor clearColor];
+    self.nameLabel.shadowColor = [UIColor grayColor];
     self.nameLabel.textAlignment = NSTextAlignmentCenter;
     self.nameLabel.autoresizingMask = (UIViewAutoresizing) -1;
     self.nameLabel.numberOfLines = 0;
@@ -66,6 +66,9 @@
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     self.layer.borderColor = selected ? [[UIColor blueColor] CGColor] : [[UIColor blackColor] CGColor];
+    self.backgroundColor = selected ? [UIColor colorWithRed:1 green:153.0/255.0 blue:51.0/255.0 alpha:1] : _standardBackgroundColor;
+    _nameLabel.backgroundColor = selected ? [UIColor colorWithRed:1 green:153.0/255.0 blue:51.0/255.0 alpha:1] : _standardBackgroundColor;
+    _nameLabel.textColor = selected ? [UIColor blueColor] : [UIColor blackColor];
 }
 
 - (void)setIsFavorite:(bool)favorite {
@@ -77,7 +80,7 @@
     if (item == nil) {
         _nameLabel.hidden = YES;
         _addImage.hidden = NO;
-        self.backgroundColor = category.color;
+        _standardBackgroundColor = category.color;
     }
     else {
         NSString *key = [item key];
@@ -86,12 +89,13 @@
         _addImage.hidden = YES;
         if ([item isKindOfClass:[Product class]]) {
             Product *product = (Product *)item;
-            self.backgroundColor = product.category.color;
+            _standardBackgroundColor = product.category.color;
         }
         else {
-            self.backgroundColor = [UIColor orangeColor]; // category.color;
+            _standardBackgroundColor = [UIColor orangeColor]; // category.color;
         }
     }
+    [self setSelected: self.selected];
 }
 
 

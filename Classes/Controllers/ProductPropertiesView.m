@@ -61,8 +61,11 @@
 - (void)setItem:(id)item {
     _item = item;
     uiKey.text = [item key];
+    _itemCaption.text = uiKey.text;
     uiName.text = [item name];
-    uiPrice.text = [Utils getAmountString: [item price] withCurrency:NO];
+    NSString *price  = [Utils getAmountString: [item price] withCurrency:NO];
+    uiPrice.text = [price substringToIndex:[price length] - 3];
+    _uiCents.text = [price substringFromIndex:[price length] - 2];
     uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage: [item vat]];
     _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:item];
     if ([item isKindOfClass:[Product class]]) {
@@ -115,6 +118,7 @@
 
 - (IBAction)updateCode {
     [_item setValue:[Utils trim:uiKey.text] forKey:@"key"];
+    _itemCaption.text = uiKey.text;
     [self didUpdate];
 }
 
@@ -124,15 +128,29 @@
 }
 
 - (IBAction)updatePrice {
-    [_item setValue:[Utils getAmountFromString:uiPrice.text] forKey:@"price"];
+    NSDecimalNumber *price = (NSDecimalNumber *)[NSDecimalNumber numberWithInt: [uiPrice.text intValue] * 100 + [_uiCents.text intValue]];
+    price = [price decimalNumberByDividingBy: [NSDecimalNumber decimalNumberWithString:@"100"]];
+    [_item setValue:price forKey:@"price"];
     [self didUpdate];
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (textField == _uiCents) {
+        if ([newString length] >  2)
+            return NO;
+    }
+    NSCharacterSet *digits = [NSCharacterSet characterSetWithCharactersInString:@"1234567890"];
+    NSString *newStringWithoutDigits = [newString stringByTrimmingCharactersInSet: digits];
+    if (newStringWithoutDigits.length != 0)
+        return NO;
+    return YES;
 }
 
 - (IBAction)delete {
     if ([ModalAlert confirm:NSLocalizedString(@"Delete item ?", nil)]) {
         [_delegate didDeleteItem: _item];
     }
-
 }
 
 - (void) didUpdate {

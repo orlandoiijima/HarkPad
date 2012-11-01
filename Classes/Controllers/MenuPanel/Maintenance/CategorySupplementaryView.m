@@ -12,6 +12,7 @@
 #import "MenuDelegate.h"
 #import "ColorButtonView.h"
 #import "UIColor-Expanded.h"
+#import "UIImage+Tint.h"
 
 @implementation CategorySupplementaryView
 @synthesize delegate = _delegate;
@@ -27,12 +28,19 @@
     _colorButton.delegate = self;
     if (_category.type == CategoryTypeStandard && isEditing) {
         _colorButton.enabled = YES;
+        _foodButton.enabled = YES;
         _colorButton.hidden = NO;
         _name.enabled = YES;
+        _foodButton.hidden = NO;
+        [_foodButton setImage:[[UIImage imageNamed:@"fork-and-knife.png"] imageTintedWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
+        [_foodButton setImage:[[UIImage imageNamed:@"wine-glass.png"] imageTintedWithColor:[UIColor whiteColor]] forState:UIControlStateSelected];
+        _foodButton.selected = _category.isFood == false;
     }
     else {
         _colorButton.enabled = NO;
         _colorButton.hidden = YES;
+        _foodButton.enabled = NO;
+        _foodButton.hidden = YES;
         _name.enabled = NO;
     }
 }
@@ -45,6 +53,12 @@
 - (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
     _category.color = [UIColor colorWithHexString:hexColor];
     [_delegate didSelectColor:_category.color  forCategory:_category];
+}
+
+- (IBAction)toggleFood {
+    _category.isFood = !_category.isFood;
+    _foodButton.selected = !_foodButton.selected;
+    [_delegate didToggleFoodForCategory:_category];
 }
 
 @end

@@ -11,7 +11,7 @@
 @class Product;
 @class Menu;
 @class ProductCategory;
-
+@class MenuCard;
 @protocol ProductPanelDelegate <NSObject>
 
 @optional
@@ -31,14 +31,10 @@
 @interface ProductPanelView : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (retain) id<ProductPanelDelegate> panelDelegate;
-
-@property(nonatomic, strong) NSMutableArray * products;
-
-
 @property(nonatomic, strong) Product *selectedItem;
+@property(nonatomic, strong) MenuCard *menuCard;
+@property(nonatomic, strong) ProductCategory *category;
 
 + (ProductPanelView *)panelWithFrame:(CGRect)frame delegate:(id <ProductPanelDelegate>)delegate;
-
-- (void)refreshProduct:(Product *)product;
 
 @end

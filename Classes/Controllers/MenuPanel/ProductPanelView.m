@@ -15,8 +15,6 @@
 #import "ProductCategory.h"
 
 @implementation ProductPanelView
-@synthesize products = _products;
-@synthesize selectedItem = _selectedItem;
 
 
 + (ProductPanelView *) panelWithFrame:(CGRect) frame delegate: (id<ProductPanelDelegate>)delegate {
@@ -37,24 +35,24 @@
     return view;
 }
 
-- (void)setProducts:(NSMutableArray *)p {
-    _products = p;
+- (void)setCategory:(ProductCategory *)category {
+    _category = category;
     [self reloadData];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_products count] + 1;
+    return [_category.products count];
 }
 
 - (Product *)itemAtIndexPath:(NSIndexPath *)path {
-    if (_products == nil || path.row >= _products.count)
+    if (_category == nil || path.row >= _category.products.count)
         return nil;
-    return [self.products objectAtIndex:path.row];
+    return [_category.products objectAtIndex:path.row];
 }
 
 - (NSIndexPath *)indexPathForProduct:(Product *)product {
     int i = 0;
-    for (Product *p in _products) {
+    for (Product *p in _category.products) {
         if ([p.key isEqualToString: product.key])
             return [NSIndexPath indexPathForItem:i  inSection:0];
         i++;
@@ -62,40 +60,15 @@
     return nil;
 }
 
-- (void) refreshProduct:(Product *)product {
-    NSIndexPath *indexPath = [self indexPathForProduct:product];
-    if (indexPath == nil) return;
-    [self reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
-}
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-
     static NSString *cellIdentifier = @"xjsjw";
 
     ProductPanelCell *cell = (ProductPanelCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
 
     id item = [self itemAtIndexPath:indexPath];
-    if (item == nil) {
-        if ([self isDummyAddCell:indexPath]) {
-
-        }
-    }
-    else
-    if ([item isKindOfClass:[Product class]]) {
-        Product *product = (Product *)item;
-        cell.nameLabel.text = product.key;
-        cell.backgroundColor = product.category.color;
-    }
-    else {
-        Menu *menu = (Menu *)item;
-        cell.nameLabel.text = menu.key;
-        cell.backgroundColor = [UIColor greenColor];
-    }
+    [cell setPanelItem:item withCategory: _category isFavorite: [_menuCard isFavorite:item]];
+    
     return cell;
-}
-
-- (BOOL) isDummyAddCell:(NSIndexPath *) indexPath {
-    return indexPath.row == [_products count];
 }
 
 - (void)setSelectedItem:(Product *)product {
@@ -107,11 +80,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.panelDelegate == nil) return;
-
-    if ([self isDummyAddCell:indexPath]) {
-        [self.panelDelegate didTapDummy];
-        return;
-    }
 
     Product *product = [self itemAtIndexPath:indexPath];
     if (product == nil)

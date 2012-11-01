@@ -125,6 +125,11 @@
 - (void)didSelectColor:(UIColor *)color forCategory:(ProductCategory *)category {
     int section = [_menuPanel sectionByCategory:category];
     [_menuPanel reloadSections:[NSIndexSet indexSetWithIndex: section]];
+    _menuPanel.selectedItem = _menuPanel.selectedItem;
+}
+
+- (void)didToggleFoodForCategory:(ProductCategory *)category {
+
 }
 
 - (void)startEdit: (id)item {
@@ -154,22 +159,24 @@
 }
 
 - (void)addProductInCategory:(ProductCategory *)category {
-    Product *product;
+    id item;
     if ([category.products count] > 0) {
-        product = [[category.products objectAtIndex:0] copy];
-        product.name = @"";
+        item = [[category.products objectAtIndex:0] copy];
+        [item setValue:@"" forKey:@"name"];
     }
     else {
-        product = [[Product alloc] init];
+        item =  [[[item class] alloc] init];
     }
-    product.key = NSLocalizedString(@"New", @"Key of new product");
-    product.category = category;
-    [product.category.products addObject: product];
+    [item setValue:NSLocalizedString(@"New", @"Key of new product") forKey:@"key"];
+    [category.products addObject:item];
+
+    if ([item isKindOfClass:[Product class]])
+        [item setValue:category forKey:@"category"];
 
     int section = [_menuPanel sectionByCategory:category];
-    int item = [category.products count] - 1;
-    [_menuPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:item inSection:section]]];
-    _menuPanel.selectedItem = product;
+    int index = [category.products count] - 1;
+    [_menuPanel insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:index inSection:section]]];
+    _menuPanel.selectedItem = item;
 }
 
 - (void) getDate:(UIBarButtonItem *)button {

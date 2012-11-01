@@ -16,6 +16,7 @@
 
 @property (retain) IBOutlet UITextField *name;
 @property (retain) IBOutlet ColorButtonView *colorButton;
+@property (retain) IBOutlet UIButton *foodButton;
 @property(nonatomic, strong) id<MenuDelegate> delegate;
 
 @property(nonatomic, strong) ProductCategory *category;
@@ -25,6 +26,6 @@
 - (void)setupForCategory:(ProductCategory *)category isEditing:(bool)isEditing delegate:(id <MenuDelegate>)delegate;
 
 - (IBAction)textChange:(UITextField *)textField;
-
+- (IBAction)toggleFood;
 
 @end

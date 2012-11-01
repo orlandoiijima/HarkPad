@@ -36,7 +36,7 @@
 
 - (void) setMenuCard:(MenuCard *)card {
     _categories = [[NSMutableArray alloc] init];
-
+    self.productPanelView.menuCard = card;
     if (_show == MenuPanelShowAll) {
         ProductCategory *favorites = [[ProductCategory alloc] init];
         favorites.name = NSLocalizedString(@"Favorites", nil);
@@ -149,7 +149,7 @@
 - (void)didTapCategory:(ProductCategory *)category {
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapCategory:)])
         [_delegate didTapCategory:category];
-    _productPanelView.products = category.products;
+    _productPanelView.category = category;
     [self setSelectedItem:[category.products objectAtIndex:0]];
 }
 

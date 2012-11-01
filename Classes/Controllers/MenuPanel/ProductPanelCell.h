@@ -14,6 +14,8 @@
 
 @property(nonatomic, strong) UIImageView *favoriteImage;
 
+@property(nonatomic, strong) UIColor *standardBackgroundColor;
+
 - (void)setPanelItem:(id)item withCategory:(ProductCategory *)category isFavorite:(bool)isFavorite;
 
 

@@ -22,25 +22,21 @@
 @property (retain) IBOutlet UITextField *uiKey;
 @property (retain) IBOutlet UITextField *uiName;
 @property (retain) IBOutlet UITextField *uiPrice;
+@property (retain) IBOutlet UITextField *uiCents;
 @property (retain) IBOutlet UITableView *tableView;
 @property (retain) IBOutlet UISegmentedControl *uiVat;
 @property (nonatomic, retain) id<MenuDelegate> delegate;
 @property (retain) IBOutlet UIButton *uiIncludedInQuickMenu;
 @property (retain) IBOutlet UIButton *uiDelete;
-@property(nonatomic, strong) Product *product;
+@property (nonatomic, strong) Product *product;
 @property (retain) IBOutlet UILabel *tableCaption;
-
-@property(nonatomic, strong) UIPopoverController *popoverController;
-
-@property(nonatomic, strong) MenuCard *menuCard;
-
-@property(nonatomic, strong) id item;
-
-@property(nonatomic, strong) Menu *menu;
-
-@property(nonatomic, strong) id<UITableViewDataSource> tableDataSource;
-
-@property(nonatomic, strong) UIPopoverController *popover;
+@property (retain) IBOutlet UILabel *itemCaption;
+@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) MenuCard *menuCard;
+@property (nonatomic, strong) id item;
+@property (nonatomic, strong) Menu *menu;
+@property (nonatomic, strong) id<UITableViewDataSource> tableDataSource;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 - (IBAction) toggleQuickMenu;
 - (IBAction) updateName;

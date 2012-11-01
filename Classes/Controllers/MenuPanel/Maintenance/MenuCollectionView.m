@@ -264,6 +264,7 @@
 - (void) refreshItem:(id)item {
     NSMutableArray *paths = [self indexPathsForItem: item];
     [self reloadItemsAtIndexPaths:paths];
+    self.selectedItem = _selectedItem;
 }
 
 - (void) deleteItem:(id)item {

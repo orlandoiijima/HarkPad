@@ -51,7 +51,7 @@
     if ([self.name length] > 0)
         [dic setObject: self.name forKey:@"name"];
     [dic setObject: self.color.hexStringFromColor forKey:@"color"];
-
+    [dic setObject:[NSNumber numberWithInt: self.isFood ? 1:0 ] forKey:@"isFood"];
     NSMutableArray *products = [[NSMutableArray alloc] init];
     for (Product *product in _products) {
         [products addObject:[product toDictionary]];
