@@ -29,11 +29,6 @@ static 	Cache * _cache = nil;
         if(!_cache) 
         {
             _cache = [self alloc];
-//            Service *service = [Service getInstance];
-//            [service getCard];
-//            _cache.menuCard.menus = [service getMenus];
-//            _cache.map = [service getMap];
-//            _cache.tree = [service getTree];
         }
     }
     return _cache;

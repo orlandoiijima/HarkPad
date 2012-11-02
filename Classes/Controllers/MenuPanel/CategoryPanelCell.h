@@ -12,4 +12,6 @@
 
 @property(retain) UILabel * nameLabel;
 
+@property(nonatomic, strong) UIColor *standardBackgroundColor;
+@property(nonatomic, strong) id category;
 @end

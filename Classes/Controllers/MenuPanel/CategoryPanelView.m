@@ -61,8 +61,8 @@
 
 
     CategoryPanelCell *cell = (CategoryPanelCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.nameLabel.text = category.name;
-    cell.backgroundColor = category.color;
+
+    cell.category = category;
     return cell;
 }
 
