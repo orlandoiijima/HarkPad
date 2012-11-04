@@ -26,6 +26,11 @@ typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, Category
 @property(nonatomic) CategoryType type;
 
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary;
+
++ (ProductCategory *)categoryFavorites;
+
++ (ProductCategory *)categoryMenus;
+
 - (NSMutableDictionary *)toDictionary;
 
 @end

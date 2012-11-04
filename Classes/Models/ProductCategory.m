@@ -45,6 +45,22 @@
     return category;
 }
 
++ (ProductCategory *) categoryFavorites {
+    ProductCategory *favorites = [[ProductCategory alloc] init];
+    favorites.name = NSLocalizedString(@"Favorites", nil);
+    favorites.type = CategoryTypeFavorites;
+    favorites.color = [UIColor greenColor];
+    return favorites;
+}
+
++ (ProductCategory *) categoryMenus {
+    ProductCategory *favorites = [[ProductCategory alloc] init];
+    favorites.name = NSLocalizedString(@"Menus", nil);
+    favorites.type = CategoryTypeMenus;
+    favorites.color = [UIColor orangeColor];
+    return favorites;
+}
+
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];

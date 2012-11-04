@@ -29,7 +29,7 @@
 
     self.layer.borderColor = [[UIColor blackColor] CGColor];
     self.layer.borderWidth = 2;
-    self.layer.cornerRadius = 4;
+    self.layer.cornerRadius = 10;
 
     return self;
 }
@@ -42,10 +42,10 @@
 
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
-    self.layer.borderColor = selected ? [[UIColor blueColor] CGColor] : [[UIColor blackColor] CGColor];
-    self.backgroundColor = selected ? [UIColor colorWithRed:1 green:153.0/255.0 blue:51.0/255.0 alpha:1] : _standardBackgroundColor;
-    _nameLabel.backgroundColor = selected ? [UIColor colorWithRed:1 green:153.0/255.0 blue:51.0/255.0 alpha:1] : _standardBackgroundColor;
-    _nameLabel.textColor = selected ? [UIColor blueColor] : [UIColor blackColor];
+    self.layer.borderColor = selected ? [[UIColor whiteColor] CGColor] : [[UIColor blackColor] CGColor];
+    self.backgroundColor = selected ? [UIColor blackColor] : _standardBackgroundColor;
+    _nameLabel.backgroundColor = self.backgroundColor;
+    _nameLabel.textColor = selected ? [UIColor whiteColor] : [UIColor blackColor];
 }
 
 @end

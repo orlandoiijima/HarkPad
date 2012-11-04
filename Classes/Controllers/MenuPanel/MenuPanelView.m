@@ -38,18 +38,14 @@
     _categories = [[NSMutableArray alloc] init];
     self.productPanelView.menuCard = card;
     if (_show == MenuPanelShowAll) {
-        ProductCategory *favorites = [[ProductCategory alloc] init];
-        favorites.name = NSLocalizedString(@"Favorites", nil);
-        for (NSString *productKey in card.favorites) {
-            Product *product = [card getProduct:productKey];
-            if (product != nil)
-                [favorites.products addObject:product];
+        ProductCategory *favorites = [ProductCategory categoryFavorites];
+        for (Product *product in card.favorites) {
+            [favorites.products addObject:product];
         }
         if ([favorites.products count] > 0)
             [_categories addObject:favorites];
 
-        ProductCategory *menus = [[ProductCategory alloc] init];
-        menus.name = NSLocalizedString(@"Menus", nil);
+        ProductCategory *menus = [ProductCategory categoryMenus];
         for (Menu *menu in card.menus) {
             [menus.products addObject:menu];
         }
@@ -87,7 +83,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    int countPerRow = self.frame.size.width / 80;
+    int countPerRow = self.frame.size.width / 100;
 
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) _productPanelView.collectionViewLayout;
     layout.itemSize = CGSizeMake( self.frame.size.width / countPerRow, layout.itemSize.height);

@@ -51,6 +51,8 @@
 
 #define HEIGHT_CASHBUTTON 100
 #define HEIGHT_CREDITBUTTON 60
+#define WIDTH_REGISTER 300
+#define WIDTH_MARGIN 5
 
 - (void)viewDidLoad
 {
@@ -62,22 +64,14 @@
     _previousOrder = nil;
 
     float margin = 5;
-    float columnWidth = (self.view.bounds.size.width - 3*margin) / 2;
+    float columnWidth = self.view.bounds.size.width - 3*WIDTH_MARGIN - WIDTH_REGISTER;
     float columnHeight = self.view.bounds.size.height - 2*margin;
 
     self.productView = [MenuPanelView viewWithFrame: CGRectMake(margin, margin, columnWidth, columnHeight) menuCard: [[Cache getInstance] menuCard] menuPanelShow:MenuPanelShowAll delegate: self];
 
     [self.view addSubview:self.productView];
 
-//    self.productView = [[MenuTreeView alloc] initWithFrame:CGRectMake(margin, margin, columnWidth, columnHeight)];
-//    [self.view addSubview:self.productView];
-//    self.productView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    self.productView.menuDelegate = self;
-//    self.productView.leftHeaderWidth = 20;
-//    self.productView.topHeaderHeight = 20;
-//    self.productView.cellPadding = CGSizeMake(3, 3);
-//    [self.productView setNeedsDisplay];
-
+    columnWidth = WIDTH_REGISTER;
     float x = 2*margin + self.productView.frame.size.width;
     float y = margin + 20;
     self.amountLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, columnWidth, 80)];

@@ -68,17 +68,11 @@
     _categories = [[NSMutableArray alloc] init];
 
     if (_show == MenuPanelShowAll) {
-        ProductCategory *favorites = [[ProductCategory alloc] init];
-        favorites.name = NSLocalizedString(@"Favorites", nil);
-        favorites.type = CategoryTypeFavorites;
-        favorites.color = [UIColor clearColor];
+        ProductCategory *favorites = [ProductCategory categoryFavorites];
         favorites.products = card.favorites;
         [_categories addObject:favorites];
 
-        ProductCategory *menus = [[ProductCategory alloc] init];
-        menus.name = NSLocalizedString(@"Menus", nil);
-        menus.type = CategoryTypeMenus;
-        menus.color = [UIColor orangeColor];
+        ProductCategory *menus = [ProductCategory categoryMenus];
         menus.products = card.menus;
         [_categories addObject:menus];
     }
