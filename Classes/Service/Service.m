@@ -44,7 +44,7 @@ static Service *_service;
         _location = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
         if (_location == nil)
             _location = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        url = URL_DEV_LOCAL;
+        url = URL_DEV_APPHB; // URL_DEV_LOCAL;
     }
     return self;
 }

@@ -115,4 +115,15 @@
 "Selected course has already been requested. Continue ?" = "Geselecteerde gang is al uitgevraagd. Doorgaan ?";
 "Dayreport" = "Dagrapport";
 "Enter your accesskey" = "Voer je toegangscode in";
-"Storing" = "Storing";
+"Storing" = "Opslaan";
+"Registering location" = "Registreren locatie";
+"Registering device" = "Registreren iPad";
+"Register iPad" = "Registreren iPad";
+"New device" = "Nieuwe iPad";
+"Menu starting %@" = "Kaart vanaf %@";
+"Favorites" = "Favorieten";
+"Menus" = "Menus";
+"Menucard" = "Kaart";
+"Menucards" = "Menukaarten";
+"Tap to make new menucard" = "Tap om nieuwe kaart te maken";
+"Options" = "Opties";

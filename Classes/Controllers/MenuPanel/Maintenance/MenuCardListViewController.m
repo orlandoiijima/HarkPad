@@ -36,6 +36,8 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Menucards", nil);
+
     UINib *nib = [UINib nibWithNibName:@"MenuCardCell" bundle:[NSBundle mainBundle]];
     [_menuList registerNib:nib forCellWithReuseIdentifier:@"xjsjw"];
 

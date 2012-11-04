@@ -120,8 +120,9 @@
         }
 
         if ([screen isEqualToString:@"products"]) {
-            controller = [[MenuCardListViewController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Products", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+            MenuCardListViewController *productsController = [[MenuCardListViewController alloc] init];
+            controller = [[UINavigationController alloc] initWithRootViewController: productsController];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menucard", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
         }
 
         if (controller != nil) {
