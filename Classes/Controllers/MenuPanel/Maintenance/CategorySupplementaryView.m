@@ -52,13 +52,15 @@
 
 - (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
     _category.color = [UIColor colorWithHexString:hexColor];
-    [_delegate didSelectColor:_category.color  forCategory:_category];
+    if([_delegate respondsToSelector:@selector(didSelectColor:)])
+        [_delegate didSelectColor:_category.color  forCategory:_category];
 }
 
 - (IBAction)toggleFood {
     _category.isFood = !_category.isFood;
     _foodButton.selected = !_foodButton.selected;
-    [_delegate didToggleFoodForCategory:_category];
+    if([_delegate respondsToSelector:@selector(didToggleFoodForCategory:)])
+        [_delegate didToggleFoodForCategory:_category];
 }
 
 @end

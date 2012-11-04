@@ -11,13 +11,13 @@
 #import "TableOverlaySimple.h"
 #import "TableOverlayHud.h"
 
-@class ProductPanelView;
+@class MenuPanelView;
 
 @interface NewOrderViewController : UIViewController <UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate> {
     Course *selectedCourse;
 }
 
-@property (retain) ProductPanelView *productPanelView;
+@property (retain) MenuPanelView *productPanelView;
 @property (retain) TableWithSeatsView *tableView;
 @property (retain) TableOverlayHud *tableOverlayHud;
 @property (retain) UITableView *orderView;
