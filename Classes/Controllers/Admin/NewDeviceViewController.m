@@ -30,13 +30,6 @@
 }
 
 - (IBAction)registerDevice {
-//    AdminLoginViewController *controller = [AdminLoginViewController controllerDidEnterAuthentication:^(Credentials *credentials) {
-//        AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
-//        [self.navigationController pushViewController:addDeviceViewController animated:YES];
-//    }
-//                                                                                            didCancel:nil];
-//    [self.navigationController pushViewController: controller animated:YES];
-
     AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
     [self.navigationController pushViewController:addDeviceViewController animated:YES];
 }
