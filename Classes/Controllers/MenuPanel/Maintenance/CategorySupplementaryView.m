@@ -52,7 +52,7 @@
 
 - (void)colorPopoverControllerDidSelectColor:(NSString *)hexColor {
     _category.color = [UIColor colorWithHexString:hexColor];
-    if([_delegate respondsToSelector:@selector(didSelectColor:)])
+    if([_delegate respondsToSelector:@selector(didSelectColor:forCategory:)])
         [_delegate didSelectColor:_category.color  forCategory:_category];
 }
 
