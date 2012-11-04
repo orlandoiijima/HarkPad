@@ -97,6 +97,10 @@
         [uiPrice becomeFirstResponder];
         return NO;
     }
+    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _item] == NO) {
+        [uiKey becomeFirstResponder];
+        return NO;
+    }
     return YES;
 }
 
@@ -117,6 +121,9 @@
 }
 
 - (IBAction)updateCode {
+    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _item] == NO) {
+        return;
+    }
     [_item setValue:[Utils trim:uiKey.text] forKey:@"key"];
     _itemCaption.text = uiKey.text;
     [self didUpdate];
@@ -135,6 +142,12 @@
 }
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField != _uiCents && textField != uiPrice) return YES;
+    if (textField == uiPrice)
+        if ([string isEqualToString:@","] || [string isEqualToString:@"."]) {
+            [_uiCents becomeFirstResponder];
+            return NO;
+        }
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if (textField == _uiCents) {
         if ([newString length] >  2)

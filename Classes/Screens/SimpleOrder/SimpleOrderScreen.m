@@ -20,6 +20,8 @@
 #import "BillPdf.h"
 #import "MenuPanelViewController.h"
 #import "MenuPanelView.h"
+#import "PrintInfo.h"
+#import "OrderPrinter.h"
 
 @implementation SimpleOrderScreen
 
@@ -154,7 +156,7 @@
 - (IBAction) cashOrder
 {
     _order.paymentType = Cash;
-    [[Service getInstance] updateOrder:_order success:^(ServiceResult *serviceResult){
+    [[Service getInstance] createOrder:_order success:^(ServiceResult *serviceResult){
         _order.id = serviceResult.id;
         _previousOrder = _order;
         [self prepareForNewOrder];
@@ -176,21 +178,9 @@
 - (void) printPreviousOrder
 {
     if(_previousOrder == nil) return;
-//    [[Service getInstance] printInvoice:_previousOrderId];
 
-    BillPdf *pdf = [BillPdf billByOrder: _previousOrder];
-    NSString *pdfFilename = [pdf createFile];
-
-    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
-    if ([UIPrintInteractionController canPrintData: pdfData]) {
-        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-        controller.printingItem = pdfData;
-        UIPrintInfo *info = [UIPrintInfo printInfo];
-        info.jobName = pdfFilename;
-        info.outputType = UIPrintInfoOutputGeneral;
-        controller.printInfo = info;
-        [controller presentAnimated:YES completionHandler:nil];
-    }
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_previousOrder];
+    [printer print];
 }
 
 - (void)didSelectItem:(id)item {

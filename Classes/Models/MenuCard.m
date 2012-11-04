@@ -60,6 +60,22 @@
 
     menuCard.vatPercentages = [jsonCategories valueForKey:@"vatPercentages"];
 
+    for(ProductCategory *category in menuCard.categories)
+    {
+        for(Product *product in category.products)
+        {
+            if ([menuCard vatIndexByPercentage:product.vat] == -1) {
+                product.vat = [menuCard vatPercentageByIndex:0];
+            }
+        }
+    }
+    for(Menu *menu in menuCard.menus)
+    {
+        if ([menuCard vatIndexByPercentage:menu.vat] == -1) {
+            menu.vat = [menuCard vatPercentageByIndex:0];
+        }
+    }
+
     return menuCard;
 }
 
@@ -71,7 +87,7 @@
         {
             if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
                 return product;
-        }    
+        }
     }
     for(Product *product in _menus)
     {
@@ -80,6 +96,25 @@
     }
     [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
+}
+
+- (BOOL) isUniqueKey:(NSString *)productId itemToIgnore:(id) itemToIgnore {
+    for(ProductCategory *category in _categories)
+    {
+        for(Product *product in category.products)
+        {
+            if (itemToIgnore != product)
+                if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
+                    return NO;
+        }
+    }
+    for(Product *product in _menus)
+    {
+        if (itemToIgnore != product)
+            if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
+                return NO;
+    }
+    return YES;
 }
 
 - (NSString *)vatNameByPercentage: (NSDecimalNumber *)vat {

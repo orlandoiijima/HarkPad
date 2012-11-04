@@ -20,7 +20,6 @@
 
 + (AuthorisationToken *) tokenFromVault {
     AuthorisationToken *token = [[AuthorisationToken alloc] init];
-    token.database = [AppVault database];
     token.deviceKey = [AppVault deviceKey];
     token.pinCode = @"1234";
     token.locationId = [AppVault locationId];
@@ -43,8 +42,6 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (_database != nil)
-        [dic setObject: _database forKey:@"Database"];
     if (_deviceKey != nil)
         [dic setObject: _deviceKey forKey:@"DeviceKey"];
     if (_pinCode != nil)

@@ -348,9 +348,6 @@ static Service *_service;
 
     CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError progressInfo:progressInfo];
 
-    if (progressInfo != nil)
-        [progressInfo start];
-
     NSError *error = nil;
 
     NSString *urlRequest = [NSString stringWithFormat:@"%@/api/%@/%@", url, API_VERSION, resource];
@@ -399,7 +396,10 @@ static Service *_service;
     return NO;
 }
 
-- (void) beginAuthorizedFetchRequest:(NSMutableURLRequest *)request withInfo: (id)info {
+- (void) beginAuthorizedFetchRequest:(NSMutableURLRequest *)request withInfo: (CallbackBlockInfo *)info {
+    if (info != nil && info.progressInfo != nil)
+        [info.progressInfo start];
+
     AuthorisationToken *authorisationToken = [AuthorisationToken tokenFromVault];
     [authorisationToken addCredentials: [Session credentials]];
     [request setValue:[authorisationToken toHttpHeader] forHTTPHeaderField:@"Authorization"];

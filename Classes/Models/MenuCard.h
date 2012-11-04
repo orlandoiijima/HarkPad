@@ -19,6 +19,9 @@
 + (MenuCard *) menuFromJson: (NSMutableDictionary *) jsonData;
 - (Product *) getProduct: (NSString *) productId;
 
+- (BOOL)isUniqueKey:(NSString *)productId itemToIgnore:(id)itemToIgnore;
+
+
 - (NSString *)vatNameByPercentage:(NSDecimalNumber *)vat;
 - (int)vatIndexByPercentage:(NSDecimalNumber *)vat;
 

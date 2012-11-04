@@ -2337,7 +2337,10 @@
 				LIBRARY_SEARCH_PATHS = "\"${PROJECT_DIR}/Classes/TestFlightSDK0.8.3/**";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "";
+				VALID_ARCHS = (
+					armv7,
+					armv7s,
+				);
 				"VALID_ARCHS[sdk=*]" = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2362,7 +2365,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "";
+				VALID_ARCHS = (
+					armv7,
+					armv7s,
+				);
 				"VALID_ARCHS[sdk=*]" = armv7;
 				WRAPPER_EXTENSION = app;
 			};

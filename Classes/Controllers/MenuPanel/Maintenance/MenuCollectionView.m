@@ -195,6 +195,8 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if([self.menuDelegate canDeselect] == NO)
+        return NO;
     return YES;
 }
 

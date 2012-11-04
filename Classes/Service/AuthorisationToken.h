@@ -13,7 +13,6 @@
 @interface AuthorisationToken : NSObject
 
 @property (retain) NSString *deviceKey;
-@property (retain) NSString *database;
 @property (retain) NSString *pinCode;
 @property (retain) NSString *email;
 @property (retain) NSString *password;

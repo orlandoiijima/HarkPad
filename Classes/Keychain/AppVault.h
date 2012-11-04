@@ -16,9 +16,6 @@
 + (NSString *)deviceKey;
 + (void)setDeviceKey:(NSString *)deviceKey;
 
-+ (NSString *)database;
-+ (void)setDatabase:(NSString *)database;
-
 + (int)locationId;
 + (void)setLocationId:(int)locationId;
 

@@ -128,10 +128,6 @@
     _menuPanel.selectedItem = _menuPanel.selectedItem;
 }
 
-- (void)didToggleFoodForCategory:(ProductCategory *)category {
-
-}
-
 - (void)startEdit: (id)item {
     _productProperties.item = item;
 }

@@ -79,7 +79,6 @@
             registerDeviceAtLocation: _locationsView.selectedLocationId
                      withCredentials: [Session credentials]
             success:^(ServiceResult *serviceResult) {
-                [AppVault setDatabase:[serviceResult.jsonData objectForKey:@"database"]];
                 [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
 
                 MainTabBarController *controller = [[MainTabBarController alloc] init];

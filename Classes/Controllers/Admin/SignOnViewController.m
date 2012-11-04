@@ -87,9 +87,7 @@
             signon:signon
            success: ^(ServiceResult *result) {
                NSString *deviceKey = [result.jsonData valueForKey:@"deviceKey"];
-               NSString *dataBase = [result.jsonData valueForKey:@"database"];
                [AppVault setDeviceKey: deviceKey];
-               [AppVault setDatabase:dataBase];
            }
              error:^(ServiceResult *serviceResult) {
                         [serviceResult displayError];

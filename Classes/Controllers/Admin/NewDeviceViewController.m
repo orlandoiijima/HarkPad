@@ -30,12 +30,15 @@
 }
 
 - (IBAction)registerDevice {
-    AdminLoginViewController *controller = [AdminLoginViewController controllerDidEnterAuthentication:^(Credentials *credentials) {
-        AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
-        [self.navigationController pushViewController:addDeviceViewController animated:YES];
-    }
-                                                                                            didCancel:nil];
-    [self.navigationController pushViewController: controller animated:YES];
+//    AdminLoginViewController *controller = [AdminLoginViewController controllerDidEnterAuthentication:^(Credentials *credentials) {
+//        AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
+//        [self.navigationController pushViewController:addDeviceViewController animated:YES];
+//    }
+//                                                                                            didCancel:nil];
+//    [self.navigationController pushViewController: controller animated:YES];
+
+    AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
+    [self.navigationController pushViewController:addDeviceViewController animated:YES];
 }
 
 
@@ -49,13 +52,6 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"New device", <#comment#>);
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

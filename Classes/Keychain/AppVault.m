@@ -15,8 +15,8 @@
 }
 
 + (bool) isDeviceRegistered {
-//    return false;
-    return  ([[AppVault database] length] != 0 && [[AppVault deviceKey] length] != 0);
+    return false;
+//    return  ([[AppVault deviceKey] length] != 0);
 }
 
 + (NSString *)deviceKey {
@@ -26,15 +26,6 @@
 + (void)setDeviceKey:(NSString *)deviceKey {
     [KeychainWrapper createKeychainValue:deviceKey forIdentifier:@"DeviceKey"];
 }
-
-+ (NSString *)database {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"Database"];
-}
-
-+ (void)setDatabase:(NSString *)database {
-    [KeychainWrapper createKeychainValue:database forIdentifier:@"Database"];
-}
-
 
 + (int)locationId {
     return [[KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationId"] intValue];
