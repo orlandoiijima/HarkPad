@@ -32,13 +32,13 @@
 + (Run *) runFromJson:(NSDictionary *)infoJson
 {
     Run *run = [[Run alloc] init];
-    run.fontName  = [infoJson objectForKey:@"FontName"];
-    run.pointSize = [[infoJson objectForKey:@"PointSize"] floatValue];
-    run.alignment = (UITextAlignment) [[infoJson objectForKey:@"Alignment"] intValue];
-    run.width = [[infoJson objectForKey:@"Width"] floatValue];
-    run.xSpec  = [infoJson objectForKey:@"XSpec"];
-    run.ySpec  = [infoJson objectForKey:@"YSpec"];
-    run.text  = [infoJson objectForKey:@"Text"];
+    run.fontName  = [infoJson objectForKey:@"fontName"];
+    run.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
+    run.alignment = (UITextAlignment) [[infoJson objectForKey:@"alignment"] intValue];
+    run.width = [[infoJson objectForKey:@"width"] floatValue];
+    run.xSpec  = [infoJson objectForKey:@"xSpec"];
+    run.ySpec  = [infoJson objectForKey:@"ySpec"];
+    run.text  = [infoJson objectForKey:@"text"];
     return run;
 }
 

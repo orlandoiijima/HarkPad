@@ -18,9 +18,9 @@
 
 + (PrinterInfo *)printerFromJson:(NSDictionary *)dictionary {
     PrinterInfo *printer = [[PrinterInfo alloc] init];
-    printer.name = [dictionary objectForKey:@"Name"];
-    printer.address = [dictionary objectForKey:@"Address"];
-    printer.type = (PrinterType) [[dictionary objectForKey:@"PrinterType"] intValue];
+    printer.name = [dictionary objectForKey:@"name"];
+    printer.address = [dictionary objectForKey:@"address"];
+    printer.type = (PrinterType) [[dictionary objectForKey:@"printerType"] intValue];
     return printer;
 }
 @end

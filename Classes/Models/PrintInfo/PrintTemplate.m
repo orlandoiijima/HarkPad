@@ -28,18 +28,18 @@
 + (PrintTemplate *) templateFromJson:(NSDictionary *)infoJson
 {
     PrintTemplate *template = [[PrintTemplate alloc] init];
-    template.name  = [infoJson objectForKey:@"Name"];
-    template.fontName  = [infoJson objectForKey:@"FontName"];
-    template.pointSize = [[infoJson objectForKey:@"PointSize"] floatValue];
+    template.name  = [infoJson objectForKey:@"name"];
+    template.fontName  = [infoJson objectForKey:@"fontName"];
+    template.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
     template.preRuns = [[NSMutableArray alloc] init];
-    template.table = [PrintTable tableFromJson: [infoJson objectForKey:@"Table"]];
-    for(NSDictionary *runDic in [infoJson valueForKey:@"PreRuns"])
+    template.table = [PrintTable tableFromJson: [infoJson objectForKey:@"table"]];
+    for(NSDictionary *runDic in [infoJson valueForKey:@"preRuns"])
     {
         Run *run = [Run runFromJson: runDic];
         [template.preRuns addObject: run];
     }
     template.postRuns = [[NSMutableArray alloc] init];
-    for(NSDictionary *runDic in [infoJson valueForKey:@"PostRuns"])
+    for(NSDictionary *runDic in [infoJson valueForKey:@"postRuns"])
     {
         Run *run = [Run runFromJson: runDic];
         [template.postRuns addObject: run];

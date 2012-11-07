@@ -31,12 +31,12 @@
 {
     PrintTable *table = [[PrintTable alloc] init];
     table.columns  = [[NSMutableArray alloc] init];
-    table.pointSize = [[infoJson objectForKey:@"PointSize"] floatValue];
-    table.fontName  = [infoJson objectForKey:@"FontName"];
-    table.xSpec  = [infoJson objectForKey:@"XSpec"];
-    table.ySpec  = [infoJson objectForKey:@"YSpec"];
-    table.section = [Run runFromJson: [infoJson objectForKey:@"Section"]];
-    for(NSDictionary *templateDic in [infoJson valueForKey:@"Columns"])
+    table.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
+    table.fontName  = [infoJson objectForKey:@"fontName"];
+    table.xSpec  = [infoJson objectForKey:@"xSpec"];
+    table.ySpec  = [infoJson objectForKey:@"ySpec"];
+    table.section = [Run runFromJson: [infoJson objectForKey:@"section"]];
+    for(NSDictionary *templateDic in [infoJson valueForKey:@"columns"])
     {
         PrintColumn *column = [PrintColumn columnFromJson:templateDic];
         [table.columns addObject: column];

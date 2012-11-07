@@ -20,10 +20,10 @@
 + (OrderLineFilter *) filterFromJson:(NSMutableDictionary *)filterJson
 {
     OrderLineFilter *filter = [[OrderLineFilter alloc] init];
-    filter.food = (bool)[[filterJson objectForKey:@"Food"] intValue];
-    filter.drink = (bool)[[filterJson objectForKey:@"Drink"] intValue];
-    filter.zeroPrice = (bool)[[filterJson objectForKey:@"ZeroPrice"] intValue];
-    filter.existingLines = (bool)[[filterJson objectForKey:@"ExistingLines"] intValue];
+    filter.food = (bool)[[filterJson objectForKey:@"food"] intValue];
+    filter.drink = (bool)[[filterJson objectForKey:@"drink"] intValue];
+    filter.zeroPrice = (bool)[[filterJson objectForKey:@"zeroPrice"] intValue];
+    filter.existingLines = (bool)[[filterJson objectForKey:@"existingLines"] intValue];
 
     return filter;
 }

@@ -22,21 +22,21 @@
 {
     PrintInfo *info = [[PrintInfo alloc] init];
     info.templates = [[NSMutableArray alloc] init];
-    for(NSDictionary *templateDic in [infoJson valueForKey:@"Templates"])
+    for(NSDictionary *templateDic in [infoJson valueForKey:@"templates"])
     {
         PrintTemplate *template = [PrintTemplate templateFromJson:templateDic];
         [info.templates addObject: template];
     }
 
     info.printers = [[NSMutableArray alloc] init];
-    for(NSDictionary *dic in [infoJson valueForKey:@"Printers"])
+    for(NSDictionary *dic in [infoJson valueForKey:@"printers"])
     {
         PrinterInfo *printer = [PrinterInfo printerFromJson:dic];
         [info.printers addObject: printer];
     }
 
     info.documents = [[NSMutableArray alloc] init];
-    for(NSDictionary *documentDic in [infoJson valueForKey:@"OrderDocuments"])
+    for(NSDictionary *documentDic in [infoJson valueForKey:@"orderDocuments"])
     {
         OrderDocument *document = [OrderDocument documentFromJson:documentDic printInfo: info];
         [info.documents addObject: document];
@@ -88,12 +88,12 @@
 + (OrderDocument *) documentFromJson:(NSDictionary *)documentJson printInfo: (PrintInfo *)printInfo
 {
     OrderDocument *doc = [[OrderDocument alloc] init];
-    doc.name = [documentJson objectForKey:@"Name"];
-    doc.template  = [printInfo getTemplateNamed: [documentJson objectForKey:@"TemplateName"]];
-    doc.trigger = (OrderTrigger) [[documentJson objectForKey:@"Trigger"] intValue];
-    doc.printer = [printInfo getPrinterNamed: [documentJson objectForKey:@"Printer"]];
-    doc.filter = [OrderLineFilter filterFromJson: [documentJson objectForKey:@"Include"]];
-    doc.totalizeProducts = (bool)[[documentJson objectForKey:@"TotalizeProducts"] intValue];
+    doc.name = [documentJson objectForKey:@"name"];
+    doc.template  = [printInfo getTemplateNamed: [documentJson objectForKey:@"templateName"]];
+    doc.trigger = (OrderTrigger) [[documentJson objectForKey:@"trigger"] intValue];
+    doc.printer = [printInfo getPrinterNamed: [documentJson objectForKey:@"printer"]];
+    doc.filter = [OrderLineFilter filterFromJson: [documentJson objectForKey:@"include"]];
+    doc.totalizeProducts = (bool)[[documentJson objectForKey:@"totalizeProducts"] intValue];
     return doc;
 }
 

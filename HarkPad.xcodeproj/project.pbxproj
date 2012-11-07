@@ -381,7 +381,7 @@
 		D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrinterInfo.m; path = PrintInfo/PrinterInfo.m; sourceTree = "<group>"; };
 		D0A72503F6C4FA040F327098 /* Signon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signon.m; sourceTree = "<group>"; };
 		D0A725679E7B11DB7AA04E34 /* ReportMailer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReportMailer.h; path = Reports/ReportMailer.h; sourceTree = "<group>"; };
-		D0A7256E9CAD20382EC188A3 /* Print.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Print.m; path = Print/Print.m; sourceTree = "<group>"; };
+		D0A7256E9CAD20382EC188A3 /* Print.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Print.m; path = Print.m; sourceTree = "<group>"; };
 		D0A725861E3A54F07E406B09 /* AuthorisationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorisationToken.m; sourceTree = "<group>"; };
 		D0A725915EF31B85AD4B8B82 /* MenuCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCard.h; sourceTree = "<group>"; };
 		D0A7259434F7ADA29630F2C2 /* ColorButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButtonView.m; sourceTree = "<group>"; };
@@ -405,13 +405,13 @@
 		D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsAlertView.m; sourceTree = "<group>"; };
 		D0A727B2D6FA5E625A88A34F /* LocationsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsView.m; sourceTree = "<group>"; };
 		D0A727FBF81FBC19F5742536 /* AppVault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppVault.h; path = Keychain/AppVault.h; sourceTree = "<group>"; };
-		D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoicePrintDataSource.m; path = Print/InvoicePrintDataSource.m; sourceTree = "<group>"; };
+		D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InvoicePrintDataSource.m; path = InvoicePrintDataSource.m; sourceTree = "<group>"; };
 		D0A728399F59984BF057783A /* CategoryPanelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryPanelCell.m; sourceTree = "<group>"; };
 		D0A728523C7AE8E1CD1C4B9E /* ColorButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButton.h; sourceTree = "<group>"; };
 		D0A728B269A6D3A7BF30AA42 /* UIBarButtonItem+Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Image.m"; sourceTree = "<group>"; };
 		D0A728BD38634A7282D2C3D3 /* PrintInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintInfo.m; path = PrintInfo/PrintInfo.m; sourceTree = "<group>"; };
 		D0A728D72230B6EF69BEF964 /* MenuCardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardListViewController.h; sourceTree = "<group>"; };
-		D0A728F2E41DD2D9602A232D /* OrderPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderPrinter.h; path = Print/OrderPrinter.h; sourceTree = "<group>"; };
+		D0A728F2E41DD2D9602A232D /* OrderPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderPrinter.h; path = OrderPrinter.h; sourceTree = "<group>"; };
 		D0A728FAD603D2D4DD3B7AD9 /* MenuCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardCell.h; sourceTree = "<group>"; };
 		D0A728FAFD5A6017AA19752B /* LXReorderableCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXReorderableCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		D0A728FB65368A1906AE9D39 /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
@@ -419,14 +419,14 @@
 		D0A72943F6D46DEC14204C11 /* CategorySupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategorySupplementaryView.m; sourceTree = "<group>"; };
 		D0A7295CC25F30CEF3F6B85F /* ProductPropertiesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPropertiesTableViewDataSource.m; sourceTree = "<group>"; };
 		D0A7296DCE7793781508896E /* UIBarButtonItem+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Image.h"; sourceTree = "<group>"; };
-		D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoicePrintDataSource.h; path = Print/InvoicePrintDataSource.h; sourceTree = "<group>"; };
+		D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoicePrintDataSource.h; path = InvoicePrintDataSource.h; sourceTree = "<group>"; };
 		D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceViewController.xib; sourceTree = "<group>"; };
 		D0A72987168F0F3322ECC46D /* MenuPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPanelViewController.m; sourceTree = "<group>"; };
 		D0A7298D6F9C5DDFD0DDA612 /* GzColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GzColors.h; sourceTree = "<group>"; };
 		D0A7298DE8F73C351B7BDE0A /* right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_arrow@2x.png"; sourceTree = "<group>"; };
 		D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallbackInfo.m; sourceTree = "<group>"; };
 		D0A729A31119C69968FE981F /* ColorButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorButtonView.h; sourceTree = "<group>"; };
-		D0A729AF43360CCFD0B80558 /* OrderPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderPrinter.m; path = Print/OrderPrinter.m; sourceTree = "<group>"; };
+		D0A729AF43360CCFD0B80558 /* OrderPrinter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderPrinter.m; path = OrderPrinter.m; sourceTree = "<group>"; };
 		D0A729D343400603E7618601 /* Credentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Credentials.h; sourceTree = "<group>"; };
 		D0A72A165B000AF1792D8130 /* CallbackInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackInfo.h; sourceTree = "<group>"; };
 		D0A72A23082D4FAEBBE9A51B /* LocationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationCell.m; sourceTree = "<group>"; };
@@ -448,7 +448,7 @@
 		D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderLineFilter.m; path = PrintInfo/OrderLineFilter.m; sourceTree = "<group>"; };
 		D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainWrapper.h; path = Keychain/KeychainWrapper.h; sourceTree = "<group>"; };
 		D0A72C989D0F5E2FDAE87939 /* ReportMailer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ReportMailer.m; path = Reports/ReportMailer.m; sourceTree = "<group>"; };
-		D0A72C9D651951E5AA84681E /* Print.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Print.h; path = Print/Print.h; sourceTree = "<group>"; };
+		D0A72C9D651951E5AA84681E /* Print.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Print.h; path = Print.h; sourceTree = "<group>"; };
 		D0A72C9FB24C0705F582F044 /* ProductPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPanelView.m; sourceTree = "<group>"; };
 		D0A72CAB32639E797CFAB11A /* MenuCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionView.h; sourceTree = "<group>"; };
 		D0A72CF2E64E2A594E82C9D3 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
@@ -760,7 +760,7 @@
 		E5F609A313489C2400D885E3 /* UISegmentButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UISegmentButtonHighlighted.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D885E8 /* RefreshArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RefreshArrow.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D885EA /* ItemPropertiesDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemPropertiesDelegate.h; sourceTree = "<group>"; };
-		E5F609A313489C2400D88608 /* TemplatePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemplatePrintDataSource.h; path = Print/TemplatePrintDataSource.h; sourceTree = "<group>"; };
+		E5F609A313489C2400D88608 /* TemplatePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemplatePrintDataSource.h; path = TemplatePrintDataSource.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8860A /* PdfCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PdfCreator.m; sourceTree = "<group>"; };
 		E5F609A313489C2400D8860C /* PdfCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PdfCreator.h; sourceTree = "<group>"; };
 		E5F609A313489C2400D8860D /* BillPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BillPdf.m; sourceTree = "<group>"; };
@@ -906,6 +906,20 @@
 				D0A7218056A7EB9DF69C2EF2 /* ProductPropertiesTableViewDataSource.h */,
 			);
 			path = Maintenance;
+			sourceTree = "<group>";
+		};
+		D0A722DD3DBB994F6C48A488 /* Print */ = {
+			isa = PBXGroup;
+			children = (
+				D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */,
+				D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */,
+				D0A728F2E41DD2D9602A232D /* OrderPrinter.h */,
+				D0A729AF43360CCFD0B80558 /* OrderPrinter.m */,
+				D0A72C9D651951E5AA84681E /* Print.h */,
+				D0A7256E9CAD20382EC188A3 /* Print.m */,
+				E5F609A313489C2400D88608 /* TemplatePrintDataSource.h */,
+			);
+			path = Print;
 			sourceTree = "<group>";
 		};
 		D0A72399BF63E4F424B0FAFD /* resources */ = {
@@ -1106,19 +1120,12 @@
 				E5F609A313489C2400D8858F /* Screens */,
 				D0A725679E7B11DB7AA04E34 /* ReportMailer.h */,
 				D0A72C989D0F5E2FDAE87939 /* ReportMailer.m */,
-				D0A728F2E41DD2D9602A232D /* OrderPrinter.h */,
-				D0A729AF43360CCFD0B80558 /* OrderPrinter.m */,
-				D0A72C9D651951E5AA84681E /* Print.h */,
-				D0A7256E9CAD20382EC188A3 /* Print.m */,
 				D0A724C2B42A6077C1207573 /* CredentialsAlertView.h */,
 				D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */,
 				D0A727FBF81FBC19F5742536 /* AppVault.h */,
 				D0A7223FB4834D4AD49FCBD1 /* AppVault.m */,
 				D0A72F6FA589EABA20C2D7AE /* KeychainWrapper.m */,
 				D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */,
-				E5F609A313489C2400D88608 /* TemplatePrintDataSource.h */,
-				D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */,
-				D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */,
 				D0A72F76FF62CEA38268E37A /* StarPrintJob.h */,
 				D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */,
 				E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */,
@@ -1140,6 +1147,7 @@
 				E50A38AE12E234B8007C2101 /* Views */,
 				E5F609A313489C2400D88609 /* Pdf */,
 				E5F609A313489C2400D8868A /* TestFlightSDK0.8.3 */,
+				D0A722DD3DBB994F6C48A488 /* Print */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
