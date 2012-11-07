@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0A7201887546F67E13D887E /* PrinterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724C7B4EDFB5E5C8D62BB /* PrinterCell.m */; };
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
 		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
 		D0A7207C8DC9F3263822A90A /* AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72AA07ED2CD9B8F40F698 /* AddDeviceViewController.m */; };
@@ -52,6 +53,7 @@
 		D0A726D95881BD5AA342D874 /* AppVault.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7223FB4834D4AD49FCBD1 /* AppVault.m */; };
 		D0A726DA14A30F9921DFFFEE /* LocationsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A727B2D6FA5E625A88A34F /* LocationsView.m */; };
 		D0A7270AAEFD946F90B3F199 /* GetDateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72B2B8F16DE9BEB308EEE /* GetDateViewController.m */; };
+		D0A727D832116E6207251AC5 /* PrinterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */; };
 		D0A727E5D71814D122FD6B57 /* MenuCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7293DC7CBCDB5D656FDC3 /* MenuCardCell.m */; };
 		D0A72832626A40B423ABCEC3 /* ChangeDeviceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72308453F429C18BF7984 /* ChangeDeviceLocation.m */; };
 		D0A728715EAD05ED55DAED78 /* OrderLineFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */; };
@@ -85,6 +87,7 @@
 		D0A72E053106FD98BBBF9849 /* ProductPanelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7263A0FE1AB03ACC0E7AA /* ProductPanelCell.m */; };
 		D0A72E375BB91CE34B2336FE /* CategorySupplementaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A721855250814FC1D33764 /* CategorySupplementaryView.xib */; };
 		D0A72EA737F95F7B1F08AA9B /* ColorButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724DD533DBE332AFC5FF3 /* ColorButton.m */; };
+		D0A72EBDEE1227B796581282 /* PrinterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A724A5BD4C4DC0D4A23809 /* PrinterCell.xib */; };
 		D0A72EEC2DF8224A3DACAE00 /* CallbackInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72995EA42DE0B73A53E1D /* CallbackInfo.m */; };
 		D0A72F6A61198E86C3E43017 /* ColorButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7259434F7ADA29630F2C2 /* ColorButtonView.m */; };
 		D0A72F822404F757F613D1BC /* left_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A720656BB2B3813D260391 /* left_arrow.png */; };
@@ -342,6 +345,7 @@
 		D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RasterDocument.m; path = RasterDocument.m; sourceTree = "<group>"; };
 		D0A7219AB050599F8D638F4F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D0A721B5A0DD3D1F986172D4 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
+		D0A721C137383538BEFAF6B8 /* PrinterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterListViewController.h; sourceTree = "<group>"; };
 		D0A7221FA5B72BCCFBEF917D /* LoginPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPinViewController.m; sourceTree = "<group>"; };
 		D0A72229AE52F8A541E6A3C5 /* MainTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBarController.m; sourceTree = "<group>"; };
 		D0A7223FB4834D4AD49FCBD1 /* AppVault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppVault.m; path = Keychain/AppVault.m; sourceTree = "<group>"; };
@@ -361,6 +365,7 @@
 		D0A7239B8604124BDABCEC22 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D0A723A706F1D8F20F3BA86E /* MenuCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardCell.xib; sourceTree = "<group>"; };
 		D0A723AA6549D5C14009739E /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDelegate.h; sourceTree = "<group>"; };
+		D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterListViewController.m; sourceTree = "<group>"; };
 		D0A723F928BA0C776DEA4D18 /* MenuCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardListViewController.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
 		D0A7242E79EEFD68DE5B54BE /* PrinterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrinterInfo.h; path = PrintInfo/PrinterInfo.h; sourceTree = "<group>"; };
@@ -370,7 +375,9 @@
 		D0A7246A5E746E7417600F66 /* MenuItemsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemsTableViewDataSource.h; sourceTree = "<group>"; };
 		D0A7246CD0D27153E4336EC5 /* CategoryPanelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryPanelCell.h; sourceTree = "<group>"; };
 		D0A7249DB97997599F7EB71B /* AdminLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminLoginViewController.h; sourceTree = "<group>"; };
+		D0A724A5BD4C4DC0D4A23809 /* PrinterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrinterCell.xib; sourceTree = "<group>"; };
 		D0A724C2B42A6077C1207573 /* CredentialsAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CredentialsAlertView.h; sourceTree = "<group>"; };
+		D0A724C7B4EDFB5E5C8D62BB /* PrinterCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterCell.m; sourceTree = "<group>"; };
 		D0A724CD61D9134CC127411D /* MenuCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardViewController.m; sourceTree = "<group>"; };
 		D0A724DC097F9574EC48B9C8 /* ABAddCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ABAddCircle.png; sourceTree = "<group>"; };
 		D0A724DD533DBE332AFC5FF3 /* ColorButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButton.m; sourceTree = "<group>"; };
@@ -441,6 +448,7 @@
 		D0A72C2CAF8860D75D707504 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 		D0A72C2F2256A4408DA92E88 /* MenuCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCard.m; sourceTree = "<group>"; };
 		D0A72C3C6AD25B922ABB5162 /* GetDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDateViewController.h; sourceTree = "<group>"; };
+		D0A72C5100FE43856F6BE934 /* PrinterCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrinterCell.h; sourceTree = "<group>"; };
 		D0A72C55648CFF98BE4D32EC /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderLineFilter.m; path = PrintInfo/OrderLineFilter.m; sourceTree = "<group>"; };
 		D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainWrapper.h; path = Keychain/KeychainWrapper.h; sourceTree = "<group>"; };
@@ -905,6 +913,18 @@
 			path = Maintenance;
 			sourceTree = "<group>";
 		};
+		D0A7222BE2DDB3F14E9C0C16 /* PrinterListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D0A721C137383538BEFAF6B8 /* PrinterListViewController.h */,
+				D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */,
+				D0A72C5100FE43856F6BE934 /* PrinterCell.h */,
+				D0A724C7B4EDFB5E5C8D62BB /* PrinterCell.m */,
+				D0A724A5BD4C4DC0D4A23809 /* PrinterCell.xib */,
+			);
+			path = PrinterListViewController;
+			sourceTree = "<group>";
+		};
 		D0A722DD3DBB994F6C48A488 /* Print */ = {
 			isa = PBXGroup;
 			children = (
@@ -921,6 +941,7 @@
 				D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */,
 				D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */,
 				D0A725D9CED2E19A14244897 /* StarBitmap.m */,
+				D0A7222BE2DDB3F14E9C0C16 /* PrinterListViewController */,
 			);
 			path = Print;
 			sourceTree = "<group>";
@@ -2014,6 +2035,7 @@
 				D0A72A42B3413145EA71D58C /* favorite.png in Resources */,
 				D0A722C8566FD8A742C0A8BE /* 218-trash2.png in Resources */,
 				D0A7248DEAE2C46C98358E9D /* 218-trash2@2x.png in Resources */,
+				D0A72EBDEE1227B796581282 /* PrinterCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2232,6 +2254,8 @@
 				D0A7229E0F5C02D62C6C4073 /* LXReorderableCollectionViewFlowLayout.m in Sources */,
 				D0A729849CAFDDE9BBBEC293 /* MenuItemsTableViewDataSource.m in Sources */,
 				D0A72269C501DF8F7BF0815D /* ProductPropertiesTableViewDataSource.m in Sources */,
+				D0A727D832116E6207251AC5 /* PrinterListViewController.m in Sources */,
+				D0A7201887546F67E13D887E /* PrinterCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

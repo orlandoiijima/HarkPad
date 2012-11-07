@@ -5,6 +5,7 @@
 //
 
 
+#import "DTO.h"
 #import "PrintInfo.h"
 #import "OrderLineFilter.h"
 #import "PrinterInfo.h"
@@ -69,6 +70,19 @@
         }
     }
     return infos;
+}
+
+
+- (NSMutableDictionary *)toDictionary {
+    NSMutableDictionary *dictionary = [super toDictionary];
+
+    NSMutableArray *printers = [[NSMutableArray alloc] init];
+    for (PrinterInfo *printerInfo in self.printers) {
+        [printers addObject:[printerInfo toDictionary]];
+    }
+    [dictionary setObject: printers forKey:@"printers"];
+
+    return dictionary;
 }
 
 @end

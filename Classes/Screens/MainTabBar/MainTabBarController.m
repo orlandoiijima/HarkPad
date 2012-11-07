@@ -21,6 +21,7 @@
 #import "MenuCardViewController.h"
 #import "MenuCardListViewController.h"
 #import "CJSONDataSerializer.h"
+#import "PrinterListViewController.h"
 
 @implementation MainTabBarController
 
@@ -123,6 +124,12 @@
             MenuCardListViewController *productsController = [[MenuCardListViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: productsController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Menucard", nil) image:[UIImage imageNamed:@"order.png"] tag:2];
+        }
+
+        if ([screen isEqualToString:@"printers"]) {
+            PrinterListViewController *printersController = [[PrinterListViewController alloc] init];
+            controller = [[UINavigationController alloc] initWithRootViewController: printersController];
+            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Printers", nil) image:[UIImage imageNamed:@"printer.png"] tag:2];
         }
 
         if (controller != nil) {

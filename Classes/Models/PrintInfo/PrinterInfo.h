@@ -6,13 +6,15 @@
 
 
 #import <Foundation/Foundation.h>
+#import "DTO.h"
 
 typedef enum PrinterType {PrinterTypeStar, PrinterTypeAirplay} PrinterType ;
 
-@interface PrinterInfo : NSObject
-@property(nonatomic, strong) id name;
-@property(nonatomic, strong) id address;
+@interface PrinterInfo : DTO
+@property(nonatomic, strong) NSString * name;
+@property(nonatomic, strong) NSString * address;
 @property(nonatomic) PrinterType type;
+@property(nonatomic) BOOL isOnline;
 
 + (PrinterInfo *)printerFromJson:(NSDictionary *)dictionary;
 

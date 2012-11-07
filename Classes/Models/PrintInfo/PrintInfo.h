@@ -7,13 +7,14 @@
 
 #import <Foundation/Foundation.h>
 #import "PrintTemplate.h"
+#import "DTO.h"
 
 @class OrderLineFilter;
 @class PrinterInfo;
 
 typedef enum OrderTrigger {TriggerOrder, TriggerRequestCourse, TriggerServe, TriggerBill, TriggerPay} OrderTrigger ;
 
-@interface PrintInfo : NSObject
+@interface PrintInfo : DTO
 @property(nonatomic, strong) NSMutableArray *templates;
 
 @property(nonatomic, strong) NSMutableArray *documents;
