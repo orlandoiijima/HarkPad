@@ -18,9 +18,9 @@
 
 @property(nonatomic, assign) NSString *ip;
 
-@property(nonatomic) int y;
+@property(nonatomic) float y;
 
-@property(nonatomic) int tableOffset;
+@property(nonatomic) float tableOffset;
 
 + (StarPrintJob *)jobWithTemplate:(PrintTemplate *)template dataSource: (id) dataSource  ip:(NSString *)ip;
 - (void) print;

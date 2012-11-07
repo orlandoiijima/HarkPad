@@ -10,10 +10,11 @@
 #import "OrderDataSource.h"
 #import "TableOverlaySimple.h"
 #import "TableOverlayHud.h"
+#import "ProductPanelView.h"
 
 @class MenuPanelView;
 
-@interface NewOrderViewController : UIViewController <UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate> {
+@interface NewOrderViewController : UIViewController <UITableViewDelegate, OrderDelegate, ProgressDelegate, TablePopupDelegate, ProductPanelDelegate> {
     Course *selectedCourse;
 }
 

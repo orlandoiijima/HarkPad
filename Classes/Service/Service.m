@@ -310,9 +310,6 @@ static Service *_service;
 
 - (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: order];
-    [printer print];
-
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
     [self requestResource:@"order" id:nil action:nil arguments:nil body:orderAsDictionary method:@"POST" success:success error:error];
 }

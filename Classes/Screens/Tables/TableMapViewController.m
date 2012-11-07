@@ -16,6 +16,8 @@
 #import "ToolbarTitleView.h"
 #import "TestFlight.h"
 #import "Logger.h"
+#import "PrintInfo.h"
+#import "OrderPrinter.h"
 
 @implementation TableMapViewController
 
@@ -711,7 +713,11 @@
     if (order.entityState == EntityStateNew)
         [[Service getInstance]
                 createOrder: order
-                    success:nil
+                    success: ^(ServiceResult *serviceResult) {
+                        order.id = serviceResult.id;
+                        OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: order];
+                        [printer print];
+                    }
                       error:^(ServiceResult *serviceResult) {
                         [serviceResult displayError];
                     }

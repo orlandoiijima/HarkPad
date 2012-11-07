@@ -24,9 +24,9 @@
 + (PrintColumn *) columnFromJson:(NSDictionary *)infoJson
 {
     PrintColumn *column = [[PrintColumn alloc] init];
-    column.header  = [infoJson objectForKey:@"Header"];
-    column.footer  = [infoJson objectForKey:@"Footer"];
-    column.cell  = [Run runFromJson: [infoJson objectForKey:@"Cell"]];
+    column.header  = [infoJson objectForKey:@"header"];
+    column.footer  = [infoJson objectForKey:@"footer"];
+    column.cell  = [Run runFromJson: [infoJson objectForKey:@"cell"]];
     return column;
 }
 

@@ -12,6 +12,7 @@
 #import "RasterDocument.h"
 #import "StarBitmap.h"
 #import "Logger.h"
+#import "ModalAlert.h"
 #import <StarIO/SMPort.h>
 #import <sys/time.h>
 #import <CoreGraphics/CoreGraphics.h>
@@ -22,8 +23,8 @@
     PrintTemplate *_template;
     id _dataSource;
     __unsafe_unretained NSString *_ip;
-    int _y;
-    int _tableOffset;
+    float _y;
+    float _tableOffset;
 }
 @synthesize template = _template;
 @synthesize port = _port;
@@ -168,13 +169,9 @@
 
         if(starPort == nil)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Fail to Open Port"
-                                                            message:@""
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-            [alert show];
-            [Logger Info:[NSString stringWithFormat:@"Fail to open port %@", portName]];
+            NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"Failed to open port %@", nil), portName];
+            [ModalAlert error:msg];
+            [Logger Info:msg];
             return;
         }
 
@@ -197,23 +194,15 @@
         }
         if(totalAmountWritten < commandSize)
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printer Error"
-                                                            message:@"Write port timed out"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-            [alert show];
+            [Logger Info:[NSString stringWithFormat:@"Write to port timeout"]];
+            [ModalAlert error:NSLocalizedString(@"Printer timeout", nil)];
         }
 
     }
     @catch (PortException *exception)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Printer Error"
-                                                        message:@"Write port timed out"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles: nil];
-        [alert show];
+        [Logger Info:[NSString stringWithFormat:@"Write to port timeout"]];
+        [ModalAlert error:NSLocalizedString(@"Printer timeout", nil)];
     }
     @finally
     {

@@ -36,7 +36,7 @@ typedef enum Vat {Low=0, High=1} Vat;
 @property (retain, nonatomic) NSString *description;
 @property (retain, nonatomic) NSDecimalNumber *price;
 @property int sortOrder;
-@property (retain, nonatomic) NSDecimalNumber *vat;
+@property (retain, nonatomic) NSDecimalNumber *vatPercentage;
 @property bool isQueued;
 @property bool isDeleted;
 @property (retain) NSMutableArray *properties;

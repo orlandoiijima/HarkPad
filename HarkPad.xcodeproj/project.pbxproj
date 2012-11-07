@@ -57,7 +57,6 @@
 		D0A728715EAD05ED55DAED78 /* OrderLineFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */; };
 		D0A72886B4C04B275B535402 /* PrintTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7260BC1E66EC8185DF19B /* PrintTable.m */; };
 		D0A72898111E27A970BF1941 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72229AE52F8A541E6A3C5 /* MainTabBarController.m */; };
-		D0A7289A4E6D311D679121A1 /* SalesPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723B495D263915E1232F2 /* SalesPdf.m */; };
 		D0A728ACF4C4B49B4FC42477 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728FB65368A1906AE9D39 /* Session.m */; };
 		D0A7292B923A742DFCB5A128 /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A7298DE8F73C351B7BDE0A /* right_arrow@2x.png */; };
 		D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725D9CED2E19A14244897 /* StarBitmap.m */; };
@@ -332,7 +331,7 @@
 		D0A720CB26E09E2CFE64E985 /* CallbackBlockInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallbackBlockInfo.h; sourceTree = "<group>"; };
 		D0A720CBDEE1944A488DD2C3 /* MenuCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionViewController.h; sourceTree = "<group>"; };
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
-		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrint/StarPrintJob.m; sourceTree = "<group>"; };
+		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrintJob.m; sourceTree = "<group>"; };
 		D0A721032A63FF3D3180A12E /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
 		D0A72113A4C4434BD31D5AB3 /* AddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeviceViewController.h; sourceTree = "<group>"; };
 		D0A721482FF1EEB3962FE6F8 /* SeatActionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatActionInfo.h; sourceTree = "<group>"; };
@@ -340,7 +339,7 @@
 		D0A7216F7C63233D85A902F1 /* AuthorisationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorisationToken.h; sourceTree = "<group>"; };
 		D0A7218056A7EB9DF69C2EF2 /* ProductPropertiesTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPropertiesTableViewDataSource.h; sourceTree = "<group>"; };
 		D0A721855250814FC1D33764 /* CategorySupplementaryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategorySupplementaryView.xib; sourceTree = "<group>"; };
-		D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RasterDocument.m; path = Classes/StarPrint/RasterDocument.m; sourceTree = "<group>"; };
+		D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RasterDocument.m; path = RasterDocument.m; sourceTree = "<group>"; };
 		D0A7219AB050599F8D638F4F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		D0A721B5A0DD3D1F986172D4 /* right_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow.png; sourceTree = "<group>"; };
 		D0A7221FA5B72BCCFBEF917D /* LoginPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginPinViewController.m; sourceTree = "<group>"; };
@@ -352,7 +351,7 @@
 		D0A722617686CD87DA9A68DB /* ProductPropertiesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductPropertiesView.h; path = ../../ProductPropertiesView.h; sourceTree = "<group>"; };
 		D0A7228F7614D22B34426113 /* MenuCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardViewController.h; sourceTree = "<group>"; };
 		D0A722E89A6B05CFC5C96742 /* ProductPropertiesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ProductPropertiesView.xib; path = ../../ProductPropertiesView.xib; sourceTree = "<group>"; };
-		D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RasterDocument.h; path = Classes/StarPrint/RasterDocument.h; sourceTree = "<group>"; };
+		D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RasterDocument.h; path = RasterDocument.h; sourceTree = "<group>"; };
 		D0A72308453F429C18BF7984 /* ChangeDeviceLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeDeviceLocation.m; sourceTree = "<group>"; };
 		D0A723092D3605A8F1699A44 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		D0A7231211D5BEE5CE7EF70C /* ProductPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPanelView.h; sourceTree = "<group>"; };
@@ -362,11 +361,10 @@
 		D0A7239B8604124BDABCEC22 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D0A723A706F1D8F20F3BA86E /* MenuCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardCell.xib; sourceTree = "<group>"; };
 		D0A723AA6549D5C14009739E /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDelegate.h; sourceTree = "<group>"; };
-		D0A723B495D263915E1232F2 /* SalesPdf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesPdf.m; sourceTree = "<group>"; };
 		D0A723F928BA0C776DEA4D18 /* MenuCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardListViewController.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
 		D0A7242E79EEFD68DE5B54BE /* PrinterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrinterInfo.h; path = PrintInfo/PrinterInfo.h; sourceTree = "<group>"; };
-		D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarBitmap.h; path = Classes/StarPrint/StarBitmap.h; sourceTree = "<group>"; };
+		D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarBitmap.h; path = StarBitmap.h; sourceTree = "<group>"; };
 		D0A72448DBCF926199C0FC6E /* left_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_arrow@2x.png"; sourceTree = "<group>"; };
 		D0A72455524D2A7E67190F60 /* 218-trash2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "218-trash2@2x.png"; sourceTree = "<group>"; };
 		D0A7246A5E746E7417600F66 /* MenuItemsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItemsTableViewDataSource.h; sourceTree = "<group>"; };
@@ -386,7 +384,7 @@
 		D0A725915EF31B85AD4B8B82 /* MenuCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCard.h; sourceTree = "<group>"; };
 		D0A7259434F7ADA29630F2C2 /* ColorButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButtonView.m; sourceTree = "<group>"; };
 		D0A725CF501B5318CAFE32E3 /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
-		D0A725D9CED2E19A14244897 /* StarBitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarBitmap.m; path = Classes/StarPrint/StarBitmap.m; sourceTree = "<group>"; };
+		D0A725D9CED2E19A14244897 /* StarBitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarBitmap.m; path = StarBitmap.m; sourceTree = "<group>"; };
 		D0A725DD92F0BE7948C78959 /* MenuCardListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardListViewController.xib; sourceTree = "<group>"; };
 		D0A725F22A6C426C3C7C1347 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
 		D0A726052E4984AA236E64F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -443,7 +441,6 @@
 		D0A72C2CAF8860D75D707504 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 		D0A72C2F2256A4408DA92E88 /* MenuCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCard.m; sourceTree = "<group>"; };
 		D0A72C3C6AD25B922ABB5162 /* GetDateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDateViewController.h; sourceTree = "<group>"; };
-		D0A72C52921DE75AAB59B03B /* SalesPdf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesPdf.h; sourceTree = "<group>"; };
 		D0A72C55648CFF98BE4D32EC /* LXReorderableCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXReorderableCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderLineFilter.m; path = PrintInfo/OrderLineFilter.m; sourceTree = "<group>"; };
 		D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeychainWrapper.h; path = Keychain/KeychainWrapper.h; sourceTree = "<group>"; };
@@ -473,7 +470,7 @@
 		D0A72F4BBF4D4AFB63CE56CB /* favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favorite.png; sourceTree = "<group>"; };
 		D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintTemplate.m; path = PrintInfo/PrintTemplate.m; sourceTree = "<group>"; };
 		D0A72F6FA589EABA20C2D7AE /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainWrapper.m; path = Keychain/KeychainWrapper.m; sourceTree = "<group>"; };
-		D0A72F76FF62CEA38268E37A /* StarPrintJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarPrintJob.h; path = StarPrint/StarPrintJob.h; sourceTree = "<group>"; };
+		D0A72F76FF62CEA38268E37A /* StarPrintJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarPrintJob.h; path = StarPrintJob.h; sourceTree = "<group>"; };
 		D0A72FCE2023331E7ED6408B /* Signon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signon.h; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
@@ -918,6 +915,12 @@
 				D0A72C9D651951E5AA84681E /* Print.h */,
 				D0A7256E9CAD20382EC188A3 /* Print.m */,
 				E5F609A313489C2400D88608 /* TemplatePrintDataSource.h */,
+				D0A72F76FF62CEA38268E37A /* StarPrintJob.h */,
+				D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */,
+				D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */,
+				D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */,
+				D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */,
+				D0A725D9CED2E19A14244897 /* StarBitmap.m */,
 			);
 			path = Print;
 			sourceTree = "<group>";
@@ -1038,10 +1041,6 @@
 		E50A37F112E21163007C2101 = {
 			isa = PBXGroup;
 			children = (
-				D0A725D9CED2E19A14244897 /* StarBitmap.m */,
-				D0A72433B6D6BE76D5081DE5 /* StarBitmap.h */,
-				D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */,
-				D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */,
 				E55413AE1513D29900DDE051 /* libz.dylib */,
 				E50A384012E234B8007C2101 /* Classes */,
 				E50A37F912E21164007C2101 /* Other Sources */,
@@ -1126,8 +1125,6 @@
 				D0A7223FB4834D4AD49FCBD1 /* AppVault.m */,
 				D0A72F6FA589EABA20C2D7AE /* KeychainWrapper.m */,
 				D0A72C80A88ECB97B96BC3C4 /* KeychainWrapper.h */,
-				D0A72F76FF62CEA38268E37A /* StarPrintJob.h */,
-				D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */,
 				E5F609A313489C2400D886C9 /* SelectSeatDelegate.h */,
 				E5F609A313489C2400D8869C /* ToolbarTitleView.h */,
 				E5F609A313489C2400D8869A /* ToolbarTitleView.m */,
@@ -1773,8 +1770,6 @@
 		E5F609A313489C2400D88609 /* Pdf */ = {
 			isa = PBXGroup;
 			children = (
-				D0A72C52921DE75AAB59B03B /* SalesPdf.h */,
-				D0A723B495D263915E1232F2 /* SalesPdf.m */,
 				E5F609A313489C2400D8860F /* BillPdf.h */,
 				E5F609A313489C2400D8860D /* BillPdf.m */,
 				E5F609A313489C2400D8860C /* PdfCreator.h */,
@@ -2178,7 +2173,6 @@
 				D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */,
 				D0A72886B4C04B275B535402 /* PrintTable.m in Sources */,
 				D0A724D45A181C817616B7DA /* StarPrintJob.m in Sources */,
-				D0A7289A4E6D311D679121A1 /* SalesPdf.m in Sources */,
 				D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */,
 				D0A725A1F43FE067592F2221 /* RasterDocument.m in Sources */,
 				D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */,

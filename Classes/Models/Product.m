@@ -39,7 +39,7 @@
 //    if (daySection != nil) {
 //        product.daySection =
 //    }
-    product.vat = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"vat"] decimalValue]];
+    product.vatPercentage = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"vat"] decimalValue]];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
     id val = [jsonDictionary objectForKey:@"diet"];
     if (val != nil)
@@ -65,7 +65,7 @@
     [dic setObject: self.key forKey:@"key"];
     [dic setObject: [NSNumber numberWithBool: self.isDeleted] forKey:@"isDeleted"];
     [dic setObject: self.price forKey:@"price"];
-    [dic setObject: self.vat forKey:@"vat"];
+    [dic setObject:self.vatPercentage forKey:@"vat"];
     
     return dic;
 }
@@ -114,7 +114,7 @@
     product.entityState = self.entityState;
     product.price = [_price copy];
     product.diet = _diet;
-    product.vat = _vat;
+    product.vatPercentage = _vatPercentage;
     product.properties = [[NSMutableArray allocWithZone:zone] init];
     for (NSString *prop in _properties) {
         [product.properties addObject:[prop copy]];
@@ -162,10 +162,10 @@
     _diet = aDiet;
 }
 
-- (void)setVat:(NSDecimalNumber *)aVat {
-    if ([_vat isEqualToNumber: aVat]) return;
+- (void)setVatPercentage:(NSDecimalNumber *)aVatPercentage {
+    if ([_vatPercentage isEqualToNumber:aVatPercentage]) return;
     entityState = EntityStateModified;
-    _vat = aVat;
+    _vatPercentage = aVatPercentage;
 }
 
 - (NSUInteger)hash {

@@ -22,8 +22,8 @@
 - (BOOL)isUniqueKey:(NSString *)productId itemToIgnore:(id)itemToIgnore;
 
 
-- (NSString *)vatNameByPercentage:(NSDecimalNumber *)vat;
-- (int)vatIndexByPercentage:(NSDecimalNumber *)vat;
+- (NSString *)vatNameByPercentage:(NSDecimalNumber *)vatPercentage;
+- (int)vatIndexByPercentage:(NSDecimalNumber *)vatPercentage;
 
 
 - (NSDecimalNumber *)vatPercentageByIndex:(int)i;

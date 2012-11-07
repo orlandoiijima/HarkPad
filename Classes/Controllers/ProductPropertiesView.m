@@ -66,7 +66,7 @@
     NSString *price  = [Utils getAmountString: [item price] withCurrency:NO];
     uiPrice.text = [price substringToIndex:[price length] - 3];
     _uiCents.text = [price substringFromIndex:[price length] - 2];
-    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage: [item vat]];
+    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:[item vatPercentage]];
     _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:item];
     if ([item isKindOfClass:[Product class]]) {
         _product = (Product *)item;

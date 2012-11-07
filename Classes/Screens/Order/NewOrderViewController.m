@@ -85,14 +85,7 @@
     _tableView.autoresizingMask = (UIViewAutoresizing) -1;
 
     _productPanelView = [MenuPanelView viewWithFrame: CGRectMake(0,0,100,100) menuCard: [[Cache getInstance] menuCard] menuPanelShow:MenuPanelShowAll delegate: self];
-
-//    _productPanelView.countColumns = 4;
-//    _productPanelView.leftHeaderWidth = 0;
-//    _productPanelView.topHeaderHeight = 0;
-//    _productPanelView.cellPadding = CGSizeMake(3, 3);
     [self addPanelWithView:_productPanelView frame:CGRectMake(rect.origin.x, rect.origin.y + MAX(300, rect.size.height / 4), rect.size.width - orderViewWidth, rect.size.height - MAX(300, rect.size.height / 4)) margin:5 padding:10 backgroundColor:panelColor];
-//    _productPanelView.leftHeaderWidth = 0;
-//    _productPanelView.menuDelegate = self;
 
     _orderView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _orderView.backgroundView = nil;
@@ -168,6 +161,8 @@
     if (_order.entityState == EntityStateNew)
         [[Service getInstance] createOrder:_order success:^(ServiceResult *serviceResult){
             _order.id = serviceResult.id;
+            OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: _order];
+            [printer print];
         } error:^(ServiceResult *serviceResult){
             [serviceResult displayError];
         }];

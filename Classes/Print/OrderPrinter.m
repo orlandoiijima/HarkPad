@@ -40,6 +40,7 @@
                          showPrice:NO
                  showEmptySections:NO
                           fontSize:12];
+        _orderDocument = document;
         [Print printWithDataSource:self withDocument:document toPrinter:document.printer];
     }
 }
@@ -58,6 +59,9 @@
 
 - (NSString *)stringForVariable:(NSString *)variable row:(int)row section:(int)section {
 
+    if ([variable compare: @"{documentName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return _orderDocument.name;
+    
     if ([variable compare: @"{nowDate}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 
@@ -85,6 +89,10 @@
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getAmount withCurrency:YES]];
         if ([variable compare: @"{amountVat}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [NSString stringWithFormat:@"%@", [Utils getAmountString:line.getVatAmount withCurrency:YES]];
+        if ([variable compare: @"{amountNett}" options: NSCaseInsensitiveSearch] == NSOrderedSame) {
+            NSDecimalNumber *nettAmount = [line.getAmount decimalNumberBySubtracting: line.getVatAmount];
+            return [NSString stringWithFormat:@"%@", [Utils getAmountString: nettAmount withCurrency:YES]];
+        }
     }
 
     if ([variable compare: @"{amountTotal}" options: NSCaseInsensitiveSearch] == NSOrderedSame)

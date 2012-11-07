@@ -194,7 +194,8 @@
 
 - (NSDecimalNumber *) getVatAmount
 {
-    return [self.product.vat decimalNumberByMultiplyingBy: [[NSDecimalNumber alloc] initWithInt:self.quantity]];
+    NSDecimalNumber *amount = self.getAmount;
+    return [[self.product.vatPercentage decimalNumberByMultiplyingBy:amount] decimalNumberByDividingBy:[NSDecimalNumber decimalNumberWithString:@"100"]];
 }
 
 - (id)copyWithZone: (NSZone *)zone {

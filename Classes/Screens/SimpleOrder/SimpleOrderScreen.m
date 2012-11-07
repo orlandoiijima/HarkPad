@@ -152,6 +152,8 @@
     _order.paymentType = Cash;
     [[Service getInstance] createOrder:_order success:^(ServiceResult *serviceResult){
         _order.id = serviceResult.id;
+        OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: _order];
+        [printer print];
         _previousOrder = _order;
         [self prepareForNewOrder];
         [self setupStartScreen];

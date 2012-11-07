@@ -64,8 +64,8 @@
     {
         for(Product *product in category.products)
         {
-            if ([menuCard vatIndexByPercentage:product.vat] == -1) {
-                product.vat = [menuCard vatPercentageByIndex:0];
+            if ([menuCard vatIndexByPercentage:product.vatPercentage] == -1) {
+                product.vatPercentage = [menuCard vatPercentageByIndex:0];
             }
         }
     }
@@ -117,18 +117,18 @@
     return YES;
 }
 
-- (NSString *)vatNameByPercentage: (NSDecimalNumber *)vat {
+- (NSString *)vatNameByPercentage: (NSDecimalNumber *)vatPercentage {
     for (NSDictionary *dictionary in _vatPercentages) {
-        if ([[dictionary objectForKey:@"percentage"] isEqual:vat])
+        if ([[dictionary objectForKey:@"percentage"] isEqual:vatPercentage])
             return [dictionary objectForKey:@"name"];
     }
     return @"";
 }
 
-- (int)vatIndexByPercentage: (NSDecimalNumber *)vat {
+- (int)vatIndexByPercentage: (NSDecimalNumber *)vatPercentage {
     for (int j = 0; j < [_vatPercentages count]; j++) {
         NSDictionary *dictionary = [_vatPercentages objectAtIndex:j];
-        if ([[dictionary objectForKey:@"percentage"] isEqual:vat])
+        if ([[dictionary objectForKey:@"percentage"] isEqual:vatPercentage])
             return j;
     }
     return -1;
