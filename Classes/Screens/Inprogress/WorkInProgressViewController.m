@@ -66,7 +66,7 @@
     NSString *query = [NSString stringWithFormat:@"Tafel %@ serveren ?", work.tableId];
     if([ModalAlert confirm:query]) {
         [[Service getInstance]
-                serveCourse:work.course.id
+                serveCourse:work.course.offset
                  forOrderId:0
                     success:^(ServiceResult *serviceResult) {
                         [dataSource deleteLine:work fromTableView:tableView];

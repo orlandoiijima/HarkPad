@@ -12,12 +12,12 @@
 
 @interface AuthorisationToken : NSObject
 
-@property (retain) NSString *deviceKey;
+@property (retain) NSString *deviceId;
+@property (retain) NSString *locationId;
+@property (retain) NSString *accountId;
 @property (retain) NSString *pinCode;
 @property (retain) NSString *email;
 @property (retain) NSString *password;
-
-@property(nonatomic) int locationId;
 
 + (AuthorisationToken *) tokenFromVault;
 

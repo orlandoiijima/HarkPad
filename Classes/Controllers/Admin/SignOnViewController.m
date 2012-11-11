@@ -31,7 +31,7 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"Sign up", nil);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(signon)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(signOn)];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -71,27 +71,28 @@
     return YES;
 }
 
-- (IBAction)signon {
+- (IBAction)signOn {
     if ([self validate] == NO)
         return;
-    Signon *signon = [[Signon alloc] init];
-    signon.tenant = _organisation.text;
-    signon.location = _organisation.text;
-    signon.firstName = _firstName.text;
-    signon.surName = _surName.text;
-    signon.pinCode = _pincode.text;
-    signon.email = _email.text;
-    signon.password = _password.text;
+    Signon *signOn = [[Signon alloc] init];
+    signOn.tenant = _organisation.text;
+    signOn.firstName = _firstName.text;
+    signOn.surName = _surName.text;
+    signOn.pinCode = _pincode.text;
+    signOn.email = _email.text;
+    signOn.password = _password.text;
 
-    [[Service getInstance]
-            signon:signon
-           success: ^(ServiceResult *result) {
-               NSString *deviceKey = [result.jsonData valueForKey:@"deviceKey"];
-               [AppVault setDeviceKey: deviceKey];
-           }
-             error:^(ServiceResult *serviceResult) {
-                        [serviceResult displayError];
-                    }
-    ];
+    [[Service getInstance] requestResource:@"account" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:nil  error:nil progressInfo:nil];
+//    [[Service getInstance]
+//            signon:signOn
+//           success: ^(ServiceResult *result) {
+//               [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
+//               [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
+//               [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
+//           }
+//             error:^(ServiceResult *serviceResult) {
+//                        [serviceResult displayError];
+//                    }
+//    ];
 }
 @end

@@ -28,7 +28,7 @@
 
 + (Guest *) guestFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    Guest *guest = [[Guest alloc] initWithJson:jsonDictionary];
+    Guest *guest = [[Guest alloc] initWithDictionary:jsonDictionary];
     guest.order = order;
     guest.seat = [[jsonDictionary objectForKey:@"id"] intValue];
     id val = [jsonDictionary objectForKey:@"diet"];

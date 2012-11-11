@@ -21,7 +21,7 @@
     user.pin = @"";
     user.role = RoleStandard;
     user.id = -1;
-    user.locationId = -1;
+    user.locationId = nil;
     return user;
 }
 
@@ -31,11 +31,8 @@
     user.name = [jsonDictionary objectForKey:@"name"];
     user.id = [[jsonDictionary objectForKey:@"id"] intValue];
     user.pin = [jsonDictionary objectForKey:@"pin"];
-    user.locationId = -1;
-    id location = [jsonDictionary objectForKey:@"locationId"];
-    if (location != nil) {
-        user.locationId = [location intValue];
-    }
+    user.locationId = nil;
+    user.locationId = [jsonDictionary objectForKey:@"locationId"];
     user.role = (Role) [[jsonDictionary objectForKey:@"role"] intValue];
     return user;
 }

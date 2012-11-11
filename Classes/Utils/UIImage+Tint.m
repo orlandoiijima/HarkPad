@@ -66,4 +66,12 @@
     return scaledImage;
 }
 
+- (UIImage*)imageByCroppingToRect:(CGRect)rect
+ {
+    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], rect);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef); //imageRef = nil;
+    return cropped;
+ }
+
 @end

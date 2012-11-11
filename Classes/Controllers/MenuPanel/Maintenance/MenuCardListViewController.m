@@ -43,26 +43,22 @@
 
     // Do any additional setup after loading the view from its nib.
     [[Service getInstance]
-            requestResource: @"menucard"
-                         id: nil
-                     action: nil
-                  arguments: nil
-                       body: nil
-                     method: @"GET"
-                    success: ^(ServiceResult *serviceResult) {
-                                self.menuCards = [[NSMutableArray alloc] init];
-                                MenuCard *dummyCard = [[MenuCard alloc] init];
-                                [self.menuCards addObject: dummyCard];
-                                for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
-                                    MenuCard *card = [MenuCard menuFromJson:dictionary];
-                                    [self.menuCards addObject:card];
-                                }
-                                [_menuList reloadData];
-                             }
-                      error: ^(ServiceResult *serviceResult) {
-                                [serviceResult displayError];
-                             }
-               progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", nil) parentView:self.view]];
+            requestResource:@"menucard"
+                         id:nil action:nil arguments:nil body:nil verb: HttpVerbGet
+                    success:^(ServiceResult *serviceResult) {
+                        self.menuCards = [[NSMutableArray alloc] init];
+                        MenuCard *dummyCard = [[MenuCard alloc] init];
+                        [self.menuCards addObject:dummyCard];
+                        for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
+                            MenuCard *card = [MenuCard menuFromJson:dictionary];
+                            [self.menuCards addObject:card];
+                        }
+                        [_menuList reloadData];
+                    }
+                      error:^(ServiceResult *serviceResult) {
+                          [serviceResult displayError];
+                      }
+               progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", nil) parentView:self.view]];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,7 +94,7 @@
 - (void) addNewMenuCard {
     MenuCard *newCard = [[[Cache getInstance] menuCard] copy];
     newCard.entityState = EntityStateNew;
-    newCard.id = -1;
+    newCard.id = nil;
     newCard.validFrom = [[NSDate date] dateByAddingDays:7];
     [self.menuCards insertObject:newCard atIndex:1];
     GetDateViewController *controller = [[GetDateViewController alloc] init];

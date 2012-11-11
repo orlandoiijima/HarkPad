@@ -17,13 +17,13 @@
 @property (retain) UITableView *reservationsTableView;
 @property (retain) UITableView *orderTableView;
 @property (retain) UILabel *headerLabel;
-@property int reservationId;
+@property NSString *reservationId;
 
 @property(nonatomic, strong) ReservationDataSource *reservationDataSource;
 
 @property(nonatomic, strong) OrderDataSource *orderDataSource;
 
 - (void) getReservationsCallback: (ServiceResult *)serviceResult;
-+ (PreviousReservationsViewController *) controllerWithReservationId: (int) reservationId;
++ (PreviousReservationsViewController *) controllerWithReservationId: (NSString *) reservationId;
 
 @end

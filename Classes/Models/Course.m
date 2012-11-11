@@ -28,7 +28,7 @@
 
 + (Course *) courseFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    Course *course = [[Course alloc] initWithJson:jsonDictionary];
+    Course *course = [[Course alloc] initWithDictionary:jsonDictionary];
     course.offset = [[jsonDictionary objectForKey:@"id"] intValue];
     NSNumber *seconds = [jsonDictionary objectForKey:@"requestedOn"];
     if(seconds != nil && (NSNull *) seconds != [NSNull null])

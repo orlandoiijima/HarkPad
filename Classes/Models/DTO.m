@@ -20,14 +20,14 @@
     if ((self = [super init]) != NULL)
 	{
         self.entityState = EntityStateNew;
-        self.id = -1;
+        self.id = nil;
 	}
     return(self);
 }
 
-- (id)initWithJson:(NSDictionary *)jsonDictionary {
+- (id)initWithDictionary:(NSDictionary *)jsonDictionary {
     self = [self init];
-    self.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    self.id = [jsonDictionary objectForKey:@"id"];
     self.entityState = EntityStateNone;
     return self;
 }
@@ -36,7 +36,7 @@
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     if (entityState != EntityStateNew)
-        [dic setObject: [NSNumber numberWithInt:self.id] forKey:@"id"];
+        [dic setObject: self.id forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     return dic;
 }

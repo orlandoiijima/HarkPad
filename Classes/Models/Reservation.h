@@ -48,7 +48,7 @@ typedef enum ReservationType {
 @property int orderState;
 @property (retain) NSDate *paidOn;
 
-@property(nonatomic) int locationId;
+@property(nonatomic) NSString *locationId;
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (Reservation *)null;

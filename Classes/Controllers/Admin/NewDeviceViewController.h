@@ -10,7 +10,11 @@
 
 @interface NewDeviceViewController : UIViewController
 
-- (IBAction) registerDevice;
-- (IBAction) signOnOrganisation;
+- (IBAction) logIn;
+- (IBAction) signOn;
+@property (retain) IBOutlet UITextField *userField;
+@property (retain) IBOutlet UITextField *passwordField;
+@property (retain) IBOutlet UIButton *logInButton;
+@property (retain) IBOutlet UIButton *signOnButton;
 
 @end

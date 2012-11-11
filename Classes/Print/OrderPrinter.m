@@ -12,6 +12,11 @@
 #import "OrderLineFilter.h"
 #import "Utils.h"
 #import "Logger.h"
+#import "Location.h"
+#import "Address.h"
+#import "AppVault.h"
+#import "Session.h"
+#import "PrinterInfo.h"
 
 
 @implementation OrderPrinter {
@@ -61,7 +66,27 @@
 
     if ([variable compare: @"{documentName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return _orderDocument.name;
-    
+
+    if ([variable compare: @"{printerName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return _orderDocument.printer.name;
+
+    if ([variable compare: @"{userName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return [[Session authenticatedUser] name];
+
+    Location *currentLocation = [[Cache getInstance] currentLocation];
+    if ([variable compare: @"{companyName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.name;
+    if ([variable compare: @"{locationAddressStreet}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.address.street;
+    if ([variable compare: @"{locationAddressNumber}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.address.number;
+    if ([variable compare: @"{locationAddressZipCode}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.address.zipCode;
+    if ([variable compare: @"{locationAddressCity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.address.city;
+    if ([variable compare: @"{locationPhone}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+        return currentLocation == nil ? @"" :  currentLocation.phone;
+
     if ([variable compare: @"{nowDate}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
 

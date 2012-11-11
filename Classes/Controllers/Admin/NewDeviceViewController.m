@@ -8,11 +8,8 @@
 
 #import "NewDeviceViewController.h"
 #import "SignOnViewController.h"
-#import "CredentialsAlertView.h"
-#import "AppVault.h"
-#import "LoginPinViewController.h"
-#import "AddDeviceViewController.h"
-#import "AdminLoginViewController.h"
+#import "CompanyListViewController.h"
+#import "Company.h"
 
 @interface NewDeviceViewController ()
 
@@ -29,13 +26,32 @@
     return self;
 }
 
-- (IBAction)registerDevice {
-    AddDeviceViewController *addDeviceViewController = [[AddDeviceViewController alloc] init];
-    [self.navigationController pushViewController:addDeviceViewController animated:YES];
+- (IBAction)logIn {
+//    Credentials *credentials = [Credentials credentialsWithEmail: _userField.text password:_passwordField.text pincode:@""];
+    [[Service getInstance]
+            requestResource:@"company"
+                         id:nil
+                     action:nil
+                  arguments:nil
+                       body:nil
+                       verb:HttpVerbGet
+                    success:^(ServiceResult *serviceResult) {[self logInCallback:serviceResult]; }
+                      error:^(ServiceResult *serviceResult) {[serviceResult displayError]; }
+               progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", nil) parentView:self.view]];
 }
 
+- (void) logInCallback:(ServiceResult *)serviceResult {
+    NSMutableArray *companies = [[NSMutableArray alloc] init];
+    for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
+        Company *company = [[Company alloc] initWithDictionary:dictionary];
+        [companies addObject:company];
+    }
+    CompanyListViewController *companyListViewController = [[CompanyListViewController alloc] init];
+    companyListViewController.companies = companies;
+    [self.navigationController pushViewController: companyListViewController animated:YES];
+}
 
-- (IBAction)signOnOrganisation {
+- (IBAction)signOn {
     SignOnViewController *controller  = [[SignOnViewController alloc] init];
     [self.navigationController pushViewController: controller animated:YES];
 }
@@ -44,7 +60,7 @@
 {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"New device", <#comment#>);
+    self.title = NSLocalizedString(@"New device", nil);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

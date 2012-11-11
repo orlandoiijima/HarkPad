@@ -37,9 +37,9 @@
 
 + (Reservation *) reservationFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Reservation *reservation = [[Reservation alloc] initWithJson:jsonDictionary];
+    Reservation *reservation = [[Reservation alloc] initWithDictionary:jsonDictionary];
 
-    reservation.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
+    reservation.locationId = [jsonDictionary objectForKey:@"locationId"];
 
     id val = [jsonDictionary objectForKey:@"notes"];
     if((NSNull *)val != [NSNull null])
@@ -97,7 +97,7 @@
 + (Reservation *)null
 {
     Reservation *reservation = [[Reservation alloc] init];
-    reservation.id = -1;
+    reservation.id = nil;
     return reservation;
 }
 

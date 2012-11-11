@@ -15,15 +15,18 @@
 @property(nonatomic, strong) PrintTemplate *template;
 @property(nonatomic, strong) SMPort *port;
 @property (nonatomic, retain) id<TemplatePrintDataSource> dataSource;
-
 @property(nonatomic, assign) NSString *ip;
-
 @property(nonatomic) float y;
-
+@property(nonatomic) float x;
 @property(nonatomic) float tableOffset;
+
+@property(nonatomic, strong) UIPopoverController *popover;
+
+@property(nonatomic) CGFloat lineHeight;
+
+@property(nonatomic) CGFloat imageHeight;
 
 + (StarPrintJob *)jobWithTemplate:(PrintTemplate *)template dataSource: (id) dataSource  ip:(NSString *)ip;
 - (void) print;
-- (void)printImageWithPortname:(NSString *)portName portSettings: (NSString*)portSettings imageToPrint: (UIImage*)imageToPrint maxWidth: (int)maxWidth;
 -(float) print:(Run *)run row:(int)row section:(int)section pointSize:(float)pointSize;
 @end

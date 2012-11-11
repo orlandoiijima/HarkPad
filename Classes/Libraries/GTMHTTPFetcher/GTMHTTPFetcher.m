@@ -1358,7 +1358,7 @@ totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     // per WebKit's MaxFoundationVersionWithoutdidSendBodyDataDelegate
     //
     // indicates if NSURLConnection will invoke the didSendBodyData: delegate
-    // method
+    verb
     return (NSFoundationVersionNumber > 677.21);
 #endif
 }

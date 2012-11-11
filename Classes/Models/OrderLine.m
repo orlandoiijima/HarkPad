@@ -20,7 +20,7 @@
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
-    OrderLine *orderLine = [[OrderLine alloc] initWithJson:jsonDictionary];
+    OrderLine *orderLine = [[OrderLine alloc] initWithDictionary:jsonDictionary];
     orderLine.order = order;
     NSString *productId = [jsonDictionary objectForKey:@"productId"];
     orderLine.product = [[[Cache getInstance] menuCard] getProduct:productId];
@@ -32,10 +32,8 @@
     if((NSNull *)val != [NSNull null])
         orderLine.quantity = [val intValue];
     
-    val = [jsonDictionary objectForKey:@"sortOrder"];
-    if((NSNull *)val != [NSNull null])
-        orderLine.sortOrder = [val intValue];
-    
+    orderLine.offset = [[jsonDictionary objectForKey:@"offset"] intValue];
+
     val = [jsonDictionary objectForKey:@"state"];
     if((NSNull *)val != [NSNull null])
         orderLine.state = (State)[val intValue];
@@ -111,7 +109,7 @@
 {
     NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: product.key forKey:@"productId"];
-    [dic setObject: [NSNumber numberWithInt:sortOrder] forKey:@"sortOrder"];
+    [dic setObject: [NSNumber numberWithInt: _offset] forKey:@"offset"];
     [dic setObject: [NSNumber numberWithInt:quantity] forKey:@"quantity"];
     if (guest != nil)
         [dic setObject: [NSNumber numberWithInt:guest.seat] forKey:@"seat"];

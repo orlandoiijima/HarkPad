@@ -131,3 +131,9 @@
 "Tap to make new menucard" = "Tap to make new menucard";
 "Options" = "Options";
 "Printer timeout" = "Printer timeout";
+"Printers" = "Printers";
+"Orders" = "Orders";
+"Looking for printers..." = "Looking for printers...";
+"Failed to start printjob. Check if the printer is turned on (port %@)" = "Failed to start printjob. Check if the printer is turned on (port %@)";
+"Failed to start printjob. Check if the printer is turned on and connected to the network (port %@)" = "Failed to start printjob. Check if the printer is turned on and connected to the network (port %@)";
+"Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)" = "Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)";

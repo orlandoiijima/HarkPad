@@ -18,7 +18,7 @@
 
 - (id)init {
     if ((self = [super init])) {
-        self.id = -1;
+        self.id = nil;
         self.error = @"";
         self.isSuccess = false;
         self.jsonData = [[NSMutableDictionary alloc] init];
@@ -50,7 +50,7 @@
                         if ([serviceResult.jsonData isKindOfClass:[NSDictionary class]]) {
                             id id = [serviceResult.jsonData objectForKey:@"id"];
                             if (id != nil)
-                                serviceResult.id = [id intValue];
+                                serviceResult.id = id;
                         }
                         serviceResult.isSuccess = true;
                         [Logger Info:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];

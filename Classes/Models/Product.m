@@ -26,7 +26,7 @@
 
 + (Product *) productFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
-    Product *product = [[Product alloc] initWithJson:jsonDictionary];
+    Product *product = [[Product alloc] initWithDictionary:jsonDictionary];
     product.key = [jsonDictionary objectForKey:@"key"];
     product.name = [jsonDictionary objectForKey:@"name"];
     if(product.name == nil)

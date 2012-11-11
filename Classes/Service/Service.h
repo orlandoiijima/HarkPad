@@ -24,10 +24,13 @@
 #import "Credentials.h"
 #import "ProgressInfo.h"
 
+@class Company;
+
 @interface Service : NSObject <UIPopoverControllerDelegate> {
     NSString *url;
 }
 
+typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} HttpVerb;
 
 @property (retain) NSString *url;
 @property (assign) NSString *host;
@@ -70,9 +73,9 @@
 
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) deleteReservation: (int)reservationId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) deleteReservation: (NSString *)reservationId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback;
+- (void) getPreviousReservationsForReservation: (NSString *) reservationId delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) createProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
@@ -85,7 +88,7 @@
 - (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) createLocation: (Location *)location credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
+- (void) createCompany: (Company *)company credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 - (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine;
@@ -94,6 +97,6 @@
 
 - (BOOL) checkReachability;
 
-- (void)requestResource:(NSString *)resource id:(NSString *)id action:(NSString *)action arguments:(NSString *)arguments body:(NSDictionary *)body method:(NSString *)method success:(void (^)(ServiceResult *))onSuccess error:(void (^)(ServiceResult *))onError progressInfo:(ProgressInfo *)progressInfo;
+- (void)requestResource:(NSString *)resource id:(NSString *)id action:(NSString *)action arguments:(NSString *)arguments body:(NSDictionary *)body verb:(HttpVerb)verb success:(void (^)(ServiceResult *))onSuccess error:(void (^)(ServiceResult *))onError progressInfo:(ProgressInfo *)progressInfo;
 
 @end

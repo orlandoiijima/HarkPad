@@ -13,6 +13,7 @@
 #import "PrinterCell.h"
 #import "PrinterInfo.h"
 #import "Service.h"
+#import "ProgressInfo.h"
 
 @interface PrinterListViewController ()
 
@@ -35,42 +36,59 @@
 
     _printers = [[[Cache getInstance] printInfo] printers];
 
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.itemSize = CGSizeMake(200, 100);
-    _printersView = [[UICollectionView alloc] initWithFrame:CGRectMake(100, 100, 300, 300) collectionViewLayout:layout];
-    [self.view  addSubview:_printersView];
-    _printersView.dataSource = self;
-
     UINib *nib = [UINib nibWithNibName:@"PrinterCell" bundle:[NSBundle mainBundle]];
     [_printersView registerNib:nib forCellWithReuseIdentifier:@"xjsjw"];
- //   [_printersView reloadData];
 
     [self findStarPrinters];
     
 }
 
 - (void) findStarPrinters {
-    dispatch_queue_t myQueue = dispatch_queue_create("com.gazapps.myqueue", 0);
-     dispatch_async(myQueue, ^{
-         NSArray *activeStarPrinters = [SMPort searchPrinter];
-         for (PortInfo *activeStarPrinter in activeStarPrinters) {
-             PrinterInfo *printerInfo = [self printerByAddress:activeStarPrinter.portName];
-             if (printerInfo != nil) {
-                 printerInfo.isOnline = YES;
+    _progressInfo = [ProgressInfo progressWithHudText:NSLocalizedString(@"Looking for printers...", nil) parentView:self.view];
+    [_progressInfo start];
+    dispatch_queue_t myQueue = dispatch_queue_create("com.theattic.myqueue", 0);
+    dispatch_async(myQueue, ^{
+        NSArray *onlineStarPrinters = [SMPort searchPrinter];
+        for (PrinterInfo *printerInfo in _printers) {
+            printerInfo.isOnline = [self isPrinter:printerInfo inOnlineList:onlineStarPrinters];
+        }
+        for (PortInfo *onlineStarPrinter in onlineStarPrinters) {
+             PrinterInfo *printerInfo = [self printerByAddress:[onlineStarPrinter.portName substringFromIndex:4]];
+             if (printerInfo == nil) {
+                 [self addPrinterWithAddress: [onlineStarPrinter.portName substringFromIndex:4]];
              }
          }
          dispatch_sync(dispatch_get_main_queue(), ^{
+             [_progressInfo stop];
+             [_printersView reloadData];
          });//end block
      });
 }
 
-- (PrinterInfo *)printerByAddress:(NSString *)name {
+- (void)addPrinterWithAddress:(NSString *)address {
+    PrinterInfo *newPrinter = [[PrinterInfo alloc] init];
+    newPrinter.isOnline = YES;
+    newPrinter.type = PrinterTypeStar;
+    newPrinter.address = address;
+    [_printers addObject:newPrinter];
+}
+
+- (PrinterInfo *)printerByAddress:(NSString *)address {
     for (PrinterInfo *printerInfo in _printers) {
-        if ([printerInfo.address isEqualToString: name]) {
+        if ([printerInfo.address isEqualToString: address]) {
             return printerInfo;
         }
     }
     return nil;
+}
+
+- (BOOL)isPrinter:(PrinterInfo *)printerInfo inOnlineList:(NSArray *)onlineStarPrinters {
+    for (PortInfo *portInfo in onlineStarPrinters) {
+        if ([[portInfo.portName substringFromIndex:4] isEqualToString:printerInfo.address]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,6 +100,17 @@
 
 - (PrinterInfo *)printerAtIndexPath:(NSIndexPath *)indexPath {
     return [_printers objectAtIndex:indexPath.row];
+}
+
+- (NSIndexPath *)indexPathForPrinter:(PrinterInfo *) findPrinter {
+    int row = 0;
+    for (PrinterInfo *printerInfo in _printers) {
+        if ([printerInfo.address isEqualToString: findPrinter.address]) {
+            return [NSIndexPath indexPathForItem:row inSection:0];
+        }
+        row++;
+    }
+    return nil;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -108,11 +137,11 @@
 - (void)updatePrinter:(PrinterInfo *)printerInfo {
     PrintInfo *printInfo = [[Cache getInstance] printInfo];
     NSMutableDictionary *dictionary = [printInfo toDictionary];
-    [[Service getInstance] requestResource:@"printinfo" id:@"1" action:nil arguments:nil body:dictionary method:@"PUT" success:^(ServiceResult *serviceResult) {
+    [[Service getInstance] requestResource:@"printinfo" id:@"1" action:nil arguments:nil body:dictionary verb:HttpVerbPut success:^(ServiceResult *serviceResult) {
 
-    } error: ^(ServiceResult *serviceResult) {
+    }                                error:^(ServiceResult *serviceResult) {
 
-    } progressInfo:nil];
+    }                         progressInfo:nil];
 }
 
 - (void)didReceiveMemoryWarning

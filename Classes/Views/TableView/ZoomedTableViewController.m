@@ -258,7 +258,7 @@
                 }
                 Reservation *walkinReservation = [[Reservation alloc] init];
                 walkinReservation.type = ReservationTypeWalkin;
-                walkinReservation.id = -1;
+                walkinReservation.id = nil;
                 walkinReservation.startsOn = [NSDate date];
                 walkinReservation.countGuests = order.table.countSeatsTotal;
                 walkinReservation.name = NSLocalizedString(@"Walk-in", nil);

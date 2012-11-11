@@ -13,4 +13,7 @@
 - (UIImage *)imageTintedWithColor:(UIColor *)color fraction:(CGFloat)fraction;
 + (UIImage *)scale:(UIImage *)image toSize:(CGSize)size;
 
+- (UIImage *)imageByCroppingToRect:(CGRect)rect;
+
+
 @end

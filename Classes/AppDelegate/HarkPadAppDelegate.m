@@ -29,8 +29,10 @@
     [TestFlight takeOff:@"64c7394c3f8507999809cd493b267759_NjkxNDQyMDEyLTAzLTA4IDA3OjU2OjI4LjI4MDQwOQ"];
 
     if ([AppVault isDeviceRegistered] == false) {
+
         NewDeviceViewController *signOnController = [[NewDeviceViewController alloc] init];
         UIViewController *controller = [[UINavigationController alloc] initWithRootViewController: signOnController];
+
         window.rootViewController = controller;
         [window addSubview:controller.view];
         return YES;

@@ -11,15 +11,15 @@
 
 @interface DTO : NSObject {
     EntityState entityState;
-    int id;
+    NSString * id;
 }
 
 @property (nonatomic) EntityState entityState;
-@property (nonatomic) int id;
+@property (nonatomic) NSString *id;
 
 @property(nonatomic) BOOL isNew;
 
-- (id)initWithJson:(NSDictionary *)jsonDictionary;
+- (id)initWithDictionary:(NSDictionary *)jsonDictionary;
 - (NSMutableDictionary *)toDictionary;
 
 @end

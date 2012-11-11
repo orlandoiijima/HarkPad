@@ -43,21 +43,21 @@
 }
 
 - (void)didSaveItem:(id)item {
-    Location *location = (Location *)item;
-    if (location == nil) return;
-    [[Service getInstance]
-            createLocation: location
-               credentials: [Session credentials]
-                   success: ^(ServiceResult *serviceResult) {
-                       [self.locationsView addLocation: location];
-                       [self.navigationController popViewControllerAnimated:YES];
-                   }
-                     error:^(ServiceResult *result) {
-                       [self.navigationController popViewControllerAnimated:YES];
-                       [result displayError];
-                   }
-              progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering location", nil) parentView:self.view]
-    ];
+//    Location *location = (Location *)item;
+//    if (location == nil) return;
+//    [[Service getInstance]
+//            createCompany: location
+//               credentials: [Session credentials]
+//                   success: ^(ServiceResult *serviceResult) {
+//                       [self.locationsView addLocation: location];
+//                       [self.navigationController popViewControllerAnimated:YES];
+//                   }
+//                     error:^(ServiceResult *result) {
+//                       [self.navigationController popViewControllerAnimated:YES];
+//                       [result displayError];
+//                   }
+//              progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Registering location", nil) parentView:self.view]
+//    ];
 }
 
 
@@ -70,7 +70,7 @@
             registerDeviceAtLocation: _locationsView.selectedLocationId
                      withCredentials: [Session credentials]
             success:^(ServiceResult *serviceResult) {
-                [AppVault setDeviceKey:[serviceResult.jsonData objectForKey:@"deviceKey"]];
+                [AppVault setDeviceId:[serviceResult.jsonData objectForKey:@"deviceId"]];
 
                 MainTabBarController *controller = [[MainTabBarController alloc] init];
                 [[[UIApplication sharedApplication] keyWindow] setRootViewController: controller];

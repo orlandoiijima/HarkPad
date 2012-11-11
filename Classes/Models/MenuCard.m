@@ -34,7 +34,7 @@
 
 + (MenuCard *) menuFromJson:(NSMutableDictionary *)jsonCategories
 {
-    MenuCard *menuCard = [[MenuCard alloc] initWithJson:jsonCategories];
+    MenuCard *menuCard = [[MenuCard alloc] initWithDictionary:jsonCategories];
     
     id validFrom = [jsonCategories valueForKey:@"validFrom"];
     if (validFrom != nil)

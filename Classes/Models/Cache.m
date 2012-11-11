@@ -66,7 +66,7 @@ static 	Cache * _cache = nil;
 - (NSMutableArray *)getLocationUsers {
     NSMutableArray *locationUsers = [[NSMutableArray alloc] init];
     for (User *user in _users) {
-        if (user.locationId == -1 || user.locationId == [AppVault locationId])
+        if (user.locationId == nil || [user.locationId isEqualToString: [AppVault locationId]])
             [locationUsers addObject:user];
     }
     return locationUsers;
@@ -75,9 +75,9 @@ static 	Cache * _cache = nil;
 - (Location *)currentLocation {
     if ([_locations count] == 0)
         return nil;
-    int locationId = [AppVault locationId];
+    NSString * locationId = [AppVault locationId];
     for (Location *location in _locations) {
-        if (location.id == locationId)
+        if ([location.id isEqualToString:locationId])
             return location;
     }
     return nil;

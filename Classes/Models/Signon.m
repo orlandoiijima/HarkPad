@@ -18,9 +18,9 @@
     [dic setObject: self.tenant forKey:@"name"];
     [dic setObject: self.password forKey:@"password"];
     [dic setObject: self.email forKey:@"email"];
-    [dic setObject: self.location forKey:@"location"];
     [dic setObject: self.firstName forKey:@"firstName"];
-    [dic setObject:self.surName forKey:@"surName"];
+    [dic setObject: self.surName forKey:@"surName"];
+    [dic setObject: self.pinCode forKey:@"pinCode"];
 
     return dic;
 }

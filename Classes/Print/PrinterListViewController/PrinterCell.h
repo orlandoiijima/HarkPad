@@ -15,8 +15,11 @@
 
 @property(retain) IBOutlet UILabel *ip;
 @property(retain) IBOutlet UITextField *name;
-@property(retain, nonatomic) PrinterInfo *printer;
 @property(retain) IBOutlet UILabel *status;
+@property (retain) IBOutlet UIImageView *statusImage;
+@property (retain) IBOutlet UIImageView *printerImage;
+
+@property(nonatomic) BOOL isOnline;
 
 - (void)setPrinter:(PrinterInfo *)printerInfo delegate:(id)delegate;
 

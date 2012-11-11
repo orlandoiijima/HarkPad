@@ -20,7 +20,7 @@ typedef enum Role {RoleStandard, RoleManager, RoleBackOffice, RoleAdmin} Role ;
 @property(nonatomic, strong) id pin;
 @property(nonatomic) int role;
 
-@property(nonatomic) int locationId;
+@property(nonatomic) NSString * locationId;
 
 + (User *) userFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (User *) userNull;

@@ -16,7 +16,7 @@
     id data;
     NSString *error;
     BOOL isSuccess;
-    int id;    
+    NSString *id;
 }
 
 @property (retain) NSMutableDictionary *notification;
@@ -24,7 +24,7 @@
 @property (retain) id data;
 @property (retain) NSString *error;
 @property BOOL isSuccess;
-@property int id;
+@property NSString *id;
 
 @property(nonatomic) NSInteger httpStatusCode;
 

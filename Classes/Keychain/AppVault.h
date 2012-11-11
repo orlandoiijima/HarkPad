@@ -13,11 +13,14 @@
 //@property (retain) NSString *deviceId;
 //@property (retain) NSString *tenantKey;
 
-+ (NSString *)deviceKey;
-+ (void)setDeviceKey:(NSString *)deviceKey;
++ (NSString *)deviceId;
++ (void)setDeviceId:(NSString *)deviceKey;
 
-+ (int)locationId;
-+ (void)setLocationId:(int)locationId;
++ (NSString *)locationId;
++ (void)setLocationId:(NSString *)locationId;
+
++ (NSString *)accountId;
++ (void)setAccountId:(NSString *)accountId;
 
 + (bool) isDeviceRegistered;
 

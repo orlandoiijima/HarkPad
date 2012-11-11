@@ -8,8 +8,11 @@
 
 
 
+@class ProgressInfo;
+
 @interface PrinterListViewController : UIViewController <UICollectionViewDataSource, UITextFieldDelegate>
 
-@property(nonatomic, strong) UICollectionView *printersView;
+@property(nonatomic, strong) IBOutlet UICollectionView *printersView;
 @property(nonatomic, strong) id printers;
+@property(nonatomic, strong) ProgressInfo *progressInfo;
 @end

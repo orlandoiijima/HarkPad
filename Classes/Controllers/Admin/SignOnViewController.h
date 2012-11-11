@@ -20,6 +20,6 @@
 @property (retain) IBOutlet UITextField *pincode;
 @property (retain) IBOutlet UIButton *signonButton;
 
-- (IBAction) signon;
+- (IBAction)signOn;
 
 @end

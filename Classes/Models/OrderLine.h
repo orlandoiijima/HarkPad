@@ -26,7 +26,6 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
     Course *course;
     NSString *note;
     Product *product;
-    int sortOrder;
     State state;
     NSMutableArray *propertyValues;
 }
@@ -41,6 +40,8 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 @property int sortOrder;
 @property State state;
 @property (retain) NSMutableArray *propertyValues;
+
+@property (nonatomic) int offset;
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 

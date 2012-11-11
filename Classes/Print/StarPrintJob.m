@@ -13,9 +13,12 @@
 #import "StarBitmap.h"
 #import "Logger.h"
 #import "ModalAlert.h"
+#import "Session.h"
+#import "Location.h"
+#import "StarPrintOutputViewController.h"
+#import "UIImage+Tint.h"
 #import <StarIO/SMPort.h>
 #import <sys/time.h>
-#import <CoreGraphics/CoreGraphics.h>
 
 @implementation StarPrintJob {
 
@@ -24,6 +27,7 @@
     id _dataSource;
     __unsafe_unretained NSString *_ip;
     float _y;
+    float _x;
     float _tableOffset;
 }
 @synthesize template = _template;
@@ -34,6 +38,8 @@
 @synthesize tableOffset = _tableOffset;
 
 
+#define PAPERWIDTH 576
+
 + (StarPrintJob *)jobWithTemplate:(PrintTemplate *)template dataSource: (id) dataSource ip:(NSString *)ip {
     StarPrintJob *job = [[StarPrintJob alloc] init];
     job.dataSource = dataSource;
@@ -43,100 +49,127 @@
 }
 
 -(void) print {
-    @try {
-        NSString *ipParameter = [@"TCP:" stringByAppendingString:_ip];
+    UIImage *imageToPrint = [self createImage];
+    [self printImage:imageToPrint];
+}
 
-        CGSize size = CGSizeMake(576, 1000);
-		UIGraphicsBeginImageContext(size);
+- (UIImage *)createImage {
+    CGSize size = CGSizeMake(PAPERWIDTH, 5000);
+    UIGraphicsBeginImageContext(size);
 
-        CGContextRef ctr = UIGraphicsGetCurrentContext();
-        UIColor *color = [UIColor whiteColor];
-        [color set];
+    CGContextRef ctr = UIGraphicsGetCurrentContext();
 
-        CGRect rect = CGRectMake(0, 0, size.width, size.height);
-        CGContextFillRect(ctr, rect);
+    [[UIColor whiteColor] set];
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    CGContextFillRect(ctr, rect);
 
-        color = [UIColor blackColor];
-        [color set];
+    [[UIColor blackColor] set];
 
-        float defaultPointSize = _template.pointSize == 0 ? 20 : _template.pointSize;
-        _y = 0;
+    float defaultPointSize = _template.pointSize == 0 ? 20 : _template.pointSize;
+    _y = 0;
 
-        for(Run *run in _template.preRuns) {
-            [self print:run row:-1 section:-1 pointSize: defaultPointSize];
-        }
+    for(Run *run in _template.preRuns) {
+        [self print:run row:-1 section:-1 pointSize: defaultPointSize];
+    }
 
-        UIFont *font = [UIFont systemFontOfSize: _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize];
-        _tableOffset = [self updateY:_template.table.ySpec font:font];
-        _y = 0;
-        float lineHeight = 0;
-        int countSections = [_dataSource numberOfSections];
-        for (NSUInteger section=0; section < countSections; section++) {
-            int countRows = [_dataSource numberOfRowsInSection:section];
-            if (countRows == 0)
-                continue;
-    
-            [self print: _template.table.section row:-1 section: section pointSize: defaultPointSize];
-            defaultPointSize = _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize;
-            for(NSUInteger row = 0; row < countRows; row++) {
-                for(PrintColumn *column in _template.table.columns) {
-                    float height = [self print:column.cell row:row section:section pointSize: defaultPointSize];
-                    if (height > lineHeight)
-                        lineHeight = height;
-                }
-                _tableOffset += lineHeight;
+    UIFont *font = [UIFont systemFontOfSize: _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize];
+    _tableOffset = [self updateY:_template.table.ySpec font:font];
+    _y = 0;
+    float rowHeight;
+    int countSections = [_dataSource numberOfSections];
+    for (NSUInteger section=0; section < countSections; section++) {
+        int countRows = [_dataSource numberOfRowsInSection:section];
+        if (countRows == 0)
+            continue;
+
+        [self print: _template.table.section row:-1 section: section pointSize: defaultPointSize];
+        defaultPointSize = _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize;
+        for(NSUInteger row = 0; row < countRows; row++) {
+            rowHeight = 0;
+            for(PrintColumn *column in _template.table.columns) {
+                float height = [self print:column.cell row:row section:section pointSize: defaultPointSize];
+                if (height > rowHeight)
+                    rowHeight = height;
             }
+            _tableOffset += rowHeight;
+            _lineHeight = rowHeight;
         }
-
-        lineHeight = 0;
-        for(PrintColumn *column in _template.table.columns) {
-            Run *run = [column.cell copy];
-            run.text = column.footer;
-            float height = [self print:run row:-1 section:-1 pointSize: defaultPointSize];
-            if (height > lineHeight)
-                lineHeight = height;
-        }
-        _tableOffset += lineHeight;
-
-        defaultPointSize = _template.pointSize == 0 ? 20 : _template.pointSize;
-        for(Run *run in _template.postRuns) {
-            [self print:run row:-1 section:-1 pointSize: defaultPointSize];
-        }
-
-        UIImage *imageToPrint = UIGraphicsGetImageFromCurrentImageContext();
-        [self printImageWithPortname:ipParameter portSettings:@"" imageToPrint:imageToPrint maxWidth:size.width];
     }
-    @catch(PortException *e) {
 
+    _lineHeight = 0;
+    for(PrintColumn *column in _template.table.columns) {
+        Run *run = [column.cell copy];
+        run.text = column.footer;
+        float height = [self print:run row:-1 section:-1 pointSize: defaultPointSize];
+        if (height > _lineHeight)
+            _lineHeight = height;
     }
-    @finally
-    {
-        [SMPort releasePort: _port];
+    _tableOffset += _lineHeight;
+
+    defaultPointSize = _template.pointSize == 0 ? 20 : _template.pointSize;
+    for(Run *run in _template.postRuns) {
+        [self print:run row:-1 section:-1 pointSize: defaultPointSize];
     }
+
+    UIImage *image =  UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return [image imageByCroppingToRect:CGRectMake(0, 0, PAPERWIDTH, _imageHeight)];
 }
 
 -(float) print:(Run *)run row:(int)row section:(int)section pointSize:(float)pointSize {
-    if (run.width == 0)
-        return 0;
-    NSString *textToDraw = [run evaluateWithProvider:_dataSource row:row section:section];
-    if ([textToDraw length] == 0)
-        return 0;
-    UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
-    CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(run.width, 200) lineBreakMode:NSLineBreakByWordWrapping];
-    CGRect rect = CGRectMake([run.xSpec intValue], [self updateY:run.ySpec font:font], run.width, 200);
-    [textToDraw drawInRect:rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment: run.alignment];
-    return measuredSize.height;
+    CGRect rect = CGRectZero;
+    if ([run.text isEqualToString:@"{logo}"]) {
+        UIImage *logo = [UIImage imageNamed:@"anna-a-114x114.png"]; // [[[Cache getInstance] currentLocation] logo];
+        if (logo != nil) {
+            float height = ( run.width / logo.size.width) * logo.size.height;
+            if (run.alignment == NSTextAlignmentCenter)
+                rect = CGRectMake((PAPERWIDTH - run.width)/2, [run.ySpec intValue], run.width, height);
+            else
+                rect = CGRectMake([run.xSpec intValue], [run.ySpec intValue], run.width, height);
+            [logo drawInRect: rect];
+        }
+    }
+    else {
+        NSString *textToDraw = [run evaluateWithProvider:_dataSource row:row section:section];
+        if ([textToDraw length] > 0) {
+            NSString *ySpec = row == -1 ? run.ySpec : @"+0";
+            UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
+            if (run.alignment == NSTextAlignmentCenter) {
+                CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(PAPERWIDTH, 200) lineBreakMode:NSLineBreakByWordWrapping];
+                rect = CGRectMake(0, [self updateY:ySpec font:font], PAPERWIDTH, measuredSize.height);
+            }
+            else {
+                CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(run.width, 200) lineBreakMode:NSLineBreakByWordWrapping];
+                rect = CGRectMake([self updateX:run.xSpec font:font], [self updateY:ySpec font:font], run.width, measuredSize.height);
+            }
+            [textToDraw drawInRect:rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment: run.alignment];
+        }
+    }
+
+    _lineHeight = rect.size.height;
+
+    if (CGRectGetMaxY(rect) > _imageHeight)
+        _imageHeight = CGRectGetMaxY(rect);
+    
+    return rect.size.height;
 }
 
 - (float) updateY: (NSString *)ySpec font: (UIFont *)font {
     if ([ySpec length] == 0) {
-        //  nothing to do
+        _y +=_lineHeight;
     }
     else
     if ([ySpec characterAtIndex:0] == '+') {
         int delta = MAX(0, [ySpec characterAtIndex:1] - '0');
-        CGSize measuredSize = [@"x" sizeWithFont:font constrainedToSize:CGSizeMake(1000, 200) lineBreakMode:NSLineBreakByWordWrapping];
-        _y = _y + delta * measuredSize.height;
+        if (delta == 0) {
+
+        }
+        else {
+            _y +=_lineHeight;
+            CGSize measuredSize = [@"x" sizeWithFont:font constrainedToSize:CGSizeMake(1000, 200) lineBreakMode:NSLineBreakByWordWrapping];
+            _y += (delta - 1) * measuredSize.height;
+        }
     }
     else {
         _y = [ySpec floatValue];
@@ -144,20 +177,40 @@
     return _y + _tableOffset;
 }
 
-- (void)printImageWithPortname:(NSString *)portName portSettings: (NSString*)portSettings imageToPrint: (UIImage*)imageToPrint maxWidth: (int)maxWidth
+- (float) updateX: (NSString *)xSpec font: (UIFont *)font {
+    if ([xSpec length] == 0) {
+        //  nothing to do
+    }
+    else
+    if ([xSpec characterAtIndex:0] == '+') {
+        int delta = MAX(0, [xSpec characterAtIndex:1] - '0');
+        CGSize measuredSize = [@"x" sizeWithFont:font constrainedToSize:CGSizeMake(1000, 200) lineBreakMode:NSLineBreakByWordWrapping];
+        _x = _x + delta * measuredSize.width;
+    }
+    else {
+        _x = [xSpec floatValue];
+    }
+    return _x;
+}
+
+- (void)printImage: (UIImage*)imageToPrint
 {
+    NSString *portName = [@"TCP:" stringByAppendingString:_ip];
+    NSString *portSettings = @"";
+    int maxWidth = PAPERWIDTH;
+
     RasterDocument *rasterDoc = [[RasterDocument alloc] initWithDefaults:RasSpeed_Medium endOfPageBehaviour:RasPageEndMode_FeedAndFullCut endOfDocumentBahaviour:RasPageEndMode_FeedAndFullCut topMargin:RasTopMargin_Standard pageLength:0 leftMargin:0 rightMargin:0];
-    StarBitmap *starbitmap = [[StarBitmap alloc] initWithUIImage:imageToPrint :maxWidth :false];
+    StarBitmap *starBitmap = [[StarBitmap alloc] initWithUIImage:imageToPrint :maxWidth :false];
 
     NSMutableData *commandsToPrint = [[NSMutableData alloc]init];
-    NSData *shortcommand = [rasterDoc BeginDocumentCommandData];
-    [commandsToPrint appendData:shortcommand];
+    NSData *shortCommand = [rasterDoc BeginDocumentCommandData];
+    [commandsToPrint appendData:shortCommand];
 
-    shortcommand = [starbitmap getImageDataForPrinting];
-    [commandsToPrint appendData:shortcommand];
+    shortCommand = [starBitmap getImageDataForPrinting];
+    [commandsToPrint appendData:shortCommand];
 
-    shortcommand = [rasterDoc EndDocumentCommandData];
-    [commandsToPrint appendData:shortcommand];
+    shortCommand = [rasterDoc EndDocumentCommandData];
+    [commandsToPrint appendData:shortCommand];
 
     int commandSize = [commandsToPrint length];
     unsigned char *dataToSentToPrinter = (unsigned char*)malloc(commandSize);
@@ -169,7 +222,7 @@
 
         if(starPort == nil)
         {
-            NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"Failed to open port %@", nil), portName];
+            NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)", nil), _ip];
             [ModalAlert error:msg];
             [Logger Info:msg];
             return;

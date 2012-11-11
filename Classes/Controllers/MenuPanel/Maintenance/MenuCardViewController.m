@@ -135,19 +135,16 @@
 
 - (void) save {
     [[Service getInstance]
-            requestResource: @"menucard"
-                         id: nil
-                     action: nil
-                  arguments: nil
-                       body: [_menuCard toDictionary]
-                     method: _menuCard.entityState == EntityStateNew ? @"POST" : @"PUT"
-                    success: ^(ServiceResult *serviceResult){
+            requestResource:@"menucard"
+                         id:nil action:nil arguments:nil body:[_menuCard toDictionary]
+                       verb:_menuCard.entityState == EntityStateNew ? HttpVerbPost : HttpVerbPut
+                    success:^(ServiceResult *serviceResult) {
 
-                                }
-                      error: ^(ServiceResult *serviceResult) {
-                                  [serviceResult displayError];
-                              }
-               progressInfo: [ProgressInfo progressWithHudText:NSLocalizedString(@"Saving", nil) parentView:self.view]];
+                    }
+                      error:^(ServiceResult *serviceResult) {
+                          [serviceResult displayError];
+                      }
+               progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Saving", nil) parentView:self.view]];
 }
 
 - (void)didTapDummyInCategory:(ProductCategory *)category {

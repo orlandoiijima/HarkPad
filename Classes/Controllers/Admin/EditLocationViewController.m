@@ -59,8 +59,8 @@
     }
 
     Service *service = [Service getInstance];
-    NSString *method = _location.id == -1 ? @"POST" : @"PUT";
-    [service requestResource:@"location" id:nil action:nil arguments:nil body:[_location toDictionary] method:method success:^(ServiceResult *serviceResult) {
+    HttpVerb verb = _location.isNew ? HttpVerbPost : HttpVerbPut;
+    [service requestResource:@"location" id:nil action:nil arguments:nil body:[_location toDictionary] verb:verb success:^(ServiceResult *serviceResult) {
         [self.delegate didSaveItem:_location];
     }                  error:^(ServiceResult *result) {
         [result displayError];
@@ -75,7 +75,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = _location.id == -1 ?  NSLocalizedString(@"New location", <#comment#>) :  NSLocalizedString(@"Edit location", <#comment#>);
+    self.title = _location.isNew ?  NSLocalizedString(@"New location", <#comment#>) :  NSLocalizedString(@"Edit location", <#comment#>);
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 

@@ -68,5 +68,5 @@
 @property (retain) Course *nextCourseToServe;
 @property int lastSeat;
 @property (retain) Guest *firstGuest;
-@property(nonatomic) int locationId;
+@property(nonatomic) NSString *locationId;
 @end
