@@ -167,7 +167,7 @@
 {
     for(Invoice *invoice in self.invoices)
     {
-        if(invoice.orderId == order.id)
+        if([invoice.orderId isEqualToString: order.id])
         {
             invoice.amount = [order totalAmount];
             [self.tableView reloadData];

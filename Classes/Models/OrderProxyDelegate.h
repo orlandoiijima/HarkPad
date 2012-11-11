@@ -16,7 +16,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 
 @protocol OrderProxyDelegate <NSObject>
 @required
-@property int id;
+@property NSString *id;
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
 @property (retain) NSMutableArray *guests;

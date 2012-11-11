@@ -18,7 +18,7 @@
 
 - (User *) findUserWithPin:(NSString *)pin {
     for (User *user in [[Cache getInstance] users]) {
-        if ([user.pin isEqualToString:pin])
+        if ([user.pinCode isEqualToString:pin])
             return user;
     }
     return nil;

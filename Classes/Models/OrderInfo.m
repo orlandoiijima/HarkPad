@@ -49,7 +49,7 @@
     
     Cache *cache = [Cache getInstance];
     
-    order.id = [[jsonDictionary objectForKey:@"id"] intValue];
+    order.id = [jsonDictionary objectForKey:@"id"];
     order.state = [[jsonDictionary objectForKey:@"state"] intValue];
 
     id tableId = [jsonDictionary objectForKey:@"tableId"];

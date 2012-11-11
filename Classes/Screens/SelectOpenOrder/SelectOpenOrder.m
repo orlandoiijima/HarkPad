@@ -94,25 +94,11 @@
     if (orderView == nil) return;
 
     self.selectedOrder = orderView.order;
-    if (orderView.order.id == byEmployee) {
-        [self selectUser];
-    }
-    if (orderView.order.id == byReservation) {
-        [self selectReservation];
-    }
-
-//    BillPdf *pdf = [BillPdf billByOrder:orderView.order];
-//    NSString *pdfFilename = [pdf createFile];
-//
-//    NSData *pdfData = [NSData dataWithContentsOfFile:pdfFilename];
-//    if ([UIPrintInteractionController canPrintData: pdfData]) {
-//        UIPrintInteractionController *controller = [UIPrintInteractionController sharedPrintController];
-//        controller.printingItem = pdfData;
-//        UIPrintInfo *info = [UIPrintInfo printInfo];
-//        info.jobName = pdfFilename;
-//        info.outputType = UIPrintInfoOutputGeneral;
-//        controller.printInfo = info;
-//        [controller presentAnimated:YES completionHandler:nil];
+//    if (orderView.order.id == byEmployee) {
+//        [self selectUser];
+//    }
+//    if (orderView.order.id == byReservation) {
+//        [self selectReservation];
 //    }
 }
 
@@ -226,7 +212,7 @@
 - (void) getOpenOrdersCallback: (NSMutableArray *)openOrders {
     [MBProgressHUD hideHUDForView: self.view animated:YES];
 
-    int selectedOrderId = -1;
+    NSString * selectedOrderId = nil;
     if (self.selectedOrder != nil)
         selectedOrderId = self.selectedOrder.id;
 
@@ -237,17 +223,17 @@
     if (selectedOpenOrderType == typeSelection) {
         Order *order = [Order orderNull];
         order.name = NSLocalizedString(@"Bill", nil);
-        order.id = byNothing;
+        order.id = @"byNothing";
         [self.orders insertObject: order atIndex:0];
 
         Order *orderEmployee = [Order orderNull];
         orderEmployee.name = NSLocalizedString(@"Personel", nil);
-        orderEmployee.id = byEmployee;
+        orderEmployee.id = @"byEmployee";
         [self.orders insertObject: orderEmployee atIndex:1];
 
         Order *orderReservation = [Order orderNull];
         orderReservation.name = NSLocalizedString(@"Reservation", nil);
-        orderReservation.id = byReservation;
+        orderReservation.id = @"byReservation";
         [self.orders insertObject: orderReservation atIndex:2];
     }
 
@@ -257,7 +243,7 @@
     int width = (int)(self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
-        if ([order.lines count] > 0 || order.id <= 0) {
+        if ([order.lines count] > 0 || order.id == nil) {
             CGRect frame = CGRectMake(
                     leftMargin + (i % countColumns) * (width + leftMargin),
                     topMargin + (i / countColumns) * (height + topMargin),

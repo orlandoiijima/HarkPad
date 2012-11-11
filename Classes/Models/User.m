@@ -10,7 +10,7 @@
 @implementation User
 
 @synthesize name, id;
-@synthesize pin = _pin;
+@synthesize pinCode = _pinCode;
 @synthesize role = _role;
 @synthesize locationId = _locationId;
 
@@ -18,7 +18,7 @@
 {
     User *user = [[User alloc] init];
     user.name = @"";
-    user.pin = @"";
+    user.pinCode = @"";
     user.role = RoleStandard;
     user.id = -1;
     user.locationId = nil;
@@ -30,7 +30,7 @@
     User *user = [[User alloc] init];
     user.name = [jsonDictionary objectForKey:@"name"];
     user.id = [[jsonDictionary objectForKey:@"id"] intValue];
-    user.pin = [jsonDictionary objectForKey:@"pin"];
+    user.pinCode = [jsonDictionary objectForKey:@"pinCode"];
     user.locationId = nil;
     user.locationId = [jsonDictionary objectForKey:@"locationId"];
     user.role = (Role) [[jsonDictionary objectForKey:@"role"] intValue];

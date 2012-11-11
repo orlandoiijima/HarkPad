@@ -44,7 +44,7 @@
             infoLabel.numberOfLines = 0;
             infoLabel.lineBreakMode = NSLineBreakByWordWrapping;
             [self addSubview:infoLabel];
-            if (anOrder.id == byNothing) {
+            if ([anOrder.id isEqualToString: @"byNothing"]) {
                 UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(infoLabel.frame.origin.x, infoLabel.frame.origin.y - 30, infoLabel.frame.size.width, 30)];
                 [nameField addTarget:self action:@selector(updateOrderName:) forControlEvents:UIControlEventEditingChanged];
                 [self addSubview:nameField];
@@ -54,10 +54,10 @@
                 infoLabel.text = NSLocalizedString(@"New bill", nil);
             }
             else
-            if (anOrder.id == byReservation)
+            if ([anOrder.id isEqualToString: @"byReservation"])
                 infoLabel.text = NSLocalizedString(@"Tap to select reservation", nil);
             else
-            if (anOrder.id == byEmployee)
+            if ([anOrder.id isEqualToString: @"byEmployee"])
                 infoLabel.text = NSLocalizedString(@"Tap to select coworker", nil);
             infoLabel.textAlignment = NSTextAlignmentCenter;
         }

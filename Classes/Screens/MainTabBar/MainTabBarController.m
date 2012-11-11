@@ -50,9 +50,10 @@
     NSArray *screens = [cache.config getObjectAtPath:@"Screens"];
 
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
-    for(NSString *screen in screens) {
+    for(NSString *sCreen in screens) {
         UIViewController *controller = nil;
-        if ([screen isEqualToString:@"tables"]) {
+        NSString *screen = [sCreen lowercaseString];
+        if ([screen isEqualToString:@"tables"] ) {
             TableMapViewController *tableMapViewController = [[TableMapViewController alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: tableMapViewController];
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Tables", nil) image:[UIImage imageNamed:@"fork-and-knife"] tag:1];

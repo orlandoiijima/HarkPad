@@ -241,7 +241,7 @@
     if(includePlacedReservations == false)
         for(Reservation *reservation in slotReservations)
         {
-            if(reservation.orderId != -1)
+            if(reservation.isPlaced)
                 count--;
         }
     return count;
@@ -347,7 +347,7 @@
     {
         Reservation *reservation = [slotReservations objectAtIndex:i];
         if(includePlacedReservations == false)
-           if(reservation.orderId != -1) continue;
+           if(reservation.isPlaced) continue;
         if(row == indexPath.row)
             return reservation;
         row++;
@@ -378,7 +378,7 @@
     {
         Reservation *reservation = [slot objectAtIndex:i];
         if(includePlacedReservations == false)
-            if(reservation.orderId != -1) continue;
+            if(reservation.isPlaced) continue;
         if(searchReservation.id == reservation.id)
             return row;
         row++;

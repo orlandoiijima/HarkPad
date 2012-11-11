@@ -29,7 +29,7 @@
         self.phone = @"";
         self.email = @"";
         self.type = ReservationTypePhone;
-        self.orderId = -1;
+        self.orderId = nil;
         self.locationId = [AppVault locationId];
 	}
     return(self);
@@ -73,12 +73,8 @@
     reservation.endsOn = [NSDate dateFromISO8601:endsOn];
     
     reservation.countGuests = [[jsonDictionary objectForKey:@"countGuests"] intValue];
-    NSNumber *orderId = [jsonDictionary objectForKey:@"orderId"];
-    if(orderId != nil && (NSNull *)orderId != [NSNull null])
-        reservation.orderId = [orderId intValue];
-    else
-        //  Not yet linked to order	
-        reservation.orderId = -1;
+    reservation.orderId = [jsonDictionary objectForKey:@"orderId"];
+
     NSNumber *orderState = [jsonDictionary objectForKey:@"orderState"];
     if(orderState != nil && (NSNull *)orderState != [NSNull null])
         reservation.orderState = [orderState intValue];
@@ -103,14 +99,14 @@
 
 - (BOOL) isNullReservation
 {
-    return id < 0;
+    return id == nil;
 }
 
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
 
-    [dic setObject: [NSNumber numberWithInt: _locationId] forKey:@"locationId"];
+    [dic setObject: _locationId forKey:@"locationId"];
 
     if(self.name != nil)
         [dic setObject: self.name forKey:@"name"];
@@ -131,7 +127,7 @@
 
 - (bool) isPlaced
 {
-    return orderId != -1;
+    return orderId != nil;
 }
 
 @end

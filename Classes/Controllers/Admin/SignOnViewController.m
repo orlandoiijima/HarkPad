@@ -82,17 +82,16 @@
     signOn.email = _email.text;
     signOn.password = _password.text;
 
-    [[Service getInstance] requestResource:@"account" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:nil  error:nil progressInfo:nil];
-//    [[Service getInstance]
-//            signon:signOn
-//           success: ^(ServiceResult *result) {
-//               [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
-//               [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
-//               [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
-//           }
-//             error:^(ServiceResult *serviceResult) {
-//                        [serviceResult displayError];
-//                    }
-//    ];
+    [[Service getInstance]
+            signon:signOn
+           success: ^(ServiceResult *result) {
+               [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
+               [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
+               [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
+           }
+             error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }
+    ];
 }
 @end

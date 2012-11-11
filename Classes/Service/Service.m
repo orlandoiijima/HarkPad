@@ -45,7 +45,7 @@ static Service *_service;
         _location = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
         if (_location == nil)
             _location = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
-        url = URL_DEV_LOCAL;
+        url = URL_DEV_APPHB;
     }
     return self;
 }
@@ -94,13 +94,13 @@ static Service *_service;
 	return;
 }
 
-- (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) transferOrder: (NSString *)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
     order.table = [[[Cache getInstance] map] getTable:tableId];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", orderId] action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id:orderId action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
 	return;
 }
 
@@ -218,7 +218,7 @@ static Service *_service;
     orderLine.entityState = EntityStateDeleted;
     [order addOrderLine:orderLine];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", order.id] action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
     return nil;
 }
 
@@ -238,9 +238,9 @@ static Service *_service;
     [self requestResource:@"invoice" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
 }
 
-- (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (Order *) getOrder: (NSString *) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", orderId] action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
+    [self requestResource:@"order" id:orderId action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
     return nil;
 }
 
@@ -250,7 +250,7 @@ static Service *_service;
     [printer print];
 
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", order.id] action:@"StartCourse" arguments:nil body:dictionary verb:HttpVerbPost success:success error:error];
+    [self requestResource:@"order" id:order.id action:@"StartCourse" arguments:nil body:dictionary verb:HttpVerbPost success:success error:error];
 	return;
 }
 
@@ -266,13 +266,13 @@ static Service *_service;
     [self requestResource:@"workinprogress" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
 }
 
-- (void) processPayment: (int) paymentType forOrder: (int) orderId
+- (void) processPayment: (int) paymentType forOrder: (NSString *) orderId
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
     order.paymentType = (PaymentType) paymentType;
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", orderId] action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id:orderId action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
 	return;
 }
 
@@ -306,7 +306,7 @@ static Service *_service;
     [printer print];
 
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", order.id] action:nil arguments:nil body:orderAsDictionary verb:HttpVerbPut success:success error:error];
+    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderAsDictionary verb:HttpVerbPut success:success error:error];
 }
 
 - (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error

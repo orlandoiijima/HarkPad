@@ -26,7 +26,7 @@ typedef enum ReservationType {
     int countGuests;
     BOOL mailingList;
     ReservationType type;
-    int orderId;
+    NSString * orderId;
     int orderState;
     NSDate *paidOn;
     Table *table;
@@ -44,7 +44,7 @@ typedef enum ReservationType {
 @property int countGuests;
 @property ReservationType type;
 @property BOOL mailingList;
-@property int orderId;
+@property NSString * orderId;
 @property int orderState;
 @property (retain) NSDate *paidOn;
 

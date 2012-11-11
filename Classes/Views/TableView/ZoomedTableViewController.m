@@ -266,7 +266,7 @@
                 if (order.reservation != nil) {
                     for (Reservation *reservation in reservations)
                         if (reservation.id == order.reservation.id) {
-                            reservation.orderId = -1;
+                            reservation.orderId = nil;
                         }
                 }
                 reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];

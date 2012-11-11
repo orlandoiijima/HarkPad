@@ -44,9 +44,9 @@ typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} H
 - (NSMutableArray *) getLog;
 - (void) undockTable: (NSString *)tableId;
 - (void) dockTables: (NSMutableArray*)tables toTable:(Table *)table;
-- (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (Order *) getOrder: (NSString *) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getReservations: (NSDate *)date success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (void) transferOrder: (NSString *)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) insertSeatAtTable: (NSString *) tableId beforeSeat: (int)seat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
@@ -69,7 +69,7 @@ typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} H
 
 - (void) startCourse: (int) courseId forOrder:(Order *)order success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void)serveCourse:(int)courseId forOrderId:(int)orderId success:(void (^)(ServiceResult *))success error: (void (^)(ServiceResult*))error;
-- (void) processPayment: (int) paymentType forOrder: (int) orderId;
+- (void) processPayment: (int) paymentType forOrder: (NSString *) orderId;
 
 - (void) createReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) updateReservation: (Reservation *)reservation success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
