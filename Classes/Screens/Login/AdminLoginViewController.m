@@ -52,7 +52,7 @@
 
 
 - (IBAction)go {
-    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:[[Session credentials] pincode]];
+    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pinCode:[[Session credentials] pinCode]];
     [Session setCredentials:credentials];
     self.didEnterCredentialsBlock(credentials);
 
@@ -68,7 +68,7 @@
 }
 
 //- (void) didAuthenticate: (NSString *)pin {
-//    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pincode:pin];
+//    Credentials *credentials = [Credentials credentialsWithEmail:_emailField.text password:_passwordField.text pinCode:pin];
 //    [Session setCredentials:credentials];
 //    self.didEnterCredentialsBlock(credentials);
 //}

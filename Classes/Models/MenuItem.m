@@ -18,7 +18,14 @@
     MenuItem *menuItem = [[MenuItem alloc] init];
     menuItem.course = [[jsonDictionary objectForKey:@"course"] intValue];
     NSString * productId = [jsonDictionary objectForKey:@"key"];
-    menuItem.product = [menuCard getProduct:productId];
+    if (menuCard == nil) {
+        //  create dummy to be filled later
+        Product *product = [[Product alloc] init];
+        product.key = productId;
+    }
+    else {
+        menuItem.product = [menuCard getProduct:productId];
+    }
     return menuItem;
 }
 

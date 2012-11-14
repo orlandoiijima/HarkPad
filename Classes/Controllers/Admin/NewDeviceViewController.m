@@ -10,6 +10,8 @@
 #import "SignOnViewController.h"
 #import "CompanyListViewController.h"
 #import "Company.h"
+#import "Session.h"
+#import "AppVault.h"
 
 @interface NewDeviceViewController ()
 
@@ -27,7 +29,8 @@
 }
 
 - (IBAction)logIn {
-//    Credentials *credentials = [Credentials credentialsWithEmail: _userField.text password:_passwordField.text pincode:@""];
+    Credentials *credentials = [Credentials credentialsWithEmail: _userField.text password:_passwordField.text pinCode:nil];
+    [Session setCredentials:credentials];
     [[Service getInstance]
             requestResource:@"company"
                          id:nil
@@ -47,6 +50,7 @@
         [companies addObject:company];
     }
     CompanyListViewController *companyListViewController = [[CompanyListViewController alloc] init];
+    companyListViewController.delegate = self;
     companyListViewController.companies = companies;
     [self.navigationController pushViewController: companyListViewController animated:YES];
 }
@@ -61,6 +65,25 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"New device", nil);
+}
+
+- (void)didSelectItem:(id)item {
+    if ([item isKindOfClass:[Company class]] == NO) return;
+    Company *company = (Company *)item;
+    [AppVault setLocationId: company.locationId];
+    [AppVault setAccountId: company.accountId];
+    [[Service getInstance]
+            requestResource:@"device"
+                         id:nil
+                     action:nil
+                  arguments:nil
+                       body:nil
+                       verb:HttpVerbPost
+                    success:^(ServiceResult *result) {
+                                [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
+                            }
+                      error:^(ServiceResult *result){}
+               progressInfo:[ProgressInfo progressWithHudText:@"" parentView:self.view]];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

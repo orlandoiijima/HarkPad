@@ -132,3 +132,4 @@
 "Orders" = "Orders";
 "Looking for printers..." = "Zoeken naar printers...";
 "Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)" = "Het is niet gelukt om de afdruk te starten. Controleer of de printer aan staat en verbonden is met het netwerk (ip: %@)";
+"Companies" = "Bedrijven";

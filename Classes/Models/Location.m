@@ -23,7 +23,7 @@
     Location *location = [[Location alloc] init];
     location.name = [jsonDictionary objectForKey:@"name"];
     location.phone = [jsonDictionary objectForKey:@"phone"];
-    location.address = [[Address alloc] initFromDictionary: [jsonDictionary objectForKey:@"address"]];
+    location.address = [[Address alloc] initWithDictionary: [jsonDictionary objectForKey:@"address"]];
     id logo = [jsonDictionary objectForKey:@"logo"];
     if (logo != nil) {
         location.logo = [UIImage imageWithData: [NSData dataFromBase64String: logo]];

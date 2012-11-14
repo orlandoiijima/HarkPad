@@ -22,7 +22,7 @@ static BOOL isAuthenticatedAsAdmin;
 + (User *) authenticatedUser {
     if (credentials ==  nil)
         return nil;
-    return [[[UserService alloc]init] findUserWithPin: credentials.pincode];
+    return [[[UserService alloc] init] findUserWithPin:credentials.pinCode];
 }
 
 + (BOOL) isAuthenticatedAsAdmin {
@@ -41,6 +41,12 @@ static BOOL isAuthenticatedAsAdmin;
 
 + (Credentials *)credentials {
     return credentials;
+}
+
++ (BOOL) hasFullCredentials {
+    if (credentials == nil) return NO;
+    if ([credentials.email length] == 0 || [credentials.password length] == 0) return NO;
+    return YES;
 }
 
 @end

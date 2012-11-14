@@ -6,12 +6,14 @@
 
 
 #import <Foundation/Foundation.h>
+#import "SelectItemDelegate.h"
+#import "ItemPropertiesDelegate.h"
 
-
-@interface CompanyListViewController : UIViewController <UICollectionViewDataSource>
+@interface CompanyListViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, ItemPropertiesDelegate>
 
 
 @property (retain) IBOutlet UICollectionView *companyView;
 
 @property(nonatomic, strong) NSMutableArray *companies;
+@property(nonatomic, strong) id<SelectItemDelegate> delegate;
 @end

@@ -21,7 +21,6 @@
 + (AuthorisationToken *) tokenFromVault {
     AuthorisationToken *token = [[AuthorisationToken alloc] init];
     token.deviceId = [AppVault deviceId];
-    token.pinCode = @"1234";
     token.locationId = [AppVault locationId];
     token.accountId = [AppVault accountId];
     return token;
@@ -30,6 +29,7 @@
 - (void)addCredentials: (Credentials *) credentials {
     self.password = credentials.password;
     self.email = credentials.email;
+    self.pinCode = credentials.pinCode;
 }
 
 - (NSString *)toHttpHeader {

@@ -16,13 +16,14 @@
 }
 
 
-- (id)initFromDictionary:(NSMutableDictionary *)dictionary {
+- (id)initWithDictionary:(NSMutableDictionary *)dictionary {
     self = [self init];
     if (self == nil) return nil;
 
-//    self.id = [dictionary objectForKey:@"id"];
     self.name = [dictionary objectForKey:@"name"];
-    self.address = [[Address alloc] initFromDictionary:[dictionary objectForKey:@"address"]];
+    self.address = [[Address alloc] initWithDictionary:[dictionary objectForKey:@"address"]];
+    self.locationId = [dictionary objectForKey:@"locationId"];
+    self.accountId  = [dictionary objectForKey:@"accountId"];
     id logo = [dictionary objectForKey:@"logo"];
     if (logo != nil) {
         self.logo = [UIImage imageWithData: [NSData dataFromBase64String: logo]];

@@ -7,6 +7,7 @@
 //
 
 #import "Company.h"
+#import "Address.h"
 
 @interface CompanyCell : UICollectionViewCell
 

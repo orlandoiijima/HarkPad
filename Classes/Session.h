@@ -24,5 +24,7 @@
 
 + (Credentials *)credentials;
 
++ (BOOL)hasFullCredentials;
+
 
 @end

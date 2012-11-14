@@ -17,10 +17,7 @@
 #import "ChefViewController.h"
 #import "LogViewController.h"
 #import "SimpleOrderScreen.h"
-#import "LocationsViewController.h"
-#import "MenuCardViewController.h"
 #import "MenuCardListViewController.h"
-#import "CJSONDataSerializer.h"
 #import "PrinterListViewController.h"
 
 @implementation MainTabBarController

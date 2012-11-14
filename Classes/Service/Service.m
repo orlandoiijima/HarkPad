@@ -26,7 +26,6 @@
 
 @implementation Service {
 @private
-    NSString *_location;
 }
 
 @synthesize url;
@@ -42,9 +41,6 @@ static Service *_service;
 - (id)init {
     if ((self = [super init])) {
         [[NSUserDefaults standardUserDefaults] synchronize];	
-        _location = [[[NSProcessInfo processInfo] environment] objectForKey:@"env"];
-        if (_location == nil)
-            _location = [[NSUserDefaults standardUserDefaults] stringForKey:@"env"];
         url = URL_DEV_APPHB;
     }
     return self;
@@ -383,10 +379,10 @@ static Service *_service;
         [Logger Info:jsonString];
     }
 
-    NSArray *adminResources = [NSArray arrayWithObjects:@"location", nil];
+    NSArray *adminResources = [NSArray arrayWithObjects:@"location", @"company", nil];
     info.isAdminRequired = [adminResources containsObject:resource];
 
-    if (info.isAdminRequired && [Session isAuthenticatedAsAdmin] == false) {
+    if (info.isAdminRequired && [Session hasFullCredentials] == false) {
         AdminLoginViewController *loginController = [AdminLoginViewController
                 controllerDidEnterAuthentication:^(Credentials *credentials) {
                     [_popover dismissPopoverAnimated:YES];

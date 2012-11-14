@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SignOnViewController.h"
 #import "Signon.h"
 #import "KeychainWrapper.h"
@@ -32,7 +33,21 @@
 
     self.title = NSLocalizedString(@"Sign up", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(signOn)];
-}
+
+    [_logoView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectLogo:)]];
+      CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+      shapeLayer.frame = CGRectInset(_logoView.bounds, -10, -10);
+      [shapeLayer setFillColor:[[UIColor clearColor] CGColor]];
+      [shapeLayer setStrokeColor:[[UIColor whiteColor] CGColor]];
+      [shapeLayer setLineWidth:1.0f];
+      [shapeLayer setLineJoin:kCALineJoinRound];
+      [shapeLayer setLineDashPattern:
+       [NSArray arrayWithObjects:[NSNumber numberWithInt:10],
+        [NSNumber numberWithInt:5],
+        nil]];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:15.0];
+      [shapeLayer setPath:path.CGPath];
+      [[_logoView layer] addSublayer:shapeLayer];}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -81,6 +96,9 @@
     signOn.pinCode = _pincode.text;
     signOn.email = _email.text;
     signOn.password = _password.text;
+    if (_logoView.image != nil) {
+        signOn.logo = _logoView.image;
+    }
 
     [[Service getInstance]
             signon:signOn
@@ -94,4 +112,21 @@
                     }
     ];
 }
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    _logoView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [_popover dismissPopoverAnimated:YES];
+
+}
+
+- (IBAction)selectLogo: (id)dummy {
+    UIImagePickerController *controller = [[UIImagePickerController alloc] init];
+    controller.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    controller.delegate = self;
+    _popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+    _popover.delegate = self;
+    [_popover presentPopoverFromRect:_logoView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
 @end

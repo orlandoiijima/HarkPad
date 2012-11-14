@@ -11,7 +11,6 @@
 		D0A7204BDAB40F7100228DAC /* CompanyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A720C221F9F8EFD97EDEB6 /* CompanyListViewController.m */; };
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
 		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
-		D0A7207C8DC9F3263822A90A /* AddDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72AA07ED2CD9B8F40F698 /* AddDeviceViewController.m */; };
 		D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72353EC05832573A4999C /* SignOnViewController.xib */; };
 		D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */; };
 		D0A720BA62BACEACD773261C /* MenuCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C2F2256A4408DA92E88 /* MenuCard.m */; };
@@ -36,7 +35,6 @@
 		D0A722E931CC4F598D323A78 /* GzColors.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A724F0E30DE62F1E8B3E45 /* GzColors.m */; };
 		D0A722F859B239D689047F8D /* MenuCardListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A725DD92F0BE7948C78959 /* MenuCardListViewController.xib */; };
 		D0A723260134D188F44D1268 /* UserService.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7202D9B8FD91678E5DE9F /* UserService.m */; };
-		D0A72350E517FBB6D70578E7 /* ChangeDeviceLocation.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A7276714A14B2A6E4591FB /* ChangeDeviceLocation.xib */; };
 		D0A723676992A7C60B3E9E09 /* greendot.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A7230D86FCA6F8EA161998 /* greendot.png */; };
 		D0A7243E0A1986B327420FE7 /* ProductPropertiesView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72E3A0EC611BC211E415B /* ProductPropertiesView.m */; };
 		D0A72473AF26BBED3CA5545B /* MenuCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72763E437CD55321451F8 /* MenuCollectionView.m */; };
@@ -49,7 +47,6 @@
 		D0A724E27909D2A014CD7C5F /* ProductPanelView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C9FB24C0705F582F044 /* ProductPanelView.m */; };
 		D0A725A1F43FE067592F2221 /* RasterDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72189DE29ADD4C97DEDC0 /* RasterDocument.m */; };
 		D0A7260BFBADEC622E6D18BB /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7219AB050599F8D638F4F /* NSData+Base64.m */; };
-		D0A7260DF8C3033DB79390A8 /* LocationsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725CF501B5318CAFE32E3 /* LocationsViewController.m */; };
 		D0A726223006CE1CF20B1920 /* CKCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72D1575F5C493F2081AF7 /* CKCalendarView.m */; };
 		D0A72654343A4679C7C8585D /* left_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A72448DBCF926199C0FC6E /* left_arrow@2x.png */; };
 		D0A7267CDA9B728671C5A722 /* AdminLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72E35663B8520D1C5964E /* AdminLoginViewController.m */; };
@@ -60,7 +57,7 @@
 		D0A7272C22ABD84BC9E89FAE /* CompanyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725F7FDFED1698192ED7F /* CompanyCell.m */; };
 		D0A727D832116E6207251AC5 /* PrinterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */; };
 		D0A727E5D71814D122FD6B57 /* MenuCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7293DC7CBCDB5D656FDC3 /* MenuCardCell.m */; };
-		D0A72832626A40B423ABCEC3 /* ChangeDeviceLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72308453F429C18BF7984 /* ChangeDeviceLocation.m */; };
+		D0A728050554A628ADA3EEFF /* Edge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A721654B2277821D77BAED /* Edge.m */; };
 		D0A728715EAD05ED55DAED78 /* OrderLineFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */; };
 		D0A72886B4C04B275B535402 /* PrintTable.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7260BC1E66EC8185DF19B /* PrintTable.m */; };
 		D0A72898111E27A970BF1941 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72229AE52F8A541E6A3C5 /* MainTabBarController.m */; };
@@ -79,7 +76,6 @@
 		D0A72B6187EBE459F5BC0DD2 /* ProductPropertiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A722E89A6B05CFC5C96742 /* ProductPropertiesView.xib */; };
 		D0A72B77E6AA3E52C53F8A99 /* AdminLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A7277AA6523F1852C5F27E /* AdminLoginViewController.xib */; };
 		D0A72BA36DBE99291991CCC4 /* PrintTemplate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F5040681E5CE0A3F72C /* PrintTemplate.m */; };
-		D0A72BAABF06E3BA77A8DCC1 /* AddDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */; };
 		D0A72BB1D9943E744172D4FB /* StarPrintOutputViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72F769EEAF703DC4775E5 /* StarPrintOutputViewController.m */; };
 		D0A72BDABF9106C8B4E153E2 /* CompanyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72DE8C77A4DE5F0E205ED /* CompanyCell.xib */; };
 		D0A72BFA05945B2066BC6B56 /* PrintColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72A7076F7B954783AF85D /* PrintColumn.m */; };
@@ -160,8 +156,8 @@
 		E5CDB15113D94BD700A7236D /* clear.png in Resources */ = {isa = PBXBuildFile; fileRef = E5CDB15013D94BD700A7236D /* clear.png */; };
 		E5CFC77915D6839A0098B7C9 /* NewDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CFC77715D6839A0098B7C9 /* NewDeviceViewController.m */; };
 		E5CFC77A15D6839A0098B7C9 /* NewDeviceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5CFC77815D6839A0098B7C9 /* NewDeviceViewController.xib */; };
-		E5CFC78A15D6A3C90098B7C9 /* EditLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CFC78815D6A3C90098B7C9 /* EditLocationViewController.m */; };
-		E5CFC78B15D6A3C90098B7C9 /* EditLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5CFC78915D6A3C90098B7C9 /* EditLocationViewController.xib */; };
+		E5CFC78A15D6A3C90098B7C9 /* EditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5CFC78815D6A3C90098B7C9 /* EditCompanyViewController.m */; };
+		E5CFC78B15D6A3C90098B7C9 /* EditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5CFC78915D6A3C90098B7C9 /* EditCompanyViewController.xib */; };
 		E5D7A24113742BE20079F89A /* ReservationDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = E5D7A24013742BE20079F89A /* ReservationDayView.m */; };
 		E5DB4CA0135F2EBF005ADD06 /* WorkInProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4C9F135F2EBE005ADD06 /* WorkInProgress.m */; };
 		E5DB4CA4135F33E3005ADD06 /* ProductCount.m in Sources */ = {isa = PBXBuildFile; fileRef = E5DB4CA3135F33E1005ADD06 /* ProductCount.m */; };
@@ -348,10 +344,10 @@
 		D0A720D33FB954DFAF75A84C /* PrintColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintColumn.h; path = PrintInfo/PrintColumn.h; sourceTree = "<group>"; };
 		D0A720FCC9B97FA007A37C9B /* StarPrintJob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarPrintJob.m; path = StarPrintJob.m; sourceTree = "<group>"; };
 		D0A721032A63FF3D3180A12E /* CKCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarView.h; sourceTree = "<group>"; };
-		D0A72113A4C4434BD31D5AB3 /* AddDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddDeviceViewController.h; sourceTree = "<group>"; };
 		D0A7211A57538FD929EC75C7 /* CompanyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyListViewController.h; sourceTree = "<group>"; };
 		D0A721482FF1EEB3962FE6F8 /* SeatActionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeatActionInfo.h; sourceTree = "<group>"; };
 		D0A7214F64E043BE036DD146 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		D0A721654B2277821D77BAED /* Edge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Edge.m; sourceTree = "<group>"; };
 		D0A7216893E8F514E46974C5 /* Run.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Run.m; path = PrintInfo/Run.m; sourceTree = "<group>"; };
 		D0A7216F7C63233D85A902F1 /* AuthorisationToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthorisationToken.h; sourceTree = "<group>"; };
 		D0A7218056A7EB9DF69C2EF2 /* ProductPropertiesTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPropertiesTableViewDataSource.h; sourceTree = "<group>"; };
@@ -371,7 +367,6 @@
 		D0A7228F7614D22B34426113 /* MenuCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCardViewController.h; sourceTree = "<group>"; };
 		D0A722E89A6B05CFC5C96742 /* ProductPropertiesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ProductPropertiesView.xib; path = ../../ProductPropertiesView.xib; sourceTree = "<group>"; };
 		D0A722ED7DF0FAEE28398A32 /* RasterDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RasterDocument.h; path = RasterDocument.h; sourceTree = "<group>"; };
-		D0A72308453F429C18BF7984 /* ChangeDeviceLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeDeviceLocation.m; sourceTree = "<group>"; };
 		D0A723092D3605A8F1699A44 /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		D0A7230D86FCA6F8EA161998 /* greendot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greendot.png; sourceTree = "<group>"; };
 		D0A7231211D5BEE5CE7EF70C /* ProductPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPanelView.h; sourceTree = "<group>"; };
@@ -409,9 +404,9 @@
 		D0A725861E3A54F07E406B09 /* AuthorisationToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthorisationToken.m; sourceTree = "<group>"; };
 		D0A725915EF31B85AD4B8B82 /* MenuCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCard.h; sourceTree = "<group>"; };
 		D0A7259434F7ADA29630F2C2 /* ColorButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorButtonView.m; sourceTree = "<group>"; };
-		D0A725CF501B5318CAFE32E3 /* LocationsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationsViewController.m; sourceTree = "<group>"; };
 		D0A725D9CED2E19A14244897 /* StarBitmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarBitmap.m; path = StarBitmap.m; sourceTree = "<group>"; };
 		D0A725DD92F0BE7948C78959 /* MenuCardListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardListViewController.xib; sourceTree = "<group>"; };
+		D0A725E3824F42C80D39A833 /* Edge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Edge.h; sourceTree = "<group>"; };
 		D0A725F22A6C426C3C7C1347 /* ColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorViewController.h; sourceTree = "<group>"; };
 		D0A725F7FDFED1698192ED7F /* CompanyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyCell.m; sourceTree = "<group>"; };
 		D0A726052E4984AA236E64F5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -420,12 +415,10 @@
 		D0A7263A0FE1AB03ACC0E7AA /* ProductPanelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPanelCell.m; sourceTree = "<group>"; };
 		D0A7263FF0324FB41ABD0159 /* PrintInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintInfo.h; path = PrintInfo/PrintInfo.h; sourceTree = "<group>"; };
 		D0A7267418480309D0FFA80E /* GetDateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GetDateViewController.xib; sourceTree = "<group>"; };
-		D0A726A1FD5A8A0AFB70FAAC /* LocationsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsViewController.h; sourceTree = "<group>"; };
 		D0A726A5084EA7177E79E5B5 /* BaseAdminViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseAdminViewController.h; sourceTree = "<group>"; };
 		D0A7274051A97651DE4E5060 /* StarPrintOutputViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarPrintOutputViewController.h; sourceTree = "<group>"; };
 		D0A7275B8452CF4785C1FCD2 /* Logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
 		D0A72763E437CD55321451F8 /* MenuCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCollectionView.m; sourceTree = "<group>"; };
-		D0A7276714A14B2A6E4591FB /* ChangeDeviceLocation.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangeDeviceLocation.xib; sourceTree = "<group>"; };
 		D0A72776BB4F5B177DAEA2E5 /* LocationsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationsView.h; sourceTree = "<group>"; };
 		D0A7277AA6523F1852C5F27E /* AdminLoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdminLoginViewController.xib; sourceTree = "<group>"; };
 		D0A7278E1557C791DAA0E238 /* CredentialsAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CredentialsAlertView.m; sourceTree = "<group>"; };
@@ -446,7 +439,6 @@
 		D0A7295CC25F30CEF3F6B85F /* ProductPropertiesTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPropertiesTableViewDataSource.m; sourceTree = "<group>"; };
 		D0A7296DCE7793781508896E /* UIBarButtonItem+Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Image.h"; sourceTree = "<group>"; };
 		D0A7296F4F1D7C28609AB7E5 /* InvoicePrintDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InvoicePrintDataSource.h; path = InvoicePrintDataSource.h; sourceTree = "<group>"; };
-		D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddDeviceViewController.xib; sourceTree = "<group>"; };
 		D0A72987168F0F3322ECC46D /* MenuPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuPanelViewController.m; sourceTree = "<group>"; };
 		D0A7298D6F9C5DDFD0DDA612 /* GzColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GzColors.h; sourceTree = "<group>"; };
 		D0A7298DE8F73C351B7BDE0A /* right_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_arrow@2x.png"; sourceTree = "<group>"; };
@@ -461,7 +453,6 @@
 		D0A72A3D24F7C136261FFABD /* ProgressInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressInfo.m; sourceTree = "<group>"; };
 		D0A72A6EDAADA4816DF957F5 /* Credentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Credentials.m; sourceTree = "<group>"; };
 		D0A72A7076F7B954783AF85D /* PrintColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrintColumn.m; path = PrintInfo/PrintColumn.m; sourceTree = "<group>"; };
-		D0A72AA07ED2CD9B8F40F698 /* AddDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddDeviceViewController.m; sourceTree = "<group>"; };
 		D0A72AC5AB206B072E4703EF /* ProductPanelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductPanelCell.h; sourceTree = "<group>"; };
 		D0A72B212055CB975A537C6C /* SignOnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOnViewController.h; sourceTree = "<group>"; };
 		D0A72B2A7016FACBCD67DA0C /* CategorySupplementaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategorySupplementaryView.h; sourceTree = "<group>"; };
@@ -480,7 +471,6 @@
 		D0A72C9FB24C0705F582F044 /* ProductPanelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductPanelView.m; sourceTree = "<group>"; };
 		D0A72CAB32639E797CFAB11A /* MenuCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuCollectionView.h; sourceTree = "<group>"; };
 		D0A72CF2E64E2A594E82C9D3 /* CKCalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKCalendarViewController.h; sourceTree = "<group>"; };
-		D0A72CFC3037B51D2F95B0A1 /* ChangeDeviceLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangeDeviceLocation.h; sourceTree = "<group>"; };
 		D0A72D1575F5C493F2081AF7 /* CKCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKCalendarView.m; sourceTree = "<group>"; };
 		D0A72D1BDBDEA0FDC614466C /* CompanyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyCell.h; sourceTree = "<group>"; };
 		D0A72D66B5FFA0D781CD55DE /* CompanyListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyListViewController.xib; sourceTree = "<group>"; };
@@ -674,9 +664,9 @@
 		E5CFC77615D6839A0098B7C9 /* NewDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewDeviceViewController.h; sourceTree = "<group>"; };
 		E5CFC77715D6839A0098B7C9 /* NewDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewDeviceViewController.m; sourceTree = "<group>"; };
 		E5CFC77815D6839A0098B7C9 /* NewDeviceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewDeviceViewController.xib; sourceTree = "<group>"; };
-		E5CFC78715D6A3C90098B7C9 /* EditLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditLocationViewController.h; sourceTree = "<group>"; };
-		E5CFC78815D6A3C90098B7C9 /* EditLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditLocationViewController.m; sourceTree = "<group>"; };
-		E5CFC78915D6A3C90098B7C9 /* EditLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditLocationViewController.xib; sourceTree = "<group>"; };
+		E5CFC78715D6A3C90098B7C9 /* EditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCompanyViewController.h; sourceTree = "<group>"; };
+		E5CFC78815D6A3C90098B7C9 /* EditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCompanyViewController.m; sourceTree = "<group>"; };
+		E5CFC78915D6A3C90098B7C9 /* EditCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCompanyViewController.xib; sourceTree = "<group>"; };
 		E5D7A23F13742BE20079F89A /* ReservationDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReservationDayView.h; sourceTree = "<group>"; };
 		E5D7A24013742BE20079F89A /* ReservationDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReservationDayView.m; sourceTree = "<group>"; };
 		E5DB12201307DEBC001B1681 /* EntityState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityState.h; sourceTree = "<group>"; };
@@ -910,6 +900,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0A721D8CCE86565A3173585 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		D0A7222B2DAFBA824151D25C /* Maintenance */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,20 +1036,12 @@
 		D0A7291B6E3CF6AB1DF5D804 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
-				D0A725CF501B5318CAFE32E3 /* LocationsViewController.m */,
-				D0A726A1FD5A8A0AFB70FAAC /* LocationsViewController.h */,
-				D0A7276714A14B2A6E4591FB /* ChangeDeviceLocation.xib */,
-				D0A72308453F429C18BF7984 /* ChangeDeviceLocation.m */,
-				D0A72CFC3037B51D2F95B0A1 /* ChangeDeviceLocation.h */,
-				D0A72970C32B2A4A2916022C /* AddDeviceViewController.xib */,
-				D0A72AA07ED2CD9B8F40F698 /* AddDeviceViewController.m */,
-				D0A72113A4C4434BD31D5AB3 /* AddDeviceViewController.h */,
 				D0A72353EC05832573A4999C /* SignOnViewController.xib */,
 				D0A72F328E064D29A465BF0D /* SignOnViewController.m */,
 				D0A72B212055CB975A537C6C /* SignOnViewController.h */,
-				E5CFC78915D6A3C90098B7C9 /* EditLocationViewController.xib */,
-				E5CFC78815D6A3C90098B7C9 /* EditLocationViewController.m */,
-				E5CFC78715D6A3C90098B7C9 /* EditLocationViewController.h */,
+				E5CFC78915D6A3C90098B7C9 /* EditCompanyViewController.xib */,
+				E5CFC78815D6A3C90098B7C9 /* EditCompanyViewController.m */,
+				E5CFC78715D6A3C90098B7C9 /* EditCompanyViewController.h */,
 				E5CFC77815D6839A0098B7C9 /* NewDeviceViewController.xib */,
 				E5CFC77715D6839A0098B7C9 /* NewDeviceViewController.m */,
 				E5CFC77615D6839A0098B7C9 /* NewDeviceViewController.h */,
@@ -1370,6 +1359,8 @@
 				D0A7214F64E043BE036DD146 /* Address.h */,
 				D0A729A95CCCF9C409DA77B4 /* Company.h */,
 				D0A72C5FE559E694D735D682 /* Company.m */,
+				D0A721654B2277821D77BAED /* Edge.m */,
+				D0A725E3824F42C80D39A833 /* Edge.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1726,6 +1717,7 @@
 				E5F609A313489C2400D885C8 /* ReservationsSimple */,
 				E5F609A313489C2400D8867E /* Tables */,
 				D0A72403503D9FF6D964D7E6 /* MainTabBar */,
+				D0A721D8CCE86565A3173585 /* Settings */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -2069,10 +2061,8 @@
 				E5F609A313489C2400D886C8 /* prev48.png in Resources */,
 				D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */,
 				E5CFC77A15D6839A0098B7C9 /* NewDeviceViewController.xib in Resources */,
-				E5CFC78B15D6A3C90098B7C9 /* EditLocationViewController.xib in Resources */,
-				D0A72BAABF06E3BA77A8DCC1 /* AddDeviceViewController.xib in Resources */,
+				E5CFC78B15D6A3C90098B7C9 /* EditCompanyViewController.xib in Resources */,
 				D0A72B77E6AA3E52C53F8A99 /* AdminLoginViewController.xib in Resources */,
-				D0A72350E517FBB6D70578E7 /* ChangeDeviceLocation.xib in Resources */,
 				D0A72B6187EBE459F5BC0DD2 /* ProductPropertiesView.xib in Resources */,
 				D0A722F859B239D689047F8D /* MenuCardListViewController.xib in Resources */,
 				D0A72D32B237E92D20336974 /* MenuCardCell.xib in Resources */,
@@ -2262,7 +2252,7 @@
 				D0A722453063DE6DCA9B3F7C /* AuthorisationToken.m in Sources */,
 				D0A7260BFBADEC622E6D18BB /* NSData+Base64.m in Sources */,
 				E5CFC77915D6839A0098B7C9 /* NewDeviceViewController.m in Sources */,
-				E5CFC78A15D6A3C90098B7C9 /* EditLocationViewController.m in Sources */,
+				E5CFC78A15D6A3C90098B7C9 /* EditCompanyViewController.m in Sources */,
 				D0A721D410928A8E1E4B37AF /* CredentialsAlertView.m in Sources */,
 				D0A72CCF4513C582C7C09D3D /* Credentials.m in Sources */,
 				D0A72D6FCF704F3E1048C049 /* Logger.m in Sources */,
@@ -2279,13 +2269,10 @@
 				D0A72898111E27A970BF1941 /* MainTabBarController.m in Sources */,
 				D0A72D339C76CD1CB3CAEA2B /* BaseAdminViewController.m in Sources */,
 				D0A728ACF4C4B49B4FC42477 /* Session.m in Sources */,
-				D0A7207C8DC9F3263822A90A /* AddDeviceViewController.m in Sources */,
 				D0A7267CDA9B728671C5A722 /* AdminLoginViewController.m in Sources */,
 				D0A726DA14A30F9921DFFFEE /* LocationsView.m in Sources */,
 				D0A729B004C2DE7C62495A08 /* LocationCell.m in Sources */,
 				D0A72C927ACFDE4866D43DC8 /* ProgressInfo.m in Sources */,
-				D0A72832626A40B423ABCEC3 /* ChangeDeviceLocation.m in Sources */,
-				D0A7260DF8C3033DB79390A8 /* LocationsViewController.m in Sources */,
 				D0A721D84DBE69A61D70467E /* MenuPanelViewController.m in Sources */,
 				D0A7249AD88454D17F3609BF /* CategoryPanelView.m in Sources */,
 				D0A724E27909D2A014CD7C5F /* ProductPanelView.m in Sources */,
@@ -2318,6 +2305,7 @@
 				D0A7204BDAB40F7100228DAC /* CompanyListViewController.m in Sources */,
 				D0A7272C22ABD84BC9E89FAE /* CompanyCell.m in Sources */,
 				D0A72111776D219A251644F3 /* Company.m in Sources */,
+				D0A728050554A628ADA3EEFF /* Edge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

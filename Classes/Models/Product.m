@@ -8,6 +8,7 @@
 #import "Product.h"
 #import "OrderLineProperty.h"
 #import "Utils.h"
+#import "MenuItem.h"
 
 
 @implementation Product {
@@ -35,10 +36,6 @@
     product.sortOrder = [[jsonDictionary objectForKey:@"sortOrder"] intValue];
     product.isQueued = (BOOL)[[jsonDictionary objectForKey:@"isQueued"] intValue];
     product.isDeleted = (BOOL)[[jsonDictionary objectForKey:@"isDeleted"] intValue];
-//    id daySection = [jsonDictionary objectForKey:@"daySection"];
-//    if (daySection != nil) {
-//        product.daySection =
-//    }
     product.vatPercentage = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"vat"] decimalValue]];
     product.price = [NSDecimalNumber decimalNumberWithDecimal:[[jsonDictionary objectForKey:@"price"] decimalValue]];
     id val = [jsonDictionary objectForKey:@"diet"];
@@ -51,6 +48,16 @@
         {
             OrderLineProperty *p = [OrderLineProperty propertyFromJsonDictionary:item];
             [product.properties addObject:p];
+        }
+    }
+
+    id items = [jsonDictionary objectForKey:@"items"];
+    if (items != nil) {
+        product.items = [[NSMutableArray alloc] init];
+        for(NSDictionary *item in items)
+        {
+            MenuItem *menuItem = [MenuItem menuItemFromJsonDictionary: item withCard:nil];
+            [product.items addObject:menuItem];
         }
     }
     return product;
@@ -66,7 +73,14 @@
     [dic setObject: [NSNumber numberWithBool: self.isDeleted] forKey:@"isDeleted"];
     [dic setObject: self.price forKey:@"price"];
     [dic setObject:self.vatPercentage forKey:@"vat"];
-    
+
+    if ([_items count] > 0) {
+        NSMutableArray *menuItems = [[NSMutableArray alloc] init];
+        for (MenuItem *item in _items) {
+            [menuItems addObject:[item toDictionary]];
+        }
+        [dic setObject: menuItems forKey:@"items"];
+    }
     return dic;
 }
 

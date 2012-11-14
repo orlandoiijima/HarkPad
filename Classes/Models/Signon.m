@@ -6,6 +6,7 @@
 
 
 #import "Signon.h"
+#import "NSData+Base64.h"
 
 
 @implementation Signon {
@@ -21,6 +22,8 @@
     [dic setObject: self.firstName forKey:@"firstName"];
     [dic setObject: self.surName forKey:@"surName"];
     [dic setObject: self.pinCode forKey:@"pinCode"];
+    if (_logo != nil)
+        [dic setObject: [UIImagePNGRepresentation(_logo) base64EncodedString] forKey:@"logo"];
 
     return dic;
 }

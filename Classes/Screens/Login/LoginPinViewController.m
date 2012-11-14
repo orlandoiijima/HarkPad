@@ -164,7 +164,7 @@
 }
 
 - (void) didAuthenticate: (User *)user {
-    [Session setCredentials:[Credentials credentialsWithEmail:nil password:nil pincode:user.pinCode]];
+    [Session setCredentials:[Credentials credentialsWithEmail:nil password:nil pinCode:user.pinCode]];
     self.didAuthenticateBlock( user);
 }
 

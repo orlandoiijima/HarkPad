@@ -12,7 +12,7 @@
 
 }
 
-- (id)initFromDictionary:(NSMutableDictionary *)dictionary {
+- (id)  initWithDictionary:(NSMutableDictionary *)dictionary {
     self = [self init];
     if (self == nil) return nil;
     

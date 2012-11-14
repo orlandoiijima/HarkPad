@@ -9,6 +9,8 @@
 #import "Service.h"
 #import "Company.h"
 #import "CompanyCell.h"
+#import "SelectItemDelegate.h"
+#import "EditCompanyViewController.h"
 
 @implementation CompanyListViewController {
 }
@@ -16,22 +18,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[Service getInstance] requestResource:@"company"
-                                        id:nil action:nil arguments:nil body:nil verb:HttpVerbGet
-                                   success:^(ServiceResult *serviceResult) {
-                                       self.companies = [[NSMutableArray alloc] init];
-                                       for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
-                                           Company *company = [[Company alloc] initWithDictionary:dictionary];
-                                           [self.companies addObject:company];
-                                       }
-                                       [_companyView reloadData];
-                                   }
-                                     error:^(ServiceResult *serviceResult) {
-                                         [serviceResult displayError];
-                                     }
-                              progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading...", nil) parentView:self.view]];
+    self.title = NSLocalizedString(@"Companies", nil);
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
+    
+    UINib *nib = [UINib nibWithNibName:@"CompanyCell" bundle:[NSBundle mainBundle]];
+    [_companyView registerNib:nib forCellWithReuseIdentifier:@"clvc"];
 }
 
+- (void)done {
+    if (_delegate == nil) return;
+    NSIndexPath *selectedIndexPath = [[_companyView indexPathsForSelectedItems] objectAtIndex:0];
+    [self.delegate didSelectItem: [self companyAtIndexPath:selectedIndexPath]];
+}
 
 - (Company *)companyAtIndexPath:(NSIndexPath *)path {
     if (_companies == nil || path.row >= _companies.count)
@@ -40,11 +39,11 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"xjsjw";
+    static NSString *cellIdentifier = @"clvc";
 
     CompanyCell *cell = (CompanyCell *) [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.company = [self companyAtIndexPath:indexPath];
-    return nil;
+    return cell;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -59,5 +58,22 @@
     return 1;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    Company *company = [self companyAtIndexPath:indexPath];
+    if (company == nil) {
+        company = [[Company alloc] init];
+        company.name = NSLocalizedString(@"New company", nil);
+        [self.navigationController pushViewController:[EditCompanyViewController controllerWithCompany:company delegate:self] animated:YES];
+    }
+    else {
+        [self.delegate didSelectItem:company];
+    }
+
+}
+
+- (void)didSaveItem:(id)item {
+    [_companies addObject:item];
+    [_companyView reloadData];
+}
 
 @end

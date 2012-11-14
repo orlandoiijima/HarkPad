@@ -137,3 +137,4 @@
 "Failed to start printjob. Check if the printer is turned on (port %@)" = "Failed to start printjob. Check if the printer is turned on (port %@)";
 "Failed to start printjob. Check if the printer is turned on and connected to the network (port %@)" = "Failed to start printjob. Check if the printer is turned on and connected to the network (port %@)";
 "Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)" = "Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)";
+"Companies" = "Companies";

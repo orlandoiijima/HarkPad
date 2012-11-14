@@ -66,7 +66,7 @@
     [[UIColor blackColor] set];
 
     float defaultPointSize = _template.pointSize == 0 ? 20 : _template.pointSize;
-    _y = 0;
+    _y = _template.margin.top;
 
     for(Run *run in _template.preRuns) {
         [self print:run row:-1 section:-1 pointSize: defaultPointSize];
@@ -74,7 +74,7 @@
 
     UIFont *font = [UIFont systemFontOfSize: _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize];
     _tableOffset = [self updateY:_template.table.ySpec font:font];
-    _y = 0;
+    _y = _template.margin.top;
     float rowHeight;
     int countSections = [_dataSource numberOfSections];
     for (NSUInteger section=0; section < countSections; section++) {
@@ -140,8 +140,9 @@
                 rect = CGRectMake(0, [self updateY:ySpec font:font], PAPERWIDTH, measuredSize.height);
             }
             else {
-                CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(run.width, 200) lineBreakMode:NSLineBreakByWordWrapping];
-                rect = CGRectMake([self updateX:run.xSpec font:font], [self updateY:ySpec font:font], run.width, measuredSize.height);
+                int width = run.width == 0 ? PAPERWIDTH - _x - _template.margin.right : run.width;
+                CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(width, 200) lineBreakMode:NSLineBreakByWordWrapping];
+                rect = CGRectMake([self updateX:run.xSpec font:font], [self updateY:ySpec font:font], width, measuredSize.height);
             }
             [textToDraw drawInRect:rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment: run.alignment];
         }
@@ -179,7 +180,7 @@
 
 - (float) updateX: (NSString *)xSpec font: (UIFont *)font {
     if ([xSpec length] == 0) {
-        //  nothing to do
+        _x = _template.margin.left;
     }
     else
     if ([xSpec characterAtIndex:0] == '+') {

@@ -31,6 +31,12 @@
     template.name  = [infoJson objectForKey:@"name"];
     template.fontName  = [infoJson objectForKey:@"fontName"];
     template.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
+    id margin = [infoJson objectForKey:@"margin"];
+    if (margin != nil) {
+        template.margin = [[Edge alloc] initWithDictionary:margin];
+    }
+    else
+        template.margin = [[Edge alloc] init];
     template.preRuns = [[NSMutableArray alloc] init];
     template.table = [PrintTable tableFromJson: [infoJson objectForKey:@"table"]];
     for(NSDictionary *runDic in [infoJson valueForKey:@"preRuns"])

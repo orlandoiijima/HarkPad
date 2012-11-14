@@ -6,12 +6,26 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "CompanyCell.h"
-#import "Company.h"
-#import "Address.h"
 
 @implementation CompanyCell
 
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    self.clipsToBounds = YES;
+    self.backgroundColor = [UIColor clearColor];
+    self.layer.cornerRadius = 2;
+    self.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.layer.borderWidth = 3;
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    CAGradientLayer *layer = [self.layer.sublayers objectAtIndex:0];
+    layer.frame = self.bounds;
+}
 
 - (void)setCompany: (Company *) aCompany {
     if (aCompany == nil) {

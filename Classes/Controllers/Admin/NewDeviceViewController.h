@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SelectItemDelegate.h"
 
-@interface NewDeviceViewController : UIViewController
+@interface NewDeviceViewController : UIViewController <SelectItemDelegate>
 
 - (IBAction) logIn;
 - (IBAction) signOn;
+
 @property (retain) IBOutlet UITextField *userField;
 @property (retain) IBOutlet UITextField *passwordField;
 @property (retain) IBOutlet UIButton *logInButton;

@@ -18,6 +18,7 @@
 @property (retain) NSString *pinCode;
 @property (retain) NSString *location;
 @property (retain) NSString *ip;
+@property (retain) UIImage *logo;
 
 - (NSMutableDictionary *)toDictionary;
 

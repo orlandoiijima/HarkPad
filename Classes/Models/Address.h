@@ -15,5 +15,5 @@
 @property(nonatomic, strong) NSString * city;
 
 
-- (id)initFromDictionary:(NSMutableDictionary *)o;
+- (id)initWithDictionary:(NSMutableDictionary *)o;
 @end

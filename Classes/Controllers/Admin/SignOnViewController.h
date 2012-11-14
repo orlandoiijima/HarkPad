@@ -8,7 +8,7 @@
 
 #import "Service.h"
 
-@interface SignOnViewController : UIViewController
+@interface SignOnViewController : UIViewController <UINavigationControllerDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (retain) IBOutlet UITextField *organisation;
 @property (retain) IBOutlet UITextField *ip;
@@ -19,6 +19,9 @@
 @property (retain) IBOutlet UITextField *email;
 @property (retain) IBOutlet UITextField *pincode;
 @property (retain) IBOutlet UIButton *signonButton;
+@property(nonatomic, strong) IBOutlet UIImageView * logoView;
+
+@property(nonatomic, strong) UIPopoverController *popover;
 
 - (IBAction)signOn;
 

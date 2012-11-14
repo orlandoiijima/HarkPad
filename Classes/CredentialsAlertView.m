@@ -41,7 +41,7 @@
     if (buttonIndex == 1) {
         NSString *email = [[alertView textFieldAtIndex:0] text];
         NSString *password = [[alertView textFieldAtIndex:1] text];
-        _afterDone([Credentials credentialsWithEmail:email password:password pincode:_pincode]);
+        _afterDone([Credentials credentialsWithEmail:email password:password pinCode:_pincode]);
     }
 }
 
