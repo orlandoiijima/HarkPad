@@ -1,5 +1,5 @@
 //
-//  EditLocationViewController.m
+//  EditCompanyViewController.m
 //  HarkPad
 //
 //  Created by Willem Bison on 11-08-12.
@@ -7,18 +7,26 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import "EditLocationViewController.h"
+#import "EditCompanyViewController.h"
+#import "Company.h"
+#import "Address.h"
 
-@implementation EditLocationViewController
+@implementation EditCompanyViewController
+
 @synthesize popover = _popover;
 @synthesize delegate = _delegate;
 @synthesize logoLabel = _logoLabel;
 @synthesize logoView = _logoView;
-@synthesize location = _location;
+@synthesize streetField = _streetField;
+@synthesize numberField = _numberField;
+@synthesize zipCodeField = _zipCodeField;
+@synthesize cityField = _cityField;
+@synthesize phoneField = _phoneField;
 
-+ (EditLocationViewController *)controllerWithLocation:(Location *)location delegate: (id<ItemPropertiesDelegate>) delegate {
-    EditLocationViewController * controller = [[EditLocationViewController alloc] init];
-    controller.location = location;
+
++ (EditCompanyViewController *)controllerWithCompany:(Company *)company delegate: (id<ItemPropertiesDelegate>) delegate {
+    EditCompanyViewController * controller = [[EditCompanyViewController alloc] init];
+    controller.company = company;
     controller.delegate = delegate;
     return controller;
 }
@@ -48,20 +56,26 @@
 }
 
 - (IBAction)done {
-    if ([_locationName.text length] == 0) {
+    if ([_companyName.text length] == 0) {
         //  TODO
         return;
     }
+    _company.name = _companyName.text;
 
-    _location.name = _locationName.text;
+    _company.address.street = _streetField.text;
+    _company.address.number = _numberField.text;
+    _company.address.zipCode = _zipCodeField.text;
+    _company.address.city = _cityField.text;
+    _company.phone = _phoneField.text;
+            
     if (_logoView.image != nil) {
-        _location.logo = _logoView.image;
+        _company.logo = _logoView.image;
     }
 
     Service *service = [Service getInstance];
-    HttpVerb verb = _location.isNew ? HttpVerbPost : HttpVerbPut;
-    [service requestResource:@"location" id:nil action:nil arguments:nil body:[_location toDictionary] verb:verb success:^(ServiceResult *serviceResult) {
-        [self.delegate didSaveItem:_location];
+    HttpVerb verb = _company.isNew ? HttpVerbPost : HttpVerbPut;
+    [service requestResource:@"company" id:nil action:nil arguments:nil body:[_company toDictionary] verb:verb success:^(ServiceResult *serviceResult) {
+        [self.delegate didSaveItem:_company];
     }                  error:^(ServiceResult *result) {
         [result displayError];
     }           progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing location", nil) parentView:self.view]];
@@ -75,7 +89,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = _location.isNew ?  NSLocalizedString(@"New location", <#comment#>) :  NSLocalizedString(@"Edit location", <#comment#>);
+    self.title = _company.isNew ?  NSLocalizedString(@"New company", <#comment#>) :  NSLocalizedString(@"Edit company", <#comment#>);
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 
@@ -94,8 +108,8 @@
     [shapeLayer setPath:path.CGPath];
     [[_logoView layer] addSublayer:shapeLayer];
 
-    _logoView.image = _location.logo;
-    _locationName.text = _location.name;
+    _logoView.image = _company.logo;
+    _companyName.text = _company.name;
 }
 
 - (void)viewDidUnload
