@@ -15,7 +15,6 @@
 @implementation MenuCard
 
 @synthesize favorites = _favorites;
-@synthesize menus = _menus;
 @synthesize categories = _categories;
 @synthesize validFrom = _validFrom;
 
@@ -24,7 +23,6 @@
     if ((self = [super init])) {
         {
             _categories = [[NSMutableArray alloc] init];
-            _menus = [[NSMutableArray alloc] init];
             _favorites = [[NSMutableArray alloc] init];
             _vatPercentages = [[NSMutableArray alloc] init];
         }
@@ -46,12 +44,6 @@
         [menuCard.categories addObject:category];
     }
 
-    for(NSDictionary *menuDic in [jsonCategories valueForKey:@"menus"])
-    {
-        Menu *menu = [Menu menuFromJsonDictionary: menuDic withCard: menuCard];
-        [menuCard.menus addObject:menu];
-    }
-
     for(NSString *productKey in [jsonCategories valueForKey:@"favorites"])
     {
         Product *product = [menuCard getProduct:productKey];
@@ -67,12 +59,12 @@
             if ([menuCard vatIndexByPercentage:product.vatPercentage] == -1) {
                 product.vatPercentage = [menuCard vatPercentageByIndex:0];
             }
-        }
-    }
-    for(Menu *menu in menuCard.menus)
-    {
-        if ([menuCard vatIndexByPercentage:menu.vat] == -1) {
-            menu.vat = [menuCard vatPercentageByIndex:0];
+            //  menuitems were only filled with key
+            if (product.isMenu) {
+                for (MenuItem *menuItem in product.items) {
+                    menuItem.product = [menuCard getProduct: menuItem.product.key];
+                }
+            }
         }
     }
 
@@ -89,11 +81,6 @@
                 return product;
         }
     }
-    for(Product *product in _menus)
-    {
-        if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
-            return product;
-    }
     [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
 }
@@ -107,12 +94,6 @@
                 if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
                     return NO;
         }
-    }
-    for(Product *product in _menus)
-    {
-        if (itemToIgnore != product)
-            if([product.key compare:productId options:NSCaseInsensitiveSearch] == NSOrderedSame)
-                return NO;
     }
     return YES;
 }
@@ -139,18 +120,6 @@
     return [dictionary objectForKey:@"percentage"];
 }
 
-- (Menu *) getMenu: (NSString *) menuId
-{
-    for(Menu *menu in _menus)
-    {
-        if([menu.key compare:menuId options:NSCaseInsensitiveSearch] == NSOrderedSame)
-            return menu;
-    }
-
-    [Logger Error:[NSString stringWithFormat:@"menu '%@' not found", menuId]];
-    return [Menu nullMenu];
-}
-
 - (OrderLineProperty *) getProductProperty: (int)propertyId
 {
     for(ProductCategory *category in _categories)
@@ -172,7 +141,6 @@
     MenuCard *card = [[MenuCard allocWithZone:zone] init];
     card.categories = [[NSMutableArray allocWithZone:zone] init];
     card.favorites = [[NSMutableArray allocWithZone:zone] init];
-    card.menus = [[NSMutableArray allocWithZone:zone] init];
     card.vatPercentages = [[NSMutableArray allocWithZone:zone] init];
     card.validFrom = [self.validFrom copy];
     for (ProductCategory *category in self.categories) {
@@ -180,13 +148,6 @@
     }
     for (Product *favorite in self.favorites) {
         [card.favorites addObject:[card getProduct: favorite.key]];
-    }
-    for (Menu *menu in self.menus) {
-        Menu *newMenu = [menu copy];
-        for (MenuItem *item in newMenu.items) {
-            item.product = [card getProduct: item.product.key];
-        }
-        [card.menus addObject: newMenu];
     }
     card.vatPercentages = [NSMutableArray arrayWithArray:self.vatPercentages];
     return card;
@@ -202,12 +163,6 @@
         [categories addObject:[category toDictionary]];
     }
     [dictionary setObject:categories forKey:@"categories"];
-
-    NSMutableArray *menus = [[NSMutableArray alloc] init];
-    for (Menu *menu in _menus) {
-        [menus addObject:[menu toDictionary]];
-    }
-    [dictionary setObject:menus forKey:@"menus"];
 
     NSMutableArray *favorites = [[NSMutableArray alloc] init];
     for (Product *favorite in _favorites) {
@@ -229,7 +184,7 @@
     return NO;
 }
 
-- (int) addToQuickMenu:(id)newItem {
+- (int)addToFavorites:(id)newItem {
     if (newItem == nil) return -1;
 
     if ([self isFavorite:newItem])
@@ -248,7 +203,7 @@
     return [_favorites count] - 1;
 }
 
-- (int) removeFromQuickMenu:(id) item {
+- (int)removeFromFavorites:(id) item {
     NSString *key = [item key];
     int i = 0;
     for (Product *favorite in _favorites) {

@@ -7,15 +7,16 @@
 
 #import "MenuItemsTableViewDataSource.h"
 #import "Menu.h"
+#import "Product.h"
 
 
 @implementation MenuItemsTableViewDataSource {
 
 }
 
-+ (MenuItemsTableViewDataSource *) dataSourceWithMenu:(Menu *)menu createCell:(UITableViewCell *(^)(int))createCell {
++ (MenuItemsTableViewDataSource *) dataSourceWithProduct:(Product *)product createCell:(UITableViewCell *(^)(int))createCell {
     MenuItemsTableViewDataSource *dataSource = [[MenuItemsTableViewDataSource alloc] init];
-    dataSource.menu = menu;
+    dataSource.product = product;
     dataSource.createCell = createCell;
     return dataSource;
 }
@@ -26,7 +27,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_menu.items count] + 1;
+    return [_product.items count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

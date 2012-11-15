@@ -19,6 +19,7 @@
 #import "SimpleOrderScreen.h"
 #import "MenuCardListViewController.h"
 #import "PrinterListViewController.h"
+#import "DebugViewController.h"
 
 @implementation MainTabBarController
 
@@ -134,6 +135,10 @@
             [controllers addObject: controller];
         }
     }
+    DebugViewController *debugViewController = [[DebugViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController: debugViewController];
+    controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Debug", nil) image:[UIImage imageNamed:@"bug.png"] tag:2];
+    [controllers addObject: controller];
 
     self.viewControllers = controllers;
 }

@@ -44,13 +44,6 @@
         }
         if ([favorites.products count] > 0)
             [_categories addObject:favorites];
-
-        ProductCategory *menus = [ProductCategory categoryMenus];
-        for (Menu *menu in card.menus) {
-            [menus.products addObject:menu];
-        }
-        if ([menus.products count] > 0)
-            [_categories addObject:menus];
     }
 
     for (ProductCategory *category in card.categories) {

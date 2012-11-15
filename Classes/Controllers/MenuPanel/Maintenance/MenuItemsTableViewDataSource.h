@@ -6,15 +6,13 @@
 
 
 #import <Foundation/Foundation.h>
-
-@class Menu;
-
+#import "Product.h"
 
 @interface MenuItemsTableViewDataSource : NSObject <UITableViewDataSource>
 
-@property(nonatomic, strong) Menu *menu;
+@property(nonatomic, strong) Product *product;
 @property(nonatomic, copy) UITableViewCell *(^createCell)(int);
 
-+ (MenuItemsTableViewDataSource *)dataSourceWithMenu:(Menu *)menu createCell:(UITableViewCell * (^)(int))createCell;
++ (MenuItemsTableViewDataSource *)dataSourceWithProduct:(Product *)product createCell:(UITableViewCell * (^)(int))createCell;
 
 @end

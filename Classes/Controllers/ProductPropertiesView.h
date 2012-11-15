@@ -33,8 +33,6 @@
 @property (retain) IBOutlet UILabel *itemCaption;
 @property (nonatomic, strong) UIPopoverController *popoverController;
 @property (nonatomic, strong) MenuCard *menuCard;
-@property (nonatomic, strong) id item;
-@property (nonatomic, strong) Menu *menu;
 @property (nonatomic, strong) id<UITableViewDataSource> tableDataSource;
 @property (nonatomic, strong) UIPopoverController *popover;
 

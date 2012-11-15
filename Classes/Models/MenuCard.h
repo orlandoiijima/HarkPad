@@ -28,18 +28,16 @@
 
 - (NSDecimalNumber *)vatPercentageByIndex:(int)i;
 
-- (Menu *) getMenu: (NSString *) menuId;
 - (OrderLineProperty *) getProductProperty: (int)propertyId;
 
 - (BOOL)isFavorite:(id)item;
 
-- (int)addToQuickMenu:(id)newItem;
+- (int)addToFavorites:(id)newItem;
 
-- (int)removeFromQuickMenu:(id)item;
+- (int)removeFromFavorites:(id)item;
 
 
 @property(nonatomic, strong) NSMutableArray *favorites;
-@property(nonatomic, strong) NSMutableArray *menus;
 @property(nonatomic, strong) NSMutableArray *categories;
 @property (nonatomic, strong) NSMutableArray *vatPercentages;
 @property(nonatomic, strong) NSDate *validFrom;

@@ -58,27 +58,29 @@
     }
 }
 
-- (void)setItem:(id)item {
-    _item = item;
-    uiKey.text = [item key];
+- (void)setProduct:(Product *)product {
+    _product = product;
+    uiKey.text = [product key];
     _itemCaption.text = uiKey.text;
-    uiName.text = [item name];
-    NSString *price  = [Utils getAmountString: [item price] withCurrency:NO];
+    uiName.text = [product name];
+    NSString *price  = [Utils getAmountString: [product price] withCurrency:NO];
     uiPrice.text = [price substringToIndex:[price length] - 3];
     _uiCents.text = [price substringFromIndex:[price length] - 2];
-    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:[item vatPercentage]];
-    _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:item];
-    if ([item isKindOfClass:[Product class]]) {
-        _product = (Product *)item;
+    uiVat.selectedSegmentIndex = [_menuCard vatIndexByPercentage:[product vatPercentage]];
+    _uiIncludedInQuickMenu.selected  = [_menuCard isFavorite:product];
+    if (product.isMenu == NO) {
         _tableView.allowsSelection = NO;
         _tableCaption.text = NSLocalizedString(@"Options", nil);
-        _tableDataSource = [ProductPropertiesTableViewDataSource dataSourceWithProduct:item createCell: ^UITableViewCell *(int row) {return [self createPropertyCellForRow:row];}];
+        _tableDataSource = [ProductPropertiesTableViewDataSource dataSourceWithProduct:product createCell:^UITableViewCell *(int row) {
+            return [self createPropertyCellForRow:row];
+        }];
     }
     else {
-        _menu = (Menu *)item;
         _tableView.allowsSelection = YES;
         _tableCaption.text = NSLocalizedString(@"Courses", nil);
-        _tableDataSource = [MenuItemsTableViewDataSource dataSourceWithMenu:item createCell: ^UITableViewCell *(int row) {return [self createMenuItemCellForRow:row];}];
+        _tableDataSource = [MenuItemsTableViewDataSource dataSourceWithProduct:product createCell:^UITableViewCell *(int row) {
+            return [self createMenuItemCellForRow:row];
+        }];
     }
     _tableView.dataSource = _tableDataSource;
     [_tableView reloadData];
@@ -97,7 +99,7 @@
         [uiPrice becomeFirstResponder];
         return NO;
     }
-    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _item] == NO) {
+    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _product] == NO) {
         [uiKey becomeFirstResponder];
         return NO;
     }
@@ -105,39 +107,39 @@
 }
 
 - (IBAction)toggleQuickMenu {
-    if ([_menuCard isFavorite:_item]) {
-        [_delegate didInclude:_item inFavorites:NO];
+    if ([_menuCard isFavorite:_product]) {
+        [_delegate didInclude:_product inFavorites:NO];
         _uiIncludedInQuickMenu.selected = NO;
     }
     else {
-        [_delegate didInclude: _item inFavorites:YES];
+        [_delegate didInclude: _product inFavorites:YES];
         _uiIncludedInQuickMenu.selected = YES;
     }
 }
 
 - (IBAction)updateName {
-    [_item setValue:[Utils trim:uiName.text] forKey:@"name"];
+    [_product setValue:[Utils trim:uiName.text] forKey:@"name"];
     [self didUpdate];
 }
 
 - (IBAction)updateCode {
-    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _item] == NO) {
+    if ([_menuCard isUniqueKey: uiKey.text itemToIgnore: _product] == NO) {
         return;
     }
-    [_item setValue:[Utils trim:uiKey.text] forKey:@"key"];
+    [_product setValue:[Utils trim:uiKey.text] forKey:@"key"];
     _itemCaption.text = uiKey.text;
     [self didUpdate];
 }
 
 - (IBAction)updateVat {
-    [_item setValue: [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex] forKey:@"vat"];
+    [_product setValue: [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex] forKey:@"vat"];
     [self didUpdate];
 }
 
 - (IBAction)updatePrice {
     NSDecimalNumber *price = (NSDecimalNumber *)[NSDecimalNumber numberWithInt: [uiPrice.text intValue] * 100 + [_uiCents.text intValue]];
     price = [price decimalNumberByDividingBy: [NSDecimalNumber decimalNumberWithString:@"100"]];
-    [_item setValue:price forKey:@"price"];
+    [_product setValue:price forKey:@"price"];
     [self didUpdate];
 }
 
@@ -162,13 +164,13 @@
 
 - (IBAction)delete {
     if ([ModalAlert confirm:NSLocalizedString(@"Delete item ?", nil)]) {
-        [_delegate didDeleteItem: _item];
+        [_delegate didDeleteItem: _product];
     }
 }
 
 - (void) didUpdate {
     if (self.delegate == nil) return;
-    [self.delegate didModifyItem:_item];
+    [self.delegate didModifyItem:_product];
 }
 
 
@@ -235,11 +237,11 @@
     [self.popover dismissPopoverAnimated:YES];
     NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
     if (indexPath == nil) return;
-    MenuItem *item =  [_menu.items objectAtIndex:indexPath.row];
+    MenuItem *item =  [_product.items objectAtIndex:indexPath.row];
     if (item == nil) {
         item = [[MenuItem alloc] init];
-        item.course = [_menu.items count];
-        [_menu.items addObject:item];
+        item.course = [_product.items count];
+        [_product.items addObject:item];
         item.product = product;
         [_tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     }
@@ -250,9 +252,9 @@
 }
 
 - (MenuItem *)menuItemAtRow:(int)row {
-    if(row >= [[_item items] count])
+    if(row >= [[_product items] count])
         return nil;
-    return [[_item items] objectAtIndex:row];
+    return [[_product items] objectAtIndex:row];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {

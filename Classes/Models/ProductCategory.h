@@ -16,7 +16,7 @@
     BOOL isFood;
 }
 
-typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, CategoryTypeMenus} CategoryType;
+typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites} CategoryType;
 
 @property (retain) NSString *name;
 @property int sortOrder;
@@ -29,15 +29,10 @@ typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, Category
 @property(nonatomic) float orderableToHour;
 
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary;
-
 + (ProductCategory *)categoryFavorites;
 
-+ (ProductCategory *)categoryMenus;
-
 - (NSMutableDictionary *)toDictionary;
-
 - (BOOL)isNowOrderable;
-
 - (BOOL)isOrderableAllDay;
 
 

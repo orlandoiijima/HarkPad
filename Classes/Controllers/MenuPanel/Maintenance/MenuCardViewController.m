@@ -110,10 +110,6 @@
     [self startEdit:product];
 }
 
-- (void)didSelectMenu:(Menu *)menu {
-    [self startEdit: menu];
-}
-
 - (BOOL)canDeselect {
     if (_productProperties.product == nil)
         return YES;
@@ -128,8 +124,8 @@
     _menuPanel.selectedItem = _menuPanel.selectedItem;
 }
 
-- (void)startEdit: (id)item {
-    _productProperties.item = item;
+- (void)startEdit: (Product *)product {
+    _productProperties.product = product;
 }
 
 
@@ -163,8 +159,7 @@
     [item setValue:NSLocalizedString(@"New", @"Key of new product") forKey:@"key"];
     [category.products addObject:item];
 
-    if ([item isKindOfClass:[Product class]])
-        [item setValue:category forKey:@"category"];
+    [item setValue:category forKey:@"category"];
 
     int section = [_menuPanel sectionByCategory:category];
     int index = [category.products count] - 1;

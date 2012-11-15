@@ -44,6 +44,8 @@ typedef enum Vat {Low=0, High=1} Vat;
 
 @property(nonatomic, strong) NSMutableArray *items;
 
+@property(nonatomic) BOOL isMenu;
+
 + (Product *)nullProduct;
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
 

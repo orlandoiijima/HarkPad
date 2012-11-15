@@ -37,7 +37,7 @@ extern "C" {
 /**
  * Starts a TestFlight session
  *
- * @param teamToken Will be your team token obtained from https://testflightapp.com/dashboard/team/edit/ 
+ * @param t veamToken Will be your team token obtained from https://testflightapp.com/dashboard/team/edit/
  */
 + (void)takeOff:(NSString *)teamToken;
 

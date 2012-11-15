@@ -71,10 +71,6 @@
         ProductCategory *favorites = [ProductCategory categoryFavorites];
         favorites.products = card.favorites;
         [_categories addObject:favorites];
-
-        ProductCategory *menus = [ProductCategory categoryMenus];
-        menus.products = card.menus;
-        [_categories addObject:menus];
     }
 
     for (ProductCategory *category in card.categories) {
@@ -270,20 +266,20 @@
     if (category == nil) return;
     [category.products removeObject:item];
     if ([_menuCard isFavorite:item])
-        [_menuCard removeFromQuickMenu: item];
+        [_menuCard removeFromFavorites:item];
     [self deleteItemsAtIndexPaths:paths];
     [self setSelectedIndexPath: paths[[paths count] -1]];
 }
 
 - (void)addToFavorites:(id)item {
-    int i = [_menuCard addToQuickMenu: item];
+    int i = [_menuCard addToFavorites:item];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     [self insertItemsAtIndexPaths:[NSArray arrayWithObject: indexPath]];
     [self refreshItem:item];
 }
 
 - (void)removeFromFavorites:(id)item {
-    int i = [_menuCard removeFromQuickMenu: item];
+    int i = [_menuCard removeFromFavorites:item];
     NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
     [self deleteItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
     [self refreshItem:item];

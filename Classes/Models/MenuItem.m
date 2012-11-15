@@ -20,8 +20,9 @@
     NSString * productId = [jsonDictionary objectForKey:@"key"];
     if (menuCard == nil) {
         //  create dummy to be filled later
-        Product *product = [[Product alloc] init];
-        product.key = productId;
+        menuItem.product = [[Product alloc] init];
+        menuItem.product.key = productId;
+
     }
     else {
         menuItem.product = [menuCard getProduct:productId];

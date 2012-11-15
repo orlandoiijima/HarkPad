@@ -36,12 +36,18 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         _dateLabel.text = [dateFormatter stringFromDate: menuCard.validFrom];
-        _countMenusLabel.text = [NSString stringWithFormat: @"%d", [menuCard.menus count]];
-        int count = 0;
+        int countMenus = 0;
+        int countProducts = 0;
         for (ProductCategory *category in menuCard.categories) {
-            count += [category.products count];
+            for (Product *product in category.products) {
+                if (product.isMenu)
+                    countMenus++;
+                else
+                    countProducts++;
+            }
         }
-        _countItemsLabel.text = [NSString stringWithFormat:@"%d", count];
+        _countMenusLabel.text = [NSString stringWithFormat: @"%d", countMenus];
+        _countItemsLabel.text = [NSString stringWithFormat:@"%d", countProducts];
     }
 }
 

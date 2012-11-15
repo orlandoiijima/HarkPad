@@ -84,6 +84,10 @@
     return dic;
 }
 
+-(BOOL)isMenu {
+    return [_items count] > 0;
+}
+
 - (BOOL) hasProperty: (int)propertyId
 {
     for (OrderLineProperty *prop in _properties) {
@@ -132,6 +136,12 @@
     product.properties = [[NSMutableArray allocWithZone:zone] init];
     for (NSString *prop in _properties) {
         [product.properties addObject:[prop copy]];
+    }
+    if(product.isMenu) {
+        product.items = [[NSMutableArray allocWithZone:zone] init];
+        for (MenuItem *item in self.items) {
+            [product.items addObject:[item copy]];
+        }
     }
     return product;
 }
