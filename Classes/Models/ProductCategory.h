@@ -25,6 +25,9 @@ typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, Category
 @property (retain) NSMutableArray *products;
 @property(nonatomic) CategoryType type;
 
+@property(nonatomic) float orderableFromHour;
+@property(nonatomic) float orderableToHour;
+
 + (ProductCategory *) categoryFromJsonDictionary: (NSDictionary *)jsonDictionary;
 
 + (ProductCategory *)categoryFavorites;
@@ -32,5 +35,10 @@ typedef enum CategoryType {CategoryTypeStandard, CategoryTypeFavorites, Category
 + (ProductCategory *)categoryMenus;
 
 - (NSMutableDictionary *)toDictionary;
+
+- (BOOL)isNowOrderable;
+
+- (BOOL)isOrderableAllDay;
+
 
 @end

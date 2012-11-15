@@ -15,8 +15,8 @@
 }
 
 + (bool) isDeviceRegistered {
-    return false;
-//    return  ([[AppVault deviceId] length] != 0);
+//    return false;
+    return  ([[AppVault deviceId] length] != 0);
 }
 
 + (NSString *)deviceId {

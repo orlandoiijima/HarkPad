@@ -9,6 +9,7 @@
 #import "ProductCategory.h"
 #import "Product.h"
 #import "UIColor-Expanded.h"
+#import "NSDate-Utilities.h"
 
 @implementation ProductCategory
 
@@ -35,6 +36,8 @@
     category.color = [UIColor colorWithHexString: color];
     category.products = [[NSMutableArray alloc] init];
     category.type = CategoryTypeStandard;
+    category.orderableFromHour = [category hourByTimeSpanString:[jsonDictionary objectForKey:@"orderableFrom"]];
+    category.orderableToHour = [category hourByTimeSpanString:[jsonDictionary objectForKey:@"orderableTo"]];
     id products = [jsonDictionary objectForKey:@"products"];
     for(NSDictionary *item in products)
     {
@@ -68,6 +71,8 @@
         [dic setObject: self.name forKey:@"name"];
     [dic setObject: self.color.hexStringFromColor forKey:@"color"];
     [dic setObject:[NSNumber numberWithInt: self.isFood ? 1:0 ] forKey:@"isFood"];
+    [dic setObject:[self toTimeSpanString:self.orderableFromHour] forKey:@"orderableFrom"];
+    [dic setObject:[self toTimeSpanString:self.orderableToHour] forKey:@"orderableTo"];
     NSMutableArray *products = [[NSMutableArray alloc] init];
     for (Product *product in _products) {
         [products addObject:[product toDictionary]];
@@ -89,6 +94,34 @@
         newProduct.category = category;
     }
     return category;
+}
+
+- (BOOL) isNowOrderable {
+    float now = [[NSDate date] hour] + [[NSDate date] minute] / 60.0;
+    if (now > _orderableFromHour && now <= _orderableToHour)
+        return YES;
+    return NO;
+}
+
+- (BOOL) isOrderableAllDay {
+    if (_orderableFromHour == 0 && _orderableToHour == 0)
+        return YES;
+    return NO;
+}
+
+- (float) hourByTimeSpanString:(NSString *) timeSpan {
+    if ([timeSpan length] == 0)
+        return 0.0;
+    NSArray *parts = [timeSpan componentsSeparatedByString:@":"];
+    if ([parts count] < 2)
+        return 0.0;
+    float hour = [parts[0] intValue] + [parts[1] intValue]/60.0;
+    return hour;
+}
+
+- (NSString *) toTimeSpanString: (float)hour {
+    int h = (int)(hour * 2);
+    return [NSString stringWithFormat:@"%d:%02d", h, h & 1 ? 30 : 0];
 }
 
 @end
