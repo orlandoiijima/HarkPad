@@ -106,7 +106,7 @@
                     break;
                 }
                 case 1: {
-                    cell.textLabel.text = @"Release datum";
+                    cell.textLabel.text = @"Datum";
                     cell.detailTextLabel.text = [self getSettingValueForKey:@"BuildDate"];
                     break;
                 }

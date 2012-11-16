@@ -15,7 +15,7 @@
 @property (retain) IBOutlet UITextField *firstName;
 @property (retain) IBOutlet UITextField *surName;
 @property (retain) IBOutlet UITextField *email;
-@property (retain) IBOutlet UITextField *pincode;
+@property (retain) IBOutlet UITextField *pinCode;
 
 @property(nonatomic, strong) Signon *signOn;
 @end

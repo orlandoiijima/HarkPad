@@ -16,15 +16,6 @@
 
 @implementation EditUserViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -40,7 +31,7 @@
         return;
     _signOn.firstName = _firstName.text;
     _signOn.surName = _surName.text;
-    _signOn.pinCode = _pincode.text;
+    _signOn.pinCode = _pinCode.text;
     _signOn.email = _email.text;
     _signOn.password = _password.text;
 
@@ -79,8 +70,8 @@
         [_password2 becomeFirstResponder];
         return false;
     }
-    if ([_pincode.text length] != 4) {
-        [_pincode becomeFirstResponder];
+    if ([_pinCode.text length] != 4) {
+        [_pinCode becomeFirstResponder];
         return false;
     }
     return YES;
