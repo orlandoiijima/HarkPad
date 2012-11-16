@@ -9,5 +9,4 @@
 
 
 @interface DebugViewController : UITableViewController
-
 @end

@@ -78,7 +78,7 @@
         [self.delegate didSaveItem:_company];
     }                  error:^(ServiceResult *result) {
         [result displayError];
-    }           progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing location", nil) parentView:self.view]];
+    }           progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing company", nil) parentView:self.view]];
 
 }
 

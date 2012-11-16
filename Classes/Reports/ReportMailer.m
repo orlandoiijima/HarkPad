@@ -35,7 +35,7 @@
     NSString *from = [_fromDate inJson];
     NSString *to = [_toDate inJson];
     NSString *range = [from isEqualToString:to] ? from : [NSString stringWithFormat:@"%@ - %@", from, to];
-    NSString *fullName = [NSString stringWithFormat:@"%@ %@ %@", _name, [AppVault location], range];
+    NSString *fullName = [NSString stringWithFormat:@"%@ %@", _name, range];
     NSArray *arrayPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES);
     NSString *docDir = [arrayPaths objectAtIndex:0];
     NSString *fileName = [fullName stringByAppendingString:@".csv"];

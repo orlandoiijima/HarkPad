@@ -90,7 +90,7 @@
     if ([self validate] == NO)
         return;
     Signon *signOn = [[Signon alloc] init];
-    signOn.tenant = _organisation.text;
+    signOn.name = _organisation.text;
     signOn.firstName = _firstName.text;
     signOn.surName = _surName.text;
     signOn.pinCode = _pincode.text;
@@ -106,6 +106,7 @@
                [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
                [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
                [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
+               [AppVault setLocationName: [result.jsonData valueForKey:@"locationName"]];
            }
              error:^(ServiceResult *serviceResult) {
                         [serviceResult displayError];

@@ -219,7 +219,6 @@
 		E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38B912E234B8007C2101 /* OrderTableCell.m */; };
 		E5E7231D1311A12C00905959 /* Splitter.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A38BF12E234B8007C2101 /* Splitter.m */; };
 		E5E723201311A12C00905959 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A390A12E236A7007C2101 /* Utils.m */; };
-		E5E723221311A12C00905959 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391012E23715007C2101 /* Menu.m */; };
 		E5E723231311A12C00905959 /* Service.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391412E23A43007C2101 /* Service.m */; };
 		E5E723251311A12C00905959 /* MenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391B12E23E19007C2101 /* MenuItem.m */; };
 		E5E723261311A12C00905959 /* ModalAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A391D12E23E19007C2101 /* ModalAlert.m */; };
@@ -609,8 +608,6 @@
 		E50A38BF12E234B8007C2101 /* Splitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Splitter.m; sourceTree = "<group>"; };
 		E50A390912E236A7007C2101 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		E50A390A12E236A7007C2101 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
-		E50A390F12E23715007C2101 /* Menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
-		E50A391012E23715007C2101 /* Menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
 		E50A391312E23A43007C2101 /* Service.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Service.h; sourceTree = "<group>"; };
 		E50A391412E23A43007C2101 /* Service.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Service.m; sourceTree = "<group>"; };
 		E50A391A12E23E19007C2101 /* MenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuItem.h; sourceTree = "<group>"; };
@@ -1408,8 +1405,6 @@
 				E50A386E12E234B8007C2101 /* GridCell.m */,
 				E50A386F12E234B8007C2101 /* Map.h */,
 				E50A387012E234B8007C2101 /* Map.m */,
-				E50A390F12E23715007C2101 /* Menu.h */,
-				E50A391012E23715007C2101 /* Menu.m */,
 				E50A387412E234B8007C2101 /* Order.h */,
 				E50A387512E234B8007C2101 /* Order.m */,
 				E50A387812E234B8007C2101 /* OrderGridHitInfo.h */,
@@ -2255,7 +2250,6 @@
 				E5E7231A1311A12C00905959 /* OrderTableCell.m in Sources */,
 				E5E7231D1311A12C00905959 /* Splitter.m in Sources */,
 				E5E723201311A12C00905959 /* Utils.m in Sources */,
-				E5E723221311A12C00905959 /* Menu.m in Sources */,
 				E5E723231311A12C00905959 /* Service.m in Sources */,
 				E5E723251311A12C00905959 /* MenuItem.m in Sources */,
 				E5E723261311A12C00905959 /* ModalAlert.m in Sources */,

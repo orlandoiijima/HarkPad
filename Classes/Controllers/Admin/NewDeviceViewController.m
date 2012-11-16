@@ -72,6 +72,7 @@
     Company *company = (Company *)item;
     [AppVault setLocationId: company.locationId];
     [AppVault setAccountId: company.accountId];
+    [AppVault setLocationName: company.name];
     [[Service getInstance]
             requestResource:@"device"
                          id:nil

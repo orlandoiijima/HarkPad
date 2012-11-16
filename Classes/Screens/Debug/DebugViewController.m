@@ -11,6 +11,7 @@
 #import "ModalAlert.h"
 #import "Logger.h"
 #import "LogItem.h"
+#import "Session.h"
 
 @interface DebugViewController ()
 
@@ -42,7 +43,6 @@
     [AppVault setDeviceId:nil];
     [AppVault setAccountId:nil];
     [AppVault setLocationId:nil];
-    [AppVault setLocation:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,14 +55,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0)
-        return 4;
-    return [[Logger lines] count];
+    switch (section) {
+        case 0:
+            return 5;
+        case 1:
+            return 4;
+        case 2:
+            return [[Logger lines] count];
+    }
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"Vault";
+        case 1:
+            return @"Session";
+        case 2:
+            return @"Log";
+    }
+    return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -73,31 +91,58 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
 
-    if (indexPath.section == 0) {
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text = @"Versie";
-                cell.detailTextLabel.text = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
-                break;
-            case 1:
-                cell.textLabel.text = @"Account";
-                cell.detailTextLabel.text = [AppVault accountId];
-                break;
-            case 2:
-                cell.textLabel.text = @"Location";
-                cell.detailTextLabel.text = [AppVault locationId];
-                break;
-            case 3:
-                cell.textLabel.text = @"Device";
-                cell.detailTextLabel.text = [AppVault deviceId];
-                break;
-        }
-    }
-    else {
-        int index = (int)[[Logger lines] count] - indexPath.row - 1;
-        if (index >= 0) {
-            LogItem *logItem = [[Logger lines] objectAtIndex:index];
-            cell.textLabel.text = logItem.message;
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Versie";
+                    cell.detailTextLabel.text = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleShortVersionString"];
+                    break;
+                case 1:
+                    cell.textLabel.text = @"Account";
+                    cell.detailTextLabel.text = [AppVault accountId];
+                    break;
+                case 2:
+                    cell.textLabel.text = @"Location";
+                    cell.detailTextLabel.text = [AppVault locationId];
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Device";
+                    cell.detailTextLabel.text = [AppVault deviceId];
+                    break;
+                case 4:
+                    cell.textLabel.text = @"Location name";
+                    cell.detailTextLabel.text = [AppVault locationName];
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Name";
+                    cell.detailTextLabel.text = [[Session authenticatedUser] name];
+                    break;
+                case 1:
+                    cell.textLabel.text = @"Pin";
+                    cell.detailTextLabel.text = [[[Session credentials] pinCode] length] ? @"***" : @"";
+                    break;
+                case 2:
+                    cell.textLabel.text = @"Password";
+                    cell.detailTextLabel.text = [[[Session credentials] password] length] ? @"***" : @"";
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Email";
+                    cell.detailTextLabel.text = [[Session credentials] email] == nil ? @"":[[Session credentials] email];
+                    break;
+            }
+            break;
+        case 2: {
+            int index = (int)[[Logger lines] count] - indexPath.row - 1;
+            if (index >= 0) {
+                LogItem *logItem = [[Logger lines] objectAtIndex:index];
+                cell.textLabel.text = logItem.message;
+            }
+            break;
         }
     }
 

@@ -84,10 +84,7 @@
     Product *product = [self itemAtIndexPath:indexPath];
     if (product == nil)
         return;
-    if ([product isKindOfClass:[Product class]])
-        [self.panelDelegate didTapProduct: product];
-    else
-        [self.panelDelegate didTapMenu: (Menu *)product];
+    [self.panelDelegate didTapProduct: product];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {

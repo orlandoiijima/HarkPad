@@ -19,14 +19,13 @@
 + (NSString *)locationId;
 + (void)setLocationId:(NSString *)locationId;
 
++ (NSString *)locationName;
++ (void)setLocationName:(NSString *)locationName;
+
+
 + (NSString *)accountId;
 + (void)setAccountId:(NSString *)accountId;
 
 + (bool) isDeviceRegistered;
-
-+ (void)setLocation:(NSString *)location;
-
-+ (NSString *)location;
-
 
 @end

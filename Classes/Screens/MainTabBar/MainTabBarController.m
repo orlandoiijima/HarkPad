@@ -95,12 +95,6 @@
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
-//        if ([screen isEqualToString:@"settings"]) {
-//            IASKAppSettingsViewController *settingsViewController = [[IASKAppSettingsViewController alloc] init];
-//            controller = [[UINavigationController alloc] initWithRootViewController: settingsViewController];
-//            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Settings", nil) image:[UIImage imageNamed:@"20-gear2.png"] tag:2];
-//        }
-
         if ([screen isEqualToString:@"quickorder"]) {
             SimpleOrderScreen *simpleOrderScreen = [[SimpleOrderScreen alloc] init];
             controller = [[UINavigationController alloc] initWithRootViewController: simpleOrderScreen];

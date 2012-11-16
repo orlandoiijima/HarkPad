@@ -10,7 +10,7 @@
 
 @interface Signon : NSObject
 
-@property (retain) NSString *tenant;
+@property (retain) NSString *name;
 @property (retain) NSString *email;
 @property (retain) NSString *password;
 @property (retain) NSString *firstName;

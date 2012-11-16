@@ -15,7 +15,6 @@
 }
 
 + (bool) isDeviceRegistered {
-//    return false;
     return  ([[AppVault deviceId] length] != 0);
 }
 
@@ -24,7 +23,7 @@
 }
 
 + (void)setDeviceId:(NSString *)deviceId {
-    [KeychainWrapper createKeychainValue:deviceId forIdentifier:@"DeviceId"];
+    [self setOrDeleteKey:@"DeviceId" withValue:deviceId];
 }
 
 + (NSString *)locationId {
@@ -32,7 +31,15 @@
 }
 
 + (void)setLocationId:(NSString *)locationId {
-    [KeychainWrapper createKeychainValue: locationId forIdentifier:@"LocationId"];
+    [self setOrDeleteKey:@"LocationId" withValue:locationId];
+}
+
++ (NSString *)locationName {
+    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationName"];
+}
+
++ (void)setLocationName:(NSString *)locationName {
+    [self setOrDeleteKey:@"LocationName" withValue:locationName];
 }
 
 + (NSString *)accountId {
@@ -40,15 +47,14 @@
 }
 
 + (void)setAccountId:(NSString *)accountId {
-    [KeychainWrapper createKeychainValue: accountId forIdentifier:@"AccountId"];
+    [self setOrDeleteKey:@"AccountId" withValue:accountId];
 }
 
-+ (NSString *)location {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"Location"];
-}
 
-+ (void)setLocation:(NSString *)location {
-    [KeychainWrapper createKeychainValue: location forIdentifier:@"Location"];
++ (void)setOrDeleteKey:(NSString *)key withValue:(NSString *)value {
+    if ([value length] == 0)
+        [KeychainWrapper deleteItemFromKeychainWithIdentifier: key];
+    else
+        [KeychainWrapper createKeychainValue:value forIdentifier: key];
 }
-
 @end

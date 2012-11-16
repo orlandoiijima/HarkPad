@@ -58,6 +58,9 @@
         case NSTextAlignmentRight:
             x = self.bounds.size.width - dx*width - 0.5;
         break;
+
+        default:
+        break;
     }
     y = (self.bounds.size.height - dy*height)/2 + 0.5;
     if ([[countSeats objectAtIndex: TableSideLeft] intValue] > 0)

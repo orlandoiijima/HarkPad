@@ -29,7 +29,7 @@
 
 - (NSMutableDictionary *)toDictionary
 {
-    NSMutableDictionary *dic = [[NSMutableArray alloc] init];
+    NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
     [dic setObject: _tableId forKey:@"tableId"];
     [dic setObject: [NSString stringWithFormat:@"%d", _seat] forKey:@"seat"];
     [dic setObject: [NSString stringWithFormat:@"%d", _beforeSeat] forKey:@"beforeSeat"];

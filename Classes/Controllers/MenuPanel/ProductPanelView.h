@@ -20,8 +20,6 @@
 - (void) didSelectProduct: (Product *)product;
 - (BOOL) canDeselect;
 - (void) didTapCategory: (ProductCategory *)category;
-- (void) didTapMenu: (Menu *)menu;
-- (void) didSelectMenu: (Menu *)menu;
 //- (void) didInclude: (id)item inQuickMenu: (bool)include;
 - (void) didLongPressProduct: (Product *)product;
 - (void) didLongPressMenu: (Menu *)menu;

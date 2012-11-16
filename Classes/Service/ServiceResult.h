@@ -12,7 +12,7 @@
 
 @interface ServiceResult : NSObject {
     NSMutableDictionary *notification;
-    NSMutableDictionary *jsonData;
+    id jsonData;
     id data;
     NSString *error;
     BOOL isSuccess;
@@ -20,7 +20,7 @@
 }
 
 @property (retain) NSMutableDictionary *notification;
-@property (retain) NSMutableDictionary *jsonData;
+@property (retain) id jsonData;
 @property (retain) id data;
 @property (retain) NSString *error;
 @property BOOL isSuccess;

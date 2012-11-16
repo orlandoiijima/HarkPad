@@ -110,14 +110,6 @@
     return YES;
 }
 
-- (void)didTapMenu:(Menu *)menu {
-    self.selectedItem = menu;
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapMenu:)])
-        [_delegate didTapMenu: menu];
-    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
-        [_delegate didSelectMenu: menu];
-}
-
 - (void)didTapProduct:(Product *)product {
     self.selectedItem = product;
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapProduct:)])
@@ -144,33 +136,12 @@
 
 - (void)setSelectedItem:(id)selectedItem {
     _productPanelView.selectedItem = selectedItem;
-    if ([selectedItem isKindOfClass:[Product class]]) {
-        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
-            [_delegate didSelectProduct: selectedItem];
-    }
-    else {
-        if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectMenu:)])
-            [_delegate didSelectMenu: (Menu *)selectedItem];
-    }
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(didSelectProduct:)])
+        [_delegate didSelectProduct: selectedItem];
 }
 
 - (id)selectedItem {
     return _productPanelView.selectedItem;
 }
-
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-//    if ([object isKindOfClass:[Product class]]) {
-//        Product *product = (Product *)object;
-//        if (product == nil) return;
-//        [_productPanelView refreshProduct:product];
-//    }
-//    else
-//    if ([object isKindOfClass:[ProductCategory class]]) {
-//        ProductCategory *category = (ProductCategory *)object;
-//        if (category == nil) return;
-//        [_categoryPanelView refreshCategory: category];
-//        [_productPanelView reloadData];
-//    }
-//}
 
 @end

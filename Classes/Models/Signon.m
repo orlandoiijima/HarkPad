@@ -16,7 +16,7 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    [dic setObject: self.tenant forKey:@"name"];
+    [dic setObject:self.name forKey:@"name"];
     [dic setObject: self.password forKey:@"password"];
     [dic setObject: self.email forKey:@"email"];
     [dic setObject: self.firstName forKey:@"firstName"];
