@@ -6,9 +6,6 @@
 
 
 #import "MenuItemsTableViewDataSource.h"
-#import "Menu.h"
-#import "Product.h"
-
 
 @implementation MenuItemsTableViewDataSource {
 

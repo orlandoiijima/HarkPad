@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "MenuCard.h"
-#import "Menu.h"
 #import "Map.h"
 
 @class Config;

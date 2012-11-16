@@ -8,8 +8,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ProductPanelCell.h"
 #import "Product.h"
-#import "Menu.h"
-
 
 @implementation ProductPanelCell {
 

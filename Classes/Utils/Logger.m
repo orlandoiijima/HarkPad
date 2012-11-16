@@ -25,7 +25,7 @@ static NSMutableArray *lines;
 }
 
 + (void) Log: (LogLevel)level format:(NSString *)logMsg {
-    NSLog(logMsg);
+    NSLog(@"%@", logMsg);
     TFLog([logMsg length] > 256 ? [logMsg substringToIndex:256]: logMsg);
     if (lines == nil)
         lines = [[NSMutableArray alloc] init];

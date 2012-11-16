@@ -7,14 +7,8 @@
 //
 
 #import "MenuPanelViewController.h"
-#import "CategoryPanelView.h"
-#import "ProductPanelView.h"
 #import "ProductCategory.h"
-#import "Menu.h"
-#import "Product.h"
 #import "Cache.h"
-#import "MenuCard.h"
-#import "MenuPanelView.h"
 
 @implementation MenuPanelViewController
 @synthesize categoryPanelView = _categoryPanelView;

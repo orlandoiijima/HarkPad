@@ -10,7 +10,6 @@
 #import "CJSONDeserializer.h"
 #import "ProductCategory.h"
 #import "Product.h"
-#import "Menu.h"
 #import "OrderLineProperty.h"
 
 @interface MenuCard : DTO {

@@ -8,7 +8,6 @@
 
 #import "ProductPanelView.h"
 #import "Product.h"
-#import "Menu.h"
 #import "CategoryPanelCell.h"
 #import "MenuCard.h"
 #import "ProductPanelCell.h"
