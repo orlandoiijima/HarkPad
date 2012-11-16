@@ -11,6 +11,7 @@
 #import "Signon.h"
 #import "KeychainWrapper.h"
 #import "AppVault.h"
+#import "EditUserViewController.h"
 
 @interface SignOnViewController ()
 
@@ -32,7 +33,7 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"Sign up", nil);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(signOn)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self  action:@selector(done)];
 
     [_logoView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectLogo:)]];
       CAShapeLayer *shapeLayer = [CAShapeLayer layer];
@@ -47,7 +48,10 @@
         nil]];
         UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:shapeLayer.bounds cornerRadius:15.0];
       [shapeLayer setPath:path.CGPath];
-      [[_logoView layer] addSublayer:shapeLayer];}
+      [[_logoView layer] addSublayer:shapeLayer];
+
+    [_organisation becomeFirstResponder];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -59,63 +63,26 @@
         [_organisation becomeFirstResponder];
         return false;
     }
-    if ([_firstName.text length] == 0) {
-        [_firstName becomeFirstResponder];
-        return false;
-    }
-    if ([_surName.text length] == 0) {
-        [_surName becomeFirstResponder];
-        return false;
-    }
-    if ([_email.text length] == 0) {
-        [_email becomeFirstResponder];
-        return false;
-    }
-    if ([_password.text length] == 0) {
-        [_password becomeFirstResponder];
-        return false;
-    }
-    if ([_password.text isEqualToString:_password2.text] == false) {
-        [_password2 becomeFirstResponder];
-        return false;
-    }
-    if ([_pincode.text length] != 4) {
-        [_pincode becomeFirstResponder];
-        return false;
-    }
     return YES;
 }
 
-- (IBAction)signOn {
+- (IBAction)done {
     if ([self validate] == NO)
         return;
     Signon *signOn = [[Signon alloc] init];
     signOn.name = _organisation.text;
-    signOn.firstName = _firstName.text;
-    signOn.surName = _surName.text;
-    signOn.pinCode = _pincode.text;
-    signOn.email = _email.text;
-    signOn.password = _password.text;
-    if (_logoView.image != nil) {
+    if (_isLogoSet) {
         signOn.logo = _logoView.image;
     }
 
-    [[Service getInstance]
-            signon:signOn
-           success: ^(ServiceResult *result) {
-               [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
-               [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
-               [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
-               [AppVault setLocationName: [result.jsonData valueForKey:@"locationName"]];
-           }
-             error:^(ServiceResult *serviceResult) {
-                        [serviceResult displayError];
-                    }
-    ];
+    EditUserViewController *controller = [[EditUserViewController alloc] init];
+    controller.signOn = signOn;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    _isLogoSet = YES;
     _logoView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_popover dismissPopoverAnimated:YES];
 

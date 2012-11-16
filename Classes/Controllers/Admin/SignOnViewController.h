@@ -11,18 +11,8 @@
 @interface SignOnViewController : UIViewController <UINavigationControllerDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (retain) IBOutlet UITextField *organisation;
-@property (retain) IBOutlet UITextField *ip;
-@property (retain) IBOutlet UITextField *password;
-@property (retain) IBOutlet UITextField *password2;
-@property (retain) IBOutlet UITextField *firstName;
-@property (retain) IBOutlet UITextField *surName;
-@property (retain) IBOutlet UITextField *email;
-@property (retain) IBOutlet UITextField *pincode;
-@property (retain) IBOutlet UIButton *signonButton;
 @property(nonatomic, strong) IBOutlet UIImageView * logoView;
-
 @property(nonatomic, strong) UIPopoverController *popover;
 
-- (IBAction)signOn;
-
+@property(nonatomic) BOOL isLogoSet;
 @end

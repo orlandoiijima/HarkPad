@@ -47,7 +47,6 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{40, 38}, {81, 111}}</string>
 								<reference key="NSSuperview" ref="352444795"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<int key="IBUIContentMode">4</int>
@@ -67,7 +66,6 @@
 										<int key="NSvFlags">274</int>
 										<string key="NSFrame">{{2, -1}, {147, 131}}</string>
 										<reference key="NSSuperview" ref="442570336"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="140011163"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<int key="IBUIContentMode">1</int>
@@ -79,7 +77,6 @@
 										<int key="NSvFlags">292</int>
 										<string key="NSFrame">{{-26, 145}, {203, 21}}</string>
 										<reference key="NSSuperview" ref="442570336"/>
-										<reference key="NSWindow"/>
 										<reference key="NSNextKeyView" ref="1037338272"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
 										<bool key="IBUIOpaque">NO</bool>
@@ -109,7 +106,6 @@
 								</array>
 								<string key="NSFrame">{{5, 6}, {151, 175}}</string>
 								<reference key="NSSuperview" ref="352444795"/>
-								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="936223964"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="919884324">
@@ -121,7 +117,6 @@
 						</array>
 						<string key="NSFrameSize">{162, 186}</string>
 						<reference key="NSSuperview" ref="692821877"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="442570336"/>
 						<reference key="IBUIBackgroundColor" ref="919884324"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -133,7 +128,6 @@
 				</array>
 				<string key="NSFrameSize">{162, 186}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="352444795"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIOpaque">NO</bool>
