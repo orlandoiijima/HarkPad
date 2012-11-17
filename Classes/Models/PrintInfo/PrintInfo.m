@@ -23,7 +23,7 @@
 {
     PrintInfo *info = [[PrintInfo alloc] init];
     info.templates = [[NSMutableArray alloc] init];
-    for(NSDictionary *templateDic in [infoJson valueForKey:@"templates"])
+    for(NSDictionary *templateDic in [infoJson valueForKey:@"layoutTemplates"])
     {
         PrintTemplate *template = [PrintTemplate templateFromJson:templateDic];
         [info.templates addObject: template];
@@ -37,7 +37,7 @@
     }
 
     info.documents = [[NSMutableArray alloc] init];
-    for(NSDictionary *documentDic in [infoJson valueForKey:@"orderDocuments"])
+    for(NSDictionary *documentDic in [infoJson valueForKey:@"orderDocumentDefinitions"])
     {
         OrderDocumentDefinition *document = [OrderDocumentDefinition documentFromJson:documentDic printInfo:info];
         [info.documents addObject: document];

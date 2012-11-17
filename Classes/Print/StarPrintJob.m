@@ -17,6 +17,7 @@
 #import "Location.h"
 #import "StarPrintOutputViewController.h"
 #import "UIImage+Tint.h"
+#import "MainTabBarController.h"
 #import <StarIO/SMPort.h>
 #import <sys/time.h>
 
@@ -50,11 +51,14 @@
 
 -(void) print {
     UIImage *imageToPrint = [self createImage];
-    StarPrintOutputViewController *controller = [StarPrintOutputViewController controllerWithImage:imageToPrint];
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+    StarPrintOutputViewController *controller = [StarPrintOutputViewController controllerWithImage:imageToPrint layoutTemplate:_template.name];
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    [popoverController presentPopoverFromRect:rootViewController.view.frame inView:rootViewController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    [self printImage:imageToPrint];
+    MainTabBarController *mainTabBarController = (MainTabBarController *)rootViewController.presentedViewController;
+    if ([mainTabBarController isKindOfClass:[MainTabBarController class]]) {
+        mainTabBarController.popover = [[UIPopoverController alloc] initWithContentViewController:controller];
+        [mainTabBarController.popover presentPopoverFromRect:CGRectMake(0, 0, mainTabBarController.view.frame.size.width, 70) inView:mainTabBarController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    }
+//    [self printImage:imageToPrint];
 }
 
 - (UIImage *)createImage {
@@ -115,6 +119,8 @@
         [self print:run row:-1 section:-1 pointSize: defaultPointSize];
     }
 
+    _imageHeight += _template.margin.bottom;
+
     UIImage *image =  UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
@@ -123,14 +129,15 @@
 
 -(float) print:(Run *)run row:(int)row section:(int)section pointSize:(float)pointSize {
     CGRect rect = CGRectZero;
+    UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
     if ([run.text isEqualToString:@"{logo}"]) {
         UIImage *logo = [UIImage imageNamed:@"anna-a-114x114.png"]; // [[[Cache getInstance] currentLocation] logo];
         if (logo != nil) {
             float height = ( run.width / logo.size.width) * logo.size.height;
             if (run.alignment == NSTextAlignmentCenter)
-                rect = CGRectMake((PAPERWIDTH - run.width)/2, [run.ySpec intValue], run.width, height);
+                rect = CGRectMake((PAPERWIDTH - run.width)/2, [self updateY:run.ySpec font:font], run.width, height);
             else
-                rect = CGRectMake([run.xSpec intValue], [run.ySpec intValue], run.width, height);
+                rect = CGRectMake([run.xSpec intValue], [self updateY:run.ySpec font:font], run.width, height);
             [logo drawInRect: rect];
         }
     }
@@ -138,21 +145,22 @@
         NSString *textToDraw = [run evaluateWithProvider:_dataSource row:row section:section];
         if ([textToDraw length] > 0) {
             NSString *ySpec = row == -1 ? run.ySpec : @"+0";
-            UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
             if (run.alignment == NSTextAlignmentCenter) {
                 CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(PAPERWIDTH, 200) lineBreakMode:NSLineBreakByWordWrapping];
                 rect = CGRectMake(0, [self updateY:ySpec font:font], PAPERWIDTH, measuredSize.height);
             }
             else {
-                int width = run.width == 0 ? PAPERWIDTH - _x - _template.margin.right : run.width;
+                [self updateX:run.xSpec font:font];
+                int width = run.width == 0 ? PAPERWIDTH - _x : run.width;
                 CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(width, 200) lineBreakMode:NSLineBreakByWordWrapping];
-                rect = CGRectMake([self updateX:run.xSpec font:font], [self updateY:ySpec font:font], width, measuredSize.height);
+                rect = CGRectMake(_x, [self updateY:ySpec font:font], width, measuredSize.height);
             }
             [textToDraw drawInRect:rect withFont:font lineBreakMode:NSLineBreakByWordWrapping alignment: run.alignment];
         }
     }
 
-    _lineHeight = rect.size.height;
+    if (rect.size.height > 0)
+        _lineHeight = rect.size.height;
 
     if (CGRectGetMaxY(rect) > _imageHeight)
         _imageHeight = CGRectGetMaxY(rect);

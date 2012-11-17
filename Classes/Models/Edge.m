@@ -12,12 +12,14 @@
 
 }
 
-- (Edge *) initWithDictionary:(NSMutableDictionary *)dictionary {
+- (Edge *) initWithString:(NSString *)string {
     self = [self init];
-    self.left = [[dictionary objectForKey:@"left"] intValue];
-    self.top = [[dictionary objectForKey:@"top"] intValue];
-    self.right = [[dictionary objectForKey:@"right"] intValue];
-    self.bottom = [[dictionary objectForKey:@"bottom"] intValue];
+    NSArray *parts = [string componentsSeparatedByString:@","];
+
+    self.left = [parts[0] intValue];
+    self.top = [parts[1] intValue];
+    self.right = [parts[2]intValue];
+    self.bottom = [parts[3]intValue];
     return self;
     
 }

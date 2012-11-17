@@ -177,7 +177,7 @@
     [Logger info: @"Print order"];
     if(_previousOrder == nil) return;
 
-    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_previousOrder];
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerBill order:_previousOrder];
     if ([printer countAvailableDocumentDefinitions] == 0) {
         [ModalAlert error:@"No documentdefinitions available"];
         return;

@@ -12,6 +12,7 @@
 		D0A7204BDAB40F7100228DAC /* CompanyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A720C221F9F8EFD97EDEB6 /* CompanyListViewController.m */; };
 		D0A72066C5BF01BB380A9C37 /* PrintInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728BD38634A7282D2C3D3 /* PrintInfo.m */; };
 		D0A7207B9029969873E01E28 /* Run.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A7216893E8F514E46974C5 /* Run.m */; };
+		D0A720859CCB0097924BEF43 /* StarPrintOutputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A723B0B974C631BCE7A55F /* StarPrintOutputViewController.xib */; };
 		D0A7209E2C64D86239D59353 /* SignOnViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72353EC05832573A4999C /* SignOnViewController.xib */; };
 		D0A720A1F60C0D6C5B013972 /* InvoicePrintDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72832716EC288968F9735 /* InvoicePrintDataSource.m */; };
 		D0A720BA62BACEACD773261C /* MenuCard.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72C2F2256A4408DA92E88 /* MenuCard.m */; };
@@ -408,6 +409,7 @@
 		D0A7239B8604124BDABCEC22 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D0A723A706F1D8F20F3BA86E /* MenuCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardCell.xib; sourceTree = "<group>"; };
 		D0A723AA6549D5C14009739E /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDelegate.h; sourceTree = "<group>"; };
+		D0A723B0B974C631BCE7A55F /* StarPrintOutputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarPrintOutputViewController.xib; sourceTree = "<group>"; };
 		D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterListViewController.m; sourceTree = "<group>"; };
 		D0A723F928BA0C776DEA4D18 /* MenuCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardListViewController.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
@@ -1035,6 +1037,7 @@
 				D0A7222BE2DDB3F14E9C0C16 /* PrinterListViewController */,
 				D0A7274051A97651DE4E5060 /* StarPrintOutputViewController.h */,
 				D0A72F769EEAF703DC4775E5 /* StarPrintOutputViewController.m */,
+				D0A723B0B974C631BCE7A55F /* StarPrintOutputViewController.xib */,
 			);
 			path = Print;
 			sourceTree = "<group>";
@@ -2218,6 +2221,7 @@
 				D0A7213431E2E3115307592F /* DebugViewController.xib in Resources */,
 				D0A72361D431AA008FE9EA28 /* EditUserViewController.xib in Resources */,
 				D0A72DE14ABE6C2F37E011FC /* logo.png in Resources */,
+				D0A720859CCB0097924BEF43 /* StarPrintOutputViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

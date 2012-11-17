@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "StarPrintOutputViewController.h"
 
 @interface StarPrintOutputViewController ()
@@ -14,29 +15,25 @@
 
 @implementation StarPrintOutputViewController
 
-+(StarPrintOutputViewController *)controllerWithImage:(UIImage *)image {
++(StarPrintOutputViewController *)controllerWithImage:(UIImage *)image layoutTemplate:(NSString *) templateName {
     StarPrintOutputViewController *controller = [[StarPrintOutputViewController alloc] init];
-    ((UIImageView *)controller.view).image = image;
+    controller.image = image;
+    controller.templateName = templateName;
     return controller;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+- (void)viewDidLoad {
+    self.contentSizeForViewInPopover = self.view.frame.size;
+    _scrollView.contentSize = CGSizeMake(_scrollView.frame.size.width, (_scrollView.frame.size.width / _image.size.width) * _image.size.height);
 
-- (void)loadView {
-    self.view = [[UIImageView alloc] init];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    _imageView = [[UIImageView alloc] initWithImage:_image];
+    [_scrollView addSubview:_imageView];
+    _imageView.contentMode = UIViewContentModeScaleAspectFill;
+    _imageView.frame = CGRectMake(0, 0, _scrollView.contentSize.width, _scrollView.contentSize.height);
+    _imageView.layer.borderColor = [UIColor blackColor].CGColor;
+    _imageView.layer.borderWidth = 2;
+    _imageView.clipsToBounds = NO;
+    _caption.text = [NSString stringWithFormat:@"Template: %@", _templateName];
 }
 
 - (void)didReceiveMemoryWarning

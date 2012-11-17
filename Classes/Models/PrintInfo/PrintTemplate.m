@@ -33,7 +33,7 @@
     template.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
     id margin = [infoJson objectForKey:@"margin"];
     if (margin != nil) {
-        template.margin = [[Edge alloc] initWithDictionary:margin];
+        template.margin = [[Edge alloc] initWithString:margin];
     }
     else
         template.margin = [[Edge alloc] init];

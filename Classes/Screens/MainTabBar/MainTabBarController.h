@@ -11,4 +11,5 @@
 @interface MainTabBarController : UITabBarController
 
 
+@property(nonatomic, strong) UIPopoverController *popover;
 @end

@@ -14,6 +14,6 @@
 @property(nonatomic) int right;
 @property(nonatomic) int bottom;
 
-- (Edge *)initWithDictionary:(NSMutableDictionary *)dictionary;
+- (Edge *)initWithString:(NSString *)string;
 
 @end
