@@ -20,7 +20,7 @@
 @synthesize datasource = _datasource;
 
 
-+ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocument *)documentInfo toPrinter: (PrinterInfo *)printer {
++ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocumentDefinition *)documentInfo toPrinter: (PrinterInfo *)printer {
     if (printer.type == PrinterTypeAirplay) {
         PdfCreator *creator = [PdfCreator pdfCreatorWithTemplate:documentInfo.template dataSource:dataSource];
         NSString *fileName = [NSString stringWithFormat:@"Invoice.pdf"];

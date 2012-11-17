@@ -129,7 +129,7 @@
     _dinnerStatus = info.dinnerStatus;
     _dinnerStatusView.text = info.dinnerCount == 0 ? @"" : [NSString stringWithFormat:@"%d", info.dinnerCount];
     [self setColorForView:_dinnerStatusView byStatus: _dinnerStatus];
-    [Logger Info:_dinnerStatusView.text];
+    [Logger info:_dinnerStatusView.text];
 }
 
 

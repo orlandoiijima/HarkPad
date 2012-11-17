@@ -18,10 +18,10 @@
 @synthesize logoLabel = _logoLabel;
 @synthesize logoView = _logoView;
 @synthesize streetField = _streetField;
-@synthesize numberField = _numberField;
 @synthesize zipCodeField = _zipCodeField;
 @synthesize cityField = _cityField;
 @synthesize phoneField = _phoneField;
+@synthesize isLogoSet = _isLogoSet;
 
 
 + (EditCompanyViewController *)controllerWithCompany:(Company *)company delegate: (id<ItemPropertiesDelegate>) delegate {
@@ -32,9 +32,9 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    _isLogoSet = YES;
     _logoView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [_popover dismissPopoverAnimated:YES];
-
 }
 
 - (IBAction)selectLogo: (id)dummy {
@@ -54,22 +54,31 @@
     _company.name = _companyName.text;
 
     _company.address.street = _streetField.text;
-    _company.address.number = _numberField.text;
     _company.address.zipCode = _zipCodeField.text;
     _company.address.city = _cityField.text;
     _company.phone = _phoneField.text;
             
-    if (_logoView.image != nil) {
+    if (_isLogoSet && _logoView.image != nil) {
         _company.logo = _logoView.image;
     }
 
     Service *service = [Service getInstance];
     HttpVerb verb = _company.isNew ? HttpVerbPost : HttpVerbPut;
-    [service requestResource:@"company" id:nil action:nil arguments:nil body:[_company toDictionary] verb:verb success:^(ServiceResult *serviceResult) {
-        [self.delegate didSaveItem:_company];
-    }                  error:^(ServiceResult *result) {
-        [result displayError];
-    }           progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing company", nil) parentView:self.view]];
+    [service requestResource:@"company"
+                          id:nil
+                      action:nil
+                   arguments:nil
+                        body:[_company toDictionary]
+                        verb:verb
+                     success:^(ServiceResult *serviceResult) {
+                                _company.id = serviceResult.id;
+                                 _company.locationId = [serviceResult.jsonData objectForKey:@"locationId"];
+                                [self.delegate didSaveItem:_company];
+                            }
+                       error:^(ServiceResult *result) {
+                                [result displayError];
+                            }
+                progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Storing company", nil) parentView:self.view]];
 
 }
 
@@ -99,7 +108,9 @@
     [shapeLayer setPath:path.CGPath];
     [[_logoView layer] addSublayer:shapeLayer];
 
-    _logoView.image = _company.logo;
+    if (_company.logo != nil)
+        _logoView.image = _company.logo;
+
     _companyName.text = _company.name;
 }
 

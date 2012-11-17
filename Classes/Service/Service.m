@@ -338,7 +338,7 @@ static Service *_service;
 
 - (void)requestResource:(NSString *)resource id:(NSString *)id action:(NSString *)action arguments:(NSString *)arguments body:(NSDictionary *)body verb:(HttpVerb)verb success:(void (^)(ServiceResult *))onSuccess error:(void (^)(ServiceResult *))onError progressInfo:(ProgressInfo *)progressInfo {
     if ((verb == HttpVerbPut || verb == HttpVerbPost) && [body count] == 0)
-        [Logger Info:@"Put or post without data"];
+        [Logger info:@"Put or post without data"];
 
     CallbackBlockInfo *info = [CallbackBlockInfo infoWithSuccess:onSuccess error:onError progressInfo:progressInfo];
 
@@ -366,7 +366,7 @@ static Service *_service;
             method = @"DELETE";
             break;
     }
-    [Logger Info:[NSString stringWithFormat:@"%@: %@", method, urlRequest]];
+    [Logger info:[NSString stringWithFormat:@"%@: %@", method, urlRequest]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
     request.timeoutInterval = 20;
     [request setHTTPMethod: method];
@@ -374,9 +374,9 @@ static Service *_service;
     if (body != nil) {
         NSString *jsonString = [[CJSONSerializer serializer] serializeObject: body error:&error];
         if(error != nil)
-            [Logger Info:error.description];
+            [Logger info:error.description];
         [request setHTTPBody:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
-        [Logger Info:jsonString];
+        [Logger info:jsonString];
     }
 
     NSArray *adminResources = [NSArray arrayWithObjects:@"location", @"company", nil];

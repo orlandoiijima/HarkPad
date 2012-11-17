@@ -10,7 +10,6 @@
 
 @interface Address : DTO
 @property(nonatomic, strong) NSString * street;
-@property(nonatomic, strong) NSString * number;
 @property(nonatomic, strong) NSString * zipCode;
 @property(nonatomic, strong) NSString * city;
 

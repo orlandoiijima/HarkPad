@@ -14,8 +14,8 @@ typedef enum LogLevel {
     LogLevelInfo, LogLevelWarning, LogLevelError
 } LogLevel;
 
-+ (void) Info:(NSString *)format;
-+ (void) Error:(NSString *)format;
++ (void)info:(NSString *)logMsg;
++ (void)error:(NSString *)logMsg;
 
 + (NSMutableArray *)lines;
 

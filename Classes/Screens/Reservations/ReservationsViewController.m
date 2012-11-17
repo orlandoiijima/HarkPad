@@ -186,7 +186,7 @@
     if(dataSource == nil) {
         dataSource = [[ReservationDataSource alloc] init];
         [dataSources setObject: dataSource forKey:key];
-        [Logger Info:@"start call"];
+        [Logger info:@"start call"];
         [[Service getInstance]
             getReservations: date
                 success:^(ServiceResult *serviceResult) {

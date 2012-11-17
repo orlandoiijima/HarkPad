@@ -24,12 +24,12 @@ typedef enum OrderTrigger {TriggerOrder, TriggerRequestCourse, TriggerServe, Tri
 + (PrintInfo *) infoFromJson:(NSMutableDictionary *)infoJson;
 - (PrintTemplate *) getTemplateNamed:(NSString *)templateName;
 
-- (NSMutableArray *)getDocumentInfoForTrigger:(OrderTrigger)trigger;
+- (NSMutableArray *)getDocumentDefinitionsForTrigger:(OrderTrigger)trigger;
 
 
 @end
 
-@interface OrderDocument : NSObject
+@interface OrderDocumentDefinition : NSObject
 
 @property(nonatomic, strong) id name;
 @property(nonatomic, strong) PrintTemplate * template;
@@ -38,6 +38,6 @@ typedef enum OrderTrigger {TriggerOrder, TriggerRequestCourse, TriggerServe, Tri
 @property(nonatomic, strong) PrinterInfo *printer;
 @property(nonatomic) bool totalizeProducts;
 
-+ (OrderDocument *)documentFromJson:(NSDictionary *)documentJson  printInfo: (PrintInfo *)printInfo;
++ (OrderDocumentDefinition *)documentFromJson:(NSDictionary *)documentJson  printInfo: (PrintInfo *)printInfo;
 
 @end

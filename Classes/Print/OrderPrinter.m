@@ -34,7 +34,7 @@
 }
 
 - (void) print {
-    for (OrderDocument *document in [[[Cache getInstance] printInfo] getDocumentInfoForTrigger: _trigger]) {
+    for (OrderDocumentDefinition *document in [[[Cache getInstance] printInfo] getDocumentDefinitionsForTrigger:_trigger]) {
         self.orderDataSource = [OrderDataSource
                 dataSourceForOrder:_order
                           grouping: noGrouping
@@ -48,6 +48,11 @@
         _orderDocument = document;
         [Print printWithDataSource:self withDocument:document toPrinter:document.printer];
     }
+}
+
+- (int)countAvailableDocumentDefinitions {
+    NSMutableArray *documents = [[[Cache getInstance] printInfo] getDocumentDefinitionsForTrigger:_trigger];
+    return [documents count];
 }
 
 - (NSUInteger)numberOfRowsInSection:(NSInteger)section {
@@ -78,8 +83,6 @@
         return currentLocation == nil ? @"" :  currentLocation.name;
     if ([variable compare: @"{locationAddressStreet}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return currentLocation == nil ? @"" :  currentLocation.address.street;
-    if ([variable compare: @"{locationAddressNumber}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.address.number;
     if ([variable compare: @"{locationAddressZipCode}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return currentLocation == nil ? @"" :  currentLocation.address.zipCode;
     if ([variable compare: @"{locationAddressCity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
@@ -130,7 +133,7 @@
         return [NSString stringWithFormat:@"%@", [Utils getAmountString: nettAmount withCurrency:YES]];
     }
 
-    [Logger Error:[NSString stringWithFormat:@"Unknown variable '%@'", variable]];
+    [Logger error:[NSString stringWithFormat:@"Unknown variable '%@'", variable]];
     return @"";
 }
 

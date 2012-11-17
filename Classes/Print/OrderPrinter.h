@@ -18,9 +18,11 @@
 @property(nonatomic) enum OrderTrigger trigger;
 @property(nonatomic, strong) OrderDataSource *orderDataSource;
 
-@property(nonatomic, strong) OrderDocument *orderDocument;
+@property(nonatomic, strong) OrderDocumentDefinition *orderDocument;
 
 + (OrderPrinter *)printerAtTrigger:(OrderTrigger)trigger order:(Order *)order;
 - (void) print;
+
+- (int)countAvailableDocumentDefinitions;
 
 @end

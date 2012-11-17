@@ -11,6 +11,7 @@
  */
 
 #import "ModalAlert.h"
+#import "Logger.h"
 
 @interface ModalAlertDelegate : NSObject <UIAlertViewDelegate>
 {
@@ -73,6 +74,7 @@
 
 + (BOOL) error: (NSString *) statement
 {
+    [Logger error:statement];
     return	[ModalAlert queryWithTitle:statement message:nil button1: @"OK" button2: nil];
 }
 @end

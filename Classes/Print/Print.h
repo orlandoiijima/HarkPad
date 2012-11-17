@@ -7,15 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class OrderDocument;
+@class OrderDocumentDefinition;
 @class PrinterInfo;
 
 
 @interface Print : NSObject
-@property(nonatomic, strong) OrderDocument *documentInfo;
+@property(nonatomic, strong) OrderDocumentDefinition *documentInfo;
 @property(nonatomic, strong) PrinterInfo *printer;
 @property(nonatomic, strong) id datasource;
 
-+ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocument *)documentInfo toPrinter:(PrinterInfo *)printer;
++ (void)printWithDataSource:(id)dataSource withDocument:(OrderDocumentDefinition *)documentInfo toPrinter:(PrinterInfo *)printer;
 
 @end

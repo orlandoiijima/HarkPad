@@ -29,11 +29,12 @@
 @property(nonatomic, strong) IBOutlet UILabel *logoLabel;
 @property(nonatomic, strong) IBOutlet UIImageView * logoView;
 @property(nonatomic, strong) IBOutlet UITextField *streetField;
-@property(nonatomic, strong) IBOutlet UITextField *numberField;
 @property(nonatomic, strong) IBOutlet UITextField *zipCodeField;
 @property(nonatomic, strong) IBOutlet UITextField *cityField;
 @property(nonatomic, strong) IBOutlet UITextField *phoneField;
 
+
+@property(nonatomic) BOOL isLogoSet;
 
 + (EditCompanyViewController *)controllerWithCompany:(Company *)company delegate:(id <ItemPropertiesDelegate>)delegate;
 

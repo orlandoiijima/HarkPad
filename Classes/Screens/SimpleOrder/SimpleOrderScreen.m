@@ -22,6 +22,7 @@
 #import "MenuPanelView.h"
 #import "PrintInfo.h"
 #import "OrderPrinter.h"
+#import "Logger.h"
 
 @implementation SimpleOrderScreen
 
@@ -173,9 +174,14 @@
 
 - (void) printPreviousOrder
 {
+    [Logger info: @"Print order"];
     if(_previousOrder == nil) return;
 
     OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_previousOrder];
+    if ([printer countAvailableDocumentDefinitions] == 0) {
+        [ModalAlert error:@"No documentdefinitions available"];
+        return;
+    }
     [printer print];
 }
 

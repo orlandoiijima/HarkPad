@@ -492,7 +492,7 @@
 
     CGRect boundingRect = [self boundingRectForDistrict: districtOffset tableInfo: tables];
     if (boundingRect.size.width == 0) {
-        [Logger Error:@"Empty boundingrectangle for district"];
+        [Logger error:@"Empty boundingrectangle for district"];
         return;
     }
     mapScaleX = ((float)districtView.bounds.size.width - 20) / boundingRect.size.width;

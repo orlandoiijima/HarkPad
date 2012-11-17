@@ -50,6 +50,10 @@
 
 -(void) print {
     UIImage *imageToPrint = [self createImage];
+    StarPrintOutputViewController *controller = [StarPrintOutputViewController controllerWithImage:imageToPrint];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:controller];
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    [popoverController presentPopoverFromRect:rootViewController.view.frame inView:rootViewController.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     [self printImage:imageToPrint];
 }
 
@@ -225,7 +229,6 @@
         {
             NSString *msg = [NSString stringWithFormat: NSLocalizedString(@"Failed to start printjob. Check if the printer is turned on and connected to the network (ip %@)", nil), _ip];
             [ModalAlert error:msg];
-            [Logger Info:msg];
             return;
         }
 
@@ -248,14 +251,12 @@
         }
         if(totalAmountWritten < commandSize)
         {
-            [Logger Info:[NSString stringWithFormat:@"Write to port timeout"]];
             [ModalAlert error:NSLocalizedString(@"Printer timeout", nil)];
         }
 
     }
     @catch (PortException *exception)
     {
-        [Logger Info:[NSString stringWithFormat:@"Write to port timeout"]];
         [ModalAlert error:NSLocalizedString(@"Printer timeout", nil)];
     }
     @finally

@@ -39,7 +39,7 @@
     info.documents = [[NSMutableArray alloc] init];
     for(NSDictionary *documentDic in [infoJson valueForKey:@"orderDocuments"])
     {
-        OrderDocument *document = [OrderDocument documentFromJson:documentDic printInfo: info];
+        OrderDocumentDefinition *document = [OrderDocumentDefinition documentFromJson:documentDic printInfo:info];
         [info.documents addObject: document];
     }
 
@@ -62,9 +62,9 @@
     return nil;
 }
 
-- (NSMutableArray *)getDocumentInfoForTrigger: (OrderTrigger)trigger {
+- (NSMutableArray *)getDocumentDefinitionsForTrigger: (OrderTrigger)trigger {
     NSMutableArray *infos = [[NSMutableArray alloc] init];
-    for (OrderDocument *document in self.documents) {
+    for (OrderDocumentDefinition *document in self.documents) {
         if (document.trigger == trigger) {
             [infos addObject:document];
         }
@@ -88,7 +88,7 @@
 @end
 
 
-@implementation OrderDocument {
+@implementation OrderDocumentDefinition {
 }
 
 @synthesize name = _name;
@@ -99,9 +99,9 @@
 @synthesize totalizeProducts = _totalizeProducts;
 
 
-+ (OrderDocument *) documentFromJson:(NSDictionary *)documentJson printInfo: (PrintInfo *)printInfo
++ (OrderDocumentDefinition *) documentFromJson:(NSDictionary *)documentJson printInfo: (PrintInfo *)printInfo
 {
-    OrderDocument *doc = [[OrderDocument alloc] init];
+    OrderDocumentDefinition *doc = [[OrderDocumentDefinition alloc] init];
     doc.name = [documentJson objectForKey:@"name"];
     doc.template  = [printInfo getTemplateNamed: [documentJson objectForKey:@"templateName"]];
     doc.trigger = (OrderTrigger) [[documentJson objectForKey:@"trigger"] intValue];

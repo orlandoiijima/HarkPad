@@ -16,15 +16,15 @@
 
 static NSMutableArray *lines;
 
-+ (void) Info:(NSString *)logMsg {
-    [Logger Log:LogLevelInfo format:logMsg];
++ (void)info:(NSString *)logMsg {
+    [Logger log:LogLevelInfo format:logMsg];
 }
 
-+ (void) Error:(NSString *)logMsg {
-    [Logger Log:LogLevelError format:logMsg];
++ (void)error:(NSString *)logMsg {
+    [Logger log:LogLevelError format:logMsg];
 }
 
-+ (void) Log: (LogLevel)level format:(NSString *)logMsg {
++ (void)log:(LogLevel)level format:(NSString *)logMsg {
     NSLog(@"%@", logMsg);
     TFLog([logMsg length] > 256 ? [logMsg substringToIndex:256]: logMsg);
     if (lines == nil)

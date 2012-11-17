@@ -81,7 +81,7 @@
                 return product;
         }
     }
-    [Logger Error:[NSString stringWithFormat:@"product '%@' not found", productId]];
+    [Logger error:[NSString stringWithFormat:@"product '%@' not found", productId]];
     return [Product nullProduct];
 }
 

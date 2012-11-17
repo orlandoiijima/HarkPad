@@ -17,7 +17,6 @@
     if (self == nil) return nil;
     
     self.street = [dictionary objectForKey:@"street"];
-    self.number = [dictionary objectForKey:@"number"];
     self.zipCode = [dictionary objectForKey:@"zipCode"];
     self.city = [dictionary objectForKey:@"city"];
 
@@ -28,7 +27,6 @@
 {
     NSMutableDictionary *dic = [super toDictionary];
     [dic setObject: self.street forKey:@"street"];
-    [dic setObject: self.street forKey:@"number"];
     [dic setObject: self.street forKey:@"zipCode"];
     [dic setObject: self.street forKey:@"city"];
     return dic;

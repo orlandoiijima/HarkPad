@@ -53,7 +53,7 @@
                                 serviceResult.id = id;
                         }
                         serviceResult.isSuccess = true;
-                        [Logger Info:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+                        [Logger info:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
                     }
                     id error =  [dic objectForKey:@"error"];
                     if(error != nil) {
@@ -80,7 +80,7 @@
         }
     }
     if (serviceResult.isSuccess == false && [serviceResult.error length] > 0)
-        [Logger Info:serviceResult.error];
+        [Logger info:serviceResult.error];
 
     return serviceResult;
 }

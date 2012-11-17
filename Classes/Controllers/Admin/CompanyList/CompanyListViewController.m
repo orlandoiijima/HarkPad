@@ -63,6 +63,7 @@
     if (company == nil) {
         company = [[Company alloc] init];
         company.name = NSLocalizedString(@"New company", nil);
+        company.accountId = [[_companies objectAtIndex:0] accountId];
         [self.navigationController pushViewController:[EditCompanyViewController controllerWithCompany:company delegate:self] animated:YES];
     }
     else {
@@ -74,6 +75,9 @@
 - (void)didSaveItem:(id)item {
     [_companies addObject:item];
     [_companyView reloadData];
+
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate didSelectItem:item];
 }
 
 @end
