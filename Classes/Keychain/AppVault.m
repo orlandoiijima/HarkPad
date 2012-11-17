@@ -15,7 +15,7 @@
 }
 
 + (bool) isDeviceRegistered {
-    return  ([[AppVault deviceId] length] != 0);
+    return  ([[AppVault deviceId] length] != 0 && [AppVault locationId] != 0 && [AppVault accountId] != 0);
 }
 
 + (NSString *)deviceId {
