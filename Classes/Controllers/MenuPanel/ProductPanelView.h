@@ -9,7 +9,6 @@
 
 
 @class Product;
-@class Menu;
 @class ProductCategory;
 @class MenuCard;
 @protocol ProductPanelDelegate <NSObject>
@@ -22,7 +21,6 @@
 - (void) didTapCategory: (ProductCategory *)category;
 //- (void) didInclude: (id)item inQuickMenu: (bool)include;
 - (void) didLongPressProduct: (Product *)product;
-- (void) didLongPressMenu: (Menu *)menu;
 - (void) didLongPressCategory: (ProductCategory *)category;
 @end
 

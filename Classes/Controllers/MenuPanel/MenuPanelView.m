@@ -96,10 +96,6 @@
 
 }
 
-- (void)didLongPressMenu:(Menu *)menu {
-
-}
-
 - (void)didLongPressProduct:(Product *)product {
 
 }

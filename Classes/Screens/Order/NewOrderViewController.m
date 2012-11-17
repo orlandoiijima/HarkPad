@@ -203,63 +203,67 @@
     [self.dataSource highlightRowsInTableView:_orderView forSeat:seat];
 }
 
-//- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapProduct:(Product *)product {
-//    if (product == nil) return;
-//    if (self.selectedCourse != nil && product.category.isFood) {
-//        if (self.selectedCourse.servedOn != nil) {
-//            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
-//                return;
-//        }
-//        else
-//        if (self.selectedCourse.requestedOn != nil) {
-//            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
-//                return;
-//        }
-//    }
-//    for(Guest *guest in [_tableView selectedGuests]) {
-//        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
-//    }
-//    if (_tableView.isTableSelected) {
-//        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
-//    }
-//
-//    Course *nextCourse = nil;
-//    if (self.selectedCourse != nil) {
-//        nextCourse = self.selectedCourse.nextCourse;
-//        if (nextCourse == nil) {
-//            nextCourse = [_order addCourse];
-//            [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
-//        }
-//    }
-//
-//    [self.tableOverlayHud showForGuest:[self selectedGuest]];
-//    if (self.autoAdvance) {
-//        if (self.selectedGuest != nil) {
-//            if (self.selectedGuest.isLast) {
-//                if(nextCourse != nil) {
-//                    //
-//                    self.selectedCourse = nextCourse;
-//                    self.selectedGuest = _order.firstGuest;
-//                }
-//            }
-//            else {
-//                Guest *nextGuest =  self.selectedGuest.nextGuest;
-//                if (nextGuest != nil)
-//                    self.selectedGuest = nextGuest;
-//            }
-//        }
-//    }
-//}
-//
-//- (void)menuTreeView:(MenuTreeView *)menuTreeView didTapMenu:(Menu *)menu {
-//    for(Guest *guest in [_tableView selectedGuests]) {
-//        for(MenuItem *menuItem in menu.items) {
-//            [self addProduct: menuItem.product forSeat: guest.seat course: menuItem.course];
-//        }
-//    }
-//    [self.tableOverlayHud showForGuest:[self selectedGuest]];
-//    [self selectNextGuest];
-//}
+- (void)didTapProduct:(Product *)product {
+    if (product == nil) return;
+
+    if (product.isMenu)
+        [self addMenu:product];
+
+    if (self.selectedCourse != nil && product.category.isFood) {
+        if (self.selectedCourse.servedOn != nil) {
+            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
+                return;
+        }
+        else
+        if (self.selectedCourse.requestedOn != nil) {
+            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
+                return;
+        }
+    }
+    for(Guest *guest in [_tableView selectedGuests]) {
+        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
+    }
+    if (_tableView.isTableSelected) {
+        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
+    }
+
+    Course *nextCourse = nil;
+    if (self.selectedCourse != nil) {
+        nextCourse = self.selectedCourse.nextCourse;
+        if (nextCourse == nil) {
+            nextCourse = [_order addCourse];
+            [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
+        }
+    }
+
+    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    if (self.autoAdvance) {
+        if (self.selectedGuest != nil) {
+            if (self.selectedGuest.isLast) {
+                if(nextCourse != nil) {
+                    //
+                    self.selectedCourse = nextCourse;
+                    self.selectedGuest = _order.firstGuest;
+                }
+            }
+            else {
+                Guest *nextGuest =  self.selectedGuest.nextGuest;
+                if (nextGuest != nil)
+                    self.selectedGuest = nextGuest;
+            }
+        }
+    }
+}
+
+- (void)addMenu:(Product *)menu {
+    for(Guest *guest in [_tableView selectedGuests]) {
+        for(MenuItem *menuItem in menu.items) {
+            [self addProduct: menuItem.product forSeat: guest.seat course: menuItem.course];
+        }
+    }
+    [self.tableOverlayHud showForGuest:[self selectedGuest]];
+    [self selectNextGuest];
+}
 
 - (BOOL)canSelectCourse:(NSUInteger)courseOffset {
     return YES;
