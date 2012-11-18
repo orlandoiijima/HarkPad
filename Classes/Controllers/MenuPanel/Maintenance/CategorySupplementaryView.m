@@ -48,6 +48,8 @@
         _colorButton.hidden = YES;
         _foodButton.enabled = NO;
         _foodButton.hidden = YES;
+        _timeButton.enabled = NO;
+        _timeButton.hidden = YES;
         _name.enabled = NO;
     }
 }
