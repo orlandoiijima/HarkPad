@@ -76,6 +76,7 @@
 		D0A72898111E27A970BF1941 /* MainTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72229AE52F8A541E6A3C5 /* MainTabBarController.m */; };
 		D0A728ACF4C4B49B4FC42477 /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A728FB65368A1906AE9D39 /* Session.m */; };
 		D0A728B66C7CFE3F883F6E0F /* slider-metal-handle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A72D7591E606746ABD3714 /* slider-metal-handle@2x.png */; };
+		D0A7290E5F08CE6332AF8F42 /* LocalLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A723B40BA222678C0B9198 /* LocalLogViewController.m */; };
 		D0A72929641A070928825DB6 /* slider-metal-track.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A720F68AD99FFAF3740AF7 /* slider-metal-track.png */; };
 		D0A7292B923A742DFCB5A128 /* right_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A7298DE8F73C351B7BDE0A /* right_arrow@2x.png */; };
 		D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A725D9CED2E19A14244897 /* StarBitmap.m */; };
@@ -265,8 +266,6 @@
 		E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */; };
 		E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F4638F134CE6120052CDDC /* BacklogViewController.xib */; };
 		E5F609951348668300D88587 /* printer.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609941348668300D88587 /* printer.png */; };
-		E5F6099913487F6300D88587 /* LogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F6099713487F6000D88587 /* LogViewController.m */; };
-		E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5F6099813487F6100D88587 /* LogViewController.xib */; };
 		E5F609A113489AAF00D88587 /* bug.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A013489AAF00D88587 /* bug.png */; };
 		E5F609A313489C2400D88587 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = E5F609A213489C2200D88587 /* star.png */; };
 		E5F609A313489C2400D88593 /* SimpleOrderScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = E5F609A313489C2400D88592 /* SimpleOrderScreen.m */; };
@@ -410,6 +409,7 @@
 		D0A723A706F1D8F20F3BA86E /* MenuCardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuCardCell.xib; sourceTree = "<group>"; };
 		D0A723AA6549D5C14009739E /* MenuDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuDelegate.h; sourceTree = "<group>"; };
 		D0A723B0B974C631BCE7A55F /* StarPrintOutputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StarPrintOutputViewController.xib; sourceTree = "<group>"; };
+		D0A723B40BA222678C0B9198 /* LocalLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLogViewController.m; sourceTree = "<group>"; };
 		D0A723F48BA9402C38F4A370 /* PrinterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrinterListViewController.m; sourceTree = "<group>"; };
 		D0A723F928BA0C776DEA4D18 /* MenuCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuCardListViewController.m; sourceTree = "<group>"; };
 		D0A7242671D5CB0FF9DAC04B /* PrintTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrintTable.h; path = PrintInfo/PrintTable.h; sourceTree = "<group>"; };
@@ -542,6 +542,7 @@
 		D0A72EA7B1FB7DEC6B40B148 /* UITabBarHistoryTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UITabBarHistoryTemplate.png; sourceTree = "<group>"; };
 		D0A72EC5BF048C4E5CAA8817 /* slider-metal-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-metal-track@2x.png"; sourceTree = "<group>"; };
 		D0A72EE5BE7CFCF8FD4D8458 /* LocationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationCell.h; sourceTree = "<group>"; };
+		D0A72EEEA3D4059379722507 /* LocalLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalLogViewController.h; sourceTree = "<group>"; };
 		D0A72EFB74FFDB33A0BF070A /* MenuPanelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuPanelView.h; sourceTree = "<group>"; };
 		D0A72F208B9F00F8D380D45D /* EditUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserViewController.m; sourceTree = "<group>"; };
 		D0A72F21527D201A7035EC26 /* slider-default-track@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "slider-default-track@2x.png"; sourceTree = "<group>"; };
@@ -786,9 +787,6 @@
 		E5F4638E134CE5FA0052CDDC /* BacklogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BacklogViewController.m; sourceTree = "<group>"; };
 		E5F4638F134CE6120052CDDC /* BacklogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BacklogViewController.xib; sourceTree = "<group>"; };
 		E5F609941348668300D88587 /* printer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = printer.png; sourceTree = "<group>"; };
-		E5F6099613487F6000D88587 /* LogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewController.h; sourceTree = "<group>"; };
-		E5F6099713487F6000D88587 /* LogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewController.m; sourceTree = "<group>"; };
-		E5F6099813487F6100D88587 /* LogViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogViewController.xib; sourceTree = "<group>"; };
 		E5F609A013489AAF00D88587 /* bug.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bug.png; sourceTree = "<group>"; };
 		E5F609A213489C2200D88587 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		E5F609A313489C2400D88588 /* PopupHost.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PopupHost.h; sourceTree = "<group>"; };
@@ -1014,6 +1012,8 @@
 				D0A72C396D16F812C16744A6 /* DebugViewController.h */,
 				D0A720A09E74AAD32481EF81 /* DebugViewController.m */,
 				D0A7210881ED4737FC7D4582 /* DebugViewController.xib */,
+				D0A72EEEA3D4059379722507 /* LocalLogViewController.h */,
+				D0A723B40BA222678C0B9198 /* LocalLogViewController.m */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -1827,7 +1827,6 @@
 				E5F609A313489C2400D885B1 /* Inprogress */,
 				E5F609A313489C2400D885B2 /* Reservations */,
 				E5F609A313489C2400D885B3 /* Sales */,
-				E5F609A313489C2400D885B4 /* Log */,
 				E5F609A313489C2400D885B5 /* Dashboard */,
 				E5F609A313489C2400D885B6 /* Backlog */,
 				E5F609A313489C2400D885C8 /* ReservationsSimple */,
@@ -1899,16 +1898,6 @@
 				E5E42F011350CA93005397C0 /* SalesViewController.h */,
 			);
 			path = Sales;
-			sourceTree = "<group>";
-		};
-		E5F609A313489C2400D885B4 /* Log */ = {
-			isa = PBXGroup;
-			children = (
-				E5F6099813487F6100D88587 /* LogViewController.xib */,
-				E5F6099713487F6000D88587 /* LogViewController.m */,
-				E5F6099613487F6000D88587 /* LogViewController.h */,
-			);
-			path = Log;
 			sourceTree = "<group>";
 		};
 		E5F609A313489C2400D885B5 /* Dashboard */ = {
@@ -2111,7 +2100,6 @@
 				E5B7F67B134704D10024AB35 /* ReservationViewController.xib in Resources */,
 				E5B7F67E1347447D0024AB35 /* uk.png in Resources */,
 				E5F609951348668300D88587 /* printer.png in Resources */,
-				E5F6099A13487F6300D88587 /* LogViewController.xib in Resources */,
 				E5F609A113489AAF00D88587 /* bug.png in Resources */,
 				E5F609A313489C2400D88587 /* star.png in Resources */,
 				E5F46391134CE6340052CDDC /* BacklogViewController.xib in Resources */,
@@ -2303,7 +2291,6 @@
 				E561E26A1334B13E00229B76 /* ReservationDataSource.m in Sources */,
 				E5B7BEC9133F3D6B0020FD74 /* TableInfo.m in Sources */,
 				E5B7F67A134704D10024AB35 /* ReservationEditViewController.m in Sources */,
-				E5F6099913487F6300D88587 /* LogViewController.m in Sources */,
 				E5F4638C134CCEE10052CDDC /* Backlog.m in Sources */,
 				E5F46390134CE6340052CDDC /* BacklogViewController.m in Sources */,
 				E5E42F041350CA96005397C0 /* SalesViewController.m in Sources */,
@@ -2462,6 +2449,7 @@
 				D0A7250383580A0D18BE18E0 /* DebugViewController.m in Sources */,
 				D0A72BD4B227247F2AC1BC4E /* LogItem.m in Sources */,
 				D0A72047296892428D753976 /* EditUserViewController.m in Sources */,
+				D0A7290E5F08CE6332AF8F42 /* LocalLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

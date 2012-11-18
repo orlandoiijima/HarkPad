@@ -16,7 +16,7 @@
 #import "SalesViewController.h"
 #import "WorkInProgressViewController.h"
 #import "../Screens/Reservations/ReservationsViewController.h"
-#import "LogViewController.h"
+#import "LocalLogViewController.h"
 #import "MBProgressHUD.h"
 
 @class TableMapViewController;

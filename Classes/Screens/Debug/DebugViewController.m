@@ -12,6 +12,7 @@
 #import "Logger.h"
 #import "LogItem.h"
 #import "Session.h"
+#import "LocalLogViewController.h"
 
 @interface DebugViewController ()
 
@@ -69,7 +70,7 @@
         case 2:
             return 5;
         case 3:
-            return [[Logger lines] count];
+            return 1;
     }
     return 0;
 }
@@ -164,14 +165,10 @@
                     break;
             }
             break;
-        case 3: {
-            int index = (int)[[Logger lines] count] - indexPath.row - 1;
-            if (index >= 0) {
-                LogItem *logItem = [[Logger lines] objectAtIndex:index];
-                cell.textLabel.text = logItem.message;
-            }
+        case 3:
+            cell.textLabel.text = @"Log";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
-        }
     }
 
     return cell;
@@ -190,4 +187,10 @@
     return @"";
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(indexPath.section == 3) {
+        LocalLogViewController *controller = [[LocalLogViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+}
 @end

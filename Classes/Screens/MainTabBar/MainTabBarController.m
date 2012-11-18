@@ -15,7 +15,6 @@
 #import "SalesViewController.h"
 #import "WorkInProgressViewController.h"
 #import "ChefViewController.h"
-#import "LogViewController.h"
 #import "SimpleOrderScreen.h"
 #import "MenuCardListViewController.h"
 #import "PrinterListViewController.h"
@@ -88,11 +87,6 @@
                 controller = [[ReservationsViewController alloc] init];
             }
             controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Reservations", nil) image:[UIImage imageNamed:@"calendar"] tag:1];
-        }
-
-        if ([screen isEqualToString:@"log"]) {
-            controller = [[LogViewController alloc] init];
-            controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Log" image:[UIImage imageNamed:@"bug"] tag:1];
         }
 
         if ([screen isEqualToString:@"quickorder"]) {
