@@ -28,6 +28,10 @@
 {
     [super viewDidLoad];
 
+    self.title = NSLocalizedString(@"Orderwindow", nil);
+
+    self.view.backgroundColor = [UIColor darkGrayColor];
+
     self.contentSizeForViewInPopover = CGSizeMake(300, 80);
 
     _slider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(30, 40, 240, 40)];

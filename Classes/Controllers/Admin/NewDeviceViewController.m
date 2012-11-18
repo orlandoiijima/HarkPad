@@ -12,6 +12,7 @@
 #import "Company.h"
 #import "Session.h"
 #import "AppVault.h"
+#import "ModalAlert.h"
 
 @interface NewDeviceViewController ()
 
@@ -82,6 +83,7 @@
                        verb:HttpVerbPost
                     success:^(ServiceResult *result) {
                                 [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
+                                [ModalAlert inform:@"Registered - restart"];
                             }
                       error:^(ServiceResult *result){}
                progressInfo:[ProgressInfo progressWithHudText:@"" parentView:self.view]];
