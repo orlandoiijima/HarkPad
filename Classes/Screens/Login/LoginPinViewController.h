@@ -29,6 +29,8 @@
 
 @property(nonatomic, strong) UILabel *name;
 
+@property(nonatomic) BOOL isConfigLoaded;
+
 + (LoginPinViewController *)controllerWithAuthenticatedBlock:(void (^)(User *))didAuthenticateBlock;
 
 - (void) go;
