@@ -10,4 +10,5 @@
 
 @interface LocalLogViewController : UITableViewController
 
+@property(nonatomic) NSUInteger lastCount;
 @end

@@ -33,7 +33,16 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self.tableView reloadData];
+    int count = [[Logger lines] count];
+    if (count == 0) return;
+    NSMutableArray *newItems = [[NSMutableArray alloc] init];
+    for (int j = _lastCount; j < count; j++) {
+        [newItems addObject:[NSIndexPath indexPathForItem:j inSection:0]];
+    }
+    [self.tableView insertRowsAtIndexPaths:newItems withRowAnimation:UITableViewRowAnimationLeft];
+ //   [self.tableView reloadData];
+    _lastCount = count;
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:count-1 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,14 +60,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[Logger lines] count];
+    _lastCount = [[Logger lines] count];
+    return _lastCount;
 }
 
 - (LogItem *)itemAtIndexPath:(NSIndexPath *)indexPath {
-    int index = (int)[[Logger lines] count] - indexPath.row - 1;
-    if (index < 0)
+    if (indexPath.row >= [[Logger lines] count])
         return nil;
-    return [[Logger lines] objectAtIndex:index];
+    return [[Logger lines] objectAtIndex:indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
