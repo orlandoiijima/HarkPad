@@ -31,6 +31,7 @@
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
     flowLayout.headerReferenceSize = CGSizeMake(200, 40);
+    flowLayout.footerReferenceSize = CGSizeMake(200, 20);
     if (numberOfColumns < 1 || frame.size.width / numberOfColumns == 0)
         [flowLayout setItemSize:CGSizeMake(50, 50)];
     else
@@ -143,6 +144,8 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if([kind isEqualToString: UICollectionElementKindSectionHeader] == false)
+        return nil;
     ProductCategory *category = [self categoryBySection:indexPath.section];
     if (category == nil) return nil;
     CategorySupplementaryView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"wsa" forIndexPath:indexPath];
