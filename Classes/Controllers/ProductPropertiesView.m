@@ -132,7 +132,7 @@
 }
 
 - (IBAction)updateVat {
-    [_product setValue: [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex] forKey:@"vat"];
+    [_product setValue: [_menuCard vatPercentageByIndex: uiVat.selectedSegmentIndex] forKey:@"vatPercentage"];
     [self didUpdate];
 }
 
