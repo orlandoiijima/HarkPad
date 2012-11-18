@@ -89,6 +89,20 @@
     return @"";
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    switch (section) {
+        case 0:
+            return @"";
+        case 1:
+            return @"De vault bevat de vaste gegevens van een geregistreerd device. Tap op de vuilnisbak boven om de vault leeg te maken en daarmee dit device te de-registreren.";
+        case 2:
+            return @"Gegevens van de ingelogde gebruiker. Voor administrator-handelingen is naast een pincode ook email en wachtwoord vereist.";
+        case 3:
+            return @"Lokale log van dit device";
+    }
+    return @"";
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
