@@ -40,14 +40,16 @@
     if (_show == MenuPanelShowAll) {
         ProductCategory *favorites = [ProductCategory categoryFavorites];
         for (Product *product in card.favorites) {
-            [favorites.products addObject:product];
+            if (product.category.isNowOrderable)
+                [favorites.products addObject:product];
         }
         if ([favorites.products count] > 0)
             [_categories addObject:favorites];
     }
 
     for (ProductCategory *category in card.categories) {
-        [_categories addObject: category];
+        if (category.isNowOrderable)
+            [_categories addObject: category];
     }
     _categoryPanelView.categories = _categories;
 }

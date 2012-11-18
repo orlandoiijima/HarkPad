@@ -89,6 +89,8 @@
 }
 
 - (BOOL) isNowOrderable {
+    if (self.isOrderableAllDay)
+        return YES;
     float now = [[NSDate date] hour] + [[NSDate date] minute] / 60.0;
     if (now > _orderableFromHour && now <= _orderableToHour)
         return YES;
@@ -96,7 +98,7 @@
 }
 
 - (BOOL) isOrderableAllDay {
-    if (_orderableFromHour == 0 && _orderableToHour == 0)
+    if (_orderableToHour == 0)
         return YES;
     return NO;
 }
