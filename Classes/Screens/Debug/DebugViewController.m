@@ -39,7 +39,7 @@
 }
 
 - (void)clearVault {
-    if([ModalAlert confirm:@"Unregister device ?"] == NO)
+    if([ModalAlert confirm:@"Unregister device ? (note: restart required)"] == NO)
         return;
     [AppVault setDeviceId:nil];
     [AppVault setAccountId:nil];

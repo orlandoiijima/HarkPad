@@ -9,6 +9,7 @@
 #import "EditUserViewController.h"
 #import "Service.h"
 #import "AppVault.h"
+#import "ModalAlert.h"
 
 @interface EditUserViewController ()
 
@@ -42,6 +43,7 @@
                [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
                [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
                [AppVault setLocationName: [result.jsonData valueForKey:@"locationName"]];
+               [ModalAlert inform:@"Registration complete. Restart required."];
            }
              error:^(ServiceResult *serviceResult) {
                         [serviceResult displayError];

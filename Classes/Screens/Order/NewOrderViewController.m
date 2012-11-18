@@ -158,23 +158,20 @@
 }
 
 - (void) save {
+    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_order];
     if (_order.entityState == EntityStateNew)
         [[Service getInstance] createOrder:_order success:^(ServiceResult *serviceResult){
             _order.id = serviceResult.id;
-            OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order: _order];
             [printer print];
         } error:^(ServiceResult *serviceResult){
             [serviceResult displayError];
         }];
     else
         [[Service getInstance] updateOrder:_order success:^(ServiceResult *serviceResult){
-            _order.id = serviceResult.id;
+            [printer print];
         } error:^(ServiceResult *serviceResult){
             [serviceResult displayError];
         }];
-
-    OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerOrder order:_order];
-    [printer print];
 
     [self.navigationController popViewControllerAnimated:YES];
 }
