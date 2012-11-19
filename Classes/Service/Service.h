@@ -39,7 +39,6 @@ typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} H
 @property(nonatomic, strong) UIPopoverController *popover;
 
 + (Service *) getInstance;
-+ (void) clear;
 - (NSURL *) makeEndPoint:(NSString *)command withQuery: (NSString *) query;
 - (NSMutableArray *) getLog;
 - (void) undockTable: (NSString *)tableId;
@@ -77,21 +76,16 @@ typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} H
 - (void) searchReservationsForText: (NSString *)query success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 - (void) getPreviousReservationsForReservation: (NSString *) reservationId delegate:(id)delegate callback:(SEL)callback;
 - (void) getCountAvailableSeatsPerSlotFromDate: (NSDate *)from toDate: (NSDate *)to success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) createProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) updateProduct: (Product *)product success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
-- (void) updateCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) createCategory: (ProductCategory *)category success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+- (ServiceResult *)deleteOrderLine:(OrderLine *)orderLine success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error;
+
 
 - (void) getConfig: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (void)getSalesForDate:(NSDate *)date success:(void (^)(ServiceResult *))success error:(void (^)(ServiceResult *))error progressInfo:(ProgressInfo *)progressInfo;
 
 - (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
-- (void) createCompany: (Company *)company credentials:(Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
-- (void) registerDeviceAtLocation:(int)locationId withCredentials: (Credentials *)credentials success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error progressInfo:(ProgressInfo *)progressInfo;
 
-- (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine;
 
 - (void)getPageCallback: (NSString *)page withQuery: (NSString *)query  delegate:(id)delegate callback:(SEL)callback userData: (id)userData;
 

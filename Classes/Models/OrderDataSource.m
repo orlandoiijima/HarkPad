@@ -246,13 +246,7 @@
 
     for(OrderLine *l in itemsToDelete) {
         if (l.offset != -1) {
-            ServiceResult *result = [[Service getInstance] deleteOrderLine: l];
-            if(result == nil) return;
-
-            if(result.isSuccess == false) {
-                [ModalAlert inform:NSLocalizedString(result.error, nil)];
-                return;
-            }
+            [[Service getInstance] deleteOrderLine: l success:nil error:^(ServiceResult *result) {[result displayError];}];
         }
     }
     for (OrderLine *line in itemsToDelete) {

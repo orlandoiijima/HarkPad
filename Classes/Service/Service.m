@@ -207,14 +207,16 @@ static Service *_service;
 
 // *********************************
 
-- (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine
+- (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     Order *order = [[Order alloc] init];
+    order.entityState = EntityStateNone;
+    order.entityState = EntityStateModified;
     order.id = orderLine.order.id;
     orderLine.entityState = EntityStateDeleted;
     [order addOrderLine:orderLine];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderDic verb:HttpVerbPut success:success error:error];
     return nil;
 }
 
