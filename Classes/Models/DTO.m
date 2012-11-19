@@ -35,7 +35,7 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (entityState != EntityStateNew)
+    if (entityState != EntityStateNew && id != nil)
         [dic setObject: self.id forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
     return dic;
