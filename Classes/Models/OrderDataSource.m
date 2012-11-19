@@ -245,7 +245,7 @@
     }
 
     for(OrderLine *l in itemsToDelete) {
-        if (l.offset != -1) {
+        if (l.isNew == NO) {
             [[Service getInstance] deleteOrderLine: l success:nil error:^(ServiceResult *result) {[result displayError];}];
         }
     }
