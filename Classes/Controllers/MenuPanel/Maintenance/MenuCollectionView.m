@@ -52,6 +52,7 @@
 
     [view registerClass:[ProductPanelCell class] forCellWithReuseIdentifier:@"xjsjw"];
     [view registerNib:[UINib nibWithNibName:@"CategorySupplementaryView" bundle:[NSBundle mainBundle]]  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"wsa"];
+    [view registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"f"];
 
     [flowLayout setUpGestureRecognizersOnCollectionView];
     return view;
@@ -145,7 +146,7 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     if([kind isEqualToString: UICollectionElementKindSectionHeader] == false)
-        return nil;
+        return [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"f" forIndexPath:indexPath];;
     ProductCategory *category = [self categoryBySection:indexPath.section];
     if (category == nil) return nil;
     CategorySupplementaryView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"wsa" forIndexPath:indexPath];
