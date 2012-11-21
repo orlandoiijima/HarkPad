@@ -13,13 +13,13 @@
     NSDate *createdOn;
     NSDecimalNumber *amount;
     NSString *tableId;
-    NSString * orderId;
+    int orderId;
     int paymentType;
 }
 
 @property (retain) NSDate *createdOn;
 @property (retain) NSDecimalNumber *amount;
-@property NSString * orderId;
+@property int orderId;
 @property int paymentType;
 @property (retain) NSString *tableId;
 

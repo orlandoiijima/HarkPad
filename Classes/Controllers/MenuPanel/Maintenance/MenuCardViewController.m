@@ -133,14 +133,14 @@
     [[Service getInstance]
             requestResource:@"menucard"
                          id:nil action:nil arguments:nil body:[_menuCard toDictionary]
-                       verb:_menuCard.entityState == EntityStateNew ? HttpVerbPost : HttpVerbPut
+                       verb:_menuCard.isNew ? HttpVerbPost : HttpVerbPut
                     success:^(ServiceResult *serviceResult) {
 
                     }
                       error:^(ServiceResult *serviceResult) {
                           [serviceResult displayError];
                       }
-               progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Saving", nil) parentView:self.view]];
+               progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Saving...", nil) parentView:self.view]];
 }
 
 - (void)didTapDummyInCategory:(ProductCategory *)category {

@@ -137,7 +137,7 @@
     for (NSString *prop in _properties) {
         [product.properties addObject:[prop copy]];
     }
-    if(product.isMenu) {
+    if(self.isMenu) {
         product.items = [[NSMutableArray allocWithZone:zone] init];
         for (MenuItem *item in self.items) {
             [product.items addObject:[item copy]];

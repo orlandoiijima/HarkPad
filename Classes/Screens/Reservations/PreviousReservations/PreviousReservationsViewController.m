@@ -24,7 +24,7 @@
 @synthesize orderDataSource = _orderDataSource;
 @synthesize headerLabel;
 
-+ (PreviousReservationsViewController *) controllerWithReservationId: (NSString *) reservationId {
++ (PreviousReservationsViewController *) controllerWithReservationId: (int) reservationId {
     PreviousReservationsViewController *controller = [[PreviousReservationsViewController alloc] init];
     controller.reservationId = reservationId;
     [[Service getInstance] getPreviousReservationsForReservation: reservationId delegate: controller callback:@selector(getReservationsCallback:)];

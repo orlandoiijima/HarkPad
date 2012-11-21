@@ -34,6 +34,8 @@
 {
     MenuCard *menuCard = [[MenuCard alloc] initWithDictionary:jsonCategories];
     
+    menuCard.companyId = [[jsonCategories objectForKey:@"companyId"] intValue];
+
     id validFrom = [jsonCategories valueForKey:@"validFrom"];
     if (validFrom != nil)
         menuCard.validFrom = [NSDate dateFromISO8601: validFrom];
@@ -139,6 +141,7 @@
 
 - (id)copyWithZone:(NSZone *)zone {
     MenuCard *card = [[MenuCard allocWithZone:zone] init];
+    card.companyId = _companyId;
     card.categories = [[NSMutableArray allocWithZone:zone] init];
     card.favorites = [[NSMutableArray allocWithZone:zone] init];
     card.vatPercentages = [[NSMutableArray allocWithZone:zone] init];
@@ -155,6 +158,8 @@
 
 - (NSMutableDictionary *)toDictionary {
     NSMutableDictionary *dictionary = [super toDictionary];
+
+    [dictionary setObject:[NSNumber numberWithInt:_companyId] forKey:@"companyId"];
 
     [dictionary setObject: [_validFrom stringISO8601] forKey:@"validFrom"];
 

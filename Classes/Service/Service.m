@@ -90,13 +90,13 @@ static Service *_service;
 	return;
 }
 
-- (void) transferOrder: (NSString *)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) transferOrder: (int)orderId toTable: (NSString *) tableId success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
     order.table = [[[Cache getInstance] map] getTable:tableId];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:orderId action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", orderId] action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
 	return;
 }
 
@@ -165,7 +165,7 @@ static Service *_service;
     [self requestResource:@"reservation" id:nil action:nil arguments:[NSString stringWithFormat:@"q=%@", query] body:nil verb:HttpVerbGet success:success error:error];
 }
 
-- (void) getPreviousReservationsForReservation: (NSString *) reservationId delegate:(id)delegate callback:(SEL)callback
+- (void) getPreviousReservationsForReservation: (int) reservationId delegate:(id)delegate callback:(SEL)callback
 {
     NSMethodSignature *sig = [delegate methodSignatureForSelector:callback];
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:sig];
@@ -173,7 +173,7 @@ static Service *_service;
     [invocation setTarget:delegate];
     [invocation setSelector:callback];
     [self getPageCallback:@"getpreviousreservations"
-                withQuery:[NSString stringWithFormat:@"reservationId=%@", reservationId]
+                withQuery:[NSString stringWithFormat:@"reservationId=%d", reservationId]
                  delegate: self
                  callback:@selector(getReservationsCallback:finishedWithData:error:)
                  userData:invocation];
@@ -216,7 +216,7 @@ static Service *_service;
     orderLine.entityState = EntityStateDeleted;
     [order addOrderLine:orderLine];
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderDic verb:HttpVerbPut success:success error:error];
+    [self requestResource:@"order" id:order.idAsString action:nil arguments:nil body:orderDic verb:HttpVerbPut success:success error:error];
     return nil;
 }
 
@@ -236,9 +236,9 @@ static Service *_service;
     [self requestResource:@"invoice" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
 }
 
-- (Order *) getOrder: (NSString *) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (Order *) getOrder: (int) orderId success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    [self requestResource:@"order" id:orderId action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
+    [self requestResource:@"order" id:[NSString stringWithFormat:@"%d", orderId] action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
     return nil;
 }
 
@@ -248,7 +248,7 @@ static Service *_service;
     [printer print];
 
     NSDictionary *dictionary = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:courseId] forKey:@"id"];
-    [self requestResource:@"order" id:order.id action:@"StartCourse" arguments:nil body:dictionary verb:HttpVerbPost success:success error:error];
+    [self requestResource:@"order" id:order.idAsString action:@"StartCourse" arguments:nil body:dictionary verb:HttpVerbPost success:success error:error];
 	return;
 }
 
@@ -264,13 +264,13 @@ static Service *_service;
     [self requestResource:@"workinprogress" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
 }
 
-- (void) processPayment: (int) paymentType forOrder: (NSString *) orderId
+- (void) processPayment: (int) paymentType forOrder: (int) orderId
 {
     Order *order = [[Order alloc] init];
     order.id = orderId;
     order.paymentType = (PaymentType) paymentType;
     NSDictionary *orderDic = [order toDictionary];
-    [self requestResource:@"order" id:orderId action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+    [self requestResource:@"order" id: order.idAsString action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
 	return;
 }
 
@@ -301,7 +301,7 @@ static Service *_service;
 - (void) updateOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
     NSMutableDictionary *orderAsDictionary = [order toDictionary];
-    [self requestResource:@"order" id:order.id action:nil arguments:nil body:orderAsDictionary verb:HttpVerbPut success:success error:error];
+    [self requestResource:@"order" id:order.idAsString action:nil arguments:nil body:orderAsDictionary verb:HttpVerbPut success:success error:error];
 }
 
 - (void) createOrder: (Order *) order success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
@@ -325,10 +325,10 @@ static Service *_service;
     [self requestResource:@"device" id:nil action:nil arguments:nil body:nil verb:HttpVerbPost success:success error:error progressInfo:progressInfo];
 }
 
-- (void) signon: (Signon *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
+- (void) signOn: (SignOn *)signon success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error  progressInfo:(ProgressInfo *)progressInfo
 {
     NSMutableDictionary *dictionary  = [signon toDictionary];
-    [self requestResource:@"account" id:nil action:nil arguments:nil body:dictionary verb:HttpVerbPost success:success error:error];
+    [self requestResource:@"account" id:nil action:nil arguments:nil body:dictionary verb:HttpVerbPost success:success error:error  progressInfo:progressInfo ];
 }
 
 - (void)requestResource:(NSString *)resource id:(NSString *)id action:(NSString *)action arguments:(NSString *)arguments body:(NSDictionary *)body verb:(HttpVerb)verb success:(void (^)(ServiceResult *))onSuccess error:(void (^)(ServiceResult *))onError {
@@ -367,7 +367,7 @@ static Service *_service;
     }
     [Logger info:[NSString stringWithFormat:@"%@: %@", method, urlRequest]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlRequest]];
-    request.timeoutInterval = 20;
+    request.timeoutInterval = 30;
     [request setHTTPMethod: method];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     if (body != nil) {

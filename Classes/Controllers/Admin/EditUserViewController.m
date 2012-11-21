@@ -30,25 +30,15 @@
 - (void) done {
     if ([self validate] == NO)
         return;
-    _signOn.firstName = _firstName.text;
-    _signOn.surName = _surName.text;
-    _signOn.pinCode = _pinCode.text;
-    _signOn.email = _email.text;
-    _signOn.password = _password.text;
+    _user.firstName = _firstName.text;
+    _user.surName = _surName.text;
+    _user.pinCode = _pinCode.text;
+    _user.email = _email.text;
+    _user.password = _password.text;
 
-    [[Service getInstance]
-            signon:_signOn
-           success: ^(ServiceResult *result) {
-               [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
-               [AppVault setAccountId: [result.jsonData valueForKey:@"accountId"]];
-               [AppVault setLocationId: [result.jsonData valueForKey:@"locationId"]];
-               [AppVault setLocationName: [result.jsonData valueForKey:@"locationName"]];
-               [ModalAlert inform:@"Registration complete. Restart required."];
-           }
-             error:^(ServiceResult *serviceResult) {
-                        [serviceResult displayError];
-                    }
-    ];
+    if (_delegate != nil) {
+        [self.delegate didSaveItem: _user];
+    }
 }
 
 - (bool)validate {

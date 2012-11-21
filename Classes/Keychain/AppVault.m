@@ -15,23 +15,27 @@
 }
 
 + (bool) isDeviceRegistered {
-    return  ([[AppVault deviceId] length] != 0 && [AppVault locationId] != 0 && [AppVault accountId] != 0);
+//    return NO;
+    NSString *temp = [KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationId"];
+    if ([temp length] > 10)
+        return false;
+    return  ([[AppVault deviceKey] length] != 0 && [AppVault locationId] != 0 && [AppVault accountId] != 0);
 }
 
-+ (NSString *)deviceId {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"DeviceId"];
++ (NSString *)deviceKey {
+    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"DeviceKey"];
 }
 
-+ (void)setDeviceId:(NSString *)deviceId {
-    [self setOrDeleteKey:@"DeviceId" withValue:deviceId];
++ (void)setDeviceKey:(NSString *)deviceKey {
+    [self setOrDeleteKey:@"DeviceKey" withValue:deviceKey];
 }
 
-+ (NSString *)locationId {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationId"];
++ (int)locationId {
+    return [[KeychainWrapper keychainStringFromMatchingIdentifier:@"LocationId"] intValue];
 }
 
-+ (void)setLocationId:(NSString *)locationId {
-    [self setOrDeleteKey:@"LocationId" withValue:locationId];
++ (void)setLocationId:(int)locationId {
+    [self setOrDeleteKey:@"LocationId" withValue:[NSString stringWithFormat:@"%d", locationId]];
 }
 
 + (NSString *)locationName {
@@ -42,12 +46,12 @@
     [self setOrDeleteKey:@"LocationName" withValue:locationName];
 }
 
-+ (NSString *)accountId {
-    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"AccountId"];
++ (int)accountId {
+    return [[KeychainWrapper keychainStringFromMatchingIdentifier:@"AccountId"] intValue];
 }
 
-+ (void)setAccountId:(NSString *)accountId {
-    [self setOrDeleteKey:@"AccountId" withValue:accountId];
++ (void)setAccountId:(int)accountId {
+    [self setOrDeleteKey:@"AccountId" withValue: [NSString stringWithFormat:@"%d", accountId]];
 }
 
 

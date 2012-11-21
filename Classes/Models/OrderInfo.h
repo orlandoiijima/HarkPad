@@ -15,7 +15,7 @@
     NSDate *createdOn;
     Table *table;
     NSMutableArray *guests;
-    NSString * id;
+    int id;
     OrderState state;
     int countCourses;
     int currentCourseOffset;
@@ -29,7 +29,7 @@
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
 @property (retain) NSMutableArray *guests;
-@property (retain) NSString * id;
+@property (nonatomic) int id;
 @property OrderState state;
 @property int countCourses;
 @property int currentCourseOffset;

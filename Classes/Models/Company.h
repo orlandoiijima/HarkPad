@@ -12,10 +12,12 @@
 
 
 @interface Company : DTO
+
 @property (nonatomic) NSString *name;
 @property (retain) Address *address;
 @property (nonatomic, strong) UIImage *logo;
-@property(nonatomic, strong) NSString * locationId;
-@property(nonatomic, strong) NSString * accountId;
+@property(nonatomic) int locationId;
+@property(nonatomic) int accountId;
 @property(nonatomic) NSString *phone;
+
 @end

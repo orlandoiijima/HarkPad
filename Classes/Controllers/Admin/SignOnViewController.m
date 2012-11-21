@@ -8,10 +8,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "SignOnViewController.h"
-#import "Signon.h"
+#import "SignOn.h"
 #import "KeychainWrapper.h"
 #import "AppVault.h"
 #import "EditUserViewController.h"
+#import "ModalAlert.h"
+#import "MainTabBarController.h"
+#import "Session.h"
 
 @interface SignOnViewController ()
 
@@ -31,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    _signOn = [[SignOn alloc] init];
 
     self.title = NSLocalizedString(@"Sign up", nil);
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self  action:@selector(done)];
@@ -69,14 +74,14 @@
 - (IBAction)done {
     if ([self validate] == NO)
         return;
-    Signon *signOn = [[Signon alloc] init];
-    signOn.name = _organisation.text;
+    _signOn.name = _organisation.text;
     if (_isLogoSet) {
-        signOn.logo = _logoView.image;
+        _signOn.logo = _logoView.image;
     }
 
     EditUserViewController *controller = [[EditUserViewController alloc] init];
-    controller.signOn = signOn;
+    controller.delegate = self;
+    controller.user = [[User alloc] init];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
@@ -96,5 +101,47 @@
     _popover.delegate = self;
     [_popover presentPopoverFromRect:_logoView.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
+
+- (void)didSaveItem:(User *)user {
+    _signOn.firstName = user.firstName;
+    _signOn.surName = user.surName;
+    _signOn.email = user.email;
+    _signOn.pinCode = user.pinCode;
+    _signOn.password = user.password;
+    [[Service getInstance]
+            signOn: _signOn
+           success: ^(ServiceResult *result) {
+                        [self completeSignOnWithResult:result];
+               }
+             error:^(ServiceResult *serviceResult) {
+                        [serviceResult displayError];
+                    }
+            progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Registering...", nil) parentView:self.view]
+    ];
+}
+
+- (void) completeSignOnWithResult:(ServiceResult *)result {
+    [AppVault setDeviceKey: [result.jsonData valueForKey:@"deviceKey"]];
+    [AppVault setAccountId: [[result.jsonData valueForKey:@"accountId"] intValue]];
+    [AppVault setLocationId: [[result.jsonData valueForKey:@"locationId"] intValue] ];
+    [AppVault setLocationName: [result.jsonData valueForKey:@"locationName"]];
+
+    [Session setCredentials:[Credentials credentialsWithEmail:_signOn.email password:_signOn.password pinCode:_signOn.pinCode]];
+    [Session setIsAuthenticatedAsAdmin:YES];
+
+    Service *service = [Service getInstance];
+    [service getConfig: ^(ServiceResult * serviceResult) {
+                            [[Cache getInstance] loadFromJson: serviceResult.jsonData];
+                            MainTabBarController *controller = [[MainTabBarController alloc] init];
+
+                            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                            [window.rootViewController presentViewController:controller animated:YES completion:nil];
+                            }
+                 error: ^(ServiceResult *serviceResult) {
+                            [serviceResult displayError];
+                            }
+                progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: self.view]
+    ];
+    }
 
 @end

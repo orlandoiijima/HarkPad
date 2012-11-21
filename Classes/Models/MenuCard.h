@@ -40,4 +40,5 @@
 @property(nonatomic, strong) NSMutableArray *categories;
 @property (nonatomic, strong) NSMutableArray *vatPercentages;
 @property(nonatomic, strong) NSDate *validFrom;
+@property(nonatomic) int companyId;
 @end

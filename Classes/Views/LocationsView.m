@@ -51,7 +51,7 @@
                                    success:^(ServiceResult *serviceResult) {
                                        self.locations = [[NSMutableArray alloc] init];
                                        for (NSMutableDictionary *dictionary in serviceResult.jsonData) {
-                                           Location *location = [Location locationFromJsonDictionary:dictionary];
+                                           Location *location = [[Location alloc] initWithDictionary:dictionary];
                                            [self.locations addObject:location];
                                        }
                                        [self reloadData];

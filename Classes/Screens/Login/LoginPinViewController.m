@@ -48,7 +48,7 @@
     self.numberOfAttempts = 0;
 
     _captionField = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height / 4 - 80, self.view.frame.size.width, 50)];
-    _captionField.autoresizingMask = -1;
+    _captionField.autoresizingMask = (UIViewAutoresizing) -1;
     [self.view addSubview:_captionField];
     _captionField.text = NSLocalizedString(@"Enter your accesskey", nil);
     _captionField.textAlignment = NSTextAlignmentCenter;
@@ -111,6 +111,7 @@
         UILabel *label = [_pinLabels objectAtIndex:j];
         [self shake:label];
     }
+    _pinField.text = @"";
 }
 
 - (void) hidePin {
@@ -157,7 +158,6 @@
     } completion:^(BOOL completed6) {
         itemView.center = origin;
         itemView.text = @"";
-        _pinField.text = @"";
         itemView.alpha = 1;
         }];
      }];
@@ -182,7 +182,7 @@
     }
     else {
         [self hidePin];
-        _captionField.text = user.name;
+        _captionField.text = user.firstName;
         [self didAuthenticate:user];
     }
 }
@@ -197,16 +197,19 @@
 {
     Service *service = [Service getInstance];
     [service getConfig: ^(ServiceResult * serviceResult) {
-                            _isConfigLoaded = YES;
-                            [[Cache getInstance] loadFromJson: serviceResult.jsonData];
-                            if (_pinField.text.length == 4) {
-                                [self go];
-                            }
-                            [self showLocationInfo];
+                                _isConfigLoaded = YES;
+                                [[Cache getInstance] loadFromJson: serviceResult.jsonData];
+                                if (_pinField.text.length == 4) {
+                                    [self go];
+                                }
+                                [self showLocationInfo];
                             }
                  error: ^(ServiceResult *serviceResult) {
-                            [serviceResult displayError];
-                            [self getConfig];
+                                [serviceResult displayError];
+                                if (serviceResult.httpStatusCode  == 401) {
+                                }
+//                                if (serviceResult.)
+//                                [self getConfig];
                             }
                 progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: self.view]
     ];

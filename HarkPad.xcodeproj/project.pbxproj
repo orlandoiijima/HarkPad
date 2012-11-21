@@ -107,7 +107,7 @@
 		D0A72CDC054747A5090317F9 /* PrinterListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A72511ABF515D86D713C39 /* PrinterListViewController.xib */; };
 		D0A72D32B237E92D20336974 /* MenuCardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0A723A706F1D8F20F3BA86E /* MenuCardCell.xib */; };
 		D0A72D339C76CD1CB3CAEA2B /* BaseAdminViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72051732FB9F2B1D27845 /* BaseAdminViewController.m */; };
-		D0A72D3CBE95EF08405C142C /* Signon.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72503F6C4FA040F327098 /* Signon.m */; };
+		D0A72D3CBE95EF08405C142C /* SignOn.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72503F6C4FA040F327098 /* SignOn.m */; };
 		D0A72D673233A50E5A2135C3 /* slider-default-trackBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A72DA9AA8FF4B0F23BB280 /* slider-default-trackBackground.png */; };
 		D0A72D6FCF704F3E1048C049 /* Logger.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A72043B7146ED41AF52ED3 /* Logger.m */; };
 		D0A72DDA0BDF6523DCFB0338 /* slider-metal-handle.png in Resources */ = {isa = PBXBuildFile; fileRef = D0A72DEDF5FB5B7822426595 /* slider-metal-handle.png */; };
@@ -432,7 +432,7 @@
 		D0A724EB5FADC1B41DB64F49 /* Run.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Run.h; path = PrintInfo/Run.h; sourceTree = "<group>"; };
 		D0A724F0E30DE62F1E8B3E45 /* GzColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GzColors.m; sourceTree = "<group>"; };
 		D0A724F894EE932BFB0A4ADB /* PrinterInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrinterInfo.m; path = PrintInfo/PrinterInfo.m; sourceTree = "<group>"; };
-		D0A72503F6C4FA040F327098 /* Signon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Signon.m; sourceTree = "<group>"; };
+		D0A72503F6C4FA040F327098 /* SignOn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignOn.m; sourceTree = "<group>"; };
 		D0A7250B38D68DA88EF25F14 /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
 		D0A72511ABF515D86D713C39 /* PrinterListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrinterListViewController.xib; sourceTree = "<group>"; };
 		D0A72519487B90B757E18677 /* LogItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LogItem.h; path = Classes/Models/LogItem.h; sourceTree = SOURCE_ROOT; };
@@ -553,7 +553,7 @@
 		D0A72F6FA589EABA20C2D7AE /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeychainWrapper.m; path = Keychain/KeychainWrapper.m; sourceTree = "<group>"; };
 		D0A72F769EEAF703DC4775E5 /* StarPrintOutputViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StarPrintOutputViewController.m; sourceTree = "<group>"; };
 		D0A72F76FF62CEA38268E37A /* StarPrintJob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StarPrintJob.h; sourceTree = "<group>"; };
-		D0A72FCE2023331E7ED6408B /* Signon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Signon.h; sourceTree = "<group>"; };
+		D0A72FCE2023331E7ED6408B /* SignOn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignOn.h; sourceTree = "<group>"; };
 		D0A72FE01FAC807A77452697 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		E500D766135A31C000EA347E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		E5015258131306E4007959F5 /* SlotDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlotDataSource.h; path = Models/SlotDataSource.h; sourceTree = "<group>"; };
@@ -1387,8 +1387,8 @@
 				D0A72C658251EC0D0B5E2538 /* OrderLineFilter.m */,
 				D0A729D343400603E7618601 /* Credentials.h */,
 				D0A72A6EDAADA4816DF957F5 /* Credentials.m */,
-				D0A72FCE2023331E7ED6408B /* Signon.h */,
-				D0A72503F6C4FA040F327098 /* Signon.m */,
+				D0A72FCE2023331E7ED6408B /* SignOn.h */,
+				D0A72503F6C4FA040F327098 /* SignOn.m */,
 				D0A7260BC1E66EC8185DF19B /* PrintTable.m */,
 				D0A7242671D5CB0FF9DAC04B /* PrintTable.h */,
 				D0A72A7076F7B954783AF85D /* PrintColumn.m */,
@@ -2385,7 +2385,7 @@
 				D0A7293E542786F88733FC80 /* StarBitmap.m in Sources */,
 				D0A726A0D13A254D301A83DB /* KeychainWrapper.m in Sources */,
 				D0A720D5404C646A9EEA6E21 /* SignOnViewController.m in Sources */,
-				D0A72D3CBE95EF08405C142C /* Signon.m in Sources */,
+				D0A72D3CBE95EF08405C142C /* SignOn.m in Sources */,
 				D0A726D95881BD5AA342D874 /* AppVault.m in Sources */,
 				D0A722453063DE6DCA9B3F7C /* AuthorisationToken.m in Sources */,
 				D0A7260BFBADEC622E6D18BB /* NSData+Base64.m in Sources */,

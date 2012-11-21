@@ -9,18 +9,23 @@
 
 
 @interface User : NSObject {
-    NSString *name;
-    int id;
 }
 
 typedef enum Role {RoleStandard, RoleManager, RoleBackOffice, RoleAdmin} Role ;
 
-@property (retain) NSString *name;
 @property int id;
-@property(nonatomic, strong) id pinCode;
+@property(nonatomic, strong) NSString * pinCode;
 @property(nonatomic) int role;
 
-@property(nonatomic) NSString * locationId;
+@property(nonatomic) int locationId;
+
+@property(nonatomic, strong) NSString *firstName;
+
+@property(nonatomic, strong) NSString *surName;
+
+@property(nonatomic, copy) NSString *email;
+
+@property(nonatomic, copy) NSString *password;
 
 + (User *) userFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (User *) userNull;

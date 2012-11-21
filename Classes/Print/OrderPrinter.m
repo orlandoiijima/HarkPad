@@ -76,7 +76,7 @@
         return _orderDocument.printer.name;
 
     if ([variable compare: @"{userName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return [[Session authenticatedUser] name];
+        return [[Session authenticatedUser] firstName];
 
     Location *currentLocation = [[Cache getInstance] currentLocation];
     if ([variable compare: @"{companyName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
@@ -97,7 +97,7 @@
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
 
     if ([variable compare: @"{id}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return [NSString stringWithFormat:@"%@", _orderDataSource.order.id];
+        return [NSString stringWithFormat:@"%d", _orderDataSource.order.id];
 
     if ([variable compare: @"{tableName}" options: NSCaseInsensitiveSearch] == NSOrderedSame) {
         if (_orderDataSource.order.table == nil) return @"";

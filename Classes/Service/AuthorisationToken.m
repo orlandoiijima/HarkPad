@@ -20,7 +20,7 @@
 
 + (AuthorisationToken *) tokenFromVault {
     AuthorisationToken *token = [[AuthorisationToken alloc] init];
-    token.deviceId = [AppVault deviceId];
+    token.deviceKey = [AppVault deviceKey];
     token.locationId = [AppVault locationId];
     token.accountId = [AppVault accountId];
     return token;
@@ -43,18 +43,16 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (_deviceId != nil)
-        [dic setObject: _deviceId forKey:@"deviceId"];
+    if (_deviceKey != nil)
+        [dic setObject:_deviceKey forKey:@"deviceKey"];
     if (_pinCode != nil)
         [dic setObject: _pinCode forKey:@"pinCode"];
     if (_email != nil)
         [dic setObject: _email forKey:@"email"];
     if (_password != nil)
         [dic setObject: _password forKey:@"password"];
-    if (_locationId != nil)
-        [dic setObject: _locationId forKey:@"locationId"];
-    if (_accountId != nil)
-        [dic setObject: _accountId forKey:@"accountId"];
+    [dic setObject: [NSNumber numberWithInt:_locationId] forKey:@"locationId"];
+    [dic setObject: [NSNumber numberWithInt:_accountId] forKey:@"accountId"];
     return dic;
 }
 

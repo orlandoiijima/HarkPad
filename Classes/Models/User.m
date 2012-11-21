@@ -9,37 +9,33 @@
 
 @implementation User
 
-@synthesize name, id;
-@synthesize pinCode = _pinCode;
-@synthesize role = _role;
-@synthesize locationId = _locationId;
-
 + (User *) userNull
 {
     User *user = [[User alloc] init];
-    user.name = @"";
+    user.firstName = @"";
+    user.surName = @"";
     user.pinCode = @"";
     user.role = RoleStandard;
     user.id = -1;
-    user.locationId = nil;
+    user.locationId = -1;
     return user;
 }
 
 + (User *) userFromJsonDictionary: (NSDictionary *)jsonDictionary
 {
     User *user = [[User alloc] init];
-    user.name = [jsonDictionary objectForKey:@"name"];
+    user.firstName = [jsonDictionary objectForKey:@"firstName"];
+    user.surName = [jsonDictionary objectForKey:@"surName"];
     user.id = [[jsonDictionary objectForKey:@"id"] intValue];
     user.pinCode = [jsonDictionary objectForKey:@"pinCode"];
-    user.locationId = nil;
-    user.locationId = [jsonDictionary objectForKey:@"locationId"];
+    user.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
     user.role = (Role) [[jsonDictionary objectForKey:@"role"] intValue];
     return user;
 }
 
 - (bool) isNullUser
 {
-    return id == -1;
+    return _id == -1;
 }
 
 @end

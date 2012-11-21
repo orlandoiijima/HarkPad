@@ -80,6 +80,8 @@
     category.products = [[NSMutableArray allocWithZone:zone] init];
     category.sortOrder = self.sortOrder;
     category.isFood = self.isFood;
+    category.orderableFromHour = self.orderableFromHour;
+    category.orderableToHour = self.orderableToHour;
     for (Product *product in self.products) {
         Product *newProduct = [product copy];
         [category.products addObject:newProduct];

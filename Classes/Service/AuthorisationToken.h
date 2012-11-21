@@ -12,9 +12,9 @@
 
 @interface AuthorisationToken : NSObject
 
-@property (retain) NSString *deviceId;
-@property (retain) NSString *locationId;
-@property (retain) NSString *accountId;
+@property (retain) NSString *deviceKey;
+@property (nonatomic) int locationId;
+@property (nonatomic) int accountId;
 @property (retain) NSString *pinCode;
 @property (retain) NSString *email;
 @property (retain) NSString *password;

@@ -7,12 +7,14 @@
 //
 
 #import "Service.h"
+#import "ItemPropertiesDelegate.h"
 
-@interface SignOnViewController : UIViewController <UINavigationControllerDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate>
+@interface SignOnViewController : UIViewController <UINavigationControllerDelegate, UIPopoverControllerDelegate, UIImagePickerControllerDelegate, ItemPropertiesDelegate>
 
 @property (retain) IBOutlet UITextField *organisation;
 @property(nonatomic, strong) IBOutlet UIImageView * logoView;
 @property(nonatomic, strong) UIPopoverController *popover;
 
 @property(nonatomic) BOOL isLogoSet;
+@property(nonatomic, strong) SignOn * signOn;
 @end

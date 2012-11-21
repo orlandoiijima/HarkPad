@@ -94,7 +94,7 @@
 - (void) addNewMenuCard {
     MenuCard *newCard = [[[Cache getInstance] menuCard] copy];
     newCard.entityState = EntityStateNew;
-    newCard.id = nil;
+    newCard.id = -1;
     newCard.validFrom = [[NSDate date] dateByAddingDays:7];
     [self.menuCards insertObject:newCard atIndex:1];
     GetDateViewController *controller = [[GetDateViewController alloc] init];

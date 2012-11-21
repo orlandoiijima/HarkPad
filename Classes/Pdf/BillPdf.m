@@ -30,7 +30,7 @@
 
     PrintTemplate *template = [[[Cache getInstance] printInfo] getTemplateNamed:@"invoice"];
     PdfCreator *creator = [PdfCreator pdfCreatorWithTemplate: template dataSource:printDataSource];
-    NSString *fileName = [NSString stringWithFormat:@"Invoice%@.pdf", _order.id];
+    NSString *fileName = [NSString stringWithFormat:@"Invoice%d.pdf", _order.id];
 
     return  [creator createFileNamed: fileName];
 }

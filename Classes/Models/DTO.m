@@ -20,14 +20,14 @@
     if ((self = [super init]) != NULL)
 	{
         self.entityState = EntityStateNew;
-        self.id = nil;
+        self.id = -1;
 	}
     return(self);
 }
 
 - (id)initWithDictionary:(NSDictionary *)jsonDictionary {
     self = [self init];
-    self.id = [jsonDictionary objectForKey:@"id"];
+    self.id = [[jsonDictionary objectForKey:@"id"] intValue];
     self.entityState = EntityStateNone;
     return self;
 }
@@ -35,9 +35,10 @@
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-    if (entityState != EntityStateNew && id != nil)
-        [dic setObject: self.id forKey:@"id"];
+    if (entityState != EntityStateNew && id != -1)
+        [dic setObject:[NSNumber numberWithInt: self.id] forKey:@"id"];
     [dic setObject: [NSNumber numberWithInt:entityState] forKey:@"entityState"];
+
     return dic;
 }
 
@@ -50,4 +51,9 @@
 - (BOOL) isNew {
     return entityState == EntityStateNew;
 }
+
+- (NSString *)idAsString {
+    return [NSString stringWithFormat:@"%d", id];
+}
+
 @end

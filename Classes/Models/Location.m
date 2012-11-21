@@ -15,26 +15,26 @@
 
 }
 @synthesize name = _name;
-@synthesize id = _id;
 @synthesize logo = _logo;
 
-+ (Location *) locationFromJsonDictionary: (NSDictionary *)jsonDictionary
+- (Location *)initWithDictionary:(NSDictionary *)dictionary
 {
-    Location *location = [[Location alloc] init];
-    location.name = [jsonDictionary objectForKey:@"name"];
-    location.phone = [jsonDictionary objectForKey:@"phone"];
-    location.address = [[Address alloc] initWithDictionary: [jsonDictionary objectForKey:@"address"]];
-    id logo = [jsonDictionary objectForKey:@"logo"];
+    self = [super initWithDictionary:dictionary];
+    if (self == nil) return nil;
+    self.name = [dictionary objectForKey:@"name"];
+    self.phone = [dictionary objectForKey:@"phone"];
+    self.address = [[Address alloc] initWithDictionary: [dictionary objectForKey:@"address"]];
+    id logo = [dictionary objectForKey:@"logo"];
     if (logo != nil) {
-        location.logo = [UIImage imageWithData: [NSData dataFromBase64String: logo]];
+        self.logo = [UIImage imageWithData: [NSData dataFromBase64String: logo]];
     }
-    return location;
+    return self;
 }
 
 - (NSMutableDictionary *)toDictionary
 {
     NSMutableDictionary *dic = [super toDictionary];
-    [dic setObject: self.name forKey:@"name"];
+    [dic setObject: _name forKey:@"name"];
     if (_address != nil) {
         [dic setObject: [self.address toDictionary] forKey:@"address"];
     }

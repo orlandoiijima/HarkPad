@@ -258,7 +258,6 @@
                 }
                 Reservation *walkinReservation = [[Reservation alloc] init];
                 walkinReservation.type = ReservationTypeWalkin;
-                walkinReservation.id = nil;
                 walkinReservation.startsOn = [NSDate date];
                 walkinReservation.countGuests = order.table.countSeatsTotal;
                 walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
@@ -266,7 +265,7 @@
                 if (order.reservation != nil) {
                     for (Reservation *reservation in reservations)
                         if (reservation.id == order.reservation.id) {
-                            reservation.orderId = nil;
+                            reservation.orderId = -1;
                         }
                 }
                 reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];

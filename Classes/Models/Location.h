@@ -11,14 +11,10 @@
 @class Address;
 
 @interface Location : DTO
-@property(nonatomic, strong) id name;
 
+@property(nonatomic, strong) NSString *name;
 @property(nonatomic, strong) UIImage *logo;
-
 @property(nonatomic, strong) id phone;
-
 @property(nonatomic, strong) Address *address;
-
-+ (Location *)locationFromJsonDictionary:(NSDictionary *)jsonDictionary;
 
 @end

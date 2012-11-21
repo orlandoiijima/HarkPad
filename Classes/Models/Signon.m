@@ -5,11 +5,11 @@
 //
 
 
-#import "Signon.h"
+#import "SignOn.h"
 #import "NSData+Base64.h"
 
 
-@implementation Signon {
+@implementation SignOn {
 
 }
 

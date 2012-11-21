@@ -63,7 +63,7 @@
     }
 
     Service *service = [Service getInstance];
-    HttpVerb verb = _company.isNew ? HttpVerbPost : HttpVerbPut;
+    HttpVerb verb = _company.id == -1 ? HttpVerbPost : HttpVerbPut;
     [service requestResource:@"company"
                           id:nil
                       action:nil
@@ -72,7 +72,7 @@
                         verb:verb
                      success:^(ServiceResult *serviceResult) {
                                 _company.id = serviceResult.id;
-                                 _company.locationId = [serviceResult.jsonData objectForKey:@"locationId"];
+                                 _company.locationId = [[serviceResult.jsonData objectForKey:@"locationId"] intValue];
                                 [self.delegate didSaveItem:_company];
                             }
                        error:^(ServiceResult *result) {
@@ -89,7 +89,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = _company.isNew ?  NSLocalizedString(@"New company", <#comment#>) :  NSLocalizedString(@"Edit company", <#comment#>);
+    self.title = _company.id == -1 ?  NSLocalizedString(@"New company", <#comment#>) :  NSLocalizedString(@"Edit company", <#comment#>);
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
 

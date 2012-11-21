@@ -152,8 +152,8 @@
         }
         else {
             self.selectedOrder.invoicedTo = user;
-            self.selectedOrder.name = user.name;
-            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"New bill for coworker '%@'", nil), user.name];
+            self.selectedOrder.name = user.firstName;
+            orderView.infoLabel.text = [NSString stringWithFormat: NSLocalizedString(@"New bill for coworker '%@'", nil), user.firstName];
         }
     }
     if ([item isKindOfClass:[Reservation class]]) {
@@ -212,7 +212,7 @@
 - (void) getOpenOrdersCallback: (NSMutableArray *)openOrders {
     [MBProgressHUD hideHUDForView: self.view animated:YES];
 
-    NSString * selectedOrderId = nil;
+    int selectedOrderId = -1;
     if (self.selectedOrder != nil)
         selectedOrderId = self.selectedOrder.id;
 
@@ -223,17 +223,17 @@
     if (selectedOpenOrderType == typeSelection) {
         Order *order = [Order orderNull];
         order.name = NSLocalizedString(@"Bill", nil);
-        order.id = @"byNothing";
+        order.id = byNothing;
         [self.orders insertObject: order atIndex:0];
 
         Order *orderEmployee = [Order orderNull];
         orderEmployee.name = NSLocalizedString(@"Personel", nil);
-        orderEmployee.id = @"byEmployee";
+        orderEmployee.id = byEmployee;
         [self.orders insertObject: orderEmployee atIndex:1];
 
         Order *orderReservation = [Order orderNull];
         orderReservation.name = NSLocalizedString(@"Reservation", nil);
-        orderReservation.id = @"byReservation";
+        orderReservation.id = byReservation;
         [self.orders insertObject: orderReservation atIndex:2];
     }
 
@@ -243,7 +243,7 @@
     int width = (int)(self.view.frame.size.width - (countColumns - 1)*leftMargin - 2*leftMargin) / countColumns;
     int height = 250;
     for(Order *order in orders) {
-        if ([order.lines count] > 0 || order.id == nil) {
+        if ([order.lines count] > 0 || order.id == -1) {
             CGRect frame = CGRectMake(
                     leftMargin + (i % countColumns) * (width + leftMargin),
                     topMargin + (i / countColumns) * (height + topMargin),

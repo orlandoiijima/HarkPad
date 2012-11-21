@@ -56,7 +56,7 @@
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterShortStyle];
 
     if ([variable compare: @"{id}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return [NSString stringWithFormat:@"%@", _orderDataSource.order.id];
+        return [NSString stringWithFormat:@"%d", _orderDataSource.order.id];
 
     if ([variable compare: @"{tableName}" options: NSCaseInsensitiveSearch] == NSOrderedSame) {
         if (_orderDataSource.order.table == nil) return @"";

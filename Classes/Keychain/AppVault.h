@@ -10,21 +10,20 @@
 
 @interface AppVault : NSObject
 
-//@property (retain) NSString *deviceId;
+//@property (retain) NSString *deviceKey;
 //@property (retain) NSString *tenantKey;
 
-+ (NSString *)deviceId;
-+ (void)setDeviceId:(NSString *)deviceKey;
++ (NSString *)deviceKey;
++ (void)setDeviceKey:(NSString *)deviceKey;
 
-+ (NSString *)locationId;
-+ (void)setLocationId:(NSString *)locationId;
++ (int)locationId;
++ (void)setLocationId:(int)locationId;
 
 + (NSString *)locationName;
 + (void)setLocationName:(NSString *)locationName;
 
-
-+ (NSString *)accountId;
-+ (void)setAccountId:(NSString *)accountId;
++ (int)accountId;
++ (void)setAccountId:(int)accountId;
 
 + (bool) isDeviceRegistered;
 

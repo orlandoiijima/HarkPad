@@ -16,7 +16,7 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 
 @protocol OrderProxyDelegate <NSObject>
 @required
-@property NSString *id;
+@property (nonatomic) int id;
 @property (retain) NSDate *createdOn;
 @property (retain) Table *table;
 @property (retain) NSMutableArray *guests;
@@ -24,8 +24,6 @@ typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 @property int countCourses;
 @property int currentCourseOffset;
 @property CourseState currentCourseState;
-//@property (retain) NSDate *currentCourseRequestedOn;
-//@property (retain) NSDate *currentCourseServedOn;
 @property (retain) NSString *language;
 
 - (Guest *) getGuestBySeat: (int)seat;

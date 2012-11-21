@@ -36,13 +36,13 @@
 + (Order *) orderNull
 {
     Order *order = [[Order alloc] init];
-    order.id = nil;
+//    order.id = -1;
     return order;
 }
 
 - (BOOL) isNullOrder
 {
-    return id == nil;
+    return id == -1;
 }
 
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary
@@ -51,7 +51,7 @@
 
     Order *order = [[Order alloc] initWithDictionary:jsonDictionary];
 
-    order.locationId = [jsonDictionary objectForKey:@"locationId"];
+    order.locationId = [[jsonDictionary objectForKey:@"locationId"] intValue];
     
     order.state = (OrderState) [[jsonDictionary objectForKey:@"state"] intValue];
 
@@ -113,16 +113,16 @@
 {
     NSMutableDictionary *dic = [super toDictionary];
 
-    [dic setObject: _locationId forKey:@"locationId"];
+    [dic setObject: [NSNumber numberWithInt: _locationId] forKey:@"locationId"];
 
     MenuCard *menuCard = [[Cache getInstance] menuCard];
-    [dic setObject:menuCard.id forKey:@"menuCardId"];
+    [dic setObject: [NSNumber numberWithInt: menuCard.id] forKey:@"menuCardId"];
 
     if (table != nil)
         [dic setObject: table.name forKey:@"tableId"];
 
     if (reservation != nil && reservation.id >= 0)
-        [dic setObject: reservation.id forKey:@"reservationId"];
+        [dic setObject:[NSNumber numberWithInt: reservation.id] forKey:@"reservationId"];
 
     if (invoicedTo != nil)
         [dic setObject: [NSNumber numberWithInt: invoicedTo.id] forKey:@"invoicedToId"];

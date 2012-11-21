@@ -82,7 +82,7 @@
                        body:nil
                        verb:HttpVerbPost
                     success:^(ServiceResult *result) {
-                                [AppVault setDeviceId: [result.jsonData valueForKey:@"deviceId"]];
+                                [AppVault setDeviceKey: [result.jsonData valueForKey:@"deviceKey"]];
                                 [ModalAlert inform:@"Registered - restart"];
                             }
                       error:^(ServiceResult *result){}

@@ -105,7 +105,7 @@ Use `passCheckpoint:` to track when a user performs certain tasks in your applic
 
 5. Using the Feedback API
 
-To launch unguided feedback call the `openFeedbackView` method. We recommend that you call this from a GUI element. 
+To launch unguided feedback call the `openFeedbackView` method. We recommend that you call this from a GUI element.
 
     -(IBAction)launchFeedback {
         [TestFlight openFeedbackView];

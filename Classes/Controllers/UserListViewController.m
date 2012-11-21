@@ -52,7 +52,7 @@
     }
 
     User *user = [users objectAtIndex: (NSUInteger)indexPath.row];
-    cell.textLabel.text = user.name;
+    cell.textLabel.text = user.firstName;
 
     cell.shouldIndentWhileEditing = NO;
     return cell;

@@ -13,6 +13,7 @@
 #import "LogItem.h"
 #import "Session.h"
 #import "LocalLogViewController.h"
+#import "TestFlight.h"
 
 @interface DebugViewController ()
 
@@ -35,15 +36,22 @@
 
     self.title = @"Debug";
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearVault)];
+    self.navigationItem.rightBarButtonItems = @[
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(feedback)],
+        [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(clearVault)]
+    ];
+}
+
+- (void)feedback {
+    [TestFlight openFeedbackView];
 }
 
 - (void)clearVault {
     if([ModalAlert confirm:@"Unregister device ? (note: restart required)"] == NO)
         return;
-    [AppVault setDeviceId:nil];
-    [AppVault setAccountId:nil];
-    [AppVault setLocationId:nil];
+    [AppVault setDeviceKey:nil];
+    [AppVault setAccountId:-1];
+    [AppVault setLocationId:-1];
     [AppVault setLocationName:nil];
 }
 
@@ -136,15 +144,15 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = @"Account";
-                    cell.detailTextLabel.text = [AppVault accountId];
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [AppVault accountId]];
                     break;
                 case 1:
                     cell.textLabel.text = @"Location";
-                    cell.detailTextLabel.text = [AppVault locationId];
+                    cell.detailTextLabel.text = [NSString stringWithFormat: @"%d", [AppVault locationId]];
                     break;
                 case 2:
                     cell.textLabel.text = @"Device";
-                    cell.detailTextLabel.text = [AppVault deviceId];
+                    cell.detailTextLabel.text = [AppVault deviceKey];
                     break;
                 case 3:
                     cell.textLabel.text = @"Location name";
@@ -156,7 +164,7 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = @"Name";
-                    cell.detailTextLabel.text = [[Session authenticatedUser] name];
+                    cell.detailTextLabel.text = [[Session authenticatedUser] firstName];
                     break;
                 case 1: {
                     cell.textLabel.text = @"Role";

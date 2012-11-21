@@ -7,8 +7,10 @@
 //
 
 #import "SignOn.h"
+#import "ItemPropertiesDelegate.h"
+#import "User.h"
 
-@interface EditUserViewController : UIViewController
+@interface EditUserViewController : UIViewController <ItemPropertiesDelegate>
 
 @property (retain) IBOutlet UITextField *password;
 @property (retain) IBOutlet UITextField *password2;
@@ -17,5 +19,6 @@
 @property (retain) IBOutlet UITextField *email;
 @property (retain) IBOutlet UITextField *pinCode;
 
-@property(nonatomic, strong) Signon *signOn;
+@property(nonatomic, strong) id<ItemPropertiesDelegate> delegate;
+@property(nonatomic, strong) User *user;
 @end

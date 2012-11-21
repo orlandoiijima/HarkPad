@@ -42,7 +42,7 @@ static 	Cache * _cache = nil;
 
     _cache.locations = [[NSMutableArray alloc] init];
     for(NSMutableDictionary *dic in [json valueForKey:@"locations"]) {
-        [_cache.locations addObject:[Location locationFromJsonDictionary: dic]];
+        [_cache.locations addObject:[[Location alloc] initWithDictionary:dic]];
     }
 
     _cache.users = [[NSMutableArray alloc] init];
@@ -66,7 +66,7 @@ static 	Cache * _cache = nil;
 - (NSMutableArray *)getLocationUsers {
     NSMutableArray *locationUsers = [[NSMutableArray alloc] init];
     for (User *user in _users) {
-        if (user.locationId == nil || [user.locationId isEqualToString: [AppVault locationId]])
+        if (user.locationId == [AppVault locationId])
             [locationUsers addObject:user];
     }
     return locationUsers;
@@ -75,9 +75,9 @@ static 	Cache * _cache = nil;
 - (Location *)currentLocation {
     if ([_locations count] == 0)
         return nil;
-    NSString * locationId = [AppVault locationId];
+    int locationId = [AppVault locationId];
     for (Location *location in _locations) {
-        if ([location.id isEqualToString:locationId])
+        if (location.id == locationId)
             return location;
     }
     return nil;

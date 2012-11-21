@@ -413,7 +413,7 @@
     Reservation *reservation = [self getReservation:indexPath];
     if(reservation == nil) return;
     [[Service getInstance]
-            deleteReservation: reservation.id
+            deleteReservation:[NSString stringWithFormat:@"%d", reservation.id]
                       success: ^(ServiceResult *serviceResult) {
                                     [self deleteReservation:reservation fromTableView:tableView];
                                 }

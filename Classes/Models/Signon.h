@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface Signon : NSObject
+@interface SignOn : NSObject
 
 @property (retain) NSString *name;
 @property (retain) NSString *email;
