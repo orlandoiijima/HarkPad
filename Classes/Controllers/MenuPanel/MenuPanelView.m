@@ -78,7 +78,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
 
-    int countPerRow = self.frame.size.width / 100;
+    int countPerRow = (int) (self.frame.size.width / 100);
 
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *) _productPanelView.collectionViewLayout;
     layout.itemSize = CGSizeMake( self.frame.size.width / countPerRow, layout.itemSize.height);
@@ -91,7 +91,7 @@
     }
     else {
         _categoryPanelView.hidden = NO;
-        _categoryPanelView.frame = CGRectMake(0, 0, self.frame.size.width, layout.itemSize.height * (ceil(([_categories count] + countPerRow/1) / countPerRow)));
+        _categoryPanelView.frame = CGRectMake(0, 0, self.frame.size.width, layout.itemSize.height * (ceil(([_categories count] + countPerRow/2) / countPerRow)));
         y = CGRectGetMaxY(_categoryPanelView.frame) + 20;
     }
     _productPanelView.frame = CGRectMake(0, y, self.frame.size.width, self.frame.size.height - y);
