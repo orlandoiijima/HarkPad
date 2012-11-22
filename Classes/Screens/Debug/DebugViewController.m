@@ -100,7 +100,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"";
+            return @"Klik op de button bovenin om feedback te geven.";
         case 1:
             return @"De vault bevat de vaste gegevens van een geregistreerd device. Tap op de vuilnisbak boven om de vault leeg te maken en daarmee dit device te de-registreren.";
         case 2:
@@ -143,20 +143,20 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"Account";
+                    cell.textLabel.text = @"Account ID";
                     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [AppVault accountId]];
                     break;
                 case 1:
-                    cell.textLabel.text = @"Location";
+                    cell.textLabel.text = @"Location ID";
                     cell.detailTextLabel.text = [NSString stringWithFormat: @"%d", [AppVault locationId]];
                     break;
                 case 2:
-                    cell.textLabel.text = @"Device";
-                    cell.detailTextLabel.text = [AppVault deviceKey];
-                    break;
-                case 3:
                     cell.textLabel.text = @"Location name";
                     cell.detailTextLabel.text = [AppVault locationName];
+                    break;
+                case 3:
+                    cell.textLabel.text = @"Device key";
+                    cell.detailTextLabel.text = [[[AppVault deviceKey] substringToIndex:6] stringByAppendingString:@"****"];
                     break;
             }
             break;
@@ -168,7 +168,7 @@
                     break;
                 case 1: {
                     cell.textLabel.text = @"Role";
-                    int role = [[Session authenticatedUser] role];
+                    uint role = [[Session authenticatedUser] role];
                     id roles = @[@"Standard", @"Manager", @"Backoffice", @"Administrator"];
                     cell.detailTextLabel.text = role < 4 ? roles[role] : @"Error";
                     break;

@@ -15,7 +15,7 @@ typedef enum Role {RoleStandard, RoleManager, RoleBackOffice, RoleAdmin} Role ;
 
 @property int id;
 @property(nonatomic, strong) NSString * pinCode;
-@property(nonatomic) int role;
+@property(nonatomic) Role role;
 
 @property(nonatomic) int locationId;
 
