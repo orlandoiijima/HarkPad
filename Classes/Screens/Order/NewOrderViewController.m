@@ -205,51 +205,55 @@
 
     if (product.isMenu)
         [self addMenu:product];
+    else
+        [self addProduct:product];
+}
 
+- (void)addProduct:(Product *)product {
     if (self.selectedCourse != nil && product.category.isFood) {
-        if (self.selectedCourse.servedOn != nil) {
-            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
-                return;
+            if (self.selectedCourse.servedOn != nil) {
+                if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been served. Continue ?", <#comment#>)] == NO)
+                    return;
+            }
+            else
+            if (self.selectedCourse.requestedOn != nil) {
+                if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
+                    return;
+            }
         }
-        else
-        if (self.selectedCourse.requestedOn != nil) {
-            if ([ModalAlert confirm:NSLocalizedString(@"Selected course has already been requested. Continue ?", <#comment#>)] == NO)
-                return;
-        }
-    }
     for(Guest *guest in [_tableView selectedGuests]) {
-        [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
-    }
+            [self addProduct:product forSeat: guest.seat course: self.selectedCourseOffset];
+        }
     if (_tableView.isTableSelected) {
-        [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
-    }
+            [self addProduct:product forSeat: -1 course: self.selectedCourseOffset];
+        }
 
     Course *nextCourse = nil;
     if (self.selectedCourse != nil) {
-        nextCourse = self.selectedCourse.nextCourse;
-        if (nextCourse == nil) {
-            nextCourse = [_order addCourse];
-            [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
+            nextCourse = self.selectedCourse.nextCourse;
+            if (nextCourse == nil) {
+                nextCourse = [_order addCourse];
+                [self.dataSource tableView:self.orderView addSection: nextCourse.offset + 1];
+            }
         }
-    }
 
     [self.tableOverlayHud showForGuest:[self selectedGuest]];
     if (self.autoAdvance) {
-        if (self.selectedGuest != nil) {
-            if (self.selectedGuest.isLast) {
-                if(nextCourse != nil) {
-                    //
-                    self.selectedCourse = nextCourse;
-                    self.selectedGuest = _order.firstGuest;
+            if (self.selectedGuest != nil) {
+                if (self.selectedGuest.isLast) {
+                    if(nextCourse != nil) {
+                        //
+                        self.selectedCourse = nextCourse;
+                        self.selectedGuest = _order.firstGuest;
+                    }
+                }
+                else {
+                    Guest *nextGuest =  self.selectedGuest.nextGuest;
+                    if (nextGuest != nil)
+                        self.selectedGuest = nextGuest;
                 }
             }
-            else {
-                Guest *nextGuest =  self.selectedGuest.nextGuest;
-                if (nextGuest != nil)
-                    self.selectedGuest = nextGuest;
-            }
         }
-    }
 }
 
 - (void)addMenu:(Product *)menu {
