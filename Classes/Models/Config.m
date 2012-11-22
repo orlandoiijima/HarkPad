@@ -20,23 +20,32 @@
     return config;
 }
 
-- (id) getObjectAtPath: (NSString *) path {
+- (id)getDeviceObjectAtPath: (NSString *) path {
+    NSString *devicePath = [NSString stringWithFormat:@"%@/%@", (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"IPhone" : @"IPad", path];
+    return [self getObjectAtPath:devicePath];
+}
+
+- (id)getObjectAtPath: (NSString *) path {
     NSArray *parts = [path componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"\\/"]];
-    NSString *deviceKey = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) ? @"IPhone" : @"IPad";
-    id value = [_settings objectForKey:deviceKey];
-    if (value == nil)
-        return nil;
+    id value = _settings;
     for (NSString *part in parts) {
         value = [value objectForKey:part];
     }
     return value;
 }
 
-- (int) getIntAtPath: (NSString *) path default:(int) defaultValue {
+- (int)getIntAtPath:(NSString *)path default:(int) defaultValue {
     id value = [self getObjectAtPath:path];
     if (value == nil)
         return defaultValue;
     return [value intValue];
+}
+
+- (BOOL)getBoolAtPath:(NSString *)path default:(BOOL) defaultValue {
+    id value = [self getObjectAtPath:path];
+    if (value == nil)
+        return defaultValue;
+    return (BOOL)[value intValue];
 }
 
 @end

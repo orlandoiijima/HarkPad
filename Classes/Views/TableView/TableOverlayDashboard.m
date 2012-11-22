@@ -8,6 +8,7 @@
 
 #import "TableOverlayDashboard.h"
 #import "UIImage+TBKMasking.h"
+#import "Config.h"
 
 @implementation TableOverlayDashboard
 
@@ -32,9 +33,13 @@
 
         CGRect rectPage = CGRectMake(0, 0, contentView.bounds.size.width, contentView.bounds.size.height);
 
-        int numberOfPages = tableView.orderInfo == nil ? 3 : 4;
-        float buttonWidth = frame.size.width / numberOfPages;
-        float x = 0;
+        int numberOfPages = tableView.orderInfo == nil ? 2 : 3;
+        BOOL allowReservations = [[[Cache getInstance] config] getBoolAtPath:@"AllowReservations" default:NO];
+        if (allowReservations)
+            numberOfPages++;
+
+        float buttonWidth = frame.size.width / (numberOfPages + 1);
+        float x = buttonWidth;
         float y = 0;
 
         int tag = 0;
@@ -46,7 +51,7 @@
         actionsView.autoresizingMask = (UIViewAutoresizing) -1;
         [buttonViews addObject: actionsView];
 
-        UIButton *button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"action.png"] tag:tag++];
+        UIButton *button = [self createBarButtonWithFrame:CGRectMake(x - buttonWidth/2, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"action.png"] tag:tag++];
         [pageControl addSubview:button];
         x += buttonWidth;
         button.selected = true;
@@ -54,22 +59,24 @@
         guestProperties = [GuestProperties viewWithGuest:nil frame:rectPage delegate:delegate];
         guestProperties.autoresizingMask = (UIViewAutoresizing) -1;
         [buttonViews addObject: guestProperties];
-        button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"usersmall.png"] tag:tag++];
+        button = [self createBarButtonWithFrame:CGRectMake(x - buttonWidth/2, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"usersmall.png"] tag:tag++];
         [pageControl addSubview:button];
         x += buttonWidth;
 
-        reservationsTableView = [[SelectReservationView alloc] initWithFrame:rectPage delegate:self];
-        reservationsTableView.autoresizingMask = (UIViewAutoresizing) -1;
-        [buttonViews addObject: reservationsTableView];
-        button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"calendar.png"] tag:tag++];
-        [pageControl addSubview:button];
-        x += buttonWidth;
+        if (allowReservations) {
+            reservationsTableView = [[SelectReservationView alloc] initWithFrame:rectPage delegate:self];
+            reservationsTableView.autoresizingMask = (UIViewAutoresizing) -1;
+            [buttonViews addObject: reservationsTableView];
+            button = [self createBarButtonWithFrame:CGRectMake(x - buttonWidth/2, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"calendar.png"] tag:tag++];
+            [pageControl addSubview:button];
+            x += buttonWidth;
+        }
 
         if (tableView.orderInfo != nil) {
             infoView = [[TableOverlayInfo alloc] initWithFrame:rectPage order:nil];
             infoView.autoresizingMask = (UIViewAutoresizing) -1;
             [buttonViews addObject: infoView];
-            button = [self createBarButtonWithFrame:CGRectMake(x, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"info.png"] tag:tag];
+            button = [self createBarButtonWithFrame:CGRectMake(x - buttonWidth/2, y, buttonWidth, PAGECONTROL_HEIGHT) image: [UIImage imageNamed:@"info.png"] tag:tag];
             [pageControl addSubview:button];
         }
     }

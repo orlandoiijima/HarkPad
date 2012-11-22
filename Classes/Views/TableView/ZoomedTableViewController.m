@@ -10,6 +10,7 @@
 #import "ZoomedTableViewController.h"
 #import "SelectReservationView.h"
 #import "ModalAlert.h"
+#import "Config.h"
 
 @interface ZoomedTableViewController ()
 
@@ -250,32 +251,37 @@
     else {
         order.table = tableWithSeatsView.table;
     }
-    NSDate *date = [NSDate date];
-    [[Service getInstance] getReservations: date
-            success:^(ServiceResult *serviceResult) {
-                NSMutableArray *reservations = serviceResult.data;
-                if ([reservations count] == 0) {
+
+    BOOL allowReservations = [[[Cache getInstance] config] getBoolAtPath:@"AllowReservations" default:NO];
+    if (allowReservations) {
+        NSDate *date = [NSDate date];
+        [[Service getInstance] getReservations: date
+                success:^(ServiceResult *serviceResult) {
+                    NSMutableArray *reservations = serviceResult.data;
+                    if ([reservations count] == 0) {
+                    }
+                    Reservation *walkinReservation = [[Reservation alloc] init];
+                    walkinReservation.type = ReservationTypeWalkin;
+                    walkinReservation.startsOn = [NSDate date];
+                    walkinReservation.countGuests = order.table.countSeatsTotal;
+                    walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
+                    [reservations addObject:walkinReservation];
+                    if (order.reservation != nil) {
+                        for (Reservation *reservation in reservations)
+                            if (reservation.id == order.reservation.id) {
+                                reservation.orderId = -1;
+                            }
+                    }
+                    reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];
+                    self.tableViewDashboard.reservationsTableView.dataSource = reservationDataSource;
+                    self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
                 }
-                Reservation *walkinReservation = [[Reservation alloc] init];
-                walkinReservation.type = ReservationTypeWalkin;
-                walkinReservation.startsOn = [NSDate date];
-                walkinReservation.countGuests = order.table.countSeatsTotal;
-                walkinReservation.name = NSLocalizedString(@"Walk-in", nil);
-                [reservations addObject:walkinReservation];
-                if (order.reservation != nil) {
-                    for (Reservation *reservation in reservations)
-                        if (reservation.id == order.reservation.id) {
-                            reservation.orderId = -1;
-                        }
+                error: ^(ServiceResult *serviceResult) {
+                    [serviceResult displayError];
                 }
-                reservationDataSource = [ReservationDataSource dataSourceWithDate: date includePlacedReservations:NO withReservations: reservations];
-                self.tableViewDashboard.reservationsTableView.dataSource = reservationDataSource;
-                self.tableViewDashboard.reservationsTableView.selectedReservation = order.reservation == nil ? walkinReservation : order.reservation;
-            }
-            error: ^(ServiceResult *serviceResult) {
-                [serviceResult displayError];
-            }
-    ];
+        ];
+    }
+
     self.tableViewDashboard.order = order;
     self.tableWithSeatsView.orderInfo = order;
 }

@@ -15,7 +15,10 @@
 @property (retain) NSDictionary *settings;
 
 + (Config *) configFromJson: (NSDictionary *)json;
-- (id) getObjectAtPath: (NSString *) path;
-- (int) getIntAtPath: (NSString *) path default:(int) value;
+- (id)getDeviceObjectAtPath: (NSString *) path;
+
+- (BOOL)getBoolAtPath:(NSString *)path default:(BOOL)defaultValue;
+
+- (int)getIntAtPath:(NSString *)path default:(int)defaultValue;
 
 @end

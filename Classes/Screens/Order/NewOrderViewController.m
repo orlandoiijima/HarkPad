@@ -55,7 +55,7 @@
         [_order addCourse];
     }
 
-    int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default: 8];
+    int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default:8];
     SeatViewMode viewMode = _order.table.countSeatsTotal > threshold ? SeatViewModeSlider : SeatViewModeShowSeats;
 
     self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:byCourse totalizeProducts:NO showFreeProducts:YES showProductProperties:YES isEditable:YES showPrice:NO showEmptySections:YES fontSize: 0];

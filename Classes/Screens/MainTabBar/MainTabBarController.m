@@ -44,7 +44,7 @@
 
     Cache *cache = [Cache getInstance];
 
-    NSArray *screens = [cache.config getObjectAtPath:@"Screens"];
+    NSArray *screens = [cache.config getDeviceObjectAtPath:@"Screens"];
 
     NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for(NSString *sCreen in screens) {
