@@ -426,8 +426,6 @@
     CGRect rect = CGRectZero;
     for(TableInfo *tableInfo in info)
     {
-        if(tableInfo.table.dockedToTableId != -1)
-            continue;
         District *infoDistrict = [map getTableDistrict:tableInfo.table.name];
         if(infoDistrict == nil) {
             NSLog(@"district not found for table id %@", tableInfo.table.name);
@@ -501,8 +499,6 @@
     mapOffset = boundingRect.origin;
     for(TableInfo *tableInfo in tables)
     {
-        if(tableInfo.table.dockedToTableId != -1)
-            continue;
         if ([tableInfo.table.district isEqual: district]) {
             TableWithSeatsView *tableView = [self createTable:tableInfo offset: mapOffset scale: CGPointMake(mapScaleX, mapScaleX)];
             [districtView addSubview:tableView];
