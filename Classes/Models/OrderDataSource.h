@@ -50,6 +50,10 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 @property float fontSize;
 @property OrderLineSortOrder sortOrder;
 
+@property(nonatomic, strong) UIColor *textColor;
+
+@property(nonatomic, strong) UIColor *backgroundColor;
+
 + (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize;
 
 - (NSNumber *) keyForCourse: (Course *)course;

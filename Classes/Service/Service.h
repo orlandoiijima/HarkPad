@@ -53,6 +53,9 @@ typedef enum HttpVerb {HttpVerbPost, HttpVerbGet, HttpVerbPut, HttpVerbDelete} H
 - (void) moveSeat:(int)seat atTable: (NSString *) tableId beforeSeat: (int)beforeSeat atSide:(TableSide)side success: (void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getWorkInProgress:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
+
+- (void)setState:(OrderState)state forOrder:(int)orderId;
+
 - (void) getBacklogStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;
 
 - (void) getDashboardStatistics :(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error;

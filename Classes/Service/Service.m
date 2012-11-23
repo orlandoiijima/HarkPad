@@ -209,10 +209,7 @@ static Service *_service;
 
 - (ServiceResult *) deleteOrderLine: (OrderLine *)orderLine success:(void (^)(ServiceResult*))success error: (void (^)(ServiceResult*))error
 {
-    Order *order = [[Order alloc] init];
-    order.entityState = EntityStateNone;
-    order.entityState = EntityStateModified;
-    order.id = orderLine.order.id;
+    Order *order = [[Order alloc] initWithId:orderLine.order.id];
     orderLine.entityState = EntityStateDeleted;
     [order addOrderLine:orderLine];
     NSDictionary *orderDic = [order toDictionary];
@@ -264,10 +261,19 @@ static Service *_service;
     [self requestResource:@"workinprogress" id:nil action:nil arguments:nil body:nil verb:HttpVerbGet success:success error:error];
 }
 
+- (void) setState:(OrderState)state forOrder: (int) orderId
+{
+    Order *order = [[Order alloc] initWithId:orderId];
+    order.state = state;
+    NSDictionary *orderDic = [order toDictionary];
+    [self requestResource:@"order" id: order.idAsString action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];
+	return;
+}
+
 - (void) processPayment: (int) paymentType forOrder: (int) orderId
 {
-    Order *order = [[Order alloc] init];
-    order.id = orderId;
+    Order *order = [[Order alloc] initWithId:orderId];
+    order.state = OrderStatePaid;
     order.paymentType = (PaymentType) paymentType;
     NSDictionary *orderDic = [order toDictionary];
     [self requestResource:@"order" id: order.idAsString action:nil arguments:nil body:orderDic verb:HttpVerbPut success:nil error:nil];

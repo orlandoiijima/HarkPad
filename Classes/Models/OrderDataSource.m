@@ -32,6 +32,8 @@
     source.isEditable = isEditable;
     source.rowHeight = 44;
     source.sortOrder = sortByCategory;
+    source.backgroundColor = [UIColor whiteColor];
+    source.textColor = [UIColor blackColor];
     return source;
 }
 
@@ -451,7 +453,8 @@
     CGFloat height = [self tableView: tableView heightForHeaderInSection: section];
     if (grouping == bySeat) {
         Guest *guest = [self guestForKey:[self keyForSection: section]];
-        return [SeatHeaderView viewWithFrame: CGRectMake(0,0,tableView.bounds.size.width,height) forGuest: guest table: order.table showAmount:showPrice];
+        SeatHeaderView *headerView = [SeatHeaderView viewWithFrame: CGRectMake(0,0,tableView.bounds.size.width,height) forGuest: guest table: order.table showAmount:showPrice textColor:self.textColor backgroundColor:self.backgroundColor];
+        return headerView;
     }
     if (collapsableHeaders == false)
         return nil;

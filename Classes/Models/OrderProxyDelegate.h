@@ -10,7 +10,7 @@
 
 typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
 typedef enum OrderState {
-    OrderStateOrdering, OrderStateBilled, OrderStatePaid
+    OrderStateReserved, OrderStateStarted, OrderStateOrdering, OrderStateBilled, OrderStatePaid
 } OrderState ;
 typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
 

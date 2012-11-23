@@ -36,6 +36,8 @@
         order = newOrder;
         
         self.dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES showEmptySections:NO fontSize:0];
+        self.dataSource.backgroundColor = [UIColor blackColor];
+        self.dataSource.textColor = [UIColor whiteColor];
     }
 }
 
@@ -58,6 +60,8 @@
 {
     OrderPrinter *printer = [OrderPrinter printerAtTrigger: TriggerBill order: order];
     [printer print];
+
+    [[Service getInstance] setState:OrderStateBilled forOrder:order.id];
 
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -35,6 +35,8 @@
 }
 
 
+- (id)initWithId:(int)id1;
+
 + (Order *) orderForTable: (Table *) table;
 + (Order *) orderFromJsonDictionary: (NSDictionary *)jsonDictionary;
 + (Order *) orderNull;

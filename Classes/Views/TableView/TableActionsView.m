@@ -78,6 +78,10 @@
     if(order == nil) return;
 
     switch (order.state) {
+        case OrderStateStarted:
+            break;
+        case OrderStateReserved:
+            break;
         case OrderStateOrdering:
             if (order.entityState == EntityStateNew) {
                 [buttonEditOrder setCommandDescription: NSLocalizedString(@"Tap to start new order", nil)];

@@ -27,16 +27,22 @@
         self.lines = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
         self.state = OrderStateOrdering;
-        self.entityState = EntityStateNew;
         self.locationId = [AppVault locationId];
 	}
     return(self);
 }
 
+- (id)initWithId:(int)existingId {
+    self = [self init];
+    self.id = existingId;
+    self.entityState = EntityStateNone;
+    self.entityState = EntityStateModified;
+    return self;
+}
+
 + (Order *) orderNull
 {
     Order *order = [[Order alloc] init];
-//    order.id = -1;
     return order;
 }
 
@@ -129,6 +135,8 @@
 
     if (name != nil)
         [dic setObject:name forKey:@"name"];
+
+    [dic setObject: [NSNumber numberWithInt: state] forKey:@"state"];
 
     NSMutableArray *dicCourses = nil;
     for(Course *course in [self courses])

@@ -13,6 +13,8 @@
 
 @interface SeatHeaderView : UIView
 
-+ (SeatHeaderView *)viewWithFrame:(CGRect) frame forGuest:(Guest *)guest table:(Table *)table showAmount:(BOOL)showAmount;
+@property(nonatomic, strong) UIColor *textColor;
+
++ (SeatHeaderView *)viewWithFrame:(CGRect) frame forGuest:(Guest *)guest table:(Table *)table showAmount:(BOOL)showAmount textColor:(UIColor *)textcolor backgroundColor:(UIColor *)bgr;
 
 @end

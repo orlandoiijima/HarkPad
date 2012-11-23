@@ -18,7 +18,7 @@
 
 }
 
-+ (SeatHeaderView *)viewWithFrame:(CGRect) frame forGuest:(Guest *)guest table:(Table *)table showAmount:(BOOL)showAmount
++ (SeatHeaderView *)viewWithFrame:(CGRect) frame forGuest:(Guest *)guest table:(Table *)table showAmount:(BOOL)showAmount textColor:(UIColor *)textcolor backgroundColor:(UIColor *)bgr
 {
     SeatHeaderView *view = [[SeatHeaderView alloc] initWithFrame:frame];
     view.autoresizingMask = (UIViewAutoresizing)-1;
@@ -27,6 +27,8 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, 0, view.bounds.size.width-40, view.bounds.size.height)];
         label.autoresizingMask = (UIViewAutoresizing)-1;
         label.text = NSLocalizedString(@"Table", nil);
+        label.textColor = textcolor;
+        label.backgroundColor = bgr;
         [view addSubview:label];
     }
     else {
@@ -36,7 +38,8 @@
         [view addSubview:seatView];
         x += 40;
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, 0, frame.size.width - x, frame.size.height)];
-        label.backgroundColor = [UIColor clearColor];
+        label.textColor = textcolor;
+        label.backgroundColor = bgr;
         label.text = @"";
         if (guest.isHost) {
             label.text = NSLocalizedString(@"Host", nil);
@@ -55,6 +58,8 @@
             x = frame.size.width - 113;
             UILabel *label = [[UILabel alloc] initWithFrame: CGRectMake(x, 0, 70, frame.size.height)];
             label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            label.textColor = textcolor;
+            label.backgroundColor = bgr;
             label.textAlignment = NSTextAlignmentRight;
             label.text = [Utils getAmountString: [guest totalAmount] withCurrency:YES];
             [view addSubview:label];
