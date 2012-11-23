@@ -124,10 +124,6 @@
         }
     }
 
-    DashboardViewController *dbcontroller = [[DashboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    dbcontroller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Dashboard", nil) image:[UIImage imageNamed:@"dashboard"] tag:1];
-    [controllers addObject: dbcontroller];
-
     DebugViewController *debugViewController = [[DebugViewController alloc] initWithStyle:UITableViewStyleGrouped];
     UINavigationController *controller = [[UINavigationController alloc] initWithRootViewController: debugViewController];
     controller.tabBarItem = [[UITabBarItem alloc] initWithTitle:NSLocalizedString(@"Debug", nil) image:[UIImage imageNamed:@"bug.png"] tag:2];
