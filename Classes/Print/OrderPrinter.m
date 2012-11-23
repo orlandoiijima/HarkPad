@@ -46,7 +46,8 @@
                  showEmptySections:NO
                           fontSize:12];
         _orderDocument = document;
-        [Print printWithDataSource:self withDocument:document toPrinter:document.printer];
+        if (self.numberOfSections > 0 && [self numberOfRowsInSection:0] > 0)
+            [Print printWithDataSource:self withDocument:document toPrinter:document.printer];
     }
 }
 
