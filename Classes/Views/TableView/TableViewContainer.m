@@ -26,7 +26,6 @@
 }
 
 - (void) setIsSelected: (BOOL) isSelected {
-//    self.layer.borderColor = isSelected ? [[UIColor whiteColor] CGColor] : [[UIColor grayColor] CGColor];
     if (isSelected) {
         [UIView animateWithDuration:0.6 delay:0 options:UIViewAnimationOptionAutoreverse|UIViewAnimationOptionRepeat animations: ^
         {
@@ -37,6 +36,10 @@
         [self.layer removeAllAnimations];
         self.transform = CGAffineTransformIdentity;
     }
+}
+
+- (void) setIsHighLighted: (BOOL) isHigh {
+    self.layer.borderColor = isHigh ? [[UIColor whiteColor] CGColor] : [[UIColor grayColor] CGColor];
 }
 
 - (void) setIsTransparent: (BOOL)isTransparent {

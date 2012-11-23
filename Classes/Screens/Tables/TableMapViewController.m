@@ -164,9 +164,9 @@
             TableWithSeatsView *newTarget = [self tableViewAtPoint: point];
             if (newTarget != targetTableView && newTarget != dragTableView) {
                 if (targetTableView != nil)
-                    targetTableView.isTableSelected = NO;
+                    targetTableView.tableView.isHighLighted = NO;
                 targetTableView = newTarget;
-                targetTableView.isTableSelected = YES;
+                targetTableView.tableView.isHighLighted = YES;
             }
 
             if ([[dragTableView.orderInfo guests] count] > 0) {
@@ -359,7 +359,7 @@
             [newTableView removeFromSuperview];
 
             for(TableWithSeatsView *tableView in tableViews) {
-                tableView.isTableSelected = NO;
+                tableView.tableView.isHighLighted = NO;
                 [self.currentDistrictView addSubview:tableView];
             }
             dragTableView.center = dragTableOriginalCenter;

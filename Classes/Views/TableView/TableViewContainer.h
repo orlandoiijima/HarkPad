@@ -13,4 +13,5 @@
 @property (nonatomic) BOOL isSelected;
 @property (nonatomic) BOOL isTransparent;
 
+@property(nonatomic) BOOL isHighLighted;
 @end

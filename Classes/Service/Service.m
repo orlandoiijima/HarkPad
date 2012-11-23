@@ -131,7 +131,7 @@ static Service *_service;
         [tableNames addObject:table.name];
     }
     NSDictionary *infoDic = [NSDictionary dictionaryWithObject:tableNames forKey:@"Tables"];
-    [self requestResource:@"table" id:masterTable.name action:@"DockTables" arguments:nil body:infoDic verb:HttpVerbPost success:nil error:nil];
+    [self requestResource:@"table" id:masterTable.name action:@"dock" arguments:nil body:infoDic verb:HttpVerbPost success:nil error:nil];
 }
 
 // *********************************
