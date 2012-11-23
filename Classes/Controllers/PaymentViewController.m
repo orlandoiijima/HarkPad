@@ -23,7 +23,6 @@
     return self;
 }
 
-
 - (void) setOrder: (Order *) newOrder
 {
     if(order != newOrder)
