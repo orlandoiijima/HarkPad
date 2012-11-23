@@ -94,6 +94,7 @@
     NSIndexPath *indexPath = [self indexPathForCategory:category];
     if (indexPath == nil) return;
     [self selectItemAtIndexPath: indexPath animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
+    [self.panelDelegate didTapCategory:category];
 }
 
 - (void)refreshCategory:(ProductCategory *)category {

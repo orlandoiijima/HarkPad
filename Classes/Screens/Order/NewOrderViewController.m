@@ -103,7 +103,6 @@
     [self addPanelWithView: saveButton frame:CGRectMake(CGRectGetMaxX(rect) - orderViewWidth, rect.origin.y + rect.size.height - buttonSize, orderViewWidth, buttonSize) margin:5 padding:10 backgroundColor:[UIColor clearColor]];
 
     [self setupToolbar];
-
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -150,11 +149,6 @@
     self.autoAdvance = !self.autoAdvance;
     UIBarButtonItem *buttonItem = (UIBarButtonItem *) sender;
     buttonItem.style = self.autoAdvance ? UIBarButtonItemStyleDone : UIBarButtonItemStylePlain;
-}
-
-- (void) getFeedback
-{
-    [TestFlight openFeedbackView];
 }
 
 - (void) save {

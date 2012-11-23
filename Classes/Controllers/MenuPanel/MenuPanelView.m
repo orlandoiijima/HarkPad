@@ -52,6 +52,8 @@
             [_categories addObject: category];
     }
     _categoryPanelView.categories = _categories;
+
+    _categoryPanelView.selectedCategory = _categories[0];
 }
 
 + (MenuPanelView *)viewWithFrame:(CGRect)frame menuCard:(MenuCard *)menuCard menuPanelShow:(MenuPanelShow)show delegate:(id<ProductPanelDelegate>)delegate{
@@ -129,7 +131,7 @@
     if (_delegate != nil && [_delegate respondsToSelector:@selector(didTapCategory:)])
         [_delegate didTapCategory:category];
     _productPanelView.category = category;
-    [self setSelectedItem:[category.products objectAtIndex:0]];
+//    [self setSelectedItem:[category.products objectAtIndex:0]];
 }
 
 - (void)setSelectedItem:(id)selectedItem {
