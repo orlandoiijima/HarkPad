@@ -661,7 +661,6 @@
 }
 
 - (void)didProcessPaymentType:(PaymentType)type forOrder :(Order *)order {
-    [self dismissViewControllerAnimated:YES completion:nil];
     [self performSelector:@selector(refreshView) withObject:nil afterDelay:1];
 }
 
