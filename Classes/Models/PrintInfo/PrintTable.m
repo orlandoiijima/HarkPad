@@ -33,6 +33,7 @@
     table.columns  = [[NSMutableArray alloc] init];
     table.pointSize = [[infoJson objectForKey:@"pointSize"] floatValue];
     table.fontName  = [infoJson objectForKey:@"fontName"];
+    table.lineSpace  = [[infoJson objectForKey:@"lineSpace"] intValue];
     table.xSpec  = [infoJson objectForKey:@"xSpec"];
     table.ySpec  = [infoJson objectForKey:@"ySpec"];
     table.section = [Run runFromJson: [infoJson objectForKey:@"section"]];

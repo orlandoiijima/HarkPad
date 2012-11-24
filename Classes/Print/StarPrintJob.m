@@ -94,23 +94,31 @@
         defaultPointSize = _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize;
         for(NSUInteger row = 0; row < countRows; row++) {
             rowHeight = 0;
+            float topOfRow = _y;
             for(PrintColumn *column in _template.table.columns) {
-                float height = [self print:column.cell row:row section:section pointSize: defaultPointSize];
-                if (height > rowHeight)
-                    rowHeight = height;
+                _lineHeight = 0;
+                float cellHeight = 0;
+                for (Run *run in column.cellRuns) {
+                    cellHeight += [self print:run row:row section:section pointSize:defaultPointSize];
+                }
+                if (cellHeight > rowHeight)
+                    rowHeight = cellHeight;
+                _y = topOfRow;
             }
-            _tableOffset += rowHeight;
-            _lineHeight = rowHeight;
+            _tableOffset += rowHeight + _template.table.lineSpace;
+            _y = topOfRow;
         }
     }
 
     _lineHeight = 0;
     for(PrintColumn *column in _template.table.columns) {
-        Run *run = [column.cell copy];
-        run.text = column.footer;
-        float height = [self print:run row:-1 section:-1 pointSize: defaultPointSize];
-        if (height > _lineHeight)
-            _lineHeight = height;
+        for (Run *run in column.cellRuns) {
+            Run *run = [run copy];
+            run.text = column.footer;
+            float height = [self print:run row:-1 section:-1 pointSize: defaultPointSize];
+            if (height > _lineHeight)
+                _lineHeight = height;
+        }
     }
     _tableOffset += _lineHeight;
 
@@ -144,7 +152,7 @@
     else {
         NSString *textToDraw = [run evaluateWithProvider:_dataSource row:row section:section];
         if ([textToDraw length] > 0) {
-            NSString *ySpec = row == -1 ? run.ySpec : @"+0";
+            NSString *ySpec = run.ySpec;
             if (run.alignment == NSTextAlignmentCenter) {
                 CGSize measuredSize = [textToDraw sizeWithFont:font constrainedToSize:CGSizeMake(PAPERWIDTH, 200) lineBreakMode:NSLineBreakByWordWrapping];
                 rect = CGRectMake(0, [self updateY:ySpec font:font], PAPERWIDTH, measuredSize.height);

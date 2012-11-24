@@ -96,7 +96,7 @@
             getOrder:reservation.orderId
              success:^(ServiceResult *serviceResult){
                 Order *order = [Order orderFromJsonDictionary:serviceResult.jsonData];
-                 self.orderDataSource = [OrderDataSource dataSourceForOrder:order grouping:bySeat totalizeProducts:YES showFreeProducts:NO showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:14];
+                 self.orderDataSource = [OrderDataSource dataSourceForOrder:order grouping:bySeat totalizeProducts:YES showFreeProducts:NO showExistingLines:YES showProductProperties:NO isEditable:NO showPrice:NO showEmptySections:NO fontSize:14];
                  self.orderTableView.dataSource = self.orderDataSource;
                  [self.orderTableView reloadData];
             }

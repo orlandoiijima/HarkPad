@@ -54,7 +54,7 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 
 @property(nonatomic, strong) UIColor *backgroundColor;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool)isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize;
+@property(nonatomic) bool showExistingLines;
 
 - (NSNumber *) keyForCourse: (Course *)course;
 - (NSNumber *) keyForGuest: (Guest *)guest;
@@ -63,6 +63,9 @@ typedef enum OrderLineSortOrder {sortByOrder, sortByCreatedOn, sortByCategory} O
 - (int) sectionForKey:(NSNumber *) key;
 - (OrderDataSourceSection *) groupForSection:(int) section;
 - (OrderLine *) orderLineAtIndexPath: (NSIndexPath *)indexPath;
+
++ (OrderDataSource *)dataSourceForOrder:(Order *)order grouping:(OrderGrouping)grouping totalizeProducts:(bool)totalize showFreeProducts:(bool)showFree showExistingLines:(bool)showExisting showProductProperties:(bool)showProps isEditable:(bool)isEditable showPrice:(bool)showPrice showEmptySections:(BOOL)showEmptySections fontSize:(float)fontSize;
+
 - (void) tableView:(UITableView *)tableView addLine: (OrderLine *)line;
 - (int) insertionPointForLine: (OrderLine *)lineToInsert inGroup: (OrderDataSourceSection *)group;
 - (NSIndexPath *)indexPathForLine: (OrderLine *)line;

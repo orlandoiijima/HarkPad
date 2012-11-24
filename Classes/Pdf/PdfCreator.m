@@ -89,27 +89,32 @@
         y = [self.template.table.ySpec floatValue];
         UIFont *font = [UIFont systemFontOfSize: self.template.table.pointSize == 0.0 ? pointSize : self.template.table.pointSize];
         for(NSUInteger row = 0; row < countRows; row++) {
-            float height = 0;
+            float rowHeight = 0;
+            float topOfRow = y;
             for(PrintColumn *column in self.template.table.columns) {
-                float x = [column.cell.xSpec floatValue];
-                NSString *cell = [column.cell evaluateWithProvider: _dataSource row:row section: section];
-                if ([cell length] > 0) {
+                float cellHeight = 0;
+                for (Run *run in column.cellRuns) {
+                    float x = [run.xSpec floatValue];
+                    NSString *cell = [run evaluateWithProvider:_dataSource row:row section:section];
+                    if ([cell length] > 0) {
 
-                    CGSize stringSize = [cell sizeWithFont:font
-                                               constrainedToSize:CGSizeMake(column.cell.width, 100)
-                                                   lineBreakMode:NSLineBreakByWordWrapping];
-                    if (stringSize.height > height)
-                        height = stringSize.height;
-                    CGRect renderingRect = CGRectMake(x, y, column.cell.width, stringSize.height);
+                        CGSize stringSize = [cell sizeWithFont:font
+                                                   constrainedToSize:CGSizeMake(run.width, 100)
+                                                       lineBreakMode:NSLineBreakByWordWrapping];
+                        CGRect renderingRect = CGRectMake(x, topOfRow + cellHeight, run.width, stringSize.height);
 
-                    [cell drawInRect:renderingRect
-                                  withFont:font
-                             lineBreakMode:NSLineBreakByWordWrapping
-                           alignment:column.cell.alignment];
+                        [cell drawInRect:renderingRect
+                                      withFont:font
+                                 lineBreakMode:NSLineBreakByWordWrapping
+                               alignment:run.alignment];
+                        cellHeight += stringSize.height;
+                    }
+                    x += run.width;
                 }
-                x += column.cell.width;
+                if (cellHeight > rowHeight)
+                    rowHeight = cellHeight;
             }
-            y += height;
+            y += topOfRow + rowHeight;
         }
     }
 

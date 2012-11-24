@@ -449,7 +449,7 @@
                     else
                         info.lunchCount += reservation.countGuests;
                 }
- //               [cell setInfo:info];
+ //               [cellRuns setInfo:info];
             }
         }
     }

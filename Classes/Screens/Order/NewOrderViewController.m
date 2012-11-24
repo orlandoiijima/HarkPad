@@ -58,7 +58,7 @@
     int threshold = [[[Cache getInstance] config] getIntAtPath:@"screen/order/maxdisplayseats" default:8];
     SeatViewMode viewMode = _order.table.countSeatsTotal > threshold ? SeatViewModeSlider : SeatViewModeShowSeats;
 
-    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:byCourse totalizeProducts:NO showFreeProducts:YES showProductProperties:YES isEditable:YES showPrice:NO showEmptySections:YES fontSize: 0];
+    self.dataSource = [OrderDataSource dataSourceForOrder:_order grouping:byCourse totalizeProducts:NO showFreeProducts:YES showExistingLines:YES showProductProperties:YES isEditable:YES showPrice:NO showEmptySections:YES fontSize: 0];
     self.dataSource.showSeat = viewMode == SeatViewModeShowSeats;
     self.dataSource.collapsableHeaders = YES;
     self.dataSource.delegate = self;

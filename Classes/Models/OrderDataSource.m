@@ -18,7 +18,7 @@
 
 @synthesize totalizeProducts, showFreeProducts, order, groupedLines, grouping, showProductProperties, showSeat, isEditable, delegate = _delegate, rowHeight, sortOrder, showPrice, fontSize, collapsableHeaders, showEmptySections, showStepper;
 
-+ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize
++ (OrderDataSource *) dataSourceForOrder: (Order *)order grouping: (OrderGrouping) grouping totalizeProducts: (bool) totalize showFreeProducts: (bool)showFree  showExistingLines: (bool)showExisting showProductProperties: (bool)showProps isEditable: (bool) isEditable showPrice: (bool)showPrice showEmptySections: (BOOL) showEmptySections fontSize: (float)fontSize
 {
     OrderDataSource *source = [[OrderDataSource alloc] init];
     source.totalizeProducts = totalize;
@@ -26,6 +26,7 @@
     source.showProductProperties = showProps;
     source.showPrice = showPrice;
     source.showEmptySections = showEmptySections;
+    source.showExistingLines = showExisting;
     source.fontSize = fontSize;
     source.order = order;
     source.grouping = grouping;
@@ -92,6 +93,8 @@
 
 - (void) tableView:(UITableView *)tableView addLine: (OrderLine *)line {
     if([line.product.price isEqualToNumber: [NSDecimalNumber zero]] && showFreeProducts == false)
+        return;
+    if (line.isNew == false && self.showExistingLines == false)
         return;
     NSNumber *key = [self keyForOrderLine:line];
 

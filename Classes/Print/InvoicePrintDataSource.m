@@ -26,6 +26,7 @@
                       grouping: noGrouping
               totalizeProducts:YES
               showFreeProducts:NO
+             showExistingLines:NO
          showProductProperties:NO
                     isEditable:NO
                      showPrice:NO

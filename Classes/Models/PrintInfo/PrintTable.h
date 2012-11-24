@@ -16,6 +16,7 @@
 @property (retain) NSString *xSpec;
 @property (retain) NSString *ySpec;
 @property (retain) Run *section;
+@property int lineSpace;
 
 + (PrintTable *) tableFromJson:(NSDictionary *)infoJson;
 

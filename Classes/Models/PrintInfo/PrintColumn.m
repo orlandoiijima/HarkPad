@@ -6,18 +6,15 @@
 
 
 #import "PrintColumn.h"
-#import "PrintTable.h"
-#import "Run.h"
-
 
 @implementation PrintColumn {
 
 @private
     NSString *_header;
     NSString *_footer;
-    Run *_cell;
+    NSMutableArray *_cellRuns;
 }
-@synthesize cell = _cell;
+@synthesize cellRuns = _cellRuns;
 @synthesize header = _header;
 
 
@@ -26,7 +23,11 @@
     PrintColumn *column = [[PrintColumn alloc] init];
     column.header  = [infoJson objectForKey:@"header"];
     column.footer  = [infoJson objectForKey:@"footer"];
-    column.cell  = [Run runFromJson: [infoJson objectForKey:@"cell"]];
+    column.cellRuns = [[NSMutableArray alloc] init];
+    for (NSDictionary *dic in [infoJson objectForKey:@"cellRuns"]) {
+        Run *run = [Run runFromJson: dic];
+        [column.cellRuns addObject:run];
+    }
     return column;
 }
 

@@ -10,7 +10,7 @@
 
 @interface PrintColumn : NSObject
 
-@property (retain) Run *cell;
+@property (retain) NSMutableArray *cellRuns;
 @property (retain) NSString *header;
 @property (retain) NSString *footer;
 

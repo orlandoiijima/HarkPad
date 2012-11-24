@@ -118,7 +118,7 @@
     if (cell.showPrice) {
         cell.price = [[UILabel alloc] initWithFrame:CGRectMake(right-50, 0, 50, height)];
         [cell.contentView addSubview:cell.price];
-//        cell.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+//        cellRuns.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         cell.price.textAlignment = NSTextAlignmentRight;
         cell.price.backgroundColor = [UIColor clearColor];
         cell.price.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;

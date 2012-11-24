@@ -29,7 +29,7 @@
     {
         order = newOrder;
         
-        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showProductProperties:YES isEditable:NO showPrice:YES showEmptySections:NO fontSize:0];
+        dataSource = [OrderDataSource dataSourceForOrder:order grouping:byCategory totalizeProducts:YES showFreeProducts:NO showExistingLines:YES showProductProperties:YES isEditable:NO showPrice:YES showEmptySections:NO fontSize:0];
     }
 }
 

@@ -40,6 +40,7 @@
                           grouping: noGrouping
                   totalizeProducts:document.totalizeProducts
                   showFreeProducts:document.filter.zeroPrice
+                 showExistingLines:document.filter.existingLines
              showProductProperties:NO
                         isEditable:NO
                          showPrice:NO
@@ -110,6 +111,8 @@
         if (line == nil) return @"";
         if ([variable compare: @"{productName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.name;
+        if ([variable compare: @"{productOptions}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+            return [self optionsStringForOrderLine:line];
         if ([variable compare: @"{productKey}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.key;
         if ([variable compare: @"{quantity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
@@ -136,6 +139,16 @@
 
     [Logger error:[NSString stringWithFormat:@"Unknown variable '%@'", variable]];
     return @"";
+}
+
+- (NSString *) optionsStringForOrderLine:(OrderLine *) line {
+    NSString *optionsString = line.note == nil ? @"" : line.note;
+    if ([line.propertyValues count] == 0)
+        return optionsString;
+    if ([optionsString length] > 0)
+        [optionsString stringByAppendingString:@"\n"];
+    optionsString = [optionsString stringByAppendingString: [line.propertyValues componentsJoinedByString:@","]];
+    return optionsString;
 }
 
 @end
