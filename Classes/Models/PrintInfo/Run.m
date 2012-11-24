@@ -73,7 +73,8 @@
         NSString *variable = [tail substringWithRange:NSMakeRange(startVar.location, endVar.location - startVar.location + 1)];
         NSString *outcome = [delegate stringForVariable:variable row:row section:section];
         destination = [destination stringByAppendingString: [tail substringToIndex:startVar.location]];
-        destination = [destination stringByAppendingString:outcome];
+        if ([outcome length] > 0)
+            destination = [destination stringByAppendingString:outcome];
         i += endVar.location + 1;
     }
 }
