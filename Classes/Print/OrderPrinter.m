@@ -113,6 +113,8 @@
             return line.product.name;
         if ([variable compare: @"{productOptions}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [self optionsStringForOrderLine:line];
+        if ([variable compare: @"{productNote}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
+            return line.note;
         if ([variable compare: @"{productKey}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.key;
         if ([variable compare: @"{quantity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
@@ -142,13 +144,7 @@
 }
 
 - (NSString *) optionsStringForOrderLine:(OrderLine *) line {
-    NSString *optionsString = line.note == nil ? @"" : line.note;
-    if ([line.propertyValues count] == 0)
-        return optionsString;
-    if ([optionsString length] > 0)
-        [optionsString stringByAppendingString:@"\n"];
-    optionsString = [optionsString stringByAppendingString: [line.propertyValues componentsJoinedByString:@","]];
-    return optionsString;
+    return [line.propertyValues componentsJoinedByString:@" + "];
 }
 
 @end

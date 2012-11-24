@@ -122,23 +122,6 @@
     return [dictionary objectForKey:@"percentage"];
 }
 
-- (OrderLineProperty *) getProductProperty: (int)propertyId
-{
-    for(ProductCategory *category in _categories)
-    {
-        for(Product *product in category.products)
-        {
-            for(OrderLineProperty * prop in [product properties])
-            {
-                if(prop.id == propertyId)
-                    return prop;
-            }
-        }    
-    }      
-    return nil;
-}
-
-
 - (id)copyWithZone:(NSZone *)zone {
     MenuCard *card = [[MenuCard allocWithZone:zone] init];
     card.companyId = _companyId;

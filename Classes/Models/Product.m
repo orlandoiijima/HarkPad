@@ -6,7 +6,6 @@
 //  Copyright (c) 2010 The Attic. All rights reserved.
 //
 #import "Product.h"
-#import "OrderLineProperty.h"
 #import "Utils.h"
 #import "MenuItem.h"
 
@@ -44,10 +43,9 @@
 
     id props =  [jsonDictionary objectForKey:@"properties"];
     if (props != nil) {
-        for(NSDictionary *item in props)
+        for(NSString *item in props)
         {
-            OrderLineProperty *p = [OrderLineProperty propertyFromJsonDictionary:item];
-            [product.properties addObject:p];
+            [product.properties addObject:item];
         }
     }
 
@@ -81,37 +79,20 @@
         }
         [dic setObject: menuItems forKey:@"items"];
     }
+
+    if ([_properties count] > 0) {
+        NSMutableArray *propertyItems = [[NSMutableArray alloc] init];
+        for (NSString *prop in _properties) {
+            [propertyItems addObject:prop];
+        }
+        [dic setObject: propertyItems forKey:@"properties"];
+    }
+
     return dic;
 }
 
 -(BOOL)isMenu {
     return [_items count] > 0;
-}
-
-- (BOOL) hasProperty: (int)propertyId
-{
-    for (OrderLineProperty *prop in _properties) {
-        if(prop.id == propertyId)
-            return YES;
-    }
-    return NO;
-}
-
-- (void) addProperty: (OrderLineProperty *) orderLineProperty
-{
-    if ([self hasProperty:orderLineProperty.id])
-        return;
-    [self.properties addObject:orderLineProperty];
-}
-
-- (void) deleteProperty: (OrderLineProperty *) orderLineProperty
-{
-    for (OrderLineProperty *prop in _properties) {
-        if(prop.id == orderLineProperty.id) {
-            [self.properties removeObject:prop];
-            return;
-        }
-    }
 }
 
 + (Product *)nullProduct {

@@ -20,7 +20,6 @@
 @property (retain) IBOutlet UIImageView *nLineIcon;
 @property (retain) UITextField * notesView;
 @property (retain) UIStepper * stepperView;
-@property (retain) NSMutableArray *propertyViews;
 @property (retain) id<OrderDelegate> delegate;
 
 @property bool showProductProperties;
@@ -32,6 +31,8 @@
 @property int heightInEditMode;
 
 @property(nonatomic, assign) BOOL isBlinking;
+
+@property(nonatomic, strong) NSMutableArray *propertyViews;
 
 + (OrderLineCell *) cellWithOrderLine: (OrderLine *) line isEditable: (BOOL)isEditable showPrice: (bool)showPrice showProperties: (bool)showProperties showSeat: (bool)showSeat showStepper: (bool)showStepper guests: (NSMutableArray *)guests delegate: (id) delegate rowHeight: (float)rowHeight fontSize: (float)fontSize;
 

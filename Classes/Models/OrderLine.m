@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "OrderLine.h"
-#import "OrderLinePropertyValue.h"
 #import "Cache.h"
 #import "Order.h"
-#import "OrderGridHitInfo.h"
 #import "NSDate-Utilities.h"
 
 @implementation OrderLine
 
-@synthesize order, quantity, product, sortOrder, guest, note, course, propertyValues, state, createdOn;
+@synthesize order, quantity, product, sortOrder, guest, note, course, state, createdOn;
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order
 {
@@ -64,10 +62,9 @@
         [order.lines addObject:orderLine];
     }
     
-    id propertyValues = [jsonDictionary objectForKey:@"propertyValues"];
-    for(NSDictionary *propertyValueDic in propertyValues)
+    id propertyValues = [jsonDictionary objectForKey:@"properties"];
+    for(NSDictionary *propertyValue in propertyValues)
     {
-        OrderLinePropertyValue *propertyValue = [OrderLinePropertyValue valueFromJsonDictionary: propertyValueDic]; 
         [orderLine.propertyValues addObject:propertyValue];
     }
 
@@ -98,7 +95,7 @@
 - (id)init {
     if ((self = [super init])) {
         self.quantity = 1;
-        propertyValues = [[NSMutableArray alloc] init];
+        self.propertyValues = [[NSMutableArray alloc] init];
         self.createdOn = [NSDate date];
 //        entityState = New;
     }
@@ -118,50 +115,16 @@
     if(note != nil)
         [dic setObject: note forKey:@"note"];
 
-    if([propertyValues count] > 0) {
+    if([_propertyValues count] > 0) {
         NSMutableArray *dicProps = [[NSMutableArray alloc] init];
-        [dic setObject:dicProps forKey:@"propertyValues"];
-        for(OrderLinePropertyValue *value in propertyValues)
+        [dic setObject:dicProps forKey:@"properties"];
+        for(NSString *value in _propertyValues)
         {
-            [dicProps addObject: [value toDictionary]];
+            [dicProps addObject: value];
         }
     }
 
     return dic;
-}
-
-- (OrderLinePropertyValue *) getValueForProperty: (OrderLineProperty *) property
-{
-    for(OrderLinePropertyValue *propertyValue in propertyValues)
-    {
-        if(propertyValue.orderLineProperty.id == property.id)
-        {
-            return propertyValue;
-        }
-    }
-    return nil;
-}
-
-- (NSString *) getStringValueForProperty: (OrderLineProperty *) property
-{
-    OrderLinePropertyValue *propertyValue = [self getValueForProperty:property];
-    return propertyValue == nil ? nil : propertyValue.value;
-}
-
-- (void) setStringValueForProperty : (OrderLineProperty *) property value: (NSString *) value
-{
-    OrderLinePropertyValue *propertyValue = [self getValueForProperty:property];
-    if(propertyValue == nil)
-    {
-        propertyValue = [[OrderLinePropertyValue alloc] init];
-        propertyValue.orderLineProperty = property;
-        [propertyValues addObject:propertyValue];
-    }
-    propertyValue.value = value;
-
-    self.entityState = EntityStateModified;
-
-    return;
 }
 
 - (void)setNote:(NSString *)aNote {
@@ -210,5 +173,22 @@
     return line;
 }
 
+
+- (void)addProperty:(NSString *)string {
+    for (NSString *property in _propertyValues) {
+        if ([property caseInsensitiveCompare:string] == NSOrderedSame)
+            return;
+    }
+    [_propertyValues addObject:string];
+}
+
+- (void)removeProperty:(NSString *)string {
+    for (NSString *property in _propertyValues) {
+        if ([property caseInsensitiveCompare:string] == NSOrderedSame) {
+            [_propertyValues removeObject:property];
+            return;
+        }
+    }
+}
 
 @end

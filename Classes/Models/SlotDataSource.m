@@ -55,9 +55,9 @@
     cell.textLabel.text = line.product.name;
 
     NSString *details = line.note;
-    for(OrderLinePropertyValue *propertyValue in line.propertyValues)
+    for(NSString *propertyValue in line.propertyValues)
     {
-        details = [NSString stringWithFormat:@"%@ %@", details, propertyValue.displayValue];
+        details = [NSString stringWithFormat:@"%@ %@", details, propertyValue];
     }
     cell.detailTextLabel.text = details;
         

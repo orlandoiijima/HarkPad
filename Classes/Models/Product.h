@@ -16,17 +16,6 @@
 typedef enum Vat {Low=0, High=1} Vat;
 
 @interface Product : DTO <NSCopying> {
-//    NSString *name;
-//    NSString *key;
-//    ProductCategory *category;
-//    NSString *description;
-//    NSDecimalNumber *price;
-//    int sortOrder;
-//    bool isQueued;
-//    bool isDeleted;
-//    Diet diet;
-//    NSMutableArray *properties;
-//    NSDecimalNumber *vat;
 }
 
 
@@ -50,8 +39,5 @@ typedef enum Vat {Low=0, High=1} Vat;
 + (Product *) productFromJsonDictionary: (NSDictionary *) dict;
 
 - (NSMutableDictionary *)toDictionary;
-- (BOOL) hasProperty: (int)propertyId;
-- (void) addProperty: (OrderLineProperty *) orderLineProperty;
-- (void) deleteProperty: (OrderLineProperty *) orderLineProperty;
 
 @end

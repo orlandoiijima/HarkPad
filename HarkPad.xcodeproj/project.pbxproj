@@ -214,8 +214,6 @@
 		E5E723031311A12C00905959 /* OrderGridHitInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387912E234B8007C2101 /* OrderGridHitInfo.m */; };
 		E5E723041311A12C00905959 /* OrderInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387B12E234B8007C2101 /* OrderInfo.m */; };
 		E5E723051311A12C00905959 /* OrderLine.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387D12E234B8007C2101 /* OrderLine.m */; };
-		E5E723061311A12C00905959 /* OrderLineProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A387F12E234B8007C2101 /* OrderLineProperty.m */; };
-		E5E723071311A12C00905959 /* OrderLinePropertyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388112E234B8007C2101 /* OrderLinePropertyValue.m */; };
 		E5E723081311A12C00905959 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388512E234B8007C2101 /* Product.m */; };
 		E5E723091311A12C00905959 /* ProductCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388712E234B8007C2101 /* ProductCategory.m */; };
 		E5E7230A1311A12C00905959 /* Table.m in Sources */ = {isa = PBXBuildFile; fileRef = E50A388C12E234B8007C2101 /* Table.m */; };
@@ -591,10 +589,6 @@
 		E50A387B12E234B8007C2101 /* OrderInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfo.m; sourceTree = "<group>"; };
 		E50A387C12E234B8007C2101 /* OrderLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLine.h; sourceTree = "<group>"; };
 		E50A387D12E234B8007C2101 /* OrderLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLine.m; sourceTree = "<group>"; };
-		E50A387E12E234B8007C2101 /* OrderLineProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLineProperty.h; sourceTree = "<group>"; };
-		E50A387F12E234B8007C2101 /* OrderLineProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLineProperty.m; sourceTree = "<group>"; };
-		E50A388012E234B8007C2101 /* OrderLinePropertyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderLinePropertyValue.h; sourceTree = "<group>"; };
-		E50A388112E234B8007C2101 /* OrderLinePropertyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderLinePropertyValue.m; sourceTree = "<group>"; };
 		E50A388412E234B8007C2101 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
 		E50A388512E234B8007C2101 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		E50A388612E234B8007C2101 /* ProductCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCategory.h; sourceTree = "<group>"; };
@@ -1426,10 +1420,6 @@
 				E50A387B12E234B8007C2101 /* OrderInfo.m */,
 				E50A387C12E234B8007C2101 /* OrderLine.h */,
 				E50A387D12E234B8007C2101 /* OrderLine.m */,
-				E50A387E12E234B8007C2101 /* OrderLineProperty.h */,
-				E50A387F12E234B8007C2101 /* OrderLineProperty.m */,
-				E50A388012E234B8007C2101 /* OrderLinePropertyValue.h */,
-				E50A388112E234B8007C2101 /* OrderLinePropertyValue.m */,
 				E50A388412E234B8007C2101 /* Product.h */,
 				E50A388512E234B8007C2101 /* Product.m */,
 				E50A388612E234B8007C2101 /* ProductCategory.h */,
@@ -2259,8 +2249,6 @@
 				E5E723031311A12C00905959 /* OrderGridHitInfo.m in Sources */,
 				E5E723041311A12C00905959 /* OrderInfo.m in Sources */,
 				E5E723051311A12C00905959 /* OrderLine.m in Sources */,
-				E5E723061311A12C00905959 /* OrderLineProperty.m in Sources */,
-				E5E723071311A12C00905959 /* OrderLinePropertyValue.m in Sources */,
 				E5E723081311A12C00905959 /* Product.m in Sources */,
 				E5E723091311A12C00905959 /* ProductCategory.m in Sources */,
 				E5E7230A1311A12C00905959 /* Table.m in Sources */,

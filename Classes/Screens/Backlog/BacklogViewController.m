@@ -8,7 +8,6 @@
 
 #import "BacklogViewController.h"
 #import "Service.h"
-#import "Backlog.h"
 
 @implementation BacklogViewController
 

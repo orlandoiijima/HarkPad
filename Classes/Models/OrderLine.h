@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Product.h"
-#import "OrderLineProperty.h"
-#import "OrderLinePropertyValue.h"
 #import "Guest.h"
 #import "Course.h"
 #import "EntityState.h"
@@ -27,7 +25,6 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
     NSString *note;
     Product *product;
     State state;
-    NSMutableArray *propertyValues;
 }
 
 @property (retain) Order *order;
@@ -39,20 +36,20 @@ typedef enum State {Ordered = 0, Preparing = 1} State;
 @property (retain) Product *product;
 @property int sortOrder;
 @property State state;
-@property (retain) NSMutableArray *propertyValues;
 
 @property (nonatomic) int offset;
+
+@property(nonatomic, strong) NSMutableArray *propertyValues;
 
 + (OrderLine *) orderLineFromJsonDictionary: (NSDictionary *)jsonDictionary order: (Order *)order;
 
 - (NSMutableDictionary *)toDictionary;
-- (NSString *) getStringValueForProperty: (OrderLineProperty *) property;
-- (OrderLinePropertyValue *) getValueForProperty: (OrderLineProperty *) property;
-- (void) setStringValueForProperty : (OrderLineProperty *) property value: (NSString *) value;
 
 - (Course *) getCourseByOffset: (int)offset courses: (NSArray *) courses;
 - (Guest *) getGuestBySeat: (int)seat guests: (NSArray *) guests;
 - (NSDecimalNumber *) getAmount;
 - (NSDecimalNumber *) getVatAmount;
 
+- (void)addProperty:(NSString *)string;
+- (void)removeProperty:(NSString *)string;
 @end

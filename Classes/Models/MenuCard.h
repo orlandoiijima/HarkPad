@@ -10,7 +10,6 @@
 #import "CJSONDeserializer.h"
 #import "ProductCategory.h"
 #import "Product.h"
-#import "OrderLineProperty.h"
 
 @interface MenuCard : DTO {
 }
@@ -26,8 +25,6 @@
 
 
 - (NSDecimalNumber *)vatPercentageByIndex:(int)i;
-
-- (OrderLineProperty *) getProductProperty: (int)propertyId;
 
 - (BOOL)isFavorite:(id)item;
 

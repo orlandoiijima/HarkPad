@@ -38,9 +38,6 @@
 "Loading orders" = "Laden rekeningen";
 "No reservations" = "Geen reserveringen";
 "Course requested" = "Gang uitgevraagd";
-"Report printed" = "Rapport afgedrukt";
-"Back" = "Terug";
-"Home" = "Home";
 "Food" = "Eten";
 "Drink" = "Drank";
 "Now" = "Nu";
@@ -48,7 +45,6 @@
 "Tomorrow" = "Morgen";
 "Recent bills" = "Laatste rekeningen";
 "Last updated: %@" = "Laatst bijgewerkt: %@";
-"Last updated: never" = "Laatst bijgewerkt: nooit";
 "Release to update" = "Laat los om bij te werken...";
 "Update..." = "Bijwerken...";
 "Slide down to update..." = "Schuif om bij te werken...";
@@ -74,10 +70,8 @@
 "Male" = "Man";
 "Female" = "Vrouw";
 "Host" = "Gastheer";
-"Service unavailable at %@" = "Service '%@' niet bereikbaar";
 "Served" = "Geserveerd";
 "Requested" = "Uitgevraagd";
-"Guests" = "Gasten";
 "Courses" = "Gangen";
 "Pay" = "Betalen";
 "General" = "Algemeen";
@@ -106,7 +100,6 @@
 "No course to request" = "Geen volgende gang om uit te vragen";
 "Save" = "Opslaan";
 "District" = "Wijk";
-"Properties" = "Properties";
 "Delete seat ?" = "Stoel weghalen ?";
 "Cannot delete active seat with orderlines" = "Stoel kan niet verwijderd worden want er zijn orderregels op geboekt";
 "Empty" = "Leeg";
@@ -116,9 +109,6 @@
 "Dayreport" = "Dagrapport";
 "Enter your accesskey" = "Voer je toegangscode in";
 "Storing" = "Opslaan";
-"Registering location" = "Registreren locatie";
-"Registering device" = "Registreren iPad";
-"Register iPad" = "Registreren iPad";
 "New device" = "Nieuwe iPad";
 "Menu starting %@" = "Kaart vanaf %@";
 "Favorites" = "Favorieten";
@@ -143,3 +133,4 @@
 "Registering..." = "Registreren...";
 "Next" = "Volgende";
 "Saving..." = "Opslaan...";
+"Note" = "Notitie";

@@ -3,10 +3,11 @@
 #import "Utils.h"
 #import "ToggleButton.h"
 #import "Order.h"
+#import "OrderGridHitInfo.h"
 
 @implementation OrderLineCell
 
-@synthesize isEditable, nLineIcon, orderLine, price, name, note, props, seat, course, quantity, showSeat, showPrice, showProductProperties, isInEditMode = _isInEditMode, stepperView, notesView, propertyViews, heightInEditMode, delegate, showStepper;
+@synthesize isEditable, nLineIcon, orderLine, price, name, note, props, seat, course, quantity, showSeat, showPrice, showProductProperties, isInEditMode = _isInEditMode, stepperView, notesView, heightInEditMode, delegate, showStepper;
 @synthesize isBlinking = _isBlinking;
 
 
@@ -15,6 +16,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.showProductProperties = YES;
+        self.propertyViews = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -68,7 +70,7 @@
 {
     OrderLineCell *cell = [[OrderLineCell alloc] init];
 
-    cell.selectionStyle = UITableViewCellEditingStyleNone;
+    cell.selectionStyle = (UITableViewCellSelectionStyle) UITableViewCellEditingStyleNone;
     cell.clipsToBounds = YES;
 
     cell.delegate = delegate;
@@ -118,7 +120,6 @@
     if (cell.showPrice) {
         cell.price = [[UILabel alloc] initWithFrame:CGRectMake(right-50, 0, 50, height)];
         [cell.contentView addSubview:cell.price];
-//        cellRuns.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         cell.price.textAlignment = NSTextAlignmentRight;
         cell.price.backgroundColor = [UIColor clearColor];
         cell.price.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
@@ -143,39 +144,29 @@
         cell.showsReorderControl = YES;
         float x = 50;
         float y = rowHeight;
-        float margin = 10;
         float vSpace = 5;
-        float controlHeight = 27;
+        float controlHeight = 28;
         if ([line.product.properties count] > 0) {
-            for(OrderLineProperty *property in line.product.properties) {
+            for(NSString *property in line.product.properties) {
 
-                CGSize size = [property.name sizeWithFont: [UIFont boldSystemFontOfSize:18]];
-                ToggleButton *sw = [ToggleButton buttonWithTitle: property.name frame: CGRectMake(x, y, size.width + 20, controlHeight)];
-                if (sw.frame.origin.x + sw.frame.size.width > width)
-                {
-                    x = 50;
-                    y += controlHeight + vSpace;
-                    sw.frame = CGRectMake(x, y, sw.frame.size.width, sw.frame.size.height);
-                }
+                CGSize size = [property sizeWithFont: [UIFont boldSystemFontOfSize:18]];
+                ToggleButton *sw = [ToggleButton buttonWithTitle: property frame: CGRectMake(x, y, size.width + 20, controlHeight)];
                 [cell.contentView addSubview:sw];
                 [sw addTarget: cell action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
                 [cell.propertyViews addObject:sw];
-
-                x += sw.frame.size.width + margin;
+                y += controlHeight + vSpace;
             }
-
-            y += controlHeight + vSpace;
         }
         x = 50;   
         cell.notesView = [[UITextField alloc] initWithFrame:CGRectMake(x, y, width - 8, controlHeight)];
         cell.notesView.text = line.note;
         [cell.notesView addTarget: cell action:@selector(noteTextUpdated) forControlEvents:UIControlEventEditingChanged];
-        cell.notesView.placeholder = NSLocalizedString(@"Notitie", nil);
+        cell.notesView.placeholder = NSLocalizedString(@"Note", nil);
         cell.notesView.backgroundColor = [UIColor whiteColor];
         cell.notesView.borderStyle = UITextBorderStyleBezel;
         [cell.contentView addSubview: cell.notesView];
         
-        cell.heightInEditMode = y + cell.notesView.bounds.size.height + 5;
+        cell.heightInEditMode = (int) (y + cell.notesView.bounds.size.height + 5);
     }
 
     cell.orderLine = line;
@@ -187,23 +178,7 @@
 {
     if (line == nil || line.product == nil)
         return 0;
-    if (line.product.properties == nil || [line.product.properties count] == 0)
-        return 33;
-    float x = 50;
-    float margin = 10;
-    int countLines = 1;
-    for(OrderLineProperty *property in line.product.properties) {
-        CGSize size = [property.name sizeWithFont: [UIFont boldSystemFontOfSize:18]];
-        size.width += 20;
-        if (x + size.width > width)
-        {
-            x = 50;
-            countLines++;
-        }
-
-        x += size.width + margin;
-    }
-    return 33 * (1 + countLines);
+    return 33 * (1 + [line.product.properties count]);
 }
 
 - (void) noteTextUpdated {
@@ -211,7 +186,7 @@
 }
 
 - (void) quantityUpdated: (id)sender {
-    orderLine.quantity = stepperView.value;
+    orderLine.quantity = (int) stepperView.value;
     quantity.text = [NSString stringWithFormat:@"%d", orderLine.quantity];
     self.orderLine = self.orderLine;
     if ([delegate respondsToSelector:@selector(updatedCell:)])
@@ -219,10 +194,14 @@
 }
 
 - (void) switchChanged: (id)sender {
-    for(int i=0; i < [self.propertyViews count]; i++) {
-        if([self.propertyViews objectAtIndex:i] == sender) {
-            int oldValue = [[orderLine getStringValueForProperty: [orderLine.product.properties objectAtIndex:i]] intValue];
-            [orderLine setStringValueForProperty: [orderLine.product.properties objectAtIndex:i] value: oldValue == 0 ? @"1" : @"0"];
+    for(int i=0; i < [_propertyViews count]; i++) {
+        ToggleButton *toggleButton = [self.propertyViews objectAtIndex:i];
+        if(toggleButton == sender) {
+            NSString *property = [orderLine.product.properties objectAtIndex:i];
+            if (toggleButton.isOn)
+                [orderLine addProperty:property];
+            else
+                [orderLine removeProperty:property];
             return;
         }        
     }
@@ -231,8 +210,6 @@
 - (void) setOrderLine : (OrderLine *) line
 {
     orderLine = line;
-
-    propertyViews = [[NSMutableArray alloc] init];
 
     if (line.guest == nil) {
         seat.hidden = YES;
@@ -268,9 +245,9 @@
             note.text = @"";
 
         props.text = @"";
-        for(OrderLinePropertyValue *propertyValue in line.propertyValues)
+        for(NSString *propertyValue in line.propertyValues)
         {
-            props.text = [NSString stringWithFormat:@"%@ %@", props.text, propertyValue.displayValue];
+            props.text = [NSString stringWithFormat:@"%@ %@", props.text, propertyValue];
         }
     }
     else {
