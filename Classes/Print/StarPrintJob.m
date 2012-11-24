@@ -139,7 +139,7 @@
     CGRect rect = CGRectZero;
     UIFont *font = [UIFont systemFontOfSize: run.pointSize == 0 ? pointSize : run.pointSize];
     if ([run.text isEqualToString:@"{logo}"]) {
-        UIImage *logo = [UIImage imageNamed:@"anna-a-114x114.png"]; // [[[Cache getInstance] currentLocation] logo];
+        UIImage *logo = [UIImage imageNamed:@"anna-a-114x114.png"]; // [[[Cache getInstance] currentCompany] logo];
         if (logo != nil) {
             float height = ( run.width / logo.size.width) * logo.size.height;
             if (run.alignment == NSTextAlignmentCenter)

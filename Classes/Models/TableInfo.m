@@ -7,6 +7,7 @@
 //
 
 #import "TableInfo.h"
+#import "OrderInfo.h"
 
 @implementation TableInfo
 

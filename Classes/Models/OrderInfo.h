@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Cache.h"
 #import "Order.h"
 #import "SeatInfo.h"
 #import "OrderProxyDelegate.h"

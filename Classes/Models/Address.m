@@ -15,7 +15,8 @@
 - (id)  initWithDictionary:(NSMutableDictionary *)dictionary {
     self = [self init];
     if (self == nil) return nil;
-    
+    if (dictionary == nil)
+        return self;
     self.street = [dictionary objectForKey:@"street"];
     self.zipCode = [dictionary objectForKey:@"zipCode"];
     self.city = [dictionary objectForKey:@"city"];

@@ -7,9 +7,6 @@
 //
 
 #import "OrderInfo.h"
-#import "Cache.h"
-#import "Table.h"
-#import "SeatInfo.h"
 
 @implementation OrderInfo
 

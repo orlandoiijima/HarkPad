@@ -202,31 +202,29 @@
                                 if (_pinField.text.length == 4) {
                                     [self go];
                                 }
-                                [self showLocationInfo];
+        [self showCompanyInfo];
                             }
                  error: ^(ServiceResult *serviceResult) {
                                 [serviceResult displayError];
                                 if (serviceResult.httpStatusCode  == 401) {
                                 }
-//                                if (serviceResult.)
-//                                [self getConfig];
                             }
                 progressInfo:[ProgressInfo progressWithHudText:NSLocalizedString(@"Loading configuration", nil) parentView: self.view]
     ];
 }
 
-- (void)showLocationInfo {
-    Location *location =  [[Cache getInstance] currentLocation];
-    if (location == nil) return;
+- (void)showCompanyInfo {
+    Company *company =  [[Cache getInstance] company];
+    if (company == nil) return;
 
     float topMargin = 20;
     float nameHeight = 30;
     float logoHeight = 0;
     float bottomMargin = 30;
-    if (location.logo != nil) {
+    if (company.logo != nil) {
         logoHeight = _captionField.frame.origin.y - topMargin - nameHeight - bottomMargin;
         self.logoView = [[UIImageView alloc] initWithFrame:CGRectMake((self.view.frame.size.width - logoHeight)/2, topMargin, logoHeight, logoHeight)];
-        self.logoView.image = location.logo;
+        self.logoView.image = company.logo;
         self.logoView.alpha = 0;
         [self.view addSubview:self.logoView];
     }
@@ -234,7 +232,7 @@
     self.name.textColor = [UIColor whiteColor];
     self.name.backgroundColor = [UIColor clearColor];
     self.name.alpha = 0;
-    self.name.text = location.name;
+    self.name.text = company.name;
     self.name.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.name];
 

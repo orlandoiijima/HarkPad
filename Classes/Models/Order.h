@@ -9,16 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "OrderLine.h"
 #import "Cache.h"
-#import "Reservation.h"
 #import "User.h"
 #import "DTO.h"
 #import "OrderProxyDelegate.h"
 
-//typedef enum OrderGrouping {noGrouping, bySeat, byCourse, byCategory} OrderGrouping ;
-//typedef enum OrderState {
-//    OrderStateOrdering, OrderStateBilled, OrderStatePaid
-//} OrderState ;
-//typedef enum PaymentType {UnPaid, Cash, Pin, CreditCard} PaymentType ;
+@class Reservation;
 
 @interface Order : DTO <OrderProxyDelegate> {
     NSMutableArray *courses;

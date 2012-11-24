@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Table.h"
-#import "OrderInfo.h"
+
+@class OrderInfo;
 
 
 @interface TableInfo : NSObject {

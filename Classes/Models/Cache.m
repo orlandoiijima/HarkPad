@@ -7,10 +7,6 @@
 //
 
 #import "Cache.h"
-#import "Service.h"
-#import "Config.h"
-#import "PrintInfo.h"
-#import "AppVault.h"
 
 @implementation Cache
 
@@ -39,11 +35,7 @@ static 	Cache * _cache = nil;
     _cache.menuCard = [MenuCard menuFromJson:[json valueForKey:@"menuCard"]];
     _cache.config = [Config configFromJson:[json valueForKey:@"settings"]];
     _cache.printInfo = [PrintInfo infoFromJson:[json valueForKey:@"printInfo"]];
-
-    _cache.locations = [[NSMutableArray alloc] init];
-    for(NSMutableDictionary *dic in [json valueForKey:@"locations"]) {
-        [_cache.locations addObject:[[Location alloc] initWithDictionary:dic]];
-    }
+    _cache.company = [[Company alloc] initWithDictionary:[json valueForKey: @"company"]];
 
     _cache.users = [[NSMutableArray alloc] init];
     for(NSMutableDictionary *dic in [json valueForKey:@"users"]) {
@@ -59,7 +51,7 @@ static 	Cache * _cache = nil;
     _cache.map = nil;
     _cache.productProperties = nil;
     _cache.users = nil;
-    _cache.locations = nil;
+    _cache.company = nil;
     _cache = nil;
 }
 
@@ -70,17 +62,6 @@ static 	Cache * _cache = nil;
             [locationUsers addObject:user];
     }
     return locationUsers;
-}
-
-- (Location *)currentLocation {
-    if ([_locations count] == 0)
-        return nil;
-    int locationId = [AppVault locationId];
-    for (Location *location in _locations) {
-        if (location.id == locationId)
-            return location;
-    }
-    return nil;
 }
 
 @end

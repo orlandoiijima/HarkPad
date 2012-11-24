@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MenuCard.h"
 #import "Map.h"
-
-@class Config;
-@class PrintInfo;
-@class Location;
+#import "Service.h"
+#import "Config.h"
+#import "PrintInfo.h"
+#import "AppVault.h"
+#import "Company.h"
 
 @interface Cache : NSObject {
     MenuCard *menuCard;
@@ -29,9 +30,6 @@
 
 - (NSMutableArray *)getLocationUsers;
 
-- (Location *)currentLocation;
-
-
 @property (retain) Map *map;
 @property (retain) NSMutableArray *productProperties;
 @property (retain) Config *config;
@@ -42,6 +40,8 @@
 @property(nonatomic, strong) NSMutableArray *locations;
 
 @property(nonatomic) BOOL isLoaded;
+
+@property(nonatomic, strong) Company *company;
 
 - (void) loadFromJson:(NSMutableDictionary *)json;
 

@@ -80,17 +80,17 @@
     if ([variable compare: @"{userName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [[Session authenticatedUser] firstName];
 
-    Location *currentLocation = [[Cache getInstance] currentLocation];
+    Company *currentCompany = [[Cache getInstance] company];
     if ([variable compare: @"{companyName}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.name;
+        return currentCompany == nil ? @"" :  currentCompany.name;
     if ([variable compare: @"{locationAddressStreet}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.address.street;
+        return currentCompany == nil ? @"" :  currentCompany.address.street;
     if ([variable compare: @"{locationAddressZipCode}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.address.zipCode;
+        return currentCompany == nil ? @"" :  currentCompany.address.zipCode;
     if ([variable compare: @"{locationAddressCity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.address.city;
+        return currentCompany == nil ? @"" :  currentCompany.address.city;
     if ([variable compare: @"{locationPhone}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-        return currentLocation == nil ? @"" :  currentLocation.phone;
+        return currentCompany == nil ? @"" :  currentCompany.phone;
 
     if ([variable compare: @"{nowDate}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
         return [NSDateFormatter localizedStringFromDate:[NSDate date] dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterNoStyle];
