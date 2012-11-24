@@ -114,7 +114,7 @@
         if ([variable compare: @"{productOptions}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return [self optionsStringForOrderLine:line];
         if ([variable compare: @"{productNote}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
-            return line.note;
+            return line.note == nil ? @"" : line.note;
         if ([variable compare: @"{productKey}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
             return line.product.key;
         if ([variable compare: @"{quantity}" options: NSCaseInsensitiveSearch] == NSOrderedSame)
