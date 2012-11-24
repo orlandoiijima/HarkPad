@@ -82,7 +82,7 @@
 
     UIFont *font = [UIFont systemFontOfSize: _template.table.pointSize == 0 ? defaultPointSize : _template.table.pointSize];
     _tableOffset = [self updateY:_template.table.ySpec font:font];
-    _y = _template.margin.top;
+    _y = 0;
     float rowHeight;
     int countSections = [_dataSource numberOfSections];
     for (NSUInteger section=0; section < countSections; section++) {
