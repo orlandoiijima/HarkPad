@@ -120,7 +120,7 @@ static Service *_service;
 {
     SeatActionInfo *info = [SeatActionInfo infoForTable:tableId seat:seat beforeSeat:-1 atSide:0];
     NSDictionary *infoDic = [info toDictionary];
-    [self requestResource:@"table" id:tableId action:@"DeleteSeat" arguments:nil body:infoDic verb:HttpVerbPost success:nil error:nil];
+    [self requestResource:@"table" id:tableId action:@"removeSeat" arguments:nil body:infoDic verb:HttpVerbPost success:nil error:nil];
 	return;
 }
 
